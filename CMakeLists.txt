@@ -5,6 +5,7 @@ SET(CMAKE_CXX_FLAGS "-g -rdynamic")
 
 SET(SRC
   src/main.cc
+  src/PajeData.cc
   src/PajeFileReader.cc
   src/PajeEventDecoder.cc
   src/PajeSimulator.cc
