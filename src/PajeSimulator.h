@@ -14,8 +14,8 @@ class PajeSimulator : public PajeComponent {
 public:
   PajeSimulator();
   
-  void inputEntity (void *data);
-  bool canEndChunkBefore (void *data);
+  void inputEntity (PajeObject *data);
+  bool canEndChunkBefore (PajeObject *data);
       
   void startChunk (int chunkNumber);
   void endOfChunkLast (bool last);

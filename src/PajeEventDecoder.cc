@@ -4,12 +4,16 @@ PajeEventDecoder::PajeEventDecoder ()
 {
 }
 
-void PajeEventDecoder::inputEntity (void *data)
+void PajeEventDecoder::inputEntity (PajeObject *data)
 {
+  PajeData *d = (PajeData*)data;
+  line x;
+
+  std::cout << d->bytes;
   PajeComponent::outputEntity (data);
 }
 
-bool PajeEventDecoder::canEndChunkBefore (void *data)
+bool PajeEventDecoder::canEndChunkBefore (PajeObject *data)
 {
   PajeComponent::canEndChunkBefore (data);
 }

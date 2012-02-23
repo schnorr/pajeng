@@ -1,8 +1,10 @@
 #ifndef __PAJECOMPONENT_H__
 #define __PAJECOMPONENT_H__
 #include <iostream>
+#include "PajeObject.h"
+#include "PajeData.h"
 
-class PajeComponent 
+class PajeComponent : public PajeObject
 {
 private:
   PajeComponent *outputComponent;
@@ -14,9 +16,9 @@ public:
   void setInputComponent (PajeComponent *component);
   void setOutputComponent (PajeComponent *component);
 
-  void virtual inputEntity (void *data);
-  void virtual outputEntity (void *data);
-  bool virtual canEndChunkBefore (void *data);
+  void virtual inputEntity (PajeObject *data);
+  void virtual outputEntity (PajeObject *data);
+  bool virtual canEndChunkBefore (PajeObject *data);
               
   void virtual startChunk (int chunkNumber); //a new chunk is starting
   void virtual endOfChunkLast (bool last);   //the current chunk is ending

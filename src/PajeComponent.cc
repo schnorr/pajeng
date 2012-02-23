@@ -17,17 +17,17 @@ void PajeComponent::setOutputComponent (PajeComponent *component)
   outputComponent = component;
 }
 
-void PajeComponent::inputEntity (void *data)
+void PajeComponent::inputEntity (PajeObject *data)
 {
   throw "PajeComponent::inputEntity should be implemented in the subclass";
 }
 
-void PajeComponent::outputEntity (void *data)
+void PajeComponent::outputEntity (PajeObject *data)
 {
   outputComponent->inputEntity (data);
 }
 
-bool PajeComponent::canEndChunkBefore (void *data)
+bool PajeComponent::canEndChunkBefore (PajeObject *data)
 {
   outputComponent->canEndChunkBefore (data);
 }

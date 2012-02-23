@@ -67,8 +67,8 @@ bool PajeFileReader::canEndChunk (void)
   }
 
   std::streampos offsetInFile = file.tellg();
-  char *buffer = new char [PAJE_DEFAULT_LINE_SIZE];
-  file.read (buffer, PAJE_DEFAULT_LINE_SIZE);
+  PajeData *buffer = new PajeData(PAJE_DEFAULT_CHUNK_SIZE);
+  file.read (buffer->bytes, PAJE_DEFAULT_LINE_SIZE);
   if (file.eof()){
     file.close();
     file.open (filename.c_str());
@@ -80,7 +80,7 @@ bool PajeFileReader::canEndChunk (void)
   }
 
   //align data based on EOL
-  char *bytes = buffer;
+  char *bytes = buffer->bytes;
   char *eol;
   eol = (char*)memchr (bytes, '\n', length);
   if (eol != NULL){
@@ -89,7 +89,7 @@ bool PajeFileReader::canEndChunk (void)
       length = newlength;
       moreData = true;
       file.seekg (offsetInFile + length);
-      buffer[length] = '\0';
+      buffer->bytes[length] = '\0';
     }
   }
 
@@ -117,8 +117,8 @@ void PajeFileReader::readNextChunk (void)
     // this chunk has already been read, we should know its size
     std::streampos nextChunkPosition = chunkInfo.find (nextChunk)->second;
     std::streampos chunkSize = nextChunkPosition - file.tellg();
-    char *buffer = new char [chunkSize];
-    file.read (buffer, chunkSize);
+    PajeData *buffer = new PajeData (chunkSize);
+    file.read (buffer->bytes, chunkSize);
     std::streamsize length = file.gcount();
     if (length != chunkSize){
       fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
@@ -132,26 +132,25 @@ void PajeFileReader::readNextChunk (void)
     // must determine its correct size (must end in a line boundary
     // and in a date-changing event).
     // need to create a NSMutableData from a NSData
-    char *buffer = new char [chunkSize];
+    PajeData *buffer = new PajeData(chunkSize);
     double t1 = gettime();
-    file.read (buffer, chunkSize);
+    file.read (buffer->bytes, chunkSize);
     double t2 = gettime();
-    fprintf (stderr, "%f\n", t2-t1);
+    // fprintf (stderr, "%f\n", t2-t1);
     std::streamsize length = file.gcount ();
     if (length < chunkSize){
       moreData = false;
     }else{
-      char *bytes;
+      char *bytes = buffer->bytes;
       int i;
       int offset = 0;
-      bytes = buffer;
       for (i = length-1; i >= 0 && bytes[i] != '\n'; i--) {
         offset++;
       }
       if ((i >= 0) && (offset > 0)) {
         file.seekg (file.tellg() - std::streampos(offset));
         length = length - std::streampos(offset);
-        buffer[length] = '\0';
+        buffer->bytes[length] = '\0';
       }
     }
     if (length > 0){

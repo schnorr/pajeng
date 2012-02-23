@@ -15,8 +15,8 @@ class PajeEventDecoder : public PajeComponent {
 public:
   PajeEventDecoder (void);
 
-  void inputEntity (void *data);
-  bool canEndChunkBefore (void *data);
+  void inputEntity (PajeObject *data);
+  bool canEndChunkBefore (PajeObject *data);
       
   void startChunk (int chunkNumber);
   void endOfChunkLast (bool last);
