@@ -8,6 +8,7 @@ public:
   int length;
 
   PajeData (int capacity);
+  ~PajeData (void);
 };
 
 #endif

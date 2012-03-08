@@ -24,20 +24,21 @@ void PajeComponent::inputEntity (PajeObject *data)
 
 void PajeComponent::outputEntity (PajeObject *data)
 {
-  outputComponent->inputEntity (data);
+  if (outputComponent) outputComponent->inputEntity (data);
 }
 
 bool PajeComponent::canEndChunkBefore (PajeObject *data)
 {
-  outputComponent->canEndChunkBefore (data);
+  if (outputComponent) return outputComponent->canEndChunkBefore (data);
+  else return true;
 }
 
 void PajeComponent::startChunk (int chunkNumber)
 {
-  outputComponent->startChunk (chunkNumber);
+  if (outputComponent) outputComponent->startChunk (chunkNumber);
 }
 
 void PajeComponent::endOfChunkLast (bool last)
 {
-  outputComponent->endOfChunkLast (last);
+  if (outputComponent) outputComponent->endOfChunkLast (last);
 }

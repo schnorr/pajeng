@@ -15,8 +15,7 @@ PajeFileReader::PajeFileReader (std::string f, PajeTraceController *c)
   currentChunk = 0;
   filename = f;
   file.open (filename.c_str());
-  // std::cout << filename << std::endl;
-  // std::cout << chunkSize << std::endl;
+
   // file.open (filename.c_str());//, std::ifstream::in);
   // while (!file.eof()){
   //   std::string line;
@@ -25,9 +24,14 @@ PajeFileReader::PajeFileReader (std::string f, PajeTraceController *c)
   // }
 }
 
+PajeFileReader::~PajeFileReader (void)
+{
+}
 
 void PajeFileReader::startChunk (int chunkNumber)
 {
+  std::cout << chunkNumber << std::endl;
+
   if (chunkNumber != currentChunk){
     if (chunkNumber >= chunkInfo.size()){
       fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
@@ -67,14 +71,15 @@ bool PajeFileReader::canEndChunk (void)
   }
 
   std::streampos offsetInFile = file.tellg();
-  PajeData *buffer = new PajeData(PAJE_DEFAULT_CHUNK_SIZE);
-  file.read (buffer->bytes, PAJE_DEFAULT_LINE_SIZE);
+  PajeData *buffer = new PajeData(chunkSize);
+  file.read (buffer->bytes, chunkSize);
   if (file.eof()){
     file.close();
     file.open (filename.c_str());
   }
   std::streamsize length = file.gcount ();
-  std::streamsize line_size = std::streamsize(PAJE_DEFAULT_LINE_SIZE);
+  buffer->length = length;
+  std::streamsize line_size = std::streamsize(chunkSize);
   if (length < line_size){
     moreData = false;
   }
@@ -90,22 +95,24 @@ bool PajeFileReader::canEndChunk (void)
       moreData = true;
       file.seekg (offsetInFile + length);
       buffer->bytes[length] = '\0';
+      buffer->length = length;
     }
   }
 
+  bool ret = true;
   if (length > 0){
     if (PajeComponent::canEndChunkBefore(buffer)){
       file.seekg(offsetInFile);
-//      fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-//      exit(1);
-      return true;
+      ret = true;
     }else{
       file.seekg(offsetInFile+length);
-      return false;
+      ret = false;
     }
   }else{
-    return true;
+    ret = true;
   }
+  delete buffer;
+  return ret;
 }
 
 void PajeFileReader::readNextChunk (void)
@@ -120,6 +127,7 @@ void PajeFileReader::readNextChunk (void)
     PajeData *buffer = new PajeData (chunkSize);
     file.read (buffer->bytes, chunkSize);
     std::streamsize length = file.gcount();
+    buffer->length = length;
     if (length != chunkSize){
       fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
       exit(1);
@@ -133,11 +141,9 @@ void PajeFileReader::readNextChunk (void)
     // and in a date-changing event).
     // need to create a NSMutableData from a NSData
     PajeData *buffer = new PajeData(chunkSize);
-    double t1 = gettime();
     file.read (buffer->bytes, chunkSize);
-    double t2 = gettime();
-    // fprintf (stderr, "%f\n", t2-t1);
     std::streamsize length = file.gcount ();
+    buffer->length = length;
     if (length < chunkSize){
       moreData = false;
     }else{
@@ -151,12 +157,15 @@ void PajeFileReader::readNextChunk (void)
         file.seekg (file.tellg() - std::streampos(offset));
         length = length - std::streampos(offset);
         buffer->bytes[length] = '\0';
+        buffer->length = length;
       }
     }
+
     if (length > 0){
       PajeComponent::outputEntity (buffer);
-      while (!this->canEndChunk());
     }
+    delete buffer;
+    while (!this->canEndChunk());
   }
 }
 

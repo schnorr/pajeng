@@ -8,8 +8,8 @@
 int main (int argc, char **argv)
 {
   PajeFileReader *reader = new PajeFileReader (std::string(argv[1]), NULL);
-  PajeEventDecoder *decoder = new PajeEventDecoder;
-  PajeSimulator *simulator = new PajeSimulator;
+  PajeEventDecoder *decoder = new PajeEventDecoder ();
+  PajeSimulator *simulator = new PajeSimulator ();
 
   reader->setOutputComponent (decoder);
   decoder->setInputComponent (reader);
@@ -28,5 +28,8 @@ int main (int argc, char **argv)
     std::cout << exception << std::endl;
   }
 
+  delete reader;
+  delete decoder;
+  delete simulator;
   return 0;
 }
