@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <list>
 
 #define PAJE_MAX_FIELDS 20
 typedef struct {
@@ -73,11 +74,19 @@ class PajeEventDefinition {
 public:
   char *eventId;
   PajeEventId pajeEventId;
-
+  std::list<PajeFieldId> fieldNames;
+  std::list<PajeFieldType> fieldTypes;
+  int fieldCount;
+  std::map<PajeFieldId,int> fieldIndexes;
+  //NSArray *fieldNames;
+  std::list<PajeFieldId> extraFieldNames;
+  int extraFieldCount;
+//  NSArray *extraFieldNames;
 
   PajeEventDefinition (PajeEventId id, const char *id2);
-  void addField (PajeFieldId id, PajeFieldType type);
   ~PajeEventDefinition (void);
+  void addField (PajeFieldId id, PajeFieldType type);
+  bool isObligatoryOrOptionalFieldId (PajeFieldId id);
 };
 
 #endif

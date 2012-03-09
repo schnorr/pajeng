@@ -380,7 +380,7 @@ PajeEvent *PajeEventDecoder::scanEventLine (paje_line *line)
     fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
     exit(1);
   }
-    
+
   // event = [PajeEvent eventWithDefinition:eventDefinition line:line];
 
   eventCount++;
