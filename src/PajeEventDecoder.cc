@@ -2,208 +2,9 @@
 
 PajeEventDecoder::PajeEventDecoder ()
 {
-  /*
-    Initialize the tables about the Paje file format.
-  */
-
-  // The event names
-  pajeEventNames["PajeStartTrace"] = PajeStartTraceEventId;
-  pajeEventNames["PajeDefineContainerType"] = PajeDefineContainerTypeEventId;
-  pajeEventNames["PajeDefineEventType"] = PajeDefineEventTypeEventId;
-  pajeEventNames["PajeDefineStateType"] = PajeDefineStateTypeEventId;
-  pajeEventNames["PajeDefineVariableType"] = PajeDefineVariableTypeEventId;
-  pajeEventNames["PajeDefineLinkType"] = PajeDefineLinkTypeEventId;
-  pajeEventNames["PajeDefineEntityValue"] = PajeDefineEntityValueEventId;
-  pajeEventNames["PajeCreateContainer"] = PajeCreateContainerEventId;
-  pajeEventNames["PajeDestroyContainer"] = PajeDestroyContainerEventId;
-  pajeEventNames["PajeNewEvent"] = PajeNewEventEventId;
-  pajeEventNames["PajeSetState"] = PajeSetStateEventId;
-  pajeEventNames["PajePushState"] = PajePushStateEventId;
-  pajeEventNames["PajePopState"] = PajePopStateEventId;
-  pajeEventNames["PajeSetVariable"] = PajeSetVariableEventId;
-  pajeEventNames["PajeAddVariable"] = PajeAddVariableEventId;
-  pajeEventNames["PajeSubVariable"] = PajeSubVariableEventId;
-  pajeEventNames["PajeStartLink"] = PajeStartLinkEventId;
-  pajeEventNames["PajeEndLink"] = PajeEndLinkEventId;
-
-  // The field names = 
-  pajeFieldNames["EventId"] = PajeEventIdFieldId;
-  pajeFieldNames["Time"] = PajeTimeFieldId;
-  pajeFieldNames["Name"] = PajeNameFieldId;
-  pajeFieldNames["Alias"] = PajeAliasFieldId;
-  pajeFieldNames["Type"] = PajeTypeFieldId;
-  pajeFieldNames["Container"] = PajeContainerFieldId;
-  pajeFieldNames["StartContainerType"] = PajeStartContainerTypeFieldId;
-  pajeFieldNames["EndContainerType"] = PajeEndContainerTypeFieldId;
-  pajeFieldNames["StartContainer"] = PajeStartContainerFieldId;
-  pajeFieldNames["EndContainer"] = PajeEndContainerFieldId;
-  pajeFieldNames["Color"] = PajeColorFieldId;
-  pajeFieldNames["Value"] = PajeValueFieldId;
-  pajeFieldNames["Key"] = PajeKeyFieldId;
-  pajeFieldNames["File"] = PajeFileFieldId;
-  pajeFieldNames["Line"] = PajeLineFieldId;
-
-  // The field types
-  pajeFieldTypes["int"] = PajeIntFieldType;
-  pajeFieldTypes["hex"] = PajeHexFieldType;
-  pajeFieldTypes["date"] = PajeDateFieldType;
-  pajeFieldTypes["double"] = PajeDoubleFieldType;
-  pajeFieldTypes["string"] = PajeStringFieldType;
-  pajeFieldTypes["color"] = PajeColorFieldType;
-
-  // The obligatory fields
-  pajeObligatoryFields[PajeStartTraceEventId] = std::set<PajeFieldId>();
-
-  pajeObligatoryFields[PajeDefineContainerTypeEventId] = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajeDefineContainerTypeEventId].insert (PajeNameFieldId);
-  pajeObligatoryFields[PajeDefineContainerTypeEventId].insert (PajeTypeFieldId);
-
-  pajeObligatoryFields[PajeDefineEventTypeEventId] = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajeDefineEventTypeEventId].insert (PajeNameFieldId);
-  pajeObligatoryFields[PajeDefineEventTypeEventId].insert (PajeTypeFieldId);
-
-  pajeObligatoryFields[PajeDefineStateTypeEventId] = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajeDefineStateTypeEventId].insert (PajeNameFieldId);
-  pajeObligatoryFields[PajeDefineStateTypeEventId].insert (PajeTypeFieldId);
-
-  pajeObligatoryFields[PajeDefineVariableTypeEventId]  = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajeDefineVariableTypeEventId].insert (PajeNameFieldId);
-  pajeObligatoryFields[PajeDefineVariableTypeEventId].insert (PajeTypeFieldId);
-
-  pajeObligatoryFields[PajeDefineLinkTypeEventId] = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajeDefineLinkTypeEventId].insert (PajeNameFieldId);
-  pajeObligatoryFields[PajeDefineLinkTypeEventId].insert (PajeTypeFieldId);
-  pajeObligatoryFields[PajeDefineLinkTypeEventId].insert (PajeStartContainerTypeFieldId);
-  pajeObligatoryFields[PajeDefineLinkTypeEventId].insert (PajeEndContainerTypeFieldId);
-
-  pajeObligatoryFields[PajeDefineEntityValueEventId] = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajeDefineEntityValueEventId].insert (PajeNameFieldId);
-  pajeObligatoryFields[PajeDefineEntityValueEventId].insert (PajeTypeFieldId);
-
-  pajeObligatoryFields[PajeCreateContainerEventId] = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajeCreateContainerEventId].insert (PajeTimeFieldId);
-  pajeObligatoryFields[PajeCreateContainerEventId].insert (PajeNameFieldId);
-  pajeObligatoryFields[PajeCreateContainerEventId].insert (PajeTypeFieldId);
-  pajeObligatoryFields[PajeCreateContainerEventId].insert (PajeContainerFieldId);
-
-  pajeObligatoryFields[PajeDestroyContainerEventId] = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajeDestroyContainerEventId].insert (PajeTimeFieldId);
-  pajeObligatoryFields[PajeDestroyContainerEventId].insert (PajeNameFieldId);
-  pajeObligatoryFields[PajeDestroyContainerEventId].insert (PajeTypeFieldId);
-
-  pajeObligatoryFields[PajeNewEventEventId] = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajeNewEventEventId].insert (PajeTimeFieldId);
-  pajeObligatoryFields[PajeNewEventEventId].insert (PajeTypeFieldId);
-  pajeObligatoryFields[PajeNewEventEventId].insert (PajeContainerFieldId);
-  pajeObligatoryFields[PajeNewEventEventId].insert (PajeValueFieldId);
-
-  pajeObligatoryFields[PajeSetVariableEventId] = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajeSetVariableEventId].insert (PajeTimeFieldId);
-  pajeObligatoryFields[PajeSetVariableEventId].insert (PajeTypeFieldId);
-  pajeObligatoryFields[PajeSetVariableEventId].insert (PajeContainerFieldId);
-  pajeObligatoryFields[PajeSetVariableEventId].insert (PajeValueFieldId);
-
-  pajeObligatoryFields[PajePushStateEventId] = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajePushStateEventId].insert (PajeTimeFieldId);
-  pajeObligatoryFields[PajePushStateEventId].insert (PajeTypeFieldId);
-  pajeObligatoryFields[PajePushStateEventId].insert (PajeContainerFieldId);
-  pajeObligatoryFields[PajePushStateEventId].insert (PajeValueFieldId);
-
-  pajeObligatoryFields[PajePopStateEventId] = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajePopStateEventId].insert (PajeTimeFieldId);
-  pajeObligatoryFields[PajePopStateEventId].insert (PajeTypeFieldId);
-  pajeObligatoryFields[PajePopStateEventId].insert (PajeContainerFieldId);
-  pajeObligatoryFields[PajePopStateEventId].insert (PajeValueFieldId);
-
-  pajeObligatoryFields[PajeSetVariableEventId] = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajeSetVariableEventId].insert (PajeTimeFieldId);
-  pajeObligatoryFields[PajeSetVariableEventId].insert (PajeTypeFieldId);
-  pajeObligatoryFields[PajeSetVariableEventId].insert (PajeContainerFieldId);
-  pajeObligatoryFields[PajeSetVariableEventId].insert (PajeValueFieldId);
-
-  pajeObligatoryFields[PajeAddVariableEventId] = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajeAddVariableEventId].insert (PajeTimeFieldId);
-  pajeObligatoryFields[PajeAddVariableEventId].insert (PajeTypeFieldId);
-  pajeObligatoryFields[PajeAddVariableEventId].insert (PajeContainerFieldId);
-  pajeObligatoryFields[PajeAddVariableEventId].insert (PajeValueFieldId);
-
-  pajeObligatoryFields[PajeSubVariableEventId] = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajeSubVariableEventId].insert (PajeTimeFieldId);
-  pajeObligatoryFields[PajeSubVariableEventId].insert (PajeTypeFieldId);
-  pajeObligatoryFields[PajeSubVariableEventId].insert (PajeContainerFieldId);
-  pajeObligatoryFields[PajeSubVariableEventId].insert (PajeValueFieldId);
-
-  pajeObligatoryFields[PajeStartLinkEventId] = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajeStartLinkEventId].insert (PajeTimeFieldId);
-  pajeObligatoryFields[PajeStartLinkEventId].insert (PajeTypeFieldId);
-  pajeObligatoryFields[PajeStartLinkEventId].insert (PajeContainerFieldId);
-  pajeObligatoryFields[PajeStartLinkEventId].insert (PajeValueFieldId);
-  pajeObligatoryFields[PajeStartLinkEventId].insert (PajeStartContainerFieldId);
-  pajeObligatoryFields[PajeStartLinkEventId].insert (PajeKeyFieldId);
-
-  pajeObligatoryFields[PajeEndLinkEventId] = std::set<PajeFieldId>();
-  pajeObligatoryFields[PajeEndLinkEventId].insert (PajeTimeFieldId);
-  pajeObligatoryFields[PajeEndLinkEventId].insert (PajeTypeFieldId);
-  pajeObligatoryFields[PajeEndLinkEventId].insert (PajeContainerFieldId);
-  pajeObligatoryFields[PajeEndLinkEventId].insert (PajeValueFieldId);
-  pajeObligatoryFields[PajeEndLinkEventId].insert (PajeEndContainerFieldId);
-  pajeObligatoryFields[PajeEndLinkEventId].insert (PajeKeyFieldId);
-
-  // The optional fields
-  pajeOptionalFields[PajeStartTraceEventId] = std::set<PajeFieldId>();
-
-  pajeOptionalFields[PajeDefineContainerTypeEventId] = std::set<PajeFieldId>();
-  pajeOptionalFields[PajeDefineContainerTypeEventId].insert (PajeAliasFieldId);
-
-  pajeOptionalFields[PajeDefineEventTypeEventId] = std::set<PajeFieldId>();
-  pajeOptionalFields[PajeDefineEventTypeEventId].insert (PajeAliasFieldId);
-
-  pajeOptionalFields[PajeDefineStateTypeEventId] = std::set<PajeFieldId>();
-  pajeOptionalFields[PajeDefineStateTypeEventId].insert (PajeAliasFieldId);
-
-  pajeOptionalFields[PajeDefineVariableTypeEventId]  = std::set<PajeFieldId>();
-  pajeOptionalFields[PajeDefineVariableTypeEventId].insert (PajeAliasFieldId);
-
-  pajeOptionalFields[PajeDefineLinkTypeEventId] = std::set<PajeFieldId>();
-  pajeOptionalFields[PajeDefineLinkTypeEventId].insert (PajeAliasFieldId);
-
-  pajeOptionalFields[PajeDefineEntityValueEventId] = std::set<PajeFieldId>();
-  pajeOptionalFields[PajeDefineEntityValueEventId].insert (PajeAliasFieldId);
-  pajeOptionalFields[PajeDefineEntityValueEventId].insert (PajeColorFieldId);
-
-  pajeOptionalFields[PajeCreateContainerEventId] = std::set<PajeFieldId>();
-  pajeOptionalFields[PajeCreateContainerEventId].insert (PajeAliasFieldId);
-
-  pajeOptionalFields[PajeDestroyContainerEventId] = std::set<PajeFieldId>();
-
-  pajeOptionalFields[PajeNewEventEventId] = std::set<PajeFieldId>();
-  pajeOptionalFields[PajeNewEventEventId].insert (PajeFileFieldId);
-  pajeOptionalFields[PajeNewEventEventId].insert (PajeLineFieldId);
-
-  pajeOptionalFields[PajeSetVariableEventId] = std::set<PajeFieldId>();
-  pajeOptionalFields[PajeSetVariableEventId].insert (PajeFileFieldId);
-  pajeOptionalFields[PajeSetVariableEventId].insert (PajeLineFieldId);
-
-  pajeOptionalFields[PajePushStateEventId] = std::set<PajeFieldId>();
-  pajeOptionalFields[PajePushStateEventId].insert (PajeFileFieldId);
-  pajeOptionalFields[PajePushStateEventId].insert (PajeLineFieldId);
-
-  pajeOptionalFields[PajePopStateEventId] = std::set<PajeFieldId>();
-  pajeOptionalFields[PajePopStateEventId].insert (PajeFileFieldId);
-  pajeOptionalFields[PajePopStateEventId].insert (PajeLineFieldId);
-
-  pajeOptionalFields[PajeSetVariableEventId] = std::set<PajeFieldId>();
-  pajeOptionalFields[PajeAddVariableEventId] = std::set<PajeFieldId>();
-  pajeOptionalFields[PajeSubVariableEventId] = std::set<PajeFieldId>();
-
-  pajeOptionalFields[PajeStartLinkEventId] = std::set<PajeFieldId>();
-  pajeOptionalFields[PajeStartLinkEventId].insert (PajeFileFieldId);
-  pajeOptionalFields[PajeStartLinkEventId].insert (PajeLineFieldId);
-
-  pajeOptionalFields[PajeEndLinkEventId] = std::set<PajeFieldId>();
-  pajeOptionalFields[PajeEndLinkEventId].insert (PajeFileFieldId);
-  pajeOptionalFields[PajeEndLinkEventId].insert (PajeLineFieldId);  
-
+  pajeEventNames = initPajeEventNamesToID ();
+  pajeFieldNames = initPajeFieldNamesToID ();
+  pajeFieldTypes = initPajeFieldTypesToID ();
   defStatus = OUT_DEF;
   eventCount = 0;
 
@@ -324,9 +125,12 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
       exit(1);
     }
     if (strcmp(fieldName, "EndEventDef") == 0) {
-      // TODO: verify if all obligatory fields are defined
-//      fprintf (stderr, "verify if all obligatory fields are defined\n");
-      //     fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
+      if (!eventBeingDefined->isValid()){
+        std::cout << "This event definition is not valid:" << std::endl;
+        std::cout << *eventBeingDefined << std::endl;
+        eventBeingDefined->showObligatoryFields();
+        exit(1);
+      }
       defStatus = OUT_DEF;
       break;
     }

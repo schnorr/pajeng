@@ -22,8 +22,7 @@ private:
   std::map<std::string,PajeEventId> pajeEventNames;
   std::map<std::string,PajeFieldId> pajeFieldNames;
   std::map<std::string,PajeFieldType> pajeFieldTypes;
-  std::map<PajeEventId,std::set<PajeFieldId> > pajeObligatoryFields;
-  std::map<PajeEventId,std::set<PajeFieldId> > pajeOptionalFields;
+
 
 private:
   enum { OUT_DEF, IN_DEF } defStatus;
@@ -31,7 +30,6 @@ private:
 
   PajeEventDefinition *eventBeingDefined;
   std::map<std::string,PajeEventDefinition*> eventDefinitions;
-
 
 private:
   char *break_line (char *s, paje_line *line);

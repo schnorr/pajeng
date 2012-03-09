@@ -70,12 +70,22 @@ typedef enum {
     PajeUnknownFieldId
 } PajeFieldId;
 
+
+std::map<std::string,PajeEventId> initPajeEventNamesToID (void);
+std::map<PajeEventId,std::string> initPajeEventIDToNames (void);
+std::map<std::string,PajeFieldId> initPajeFieldNamesToID (void);
+std::map<PajeFieldId,std::string> initPajeFieldIDToNames (void);
+std::map<std::string,PajeFieldType> initPajeFieldTypesToID (void);
+std::map<PajeEventId,std::set<PajeFieldId> > initPajeObligatoryFields (void);
+std::map<PajeEventId,std::set<PajeFieldId> > initOptionalFields (void);
+
 class PajeEventDefinition {
 public:
   char *eventId;
   PajeEventId pajeEventId;
-  std::list<PajeFieldId> fieldNames;
-  std::list<PajeFieldType> fieldTypes;
+
+  std::list<PajeFieldId> fields;
+  std::list<PajeFieldType> types;
   int fieldCount;
   std::map<PajeFieldId,int> fieldIndexes;
   //NSArray *fieldNames;
@@ -85,8 +95,12 @@ public:
 
   PajeEventDefinition (PajeEventId id, const char *id2);
   ~PajeEventDefinition (void);
-  void addField (PajeFieldId id, PajeFieldType type);
-  bool isObligatoryOrOptionalFieldId (PajeFieldId id);
+  void addField (PajeFieldId fieldId, PajeFieldType fieldType);
+  int indexForFieldId (PajeFieldId fieldId);
+  bool isValid (void);
+  void showObligatoryFields (void);
 };
+
+std::ostream &operator<< (std::ostream &output, const PajeEventDefinition &eventDef);
 
 #endif

@@ -30,8 +30,6 @@ PajeFileReader::~PajeFileReader (void)
 
 void PajeFileReader::startChunk (int chunkNumber)
 {
-  std::cout << chunkNumber << std::endl;
-
   if (chunkNumber != currentChunk){
     if (chunkNumber >= chunkInfo.size()){
       fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
