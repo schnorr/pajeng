@@ -14,6 +14,9 @@ class PajeEvent : public PajeObject {
 private:
   paje_line *valueLine;
   PajeEventDefinition *pajeEventDefinition;
+
+public:
+  PajeEvent (PajeEventDefinition *def, paje_line *line);
 };
 
 #endif
