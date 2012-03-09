@@ -8,8 +8,9 @@
 #include <stdio.h>
 #include <string.h>
 #include "PajeEventDefinition.h"
+#include "PajeObject.h"
 
-class PajeEvent {
+class PajeEvent : public PajeObject {
 private:
   paje_line *valueLine;
   PajeEventDefinition *pajeEventDefinition;
