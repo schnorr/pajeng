@@ -203,6 +203,12 @@ PajeEventDecoder::PajeEventDecoder ()
   pajeOptionalFields[PajeEndLinkEventId] = std::set<PajeFieldId>();
   pajeOptionalFields[PajeEndLinkEventId].insert (PajeFileFieldId);
   pajeOptionalFields[PajeEndLinkEventId].insert (PajeLineFieldId);  
+
+  defStatus = OUT_DEF;
+  eventCount = 0;
+
+  //TODO FIXME
+  //chunkInfo ...
 }
 
 char *PajeEventDecoder::break_line (char *s, paje_line *line)
@@ -296,12 +302,13 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
       exit(1);
     }
 
-    PajeEventId pajeEventId = pajeEventNames.find(eventName)->second;
+    PajeEventId pajeEventId = PajeEventDecoder::getPajeEventId (eventName);
     if (pajeEventId == PajeUnknownEventId) {
       fprintf (stderr, "unknown event name '%s'\n", eventName);
       fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
       exit(1);
     }
+
     eventBeingDefined = new PajeEventDefinition (pajeEventId, eventId);
     eventDefinitions[eventId] = eventBeingDefined;
     defStatus = IN_DEF;
@@ -324,7 +331,12 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
       break;
     }
 
-    PajeFieldId fieldId = pajeFieldNames.find (fieldName)->second;
+    PajeFieldId fieldId = PajeEventDecoder::getPajeFieldId (fieldName);
+    if (fieldId == PajeUnknownFieldId){
+      fprintf (stderr, "Unrecognised field name '%s'\n", fieldName);
+      fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
+      exit(1);
+    }
 
     if (n >= line->word_count) {
       fprintf (stderr, "Incomplete line, missing field type\n");
@@ -333,10 +345,10 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
     }
     fieldType = line->word[n++];
 
-    PajeFieldType fieldTypeId = pajeFieldTypes.find (fieldType)->second;
+    PajeFieldType fieldTypeId = PajeEventDecoder::getPajeFieldType (fieldType);
 
     if (fieldTypeId == PajeUnknownFieldType) {
-      fprintf (stderr, "Unrecognised field type '%s'", fieldType);
+      fprintf (stderr, "Unrecognised field type '%s'\n", fieldType);
       fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
       exit(1);
     }
@@ -344,11 +356,65 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
   }
   break;
   default:
-    fprintf (stderr, "Internal error, invalid status");
+    fprintf (stderr, "Internal error, invalid status\n");
     fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
     exit(1);
   }
+}
 
+PajeEvent *PajeEventDecoder::scanEventLine (paje_line *line)
+{
+  char *eventId = NULL;
+  PajeEvent *event = NULL;
+  PajeEventDefinition *eventDefinition = NULL;
+
+  eventId = line->word[0];
+  if (*eventId == '%') {
+    fprintf (stderr, "Line should not start with a '%%'\n");
+    fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
+    exit(1);
+  }
+  eventDefinition = eventDefinitions[eventId];
+  if (eventDefinition == NULL) {
+    fprintf (stderr, "Event with id '%s' has not been defined\n", eventId);
+    fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
+    exit(1);
+  }
+    
+  // event = [PajeEvent eventWithDefinition:eventDefinition line:line];
+
+  eventCount++;
+  return event;
+}
+
+PajeEventId PajeEventDecoder::getPajeEventId (std::string eventName)
+{
+  std::map<std::string,PajeEventId>::iterator it;
+  if ((it = pajeEventNames.find (eventName)) != pajeEventNames.end()){
+    return it->second;
+  }else{
+    return PajeUnknownEventId;
+  }
+}
+
+PajeFieldId PajeEventDecoder::getPajeFieldId (std::string fieldName)
+{
+  std::map<std::string,PajeFieldId>::iterator it;
+  if ((it = pajeFieldNames.find (fieldName)) != pajeFieldNames.end()){
+    return it->second;
+  }else{
+    return PajeUnknownFieldId;
+  }
+}
+
+PajeFieldType PajeEventDecoder::getPajeFieldType (std::string fieldType)
+{
+  std::map<std::string,PajeFieldType>::iterator it;
+  if ((it = pajeFieldTypes.find (fieldType)) != pajeFieldTypes.end()){
+    return it->second;
+  }else{
+    return PajeUnknownFieldType;
+  } 
 }
 
 void PajeEventDecoder::inputEntity (PajeObject *data)
@@ -367,12 +433,10 @@ void PajeEventDecoder::inputEntity (PajeObject *data)
     if (line.word[0][0] == '%') {
       PajeEventDecoder::scanDefinitionLine (&line);
     } else {
-      // PajeEvent *event;
-      // event = [self scanEventLine:&line];
-      // if (event != nil) {
-      //   canEndChunk = [super canEndChunkBefore:event];
-      //   break;
-      // }
+      PajeEvent *event = PajeEventDecoder::scanEventLine (&line);
+      if (event != NULL){
+        PajeComponent::outputEntity (event);
+      }
     }
   }
 }
@@ -397,12 +461,11 @@ bool PajeEventDecoder::canEndChunkBefore (PajeObject *data)
       canEndChunk = false;
       break;
     }else{
-      // PajeEvent *event;
-      // event = [self scanEventLine:&line];
-      // if (event != nil) {
-      //   canEndChunk = [super canEndChunkBefore:event];
-      //   break;
-      // }
+      PajeEvent *event = PajeEventDecoder::scanEventLine (&line);
+      if (event != NULL){
+        canEndChunk = PajeComponent::canEndChunkBefore (event);
+        break;
+      }
     }
   }
   if (canEndChunk){
@@ -417,11 +480,10 @@ bool PajeEventDecoder::canEndChunkBefore (PajeObject *data)
     if (line.word[0][0] == '%') {
       PajeEventDecoder::scanDefinitionLine (&line);
     }else{
-      // PajeEvent *event;
-      // event = [self scanEventLine:&line];
-      // if (event != nil) {
-      //   [self outputEntity:event];
-      // }
+      PajeEvent *event = PajeEventDecoder::scanEventLine (&line);
+      if (event != NULL){
+        PajeComponent::outputEntity (event);
+      }
     }
   }
   return false;

@@ -65,7 +65,8 @@ typedef enum {
     PajeFileFieldId,
     PajeLineFieldId,
     PajeFieldIdCount,
-    NoFieldId
+    NoFieldId,
+    PajeUnknownFieldId
 } PajeFieldId;
 
 class PajeEventDefinition {

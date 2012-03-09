@@ -6,7 +6,6 @@ PajeSimulator::PajeSimulator ()
 
 void PajeSimulator::inputEntity (PajeObject *data)
 {
-  std::cout << data << std::endl;
 }
 
 bool PajeSimulator::canEndChunkBefore (PajeObject *data)
