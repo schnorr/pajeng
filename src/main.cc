@@ -24,7 +24,7 @@ int main (int argc, char **argv)
       reader->endOfChunkLast (!reader->hasMoreData());
       i++;
     }
-  }catch (const char *exception){
+  }catch (std::string exception){
     std::cout << exception << std::endl;
   }
 

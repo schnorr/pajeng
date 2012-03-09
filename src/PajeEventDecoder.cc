@@ -137,9 +137,10 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
 
     PajeFieldId fieldId = PajeEventDecoder::getPajeFieldId (fieldName);
     if (fieldId == PajeUnknownFieldId){
-      fprintf (stderr, "Unrecognised field name '%s'\n", fieldName);
-      fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-      exit(1);
+      std::map<PajeEventId,std::string> eventNames = initPajeEventIDToNames();
+      std::string name = eventNames[eventBeingDefined->pajeEventId];
+
+      throw "Unrecognised field name " + std::string(fieldName) + " for " + name + " with id " + eventBeingDefined->eventId;
     }
 
     if (n >= line->word_count) {

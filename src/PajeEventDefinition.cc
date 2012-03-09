@@ -320,7 +320,6 @@ PajeEventDefinition::PajeEventDefinition (PajeEventId id, const char *id2)
 
 PajeEventDefinition::~PajeEventDefinition (void)
 {
-  free (eventId);
 }
 
 void PajeEventDefinition::addField (PajeFieldId fieldId, PajeFieldType fieldType)
@@ -331,7 +330,7 @@ void PajeEventDefinition::addField (PajeFieldId fieldId, PajeFieldType fieldType
   //search for an existing index for this field
   std::map<PajeFieldId,int>::iterator it;
   if ((it = fieldIndexes.find (fieldId)) != fieldIndexes.end()){
-    fprintf (stderr, "Event definition '%s' has repeated field named.\n", eventId);
+    fprintf (stderr, "Event definition '%s' has repeated field named.\n", eventId.c_str());
     fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
     exit(1);
   }else{

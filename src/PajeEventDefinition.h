@@ -81,7 +81,7 @@ std::map<PajeEventId,std::set<PajeFieldId> > initOptionalFields (void);
 
 class PajeEventDefinition {
 public:
-  char *eventId;
+  std::string eventId;
   PajeEventId pajeEventId;
 
   std::list<PajeFieldId> fields;
