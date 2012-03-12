@@ -1,12 +1,19 @@
 #include "PajeEventDecoder.h"
 
+static std::map<std::string,PajeEventId> knownPajeEvents = initPajeEventNamesToID ();
+static PajeEventId getPajeEventId (std::string eventName)
+{
+  std::map<std::string,PajeEventId>::iterator it;
+  if ((it = knownPajeEvents.find (eventName)) != knownPajeEvents.end()){
+    return it->second;
+  }else{
+    return PajeUnknownEventId;
+  }
+}
+
 PajeEventDecoder::PajeEventDecoder ()
 {
-  pajeEventNames = initPajeEventNamesToID ();
-  pajeFieldNames = initPajeFieldNamesToID ();
-  pajeFieldTypes = initPajeFieldTypesToID ();
   defStatus = OUT_DEF;
-  eventCount = 0;
 
   //TODO FIXME
   //chunkInfo ...
@@ -78,7 +85,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
 
   str = line->word[n++];
   if (*str++ != '%') {
-    // [self raise:@"Line should start with a '%%'"];
+    fprintf (stderr, "Line should start with a '%%'\n");
     fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
     exit(1);
   }
@@ -91,19 +98,23 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
   {
     eventName = line->word[n++];
     eventId   = line->word[n++];
+
+    //check if this event definition has a good start
     if (n != line->word_count || strcmp(str, "EventDef") != 0) {
       fprintf (stderr, "'EventDef <event name> <event id>' expected.\n");
       fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
       exit(1);
     }
 
+    //check if this event definition has been already defined
     if (eventDefinitions[eventId]){
       fprintf (stderr, "redefinition of event with id '%s'\n", eventId);
       fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
       exit(1);
     }
 
-    PajeEventId pajeEventId = PajeEventDecoder::getPajeEventId (eventName);
+    //check if we know the event name found in the trace file
+    PajeEventId pajeEventId = getPajeEventId (eventName);
     if (pajeEventId == PajeUnknownEventId) {
       fprintf (stderr, "unknown event name '%s'\n", eventName);
       fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
@@ -120,10 +131,9 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
     fieldName = str;
 
     if (n > line->word_count) {
-      fprintf (stderr, "Incomplete line, missing field name\n");
-      fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-      exit(1);
+      throw "Incomplete line, missing field name";
     }
+
     if (strcmp(fieldName, "EndEventDef") == 0) {
       if (!eventBeingDefined->isValid()){
         std::cout << "This event definition is not valid:" << std::endl;
@@ -135,29 +145,16 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
       break;
     }
 
-    PajeFieldId fieldId = PajeEventDecoder::getPajeFieldId (fieldName);
-    if (fieldId == PajeUnknownFieldId){
+    if (n >= line->word_count) {
       std::map<PajeEventId,std::string> eventNames = initPajeEventIDToNames();
       std::string name = eventNames[eventBeingDefined->pajeEventId];
 
-      throw "Unrecognised field name " + std::string(fieldName) + " for " + name + " with id " + eventBeingDefined->eventId;
+      throw "Incomplete line, missing field type for " + name +
+        " with id " + eventBeingDefined->number;
     }
 
-    if (n >= line->word_count) {
-      fprintf (stderr, "Incomplete line, missing field type\n");
-      fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-      exit(1);
-    }
     fieldType = line->word[n++];
-
-    PajeFieldType fieldTypeId = PajeEventDecoder::getPajeFieldType (fieldType);
-
-    if (fieldTypeId == PajeUnknownFieldType) {
-      fprintf (stderr, "Unrecognised field type '%s'\n", fieldType);
-      fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-      exit(1);
-    }
-    eventBeingDefined->addField (fieldId, fieldTypeId);
+    eventBeingDefined->addField (fieldName, fieldType);
   }
   break;
   default:
@@ -188,38 +185,7 @@ PajeEvent *PajeEventDecoder::scanEventLine (paje_line *line)
 
   // event = [PajeEvent eventWithDefinition:eventDefinition line:line];
 
-  eventCount++;
   return event;
-}
-
-PajeEventId PajeEventDecoder::getPajeEventId (std::string eventName)
-{
-  std::map<std::string,PajeEventId>::iterator it;
-  if ((it = pajeEventNames.find (eventName)) != pajeEventNames.end()){
-    return it->second;
-  }else{
-    return PajeUnknownEventId;
-  }
-}
-
-PajeFieldId PajeEventDecoder::getPajeFieldId (std::string fieldName)
-{
-  std::map<std::string,PajeFieldId>::iterator it;
-  if ((it = pajeFieldNames.find (fieldName)) != pajeFieldNames.end()){
-    return it->second;
-  }else{
-    return PajeUnknownFieldId;
-  }
-}
-
-PajeFieldType PajeEventDecoder::getPajeFieldType (std::string fieldType)
-{
-  std::map<std::string,PajeFieldType>::iterator it;
-  if ((it = pajeFieldTypes.find (fieldType)) != pajeFieldTypes.end()){
-    return it->second;
-  }else{
-    return PajeUnknownFieldType;
-  } 
 }
 
 void PajeEventDecoder::inputEntity (PajeObject *data)
