@@ -39,64 +39,27 @@ typedef enum {
     PajeUnknownEventId,
 } PajeEventId;
 
-typedef enum {
-    PajeIntFieldType,
-    PajeHexFieldType,
-    PajeDateFieldType,
-    PajeDoubleFieldType,
-    PajeStringFieldType,
-    PajeColorFieldType,
-    PajeUnknownFieldType
-} PajeFieldType;
-    
-typedef enum {
-    PajeEventIdFieldId,
-    PajeTimeFieldId,
-    PajeNameFieldId,
-    PajeAliasFieldId,
-    PajeTypeFieldId,
-    PajeContainerFieldId,
-    PajeStartContainerTypeFieldId,
-    PajeEndContainerTypeFieldId,
-    PajeStartContainerFieldId,
-    PajeEndContainerFieldId,
-    PajeColorFieldId,
-    PajeValueFieldId,
-    PajeKeyFieldId,
-    PajeFileFieldId,
-    PajeLineFieldId,
-    PajeFieldIdCount,
-    NoFieldId,
-    PajeUnknownFieldId
-} PajeFieldId;
-
-
 std::map<std::string,PajeEventId> initPajeEventNamesToID (void);
 std::map<PajeEventId,std::string> initPajeEventIDToNames (void);
-std::map<std::string,PajeFieldId> initPajeFieldNamesToID (void);
-std::map<PajeFieldId,std::string> initPajeFieldIDToNames (void);
-std::map<std::string,PajeFieldType> initPajeFieldTypesToID (void);
-std::map<PajeEventId,std::set<PajeFieldId> > initPajeObligatoryFields (void);
-std::map<PajeEventId,std::set<PajeFieldId> > initOptionalFields (void);
 
 class PajeEventDefinition {
 public:
-  std::string eventId;
-  PajeEventId pajeEventId;
-
-  std::list<PajeFieldId> fields;
-  std::list<PajeFieldType> types;
+  PajeEventId pajeEventId; //The known PajeEventId
+  std::string number; //Unique identifier
   int fieldCount;
-  std::map<PajeFieldId,int> fieldIndexes;
-  //NSArray *fieldNames;
-  std::list<PajeFieldId> extraFieldNames;
-  int extraFieldCount;
-//  NSArray *extraFieldNames;
+  std::list<std::string> fields;
+  std::list<std::string> types;
 
-  PajeEventDefinition (PajeEventId id, const char *id2);
+  /* std::list<PajeFieldId> extraFieldNames; */
+  /* int extraFieldCount; */
+  /* NSArray *extraFieldNames; */
+
+public:
+  PajeEventDefinition (PajeEventId pajeEventId, std::string number);
   ~PajeEventDefinition (void);
-  void addField (PajeFieldId fieldId, PajeFieldType fieldType);
-  int indexForFieldId (PajeFieldId fieldId);
+  void addField (std::string name, std::string type);
+
+  int indexForFieldId (std::string name);
   bool isValid (void);
   void showObligatoryFields (void);
 };

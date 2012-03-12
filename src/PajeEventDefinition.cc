@@ -48,355 +48,286 @@ std::map<PajeEventId,std::string> initPajeEventIDToNames ()
   return ret;
 }
 
-std::map<std::string,PajeFieldId> initPajeFieldNamesToID ()
+std::map<PajeEventId,std::set<std::string> > initObligatoryFields ()
 {
-  std::map<std::string,PajeFieldId> ret;
-  ret["EventId"] = PajeEventIdFieldId;
-  ret["Time"] = PajeTimeFieldId;
-  ret["Name"] = PajeNameFieldId;
-  ret["Alias"] = PajeAliasFieldId;
-  ret["Type"] = PajeTypeFieldId;
-  ret["Container"] = PajeContainerFieldId;
-  ret["StartContainerType"] = PajeStartContainerTypeFieldId;
-  ret["EndContainerType"] = PajeEndContainerTypeFieldId;
-  ret["StartContainer"] = PajeStartContainerFieldId;
-  ret["EndContainer"] = PajeEndContainerFieldId;
-  ret["Color"] = PajeColorFieldId;
-  ret["Value"] = PajeValueFieldId;
-  ret["Key"] = PajeKeyFieldId;
-  ret["File"] = PajeFileFieldId;
-  ret["Line"] = PajeLineFieldId;
-  return ret;
-}
-
-std::map<PajeFieldId,std::string> initPajeFieldIDToNames ()
-{
-  std::map<PajeFieldId,std::string> ret;
-  ret[PajeEventIdFieldId] = "EventId";
-  ret[PajeTimeFieldId] = "Time";
-  ret[PajeNameFieldId] = "Name";
-  ret[PajeAliasFieldId] = "Alias";
-  ret[PajeTypeFieldId] = "Type";
-  ret[PajeContainerFieldId] = "Container";
-  ret[PajeStartContainerTypeFieldId] = "StartContainerType";
-  ret[PajeEndContainerTypeFieldId] = "EndContainerType";
-  ret[PajeStartContainerFieldId] = "StartContainer";
-  ret[PajeEndContainerFieldId] = "EndContainer";
-  ret[PajeColorFieldId] = "Color";
-  ret[PajeValueFieldId] = "Value";
-  ret[PajeKeyFieldId] = "Key";
-  ret[PajeFileFieldId] = "File";
-  ret[PajeLineFieldId] = "Line";
-  return ret;
-}
-
-std::map<std::string,PajeFieldType> initPajeFieldTypesToID ()
-{
-  std::map<std::string,PajeFieldType> ret;
-  ret["int"] = PajeIntFieldType;
-  ret["hex"] = PajeHexFieldType;
-  ret["date"] = PajeDateFieldType;
-  ret["double"] = PajeDoubleFieldType;
-  ret["string"] = PajeStringFieldType;
-  ret["color"] = PajeColorFieldType;
-  return ret;
-}
-
-std::map<PajeFieldType,std::string> initPajeFieldIDToTypes ()
-{
-  std::map<PajeFieldType,std::string> ret;
-  ret[PajeIntFieldType] = "int";
-  ret[PajeHexFieldType] = "hex";
-  ret[PajeDateFieldType] = "date";
-  ret[PajeDoubleFieldType] = "double";
-  ret[PajeStringFieldType] = "string";
-  ret[PajeColorFieldType] = "color";
-  return ret;
-}
-
-
-std::map<PajeEventId,std::set<PajeFieldId> > initObligatoryFields ()
-{
-  std::map<PajeEventId,std::set<PajeFieldId> > ret;
+  std::map<PajeEventId,std::set<std::string> > ret;
+  std::string time("Time");
+  std::string name("Name");
+  std::string alias("Alias");
+  std::string type("Type");
+  std::string container("Container");
+  std::string startContainerType("StartContainerType");
+  std::string endContainerType("EndContainerType");
+  std::string startContainer("StartContainer");
+  std::string endContainer("EndContainer");
+  std::string color("Color");
+  std::string value("Value");
+  std::string key("Key");
+  std::string file("File");
+  std::string line("Line");
 
   // The obligatory fields
-  ret[PajeStartTraceEventId] = std::set<PajeFieldId>();
+  ret[PajeStartTraceEventId] = std::set<std::string>();
 
-  ret[PajeDefineContainerTypeEventId] = std::set<PajeFieldId>();
-  ret[PajeDefineContainerTypeEventId].insert (PajeNameFieldId);
-  ret[PajeDefineContainerTypeEventId].insert (PajeTypeFieldId);
+  ret[PajeDefineContainerTypeEventId] = std::set<std::string>();
+  ret[PajeDefineContainerTypeEventId].insert (name);
+  ret[PajeDefineContainerTypeEventId].insert (type);
 
-  ret[PajeDefineEventTypeEventId] = std::set<PajeFieldId>();
-  ret[PajeDefineEventTypeEventId].insert (PajeNameFieldId);
-  ret[PajeDefineEventTypeEventId].insert (PajeTypeFieldId);
+  ret[PajeDefineEventTypeEventId] = std::set<std::string>();
+  ret[PajeDefineEventTypeEventId].insert (name);
+  ret[PajeDefineEventTypeEventId].insert (type);
 
-  ret[PajeDefineStateTypeEventId] = std::set<PajeFieldId>();
-  ret[PajeDefineStateTypeEventId].insert (PajeNameFieldId);
-  ret[PajeDefineStateTypeEventId].insert (PajeTypeFieldId);
+  ret[PajeDefineStateTypeEventId] = std::set<std::string>();
+  ret[PajeDefineStateTypeEventId].insert (name);
+  ret[PajeDefineStateTypeEventId].insert (type);
 
-  ret[PajeDefineVariableTypeEventId]  = std::set<PajeFieldId>();
-  ret[PajeDefineVariableTypeEventId].insert (PajeNameFieldId);
-  ret[PajeDefineVariableTypeEventId].insert (PajeTypeFieldId);
+  ret[PajeDefineVariableTypeEventId]  = std::set<std::string>();
+  ret[PajeDefineVariableTypeEventId].insert (name);
+  ret[PajeDefineVariableTypeEventId].insert (type);
 
-  ret[PajeDefineLinkTypeEventId] = std::set<PajeFieldId>();
-  ret[PajeDefineLinkTypeEventId].insert (PajeNameFieldId);
-  ret[PajeDefineLinkTypeEventId].insert (PajeTypeFieldId);
-  ret[PajeDefineLinkTypeEventId].insert (PajeStartContainerTypeFieldId);
-  ret[PajeDefineLinkTypeEventId].insert (PajeEndContainerTypeFieldId);
+  ret[PajeDefineLinkTypeEventId] = std::set<std::string>();
+  ret[PajeDefineLinkTypeEventId].insert (name);
+  ret[PajeDefineLinkTypeEventId].insert (type);
+  ret[PajeDefineLinkTypeEventId].insert (startContainerType);
+  ret[PajeDefineLinkTypeEventId].insert (endContainerType);
 
-  ret[PajeDefineEntityValueEventId] = std::set<PajeFieldId>();
-  ret[PajeDefineEntityValueEventId].insert (PajeNameFieldId);
-  ret[PajeDefineEntityValueEventId].insert (PajeTypeFieldId);
+  ret[PajeDefineEntityValueEventId] = std::set<std::string>();
+  ret[PajeDefineEntityValueEventId].insert (name);
+  ret[PajeDefineEntityValueEventId].insert (type);
 
-  ret[PajeCreateContainerEventId] = std::set<PajeFieldId>();
-  ret[PajeCreateContainerEventId].insert (PajeTimeFieldId);
-  ret[PajeCreateContainerEventId].insert (PajeNameFieldId);
-  ret[PajeCreateContainerEventId].insert (PajeTypeFieldId);
-  ret[PajeCreateContainerEventId].insert (PajeContainerFieldId);
+  ret[PajeCreateContainerEventId] = std::set<std::string>();
+  ret[PajeCreateContainerEventId].insert (time);
+  ret[PajeCreateContainerEventId].insert (name);
+  ret[PajeCreateContainerEventId].insert (type);
+  ret[PajeCreateContainerEventId].insert (container);
 
-  ret[PajeDestroyContainerEventId] = std::set<PajeFieldId>();
-  ret[PajeDestroyContainerEventId].insert (PajeTimeFieldId);
-  ret[PajeDestroyContainerEventId].insert (PajeNameFieldId);
-  ret[PajeDestroyContainerEventId].insert (PajeTypeFieldId);
+  ret[PajeDestroyContainerEventId] = std::set<std::string>();
+  ret[PajeDestroyContainerEventId].insert (time);
+  ret[PajeDestroyContainerEventId].insert (name);
+  ret[PajeDestroyContainerEventId].insert (type);
 
-  ret[PajeNewEventEventId] = std::set<PajeFieldId>();
-  ret[PajeNewEventEventId].insert (PajeTimeFieldId);
-  ret[PajeNewEventEventId].insert (PajeTypeFieldId);
-  ret[PajeNewEventEventId].insert (PajeContainerFieldId);
-  ret[PajeNewEventEventId].insert (PajeValueFieldId);
+  ret[PajeNewEventEventId] = std::set<std::string>();
+  ret[PajeNewEventEventId].insert (time);
+  ret[PajeNewEventEventId].insert (type);
+  ret[PajeNewEventEventId].insert (container);
+  ret[PajeNewEventEventId].insert (value);
 
-  ret[PajeSetStateEventId] = std::set<PajeFieldId>();
-  ret[PajeSetStateEventId].insert (PajeTimeFieldId);
-  ret[PajeSetStateEventId].insert (PajeTypeFieldId);
-  ret[PajeSetStateEventId].insert (PajeContainerFieldId);
-  ret[PajeSetStateEventId].insert (PajeValueFieldId);
+  ret[PajeSetStateEventId] = std::set<std::string>();
+  ret[PajeSetStateEventId].insert (time);
+  ret[PajeSetStateEventId].insert (type);
+  ret[PajeSetStateEventId].insert (container);
+  ret[PajeSetStateEventId].insert (value);
 
-  ret[PajePushStateEventId] = std::set<PajeFieldId>();
-  ret[PajePushStateEventId].insert (PajeTimeFieldId);
-  ret[PajePushStateEventId].insert (PajeTypeFieldId);
-  ret[PajePushStateEventId].insert (PajeContainerFieldId);
-  ret[PajePushStateEventId].insert (PajeValueFieldId);
+  ret[PajePushStateEventId] = std::set<std::string>();
+  ret[PajePushStateEventId].insert (time);
+  ret[PajePushStateEventId].insert (type);
+  ret[PajePushStateEventId].insert (container);
+  ret[PajePushStateEventId].insert (value);
 
-  ret[PajePopStateEventId] = std::set<PajeFieldId>();
-  ret[PajePopStateEventId].insert (PajeTimeFieldId);
-  ret[PajePopStateEventId].insert (PajeTypeFieldId);
-  ret[PajePopStateEventId].insert (PajeContainerFieldId);
+  ret[PajePopStateEventId] = std::set<std::string>();
+  ret[PajePopStateEventId].insert (time);
+  ret[PajePopStateEventId].insert (type);
+  ret[PajePopStateEventId].insert (container);
 
-  ret[PajeSetVariableEventId] = std::set<PajeFieldId>();
-  ret[PajeSetVariableEventId].insert (PajeTimeFieldId);
-  ret[PajeSetVariableEventId].insert (PajeTypeFieldId);
-  ret[PajeSetVariableEventId].insert (PajeContainerFieldId);
-  ret[PajeSetVariableEventId].insert (PajeValueFieldId);
+  ret[PajeSetVariableEventId] = std::set<std::string>();
+  ret[PajeSetVariableEventId].insert (time);
+  ret[PajeSetVariableEventId].insert (type);
+  ret[PajeSetVariableEventId].insert (container);
+  ret[PajeSetVariableEventId].insert (value);
 
-  ret[PajeAddVariableEventId] = std::set<PajeFieldId>();
-  ret[PajeAddVariableEventId].insert (PajeTimeFieldId);
-  ret[PajeAddVariableEventId].insert (PajeTypeFieldId);
-  ret[PajeAddVariableEventId].insert (PajeContainerFieldId);
-  ret[PajeAddVariableEventId].insert (PajeValueFieldId);
+  ret[PajeAddVariableEventId] = std::set<std::string>();
+  ret[PajeAddVariableEventId].insert (time);
+  ret[PajeAddVariableEventId].insert (type);
+  ret[PajeAddVariableEventId].insert (container);
+  ret[PajeAddVariableEventId].insert (value);
 
-  ret[PajeSubVariableEventId] = std::set<PajeFieldId>();
-  ret[PajeSubVariableEventId].insert (PajeTimeFieldId);
-  ret[PajeSubVariableEventId].insert (PajeTypeFieldId);
-  ret[PajeSubVariableEventId].insert (PajeContainerFieldId);
-  ret[PajeSubVariableEventId].insert (PajeValueFieldId);
+  ret[PajeSubVariableEventId] = std::set<std::string>();
+  ret[PajeSubVariableEventId].insert (time);
+  ret[PajeSubVariableEventId].insert (type);
+  ret[PajeSubVariableEventId].insert (container);
+  ret[PajeSubVariableEventId].insert (value);
 
-  ret[PajeStartLinkEventId] = std::set<PajeFieldId>();
-  ret[PajeStartLinkEventId].insert (PajeTimeFieldId);
-  ret[PajeStartLinkEventId].insert (PajeTypeFieldId);
-  ret[PajeStartLinkEventId].insert (PajeContainerFieldId);
-  ret[PajeStartLinkEventId].insert (PajeValueFieldId);
-  ret[PajeStartLinkEventId].insert (PajeStartContainerFieldId);
-  ret[PajeStartLinkEventId].insert (PajeKeyFieldId);
+  ret[PajeStartLinkEventId] = std::set<std::string>();
+  ret[PajeStartLinkEventId].insert (time);
+  ret[PajeStartLinkEventId].insert (type);
+  ret[PajeStartLinkEventId].insert (container);
+  ret[PajeStartLinkEventId].insert (value);
+  ret[PajeStartLinkEventId].insert (startContainer);
+  ret[PajeStartLinkEventId].insert (key);
 
-  ret[PajeEndLinkEventId] = std::set<PajeFieldId>();
-  ret[PajeEndLinkEventId].insert (PajeTimeFieldId);
-  ret[PajeEndLinkEventId].insert (PajeTypeFieldId);
-  ret[PajeEndLinkEventId].insert (PajeContainerFieldId);
-  ret[PajeEndLinkEventId].insert (PajeValueFieldId);
-  ret[PajeEndLinkEventId].insert (PajeEndContainerFieldId);
-  ret[PajeEndLinkEventId].insert (PajeKeyFieldId);
+  ret[PajeEndLinkEventId] = std::set<std::string>();
+  ret[PajeEndLinkEventId].insert (time);
+  ret[PajeEndLinkEventId].insert (type);
+  ret[PajeEndLinkEventId].insert (container);
+  ret[PajeEndLinkEventId].insert (value);
+  ret[PajeEndLinkEventId].insert (endContainer);
+  ret[PajeEndLinkEventId].insert (key);
 
   return ret;
 }
 
-std::map<PajeEventId,std::set<PajeFieldId> > initOptionalFields ()
+std::map<PajeEventId,std::set<std::string> > initOptionalFields ()
 {
-  std::map<PajeEventId,std::set<PajeFieldId> > ret;
+  std::map<PajeEventId,std::set<std::string> > ret;
+  std::string alias = "Alias";
+  std::string color = "Color";
+  std::string line = "Line";
+  std::string file = "File";
 
   // The optional fields
-  ret[PajeStartTraceEventId] = std::set<PajeFieldId>();
+  ret[PajeStartTraceEventId] = std::set<std::string>();
 
-  ret[PajeDefineContainerTypeEventId] = std::set<PajeFieldId>();
-  ret[PajeDefineContainerTypeEventId].insert (PajeAliasFieldId);
+  ret[PajeDefineContainerTypeEventId] = std::set<std::string>();
+  ret[PajeDefineContainerTypeEventId].insert (alias);
 
-  ret[PajeDefineEventTypeEventId] = std::set<PajeFieldId>();
-  ret[PajeDefineEventTypeEventId].insert (PajeAliasFieldId);
+  ret[PajeDefineEventTypeEventId] = std::set<std::string>();
+  ret[PajeDefineEventTypeEventId].insert (alias);
 
-  ret[PajeDefineStateTypeEventId] = std::set<PajeFieldId>();
-  ret[PajeDefineStateTypeEventId].insert (PajeAliasFieldId);
+  ret[PajeDefineStateTypeEventId] = std::set<std::string>();
+  ret[PajeDefineStateTypeEventId].insert (alias);
 
-  ret[PajeDefineVariableTypeEventId]  = std::set<PajeFieldId>();
-  ret[PajeDefineVariableTypeEventId].insert (PajeAliasFieldId);
+  ret[PajeDefineVariableTypeEventId]  = std::set<std::string>();
+  ret[PajeDefineVariableTypeEventId].insert (alias);
 
-  ret[PajeDefineLinkTypeEventId] = std::set<PajeFieldId>();
-  ret[PajeDefineLinkTypeEventId].insert (PajeAliasFieldId);
+  ret[PajeDefineLinkTypeEventId] = std::set<std::string>();
+  ret[PajeDefineLinkTypeEventId].insert (alias);
 
-  ret[PajeDefineEntityValueEventId] = std::set<PajeFieldId>();
-  ret[PajeDefineEntityValueEventId].insert (PajeAliasFieldId);
-  ret[PajeDefineEntityValueEventId].insert (PajeColorFieldId);
+  ret[PajeDefineEntityValueEventId] = std::set<std::string>();
+  ret[PajeDefineEntityValueEventId].insert (alias);
+  ret[PajeDefineEntityValueEventId].insert (color);
 
-  ret[PajeCreateContainerEventId] = std::set<PajeFieldId>();
-  ret[PajeCreateContainerEventId].insert (PajeAliasFieldId);
+  ret[PajeCreateContainerEventId] = std::set<std::string>();
+  ret[PajeCreateContainerEventId].insert (alias);
 
-  ret[PajeDestroyContainerEventId] = std::set<PajeFieldId>();
+  ret[PajeDestroyContainerEventId] = std::set<std::string>();
 
-  ret[PajeNewEventEventId] = std::set<PajeFieldId>();
-  ret[PajeNewEventEventId].insert (PajeFileFieldId);
-  ret[PajeNewEventEventId].insert (PajeLineFieldId);
+  ret[PajeNewEventEventId] = std::set<std::string>();
+  ret[PajeNewEventEventId].insert (file);
+  ret[PajeNewEventEventId].insert (line);
 
-  ret[PajeSetVariableEventId] = std::set<PajeFieldId>();
-  ret[PajeSetVariableEventId].insert (PajeFileFieldId);
-  ret[PajeSetVariableEventId].insert (PajeLineFieldId);
+  ret[PajeSetVariableEventId] = std::set<std::string>();
+  ret[PajeSetVariableEventId].insert (file);
+  ret[PajeSetVariableEventId].insert (line);
 
-  ret[PajePushStateEventId] = std::set<PajeFieldId>();
-  ret[PajePushStateEventId].insert (PajeFileFieldId);
-  ret[PajePushStateEventId].insert (PajeLineFieldId);
+  ret[PajePushStateEventId] = std::set<std::string>();
+  ret[PajePushStateEventId].insert (file);
+  ret[PajePushStateEventId].insert (line);
 
-  ret[PajePopStateEventId] = std::set<PajeFieldId>();
-  ret[PajePopStateEventId].insert (PajeFileFieldId);
-  ret[PajePopStateEventId].insert (PajeLineFieldId);
+  ret[PajePopStateEventId] = std::set<std::string>();
+  ret[PajePopStateEventId].insert (file);
+  ret[PajePopStateEventId].insert (line);
 
-  ret[PajeSetVariableEventId] = std::set<PajeFieldId>();
-  ret[PajeAddVariableEventId] = std::set<PajeFieldId>();
-  ret[PajeSubVariableEventId] = std::set<PajeFieldId>();
+  ret[PajeSetVariableEventId] = std::set<std::string>();
+  ret[PajeAddVariableEventId] = std::set<std::string>();
+  ret[PajeSubVariableEventId] = std::set<std::string>();
 
-  ret[PajeStartLinkEventId] = std::set<PajeFieldId>();
-  ret[PajeStartLinkEventId].insert (PajeFileFieldId);
-  ret[PajeStartLinkEventId].insert (PajeLineFieldId);
+  ret[PajeStartLinkEventId] = std::set<std::string>();
+  ret[PajeStartLinkEventId].insert (file);
+  ret[PajeStartLinkEventId].insert (line);
 
-  ret[PajeEndLinkEventId] = std::set<PajeFieldId>();
-  ret[PajeEndLinkEventId].insert (PajeFileFieldId);
-  ret[PajeEndLinkEventId].insert (PajeLineFieldId);
+  ret[PajeEndLinkEventId] = std::set<std::string>();
+  ret[PajeEndLinkEventId].insert (file);
+  ret[PajeEndLinkEventId].insert (line);
 
   return ret;
 }
 
+static std::map<PajeEventId,std::set<std::string> > pajeObligatoryFields = initObligatoryFields ();
+static std::map<PajeEventId,std::set<std::string> > pajeOptionalFields = initOptionalFields ();
 
-static std::map<PajeEventId,std::set<PajeFieldId> > pajeObligatoryFields = initObligatoryFields ();
-static std::map<PajeEventId,std::set<PajeFieldId> > pajeOptionalFields = initOptionalFields ();
-
-static bool isObligatoryOrOptionalField (PajeEventId eventId, PajeFieldId fieldId)
+PajeEventDefinition::PajeEventDefinition (PajeEventId pajeEventId, std::string number)
 {
-  std::map<PajeEventId,std::set<PajeFieldId> >::iterator itmap;
-  itmap = pajeObligatoryFields.find (eventId);
-  if (itmap != pajeObligatoryFields.end()){
-    std::set<PajeFieldId>::iterator itset;
-    itset = itmap->second.find (fieldId);
-    if (itset != itmap->second.end()){
-      return true;
-    }
-  }
-  itmap = pajeOptionalFields.find (eventId);
-  if (itmap != pajeOptionalFields.end()){
-    std::set<PajeFieldId>::iterator itset;
-    itset = itmap->second.find (fieldId);
-    if (itset != itmap->second.end()){
-      return true;
-    }
-  }
-  return false;
-}
-
-PajeEventDefinition::PajeEventDefinition (PajeEventId id, const char *id2)
-{
-  eventId = strdup (id2);
-  pajeEventId = id;
+  this->pajeEventId = pajeEventId;
+  this->number = number;
   fieldCount = 1;
-  extraFieldCount = 0;
+  // extraFieldCount = 0;
 
   //the first field is always the event identification
-  PajeEventDefinition::addField (PajeEventIdFieldId, PajeIntFieldType);
+  PajeEventDefinition::addField ("EventId", "int");
 }
 
 PajeEventDefinition::~PajeEventDefinition (void)
 {
 }
 
-void PajeEventDefinition::addField (PajeFieldId fieldId, PajeFieldType fieldType)
+void PajeEventDefinition::addField (std::string name, std::string type)
 {
-  fields.push_back (fieldId);
-  types.push_back (fieldType);
-
-  //search for an existing index for this field
-  std::map<PajeFieldId,int>::iterator it;
-  if ((it = fieldIndexes.find (fieldId)) != fieldIndexes.end()){
-    fprintf (stderr, "Event definition '%s' has repeated field named.\n", eventId.c_str());
-    fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-    exit(1);
+  //check if the type is valid
+  std::set<std::string> set;
+  set.insert("int");
+  set.insert("hex");
+  set.insert("date");
+  set.insert("double");
+  set.insert("string");
+  set.insert("color");
+  std::set<std::string>::iterator found;
+  found = set.find (type);
+  if (found == set.end()){
+    throw "The type '"+type+"' used in the field '"+name+"' is not recognised.";
   }else{
-    fieldIndexes[fieldId] = fieldCount;
+    set.clear();
   }
 
-  if (isObligatoryOrOptionalField(pajeEventId, fieldId)){
-    extraFieldNames.push_back (fieldId);
-    extraFieldCount++;
+  //check if the name has already being registered
+  std::list<std::string>::iterator it;
+  for (it = fields.begin(); it != fields.end(); it++){
+    set.insert (*it);
   }
+  found = set.find (name);
+  if (found != set.end()){
+    throw "The field '"+name+"' with type '"+type+"' has been defined previously.";
+  }else{
+    set.clear();
+  }
+
+  //add the field and its type
+  fields.push_back (name);
+  types.push_back (type);
   fieldCount++;
-}
-
-int PajeEventDefinition::indexForFieldId (PajeFieldId fieldId)
-{
-  std::map<PajeFieldId,int>::iterator it;
-  if ((it = fieldIndexes.find (fieldId)) != fieldIndexes.end()){
-    return it->second;
-  }else{
-    fprintf (stderr, "fieldId not present in this definition.\n");
-    fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-    exit(1);
-    return -1;
-  }
+  return;
 }
 
 bool PajeEventDefinition::isValid (void)
 {
   //get the obligatory fields for my pajeEventId
-  std::map<PajeEventId,std::set<PajeFieldId> >::iterator itmap;
+  std::map<PajeEventId,std::set<std::string> >::iterator itmap;
   itmap = pajeObligatoryFields.find (pajeEventId);
-  if (itmap != pajeObligatoryFields.end()){
-    //iterate through the set of obligatory fields for my pajeEventId
-    std::set<PajeFieldId>::iterator itset;
-    for (itset = itmap->second.begin (); itset != itmap->second.end(); itset++){
-      PajeFieldId obligatoryFieldId = *itset;
-      //search each  the obligatory fields in the fields list of this definition
-      bool myFieldIsPresent = false;
-      std::list<PajeFieldId>::iterator itlist;
-      for (itlist = fields.begin(); itlist != fields.end(); itlist++){
-        if (*itlist == obligatoryFieldId){
-          myFieldIsPresent = true;
-          break;
-        }
-      }
-      if (!myFieldIsPresent){
-        return false;
-      }
-    }
-    return true;
-  }else{
+  if (itmap == pajeObligatoryFields.end()){
     return false;
   }
+
+  std::set<std::string> obligatory = itmap->second;
+
+  //iterate through the set of obligatory fields for my pajeEventId
+  std::set<std::string>::iterator itset;
+  for (itset = obligatory.begin (); itset != obligatory.end(); itset++){
+    std::string obligatoryField = *itset;
+
+    //search each  the obligatory fields in the fields list of this definition
+    bool myFieldIsPresent = false;
+    std::list<std::string>::iterator itlist;
+    for (itlist = fields.begin(); itlist != fields.end(); itlist++){
+      if (*itlist == obligatoryField){
+        myFieldIsPresent = true;
+        break;
+      }
+    }
+    if (!myFieldIsPresent){
+      return false;
+    }
+  }
+  return true;
 }
 
 void PajeEventDefinition::showObligatoryFields (void)
 {
   std::map<PajeEventId,std::string> eventNames = initPajeEventIDToNames();
-  std::map<PajeFieldId,std::string> fieldNames = initPajeFieldIDToNames();
-
   std::cout << "These are the fields expected for a " << eventNames[pajeEventId]
             << " event definition:" << std::endl;
-  std::set<PajeFieldId>::iterator iter;
+  std::set<std::string>::iterator iter;
   iter = pajeObligatoryFields[pajeEventId].begin();
   while (iter != pajeObligatoryFields[pajeEventId].end()){
-    std::cout << fieldNames[*iter] << " ";
+    std::cout << *iter << " ";
     iter++;
   }
   std::cout << std::endl;
@@ -406,12 +337,10 @@ std::ostream &operator<< (std::ostream &output, const PajeEventDefinition &event
 {
   PajeEventDefinition def = (PajeEventDefinition)eventDef;
   std::map<PajeEventId,std::string> eventNames = initPajeEventIDToNames();
-  std::map<PajeFieldId,std::string> fieldNames = initPajeFieldIDToNames();
-  std::map<PajeFieldType,std::string> fieldTypes = initPajeFieldIDToTypes();
  
-  output << "  %EventDef " << eventNames[def.pajeEventId] << " " << def.eventId << std::endl;
-  std::list<PajeFieldId>::iterator itf = def.fields.begin();
-  std::list<PajeFieldType>::iterator itt = def.types.begin();
+  output << "  %EventDef " << eventNames[def.pajeEventId] << " " << def.number << std::endl;
+  std::list<std::string>::iterator itf = def.fields.begin();
+  std::list<std::string>::iterator itt = def.types.begin();
 
   //don't print the first field (it is the event type)
   itf++;
@@ -419,7 +348,7 @@ std::ostream &operator<< (std::ostream &output, const PajeEventDefinition &event
 
   //print
   while (itf != def.fields.end()){
-    output << "  %    " << fieldNames[*itf] << " " << fieldTypes[*itt] << std::endl;
+    output << "  %    " << *itf << " " << *itt << std::endl;
     itf++;
     itt++;
   }
