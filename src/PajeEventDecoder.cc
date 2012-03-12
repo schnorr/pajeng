@@ -85,9 +85,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
 
   str = line->word[n++];
   if (*str++ != '%') {
-    fprintf (stderr, "Line should start with a '%%'\n");
-    fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-    exit(1);
+    throw "Line should start with a '%%'";
   }
   if (*str == '\0') {
     str = line->word[n++];
@@ -101,24 +99,18 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
 
     //check if this event definition has a good start
     if (n != line->word_count || strcmp(str, "EventDef") != 0) {
-      fprintf (stderr, "'EventDef <event name> <event id>' expected.\n");
-      fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-      exit(1);
+      throw "'EventDef <event name> <event id>' expected.";
     }
 
     //check if this event definition has been already defined
     if (eventDefinitions[eventId]){
-      fprintf (stderr, "redefinition of event with id '%s'\n", eventId);
-      fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-      exit(1);
+      throw "Redefinition of event with id '"+std::string(eventId)+"'";
     }
 
     //check if we know the event name found in the trace file
     PajeEventId pajeEventId = getPajeEventId (eventName);
     if (pajeEventId == PajeUnknownEventId) {
-      fprintf (stderr, "unknown event name '%s'\n", eventName);
-      fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-      exit(1);
+      throw "Unknown event name '"+std::string(eventName)+"'";
     }
 
     eventBeingDefined = new PajeEventDefinition (pajeEventId, eventId);
@@ -158,9 +150,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
   }
   break;
   default:
-    fprintf (stderr, "Internal error, invalid status\n");
-    fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-    exit(1);
+    throw "Internal error, invalid status.";
   }
 }
 
@@ -172,15 +162,11 @@ PajeEvent *PajeEventDecoder::scanEventLine (paje_line *line)
 
   eventId = line->word[0];
   if (*eventId == '%') {
-    fprintf (stderr, "Line should not start with a '%%'\n");
-    fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-    exit(1);
+    throw "Line should not start with a '%%'";
   }
   eventDefinition = eventDefinitions[eventId];
   if (eventDefinition == NULL) {
-    fprintf (stderr, "Event with id '%s' has not been defined\n", eventId);
-    fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-    exit(1);
+    throw "Event with id '"+std::string(eventId)+"' has not been defined";
   }
 
   // event = [PajeEvent eventWithDefinition:eventDefinition line:line];
