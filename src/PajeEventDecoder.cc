@@ -85,7 +85,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
 
   str = line->word[n++];
   if (*str++ != '%') {
-    throw "Line should start with a '%%'";
+    throw std::string("Line should start with a '%%'");
   }
   if (*str == '\0') {
     str = line->word[n++];
@@ -99,7 +99,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
 
     //check if this event definition has a good start
     if (n != line->word_count || strcmp(str, "EventDef") != 0) {
-      throw "'EventDef <event name> <event id>' expected.";
+      throw std::string("'EventDef <event name> <event id>' expected.");
     }
 
     //check if this event definition has been already defined
@@ -123,7 +123,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
     fieldName = str;
 
     if (n > line->word_count) {
-      throw "Incomplete line, missing field name";
+      throw std::string("Incomplete line, missing field name");
     }
 
     if (strcmp(fieldName, "EndEventDef") == 0) {
@@ -150,7 +150,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
   }
   break;
   default:
-    throw "Internal error, invalid status.";
+    throw std::string("Internal error, invalid status.");
   }
 }
 
@@ -162,7 +162,7 @@ PajeEvent *PajeEventDecoder::scanEventLine (paje_line *line)
 
   eventId = line->word[0];
   if (*eventId == '%') {
-    throw "Line should not start with a '%%'";
+    throw std::string("Line should not start with a '%%'");
   }
   eventDefinition = eventDefinitions[eventId];
   if (eventDefinition == NULL) {
