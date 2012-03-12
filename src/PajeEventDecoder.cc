@@ -169,7 +169,7 @@ PajeEvent *PajeEventDecoder::scanEventLine (paje_line *line)
     throw "Event with id '"+std::string(eventId)+"' has not been defined";
   }
 
-  // event = [PajeEvent eventWithDefinition:eventDefinition line:line];
+  event = new PajeEvent (eventDefinition, line);
 
   return event;
 }
