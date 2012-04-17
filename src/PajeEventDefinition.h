@@ -17,7 +17,6 @@ typedef struct {
 } paje_line;
 
 typedef enum {
-    PajeStartTraceEventId,
     PajeDefineContainerTypeEventId,
     PajeDefineEventTypeEventId,
     PajeDefineStateTypeEventId,

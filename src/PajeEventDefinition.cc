@@ -3,7 +3,6 @@
 std::map<std::string,PajeEventId> initPajeEventNamesToID ()
 {
   std::map<std::string,PajeEventId> ret;
-  ret["PajeStartTrace"] = PajeStartTraceEventId;
   ret["PajeDefineContainerType"] = PajeDefineContainerTypeEventId;
   ret["PajeDefineEventType"] = PajeDefineEventTypeEventId;
   ret["PajeDefineStateType"] = PajeDefineStateTypeEventId;
@@ -27,7 +26,6 @@ std::map<std::string,PajeEventId> initPajeEventNamesToID ()
 std::map<PajeEventId,std::string> initPajeEventIDToNames ()
 {
   std::map<PajeEventId,std::string> ret;
-  ret[PajeStartTraceEventId] = "PajeStartTrace";
   ret[PajeDefineContainerTypeEventId] = "PajeDefineContainerType";
   ret[PajeDefineEventTypeEventId] = "PajeDefineEventType";
   ret[PajeDefineStateTypeEventId] = "PajeDefineStateType";
@@ -67,8 +65,6 @@ std::map<PajeEventId,std::set<std::string> > initObligatoryFields ()
   std::string line("Line");
 
   // The obligatory fields
-  ret[PajeStartTraceEventId] = std::set<std::string>();
-
   ret[PajeDefineContainerTypeEventId] = std::set<std::string>();
   ret[PajeDefineContainerTypeEventId].insert (name);
   ret[PajeDefineContainerTypeEventId].insert (type);
@@ -175,8 +171,6 @@ std::map<PajeEventId,std::set<std::string> > initOptionalFields ()
   std::string file = "File";
 
   // The optional fields
-  ret[PajeStartTraceEventId] = std::set<std::string>();
-
   ret[PajeDefineContainerTypeEventId] = std::set<std::string>();
   ret[PajeDefineContainerTypeEventId].insert (alias);
 
