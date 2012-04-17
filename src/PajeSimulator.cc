@@ -1,5 +1,40 @@
 #include "PajeSimulator.h"
 
+PajeContainerType::PajeContainerType (std::string name, std::string alias)
+{
+  this->name = name;
+  this->alias = alias;
+}
+
+PajeContainerType *PajeContainerType::search (std::string identifier)
+{
+  //check if it's me
+  if (alias.empty()){
+    if (this->name == identifier){
+      return this;
+    }
+  }else{
+    if (this->alias == identifier){
+      return this;
+    }
+  }
+
+  //search on children
+  std::list<PajeContainerType*>::iterator it;
+  for (it = children.begin(); it != children.end(); it++){
+    PajeContainerType *found = (*it)->search (identifier);
+    if (found) return found;
+  }
+  return NULL;
+}
+
+void PajeContainerType::addChild (PajeContainerType *child)
+{
+  std::list<PajeContainerType*>::iterator it = children.end();
+  children.insert (it, child);
+}
+
+
 PajeSimulator::PajeSimulator ()
 {
   invocation[PajeDefineContainerTypeEventId] = &PajeSimulator::pajeDefineContainerType;
@@ -18,6 +53,7 @@ PajeSimulator::PajeSimulator ()
   invocation[PajeSubVariableEventId] = &PajeSimulator::pajeSubVariable;
   invocation[PajeStartLinkEventId] = &PajeSimulator::pajeStartLink;
   invocation[PajeEndLinkEventId] = &PajeSimulator::pajeEndLink;
+  rootType = new PajeContainerType ("0", "0");
 }
 
 void PajeSimulator::inputEntity (PajeObject *data)
@@ -38,17 +74,33 @@ bool PajeSimulator::canEndChunkBefore (PajeObject *data)
 
 void PajeSimulator::startChunk (int chunkNumber)
 {
-//  std::cout << __FUNCTION__ << " " << chunkNumber << std::endl;
 }
 
 void PajeSimulator::endOfChunkLast (bool last)
 {
-  // std::cout << __FUNCTION__ << " " << last << std::endl;
 }
 
 void PajeSimulator::pajeDefineContainerType (PajeEvent *event)
 {
-  //std::cout << __FUNCTION__ << std::endl;
+  std::string name = event->valueForFieldId (std::string("Name"));
+  std::string type = event->valueForFieldId (std::string("Type"));
+  std::string alias = event->valueForFieldId (std::string("Alias"));
+
+  //verify presence of obligatory fields
+  if (name.empty()) throw "Missing 'Name' field in event";
+  if (type.empty()) throw "Missing 'Type' field in event"; 
+
+  //search for parent type
+  PajeContainerType *containerType = rootType->search (type);
+  std::stringstream line;
+  line << *event;
+  if (!containerType) throw "Unknow container type '"+type+"' in "+line.str();
+
+  //define new container type
+  PajeContainerType *newContainerType = new PajeContainerType (name, alias);
+
+  //add it as a child of its container type
+  containerType->addChild (newContainerType);
 }
 
 void PajeSimulator::pajeDefineLinkType (PajeEvent *event)

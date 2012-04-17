@@ -1,6 +1,7 @@
 #ifndef __PAJESIMULATOR_H__
 #define __PAJESIMULATOR_H__
 #include <map>
+#include <sstream>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -14,7 +15,23 @@
 
 #define CALL_MEMBER_PAJE_SIMULATOR(object,ptr) ((object).*(ptr))
 
+class PajeContainerType {
+private:
+  std::string name;
+  std::string alias;
+
+public:
+  std::list<PajeContainerType*> children;
+
+  PajeContainerType (std::string name, std::string alias);
+  PajeContainerType *search (std::string identifier);
+  void addChild (PajeContainerType *child);
+};
+
 class PajeSimulator : public PajeComponent {
+private:
+  PajeContainerType *rootType;
+
 public:
   PajeSimulator();
   
