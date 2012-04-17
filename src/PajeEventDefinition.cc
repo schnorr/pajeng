@@ -316,7 +316,7 @@ bool PajeEventDefinition::isValid (void)
 void PajeEventDefinition::showObligatoryFields (void)
 {
   std::map<PajeEventId,std::string> eventNames = initPajeEventIDToNames();
-  std::cout << "These are the fields expected for a " << eventNames[pajeEventId]
+  std::cout << "Obligatory fields expected for a " << eventNames[pajeEventId]
             << " event definition:" << std::endl;
   std::set<std::string>::iterator iter;
   iter = pajeObligatoryFields[pajeEventId].begin();
