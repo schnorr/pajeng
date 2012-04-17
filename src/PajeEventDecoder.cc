@@ -193,6 +193,7 @@ void PajeEventDecoder::inputEntity (PajeObject *data)
       PajeEvent *event = PajeEventDecoder::scanEventLine (&line);
       if (event != NULL){
         PajeComponent::outputEntity (event);
+        delete event;
       }
     }
   }
@@ -221,6 +222,7 @@ bool PajeEventDecoder::canEndChunkBefore (PajeObject *data)
       PajeEvent *event = PajeEventDecoder::scanEventLine (&line);
       if (event != NULL){
         canEndChunk = PajeComponent::canEndChunkBefore (event);
+        delete event;
         break;
       }
     }
@@ -240,6 +242,7 @@ bool PajeEventDecoder::canEndChunkBefore (PajeObject *data)
       PajeEvent *event = PajeEventDecoder::scanEventLine (&line);
       if (event != NULL){
         PajeComponent::outputEntity (event);
+        delete event;
       }
     }
   }
