@@ -23,3 +23,26 @@ PajeEventId PajeEvent::pajeEventId (void)
 {
   return pajeEventDefinition->pajeEventId;
 }
+
+std::string PajeEvent::valueForFieldId (std::string name)
+{
+  int index = pajeEventDefinition->indexForFieldId (name);
+  if (index == -1){
+    return std::string("");
+  }else{
+    return std::string(valueLine->word[index]);
+  }
+}
+
+std::ostream &operator<< (std::ostream &output, const PajeEvent &event)
+{
+  int i;
+  output << "(Line: " << event.lineNumber;
+  output << ", Contents: '";
+  for (i = 0; i < event.valueLine->word_count; i++){
+    output << std::string(event.valueLine->word[i]);
+    if (i+1 != event.valueLine->word_count) output << " ";
+  }
+  output << "')";
+  return output;
+}

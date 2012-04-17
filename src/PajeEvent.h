@@ -11,14 +11,18 @@
 #include "PajeObject.h"
 
 class PajeEvent : public PajeObject {
-private:
+public:
   paje_line *valueLine;
   PajeEventDefinition *pajeEventDefinition;
+  long long lineNumber;
 
 public:
   PajeEvent (PajeEventDefinition *def, paje_line *line);
   PajeEventId pajeEventId (void);
+  std::string valueForFieldId (std::string name);
 };
+
+std::ostream &operator<< (std::ostream &output, const PajeEvent &event);
 
 #endif
 
