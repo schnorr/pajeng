@@ -10,6 +10,8 @@ PajeEvent::PajeEvent (PajeEventDefinition *def, paje_line *line)
       str += " ";
     }
     std::cout << *def << std::endl;
+    std::cout << "Line field count: " << line->word_count << std::endl;
+    std::cout << "Definition field count: " << def->fieldCount << std::endl;
     throw "Field count does not match definition for line '"+ str + "'.";
   }
 
