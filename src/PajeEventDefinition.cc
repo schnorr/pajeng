@@ -281,6 +281,17 @@ void PajeEventDefinition::addField (std::string name, std::string type)
   return;
 }
 
+int PajeEventDefinition::indexForFieldId (std::string name)
+{
+  int i;
+  std::list<std::string>::iterator it;
+  for (i = 0, it = fields.begin(); it != fields.end(); i++, it++){
+    if (name == *it) return i;
+  }
+  if (i == fields.size()) return -1;
+  else return i;
+}
+
 bool PajeEventDefinition::isValid (void)
 {
   //get the obligatory fields for my pajeEventId
