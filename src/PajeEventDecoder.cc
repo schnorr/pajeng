@@ -14,6 +14,7 @@ static PajeEventId getPajeEventId (std::string eventName)
 PajeEventDecoder::PajeEventDecoder ()
 {
   defStatus = OUT_DEF;
+  currentLineNumber = 0;
 
   //TODO FIXME
   //chunkInfo ...
@@ -152,6 +153,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
   default:
     throw std::string("Internal error, invalid status.");
   }
+  currentLineNumber++;
 }
 
 PajeEvent *PajeEventDecoder::scanEventLine (paje_line *line)
@@ -169,8 +171,9 @@ PajeEvent *PajeEventDecoder::scanEventLine (paje_line *line)
     throw "Event with id '"+std::string(eventId)+"' has not been defined";
   }
 
+  currentLineNumber++;
   event = new PajeEvent (eventDefinition, line);
-
+  event->lineNumber = currentLineNumber;
   return event;
 }
 

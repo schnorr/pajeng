@@ -22,6 +22,7 @@ private:
   char *break_line (char *s, paje_line *line);
   void scanDefinitionLine (paje_line *line);
   PajeEvent *scanEventLine (paje_line *line);
+  long long currentLineNumber;
 
 public:
   PajeEventDecoder (void);
