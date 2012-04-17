@@ -17,6 +17,7 @@ private:
 
 public:
   PajeEvent (PajeEventDefinition *def, paje_line *line);
+  PajeEventId pajeEventId (void);
 };
 
 #endif
