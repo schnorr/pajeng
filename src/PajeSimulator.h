@@ -9,6 +9,10 @@
 #include <string.h>
 #include "PajeTraceController.h"
 #include "PajeComponent.h"
+#include "PajeEvent.h"
+
+
+#define CALL_MEMBER_PAJE_SIMULATOR(object,ptr) ((object).*(ptr))
 
 class PajeSimulator : public PajeComponent {
 public:
@@ -19,5 +23,30 @@ public:
       
   void startChunk (int chunkNumber);
   void endOfChunkLast (bool last);
+
+private:
+  void (PajeSimulator::*invocation[PajeEventIdCount])(PajeEvent*);
+
+  void pajeDefineContainerType (PajeEvent *event);
+  void pajeDefineLinkType (PajeEvent *event);
+  void pajeDefineEventType (PajeEvent *event);
+  void pajeDefineStateType (PajeEvent *event);
+  void pajeDefineVariableType (PajeEvent *event);
+
+  void pajeCreateContainer (PajeEvent *event);
+  void pajeDestroyContainer (PajeEvent *event);
+
+  void pajeNewEvent (PajeEvent *event);
+
+  void pajeSetState (PajeEvent *event);
+  void pajePushState (PajeEvent *event);
+  void pajePopState (PajeEvent *event);
+
+  void pajeSetVariable (PajeEvent *event);
+  void pajeAddVariable (PajeEvent *event);
+  void pajeSubVariable (PajeEvent *event);
+
+  void pajeStartLink (PajeEvent *event);
+  void pajeEndLink (PajeEvent *event);
 };
 #endif
