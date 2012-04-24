@@ -29,7 +29,8 @@ PajeContainerType::PajeContainerType (std::string name, std::string alias, PajeT
 
 PajeType *PajeContainerType::search (std::string identifier)
 {
-  if (PajeType::search(identifier)) return this;
+  PajeType *found = PajeType::search(identifier);
+  if (found) return found;
 
   //search on children
   std::list<PajeType*>::iterator it;
