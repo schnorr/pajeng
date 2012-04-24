@@ -16,6 +16,7 @@
 #define CALL_MEMBER_PAJE_SIMULATOR(object,ptr) ((object).*(ptr))
 
 class PajeContainerType;
+class PajeLinkType;
 
 class PajeType {
 private:
@@ -29,6 +30,16 @@ public:
   PajeType virtual *search (std::string identifier);
 
   friend class PajeContainerType;
+  friend class PajeLinkType;
+};
+
+class PajeLinkType : public PajeType {
+private:
+  std::string starttype;
+  std::string endtype;
+
+public:
+  PajeLinkType (std::string name, std::string alias, std::string start, std::string end, PajeType *parent);
 };
 
 class PajeContainerType : public PajeType {

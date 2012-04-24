@@ -22,6 +22,12 @@ PajeType *PajeType::search (std::string identifier)
   return NULL;
 }
 
+PajeLinkType::PajeLinkType (std::string name, std::string alias, std::string start, std::string end, PajeType *parent):PajeType(name,alias,parent)
+{
+  this->starttype = start;
+  this->endtype = end;
+}
+
 PajeContainerType::PajeContainerType (std::string name, std::string alias, PajeType *parent):
   PajeType (name, alias, parent)
 {
@@ -122,8 +128,18 @@ bool PajeContainerType::addEventType (std::string name, std::string alias)
 
 bool PajeContainerType::addLinkType (std::string name, std::string alias, std::string starttype, std::string endtype)
 {
-  //TODO
-  return addType (name, alias);
+  //check if already exists
+  std::string identifier;
+  identifier = !alias.empty() ? alias : name;
+  PajeType *existing = getRootType()->search (identifier);
+  if (existing) return false;
+
+  //define new variable type
+  PajeLinkType *newType = new PajeLinkType (name, alias, starttype, endtype, this);
+
+  //add it as a child of its container type
+  addChild (newType);
+  return true;
 }
 
 PajeSimulator::PajeSimulator ()
