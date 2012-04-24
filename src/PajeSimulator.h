@@ -15,17 +15,40 @@
 
 #define CALL_MEMBER_PAJE_SIMULATOR(object,ptr) ((object).*(ptr))
 
-class PajeContainerType {
+class PajeContainerType;
+
+class PajeType {
 private:
   std::string name;
   std::string alias;
+  PajeType *parent;
 
 public:
-  std::list<PajeContainerType*> children;
+  PajeType (std::string name, std::string alias, PajeType *parent);
+  bool virtual isContainer (void);
+  PajeType virtual *search (std::string identifier);
 
-  PajeContainerType (std::string name, std::string alias);
-  PajeContainerType *search (std::string identifier);
-  void addChild (PajeContainerType *child);
+  friend class PajeContainerType;
+};
+
+class PajeContainerType : public PajeType {
+
+public:
+  std::list<PajeType*> children;
+
+  PajeContainerType (std::string name, std::string alias, PajeType *parent);
+  PajeType *search (std::string identifier);
+  PajeType *getRootType (void);
+
+  bool isContainer (void);
+  bool addContainerType (std::string name, std::string alias);
+  bool addVariableType (std::string name, std::string alias);
+  bool addStateType (std::string name, std::string alias);
+  bool addEventType (std::string name, std::string alias);
+  bool addLinkType (std::string name, std::string alias);
+private:
+  bool addType (std::string name, std::string alias);
+  void addChild (PajeType *type);
 };
 
 class PajeSimulator : public PajeComponent {
@@ -37,7 +60,7 @@ public:
   
   void inputEntity (PajeObject *data);
   bool canEndChunkBefore (PajeObject *data);
-      
+
   void startChunk (int chunkNumber);
   void endOfChunkLast (bool last);
 
