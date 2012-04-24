@@ -45,7 +45,7 @@ public:
   bool addVariableType (std::string name, std::string alias);
   bool addStateType (std::string name, std::string alias);
   bool addEventType (std::string name, std::string alias);
-  bool addLinkType (std::string name, std::string alias);
+  bool addLinkType (std::string name, std::string alias, std::string starttype, std::string endtype);
 private:
   bool addType (std::string name, std::string alias);
   void addChild (PajeType *type);

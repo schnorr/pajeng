@@ -120,8 +120,9 @@ bool PajeContainerType::addEventType (std::string name, std::string alias)
   return addType (name, alias);
 }
 
-bool PajeContainerType::addLinkType (std::string name, std::string alias)
+bool PajeContainerType::addLinkType (std::string name, std::string alias, std::string starttype, std::string endtype)
 {
+  //TODO
   return addType (name, alias);
 }
 
@@ -201,11 +202,15 @@ void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
 {
   std::string name = event->valueForFieldId (std::string("Name"));
   std::string type = event->valueForFieldId (std::string("Type"));
+  std::string starttype = event->valueForFieldId (std::string("StartContainerType"));
+  std::string endtype = event->valueForFieldId (std::string("EndContainerType"));
   std::string alias = event->valueForFieldId (std::string("Alias"));
 
   //verify presence of obligatory fields
   if (name.empty()) throw "Missing 'Name' field in event";
   if (type.empty()) throw "Missing 'Type' field in event"; 
+  if (starttype.empty()) throw "Missing 'StartContainerType' field in event";
+  if (endtype.empty()) throw "Missing 'EndContainerType' field in event";
 
   //search for parent type
   PajeType *containerType = rootType->search (type);
@@ -215,7 +220,21 @@ void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
     throw "Unknow container type '"+type+"' in "+line.str();
   }
 
-  if (!dynamic_cast<PajeContainerType*>(containerType)->addLinkType (name, alias)){
+  //search for start container type
+  if (!rootType->search (starttype)){
+    std::stringstream line;
+    line << *event;
+    throw "Unknow start container type '"+starttype+"' for link definition in "+line.str();
+  }
+
+  //search for end container type
+  if (!rootType->search (endtype)){
+    std::stringstream line;
+    line << *event;
+    throw "Unknow end container type '"+endtype+"' for link definition in "+line.str();
+  }
+
+  if (!dynamic_cast<PajeContainerType*>(containerType)->addLinkType (name, alias, starttype, endtype)){
     std::string identifier = !alias.empty() ? alias : name;
     std::stringstream line;
     line << *event;
