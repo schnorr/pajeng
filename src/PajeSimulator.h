@@ -49,6 +49,7 @@ private:
   void pajeDefineEventType (PajeEvent *event);
   void pajeDefineStateType (PajeEvent *event);
   void pajeDefineVariableType (PajeEvent *event);
+  void pajeDefineEntityValue (PajeEvent *event);
 
   void pajeCreateContainer (PajeEvent *event);
   void pajeDestroyContainer (PajeEvent *event);

@@ -42,6 +42,7 @@ PajeSimulator::PajeSimulator ()
   invocation[PajeDefineEventTypeEventId] = &PajeSimulator::pajeDefineEventType;
   invocation[PajeDefineStateTypeEventId] = &PajeSimulator::pajeDefineStateType;
   invocation[PajeDefineVariableTypeEventId] = &PajeSimulator::pajeDefineVariableType;
+  invocation[PajeDefineEntityValueEventId] = &PajeSimulator::pajeDefineEntityValue;
   invocation[PajeCreateContainerEventId] = &PajeSimulator::pajeCreateContainer;
   invocation[PajeDestroyContainerEventId] = &PajeSimulator::pajeDestroyContainer;
   invocation[PajeNewEventEventId] = &PajeSimulator::pajeNewEvent;
@@ -121,6 +122,10 @@ void PajeSimulator::pajeDefineStateType (PajeEvent *event)
 void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
 {
   //std::cout << __FUNCTION__ << std::endl;
+}
+
+void PajeSimulator::pajeDefineEntityValue (PajeEvent *event)
+{
 }
 
 void PajeSimulator::pajeCreateContainer (PajeEvent *event)
