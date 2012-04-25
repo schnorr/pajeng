@@ -13,6 +13,7 @@ SET(SRC
   src/PajeSimulator.cc
   src/PajeTraceController.cc
   src/PajeComponent.cc
+  src/PajeType.cc
 )
 
 ADD_EXECUTABLE(paje ${SRC})

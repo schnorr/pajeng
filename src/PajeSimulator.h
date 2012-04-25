@@ -11,60 +11,14 @@
 #include "PajeTraceController.h"
 #include "PajeComponent.h"
 #include "PajeEvent.h"
-
+#include "PajeType.h"
 
 #define CALL_MEMBER_PAJE_SIMULATOR(object,ptr) ((object).*(ptr))
-
-class PajeContainerType;
-class PajeLinkType;
-
-class PajeType {
-private:
-  std::string name;
-  std::string alias;
-  PajeType *parent;
-
-public:
-  PajeType (std::string name, std::string alias, PajeType *parent);
-  bool virtual isContainer (void);
-  PajeType virtual *search (std::string identifier);
-
-  friend class PajeContainerType;
-  friend class PajeLinkType;
-};
-
-class PajeLinkType : public PajeType {
-private:
-  std::string starttype;
-  std::string endtype;
-
-public:
-  PajeLinkType (std::string name, std::string alias, std::string start, std::string end, PajeType *parent);
-};
-
-class PajeContainerType : public PajeType {
-
-public:
-  std::list<PajeType*> children;
-
-  PajeContainerType (std::string name, std::string alias, PajeType *parent);
-  PajeType *search (std::string identifier);
-  PajeType *getRootType (void);
-
-  bool isContainer (void);
-  bool addContainerType (std::string name, std::string alias);
-  bool addVariableType (std::string name, std::string alias);
-  bool addStateType (std::string name, std::string alias);
-  bool addEventType (std::string name, std::string alias);
-  bool addLinkType (std::string name, std::string alias, std::string starttype, std::string endtype);
-private:
-  bool addType (std::string name, std::string alias);
-  void addChild (PajeType *type);
-};
 
 class PajeSimulator : public PajeComponent {
 private:
   PajeContainerType *rootType;
+//  PajeContainer *root;
 
 public:
   PajeSimulator();
