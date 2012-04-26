@@ -7,11 +7,6 @@ PajeType::PajeType (std::string name, std::string alias, PajeType *parent)
   this->parent = parent;
 }
 
-bool PajeType::isContainer (void)
-{
-  return false;
-}
-
 const std::string PajeType::identifier (void)
 {
   return alias.empty() ? name : alias;
@@ -45,11 +40,6 @@ void PajeContainerType::addChild (PajeType *child)
 {
   std::list<PajeType*>::iterator it = children.end();
   children.insert (it, child);
-}
-
-bool PajeContainerType::isContainer(void)
-{
-  return true;
 }
 
 PajeContainerType *PajeContainerType::addContainerType (std::string name, std::string alias)

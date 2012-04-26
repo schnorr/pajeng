@@ -23,11 +23,7 @@ public:
 
 public:
   PajeType (std::string name, std::string alias, PajeType *parent);
-  bool virtual isContainer (void);
   const std::string identifier (void);
-
-  friend class PajeContainerType;
-  friend class PajeLinkType;
 };
 
 class PajeLinkType : public PajeType {
@@ -47,7 +43,6 @@ public:
   PajeContainerType (std::string name, std::string alias, PajeType *parent);
   PajeType *getRootType (void);
 
-  bool isContainer (void);
   PajeContainerType *addContainerType (std::string name, std::string alias);
   PajeType *addVariableType (std::string name, std::string alias);
   PajeType *addStateType (std::string name, std::string alias);
