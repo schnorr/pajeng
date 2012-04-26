@@ -7,7 +7,7 @@ PajeType::PajeType (std::string name, std::string alias, PajeType *parent)
   this->parent = parent;
 }
 
-const std::string PajeType::identifier (void)
+std::string PajeType::identifier (void)
 {
   return alias.empty() ? name : alias;
 }

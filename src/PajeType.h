@@ -23,7 +23,7 @@ public:
 
 public:
   PajeType (std::string name, std::string alias, PajeType *parent);
-  const std::string identifier (void);
+  virtual std::string identifier (void);
 };
 
 class PajeLinkType : public PajeType {
