@@ -38,6 +38,8 @@ class PajeSimulator : public PajeComponent {
 private:
   PajeContainerType *rootType;
   PajeContainer *root;
+  std::map<std::string,PajeType*> typeMap;
+  std::map<std::string,PajeContainer*> contMap;
 
 public:
   PajeSimulator();

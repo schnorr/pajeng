@@ -49,6 +49,8 @@ PajeSimulator::PajeSimulator ()
   invocation[PajeEndLinkEventId] = &PajeSimulator::pajeEndLink;
   rootType = new PajeContainerType ("0", "0", NULL);
   root = new PajeContainer ("0", "0", NULL, rootType);
+  typeMap[rootType->identifier()] = rootType;
+  contMap[root->identifier()] = root;
 }
 
 void PajeSimulator::inputEntity (PajeObject *data)
@@ -82,19 +84,22 @@ void PajeSimulator::pajeDefineContainerType (PajeEvent *event)
   std::string alias = event->valueForFieldId (std::string("Alias"));
 
   //search for parent type
-  PajeType *containerType = rootType->search (type);
+  PajeType *containerType = typeMap[type];
   if (!containerType){
     std::stringstream line;
     line << *event;
     throw "Unknow container type '"+type+"' in "+line.str();
   }
 
-  if (!dynamic_cast<PajeContainerType*>(containerType)->addContainerType (name, alias)){
-    std::string identifier = !alias.empty() ? alias : name;
+  std::string identifier = !alias.empty() ? alias : name;
+  PajeType *newType = typeMap[identifier];
+  if (newType){
     std::stringstream line;
     line << *event;
     throw "Container type '"+identifier+"' in "+line.str()+" already defined";
   }
+  newType = dynamic_cast<PajeContainerType*>(containerType)->addContainerType (name, alias);
+  typeMap[newType->identifier()] = newType;
 }
 
 void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
@@ -106,7 +111,7 @@ void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
   std::string alias = event->valueForFieldId (std::string("Alias"));
 
   //search for parent type
-  PajeType *containerType = rootType->search (type);
+  PajeType *containerType = typeMap[type];
   if (!containerType){
     std::stringstream line;
     line << *event;
@@ -114,25 +119,29 @@ void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
   }
 
   //search for start container type
-  if (!rootType->search (starttype)){
+  if (!typeMap[starttype]){
     std::stringstream line;
     line << *event;
     throw "Unknow start container type '"+starttype+"' for link definition in "+line.str();
   }
 
   //search for end container type
-  if (!rootType->search (endtype)){
+  if (!typeMap[endtype]){
     std::stringstream line;
     line << *event;
     throw "Unknow end container type '"+endtype+"' for link definition in "+line.str();
   }
 
-  if (!dynamic_cast<PajeContainerType*>(containerType)->addLinkType (name, alias, starttype, endtype)){
-    std::string identifier = !alias.empty() ? alias : name;
+  //check if the new type already exists
+  std::string identifier = !alias.empty() ? alias : name;
+  PajeType *newType = typeMap[identifier];
+  if (newType){
     std::stringstream line;
     line << *event;
     throw "Link type '"+identifier+"' in "+line.str()+" already defined";
   }
+  newType = dynamic_cast<PajeContainerType*>(containerType)->addLinkType (name, alias, starttype, endtype);
+  typeMap[newType->identifier()] = newType;
 }
 
 void PajeSimulator::pajeDefineEventType (PajeEvent *event)
@@ -142,19 +151,22 @@ void PajeSimulator::pajeDefineEventType (PajeEvent *event)
   std::string alias = event->valueForFieldId (std::string("Alias"));
 
   //search for parent type
-  PajeType *containerType = rootType->search (type);
+  PajeType *containerType = typeMap[type];
   if (!containerType){
     std::stringstream line;
     line << *event;
     throw "Unknow container type '"+type+"' in "+line.str();
   }
 
-  if (!dynamic_cast<PajeContainerType*>(containerType)->addEventType (name, alias)){
-    std::string identifier = !alias.empty() ? alias : name;
+  std::string identifier = !alias.empty() ? alias : name;
+  PajeType *newType = typeMap[identifier];
+  if (newType){
     std::stringstream line;
     line << *event;
     throw "Event type '"+identifier+"' in "+line.str()+" already defined";
   }
+  newType = dynamic_cast<PajeContainerType*>(containerType)->addEventType (name, alias);
+  typeMap[newType->identifier()] = newType;
 }
 
 void PajeSimulator::pajeDefineStateType (PajeEvent *event)
@@ -164,19 +176,22 @@ void PajeSimulator::pajeDefineStateType (PajeEvent *event)
   std::string alias = event->valueForFieldId (std::string("Alias"));
 
   //search for parent type
-  PajeType *containerType = rootType->search (type);
+  PajeType *containerType = typeMap[type];
   if (!containerType){
     std::stringstream line;
     line << *event;
     throw "Unknow container type '"+type+"' in "+line.str();
   }
 
-  if (!dynamic_cast<PajeContainerType*>(containerType)->addStateType (name, alias)){
-    std::string identifier = !alias.empty() ? alias : name;
+  std::string identifier = !alias.empty() ? alias : name;
+  PajeType *newType = typeMap[identifier];
+  if (newType){
     std::stringstream line;
     line << *event;
     throw "State type '"+identifier+"' in "+line.str()+" already defined";
   }
+  newType = dynamic_cast<PajeContainerType*>(containerType)->addStateType (name, alias);
+  typeMap[newType->identifier()] = newType;
 }
 
 void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
@@ -186,19 +201,22 @@ void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
   std::string alias = event->valueForFieldId (std::string("Alias"));
 
   //search for parent type
-  PajeType *containerType = rootType->search (type);
+  PajeType *containerType = typeMap[type];
   if (!containerType){
     std::stringstream line;
     line << *event;
     throw "Unknow container type '"+type+"' in "+line.str();
   }
 
-  if (!dynamic_cast<PajeContainerType*>(containerType)->addVariableType (name, alias)){
-    std::string identifier = !alias.empty() ? alias : name;
+  std::string identifier = !alias.empty() ? alias : name;
+  PajeType *newType = typeMap[identifier];
+  if (newType){
     std::stringstream line;
     line << *event;
     throw "Variable type '"+identifier+"' in "+line.str()+" already defined";
   }
+  newType = dynamic_cast<PajeContainerType*>(containerType)->addVariableType (name, alias);
+  typeMap[newType->identifier()] = newType;
 }
 
 void PajeSimulator::pajeDefineEntityValue (PajeEvent *event)
@@ -215,7 +233,7 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
   std::string alias = event->valueForFieldId (std::string("Alias"));
 
   //search the container type for the new container
-  PajeType *containerType = rootType->search (type);
+  PajeType *containerType = typeMap[type];
   if (!containerType){
     std::stringstream line;
     line << *event;
@@ -223,7 +241,7 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
   }
 
   //search the container of the new container
-  PajeContainer *container = root->search (containerid);
+  PajeContainer *container = contMap[containerid];
   if (!container){
     std::stringstream line;
     line << *event;
@@ -243,7 +261,7 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
 
   //verify if there is a container with the same name
   std::string identifier = !alias.empty() ? alias : name;  
-  PajeContainer *cont = root->search (identifier);
+  PajeContainer *cont = contMap[identifier];
   if (cont){
     std::stringstream eventdesc;
     eventdesc << *event;
@@ -251,7 +269,8 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
   }
 
   //everything seems ok, create the container
-  container->addContainer (name, alias, containerType);
+  PajeContainer *newContainer = container->addContainer (name, alias, containerType);
+  contMap[newContainer->identifier()] = newContainer;
 }
 
 void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
@@ -261,7 +280,7 @@ void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
   std::string name = event->valueForFieldId (std::string("Name"));
 
   //search the container type for the new container
-  PajeType *containerType = rootType->search (type);
+  PajeType *containerType = typeMap[type];
   if (!containerType){
     std::stringstream line;
     line << *event;
@@ -269,7 +288,7 @@ void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
   }
 
   //search the container to be destroyed
-  PajeContainer *container = root->search (name);
+  PajeContainer *container = contMap[name];
   if (!container){
     std::stringstream line;
     line << *event;
@@ -297,7 +316,7 @@ void PajeSimulator::validateVariableStateEvent (PajeEvent *event, bool checkValu
   std::string value = event->valueForFieldId (std::string("Value"));
 
   //search the container
-  PajeContainer *container = root->search (containerstr);
+  PajeContainer *container = contMap[containerstr];
   if (!container){
     std::stringstream line;
     line << *event;
@@ -305,7 +324,7 @@ void PajeSimulator::validateVariableStateEvent (PajeEvent *event, bool checkValu
   }
 
   //search the type
-  PajeType *type = rootType->search (typestr);
+  PajeType *type = typeMap[typestr];
   if (!type){
     std::stringstream line;
     line << *event;
