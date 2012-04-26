@@ -30,6 +30,7 @@ public:
   PajeContainer *search (std::string identifier);
   PajeContainer *getRoot (void);
   void addContainer (std::string name, std::string alias, PajeType *type);
+  std::string identifier (void);
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container);

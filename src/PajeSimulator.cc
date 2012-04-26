@@ -8,6 +8,11 @@ PajeContainer::PajeContainer (std::string name, std::string alias, PajeContainer
   this->type = type;
 }
 
+std::string PajeContainer::identifier ()
+{
+  return alias.empty() ? name : alias;
+}
+
 PajeContainer *PajeContainer::search (std::string identifier)
 {
   if (alias.empty()){
