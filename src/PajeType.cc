@@ -48,44 +48,38 @@ PajeType *PajeContainerType::getRootType (void)
   return root;
 }
 
-void PajeContainerType::addChild (PajeType *child)
-{
-  std::list<PajeType*>::iterator it = children.end();
-  children.insert (it, child);
-}
-
 PajeContainerType *PajeContainerType::addContainerType (std::string name, std::string alias)
 {
   PajeContainerType *newType = new PajeContainerType (name, alias, this);
-  addChild (newType);
+  children[newType->identifier()] = newType;
   return newType;
 }
 
 PajeVariableType *PajeContainerType::addVariableType (std::string name, std::string alias)
 {
   PajeVariableType *newType = new PajeVariableType (name, alias, this);
-  addChild (newType);
+  children[newType->identifier()] = newType;
   return newType;
 }
 
 PajeStateType *PajeContainerType::addStateType (std::string name, std::string alias)
 {
   PajeStateType *newType = new PajeStateType (name, alias, this);
-  addChild (newType);
+  children[newType->identifier()] = newType;
   return newType;
 }
 
 PajeEventType *PajeContainerType::addEventType (std::string name, std::string alias)
 {
   PajeEventType *newType = new PajeEventType (name, alias, this);
-  addChild (newType);
+  children[newType->identifier()] = newType;
   return newType;
 }
 
 PajeLinkType *PajeContainerType::addLinkType (std::string name, std::string alias, std::string starttype, std::string endtype)
 {
   PajeLinkType *newType = new PajeLinkType (name, alias, starttype, endtype, this);
-  addChild (newType);
+  children[newType->identifier()] = newType;
   return newType;
 }
 

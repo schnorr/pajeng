@@ -50,7 +50,7 @@ public:
 class PajeContainerType : public PajeType {
 
 public:
-  std::list<PajeType*> children;
+  std::map<std::string,PajeType*> children;
 
   PajeContainerType (std::string name, std::string alias, PajeType *parent);
   PajeType *getRootType (void);
@@ -60,8 +60,6 @@ public:
   PajeStateType *addStateType (std::string name, std::string alias);
   PajeEventType *addEventType (std::string name, std::string alias);
   PajeLinkType *addLinkType (std::string name, std::string alias, std::string starttype, std::string endtype);
-private:
-  void addChild (PajeType *type);
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeType &type);
