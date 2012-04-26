@@ -23,7 +23,7 @@ public:
   PajeContainer *parent;
   PajeType *type;
 
-  std::list<PajeContainer*> children;
+  std::map<std::string,PajeContainer*> children;
 
 public:
   PajeContainer (std::string name, std::string alias, PajeContainer *parent, PajeType *type);

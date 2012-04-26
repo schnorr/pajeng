@@ -15,16 +15,15 @@ std::string PajeContainer::identifier ()
 
 PajeContainer *PajeContainer::search (std::string identifier)
 {
-  if (alias.empty()){
-    if (this->name == identifier) return this;
-  }else{
-    if (this->alias == identifier) return this;
-  }
+  if (this->identifier() == identifier) return this;
+  if (children[identifier]) return children[identifier];
 
-  std::list<PajeContainer*>::iterator it;
+  std::map<std::string,PajeContainer*>::iterator it;
   for (it = children.begin(); it != children.end(); it++){
-    PajeContainer *found = (*it)->search(identifier);
-    if (found) return found;
+    if ((*it).second){
+      PajeContainer *found = (*it).second->search(identifier);
+      if (found) return found;
+    }
   }
   return NULL;
 }
@@ -32,8 +31,7 @@ PajeContainer *PajeContainer::search (std::string identifier)
 PajeContainer *PajeContainer::addContainer (std::string name, std::string alias, PajeType *type)
 {
   PajeContainer *newContainer = new PajeContainer (name, alias, this, type);  
-  std::list<PajeContainer*>::iterator it = children.end();
-  children.insert (it, newContainer);
+  children[newContainer->identifier()] = newContainer;
   return newContainer;
 }
 
