@@ -12,12 +12,6 @@ bool PajeType::isContainer (void)
   return false;
 }
 
-PajeType *PajeType::search (std::string identifier)
-{
-  if (this->identifier() == identifier) return this;
-  else return NULL;
-}
-
 const std::string PajeType::identifier (void)
 {
   return alias.empty() ? name : alias;
@@ -32,26 +26,6 @@ PajeLinkType::PajeLinkType (std::string name, std::string alias, std::string sta
 PajeContainerType::PajeContainerType (std::string name, std::string alias, PajeType *parent):
   PajeType (name, alias, parent)
 {
-}
-
-PajeType *PajeContainerType::search (std::string identifier)
-{
-  PajeType *found = PajeType::search(identifier);
-  if (found) return found;
-
-  //search on children
-  std::list<PajeType*>::iterator it;
-  for (it = children.begin(); it != children.end(); it++){
-    PajeContainerType* containerchild = dynamic_cast<PajeContainerType*>(*it);
-    if (containerchild){
-      PajeType *found = containerchild->search (identifier);
-      if (found) return found;
-    }else{
-      PajeType *found = (*it)->search (identifier);
-      if (found) return found;
-    }
-  }
-  return NULL;
 }
 
 PajeType *PajeContainerType::getRootType (void)
@@ -80,34 +54,14 @@ bool PajeContainerType::isContainer(void)
 
 PajeContainerType *PajeContainerType::addContainerType (std::string name, std::string alias)
 {
-  PajeType *rootType = getRootType ();
-
-  //check if already exists
-  std::string identifier;
-  identifier = !alias.empty() ? alias : name;
-  PajeType *existing = getRootType()->search (identifier);
-  if (existing) return false;
-
-  //define new container type
   PajeContainerType *newContainerType = new PajeContainerType (name, alias, this);
-
-  //add it as a child of its container type
   addChild (newContainerType);
   return newContainerType;
 }
 
 PajeType *PajeContainerType::addType (std::string name, std::string alias)
 {
-  //check if already exists
-  std::string identifier;
-  identifier = !alias.empty() ? alias : name;
-  PajeType *existing = getRootType()->search (identifier);
-  if (existing) return false;
-
-  //define new variable type
   PajeType *newType = new PajeType (name, alias, this);
-
-  //add it as a child of its container type
   addChild (newType);
   return newType;
 }
@@ -129,16 +83,7 @@ PajeType *PajeContainerType::addEventType (std::string name, std::string alias)
 
 PajeLinkType *PajeContainerType::addLinkType (std::string name, std::string alias, std::string starttype, std::string endtype)
 {
-  //check if already exists
-  std::string identifier;
-  identifier = !alias.empty() ? alias : name;
-  PajeType *existing = getRootType()->search (identifier);
-  if (existing) return false;
-
-  //define new variable type
   PajeLinkType *newType = new PajeLinkType (name, alias, starttype, endtype, this);
-
-  //add it as a child of its container type
   addChild (newType);
   return newType;
 }

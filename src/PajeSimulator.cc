@@ -13,21 +13,6 @@ std::string PajeContainer::identifier ()
   return alias.empty() ? name : alias;
 }
 
-PajeContainer *PajeContainer::search (std::string identifier)
-{
-  if (this->identifier() == identifier) return this;
-  if (children[identifier]) return children[identifier];
-
-  std::map<std::string,PajeContainer*>::iterator it;
-  for (it = children.begin(); it != children.end(); it++){
-    if ((*it).second){
-      PajeContainer *found = (*it).second->search(identifier);
-      if (found) return found;
-    }
-  }
-  return NULL;
-}
-
 PajeContainer *PajeContainer::addContainer (std::string name, std::string alias, PajeType *type)
 {
   PajeContainer *newContainer = new PajeContainer (name, alias, this, type);  

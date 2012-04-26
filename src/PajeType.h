@@ -24,7 +24,6 @@ public:
 public:
   PajeType (std::string name, std::string alias, PajeType *parent);
   bool virtual isContainer (void);
-  PajeType virtual *search (std::string identifier);
   const std::string identifier (void);
 
   friend class PajeContainerType;
@@ -46,7 +45,6 @@ public:
   std::list<PajeType*> children;
 
   PajeContainerType (std::string name, std::string alias, PajeType *parent);
-  PajeType *search (std::string identifier);
   PajeType *getRootType (void);
 
   bool isContainer (void);
