@@ -14,12 +14,13 @@ bool PajeType::isContainer (void)
 
 PajeType *PajeType::search (std::string identifier)
 {
-  if (alias.empty()){
-    if (this->name == identifier) return this;
-  }else{
-    if (this->alias == identifier) return this;
-  }
-  return NULL;
+  if (this->identifier() == identifier) return this;
+  else return NULL;
+}
+
+const std::string PajeType::identifier (void)
+{
+  return alias.empty() ? name : alias;
 }
 
 PajeLinkType::PajeLinkType (std::string name, std::string alias, std::string start, std::string end, PajeType *parent):PajeType(name,alias,parent)
