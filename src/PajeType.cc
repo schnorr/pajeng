@@ -12,6 +12,18 @@ std::string PajeType::identifier (void)
   return alias.empty() ? name : alias;
 }
 
+PajeVariableType::PajeVariableType  (std::string name, std::string alias, PajeType *parent):PajeType(name,alias,parent)
+{
+}
+
+PajeStateType::PajeStateType  (std::string name, std::string alias, PajeType *parent):PajeType(name,alias,parent)
+{
+}
+
+PajeEventType::PajeEventType  (std::string name, std::string alias, PajeType *parent):PajeType(name,alias,parent)
+{
+}
+
 PajeLinkType::PajeLinkType (std::string name, std::string alias, std::string start, std::string end, PajeType *parent):PajeType(name,alias,parent)
 {
   this->starttype = start;
@@ -44,31 +56,30 @@ void PajeContainerType::addChild (PajeType *child)
 
 PajeContainerType *PajeContainerType::addContainerType (std::string name, std::string alias)
 {
-  PajeContainerType *newContainerType = new PajeContainerType (name, alias, this);
-  addChild (newContainerType);
-  return newContainerType;
-}
-
-PajeType *PajeContainerType::addType (std::string name, std::string alias)
-{
-  PajeType *newType = new PajeType (name, alias, this);
+  PajeContainerType *newType = new PajeContainerType (name, alias, this);
   addChild (newType);
   return newType;
 }
 
-PajeType *PajeContainerType::addVariableType (std::string name, std::string alias)
+PajeVariableType *PajeContainerType::addVariableType (std::string name, std::string alias)
 {
-  return addType (name, alias);
+  PajeVariableType *newType = new PajeVariableType (name, alias, this);
+  addChild (newType);
+  return newType;
 }
 
-PajeType *PajeContainerType::addStateType (std::string name, std::string alias)
+PajeStateType *PajeContainerType::addStateType (std::string name, std::string alias)
 {
-  return addType (name, alias);
+  PajeStateType *newType = new PajeStateType (name, alias, this);
+  addChild (newType);
+  return newType;
 }
 
-PajeType *PajeContainerType::addEventType (std::string name, std::string alias)
+PajeEventType *PajeContainerType::addEventType (std::string name, std::string alias)
 {
-  return addType (name, alias);
+  PajeEventType *newType = new PajeEventType (name, alias, this);
+  addChild (newType);
+  return newType;
 }
 
 PajeLinkType *PajeContainerType::addLinkType (std::string name, std::string alias, std::string starttype, std::string endtype)

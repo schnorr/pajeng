@@ -12,9 +12,6 @@
 #include "PajeComponent.h"
 #include "PajeEvent.h"
 
-class PajeContainerType;
-class PajeLinkType;
-
 class PajeType {
 public:
   std::string name;
@@ -24,6 +21,21 @@ public:
 public:
   PajeType (std::string name, std::string alias, PajeType *parent);
   virtual std::string identifier (void);
+};
+
+class PajeVariableType : public PajeType {
+public:
+  PajeVariableType (std::string name, std::string alias, PajeType *parent);
+};
+
+class PajeStateType : public PajeType {
+public:
+  PajeStateType (std::string name, std::string alias, PajeType *parent);
+};
+
+class PajeEventType : public PajeType {
+public:
+  PajeEventType (std::string name, std::string alias, PajeType *parent);
 };
 
 class PajeLinkType : public PajeType {
@@ -44,12 +56,11 @@ public:
   PajeType *getRootType (void);
 
   PajeContainerType *addContainerType (std::string name, std::string alias);
-  PajeType *addVariableType (std::string name, std::string alias);
-  PajeType *addStateType (std::string name, std::string alias);
-  PajeType *addEventType (std::string name, std::string alias);
+  PajeVariableType *addVariableType (std::string name, std::string alias);
+  PajeStateType *addStateType (std::string name, std::string alias);
+  PajeEventType *addEventType (std::string name, std::string alias);
   PajeLinkType *addLinkType (std::string name, std::string alias, std::string starttype, std::string endtype);
 private:
-  PajeType *addType (std::string name, std::string alias);
   void addChild (PajeType *type);
 };
 
