@@ -15,10 +15,29 @@
 
 #define CALL_MEMBER_PAJE_SIMULATOR(object,ptr) ((object).*(ptr))
 
+class PajeContainer {
+public:
+  std::string name;
+  std::string alias;
+public:
+  PajeContainer *parent;
+  PajeType *type;
+
+  std::list<PajeContainer*> children;
+
+public:
+  PajeContainer (std::string name, std::string alias, PajeContainer *parent, PajeType *type);
+  PajeContainer *search (std::string identifier);
+  PajeContainer *getRoot (void);
+  void addContainer (std::string name, std::string alias, PajeType *type);
+};
+
+std::ostream &operator<< (std::ostream &output, const PajeContainer &container);
+
 class PajeSimulator : public PajeComponent {
 private:
   PajeContainerType *rootType;
-//  PajeContainer *root;
+  PajeContainer *root;
 
 public:
   PajeSimulator();
