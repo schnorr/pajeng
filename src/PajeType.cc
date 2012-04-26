@@ -7,7 +7,7 @@ PajeType::PajeType (std::string name, std::string alias, PajeType *parent)
   this->parent = parent;
 }
 
-std::string PajeType::identifier (void)
+std::string PajeType::identifier (void) const
 {
   return alias.empty() ? name : alias;
 }
@@ -93,18 +93,10 @@ std::ostream &operator<< (std::ostream &output, const PajeType &type)
 
 bool operator!= (const PajeType& t1, const PajeType& t2)
 {
-  if (t1.alias.empty()){
-    return t1.name != t2.name;
-  }else{
-    return t1.alias != t2.alias;
-  }
+  return t1.identifier() != t2.identifier();
 }
 
 bool operator== (const PajeType& t1, const PajeType& t2)
 {
-  if (t1.alias.empty()){
-    return t1.name == t2.name;
-  }else{
-    return t1.alias == t2.alias;
-  }
+  return t1.identifier() == t2.identifier();
 }

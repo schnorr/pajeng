@@ -20,7 +20,7 @@ public:
 
 public:
   PajeType (std::string name, std::string alias, PajeType *parent);
-  virtual std::string identifier (void);
+  virtual std::string identifier (void) const;
 };
 
 class PajeVariableType : public PajeType {
