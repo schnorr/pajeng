@@ -241,46 +241,6 @@ void PajeSimulator::pajeDefineEntityValue (PajeEvent *event)
 
 void PajeSimulator::pajeCreateContainer (PajeEvent *event)
 {
-  //std::cout << __FUNCTION__ << std::endl;
-}
-
-void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
-{
-  //std::cout << __FUNCTION__ << std::endl;
-}
-
-void PajeSimulator::pajeNewEvent (PajeEvent *event)
-{
-  //std::cout << __FUNCTION__ << std::endl;
-}
-
-void PajeSimulator::pajeSetState (PajeEvent *event)
-{
-  //std::cout << __FUNCTION__ << std::endl;
-}
-
-void PajeSimulator::pajePushState (PajeEvent *event)
-{
-  //std::cout << __FUNCTION__ << std::endl;
-}
-
-void PajeSimulator::pajePopState (PajeEvent *event)
-{
-  //std::cout << __FUNCTION__ << std::endl;
-}
-
-void PajeSimulator::pajeSetVariable (PajeEvent *event)
-{
-  //std::cout << __FUNCTION__ << std::endl;
-}
-
-void PajeSimulator::pajeAddVariable (PajeEvent *event)
-{
-  //std::cout << __FUNCTION__ << std::endl;
-}
-
-void PajeSimulator::pajeSubVariable (PajeEvent *event)
-{
   std::string time = event->valueForFieldId (std::string("Time"));
   std::string type = event->valueForFieldId (std::string("Type"));
   std::string containerid = event->valueForFieldId (std::string("Container"));
@@ -334,12 +294,7 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
   container->addContainer (name, alias, containerType);
 }
 
-void PajeSimulator::pajeStartLink (PajeEvent *event)
-{
-  //std::cout << __FUNCTION__ << std::endl;
-}
-
-void PajeSimulator::pajeEndLink (PajeEvent *event)
+void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
 {
   std::string time = event->valueForFieldId (std::string("Time"));
   std::string type = event->valueForFieldId (std::string("Type"));
@@ -377,4 +332,88 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
     throw "Wrong container type '"+cont2.str()+"' of container '"+cont1.str()+"' in "+line.str();
   }
 
+}
+
+void PajeSimulator::validateVariableStateEvent (PajeEvent *event, bool checkValue)
+{
+  std::string time = event->valueForFieldId (std::string("Time"));
+  std::string typestr = event->valueForFieldId (std::string("Type"));
+  std::string containerstr = event->valueForFieldId (std::string("Container"));
+  std::string value = event->valueForFieldId (std::string("Value"));
+
+  //verify presence of obligatory fields
+  if (time.empty()) throw "Missing 'Time' field in event";
+  if (typestr.empty()) throw "Missing 'Type' field in event";
+  if (containerstr.empty()) throw "Missing 'Container' field in event";
+  if (checkValue && value.empty()) throw "Missing 'Value' field in event";
+
+  //search the container
+  PajeContainer *container = root->search (containerstr);
+  if (!container){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown container '"+containerstr+"' in "+line.str();
+  }
+
+  //search the type
+  PajeType *type = rootType->search (typestr);
+  if (!type){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown type '"+typestr+"' in "+line.str();
+  }
+
+  //validate the type
+  if (type->parent != container->type){
+    std::stringstream line;
+    line << *event;
+    std::stringstream cont1;
+    cont1 << *type;
+    std::stringstream cont2;
+    cont2 << *container->type;
+    throw cont1.str()+"' is not a child type of '"+cont2.str()+"' in "+line.str();
+  }
+}
+
+void PajeSimulator::pajeNewEvent (PajeEvent *event)
+{
+  validateVariableStateEvent (event, true);
+}
+
+void PajeSimulator::pajeSetState (PajeEvent *event)
+{
+  validateVariableStateEvent (event, true);
+}
+
+void PajeSimulator::pajePushState (PajeEvent *event)
+{
+  validateVariableStateEvent (event, true);
+}
+
+void PajeSimulator::pajePopState (PajeEvent *event)
+{
+  validateVariableStateEvent (event, false);
+}
+
+void PajeSimulator::pajeSetVariable (PajeEvent *event)
+{
+  validateVariableStateEvent (event, true);
+}
+
+void PajeSimulator::pajeAddVariable (PajeEvent *event)
+{
+  validateVariableStateEvent (event, true);
+}
+
+void PajeSimulator::pajeSubVariable (PajeEvent *event)
+{
+  validateVariableStateEvent (event, true);
+}
+
+void PajeSimulator::pajeStartLink (PajeEvent *event)
+{
+}
+
+void PajeSimulator::pajeEndLink (PajeEvent *event)
+{
 }

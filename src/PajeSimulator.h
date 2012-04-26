@@ -49,6 +49,9 @@ public:
   void endOfChunkLast (bool last);
 
 private:
+  void validateVariableStateEvent (PajeEvent *event, bool checkValue);
+
+private:
   void (PajeSimulator::*invocation[PajeEventIdCount])(PajeEvent*);
 
   void pajeDefineContainerType (PajeEvent *event);
