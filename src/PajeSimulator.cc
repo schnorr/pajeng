@@ -29,11 +29,12 @@ PajeContainer *PajeContainer::search (std::string identifier)
   return NULL;
 }
 
-void PajeContainer::addContainer (std::string name, std::string alias, PajeType *type)
+PajeContainer *PajeContainer::addContainer (std::string name, std::string alias, PajeType *type)
 {
   PajeContainer *newContainer = new PajeContainer (name, alias, this, type);  
   std::list<PajeContainer*>::iterator it = children.end();
   children.insert (it, newContainer);
+  return newContainer;
 }
 
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container)

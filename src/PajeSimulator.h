@@ -29,7 +29,7 @@ public:
   PajeContainer (std::string name, std::string alias, PajeContainer *parent, PajeType *type);
   PajeContainer *search (std::string identifier);
   PajeContainer *getRoot (void);
-  void addContainer (std::string name, std::string alias, PajeType *type);
+  PajeContainer *addContainer (std::string name, std::string alias, PajeType *type);
   std::string identifier (void);
 };
 
