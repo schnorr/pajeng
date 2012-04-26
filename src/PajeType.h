@@ -16,7 +16,7 @@ class PajeContainerType;
 class PajeLinkType;
 
 class PajeType {
-private:
+public:
   std::string name;
   std::string alias;
   PajeType *parent;
@@ -58,5 +58,9 @@ private:
   bool addType (std::string name, std::string alias);
   void addChild (PajeType *type);
 };
+
+std::ostream &operator<< (std::ostream &output, const PajeType &type);
+bool operator!= (const PajeType& t1, const PajeType& t2);
+bool operator== (const PajeType& t1, const PajeType& t2);
 
 #endif
