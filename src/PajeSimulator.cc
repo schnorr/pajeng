@@ -92,10 +92,6 @@ void PajeSimulator::pajeDefineContainerType (PajeEvent *event)
   std::string type = event->valueForFieldId (std::string("Type"));
   std::string alias = event->valueForFieldId (std::string("Alias"));
 
-  //verify presence of obligatory fields
-  if (name.empty()) throw "Missing 'Name' field in event";
-  if (type.empty()) throw "Missing 'Type' field in event"; 
-
   //search for parent type
   PajeType *containerType = rootType->search (type);
   if (!containerType){
@@ -119,12 +115,6 @@ void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
   std::string starttype = event->valueForFieldId (std::string("StartContainerType"));
   std::string endtype = event->valueForFieldId (std::string("EndContainerType"));
   std::string alias = event->valueForFieldId (std::string("Alias"));
-
-  //verify presence of obligatory fields
-  if (name.empty()) throw "Missing 'Name' field in event";
-  if (type.empty()) throw "Missing 'Type' field in event"; 
-  if (starttype.empty()) throw "Missing 'StartContainerType' field in event";
-  if (endtype.empty()) throw "Missing 'EndContainerType' field in event";
 
   //search for parent type
   PajeType *containerType = rootType->search (type);
@@ -162,10 +152,6 @@ void PajeSimulator::pajeDefineEventType (PajeEvent *event)
   std::string type = event->valueForFieldId (std::string("Type"));
   std::string alias = event->valueForFieldId (std::string("Alias"));
 
-  //verify presence of obligatory fields
-  if (name.empty()) throw "Missing 'Name' field in event";
-  if (type.empty()) throw "Missing 'Type' field in event"; 
-
   //search for parent type
   PajeType *containerType = rootType->search (type);
   if (!containerType){
@@ -188,10 +174,6 @@ void PajeSimulator::pajeDefineStateType (PajeEvent *event)
   std::string type = event->valueForFieldId (std::string("Type"));
   std::string alias = event->valueForFieldId (std::string("Alias"));
 
-  //verify presence of obligatory fields
-  if (name.empty()) throw "Missing 'Name' field in event";
-  if (type.empty()) throw "Missing 'Type' field in event"; 
-
   //search for parent type
   PajeType *containerType = rootType->search (type);
   if (!containerType){
@@ -213,10 +195,6 @@ void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
   std::string name = event->valueForFieldId (std::string("Name"));
   std::string type = event->valueForFieldId (std::string("Type"));
   std::string alias = event->valueForFieldId (std::string("Alias"));
-
-  //verify presence of obligatory fields
-  if (name.empty()) throw "Missing 'Name' field in event";
-  if (type.empty()) throw "Missing 'Type' field in event"; 
 
   //search for parent type
   PajeType *containerType = rootType->search (type);
@@ -246,13 +224,6 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
   std::string containerid = event->valueForFieldId (std::string("Container"));
   std::string name = event->valueForFieldId (std::string("Name"));
   std::string alias = event->valueForFieldId (std::string("Alias"));
-
-  //verify presence of obligatory fields
-  if (time.empty()) throw "Missing 'Time' field in event";
-  if (type.empty()) throw "Missing 'Type' field in event";
-  if (containerid.empty()) throw "Missing 'Container' field in event";
-  if (name.empty()) throw "Missing 'Name' field in event";
-  if (alias.empty()) throw "Missing 'Alias' field in event";
 
   //search the container type for the new container
   PajeType *containerType = rootType->search (type);
@@ -300,11 +271,6 @@ void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
   std::string type = event->valueForFieldId (std::string("Type"));
   std::string name = event->valueForFieldId (std::string("Name"));
 
-  //verify presence of obligatory fields
-  if (time.empty()) throw "Missing 'Time' field in event";
-  if (type.empty()) throw "Missing 'Type' field in event";
-  if (name.empty()) throw "Missing 'Name' field in event";
-
   //search the container type for the new container
   PajeType *containerType = rootType->search (type);
   if (!containerType){
@@ -340,12 +306,6 @@ void PajeSimulator::validateVariableStateEvent (PajeEvent *event, bool checkValu
   std::string typestr = event->valueForFieldId (std::string("Type"));
   std::string containerstr = event->valueForFieldId (std::string("Container"));
   std::string value = event->valueForFieldId (std::string("Value"));
-
-  //verify presence of obligatory fields
-  if (time.empty()) throw "Missing 'Time' field in event";
-  if (typestr.empty()) throw "Missing 'Type' field in event";
-  if (containerstr.empty()) throw "Missing 'Container' field in event";
-  if (checkValue && value.empty()) throw "Missing 'Value' field in event";
 
   //search the container
   PajeContainer *container = root->search (containerstr);
