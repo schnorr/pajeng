@@ -78,7 +78,7 @@ bool PajeContainerType::isContainer(void)
   return true;
 }
 
-bool PajeContainerType::addContainerType (std::string name, std::string alias)
+PajeContainerType *PajeContainerType::addContainerType (std::string name, std::string alias)
 {
   PajeType *rootType = getRootType ();
 
@@ -93,10 +93,10 @@ bool PajeContainerType::addContainerType (std::string name, std::string alias)
 
   //add it as a child of its container type
   addChild (newContainerType);
-  return true;
+  return newContainerType;
 }
 
-bool PajeContainerType::addType (std::string name, std::string alias)
+PajeType *PajeContainerType::addType (std::string name, std::string alias)
 {
   //check if already exists
   std::string identifier;
@@ -109,25 +109,25 @@ bool PajeContainerType::addType (std::string name, std::string alias)
 
   //add it as a child of its container type
   addChild (newType);
-  return true;
+  return newType;
 }
 
-bool PajeContainerType::addVariableType (std::string name, std::string alias)
+PajeType *PajeContainerType::addVariableType (std::string name, std::string alias)
 {
   return addType (name, alias);
 }
 
-bool PajeContainerType::addStateType (std::string name, std::string alias)
+PajeType *PajeContainerType::addStateType (std::string name, std::string alias)
 {
   return addType (name, alias);
 }
 
-bool PajeContainerType::addEventType (std::string name, std::string alias)
+PajeType *PajeContainerType::addEventType (std::string name, std::string alias)
 {
   return addType (name, alias);
 }
 
-bool PajeContainerType::addLinkType (std::string name, std::string alias, std::string starttype, std::string endtype)
+PajeLinkType *PajeContainerType::addLinkType (std::string name, std::string alias, std::string starttype, std::string endtype)
 {
   //check if already exists
   std::string identifier;
@@ -140,7 +140,7 @@ bool PajeContainerType::addLinkType (std::string name, std::string alias, std::s
 
   //add it as a child of its container type
   addChild (newType);
-  return true;
+  return newType;
 }
 
 std::ostream &operator<< (std::ostream &output, const PajeType &type)

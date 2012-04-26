@@ -50,13 +50,13 @@ public:
   PajeType *getRootType (void);
 
   bool isContainer (void);
-  bool addContainerType (std::string name, std::string alias);
-  bool addVariableType (std::string name, std::string alias);
-  bool addStateType (std::string name, std::string alias);
-  bool addEventType (std::string name, std::string alias);
-  bool addLinkType (std::string name, std::string alias, std::string starttype, std::string endtype);
+  PajeContainerType *addContainerType (std::string name, std::string alias);
+  PajeType *addVariableType (std::string name, std::string alias);
+  PajeType *addStateType (std::string name, std::string alias);
+  PajeType *addEventType (std::string name, std::string alias);
+  PajeLinkType *addLinkType (std::string name, std::string alias, std::string starttype, std::string endtype);
 private:
-  bool addType (std::string name, std::string alias);
+  PajeType *addType (std::string name, std::string alias);
   void addChild (PajeType *type);
 };
 
