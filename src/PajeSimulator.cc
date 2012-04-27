@@ -665,8 +665,122 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
 
 void PajeSimulator::pajeStartLink (PajeEvent *event)
 {
+  std::string time = event->valueForFieldId (std::string("Time"));
+  std::string typestr = event->valueForFieldId (std::string("Type"));
+  std::string containerstr = event->valueForFieldId (std::string("Container"));
+  std::string startcontainerstr = event->valueForFieldId (std::string("StartContainer"));
+  std::string value = event->valueForFieldId (std::string("Value"));
+  std::string key = event->valueForFieldId (std::string("Key"));
+
+  //search the container
+  PajeContainer *container = contMap[containerstr];
+  if (!container){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown container '"+containerstr+"' in "+line.str();
+  }
+
+  //search the start container
+  PajeContainer *startcontainer = contMap[startcontainerstr];
+  if (!startcontainer){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown start container '"+startcontainerstr+"' in "+line.str();
+  }
+
+  //search the type
+  PajeType *type = typeMap[typestr];
+  if (!type){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown type '"+typestr+"' in "+line.str();
+  }
+
+  //verify if the type is a link type
+  if (!dynamic_cast<PajeLinkType*>(type)){
+    std::stringstream line;
+    line << *event;
+    std::stringstream desc;
+    desc << *type;
+    throw "Type '"+desc.str()+"' is not a link type in "+line.str();
+  }
+
+  //verify if the type is child of container type
+  if (type->parent != container->type){
+    std::stringstream eventdesc;
+    eventdesc << *event;
+    std::stringstream ctype1;
+    ctype1 << *type;
+    std::stringstream ctype2;
+    ctype2 << *container->type;
+    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+  }
+
+  if (container->links[type].count(key) == 0){
+    container->links[type][key] = 1;
+  }else{
+    //key already present, remove it
+    container->links[type].erase(key);
+  }
 }
 
 void PajeSimulator::pajeEndLink (PajeEvent *event)
 {
+  std::string time = event->valueForFieldId (std::string("Time"));
+  std::string typestr = event->valueForFieldId (std::string("Type"));
+  std::string containerstr = event->valueForFieldId (std::string("Container"));
+  std::string endcontainerstr = event->valueForFieldId (std::string("EndContainer"));
+  std::string value = event->valueForFieldId (std::string("Value"));
+  std::string key = event->valueForFieldId (std::string("Key"));
+
+  //search the container
+  PajeContainer *container = contMap[containerstr];
+  if (!container){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown container '"+containerstr+"' in "+line.str();
+  }
+
+  //search the end container
+  PajeContainer *endcontainer = contMap[endcontainerstr];
+  if (!endcontainer){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown end container '"+endcontainerstr+"' in "+line.str();
+  }
+
+  //search the type
+  PajeType *type = typeMap[typestr];
+  if (!type){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown type '"+typestr+"' in "+line.str();
+  }
+
+  //verify if the type is a link type
+  if (!dynamic_cast<PajeLinkType*>(type)){
+    std::stringstream line;
+    line << *event;
+    std::stringstream desc;
+    desc << *type;
+    throw "Type '"+desc.str()+"' is not a link type in "+line.str();
+  }
+
+  //verify if the type is child of container type
+  if (type->parent != container->type){
+    std::stringstream eventdesc;
+    eventdesc << *event;
+    std::stringstream ctype1;
+    ctype1 << *type;
+    std::stringstream ctype2;
+    ctype2 << *container->type;
+    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+  }
+
+  if (container->links[type].count(key) == 0){
+    container->links[type][key] = 1;
+  }else{
+    //key already present, remove it
+    container->links[type].erase(key);
+  }
 }

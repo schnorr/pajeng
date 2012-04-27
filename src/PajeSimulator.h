@@ -26,10 +26,11 @@ public:
 
   std::map<std::string,PajeContainer*> children;
 
-  //keeps the values of variables
+  //keeps the values of variables, states, events, links
   std::map<PajeType*,std::vector<double> > variables;
   std::map<PajeType*,std::vector<double> > states;
   std::map<PajeType*,std::vector<double> > events;
+  std::map<PajeType*,std::map<std::string,double> > links;
 
 public:
   PajeContainer (std::string name, std::string alias, PajeContainer *parent, PajeType *type);
