@@ -398,7 +398,7 @@ void PajeSimulator::pajeSetVariable (PajeEvent *event)
   if (container->variables[type].size() != 0){
     container->variables[type].clear ();
   }
-  container->variables[type].push_back (atof(value.c_str()));
+  container->variables[type].push_back (0);
 }
 
 void PajeSimulator::pajeAddVariable (PajeEvent *event)
@@ -440,7 +440,7 @@ void PajeSimulator::pajeAddVariable (PajeEvent *event)
   }else{
     container->variables[type].clear ();
   }
-  container->variables[type].push_back (atof(value.c_str()));
+  container->variables[type].push_back (0);
 }
 
 void PajeSimulator::pajeSubVariable (PajeEvent *event)
@@ -482,7 +482,7 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
   }else{
     container->variables[type].clear ();
   }
-  container->variables[type].push_back (atof(value.c_str()));
+  container->variables[type].push_back (0);
 }
 
 void PajeSimulator::pajeStartLink (PajeEvent *event)
