@@ -39,7 +39,7 @@ public:
 };
 
 class PajeLinkType : public PajeType {
-private:
+public:
   PajeType *starttype;
   PajeType *endtype;
 

@@ -699,7 +699,8 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
   }
 
   //verify if the type is a link type
-  if (!dynamic_cast<PajeLinkType*>(type)){
+  PajeLinkType *linktype = dynamic_cast<PajeLinkType*>(type);
+  if (!linktype){
     std::stringstream line;
     line << *event;
     std::stringstream desc;
@@ -716,6 +717,17 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
     std::stringstream ctype2;
     ctype2 << *container->type;
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+  }
+
+  //verify if the type of start container is the type expected for the start of this link
+  if (linktype->starttype != startcontainer->type){
+    std::stringstream eventdesc;
+    eventdesc << *event;
+    std::stringstream ctype1;
+    ctype1 << *startcontainer->type;
+    std::stringstream ctype2;
+    ctype2 << *type;
+    throw "Type '"+ctype1.str()+"' of container '"+startcontainerstr+"' is not the container type expected for the start of link type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
   if (container->links[type].count(key) == 0){
@@ -760,7 +772,8 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
   }
 
   //verify if the type is a link type
-  if (!dynamic_cast<PajeLinkType*>(type)){
+  PajeLinkType *linktype = dynamic_cast<PajeLinkType*>(type);
+  if (!linktype){
     std::stringstream line;
     line << *event;
     std::stringstream desc;
@@ -777,6 +790,17 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
     std::stringstream ctype2;
     ctype2 << *container->type;
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+  }
+
+  //verify if the type of end container is the type expected for the end of this link
+  if (linktype->endtype != endcontainer->type){
+    std::stringstream eventdesc;
+    eventdesc << *event;
+    std::stringstream ctype1;
+    ctype1 << *endcontainer->type;
+    std::stringstream ctype2;
+    ctype2 << *type;
+    throw "Type '"+ctype1.str()+"' of container '"+endcontainerstr+"' is not the container type expected for the end of link type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
   if (container->links[type].count(key) == 0){
