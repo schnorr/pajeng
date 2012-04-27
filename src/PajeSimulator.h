@@ -28,6 +28,7 @@ public:
 
   //keeps the values of variables
   std::map<PajeType*,std::vector<double> > variables;
+  std::map<PajeType*,std::vector<double> > states;
 
 public:
   PajeContainer (std::string name, std::string alias, PajeContainer *parent, PajeType *type);

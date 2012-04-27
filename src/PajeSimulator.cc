@@ -350,17 +350,120 @@ void PajeSimulator::pajeNewEvent (PajeEvent *event)
 
 void PajeSimulator::pajeSetState (PajeEvent *event)
 {
-  validateVariableStateEvent (event, true);
+  std::string time = event->valueForFieldId (std::string("Time"));
+  std::string typestr = event->valueForFieldId (std::string("Type"));
+  std::string containerstr = event->valueForFieldId (std::string("Container"));
+  std::string value = event->valueForFieldId (std::string("Value"));
+
+  //search the container
+  PajeContainer *container = contMap[containerstr];
+  if (!container){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown container '"+containerstr+"' in "+line.str();
+  }
+
+  //search the type
+  PajeType *type = typeMap[typestr];
+  if (!type){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown type '"+typestr+"' in "+line.str();
+  }
+
+  //verify if the type is a state type
+  if (!dynamic_cast<PajeStateType*>(type)){
+    std::stringstream line;
+    line << *event;
+    std::stringstream desc;
+    desc << *type;
+    throw "Type '"+desc.str()+"' is not a state type in "+line.str();
+  }
+
+  if (container->states[type].size() != 0){
+    container->states[type].clear ();
+  }
+  container->states[type].push_back (0);
 }
 
 void PajeSimulator::pajePushState (PajeEvent *event)
 {
-  validateVariableStateEvent (event, true);
+  std::string time = event->valueForFieldId (std::string("Time"));
+  std::string typestr = event->valueForFieldId (std::string("Type"));
+  std::string containerstr = event->valueForFieldId (std::string("Container"));
+  std::string value = event->valueForFieldId (std::string("Value"));
+
+  //search the container
+  PajeContainer *container = contMap[containerstr];
+  if (!container){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown container '"+containerstr+"' in "+line.str();
+  }
+
+  //search the type
+  PajeType *type = typeMap[typestr];
+  if (!type){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown type '"+typestr+"' in "+line.str();
+  }
+
+  //verify if the type is a state type
+  if (!dynamic_cast<PajeStateType*>(type)){
+    std::stringstream line;
+    line << *event;
+    std::stringstream desc;
+    desc << *type;
+    throw "Type '"+desc.str()+"' is not a state type in "+line.str();
+  }
+
+  if (container->states[type].size() != 0){
+    container->states[type].clear ();
+  }
+  container->states[type].push_back (0);
 }
 
 void PajeSimulator::pajePopState (PajeEvent *event)
 {
-  validateVariableStateEvent (event, false);
+  std::string time = event->valueForFieldId (std::string("Time"));
+  std::string typestr = event->valueForFieldId (std::string("Type"));
+  std::string containerstr = event->valueForFieldId (std::string("Container"));
+  std::string value = event->valueForFieldId (std::string("Value"));
+
+  //search the container
+  PajeContainer *container = contMap[containerstr];
+  if (!container){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown container '"+containerstr+"' in "+line.str();
+  }
+
+  //search the type
+  PajeType *type = typeMap[typestr];
+  if (!type){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown type '"+typestr+"' in "+line.str();
+  }
+
+  //verify if the type is a state type
+  if (!dynamic_cast<PajeStateType*>(type)){
+    std::stringstream line;
+    line << *event;
+    std::stringstream desc;
+    desc << *type;
+    throw "Type '"+desc.str()+"' is not a state type in "+line.str();
+  }
+
+  if (container->states[type].size() == 0){
+    std::stringstream line;
+    line << *event;
+    throw "Illegal pop event of a state that has no value in "+line.str();
+  }else{
+    container->states[type].clear ();
+  }
+  container->states[type].push_back (0);
 }
 
 void PajeSimulator::pajeSetVariable (PajeEvent *event)
