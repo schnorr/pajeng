@@ -29,6 +29,7 @@ public:
   //keeps the values of variables
   std::map<PajeType*,std::vector<double> > variables;
   std::map<PajeType*,std::vector<double> > states;
+  std::map<PajeType*,std::vector<double> > events;
 
 public:
   PajeContainer (std::string name, std::string alias, PajeContainer *parent, PajeType *type);
@@ -54,9 +55,6 @@ public:
 
   void startChunk (int chunkNumber);
   void endOfChunkLast (bool last);
-
-private:
-  void validateVariableStateEvent (PajeEvent *event, bool checkValue);
 
 private:
   void (PajeSimulator::*invocation[PajeEventIdCount])(PajeEvent*);

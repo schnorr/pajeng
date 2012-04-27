@@ -308,7 +308,7 @@ void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
 
 }
 
-void PajeSimulator::validateVariableStateEvent (PajeEvent *event, bool checkValue)
+void PajeSimulator::pajeNewEvent (PajeEvent *event)
 {
   std::string time = event->valueForFieldId (std::string("Time"));
   std::string typestr = event->valueForFieldId (std::string("Type"));
@@ -331,21 +331,19 @@ void PajeSimulator::validateVariableStateEvent (PajeEvent *event, bool checkValu
     throw "Unknown type '"+typestr+"' in "+line.str();
   }
 
-  //validate the type
-  if (type->parent != container->type){
+  //verify if the type is a event type
+  if (!dynamic_cast<PajeEventType*>(type)){
     std::stringstream line;
     line << *event;
-    std::stringstream cont1;
-    cont1 << *type;
-    std::stringstream cont2;
-    cont2 << *container->type;
-    throw cont1.str()+"' is not a child type of '"+cont2.str()+"' in "+line.str();
+    std::stringstream desc;
+    desc << *type;
+    throw "Type '"+desc.str()+"' is not a event type in "+line.str();
   }
-}
 
-void PajeSimulator::pajeNewEvent (PajeEvent *event)
-{
-  validateVariableStateEvent (event, true);
+  if (container->states[type].size() != 0){
+    container->states[type].clear ();
+  }
+  container->states[type].push_back (0);
 }
 
 void PajeSimulator::pajeSetState (PajeEvent *event)
