@@ -365,17 +365,124 @@ void PajeSimulator::pajePopState (PajeEvent *event)
 
 void PajeSimulator::pajeSetVariable (PajeEvent *event)
 {
-  validateVariableStateEvent (event, true);
+  std::string time = event->valueForFieldId (std::string("Time"));
+  std::string typestr = event->valueForFieldId (std::string("Type"));
+  std::string containerstr = event->valueForFieldId (std::string("Container"));
+  std::string value = event->valueForFieldId (std::string("Value"));
+
+  //search the container
+  PajeContainer *container = contMap[containerstr];
+  if (!container){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown container '"+containerstr+"' in "+line.str();
+  }
+
+  //search the type
+  PajeType *type = typeMap[typestr];
+  if (!type){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown type '"+typestr+"' in "+line.str();
+  }
+
+  //verify if the type is a variable type
+  if (!dynamic_cast<PajeVariableType*>(type)){
+    std::stringstream line;
+    line << *event;
+    std::stringstream desc;
+    desc << *type;
+    throw "Type '"+desc.str()+"' is not a variable type in "+line.str();
+  }
+
+  if (container->variables[type].size() != 0){
+    container->variables[type].clear ();
+  }
+  container->variables[type].push_back (atof(value.c_str()));
 }
 
 void PajeSimulator::pajeAddVariable (PajeEvent *event)
 {
-  validateVariableStateEvent (event, true);
+  std::string time = event->valueForFieldId (std::string("Time"));
+  std::string typestr = event->valueForFieldId (std::string("Type"));
+  std::string containerstr = event->valueForFieldId (std::string("Container"));
+  std::string value = event->valueForFieldId (std::string("Value"));
+
+  //search the container
+  PajeContainer *container = contMap[containerstr];
+  if (!container){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown container '"+containerstr+"' in "+line.str();
+  }
+
+  //search the type
+  PajeType *type = typeMap[typestr];
+  if (!type){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown type '"+typestr+"' in "+line.str();
+  }
+
+  //verify if the type is a variable type
+  if (!dynamic_cast<PajeVariableType*>(type)){
+    std::stringstream line;
+    line << *event;
+    std::stringstream desc;
+    desc << *type;
+    throw "Type '"+desc.str()+"' is not a variable type in "+line.str();
+  }
+
+  if (container->variables[type].size() == 0){
+    std::stringstream line;
+    line << *event;
+    throw "Illegal addition to a variable that has no value (yet) in "+line.str();
+  }else{
+    container->variables[type].clear ();
+  }
+  container->variables[type].push_back (atof(value.c_str()));
 }
 
 void PajeSimulator::pajeSubVariable (PajeEvent *event)
 {
-  validateVariableStateEvent (event, true);
+  std::string time = event->valueForFieldId (std::string("Time"));
+  std::string typestr = event->valueForFieldId (std::string("Type"));
+  std::string containerstr = event->valueForFieldId (std::string("Container"));
+  std::string value = event->valueForFieldId (std::string("Value"));
+
+  //search the container
+  PajeContainer *container = contMap[containerstr];
+  if (!container){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown container '"+containerstr+"' in "+line.str();
+  }
+
+  //search the type
+  PajeType *type = typeMap[typestr];
+  if (!type){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown type '"+typestr+"' in "+line.str();
+  }
+
+  //verify if the type is a variable type
+  if (!dynamic_cast<PajeVariableType*>(type)){
+    std::stringstream line;
+    line << *event;
+    std::stringstream desc;
+    desc << *type;
+    throw "Type '"+desc.str()+"' is not a variable type in "+line.str();
+  }
+
+  if (container->variables[type].size() == 0){
+    std::stringstream line;
+    line << *event;
+    throw "Illegal subtraction from a variable that has no value (yet) in "+line.str();
+  }else{
+    container->variables[type].clear ();
+  }
+  container->variables[type].push_back (atof(value.c_str()));
 }
 
 void PajeSimulator::pajeStartLink (PajeEvent *event)

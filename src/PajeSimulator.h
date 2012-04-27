@@ -1,6 +1,7 @@
 #ifndef __PAJESIMULATOR_H__
 #define __PAJESIMULATOR_H__
 #include <map>
+#include <vector>
 #include <sstream>
 #include <string>
 #include <iostream>
@@ -24,6 +25,9 @@ public:
   PajeType *type;
 
   std::map<std::string,PajeContainer*> children;
+
+  //keeps the values of variables
+  std::map<PajeType*,std::vector<double> > variables;
 
 public:
   PajeContainer (std::string name, std::string alias, PajeContainer *parent, PajeType *type);
