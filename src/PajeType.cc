@@ -24,7 +24,7 @@ PajeEventType::PajeEventType  (std::string name, std::string alias, PajeType *pa
 {
 }
 
-PajeLinkType::PajeLinkType (std::string name, std::string alias, std::string start, std::string end, PajeType *parent):PajeType(name,alias,parent)
+PajeLinkType::PajeLinkType (std::string name, std::string alias, PajeType *start, PajeType *end, PajeType *parent):PajeType(name,alias,parent)
 {
   this->starttype = start;
   this->endtype = end;
@@ -76,7 +76,7 @@ PajeEventType *PajeContainerType::addEventType (std::string name, std::string al
   return newType;
 }
 
-PajeLinkType *PajeContainerType::addLinkType (std::string name, std::string alias, std::string starttype, std::string endtype)
+PajeLinkType *PajeContainerType::addLinkType (std::string name, std::string alias, PajeType *starttype, PajeType *endtype)
 {
   PajeLinkType *newType = new PajeLinkType (name, alias, starttype, endtype, this);
   children[newType->identifier()] = newType;

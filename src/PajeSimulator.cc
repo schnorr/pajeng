@@ -119,14 +119,16 @@ void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
   }
 
   //search for start container type
-  if (!typeMap[starttype]){
+  PajeType *startcontainertype = typeMap[starttype];
+  if (!startcontainertype){
     std::stringstream line;
     line << *event;
     throw "Unknow start container type '"+starttype+"' for link definition in "+line.str();
   }
 
   //search for end container type
-  if (!typeMap[endtype]){
+  PajeType *endcontainertype = typeMap[endtype];
+  if (!endcontainertype){
     std::stringstream line;
     line << *event;
     throw "Unknow end container type '"+endtype+"' for link definition in "+line.str();
@@ -140,7 +142,7 @@ void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
     line << *event;
     throw "Link type '"+identifier+"' in "+line.str()+" already defined";
   }
-  newType = dynamic_cast<PajeContainerType*>(containerType)->addLinkType (name, alias, starttype, endtype);
+  newType = dynamic_cast<PajeContainerType*>(containerType)->addLinkType (name, alias, startcontainertype, endcontainertype);
   typeMap[newType->identifier()] = newType;
 }
 

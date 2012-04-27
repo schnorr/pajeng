@@ -40,11 +40,11 @@ public:
 
 class PajeLinkType : public PajeType {
 private:
-  std::string starttype;
-  std::string endtype;
+  PajeType *starttype;
+  PajeType *endtype;
 
 public:
-  PajeLinkType (std::string name, std::string alias, std::string start, std::string end, PajeType *parent);
+  PajeLinkType (std::string name, std::string alias, PajeType *start, PajeType *end, PajeType *parent);
 };
 
 class PajeContainerType : public PajeType {
@@ -59,7 +59,7 @@ public:
   PajeVariableType *addVariableType (std::string name, std::string alias);
   PajeStateType *addStateType (std::string name, std::string alias);
   PajeEventType *addEventType (std::string name, std::string alias);
-  PajeLinkType *addLinkType (std::string name, std::string alias, std::string starttype, std::string endtype);
+  PajeLinkType *addLinkType (std::string name, std::string alias, PajeType *starttype, PajeType *endtype);
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeType &type);
