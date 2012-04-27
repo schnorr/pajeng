@@ -340,6 +340,17 @@ void PajeSimulator::pajeNewEvent (PajeEvent *event)
     throw "Type '"+desc.str()+"' is not a event type in "+line.str();
   }
 
+  //verify if the type is child of container type
+  if (type->parent != container->type){
+    std::stringstream eventdesc;
+    eventdesc << *event;
+    std::stringstream ctype1;
+    ctype1 << *type;
+    std::stringstream ctype2;
+    ctype2 << *container->type;
+    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+  }
+
   if (container->states[type].size() != 0){
     container->states[type].clear ();
   }
@@ -376,6 +387,17 @@ void PajeSimulator::pajeSetState (PajeEvent *event)
     std::stringstream desc;
     desc << *type;
     throw "Type '"+desc.str()+"' is not a state type in "+line.str();
+  }
+
+  //verify if the type is child of container type
+  if (type->parent != container->type){
+    std::stringstream eventdesc;
+    eventdesc << *event;
+    std::stringstream ctype1;
+    ctype1 << *type;
+    std::stringstream ctype2;
+    ctype2 << *container->type;
+    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
   if (container->states[type].size() != 0){
@@ -416,6 +438,17 @@ void PajeSimulator::pajePushState (PajeEvent *event)
     throw "Type '"+desc.str()+"' is not a state type in "+line.str();
   }
 
+  //verify if the type is child of container type
+  if (type->parent != container->type){
+    std::stringstream eventdesc;
+    eventdesc << *event;
+    std::stringstream ctype1;
+    ctype1 << *type;
+    std::stringstream ctype2;
+    ctype2 << *container->type;
+    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+  }
+
   if (container->states[type].size() != 0){
     container->states[type].clear ();
   }
@@ -452,6 +485,17 @@ void PajeSimulator::pajePopState (PajeEvent *event)
     std::stringstream desc;
     desc << *type;
     throw "Type '"+desc.str()+"' is not a state type in "+line.str();
+  }
+
+  //verify if the type is child of container type
+  if (type->parent != container->type){
+    std::stringstream eventdesc;
+    eventdesc << *event;
+    std::stringstream ctype1;
+    ctype1 << *type;
+    std::stringstream ctype2;
+    ctype2 << *container->type;
+    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
   if (container->states[type].size() == 0){
@@ -496,6 +540,17 @@ void PajeSimulator::pajeSetVariable (PajeEvent *event)
     throw "Type '"+desc.str()+"' is not a variable type in "+line.str();
   }
 
+  //verify if the type is child of container type
+  if (type->parent != container->type){
+    std::stringstream eventdesc;
+    eventdesc << *event;
+    std::stringstream ctype1;
+    ctype1 << *type;
+    std::stringstream ctype2;
+    ctype2 << *container->type;
+    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+  }
+
   if (container->variables[type].size() != 0){
     container->variables[type].clear ();
   }
@@ -532,6 +587,17 @@ void PajeSimulator::pajeAddVariable (PajeEvent *event)
     std::stringstream desc;
     desc << *type;
     throw "Type '"+desc.str()+"' is not a variable type in "+line.str();
+  }
+
+  //verify if the type is child of container type
+  if (type->parent != container->type){
+    std::stringstream eventdesc;
+    eventdesc << *event;
+    std::stringstream ctype1;
+    ctype1 << *type;
+    std::stringstream ctype2;
+    ctype2 << *container->type;
+    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
   if (container->variables[type].size() == 0){
@@ -574,6 +640,17 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
     std::stringstream desc;
     desc << *type;
     throw "Type '"+desc.str()+"' is not a variable type in "+line.str();
+  }
+
+  //verify if the type is child of container type
+  if (type->parent != container->type){
+    std::stringstream eventdesc;
+    eventdesc << *event;
+    std::stringstream ctype1;
+    ctype1 << *type;
+    std::stringstream ctype2;
+    ctype2 << *container->type;
+    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
   if (container->variables[type].size() == 0){
