@@ -15,6 +15,9 @@ PajeFileReader::PajeFileReader (std::string f, PajeTraceController *c)
   currentChunk = 0;
   filename = f;
   file.open (filename.c_str());
+  if (file.fail()){
+    throw "Error loading file: "+f;
+  }
   file.seekg (0, std::ios::end);
   length = file.tellg ();
   file.seekg (0, std::ios::beg);
