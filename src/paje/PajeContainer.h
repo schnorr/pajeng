@@ -5,10 +5,17 @@
 #include <string>
 #include "PajeType.h"
 
+typedef struct {
+  double stime;
+  double etime;
+  double value;
+}var_t;
+
 class PajeContainer {
 public:
   std::string name;
   std::string alias;
+  bool destroyed;
 public:
   PajeContainer *parent;
   PajeType *type;
@@ -16,16 +23,23 @@ public:
   std::map<std::string,PajeContainer*> children;
 
   //keeps the values of variables, states, events, links
-  std::map<PajeType*,std::vector<double> > variables;
   std::map<PajeType*,std::vector<double> > states;
   std::map<PajeType*,std::vector<double> > events;
   std::map<PajeType*,std::map<std::string,double> > links;
+
+private:
+  std::map<PajeType*,std::vector<var_t> > variables;
+
 
 public:
   PajeContainer (std::string name, std::string alias, PajeContainer *parent, PajeType *type);
   PajeContainer *getRoot (void);
   PajeContainer *addContainer (std::string name, std::string alias, PajeType *type);
   std::string identifier (void);
+  void destroy (double time);
+  void setVariable (double time, PajeType *type, double value, PajeEvent *event);
+  void addVariable (double time, PajeType *type, double value, PajeEvent *event);
+  void subVariable (double time, PajeType *type, double value, PajeEvent *event);
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container);

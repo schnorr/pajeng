@@ -291,6 +291,8 @@ void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
     throw "Wrong container type '"+cont2.str()+"' of container '"+cont1.str()+"' in "+line.str();
   }
 
+  //mark container as destroyed
+  container->destroy (atof(time.c_str()));
 }
 
 void PajeSimulator::pajeNewEvent (PajeEvent *event)
@@ -535,11 +537,7 @@ void PajeSimulator::pajeSetVariable (PajeEvent *event)
     ctype2 << *container->type;
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
-
-  if (container->variables[type].size() != 0){
-    container->variables[type].clear ();
-  }
-  container->variables[type].push_back (0);
+  container->setVariable (atof(time.c_str()), type, atof(value.c_str()), event);
 }
 
 void PajeSimulator::pajeAddVariable (PajeEvent *event)
@@ -584,15 +582,7 @@ void PajeSimulator::pajeAddVariable (PajeEvent *event)
     ctype2 << *container->type;
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
-
-  if (container->variables[type].size() == 0){
-    std::stringstream line;
-    line << *event;
-    throw "Illegal addition to a variable that has no value (yet) in "+line.str();
-  }else{
-    container->variables[type].clear ();
-  }
-  container->variables[type].push_back (0);
+  container->addVariable (atof(time.c_str()), type, atof(value.c_str()), event);
 }
 
 void PajeSimulator::pajeSubVariable (PajeEvent *event)
@@ -637,15 +627,7 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
     ctype2 << *container->type;
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
-
-  if (container->variables[type].size() == 0){
-    std::stringstream line;
-    line << *event;
-    throw "Illegal subtraction from a variable that has no value (yet) in "+line.str();
-  }else{
-    container->variables[type].clear ();
-  }
-  container->variables[type].push_back (0);
+  container->subVariable (atof(time.c_str()), type, atof(value.c_str()), event);
 }
 
 void PajeSimulator::pajeStartLink (PajeEvent *event)
