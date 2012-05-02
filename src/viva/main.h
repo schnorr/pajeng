@@ -5,6 +5,9 @@
 //#include "tupi_private.h"
 #include "triview.h"
 #include "runner.h"
+#include "PajeFileReader.h"
+#include "PajeEventDecoder.h"
+#include "PajeSimulator.h"
 
 #ifndef WX_PRECOMP
        #include <wx/wx.h>
@@ -20,6 +23,11 @@ public:
   virtual int OnRun();
   virtual void OnInitCmdLine(wxCmdLineParser& parser);
   virtual bool OnCmdLineParsed(wxCmdLineParser& parser);
+
+private:
+  PajeFileReader *reader;
+  PajeEventDecoder *decoder;
+  PajeSimulator *simulator;
 
 private:
   wxString filename;

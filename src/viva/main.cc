@@ -3,6 +3,8 @@
 #include <wx/progdlg.h>
 #include "loadingbar.h"
 
+
+
 IMPLEMENT_APP(TrivaWXApp)
 
 // int node_compare (const void *p1, const void *p2)
@@ -19,7 +21,16 @@ bool TrivaWXApp::OnInit()
   std::cout << __FUNCTION__ << std::endl;
   std::cout << filename.utf8_str() << std::endl;
 
-  LoadingBar loading (wxT("Loading file..."));
+  reader = new PajeFileReader (std::string(filename.utf8_str()), NULL);
+  decoder = new PajeEventDecoder ();
+  simulator = new PajeSimulator ();
+
+  reader->setOutputComponent (decoder);
+  decoder->setInputComponent (reader);
+  decoder->setOutputComponent (simulator);
+  simulator->setInputComponent (decoder);
+
+  LoadingBar loading (wxT("Loading file..."), reader);
   loading.ShowModal ();
 
   triview = new Triview(wxT("Triva"));

@@ -1,7 +1,6 @@
 #include "loadingbar.h"
 
-
-LoadingBar::LoadingBar(const wxString& title)
+LoadingBar::LoadingBar(const wxString& title, PajeFileReader *reader)
   : wxDialog(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(300, 100))
 {
   //the timer
@@ -19,6 +18,12 @@ LoadingBar::LoadingBar(const wxString& title)
   this->SetSizer (vbox);
   this->Connect (wxID_CANCEL, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(LoadingBar::OnCancel));
   timer->Start (100);
+
+  //save the reader
+  this->reader = reader;
+  progress->SetRange(100);
+  progress->SetValue(0);
+  thread = new PajeThreadedReader (reader);
 }
 
 LoadingBar::~LoadingBar (void)
@@ -28,11 +33,43 @@ LoadingBar::~LoadingBar (void)
 
 void LoadingBar::OnTimer (wxTimerEvent &event)
 {
-  static int val = 0;
-  progress->SetValue (val++);
+  double porcentage = (double)reader->traceRead()/(double)reader->traceSize(); 
+  progress->SetValue(porcentage*100);
+  if (!reader->hasMoreData()){
+    timer->Stop();
+    EndModal (0);
+  }
 }
 
 void LoadingBar::OnCancel (wxCommandEvent &event)
 {
-  exit(1);
+  thread->Delete();
+  delete thread;
+  EndModal(1);
+}
+
+PajeThreadedReader::PajeThreadedReader (PajeFileReader *reader)
+  : wxThread (wxTHREAD_JOINABLE)
+{
+  this->reader = reader;
+  if(wxTHREAD_NO_ERROR == Create()) {
+    Run();
+  }
+}
+
+void *PajeThreadedReader::Entry (void)
+{
+  while(!TestDestroy() && reader->hasMoreData()){
+    try {
+      static int i = 0;
+      reader->startChunk (i);
+      reader->readNextChunk();
+      reader->endOfChunkLast (!reader->hasMoreData());
+      i++;
+    }catch (std::string exception){
+      std::cout << exception << std::endl;
+      exit(1);
+    }
+  }
+  return static_cast<ExitCode>(NULL);
 }
