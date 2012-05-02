@@ -15,6 +15,9 @@ PajeFileReader::PajeFileReader (std::string f, PajeTraceController *c)
   currentChunk = 0;
   filename = f;
   file.open (filename.c_str());
+  file.seekg (0, std::ios::end);
+  length = file.tellg ();
+  file.seekg (0, std::ios::beg);
 
   // file.open (filename.c_str());//, std::ifstream::in);
   // while (!file.eof()){
@@ -124,6 +127,7 @@ void PajeFileReader::readNextChunk (void)
     std::streampos chunkSize = nextChunkPosition - file.tellg();
     PajeData *buffer = new PajeData (chunkSize);
     file.read (buffer->bytes, chunkSize);
+    current = file.tellg();
     std::streamsize length = file.gcount();
     buffer->length = length;
     if (length != chunkSize){
@@ -140,6 +144,7 @@ void PajeFileReader::readNextChunk (void)
     // need to create a NSMutableData from a NSData
     PajeData *buffer = new PajeData(chunkSize);
     file.read (buffer->bytes, chunkSize);
+    current = file.tellg();
     std::streamsize length = file.gcount ();
     buffer->length = length;
     if (length < chunkSize){
@@ -175,4 +180,17 @@ bool PajeFileReader::hasMoreData (void)
 void PajeFileReader::setUserChunkSize (std::streamsize userChunkSize)
 {
   chunkSize = userChunkSize;
+}
+
+unsigned long long PajeFileReader::traceSize (void)
+{
+  return length;
+}
+
+unsigned long long PajeFileReader::traceRead (void)
+{
+  if (!file.eof())
+    return current;
+  else
+    return length;
 }

@@ -22,6 +22,8 @@ private:
   int currentChunk;
   bool moreData;
   std::map<int,std::streampos> chunkInfo;
+  unsigned long long length;
+  unsigned long long current;
 
 private:
   bool canEndChunk (void);
@@ -34,5 +36,7 @@ public:
   void endOfChunkLast (bool last);
   bool hasMoreData (void);
   void setUserChunkSize (std::streamsize userChunkSize);
+  unsigned long long traceSize (void);
+  unsigned long long traceRead (void);
 };
 #endif
