@@ -14,6 +14,7 @@ SET(PAJE_LIB_SRC
   src/paje/PajeTraceController.cc
   src/paje/PajeComponent.cc
   src/paje/PajeType.cc
+  src/paje/PajeContainer.cc
 )
 ADD_LIBRARY(pajecpp SHARED ${PAJE_LIB_SRC})
 

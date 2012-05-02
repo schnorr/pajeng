@@ -13,33 +13,9 @@
 #include "PajeComponent.h"
 #include "PajeEvent.h"
 #include "PajeType.h"
+#include "PajeContainer.h"
 
 #define CALL_MEMBER_PAJE_SIMULATOR(object,ptr) ((object).*(ptr))
-
-class PajeContainer {
-public:
-  std::string name;
-  std::string alias;
-public:
-  PajeContainer *parent;
-  PajeType *type;
-
-  std::map<std::string,PajeContainer*> children;
-
-  //keeps the values of variables, states, events, links
-  std::map<PajeType*,std::vector<double> > variables;
-  std::map<PajeType*,std::vector<double> > states;
-  std::map<PajeType*,std::vector<double> > events;
-  std::map<PajeType*,std::map<std::string,double> > links;
-
-public:
-  PajeContainer (std::string name, std::string alias, PajeContainer *parent, PajeType *type);
-  PajeContainer *getRoot (void);
-  PajeContainer *addContainer (std::string name, std::string alias, PajeType *type);
-  std::string identifier (void);
-};
-
-std::ostream &operator<< (std::ostream &output, const PajeContainer &container);
 
 class PajeSimulator : public PajeComponent {
 private:
