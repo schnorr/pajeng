@@ -223,7 +223,18 @@ void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
 
 void PajeSimulator::pajeDefineEntityValue (PajeEvent *event)
 {
-  std::cout << __FUNCTION__ << " TBI" << std::endl;
+  std::string name = event->valueForFieldId (std::string("Name"));
+  std::string typestr = event->valueForFieldId (std::string("Type"));
+  std::string color = event->valueForFieldId (std::string("Color"));
+  std::string alias = event->valueForFieldId (std::string("Alias"));
+
+  //search for type
+  PajeType *type = typeMap[typestr];
+  if (!type){
+    std::stringstream line;
+    line << *event;
+    throw "Unknow type '"+typestr+"' in "+line.str();
+  }
 }
 
 void PajeSimulator::pajeCreateContainer (PajeEvent *event)
