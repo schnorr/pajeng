@@ -74,6 +74,11 @@ void PajeContainer::addVariable (double time, PajeType *type, double value, Paje
   }
 
   var_t *last = &variables[type].back();
+  if (last->stime > time){
+      std::stringstream eventdesc;
+      eventdesc << *event;
+      throw "Illegal, trace is not time-ordered in "+eventdesc.str();
+  }
   if (last->stime == time){
     last->value += value;
   }else{
@@ -97,6 +102,11 @@ void PajeContainer::subVariable (double time, PajeType *type, double value, Paje
   }
 
   var_t *last = &variables[type].back();
+  if (last->stime > time){
+      std::stringstream eventdesc;
+      eventdesc << *event;
+      throw "Illegal, trace is not time-ordered in "+eventdesc.str();
+  }
   if (last->stime == time){
     last->value -= value;
     return;
