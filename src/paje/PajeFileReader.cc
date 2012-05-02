@@ -18,13 +18,6 @@ PajeFileReader::PajeFileReader (std::string f, PajeTraceController *c)
   file.seekg (0, std::ios::end);
   length = file.tellg ();
   file.seekg (0, std::ios::beg);
-
-  // file.open (filename.c_str());//, std::ifstream::in);
-  // while (!file.eof()){
-  //   std::string line;
-  //   std::getline (file, line);
-  //   std::cout << line << std::endl;
-  // }
 }
 
 PajeFileReader::~PajeFileReader (void)
