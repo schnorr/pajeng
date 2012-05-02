@@ -60,16 +60,11 @@ PajeThreadedReader::PajeThreadedReader (PajeFileReader *reader)
 void *PajeThreadedReader::Entry (void)
 {
   while(!TestDestroy() && reader->hasMoreData()){
-    try {
-      static int i = 0;
-      reader->startChunk (i);
-      reader->readNextChunk();
-      reader->endOfChunkLast (!reader->hasMoreData());
-      i++;
-    }catch (std::string exception){
-      std::cout << exception << std::endl;
-      exit(1);
-    }
+    static int i = 0;
+    reader->startChunk (i);
+    reader->readNextChunk();
+    reader->endOfChunkLast (!reader->hasMoreData());
+    i++;
   }
   return static_cast<ExitCode>(NULL);
 }
