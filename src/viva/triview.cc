@@ -276,8 +276,8 @@ void Triview::OnClose (wxCloseEvent& WXUNUSED(event))
 void Triview::OnAbout(wxCommandEvent& WXUNUSED(event))
 {
   std::cout << __FUNCTION__ << std::endl;
-  wxMessageBox( _("This is Tupi, a force-directed graph viewer.\nReleased under the GPLv3 license."),
-                _("About Tupi (wxwidgets)"),
+  wxMessageBox( _("This is VIVA, a trace visualization tool.\nReleased under the GPLv3 license."),
+                _("About VIVA"),
                 wxOK | wxICON_INFORMATION, this );
 }
 
