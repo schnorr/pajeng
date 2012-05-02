@@ -3,8 +3,7 @@ PROJECT(paje-cpp)
 
 SET(CMAKE_CXX_FLAGS "-g -rdynamic")
 
-SET(SRC
-  src/main.cc
+ADD_LIBRARY(pajecpp SHARED
   src/PajeEventDefinition.cc
   src/PajeEvent.cc
   src/PajeData.cc
@@ -16,4 +15,9 @@ SET(SRC
   src/PajeType.cc
 )
 
+SET(SRC
+  src/main.cc
+)
+
 ADD_EXECUTABLE(paje ${SRC})
+TARGET_LINK_LIBRARIES(paje pajecpp)
