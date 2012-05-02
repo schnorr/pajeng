@@ -18,9 +18,6 @@ bool TrivaWXApp::OnInit()
   if (!wxApp::OnInit())
     return false;
 
-  std::cout << __FUNCTION__ << std::endl;
-  std::cout << filename.utf8_str() << std::endl;
-
   reader = new PajeFileReader (std::string(filename.utf8_str()), NULL);
   decoder = new PajeEventDecoder ();
   simulator = new PajeSimulator ();
@@ -53,7 +50,6 @@ int TrivaWXApp::OnExit()
 
 int TrivaWXApp::OnRun()
 {
-  std::cout << __FUNCTION__ << std::endl;
   // FILE *file = fopen (filename.utf8_str(), "r");
   // if (!file){
   //   fprintf (stderr, "Could not open file\n");
