@@ -292,7 +292,9 @@ void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
   }
 
   //mark container as destroyed
+  double evttime = atof(time.c_str());
   container->destroy (atof(time.c_str()));
+  lastKnownTime = evttime;
 }
 
 void PajeSimulator::pajeNewEvent (PajeEvent *event)
@@ -342,6 +344,8 @@ void PajeSimulator::pajeNewEvent (PajeEvent *event)
     container->states[type].clear ();
   }
   container->states[type].push_back (0);
+  double evttime = atof(time.c_str());
+  lastKnownTime = evttime;
 }
 
 void PajeSimulator::pajeSetState (PajeEvent *event)
@@ -391,6 +395,8 @@ void PajeSimulator::pajeSetState (PajeEvent *event)
     container->states[type].clear ();
   }
   container->states[type].push_back (0);
+  double evttime = atof(time.c_str());
+  lastKnownTime = evttime;
 }
 
 void PajeSimulator::pajePushState (PajeEvent *event)
@@ -440,6 +446,8 @@ void PajeSimulator::pajePushState (PajeEvent *event)
     container->states[type].clear ();
   }
   container->states[type].push_back (0);
+  double evttime = atof(time.c_str());
+  lastKnownTime = evttime;
 }
 
 void PajeSimulator::pajePopState (PajeEvent *event)
@@ -493,6 +501,8 @@ void PajeSimulator::pajePopState (PajeEvent *event)
     container->states[type].clear ();
   }
   container->states[type].push_back (0);
+  double evttime = atof(time.c_str());
+  lastKnownTime = evttime;
 }
 
 void PajeSimulator::pajeSetVariable (PajeEvent *event)
@@ -537,7 +547,9 @@ void PajeSimulator::pajeSetVariable (PajeEvent *event)
     ctype2 << *container->type;
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
-  container->setVariable (atof(time.c_str()), type, atof(value.c_str()), event);
+  double evttime = atof(time.c_str());
+  container->setVariable (evttime, type, atof(value.c_str()), event);
+  lastKnownTime = evttime;
 }
 
 void PajeSimulator::pajeAddVariable (PajeEvent *event)
@@ -582,7 +594,9 @@ void PajeSimulator::pajeAddVariable (PajeEvent *event)
     ctype2 << *container->type;
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
-  container->addVariable (atof(time.c_str()), type, atof(value.c_str()), event);
+  double evttime = atof(time.c_str());
+  container->addVariable (evttime, type, atof(value.c_str()), event);
+  lastKnownTime = evttime;
 }
 
 void PajeSimulator::pajeSubVariable (PajeEvent *event)
@@ -627,7 +641,9 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
     ctype2 << *container->type;
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
-  container->subVariable (atof(time.c_str()), type, atof(value.c_str()), event);
+  double evttime = atof(time.c_str());
+  container->subVariable (evttime, type, atof(value.c_str()), event);
+  lastKnownTime = evttime;
 }
 
 void PajeSimulator::pajeStartLink (PajeEvent *event)
@@ -701,6 +717,8 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
     //key already present, remove it
     container->links[type].erase(key);
   }
+  double evttime = atof(time.c_str());
+  lastKnownTime = evttime;
 }
 
 void PajeSimulator::pajeEndLink (PajeEvent *event)
@@ -774,4 +792,6 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
     //key already present, remove it
     container->links[type].erase(key);
   }
+  double evttime = atof(time.c_str());
+  lastKnownTime = evttime;
 }

@@ -24,6 +24,8 @@ private:
   std::map<std::string,PajeType*> typeMap;
   std::map<std::string,PajeContainer*> contMap;
 
+  double lastKnownTime;
+
 public:
   PajeSimulator();
   
