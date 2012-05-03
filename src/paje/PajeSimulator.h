@@ -60,5 +60,18 @@ private:
 
   void pajeStartLink (PajeEvent *event);
   void pajeEndLink (PajeEvent *event);
+
+public:
+
+//queries
+  double startTime (void);
+  double endTime (void);
+
+  double selectionStartTime (void);
+  double selectionEndTime (void);
+
+  PajeContainer *rootInstance (void);
+  std::map<std::string,PajeType*>::iterator containedTypesForContainerType (PajeType *containerType);
+  PajeType *containerTypeForType (PajeType *type);
 };
 #endif
