@@ -20,9 +20,10 @@ PajeSimulator::PajeSimulator ()
   invocation[PajeStartLinkEventId] = &PajeSimulator::pajeStartLink;
   invocation[PajeEndLinkEventId] = &PajeSimulator::pajeEndLink;
   rootType = new PajeContainerType ("0", "0", NULL);
-  root = new PajeContainer ("0", "0", NULL, rootType);
+  root = new PajeContainer (0, "0", "0", NULL, rootType);
   typeMap[rootType->identifier()] = rootType;
   contMap[root->identifier()] = root;
+  lastKnownTime = -1;
 }
 
 void PajeSimulator::inputEntity (PajeObject *data)
@@ -254,8 +255,10 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
   }
 
   //everything seems ok, create the container
-  PajeContainer *newContainer = container->addContainer (name, alias, containerType);
+  double evttime = atof(time.c_str());
+  PajeContainer *newContainer = container->addContainer (evttime, name, alias, containerType, event);
   contMap[newContainer->identifier()] = newContainer;
+  lastKnownTime = evttime;
 }
 
 void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
@@ -293,7 +296,7 @@ void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
 
   //mark container as destroyed
   double evttime = atof(time.c_str());
-  container->destroy (atof(time.c_str()));
+  container->destroy (evttime, event);
   lastKnownTime = evttime;
 }
 

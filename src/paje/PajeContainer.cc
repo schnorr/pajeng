@@ -1,12 +1,14 @@
 #include "PajeContainer.h"
 
-PajeContainer::PajeContainer (std::string name, std::string alias, PajeContainer *parent, PajeType *type)
+PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeType *type)
 {
   this->name = name;
   this->alias = alias;
   this->parent = parent;
   this->type = type;
   this->destroyed = false;
+  this->stime = time;
+  this->etime = -1;
 }
 
 std::string PajeContainer::identifier ()
@@ -14,17 +16,22 @@ std::string PajeContainer::identifier ()
   return alias.empty() ? name : alias;
 }
 
-PajeContainer *PajeContainer::addContainer (std::string name, std::string alias, PajeType *type)
+PajeContainer *PajeContainer::addContainer (double time, std::string name, std::string alias, PajeType *type, PajeEvent *event)
 {
-  PajeContainer *newContainer = new PajeContainer (name, alias, this, type);  
+  PajeContainer *newContainer = new PajeContainer (time, name, alias, this, type);
   children[newContainer->identifier()] = newContainer;
   return newContainer;
 }
 
-void PajeContainer::destroy (double time)
+void PajeContainer::destroy (double time, PajeEvent *event)
 {
+  if (destroyed){
+    throw "already destroyed";
+  }
+
   //mark as destroyed
   destroyed = true;
+  this->etime = time;
 
   //finish all variables
   std::map<PajeType*,std::vector<var_t> >::iterator it1;

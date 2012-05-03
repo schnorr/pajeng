@@ -16,6 +16,8 @@ public:
   std::string name;
   std::string alias;
   bool destroyed;
+  double stime;
+  double etime;
 public:
   PajeContainer *parent;
   PajeType *type;
@@ -32,11 +34,11 @@ private:
 
 
 public:
-  PajeContainer (std::string name, std::string alias, PajeContainer *parent, PajeType *type);
+  PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeType *type);
   PajeContainer *getRoot (void);
-  PajeContainer *addContainer (std::string name, std::string alias, PajeType *type);
+  PajeContainer *addContainer (double time, std::string name, std::string alias, PajeType *type, PajeEvent *event);
   std::string identifier (void);
-  void destroy (double time);
+  void destroy (double time, PajeEvent *event);
   void setVariable (double time, PajeType *type, double value, PajeEvent *event);
   void addVariable (double time, PajeType *type, double value, PajeEvent *event);
   void subVariable (double time, PajeType *type, double value, PajeEvent *event);
