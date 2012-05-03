@@ -28,7 +28,7 @@ bool TrivaWXApp::OnInit()
     dial.ShowModal();
   }
 
-  triview = new Triview(wxT("Triva"), simulator);
+  triview = new Triview(wxT("Triva"));
   triview->Show(true);
   return true;
 }
