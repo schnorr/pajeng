@@ -1,7 +1,5 @@
 #include "main.h"
-#include <wx/event.h>
-#include <wx/progdlg.h>
-#include "loadingbar.h"
+
 
 IMPLEMENT_APP(TrivaWXApp)
 
@@ -14,11 +12,14 @@ bool TrivaWXApp::OnInit()
     reader = new PajeFileReader (std::string(filename.utf8_str()), NULL);
     decoder = new PajeEventDecoder ();
     simulator = new PajeSimulator ();
+    vivagraph = new VivaGraph ();
 
     reader->setOutputComponent (decoder);
     decoder->setInputComponent (reader);
     decoder->setOutputComponent (simulator);
     simulator->setInputComponent (decoder);
+    simulator->setOutputComponent (vivagraph);
+    vivagraph->setInputComponent (simulator);
 
     LoadingBar loading (wxT("Loading file..."), reader);
     loading.ShowModal ();
@@ -28,8 +29,8 @@ bool TrivaWXApp::OnInit()
     dial.ShowModal();
   }
 
-  triview = new Triview(wxT("Triva"));
-  triview->Show(true);
+  view = new GraphView (vivagraph);
+  view->Show(true);
   return true;
 }
 
@@ -38,16 +39,14 @@ int TrivaWXApp::OnExit()
   delete reader;
   delete decoder;
   delete simulator;
-  delete triview;
+  delete vivagraph;
   return 0;
 }
 
 int TrivaWXApp::OnRun()
 {
-  //run the program
   int exitcode = wxApp::OnRun();
   if (exitcode!=0){
-    
     return exitcode;
   }
   return 0;

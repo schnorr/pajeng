@@ -1,9 +1,13 @@
 #include <wx/wxprec.h>
 #include <wx/cmdline.h>
-#include "triview.h"
+#include <wx/event.h>
+#include <wx/progdlg.h>
+#include "loadingbar.h"
+#include "graphview.h"
 #include "PajeFileReader.h"
 #include "PajeEventDecoder.h"
 #include "PajeSimulator.h"
+#include "VivaGraph.h"
 
 #ifndef WX_PRECOMP
        #include <wx/wx.h>
@@ -19,14 +23,12 @@ public:
   virtual bool OnCmdLineParsed(wxCmdLineParser& parser);
 
 private:
+  wxString filename;
   PajeFileReader *reader;
   PajeEventDecoder *decoder;
   PajeSimulator *simulator;
-
-private:
-  wxString filename;
-protected:
-  Triview *triview;
+  VivaGraph *vivagraph;
+  GraphView *view;
 };
 
 static const wxCmdLineEntryDesc g_cmdLineDesc [] =
