@@ -8,7 +8,7 @@ PajeContainer::PajeContainer (double time, std::string name, std::string alias, 
   this->type = type;
   this->destroyed = false;
   this->stime = time;
-  this->etime = -1;
+  this->etime = time;
 }
 
 std::string PajeContainer::identifier ()
@@ -33,7 +33,7 @@ void PajeContainer::destroy (double time, PajeEvent *event)
     throw "Container '"+desc.str()+"' already destroyed in "+line.str();
   }
 
-  //mark as destroyed
+  //mark as destroyed, update endtime
   destroyed = true;
   this->etime = time;
 
@@ -74,6 +74,9 @@ void PajeContainer::setVariable (double time, PajeType *type, double value, Paje
   val.etime = -1;
   val.value = value;
   variables[type].push_back(val);
+
+  //update container endtime
+  this->etime = time;
 }
 
 void PajeContainer::addVariable (double time, PajeType *type, double value, PajeEvent *event)
@@ -102,6 +105,9 @@ void PajeContainer::addVariable (double time, PajeType *type, double value, Paje
   val.etime = -1;
   val.value = last->value + value;
   variables[type].push_back(val);
+
+  //update container endtime
+  this->etime = time;
 }
 
 void PajeContainer::subVariable (double time, PajeType *type, double value, PajeEvent *event)
@@ -131,6 +137,9 @@ void PajeContainer::subVariable (double time, PajeType *type, double value, Paje
   val.etime = -1;
   val.value = last->value - value;
   variables[type].push_back(val);
+
+  //update container endtime
+  this->etime = time;
 }
 
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container)
