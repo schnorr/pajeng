@@ -42,6 +42,9 @@ public:
   void setVariable (double time, PajeType *type, double value, PajeEvent *event);
   void addVariable (double time, PajeType *type, double value, PajeEvent *event);
   void subVariable (double time, PajeType *type, double value, PajeEvent *event);
+
+public:
+  void recursiveDestroy (double time, PajeEvent *event); //not a PajeSimulator event, EOF found
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container);

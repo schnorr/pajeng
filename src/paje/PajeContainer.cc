@@ -149,3 +149,14 @@ std::ostream &operator<< (std::ostream &output, const PajeContainer &container)
          << ", alias: " << container.alias << ")";
   return output;
 }
+
+void PajeContainer::recursiveDestroy (double time, PajeEvent *event)
+{
+  if (!destroyed){
+    this->destroy (time, event);
+  }
+  std::map<std::string,PajeContainer*>::iterator it;
+  for (it = children.begin(); it != children.end(); it++){
+    ((*it).second)->recursiveDestroy (time, event);
+  }
+}

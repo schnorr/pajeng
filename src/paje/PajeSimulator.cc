@@ -48,6 +48,10 @@ void PajeSimulator::startChunk (int chunkNumber)
 
 void PajeSimulator::endOfChunkLast (bool last)
 {
+  if (last){
+    //file has ended, mark all containers as destroyed
+    root->recursiveDestroy (lastKnownTime, NULL);
+  }
 }
 
 void PajeSimulator::pajeDefineContainerType (PajeEvent *event)
