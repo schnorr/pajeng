@@ -1,10 +1,6 @@
 #include <wx/wxprec.h>
 #include <wx/cmdline.h>
-//#include <graphviz/types.h>
-//#include <graphviz/graph.h>
-//#include "tupi_private.h"
 #include "triview.h"
-#include "runner.h"
 #include "PajeFileReader.h"
 #include "PajeEventDecoder.h"
 #include "PajeSimulator.h"
@@ -12,8 +8,6 @@
 #ifndef WX_PRECOMP
        #include <wx/wx.h>
 #endif
-
-/* tp_layout *layout; */
 
 class TrivaWXApp : public wxApp
 {
@@ -31,7 +25,6 @@ private:
 
 private:
   wxString filename;
-  /* Agraph_t *g; */
 protected:
   Triview *triview;
 };
