@@ -23,6 +23,9 @@ public:
               
   void virtual startChunk (int chunkNumber); //a new chunk is starting
   void virtual endOfChunkLast (bool last);   //the current chunk is ending
+
+  void virtual hierarchyChanged (void);
+  PajeContainer virtual *rootInstance (void);
 };
 
 #endif

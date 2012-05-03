@@ -1,5 +1,4 @@
 #include "PajeComponent.h"
-#include <stdlib.h>
 
 PajeComponent::PajeComponent (void)
 {
@@ -41,4 +40,17 @@ void PajeComponent::startChunk (int chunkNumber)
 void PajeComponent::endOfChunkLast (bool last)
 {
   if (outputComponent) outputComponent->endOfChunkLast (last);
+}
+
+//notifications
+void PajeComponent::hierarchyChanged (void)
+{
+  if (outputComponent) outputComponent->hierarchyChanged ();
+}
+
+//queries
+PajeContainer *PajeComponent::rootInstance (void)
+{
+  if (inputComponent) return inputComponent->rootInstance ();
+  else return NULL;
 }
