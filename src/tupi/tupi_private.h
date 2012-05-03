@@ -157,6 +157,7 @@ typedef struct m_tp_box {
 /* graph type */
 typedef struct m_tp_node {
   char *name;
+  void *data; //user data
   tp_dynar *connected;
   tp_particle *particle; //the particle that represents this node
 } tp_node;
@@ -237,7 +238,7 @@ double layout_stabilization_limit (tp_layout *layout);
 double layout_stabilization (tp_layout *layout);
 void layout_reset_energies (tp_layout *ret);
 
-tp_node *node_new (const char *name);
+tp_node *node_new (const char *name, const void *data);
 void node_free (tp_node *node);
 int node_compare (const void *p1, const void *p2);
 void node_connect (tp_node *n1, tp_node *n2);

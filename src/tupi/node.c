@@ -16,10 +16,11 @@
 */
 #include "tupi_private.h"
 
-tp_node *node_new (const char *name)
+tp_node *node_new (const char *name, const void *data)
 {
   tp_node *ret = (tp_node*) malloc (sizeof(tp_node));
   ret->name = strdup (name);
+  ret->data = data;
   ret->connected = dynar_new (sizeof(tp_particle*), &node_compare);
   ret->particle = NULL;
   return ret;

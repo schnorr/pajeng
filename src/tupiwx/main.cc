@@ -60,7 +60,7 @@ int MyApp::OnRun()
   //reading nodes/edges
   Agnode_t *n1, *n2;
   for (n1 = agfstnode (g); n1; n1 = agnxtnode (g, n1)){
-    tp_node *node = node_new (n1->name);
+    tp_node *node = node_new (n1->name, NULL);
     dynar_add_as (nodes, tp_node*, node);
     layout_add_node (layout, node);
   }
