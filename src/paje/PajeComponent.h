@@ -3,6 +3,7 @@
 #include <iostream>
 #include "PajeObject.h"
 #include "PajeData.h"
+#include "PajeContainer.h"
 
 class PajeComponent : public PajeObject
 {

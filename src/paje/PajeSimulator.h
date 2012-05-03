@@ -10,10 +10,10 @@
 #include <stdio.h>
 #include <string.h>
 #include "PajeTraceController.h"
-#include "PajeComponent.h"
 #include "PajeEvent.h"
 #include "PajeType.h"
 #include "PajeContainer.h"
+#include "PajeComponent.h"
 
 #define CALL_MEMBER_PAJE_SIMULATOR(object,ptr) ((object).*(ptr))
 

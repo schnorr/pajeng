@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "PajeType.h"
+#include "PajeEvent.h"
 
 typedef struct {
   double stime;

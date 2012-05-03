@@ -5,12 +5,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include <string>
 #include "PajeTraceController.h"
-#include "PajeComponent.h"
-#include "PajeEvent.h"
 
 class PajeType {
 public:
