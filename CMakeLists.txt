@@ -11,6 +11,7 @@ SET(PAJE_LIB_SRC
   src/paje/PajeFileReader.cc
   src/paje/PajeEventDecoder.cc
   src/paje/PajeSimulator.cc
+  src/paje/PajeSimulator+Queries.cc
   src/paje/PajeTraceController.cc
   src/paje/PajeComponent.cc
   src/paje/PajeType.cc
