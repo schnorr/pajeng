@@ -8,12 +8,12 @@ class Triview;
 class LayoutRunner : public wxThread
 {
 public:
-  LayoutRunner (Triview *t, tp_layout *l);
+  Triview *view;
+  tp_layout *layout;
   bool keepRunning;
-private:
+
+  LayoutRunner (Triview *t, tp_layout *l);
   virtual ExitCode Entry ();
-  Triview *tupiew;
-  /* tp_layout *layout; */
 };
 
 #include "triview.h"
