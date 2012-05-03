@@ -26,7 +26,11 @@ PajeContainer *PajeContainer::addContainer (double time, std::string name, std::
 void PajeContainer::destroy (double time, PajeEvent *event)
 {
   if (destroyed){
-    throw "already destroyed";
+    std::stringstream line;
+    line << *event;
+    std::stringstream desc;
+    desc << *this;
+    throw "Container '"+desc.str()+"' already destroyed in "+line.str();
   }
 
   //mark as destroyed
