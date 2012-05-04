@@ -146,7 +146,8 @@ void layout_compute (tp_layout *layout)
 
   //add the newest energy accumulated to the energies vector
   layout->energies_index = (layout->energies_index+1)%TUPI_MAX_ENERGIES;
-  if (layout->energies_count < TUPI_MAX_ENERGIES) layout->energies_count = TUPI_MAX_ENERGIES;
+  layout->energies_count++;
+  if (layout->energies_count > TUPI_MAX_ENERGIES) layout->energies_count = TUPI_MAX_ENERGIES;
   layout->energies[layout->energies_index] = layout->energy;
   pthread_mutex_unlock (&mutex);
 }
