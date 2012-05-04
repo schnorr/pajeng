@@ -7,6 +7,7 @@
 class VivaGraph;
 
 DECLARE_EVENT_TYPE (VivaGraphChanged, -1)
+DECLARE_EVENT_TYPE (VivaGraphLayoutUpdated, -1)
 
 class GraphView : public BasicFrame
 {
@@ -29,8 +30,9 @@ protected:
   //user interactions
   void MouseClicked (wxMouseEvent& event);
 
-  //from VivaGraph
+  //from VivaGraph, and runner
   void OnVivaGraphChanged (wxCommandEvent& event);
+  void OnVivaGraphLayoutUpdated (wxCommandEvent& event);
 
 public:
   GraphView (VivaGraph *vivagraph);

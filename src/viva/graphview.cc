@@ -11,6 +11,7 @@
 #define NODE_SIZE 30
 
 DEFINE_EVENT_TYPE (VivaGraphChanged)
+DEFINE_EVENT_TYPE (VivaGraphLayoutUpdated)
 
 GraphView::GraphView (VivaGraph *vivagraph)
   : BasicFrame (wxT("Viva Graph View"))
@@ -66,6 +67,8 @@ GraphView::GraphView (VivaGraph *vivagraph)
                 wxPaintEventHandler(GraphView::OnPaint));
   this->Connect(VivaGraphChanged,
                 wxCommandEventHandler(GraphView::OnVivaGraphChanged));
+  this->Connect(VivaGraphLayoutUpdated,
+                wxCommandEventHandler(GraphView::OnVivaGraphLayoutUpdated));
 
   // this->Connect(wxEVT_MOTION,
   //               wxMouseEventHandler(GraphView::OnSearchNode));
@@ -105,16 +108,14 @@ GraphView::~GraphView (void)
 
 void GraphView::OnUpdateQuality(wxCommandEvent& event)
 {
-  // int event_id = event.GetId();
-  // if (event_id >= ID_QUALITY_0 &&
-  //     event_id <= ID_QUALITY_4){
-  //   layout_set_quality (layout, event_id);
-  //   wxString str = wxT("Quality: ");
-  //   str << event_id;
-  //   SetStatusText(str, 2);
-  //   layout_reset_energies(layout);
-  //   start_runner();
-  // }
+  int event_id = event.GetId();
+  if (event_id >= ID_QUALITY_0 &&
+      event_id <= ID_QUALITY_4){
+    wxString str = wxT("Quality: ");
+    str << event_id;
+    SetStatusText(str, 2);
+    vivagraph->qualityChanged (event_id);
+  }
 }
 
 
@@ -176,4 +177,15 @@ void GraphView::MouseClicked (wxMouseEvent& event)
 void GraphView::OnVivaGraphChanged (wxCommandEvent& event)
 {
   Refresh();
+}
+
+void GraphView::OnVivaGraphLayoutUpdated (wxCommandEvent& event)
+{
+  static double last = 0;
+  double current = gettime();
+  double dif = current - last;
+  if (dif > 0.01){
+    Refresh();
+    last = current;
+  }
 }

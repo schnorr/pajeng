@@ -24,11 +24,27 @@ public:
 /* bool operator!= (const VivaNode& t1, const VivaNode& t2); */
 /* bool operator== (const VivaNode& t1, const VivaNode& t2); */
 
+class VivaRunner : public wxThread
+{
+public:
+  GraphView *view;
+  tp_layout *layout;
+  bool keepRunning;
+
+public:
+  VivaRunner (tp_layout *layout, GraphView *view);
+  virtual ExitCode Entry (void);
+};
+
 class VivaGraph : public PajeComponent 
 {
 private:
   GraphView *view;
   tp_layout *layout;
+  VivaRunner *runner;
+
+  void stop_runner (void);
+  void start_runner (void);
 
 public:
   std::vector<VivaNode*> nodes;
@@ -38,6 +54,7 @@ public:
   ~VivaGraph ();
   void setView (GraphView *view);
   void mouseClicked (wxPoint point);
+  void qualityChanged (int quality);
 
 protected:
   void hierarchyChanged (void);
