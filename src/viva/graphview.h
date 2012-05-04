@@ -4,6 +4,10 @@
 #include "basic.h"
 #include "VivaGraph.h"
 
+class VivaGraph;
+
+DECLARE_EVENT_TYPE (VivaGraphChanged, -1)
+
 class GraphView : public BasicFrame
 {
 private:
@@ -21,6 +25,12 @@ protected:
   void OnOpen(wxCommandEvent& event);
   void OnAbout (wxCommandEvent& event);
   void OnPaint (wxPaintEvent& event);
+
+  //user interactions
+  void MouseClicked (wxMouseEvent& event);
+
+  //from VivaGraph
+  void OnVivaGraphChanged (wxCommandEvent& event);
 
 public:
   GraphView (VivaGraph *vivagraph);

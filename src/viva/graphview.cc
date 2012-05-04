@@ -8,10 +8,15 @@
 #define ID_PLAY 5
 #define ID_PAUSE 6
 
+#define NODE_SIZE 30
+
+DEFINE_EVENT_TYPE (VivaGraphChanged)
+
 GraphView::GraphView (VivaGraph *vivagraph)
   : BasicFrame (wxT("Viva Graph View"))
 {
   this->vivagraph = vivagraph;
+  vivagraph->setView (this);
 
   menubar = new wxMenuBar;
   file = new wxMenu;
@@ -59,14 +64,16 @@ GraphView::GraphView (VivaGraph *vivagraph)
 
   this->Connect(wxEVT_PAINT,
                 wxPaintEventHandler(GraphView::OnPaint));
+  this->Connect(VivaGraphChanged,
+                wxCommandEventHandler(GraphView::OnVivaGraphChanged));
+
   // this->Connect(wxEVT_MOTION,
   //               wxMouseEventHandler(GraphView::OnSearchNode));
-  // this->Connect(wxEVT_LEFT_DOWN,
-  //               wxMouseEventHandler(GraphView::OnLeftDown));
+  this->Connect(wxEVT_LEFT_DOWN,
+                wxMouseEventHandler(GraphView::MouseClicked));
   // this->Connect(wxEVT_LEFT_UP,
   //               wxMouseEventHandler(GraphView::OnLeftUp));
-  // this->Connect(TupiLayoutUpdated,
-  //               wxCommandEventHandler(GraphView::OnLayoutUpdated));
+
   // this->Connect (wxEVT_ACTIVATE,
   //                wxActivateEventHandler(GraphView::OnActivate));
 
@@ -133,5 +140,38 @@ void GraphView::OnPaint(wxPaintEvent& event)
   dc.SetUserScale (ratio, ratio);
   dc.SetDeviceOrigin (translate.x, translate.y);
 
-  dc.DrawLine (10, 10, 20, 20);
+  std::vector<VivaNode*>::iterator it;
+  for (it = vivagraph->nodes.begin(); it != vivagraph->nodes.end(); it++){
+    wxPoint position = (*it)->position();
+
+    dc.SetPen(wxPen(black));
+    dc.DrawRectangle(position.x-NODE_SIZE/2,
+                     position.y-NODE_SIZE/2,
+                     NODE_SIZE,
+                     NODE_SIZE);
+  }
+}
+
+void GraphView::MouseClicked (wxMouseEvent& event)
+{
+  wxPoint screen;
+  event.GetPosition (&screen.x, &screen.y);
+
+  //get the device context, apply the current transformations
+  wxPaintDC dc(this);
+  dc.SetUserScale (ratio, ratio);
+  dc.SetDeviceOrigin (translate.x, translate.y);
+
+  //transform the mouse position in the screen space to the logical space
+  wxPoint mouseLogical;
+  mouseLogical.x = dc.DeviceToLogicalX (screen.x);
+  mouseLogical.y = dc.DeviceToLogicalY (screen.y);
+
+  vivagraph->mouseClicked (mouseLogical);
+
+}
+
+void GraphView::OnVivaGraphChanged (wxCommandEvent& event)
+{
+  Refresh();
 }
