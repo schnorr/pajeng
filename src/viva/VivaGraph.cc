@@ -56,7 +56,6 @@ void *VivaRunner::Entry (void)
     wxCommandEvent event (VivaGraphLayoutUpdated);
     wxPostEvent (view, event);
   }
-  std::cout << "terminating..." << std::endl;
   return static_cast<ExitCode>(NULL);
 }
 
