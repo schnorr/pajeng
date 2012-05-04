@@ -181,11 +181,5 @@ void GraphView::OnVivaGraphChanged (wxCommandEvent& event)
 
 void GraphView::OnVivaGraphLayoutUpdated (wxCommandEvent& event)
 {
-  static double last = 0;
-  double current = gettime();
-  double dif = current - last;
-  if (dif > 0.01){
-    Refresh();
-    last = current;
-  }
+  Refresh();
 }
