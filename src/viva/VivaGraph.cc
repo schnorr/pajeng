@@ -160,9 +160,6 @@ void VivaGraph::mouseClicked (wxPoint p)
 
 void VivaGraph::qualityChanged (int quality)
 {
-  // if (runner)
-  // this->stop_runner ();
   layout_set_quality (layout, quality);
-  layout_reset_energies (layout);
-  // this->start_runner ();
+  this->start_runner();
 }
