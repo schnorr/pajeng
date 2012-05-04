@@ -95,6 +95,8 @@ GraphView::GraphView (VivaGraph *vivagraph)
   //               ID_PAUSE,
   //               wxEVT_COMMAND_TOOL_CLICKED,
   //               wxCommandEventHandler(GraphView::OnThreadManagement));
+
+  translate = wxRealPoint(400.0,300.0);
 }
 
 GraphView::~GraphView (void)
