@@ -83,6 +83,7 @@ void VivaGraph::stop_runner (void)
 
 void VivaGraph::start_runner (void)
 {
+  stop_runner();
   if (!runner){
     if (!view){
       throw "Unable to launch VivaRunner because view is not defined";
