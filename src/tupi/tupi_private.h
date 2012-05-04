@@ -157,7 +157,7 @@ typedef struct m_tp_box {
 /* graph type */
 typedef struct m_tp_node {
   char *name;
-  void *data; //user data
+  const void *data; //user data
   tp_dynar *connected;
   tp_particle *particle; //the particle that represents this node
 } tp_node;
