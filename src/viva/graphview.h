@@ -28,7 +28,8 @@ protected:
   void OnPaint (wxPaintEvent& event);
 
   //user interactions
-  void MouseClicked (wxMouseEvent& event);
+  void leftMouseClicked (wxMouseEvent& event);
+  void rightMouseClicked (wxMouseEvent& event);
 
   //from VivaGraph, and runner
   void OnVivaGraphChanged (wxCommandEvent& event);

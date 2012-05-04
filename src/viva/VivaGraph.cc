@@ -111,7 +111,7 @@ void VivaGraph::hierarchyChanged (void)
   nodes.push_back (node);
 }
 
-void VivaGraph::mouseClicked (wxPoint p)
+VivaNode *VivaGraph::getSelectedNodeByPosition (wxPoint p)
 {
 #define NODE_SIZE 30
   tp_rect mask;
@@ -124,38 +124,136 @@ void VivaGraph::mouseClicked (wxPoint p)
   point.y = (double)p.y/100;
 
   tp_node *selected = layout_find_node_by_position (layout, point, mask);
-  if (!selected) return; //nothing was clicked
+  if (!selected) return NULL;
+  return ((VivaNode*)selected->data);
+}
 
-  this->stop_runner ();
-
-  VivaNode *clickedNode = (VivaNode*)selected->data;
-  PajeContainer *clickedContainer = clickedNode->container;
-
-  std::vector<VivaNode*>::iterator itx;
-  itx = find (nodes.begin(), nodes.end(), clickedNode);
-  nodes.erase (itx);
-  delete clickedNode;
-
+bool VivaGraph::hasChildren (PajeContainer *container)
+{
+  //this should be customized according to graph configuration
   std::vector<PajeType*> ret;
   std::vector<PajeType*>::iterator it;
-  ret = containedTypesForContainerType (clickedContainer->type);
+  ret = containedTypesForContainerType (container->type);
   for (it = ret.begin(); it != ret.end(); it++){
     if (isContainerType(*it)){
       std::vector<PajeContainer*> conts;
       std::vector<PajeContainer*>::iterator it2;
-      conts = enumeratorOfContainersTypedInContainer ((*it), clickedContainer);
+      conts = enumeratorOfContainersTypedInContainer ((*it), container);
+      if (conts.size()) return true;
+    }
+  }
+  return false;
+}
+
+bool VivaGraph::hasParent (PajeContainer *container)
+{
+  //this should be customized according to graph configuration
+  if (container->parent) return true;
+  else return false;
+}
+
+void VivaGraph::expandNode (VivaNode *node)
+{
+  PajeContainer *container = node->container;
+
+  //delete the node
+  deleteNode (node);
+
+  //this should be customized accoridng to graph configuration
+  //add its children to the graph
+  std::vector<PajeType*> ret;
+  std::vector<PajeType*>::iterator it;
+  ret = containedTypesForContainerType (container->type);
+  for (it = ret.begin(); it != ret.end(); it++){
+    if (isContainerType(*it)){
+      std::vector<PajeContainer*> conts;
+      std::vector<PajeContainer*>::iterator it2;
+      conts = enumeratorOfContainersTypedInContainer ((*it), container);
       for (it2 = conts.begin(); it2 != conts.end(); it2++){
-        VivaNode *node = new VivaNode (*it2, layout);
-        nodes.push_back (node);
+        addNode (*it2);
+      }
+    }
+  }
+}
+
+void VivaGraph::collapseNode (PajeContainer *container)
+{
+  //this should be customized accoridng to graph configuration
+  //delete all the children of PajeContainer
+  std::vector<PajeType*> ret;
+  std::vector<PajeType*>::iterator it;
+  ret = containedTypesForContainerType (container->type);
+  for (it = ret.begin(); it != ret.end(); it++){
+    if (isContainerType(*it)){
+      std::vector<PajeContainer*> conts;
+      std::vector<PajeContainer*>::iterator it2;
+      conts = enumeratorOfContainersTypedInContainer ((*it), container);
+      for (it2 = conts.begin(); it2 != conts.end(); it2++){
+        deleteNode (nodeMap[*it2]);
       }
     }
   }
 
-  //tell view that the graph changed
-  wxCommandEvent event (VivaGraphChanged);
-  wxPostEvent (view, event);
+  //add the parent container
+  addNode (container);
+}
 
+void VivaGraph::addNode (PajeContainer *container)
+{
+  VivaNode *node = new VivaNode (container, layout);
+  nodes.push_back (node);
+  nodeMap[container] = node;
+}
+
+void VivaGraph::deleteNode (VivaNode *node)
+{
+  PajeContainer *container = node->container;
+  std::vector<VivaNode*>::iterator itx;
+  itx = find (nodes.begin(), nodes.end(), node);
+  nodes.erase (itx);
+  nodeMap.erase (container);
+  delete node;
+}
+
+void VivaGraph::leftMouseClicked (wxPoint p)
+{
+  VivaNode *clickedNode = getSelectedNodeByPosition (p);
+  if (!clickedNode) return;
+  if (!hasChildren(clickedNode->container)) return;
+
+  this->stop_runner ();
+  {
+    PajeContainer *clickedContainer = clickedNode->container;
+
+    //expand the clicked node
+    expandNode (clickedNode);
+
+    //tell view that the graph changed
+    wxCommandEvent event (VivaGraphChanged);
+    wxPostEvent (view, event);
+  }
   this->start_runner ();
+}
+
+void VivaGraph::rightMouseClicked (wxPoint p)
+{
+  VivaNode *clickedNode = getSelectedNodeByPosition (p);
+  if (!clickedNode) return;
+  if (!hasParent(clickedNode->container)) return;
+
+  this->stop_runner();
+  {
+    PajeContainer *clickedContainer = clickedNode->container;
+    PajeContainer *parent = clickedContainer->parent;
+
+    //collapse the parent of the clicked node
+    collapseNode (parent);
+
+    //tell view that the graph changed
+    wxCommandEvent event (VivaGraphChanged);
+    wxPostEvent (view, event);
+  }
+  this->start_runner();
 }
 
 void VivaGraph::qualityChanged (int quality)

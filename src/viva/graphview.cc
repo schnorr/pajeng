@@ -73,7 +73,9 @@ GraphView::GraphView (VivaGraph *vivagraph)
   // this->Connect(wxEVT_MOTION,
   //               wxMouseEventHandler(GraphView::OnSearchNode));
   this->Connect(wxEVT_LEFT_DOWN,
-                wxMouseEventHandler(GraphView::MouseClicked));
+                wxMouseEventHandler(GraphView::leftMouseClicked));
+  this->Connect(wxEVT_RIGHT_DOWN,
+                wxMouseEventHandler(GraphView::rightMouseClicked));
   // this->Connect(wxEVT_LEFT_UP,
   //               wxMouseEventHandler(GraphView::OnLeftUp));
 
@@ -155,7 +157,7 @@ void GraphView::OnPaint(wxPaintEvent& event)
   }
 }
 
-void GraphView::MouseClicked (wxMouseEvent& event)
+void GraphView::leftMouseClicked (wxMouseEvent& event)
 {
   wxPoint screen;
   event.GetPosition (&screen.x, &screen.y);
@@ -170,8 +172,25 @@ void GraphView::MouseClicked (wxMouseEvent& event)
   mouseLogical.x = dc.DeviceToLogicalX (screen.x);
   mouseLogical.y = dc.DeviceToLogicalY (screen.y);
 
-  vivagraph->mouseClicked (mouseLogical);
+  vivagraph->leftMouseClicked (mouseLogical);
+}
 
+void GraphView::rightMouseClicked (wxMouseEvent& event)
+{
+  wxPoint screen;
+  event.GetPosition (&screen.x, &screen.y);
+
+  //get the device context, apply the current transformations
+  wxPaintDC dc(this);
+  dc.SetUserScale (ratio, ratio);
+  dc.SetDeviceOrigin (translate.x, translate.y);
+
+  //transform the mouse position in the screen space to the logical space
+  wxPoint mouseLogical;
+  mouseLogical.x = dc.DeviceToLogicalX (screen.x);
+  mouseLogical.y = dc.DeviceToLogicalY (screen.y);
+
+  vivagraph->rightMouseClicked (mouseLogical);
 }
 
 void GraphView::OnVivaGraphChanged (wxCommandEvent& event)

@@ -42,9 +42,18 @@ private:
   GraphView *view;
   tp_layout *layout;
   VivaRunner *runner;
+  std::map<PajeContainer*,VivaNode*> nodeMap;
 
   void stop_runner (void);
   void start_runner (void);
+  VivaNode *getSelectedNodeByPosition (wxPoint point);
+  bool hasChildren (PajeContainer *container);
+  bool hasParent (PajeContainer *container);
+  void expandNode (VivaNode *node);
+  void collapseNode (PajeContainer *container);
+  void addNode (PajeContainer *container);
+  void deleteNode (VivaNode *node);
+
 
 public:
   std::vector<VivaNode*> nodes;
@@ -53,7 +62,8 @@ public:
   VivaGraph ();
   ~VivaGraph ();
   void setView (GraphView *view);
-  void mouseClicked (wxPoint point);
+  void leftMouseClicked (wxPoint point);
+  void rightMouseClicked (wxPoint point);
   void qualityChanged (int quality);
 
 protected:
