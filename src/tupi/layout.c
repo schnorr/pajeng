@@ -110,7 +110,6 @@ void layout_remove_node (tp_layout *layout, tp_node *node)
   particle_free (particle);
 
   dict_remove_element (layout->nodes, node->name);
-  node_free (node);
   pthread_mutex_unlock (&mutex);
 }
 
