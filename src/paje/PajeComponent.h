@@ -26,6 +26,9 @@ public:
 
   void virtual hierarchyChanged (void);
   PajeContainer virtual *rootInstance (void);
+  std::vector<PajeType*> virtual containedTypesForContainerType (PajeType *type);
+  std::vector<PajeContainer*> virtual enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container);
+  bool virtual isContainerType (PajeType *type);
 };
 
 #endif

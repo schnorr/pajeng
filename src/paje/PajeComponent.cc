@@ -54,3 +54,23 @@ PajeContainer *PajeComponent::rootInstance (void)
   if (inputComponent) return inputComponent->rootInstance ();
   else return NULL;
 }
+
+std::vector<PajeType*> PajeComponent::containedTypesForContainerType (PajeType *type)
+{
+  std::vector<PajeType*> empty;
+  if (inputComponent) return inputComponent->containedTypesForContainerType (type);
+  else return empty;
+}
+
+std::vector<PajeContainer*> PajeComponent::enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container)
+{
+  std::vector<PajeContainer*> empty;
+  if (inputComponent) return inputComponent->enumeratorOfContainersTypedInContainer (type, container);
+  else return empty;
+}
+
+bool PajeComponent::isContainerType (PajeType *type)
+{
+  if (inputComponent) return inputComponent->isContainerType (type);
+  else return false;
+}
