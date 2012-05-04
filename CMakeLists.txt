@@ -53,8 +53,6 @@ TARGET_LINK_LIBRARIES(tupi ${wxWidgets_LIBRARIES} tupic gvc graph)
 SET(VIVA_SRC
   src/viva/main.cc
   src/viva/basic.cc
-  src/viva/triview.cc
-  src/viva/runner.cc
   src/viva/loadingbar.cc
   src/viva/graphview.cc
   src/viva/VivaGraph.cc)
