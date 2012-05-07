@@ -24,11 +24,20 @@ public:
   void virtual startChunk (int chunkNumber); //a new chunk is starting
   void virtual endOfChunkLast (bool last);   //the current chunk is ending
 
+  //notifications
+  void virtual timeSelectionChanged (void);
   void virtual hierarchyChanged (void);
+
+  //queries
   PajeContainer virtual *rootInstance (void);
   std::vector<PajeType*> virtual containedTypesForContainerType (PajeType *type);
   std::vector<PajeContainer*> virtual enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container);
   bool virtual isContainerType (PajeType *type);
+
+  //spatial/time integration queries
+  std::map<std::string,double> virtual timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);
+  std::map<std::string,double> virtual integrationOfContainer (PajeContainer *container);
+  std::map<std::string,double> virtual spatialIntegrationOfContainer (PajeContainer *container);
 };
 
 #endif

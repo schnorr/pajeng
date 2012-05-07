@@ -101,6 +101,11 @@ void VivaGraph::setView (GraphView *view)
   this->view = view;
 }
 
+void VivaGraph::timeSelectionChanged (void)
+{
+  //udpate layout according to new time/spatial integration
+}
+
 void VivaGraph::hierarchyChanged (void)
 {
   //clean-up nodes

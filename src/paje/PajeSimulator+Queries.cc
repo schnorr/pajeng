@@ -38,3 +38,22 @@ bool PajeSimulator::isContainerType (PajeType *type)
   else return false;
 }
 
+
+
+std::map<std::string,double> PajeSimulator::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)
+{
+  std::map<std::string,double> empty;
+  return empty;
+}
+
+std::map<std::string,double> PajeSimulator::integrationOfContainer (PajeContainer *container)
+{
+  std::map<std::string,double> empty;
+  return empty;
+}
+
+std::map<std::string,double> PajeSimulator::spatialIntegrationOfContainer (PajeContainer *container)
+{
+  std::map<std::string,double> empty;
+  return empty;
+}

@@ -62,9 +62,15 @@ private:
   void pajeEndLink (PajeEvent *event);
 
 public:
+  //queries
   PajeContainer *rootInstance (void);
   std::vector<PajeType*> containedTypesForContainerType (PajeType *type);
   std::vector<PajeContainer*> enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container);
-  bool virtual isContainerType (PajeType *type);
+  bool isContainerType (PajeType *type);
+  
+  //spatial/time integration queries
+  std::map<std::string,double> timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);
+  std::map<std::string,double> integrationOfContainer (PajeContainer *container);
+  std::map<std::string,double> spatialIntegrationOfContainer (PajeContainer *container);
 };
 #endif

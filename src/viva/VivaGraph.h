@@ -67,6 +67,7 @@ public:
   void qualityChanged (int quality);
 
 protected:
+  void timeSelectionChanged (void);
   void hierarchyChanged (void);
 };
 
