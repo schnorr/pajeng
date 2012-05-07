@@ -7,6 +7,8 @@
 #define ID_QUALITY_4 4
 #define ID_PLAY 5
 #define ID_PAUSE 6
+#define ID_VIEW_TIMEINTERVAL 7
+#define ID_VIEW_GRAPHCONFIGURATION 8
 
 #define NODE_SIZE 30
 
@@ -39,6 +41,8 @@ GraphView::GraphView (VivaGraph *vivagraph)
 
   view = new wxMenu;
   menubar->Append(view, wxT("&View"));
+  view->AppendCheckItem (ID_VIEW_TIMEINTERVAL, wxT("&Time Interval\tCtrl+T"));
+  view->AppendCheckItem (ID_VIEW_GRAPHCONFIGURATION, wxT("&Graph Configuration\tCtrl+G"));
 
   help = new wxMenu;
   help->Append(wxID_ABOUT, wxT("&About\tCtrl+A"));
