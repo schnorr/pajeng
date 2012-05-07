@@ -154,6 +154,7 @@ void GraphView::OnPaint(wxPaintEvent& event)
                      position.y-NODE_SIZE/2,
                      NODE_SIZE,
                      NODE_SIZE);
+    dc.DrawText (wxString((*it)->node->name, wxConvUTF8), position.x+15, position.y+15);
   }
 }
 
