@@ -21,6 +21,8 @@ private:
   wxMenu *help;
 
 protected:
+  void OnTimeIntervalMenu (wxCommandEvent& event);
+  void OnGraphConfigurationMenu (wxCommandEvent& event);
   void OnUpdateQuality (wxCommandEvent& event);
   void OnQuit(wxCommandEvent& event);
   void OnOpen(wxCommandEvent& event);

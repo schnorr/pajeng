@@ -50,6 +50,9 @@ GraphView::GraphView (VivaGraph *vivagraph)
 
   SetMenuBar(menubar);
 
+  this->Connect(ID_VIEW_TIMEINTERVAL, wxEVT_COMMAND_MENU_SELECTED,
+                wxCommandEventHandler (GraphView::OnTimeIntervalMenu));
+
   this->Connect(ID_QUALITY_0,
                 ID_QUALITY_4,
                 wxEVT_COMMAND_MENU_SELECTED,
@@ -109,6 +112,19 @@ GraphView::GraphView (VivaGraph *vivagraph)
 }
 
 GraphView::~GraphView (void)
+{
+}
+
+void GraphView::OnTimeIntervalMenu (wxCommandEvent& event)
+{
+  if (tiv->IsShown()){
+    tiv->Show(false);
+  }else{
+    tiv->Show(true);
+  }
+}
+
+void GraphView::OnGraphConfigurationMenu (wxCommandEvent& event)
 {
 }
 
