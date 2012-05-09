@@ -15,12 +15,140 @@
 DEFINE_EVENT_TYPE (VivaGraphChanged)
 DEFINE_EVENT_TYPE (VivaGraphLayoutUpdated)
 
-GraphView::GraphView (VivaGraph *vivagraph)
-  : BasicFrame (wxT("Viva Graph View"))
+GraphFrame::GraphFrame (wxWindow* parent,
+                        wxWindowID id,
+                        const wxPoint & pos,
+                        const wxSize & size,
+                        long style,
+                        const wxString& name)
+{
+  Create (parent, id, pos, size, style, name);
+}
+
+bool GraphFrame::Create(wxWindow* parent,
+                        wxWindowID id,
+                        const wxPoint & pos,
+                        const wxSize & size,
+                        long style,
+                        const wxString& name)
+{
+  if (!BasicFrame::Create(parent, id, pos, size, style, name) )
+    return false;
+
+
+  std::cout << "FRAM " << size.GetWidth() << " " << size.GetHeight() << std::endl;
+
+  vivagraph = NULL;
+
+  this->Connect(wxEVT_PAINT,
+                wxPaintEventHandler(GraphFrame::OnPaint));
+  this->Connect(VivaGraphChanged,
+                wxCommandEventHandler(GraphFrame::OnVivaGraphChanged));
+  this->Connect(VivaGraphLayoutUpdated,
+                wxCommandEventHandler(GraphFrame::OnVivaGraphLayoutUpdated));
+
+  // this->Connect(wxEVT_MOTION,
+  //               wxMouseEventHandler(GraphFrame::OnSearchNode));
+  this->Connect(wxEVT_LEFT_DOWN,
+                wxMouseEventHandler(GraphFrame::leftMouseClicked));
+  this->Connect(wxEVT_RIGHT_DOWN,
+                wxMouseEventHandler(GraphFrame::rightMouseClicked));
+  // this->Connect(wxEVT_LEFT_UP,
+  //               wxMouseEventHandler(GraphFrame::OnLeftUp));
+
+  translate = wxRealPoint(400.0,300.0);
+
+  return true;
+}
+
+void GraphFrame::setVivaGraph (VivaGraph *vivagraph)
 {
   this->vivagraph = vivagraph;
   vivagraph->setView (this);
+}
 
+void GraphFrame::OnPaint(wxPaintEvent& event)
+{
+  wxPaintDC dc(this);
+  wxColour black, gray, white;
+  black.Set(wxT("#000000"));
+  gray.Set(wxT("#c0c0c0"));
+  white.Set(wxT("#ffffff"));
+
+  dc.SetUserScale (ratio, ratio);
+  dc.SetDeviceOrigin (translate.x, translate.y);
+
+  if (!vivagraph) return;
+
+  std::vector<VivaNode*>::iterator it;
+  for (it = vivagraph->nodes.begin(); it != vivagraph->nodes.end(); it++){
+    wxPoint position = (*it)->position();
+
+    dc.SetPen(wxPen(black));
+    dc.DrawRectangle(position.x-NODE_SIZE/2,
+                     position.y-NODE_SIZE/2,
+                     NODE_SIZE,
+                     NODE_SIZE);
+    dc.DrawText (wxString((*it)->node->name, wxConvUTF8), position.x+15, position.y+15);
+  }
+}
+
+void GraphFrame::leftMouseClicked (wxMouseEvent& event)
+{
+  wxPoint screen;
+  event.GetPosition (&screen.x, &screen.y);
+
+  //get the device context, apply the current transformations
+  wxPaintDC dc(this);
+  dc.SetUserScale (ratio, ratio);
+  dc.SetDeviceOrigin (translate.x, translate.y);
+
+  //transform the mouse position in the screen space to the logical space
+  wxPoint mouseLogical;
+  mouseLogical.x = dc.DeviceToLogicalX (screen.x);
+  mouseLogical.y = dc.DeviceToLogicalY (screen.y);
+
+  vivagraph->leftMouseClicked (mouseLogical);
+}
+
+void GraphFrame::rightMouseClicked (wxMouseEvent& event)
+{
+  wxPoint screen;
+  event.GetPosition (&screen.x, &screen.y);
+
+  //get the device context, apply the current transformations
+  wxPaintDC dc(this);
+  dc.SetUserScale (ratio, ratio);
+  dc.SetDeviceOrigin (translate.x, translate.y);
+
+  //transform the mouse position in the screen space to the logical space
+  wxPoint mouseLogical;
+  mouseLogical.x = dc.DeviceToLogicalX (screen.x);
+  mouseLogical.y = dc.DeviceToLogicalY (screen.y);
+
+  vivagraph->rightMouseClicked (mouseLogical);
+}
+
+void GraphFrame::OnVivaGraphChanged (wxCommandEvent& event)
+{
+  Refresh();
+}
+
+void GraphFrame::OnVivaGraphLayoutUpdated (wxCommandEvent& event)
+{
+  Refresh();
+}
+
+wxSize GraphFrame::DoGetBestSize ()
+{
+  std::cout << __FUNCTION__ << std::endl;
+  wxSize x;
+  return x;
+}
+
+GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
+  : wxFrame(parent, wxID_ANY, wxT("Viva Graph Window"))
+{
   menubar = new wxMenuBar;
   file = new wxMenu;
   file->Append(wxID_OPEN);
@@ -51,44 +179,25 @@ GraphView::GraphView (VivaGraph *vivagraph)
   SetMenuBar(menubar);
 
   this->Connect(ID_VIEW_TIMEINTERVAL, wxEVT_COMMAND_MENU_SELECTED,
-                wxCommandEventHandler (GraphView::OnTimeIntervalMenu));
+                wxCommandEventHandler (GraphWindow::OnTimeIntervalMenu));
 
   this->Connect(ID_QUALITY_0,
                 ID_QUALITY_4,
                 wxEVT_COMMAND_MENU_SELECTED,
-                wxCommandEventHandler(GraphView::OnUpdateQuality));
+                wxCommandEventHandler(GraphWindow::OnUpdateQuality));
 
   this->Connect(wxID_EXIT,
                 wxEVT_COMMAND_MENU_SELECTED,
-                wxCommandEventHandler(GraphView::OnQuit));
+                wxCommandEventHandler(GraphWindow::OnQuit));
 
   this->Connect(wxID_OPEN,
                 wxEVT_COMMAND_MENU_SELECTED,
-                wxCommandEventHandler(GraphView::OnOpen));
+                wxCommandEventHandler(GraphWindow::OnOpen));
 
   this->Connect(wxID_ABOUT,
                 wxEVT_COMMAND_MENU_SELECTED,
-                wxCommandEventHandler(GraphView::OnAbout));
-
-  this->Connect(wxEVT_PAINT,
-                wxPaintEventHandler(GraphView::OnPaint));
-  this->Connect(VivaGraphChanged,
-                wxCommandEventHandler(GraphView::OnVivaGraphChanged));
-  this->Connect(VivaGraphLayoutUpdated,
-                wxCommandEventHandler(GraphView::OnVivaGraphLayoutUpdated));
-
-  // this->Connect(wxEVT_MOTION,
-  //               wxMouseEventHandler(GraphView::OnSearchNode));
-  this->Connect(wxEVT_LEFT_DOWN,
-                wxMouseEventHandler(GraphView::leftMouseClicked));
-  this->Connect(wxEVT_RIGHT_DOWN,
-                wxMouseEventHandler(GraphView::rightMouseClicked));
-  // this->Connect(wxEVT_LEFT_UP,
-  //               wxMouseEventHandler(GraphView::OnLeftUp));
-
-  // this->Connect (wxEVT_ACTIVATE,
-  //                wxActivateEventHandler(GraphView::OnActivate));
-
+                wxCommandEventHandler(GraphWindow::OnAbout));
+ 
   //status bar
   CreateStatusBar(3);
 
@@ -106,29 +215,30 @@ GraphView::GraphView (VivaGraph *vivagraph)
   // this->Connect(ID_PLAY,
   //               ID_PAUSE,
   //               wxEVT_COMMAND_TOOL_CLICKED,
-  //               wxCommandEventHandler(GraphView::OnThreadManagement));
+  //               wxCommandEventHandler(GraphFrame::OnThreadManagement));
 
-  translate = wxRealPoint(400.0,300.0);
+  wxPanel *panel = new wxPanel(this, -1);
+  view = new GraphFrame (panel, -1);
+  view->setVivaGraph (vivagraph);
+  wxBoxSizer *vbox = new wxBoxSizer (wxVERTICAL);
+  vbox->Add (view, 1, wxEXPAND);
+  panel->SetSizer(vbox);
+  Centre();
 }
 
-GraphView::~GraphView (void)
+GraphWindow::~GraphWindow ()
 {
 }
 
-void GraphView::OnTimeIntervalMenu (wxCommandEvent& event)
-{
-  if (tiv->IsShown()){
-    tiv->Show(false);
-  }else{
-    tiv->Show(true);
-  }
-}
-
-void GraphView::OnGraphConfigurationMenu (wxCommandEvent& event)
+void GraphWindow::OnTimeIntervalMenu (wxCommandEvent& event)
 {
 }
 
-void GraphView::OnUpdateQuality(wxCommandEvent& event)
+void GraphWindow::OnGraphConfigurationMenu (wxCommandEvent& event)
+{
+}
+
+void GraphWindow::OnUpdateQuality(wxCommandEvent& event)
 {
   int event_id = event.GetId();
   if (event_id >= ID_QUALITY_0 &&
@@ -141,85 +251,15 @@ void GraphView::OnUpdateQuality(wxCommandEvent& event)
 }
 
 
-void GraphView::OnQuit(wxCommandEvent& WXUNUSED(event))
+void GraphWindow::OnQuit(wxCommandEvent& WXUNUSED(event))
 {
   Close(true);
 }
 
-void GraphView::OnOpen(wxCommandEvent& WXUNUSED(event))
+void GraphWindow::OnOpen(wxCommandEvent& WXUNUSED(event))
 {
 }
 
-void GraphView::OnAbout(wxCommandEvent& WXUNUSED(event))
+void GraphWindow::OnAbout(wxCommandEvent& WXUNUSED(event))
 {
-}
-
-void GraphView::OnPaint(wxPaintEvent& event)
-{
-  wxPaintDC dc(this);
-  wxColour black, gray, white;
-  black.Set(wxT("#000000"));
-  gray.Set(wxT("#c0c0c0"));
-  white.Set(wxT("#ffffff"));
-
-  dc.SetUserScale (ratio, ratio);
-  dc.SetDeviceOrigin (translate.x, translate.y);
-
-  std::vector<VivaNode*>::iterator it;
-  for (it = vivagraph->nodes.begin(); it != vivagraph->nodes.end(); it++){
-    wxPoint position = (*it)->position();
-
-    dc.SetPen(wxPen(black));
-    dc.DrawRectangle(position.x-NODE_SIZE/2,
-                     position.y-NODE_SIZE/2,
-                     NODE_SIZE,
-                     NODE_SIZE);
-    dc.DrawText (wxString((*it)->node->name, wxConvUTF8), position.x+15, position.y+15);
-  }
-}
-
-void GraphView::leftMouseClicked (wxMouseEvent& event)
-{
-  wxPoint screen;
-  event.GetPosition (&screen.x, &screen.y);
-
-  //get the device context, apply the current transformations
-  wxPaintDC dc(this);
-  dc.SetUserScale (ratio, ratio);
-  dc.SetDeviceOrigin (translate.x, translate.y);
-
-  //transform the mouse position in the screen space to the logical space
-  wxPoint mouseLogical;
-  mouseLogical.x = dc.DeviceToLogicalX (screen.x);
-  mouseLogical.y = dc.DeviceToLogicalY (screen.y);
-
-  vivagraph->leftMouseClicked (mouseLogical);
-}
-
-void GraphView::rightMouseClicked (wxMouseEvent& event)
-{
-  wxPoint screen;
-  event.GetPosition (&screen.x, &screen.y);
-
-  //get the device context, apply the current transformations
-  wxPaintDC dc(this);
-  dc.SetUserScale (ratio, ratio);
-  dc.SetDeviceOrigin (translate.x, translate.y);
-
-  //transform the mouse position in the screen space to the logical space
-  wxPoint mouseLogical;
-  mouseLogical.x = dc.DeviceToLogicalX (screen.x);
-  mouseLogical.y = dc.DeviceToLogicalY (screen.y);
-
-  vivagraph->rightMouseClicked (mouseLogical);
-}
-
-void GraphView::OnVivaGraphChanged (wxCommandEvent& event)
-{
-  Refresh();
-}
-
-void GraphView::OnVivaGraphLayoutUpdated (wxCommandEvent& event)
-{
-  Refresh();
 }

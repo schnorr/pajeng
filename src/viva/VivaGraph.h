@@ -6,7 +6,7 @@
 #include "PajeComponent.h"
 #include "tupi_private.h"
 
-class GraphView;
+class GraphFrame;
 
 class VivaNode
 {
@@ -27,19 +27,19 @@ public:
 class VivaRunner : public wxThread
 {
 public:
-  GraphView *view;
+  GraphFrame *view;
   tp_layout *layout;
   bool keepRunning;
 
 public:
-  VivaRunner (tp_layout *layout, GraphView *view);
+  VivaRunner (tp_layout *layout, GraphFrame *view);
   virtual ExitCode Entry (void);
 };
 
 class VivaGraph : public PajeComponent 
 {
 private:
-  GraphView *view;
+  GraphFrame *view;
   tp_layout *layout;
   VivaRunner *runner;
   std::map<PajeContainer*,VivaNode*> nodeMap;
@@ -61,7 +61,7 @@ public:
 public:
   VivaGraph ();
   ~VivaGraph ();
-  void setView (GraphView *view);
+  void setView (GraphFrame *view);
   void leftMouseClicked (wxPoint point);
   void rightMouseClicked (wxPoint point);
   void qualityChanged (int quality);

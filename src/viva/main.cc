@@ -29,8 +29,8 @@ bool TrivaWXApp::OnInit()
     dial.ShowModal();
   }
 
-  view = new GraphView (vivagraph);
-  view->Show(true);
+  window = new GraphWindow (NULL, vivagraph);
+  window->Show(true);
   return true;
 }
 

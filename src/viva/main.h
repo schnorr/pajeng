@@ -28,7 +28,7 @@ private:
   PajeEventDecoder *decoder;
   PajeSimulator *simulator;
   VivaGraph *vivagraph;
-  GraphView *view;
+  GraphWindow *window;
 };
 
 static const wxCmdLineEntryDesc g_cmdLineDesc [] =

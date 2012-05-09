@@ -32,7 +32,7 @@ wxPoint VivaNode::position ()
 // }
 
 
-VivaRunner::VivaRunner (tp_layout *layout, GraphView *view)
+VivaRunner::VivaRunner (tp_layout *layout, GraphFrame *view)
   : wxThread (wxTHREAD_JOINABLE)
 {
   this->layout = layout;
@@ -96,7 +96,7 @@ void VivaGraph::start_runner (void)
   }
 }
 
-void VivaGraph::setView (GraphView *view)
+void VivaGraph::setView (GraphFrame *view)
 {
   this->view = view;
 }

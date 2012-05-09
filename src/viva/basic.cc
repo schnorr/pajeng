@@ -1,17 +1,38 @@
 #include "basic.h"
 
-BasicFrame::BasicFrame(const wxString& title)
-       : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(700, 500))
+IMPLEMENT_DYNAMIC_CLASS(BasicFrame,wxPanel);
+
+BasicFrame::BasicFrame (wxWindow* parent,
+                        wxWindowID id,
+                        const wxPoint & pos,
+                        const wxSize & size,
+                        long style,
+                        const wxString& name)
 {
+  Create(parent, id, pos, size, style, name);
+}
+
+bool BasicFrame::Create(wxWindow* parent,
+                        wxWindowID id,
+                        const wxPoint & pos,
+                        const wxSize & size,
+                        long style,
+                        const wxString& name)
+{
+  if ( !wxPanel::Create(parent, id, pos, size, style, name) )
+    return false;
+
   ratio = 1;
   translate = wxRealPoint(0.0,0.0);
   mousePosition = wxPoint(0,0);
 
   this->Connect(wxEVT_MOTION, wxMouseEventHandler(BasicFrame::OnMouseMotion));
   this->Connect(wxEVT_MOUSEWHEEL, wxMouseEventHandler(BasicFrame::OnMouseWheel));
+  this->Connect(wxEVT_SIZE, wxSizeEventHandler(BasicFrame::OnSize));
+
+  return true;
 }
-
-
+ 
 void BasicFrame::OnMouseMotion (wxMouseEvent& event)
 {
   wxPoint p;
@@ -65,5 +86,10 @@ void BasicFrame::OnMouseWheel (wxMouseEvent& event)
   translate = translate + dif;
 
   event.GetPosition (&mousePosition.x, &mousePosition.y);
+  Refresh();
+}
+
+void BasicFrame::OnSize (wxSizeEvent& event)
+{
   Refresh();
 }
