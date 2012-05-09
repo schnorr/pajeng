@@ -18,10 +18,8 @@ private:
   wxMenuBar *menubar;
   wxMenu *file;
   wxMenu *edit;
-  wxMenu *viewmenu;
+  wxMenu *view;
   wxMenu *help;
-
-  GraphFrame *view;
 
 protected:
   void OnTimeIntervalMenu (wxCommandEvent& event);

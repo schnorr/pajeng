@@ -31,10 +31,10 @@ GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
 
   menubar->Append(edit, wxT("&Edit"));
 
-  viewmenu = new wxMenu;
-  menubar->Append(viewmenu, wxT("&View"));
-  viewmenu->AppendCheckItem (ID_VIEW_TIMEINTERVAL, wxT("&Time Interval\tCtrl+T"));
-  viewmenu->AppendCheckItem (ID_VIEW_GRAPHCONFIGURATION, wxT("&Graph Configuration\tCtrl+G"));
+  view = new wxMenu;
+  menubar->Append(view, wxT("&View"));
+  view->AppendCheckItem (ID_VIEW_TIMEINTERVAL, wxT("&Time Interval\tCtrl+T"));
+  view->AppendCheckItem (ID_VIEW_GRAPHCONFIGURATION, wxT("&Graph Configuration\tCtrl+G"));
 
   help = new wxMenu;
   help->Append(wxID_ABOUT, wxT("&About\tCtrl+A"));
@@ -82,10 +82,10 @@ GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
   //               wxCommandEventHandler(GraphFrame::OnThreadManagement));
 
   wxPanel *panel = new wxPanel(this, -1);
-  view = new GraphFrame (panel, -1);
-  view->setVivaGraph (vivagraph);
+  GraphFrame *frame = new GraphFrame (panel, -1);
+  frame->setVivaGraph (vivagraph);
   wxBoxSizer *vbox = new wxBoxSizer (wxVERTICAL);
-  vbox->Add (view, 1, wxEXPAND);
+  vbox->Add (frame, 1, wxEXPAND);
   panel->SetSizer(vbox);
   Centre();
 }
