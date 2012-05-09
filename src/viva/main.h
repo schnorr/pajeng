@@ -3,7 +3,7 @@
 #include <wx/event.h>
 #include <wx/progdlg.h>
 #include "loadingbar.h"
-#include "graphview.h"
+#include "graphwindow.h"
 #include "PajeFileReader.h"
 #include "PajeEventDecoder.h"
 #include "PajeSimulator.h"

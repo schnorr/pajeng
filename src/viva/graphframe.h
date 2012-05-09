@@ -42,5 +42,10 @@ protected:
 
 };
 
+DEFINE_EVENT_TYPE (VivaGraphChanged)
+DEFINE_EVENT_TYPE (VivaGraphLayoutUpdated)
+
+
+
 #include "VivaGraph.h"
 #endif

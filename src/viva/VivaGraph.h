@@ -2,7 +2,7 @@
 #define __VIVA_GRAPH_H
 #include <wx/wx.h> //to VivaNode
 #include <algorithm>
-#include "graphview.h"
+#include "graphframe.h"
 #include "PajeComponent.h"
 #include "tupi_private.h"
 

@@ -1,4 +1,4 @@
-#include "graphview.h"
+#include "graphwindow.h"
 
 #define ID_QUALITY_0 0
 #define ID_QUALITY_1 1
@@ -9,9 +9,6 @@
 #define ID_PAUSE 6
 #define ID_VIEW_TIMEINTERVAL 7
 #define ID_VIEW_GRAPHCONFIGURATION 8
-
-DEFINE_EVENT_TYPE (VivaGraphChanged)
-DEFINE_EVENT_TYPE (VivaGraphLayoutUpdated)
 
 GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
   : wxFrame(parent, wxID_ANY, wxT("Viva Graph Window"))
