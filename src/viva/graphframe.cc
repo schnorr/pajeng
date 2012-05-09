@@ -2,6 +2,10 @@
 
 #define NODE_SIZE 30
 
+
+DEFINE_EVENT_TYPE (VivaGraphChanged)
+DEFINE_EVENT_TYPE (VivaGraphLayoutUpdated)
+
 GraphFrame::GraphFrame (wxWindow* parent,
                         wxWindowID id,
                         const wxPoint & pos,
