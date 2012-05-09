@@ -54,6 +54,7 @@ SET(VIVA_SRC
   src/viva/main.cc
   src/viva/basic.cc
   src/viva/loadingbar.cc
+  src/viva/graphframe.cc
   src/viva/graphview.cc
   src/viva/VivaGraph.cc)
 ADD_EXECUTABLE(viva ${VIVA_SRC})
