@@ -48,6 +48,16 @@ double PajeSimulator::endTime (void)
   return root->endTime ();
 }
 
+double PajeSimulator::selectionStartTime (void)
+{
+  return startTime();
+}
+
+double PajeSimulator::selectionEndTime (void)
+{
+  return endTime();
+}
+
 std::map<std::string,double> PajeSimulator::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)
 {
   std::map<std::string,double> empty;

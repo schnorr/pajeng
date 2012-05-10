@@ -69,6 +69,9 @@ public:
   bool isContainerType (PajeType *type);
   double startTime (void);
   double endTime (void);
+  double selectionStartTime (void);
+  double selectionEndTime (void);
+
   
   //spatial/time integration queries
   std::map<std::string,double> timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);

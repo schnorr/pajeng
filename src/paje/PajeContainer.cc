@@ -163,10 +163,10 @@ void PajeContainer::recursiveDestroy (double time, PajeEvent *event)
 
 double PajeContainer::startTime (void)
 {
-  return -2;
+  return stime;
 }
 
 double PajeContainer::endTime (void)
 {
-  return -2;
+  return etime;
 }

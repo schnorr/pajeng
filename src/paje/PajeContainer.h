@@ -33,7 +33,6 @@ public:
 private:
   std::map<PajeType*,std::vector<var_t> > variables;
 
-
 public:
   PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeType *type);
   PajeContainer *getRoot (void);

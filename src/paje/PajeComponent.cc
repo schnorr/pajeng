@@ -97,6 +97,18 @@ double PajeComponent::endTime (void)
   else return -1;
 }
 
+double PajeComponent::selectionStartTime (void)
+{
+  if (inputComponent) return inputComponent->selectionStartTime ();
+  else return -1;
+}
+
+double PajeComponent::selectionEndTime (void)
+{
+  if (inputComponent) return inputComponent->selectionEndTime ();
+  else return -1;
+}
+
 std::map<std::string,double> PajeComponent::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)
 {
   std::map<std::string,double> empty;
