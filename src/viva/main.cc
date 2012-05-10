@@ -12,14 +12,13 @@ bool TrivaWXApp::OnInit()
     reader = new PajeFileReader (std::string(filename.utf8_str()), NULL);
     decoder = new PajeEventDecoder ();
     simulator = new PajeSimulator ();
+    timeinterval = new TimeInterval ();
     vivagraph = new VivaGraph ();
 
-    reader->setOutputComponent (decoder);
-    decoder->setInputComponent (reader);
-    decoder->setOutputComponent (simulator);
-    simulator->setInputComponent (decoder);
-    simulator->setOutputComponent (vivagraph);
-    vivagraph->setInputComponent (simulator);
+    connectComponents (reader, decoder);
+    connectComponents (decoder, simulator);
+    connectComponents (simulator, timeinterval);
+    connectComponents (timeinterval, vivagraph);
 
     LoadingBar loading (wxT("Loading file..."), reader);
     loading.ShowModal ();
@@ -31,9 +30,15 @@ bool TrivaWXApp::OnInit()
 
   window = new GraphWindow (NULL, vivagraph);
   window->Show(true);
-  timeslicewindow = new TimeSliceWindow (NULL, vivagraph);
+  timeslicewindow = new TimeSliceWindow (NULL, timeinterval);
   timeslicewindow->Show (true);
   return true;
+}
+
+void TrivaWXApp::connectComponents (PajeComponent *c1, PajeComponent *c2)
+{
+  c1->setOutputComponent (c2);
+  c2->setInputComponent (c1);
 }
 
 int TrivaWXApp::OnExit()

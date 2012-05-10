@@ -8,6 +8,7 @@
 #include "PajeFileReader.h"
 #include "PajeEventDecoder.h"
 #include "PajeSimulator.h"
+#include "TimeInterval.h"
 #include "VivaGraph.h"
 
 #ifndef WX_PRECOMP
@@ -28,9 +29,12 @@ private:
   PajeFileReader *reader;
   PajeEventDecoder *decoder;
   PajeSimulator *simulator;
+  TimeInterval *timeinterval;
   VivaGraph *vivagraph;
   GraphWindow *window;
   TimeSliceWindow *timeslicewindow;
+
+  void connectComponents (PajeComponent *c1, PajeComponent *c2);
 };
 
 static const wxCmdLineEntryDesc g_cmdLineDesc [] =
