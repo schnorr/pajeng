@@ -119,11 +119,3 @@ void GraphFrame::OnVivaGraphLayoutUpdated (wxCommandEvent& event)
 {
   Refresh();
 }
-
-wxSize GraphFrame::DoGetBestSize ()
-{
-  std::cout << __FUNCTION__ << std::endl;
-  wxSize x;
-  return x;
-}
-
