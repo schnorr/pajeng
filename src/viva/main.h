@@ -4,6 +4,7 @@
 #include <wx/progdlg.h>
 #include "loadingbar.h"
 #include "graphwindow.h"
+#include "timeslicewindow.h"
 #include "PajeFileReader.h"
 #include "PajeEventDecoder.h"
 #include "PajeSimulator.h"
@@ -29,6 +30,7 @@ private:
   PajeSimulator *simulator;
   VivaGraph *vivagraph;
   GraphWindow *window;
+  TimeSliceWindow *timeslicewindow;
 };
 
 static const wxCmdLineEntryDesc g_cmdLineDesc [] =

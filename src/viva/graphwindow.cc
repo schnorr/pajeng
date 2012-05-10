@@ -84,16 +84,8 @@ GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
   wxPanel *panel = new wxPanel(this, -1);
   GraphFrame *graphframe = new GraphFrame (panel, -1);
   graphframe->setVivaGraph (vivagraph);
-
-  TimeSliceFrame *timesliceframe = new TimeSliceFrame (panel, -1,
-                                                       wxDefaultPosition,
-                                                       wxDefaultSize,
-                                                       wxRAISED_BORDER);
-  timesliceframe->setVivaGraph (vivagraph);
-
   wxBoxSizer *vbox = new wxBoxSizer (wxVERTICAL);
   vbox->Add (graphframe, 1, wxEXPAND);
-  vbox->Add (timesliceframe, 0, wxEXPAND);
   panel->SetSizer(vbox);
   Centre();
 }

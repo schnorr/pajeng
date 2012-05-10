@@ -46,6 +46,10 @@ public:
 
 public:
   void recursiveDestroy (double time, PajeEvent *event); //not a PajeSimulator event, EOF found
+
+  //queries
+  double startTime (void);
+  double endTime (void);
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container);

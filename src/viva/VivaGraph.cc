@@ -101,6 +101,18 @@ void VivaGraph::setView (GraphFrame *view)
   this->view = view;
 }
 
+void VivaGraph::setTimeSliceFrame (TimeSliceFrame *frame)
+{
+  this->timesliceframe = frame;
+}
+
+void VivaGraph::timeLimitsChanged (void)
+{
+  std::cout << __FUNCTION__ << std::endl;
+  std::cout << timesliceframe << std::endl;
+  timesliceframe->timeLimitsChanged();
+}
+
 void VivaGraph::timeSelectionChanged (void)
 {
   //udpate layout according to new time/spatial integration

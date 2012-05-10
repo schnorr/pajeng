@@ -160,3 +160,13 @@ void PajeContainer::recursiveDestroy (double time, PajeEvent *event)
     ((*it).second)->recursiveDestroy (time, event);
   }
 }
+
+double PajeContainer::startTime (void)
+{
+  return -2;
+}
+
+double PajeContainer::endTime (void)
+{
+  return -2;
+}

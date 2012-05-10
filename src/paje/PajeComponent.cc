@@ -43,6 +43,11 @@ void PajeComponent::endOfChunkLast (bool last)
 }
 
 //notifications
+void PajeComponent::timeLimitsChanged (void)
+{
+  if (outputComponent) outputComponent->timeLimitsChanged ();
+}
+
 void PajeComponent::timeSelectionChanged (void)
 {
   if (outputComponent) outputComponent->timeSelectionChanged ();
@@ -78,6 +83,18 @@ bool PajeComponent::isContainerType (PajeType *type)
 {
   if (inputComponent) return inputComponent->isContainerType (type);
   else return false;
+}
+
+double PajeComponent::startTime (void)
+{
+  if (inputComponent) return inputComponent->startTime ();
+  else return -1;
+}
+
+double PajeComponent::endTime (void)
+{
+  if (inputComponent) return inputComponent->endTime ();
+  else return -1;
 }
 
 std::map<std::string,double> PajeComponent::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)

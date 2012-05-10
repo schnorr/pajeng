@@ -25,6 +25,7 @@ public:
   void virtual endOfChunkLast (bool last);   //the current chunk is ending
 
   //notifications
+  void virtual timeLimitsChanged (void);
   void virtual timeSelectionChanged (void);
   void virtual hierarchyChanged (void);
 
@@ -33,6 +34,8 @@ public:
   std::vector<PajeType*> virtual containedTypesForContainerType (PajeType *type);
   std::vector<PajeContainer*> virtual enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container);
   bool virtual isContainerType (PajeType *type);
+  double virtual startTime (void);
+  double virtual endTime (void);
 
   //spatial/time integration queries
   std::map<std::string,double> virtual timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);

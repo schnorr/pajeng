@@ -67,6 +67,8 @@ public:
   std::vector<PajeType*> containedTypesForContainerType (PajeType *type);
   std::vector<PajeContainer*> enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container);
   bool isContainerType (PajeType *type);
+  double startTime (void);
+  double endTime (void);
   
   //spatial/time integration queries
   std::map<std::string,double> timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);

@@ -38,7 +38,15 @@ bool PajeSimulator::isContainerType (PajeType *type)
   else return false;
 }
 
+double PajeSimulator::startTime (void)
+{
+  return root->startTime ();
+}
 
+double PajeSimulator::endTime (void)
+{
+  return root->endTime ();
+}
 
 std::map<std::string,double> PajeSimulator::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)
 {

@@ -3,6 +3,7 @@
 #include <wx/wx.h> //to VivaNode
 #include <algorithm>
 #include "graphframe.h"
+#include "timesliceframe.h"
 #include "PajeComponent.h"
 #include "tupi_private.h"
 
@@ -40,6 +41,7 @@ class VivaGraph : public PajeComponent
 {
 private:
   GraphFrame *view;
+  TimeSliceFrame *timesliceframe;
   tp_layout *layout;
   VivaRunner *runner;
   std::map<PajeContainer*,VivaNode*> nodeMap;
@@ -54,7 +56,6 @@ private:
   void addNode (PajeContainer *container);
   void deleteNode (VivaNode *node);
 
-
 public:
   std::vector<VivaNode*> nodes;
 
@@ -62,11 +63,13 @@ public:
   VivaGraph ();
   ~VivaGraph ();
   void setView (GraphFrame *view);
+  void setTimeSliceFrame (TimeSliceFrame *frame);
   void leftMouseClicked (wxPoint point);
   void rightMouseClicked (wxPoint point);
   void qualityChanged (int quality);
 
 protected:
+  void timeLimitsChanged (void);
   void timeSelectionChanged (void);
   void hierarchyChanged (void);
 };
