@@ -11,7 +11,7 @@
 #define ID_VIEW_GRAPHCONFIGURATION 8
 
 GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
-  : wxFrame(parent, wxID_ANY, wxT("Viva Graph Window"))
+  : wxFrame(parent, wxID_ANY, wxT("Viva Graph Window"), wxDefaultPosition, wxSize(700,400))
 {
   menubar = new wxMenuBar;
   file = new wxMenu;
