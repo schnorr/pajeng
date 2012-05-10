@@ -58,6 +58,7 @@ SET(VIVA_SRC
   src/viva/timesliceframe.cc
   src/viva/graphwindow.cc
   src/viva/timeslicewindow.cc
-  src/viva/VivaGraph.cc)
+  src/viva/VivaGraph.cc
+  src/viva/TimeInterval.cc)
 ADD_EXECUTABLE(viva ${VIVA_SRC})
 target_link_libraries(viva ${wxWidgets_LIBRARIES} tupic gvc graph pajecpp )
