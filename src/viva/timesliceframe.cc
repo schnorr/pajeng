@@ -13,6 +13,7 @@ TimeSliceCanvas::TimeSliceCanvas (wxWindow* parent,
                 wxPaintEventHandler(TimeSliceCanvas::OnPaint));
   this->Connect(wxEVT_SIZE,
                 wxSizeEventHandler(TimeSliceCanvas::OnSize));
+
 }
 
 TimeSliceCanvas::~TimeSliceCanvas ()
@@ -78,7 +79,7 @@ bool TimeSliceFrame::Create(wxWindow* parent,
   wxBoxSizer *start_box = new wxBoxSizer (wxHORIZONTAL);
   wxStaticText *start_text = new wxStaticText (this, -1, _("Start:"));
   start_slider = new wxSlider (this, ID_START_SLIDER, min, min, max);
-  start_value = new wxTextCtrl (this, -1, _(""), wxDefaultPosition, wxSize(100,-1));
+  start_value = new wxTextCtrl (this, ID_START_TEXT, _(""), wxDefaultPosition, wxSize(100,-1), wxTE_PROCESS_ENTER);
   start_box->Add (start_text);
   start_box->Add (start_slider, 1, wxEXPAND);
   start_box->Add (start_value);
@@ -86,7 +87,7 @@ bool TimeSliceFrame::Create(wxWindow* parent,
   wxBoxSizer *size_box = new wxBoxSizer (wxHORIZONTAL);
   wxStaticText *size_text = new wxStaticText (this, -1, _("Size:"));
   size_slider = new wxSlider (this, ID_SIZE_SLIDER, max, min, max);
-  size_value = new wxTextCtrl (this, -1, _(""), wxDefaultPosition, wxSize(100,-1));
+  size_value = new wxTextCtrl (this, ID_SIZE_TEXT, _(""), wxDefaultPosition, wxSize(100,-1), wxTE_PROCESS_ENTER);
   size_box->Add (size_text, 0, wxEXPAND);
   size_box->Add (size_slider, 1, wxEXPAND);
   size_box->Add (size_value, 0, wxEXPAND);
@@ -135,16 +136,46 @@ bool TimeSliceFrame::Create(wxWindow* parent,
 
   this->Connect (wxEVT_SCROLL_THUMBTRACK,
                  wxScrollEventHandler(TimeSliceFrame::OnSliceScroll));
+  this->Connect(wxEVT_COMMAND_TEXT_ENTER,
+                wxCommandEventHandler(TimeSliceFrame::OnTextualSliceUpdate));
   this->Connect (TimeIntervalUpdated,
                  wxCommandEventHandler(TimeSliceFrame::OnTimeIntervalUpdated));
   return true;
+}
+
+void TimeSliceFrame::OnTextualSliceUpdate (wxCommandEvent& event)
+{
+  switch (event.GetId()){
+  case ID_START_TEXT:
+  {
+    double selectionStart;
+    if (!start_value->GetValue().ToDouble (&selectionStart)){
+      /* error */
+    }
+    double selectionEnd = filter->selectionEndTime();
+    filter->setTimeInterval (selectionStart, selectionEnd);
+  }
+  break;
+  case ID_SIZE_TEXT:
+  {
+    double selectionStart = filter->selectionStartTime();
+    double size;
+    if (!size_value->GetValue().ToDouble(&size)){
+      /* error */
+    }
+    double selectionEnd = selectionStart + size;
+    filter->setTimeInterval (selectionStart, selectionEnd);
+  }
+  break;
+  default:
+    break;
+  }
 }
 
 void TimeSliceFrame::OnSliceScroll (wxScrollEvent& event)
 {
   int position = event.GetPosition();
   int max = std::numeric_limits<int>::max();  
-  int id = event.GetId();
   switch (event.GetId()){
   case ID_START_SLIDER:
   case ID_SIZE_SLIDER:

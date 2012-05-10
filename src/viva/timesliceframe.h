@@ -55,6 +55,7 @@ private:
   wxTextCtrl *forward_value;
   wxTextCtrl *frequency_value;
 
+  void OnTextualSliceUpdate (wxCommandEvent& event);
   void OnSliceScroll (wxScrollEvent& event);
   void OnTimeIntervalUpdated (wxCommandEvent& event);
 };
@@ -64,7 +65,9 @@ DECLARE_EVENT_TYPE(TimeIntervalUpdated, -1)
 END_DECLARE_EVENT_TYPES()
 
 #define ID_START_SLIDER     100
+#define ID_START_TEXT       1000
 #define ID_SIZE_SLIDER      101
+#define ID_SIZE_TEXT       1001
 #define ID_FORWARD_SLIDER   102
 #define ID_FREQUENCY_SLIDER 103
 
