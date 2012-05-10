@@ -218,6 +218,10 @@ void TimeSliceFrame::OnTimeIntervalUpdated (wxCommandEvent& event)
   //set values
   trace_duration->SetLabel (duration_str);
 
+  //update sliders
+  int max = std::numeric_limits<int>::max();
+  start_slider->SetValue ((ss/e) * max);
+  size_slider->SetValue ((se-ss)/e * max);
 
   
 }
