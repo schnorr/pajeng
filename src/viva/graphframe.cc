@@ -29,6 +29,7 @@ bool GraphFrame::Create(wxWindow* parent,
 
   this->Connect(wxEVT_PAINT,
                 wxPaintEventHandler(GraphFrame::OnPaint));
+
   this->Connect(VivaGraphChanged,
                 wxCommandEventHandler(GraphFrame::OnVivaGraphChanged));
   this->Connect(VivaGraphLayoutUpdated,
@@ -38,7 +39,7 @@ bool GraphFrame::Create(wxWindow* parent,
                 wxMouseEventHandler(GraphFrame::leftMouseClicked));
   this->Connect(wxEVT_RIGHT_DOWN,
                 wxMouseEventHandler(GraphFrame::rightMouseClicked));
-  translate = wxRealPoint(400.0,300.0);
+
   return true;
 }
 
