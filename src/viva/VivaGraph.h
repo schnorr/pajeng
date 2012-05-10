@@ -41,7 +41,6 @@ class VivaGraph : public PajeComponent
 {
 private:
   GraphFrame *view;
-  TimeSliceFrame *timesliceframe;
   tp_layout *layout;
   VivaRunner *runner;
   std::map<PajeContainer*,VivaNode*> nodeMap;
@@ -63,7 +62,6 @@ public:
   VivaGraph ();
   ~VivaGraph ();
   void setView (GraphFrame *view);
-  void setTimeSliceFrame (TimeSliceFrame *frame);
   void leftMouseClicked (wxPoint point);
   void rightMouseClicked (wxPoint point);
   void qualityChanged (int quality);
