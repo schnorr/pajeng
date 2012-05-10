@@ -3,6 +3,7 @@
 #include <wx/artprov.h>
 #include "basic.h"
 #include "graphframe.h"
+#include "timesliceframe.h"
 #include "VivaGraph.h"
 
 class VivaGraph;
