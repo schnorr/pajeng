@@ -19,6 +19,16 @@ std::vector<PajeType*> PajeSimulator::containedTypesForContainerType (PajeType *
   return ret;
 }
 
+std::vector<PajeContainer*> PajeSimulator::enumeratorOfContainersInContainer (PajeContainer *container)
+{
+  std::vector<PajeContainer*> ret;
+  std::map<std::string,PajeContainer*>::iterator it;
+  for (it = container->children.begin(); it != container->children.end(); it++){
+    ret.push_back ((*it).second);
+  }
+  return ret;
+}
+
 std::vector<PajeContainer*> PajeSimulator::enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container)
 {
   std::vector<PajeContainer*> ret;
