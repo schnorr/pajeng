@@ -1,6 +1,8 @@
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 PROJECT(viva)
-find_package(wxWidgets COMPONENTS gl core base REQUIRED)
+SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+FIND_PACKAGE(wxWidgets COMPONENTS gl core base REQUIRED)
+FIND_PACKAGE(LibConfig REQUIRED)
 
 SET(CMAKE_CXX_FLAGS "-g -rdynamic")
 
@@ -62,4 +64,4 @@ SET(VIVA_SRC
   src/viva/VivaNode.cc
   src/viva/TimeInterval.cc)
 ADD_EXECUTABLE(viva ${VIVA_SRC})
-target_link_libraries(viva ${wxWidgets_LIBRARIES} tupic gvc graph pajecpp )
+target_link_libraries(viva ${wxWidgets_LIBRARIES} ${LIBCONFIGPP_LIBRARIES} tupic gvc graph pajecpp )
