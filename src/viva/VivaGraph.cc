@@ -225,6 +225,9 @@ void VivaGraph::addNode (PajeContainer *container)
     VivaNode *node = new VivaNode (this, container, config_root_setting(&config), layout);
     nodes.push_back (node);
     nodeMap[container] = node;
+
+    //layout the node
+    node->layout ();
   }
 }
 
