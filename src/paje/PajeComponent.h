@@ -39,6 +39,7 @@ public:
   double virtual endTime (void);
   double virtual selectionStartTime (void);
   double virtual selectionEndTime (void);
+  PajeType virtual *entityTypeWithName (std::string name);
 
   //spatial/time integration queries
   std::map<std::string,double> virtual timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);

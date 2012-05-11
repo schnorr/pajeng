@@ -116,6 +116,12 @@ double PajeComponent::selectionEndTime (void)
   else return -1;
 }
 
+PajeType *PajeComponent::entityTypeWithName (std::string name)
+{
+  if (inputComponent) return inputComponent->entityTypeWithName (name);
+  else return NULL;
+}
+
 std::map<std::string,double> PajeComponent::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)
 {
   std::map<std::string,double> empty;

@@ -72,7 +72,7 @@ public:
   double endTime (void);
   double selectionStartTime (void);
   double selectionEndTime (void);
-
+  PajeType *entityTypeWithName (std::string name);
   
   //spatial/time integration queries
   std::map<std::string,double> timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);
