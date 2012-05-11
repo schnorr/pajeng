@@ -207,9 +207,11 @@ void VivaGraph::collapseNode (PajeContainer *container)
 
 void VivaGraph::addNode (PajeContainer *container)
 {
-  VivaNode *node = new VivaNode (container, layout);
-  nodes.push_back (node);
-  nodeMap[container] = node;
+  if (shouldBePresent (container)){
+    VivaNode *node = new VivaNode (container, layout);
+    nodes.push_back (node);
+    nodeMap[container] = node;
+  }
 }
 
 void VivaGraph::deleteNode (VivaNode *node)
