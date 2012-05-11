@@ -75,7 +75,7 @@ bool TrivaWXApp::OnCmdLineParsed(wxCmdLineParser& parser)
   try {
     cfg.readFile (configuration.mb_str());
   }catch( libconfig::ParseException &pex){
-    std::cerr << "Parsing of configuration file "<<configuration<<" failed. Error at line" << ": " << pex.getLine()
+    std::cerr << "Parsing of configuration file "<<configuration.mb_str()<<" failed. Error at line" << ": " << pex.getLine()
               << " - " << pex.getError() << std::endl;
     return false;
   }
