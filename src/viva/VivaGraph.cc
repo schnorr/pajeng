@@ -114,8 +114,12 @@ void VivaGraph::hierarchyChanged (void)
   nodes.clear();
 
   //add the root
-  VivaNode *node = new VivaNode (rootInstance(), layout);
-  nodes.push_back (node);
+  PajeContainer *root = rootInstance();
+  if (shouldBePresent (root)){
+    addNode (root);
+  }else{
+    //user should know that her configuration is bad
+  }
 }
 
 VivaNode *VivaGraph::getSelectedNodeByPosition (wxPoint p)
