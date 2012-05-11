@@ -13,7 +13,7 @@ bool TrivaWXApp::OnInit()
     decoder = new PajeEventDecoder ();
     simulator = new PajeSimulator ();
     timeinterval = new TimeInterval ();
-    vivagraph = new VivaGraph ();
+    vivagraph = new VivaGraph (std::string(configuration.mb_str()));
 
     connectComponents (reader, decoder);
     connectComponents (decoder, simulator);

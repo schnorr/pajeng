@@ -28,11 +28,40 @@ void *VivaRunner::Entry (void)
   return static_cast<ExitCode>(NULL);
 }
 
-VivaGraph::VivaGraph ()
+VivaGraph::VivaGraph (std::string conffile)
 {
+  int i;
   layout = layout_new ();
   view = NULL;
   runner = NULL;
+
+  //extract types for nodes and edges
+  libconfig::Config cfg;
+  cfg.readFile (conffile.c_str());
+  try {
+    libconfig::Setting &node = cfg.lookup ("node");
+    if (!node.isList()){
+      //throw something
+    }
+    for (i = 0; i < node.getLength(); i++){
+      nodeTypes.insert (node[i]);
+    }
+
+    libconfig::Setting &edge = cfg.lookup ("edge");
+    if (!edge.isList()){
+      //throw something
+    }
+    for (i = 0; i < edge.getLength(); i++){
+      edgeTypes.insert (edge[i]);
+    }
+  }catch (...){
+    throw "configuration file is not valid";
+  }
+
+  //get the composition configuration for nodes
+  configuration = &cfg.getRoot();
+  configuration->remove ("node");
+  configuration->remove ("edge");
 }
 
 VivaGraph::~VivaGraph (void)
@@ -191,6 +220,20 @@ void VivaGraph::deleteNode (VivaNode *node)
   nodes.erase (itx);
   nodeMap.erase (container);
   delete node;
+}
+
+bool VivaGraph::shouldBePresent (PajeContainer *container)
+{
+  std::string name = container->type->name;
+  if (nodeTypes.count (name)) return true;
+
+  std::vector<PajeContainer*> vector;
+  vector = enumeratorOfContainersInContainer (container);
+  std::vector<PajeContainer*>::iterator it;
+  for (it = vector.begin(); it != vector.end(); it++){
+    if (shouldBePresent (*it)) return true;
+  }
+  return false;
 }
 
 void VivaGraph::leftMouseClicked (wxPoint p)

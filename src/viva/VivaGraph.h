@@ -1,6 +1,7 @@
 #ifndef __VIVA_GRAPH_H
 #define __VIVA_GRAPH_H
 #include <wx/wx.h> //to VivaNode
+#include <libconfig.h++>
 #include <algorithm>
 #include "graphframe.h"
 #include "timesliceframe.h"
@@ -25,6 +26,11 @@ public:
 class VivaGraph : public PajeComponent 
 {
 private:
+  std::set<std::string> nodeTypes;
+  std::set<std::string> edgeTypes;
+  libconfig::Setting *configuration;
+
+private:
   GraphFrame *view;
   tp_layout *layout;
   VivaRunner *runner;
@@ -39,12 +45,13 @@ private:
   void collapseNode (PajeContainer *container);
   void addNode (PajeContainer *container);
   void deleteNode (VivaNode *node);
+  bool shouldBePresent (PajeContainer *container);
 
 public:
   std::vector<VivaNode*> nodes;
 
 public:
-  VivaGraph ();
+  VivaGraph (std::string conffile);
   ~VivaGraph ();
   void setView (GraphFrame *view);
   void leftMouseClicked (wxPoint point);
