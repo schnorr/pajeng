@@ -1,3 +1,4 @@
+#include <libconfig.h++>
 #include <wx/wxprec.h>
 #include <wx/cmdline.h>
 #include <wx/event.h>
@@ -26,6 +27,8 @@ public:
 
 private:
   wxString filename;
+  wxString configuration;
+
   PajeFileReader *reader;
   PajeEventDecoder *decoder;
   PajeSimulator *simulator;
@@ -39,14 +42,10 @@ private:
 
 static const wxCmdLineEntryDesc g_cmdLineDesc [] =
 {
-     { wxCMD_LINE_PARAM,
-       NULL,
-       NULL,
-       wxT("<paje_trace_file>"),
-       wxCMD_LINE_VAL_STRING,
-       wxCMD_LINE_OPTION_MANDATORY
-     },
-     { wxCMD_LINE_NONE }
+  { wxCMD_LINE_SWITCH, _T("h"), _T("help"), _T("Display help"), wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP},
+  { wxCMD_LINE_OPTION, _("g"), _("graph"), _("Provide a graph configuration file"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_OPTION_MANDATORY},
+  { wxCMD_LINE_PARAM, NULL, NULL, _("<paje_trace_file>"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_OPTION_MANDATORY },
+  { wxCMD_LINE_NONE }
 };
 
 DECLARE_APP(TrivaWXApp)

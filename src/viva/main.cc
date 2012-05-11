@@ -69,5 +69,15 @@ void TrivaWXApp::OnInitCmdLine(wxCmdLineParser& parser)
 bool TrivaWXApp::OnCmdLineParsed(wxCmdLineParser& parser)
 {
   filename = parser.GetParam(0);
+  parser.Found (_("g"), &configuration);
+  //validate configuration
+  libconfig::Config cfg;
+  try {
+    cfg.readFile (configuration.mb_str());
+  }catch( libconfig::ParseException &pex){
+    std::cerr << "Parsing of configuration file "<<configuration<<" failed. Error at line" << ": " << pex.getLine()
+              << " - " << pex.getError() << std::endl;
+    return false;
+  }
   return true;
 }
