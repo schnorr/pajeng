@@ -6,24 +6,9 @@
 #include "timesliceframe.h"
 #include "PajeComponent.h"
 #include "tupi_private.h"
+#include "VivaNode.h"
 
 class GraphFrame;
-
-class VivaNode
-{
-public:
-  tp_node *node;
-  tp_layout *layout;
-  PajeContainer *container;
-
-  VivaNode (PajeContainer *container, tp_layout *layout);
-  ~VivaNode ();
-
-  wxPoint position (void);
-};
-
-/* bool operator!= (const VivaNode& t1, const VivaNode& t2); */
-/* bool operator== (const VivaNode& t1, const VivaNode& t2); */
 
 class VivaRunner : public wxThread
 {
