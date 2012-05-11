@@ -4,14 +4,14 @@
 VivaNode::VivaNode (PajeContainer *container, tp_layout *layout)
 {
   this->node = node_new (container->name.c_str(), this);
-  this->layout = layout;
+  this->tupi_layout = layout;
   this->container = container;
   layout_add_node (layout, this->node);
 }
 
 VivaNode::~VivaNode ()
 {
-  layout_remove_node (layout, this->node);
+  layout_remove_node (tupi_layout, this->node);
   node_free (this->node);
   this->node = NULL;
 }

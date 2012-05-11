@@ -8,7 +8,7 @@ class VivaNode
 {
 public:
   tp_node *node;
-  tp_layout *layout;
+  tp_layout *tupi_layout;
   PajeContainer *container;
 
   VivaNode (PajeContainer *container, tp_layout *layout);
