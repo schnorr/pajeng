@@ -130,6 +130,7 @@ void VivaGraph::hierarchyChanged (void)
   }
 
   //layout the node
+  this->timeSelectionChanged ();
 }
 
 VivaNode *VivaGraph::getSelectedNodeByPosition (wxPoint p)
