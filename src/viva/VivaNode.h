@@ -9,8 +9,9 @@ class VivaGraph;
 
 class VivaComposition
 {
-private:
+public:
   wxRect bb;
+private:
   VivaGraph *filter;
   PajeContainer *container;
   PajeType *size_type;
@@ -29,6 +30,7 @@ private:
   std::vector<VivaComposition*> compositions;
 
 public:
+  wxRect bb;
   tp_node *node;
   tp_layout *tupi_layout;
   PajeContainer *container;

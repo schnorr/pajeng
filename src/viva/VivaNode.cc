@@ -85,21 +85,30 @@ wxPoint VivaNode::position ()
 
 wxRect VivaNode::layout ()
 {
+  bb = wxRect(0,0,0,0);
+  wxRegion region = wxRegion (bb);
+
   std::vector<VivaComposition*>::iterator it;
   for (it = compositions.begin(); it != compositions.end(); it++){
     VivaComposition *comp = (*it);
-    comp->layout();
+    wxRect compRect = comp->layout();
+    region.Union (compRect);
   }
+  bb = region.GetBox();
+  return bb;
 }
 
 void VivaNode::draw (wxDC& dc)
 {
   wxPoint position = this->position();
   std::vector<VivaComposition*>::iterator it;
+  wxPoint point = wxPoint (position);
   for (it = compositions.begin(); it != compositions.end(); it++){
     VivaComposition *comp = (*it);
-    comp->draw(dc, wxPoint(0,0));
+    comp->draw(dc, point);
+    point.x += comp->bb.GetWidth();
   }
+  dc.DrawText (wxString(node->name, wxConvUTF8), position.x, position.y);
 }
 
 // bool operator!= (const VivaNode& t1, const VivaNode& t2)
