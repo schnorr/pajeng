@@ -22,6 +22,7 @@ private:
   PajeContainerType *rootType;
   PajeContainer *root;
   std::map<std::string,PajeType*> typeMap;
+  std::map<std::string,PajeType*> typeNamesMap; //for names
   std::map<std::string,PajeContainer*> contMap;
 
   double lastKnownTime;

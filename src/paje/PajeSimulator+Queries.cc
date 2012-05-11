@@ -70,7 +70,7 @@ double PajeSimulator::selectionEndTime (void)
 
 PajeType *PajeSimulator::entityTypeWithName (std::string name)
 {
-  return typeMap[name];
+  return typeNamesMap[name];
 }
 
 std::map<std::string,double> PajeSimulator::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)

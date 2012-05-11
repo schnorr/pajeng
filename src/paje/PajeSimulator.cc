@@ -22,6 +22,7 @@ PajeSimulator::PajeSimulator ()
   rootType = new PajeContainerType ("0", "0", NULL);
   root = new PajeContainer (0, "0", "0", NULL, rootType);
   typeMap[rootType->identifier()] = rootType;
+  typeNamesMap[rootType->name] = rootType;
   contMap[root->identifier()] = root;
   lastKnownTime = -1;
 }
@@ -79,6 +80,7 @@ void PajeSimulator::pajeDefineContainerType (PajeEvent *event)
   }
   newType = dynamic_cast<PajeContainerType*>(containerType)->addContainerType (name, alias);
   typeMap[newType->identifier()] = newType;
+  typeNamesMap[newType->name] = newType;
 }
 
 void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
@@ -123,6 +125,7 @@ void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
   }
   newType = dynamic_cast<PajeContainerType*>(containerType)->addLinkType (name, alias, startcontainertype, endcontainertype);
   typeMap[newType->identifier()] = newType;
+  typeNamesMap[newType->name] = newType;
 }
 
 void PajeSimulator::pajeDefineEventType (PajeEvent *event)
@@ -148,6 +151,7 @@ void PajeSimulator::pajeDefineEventType (PajeEvent *event)
   }
   newType = dynamic_cast<PajeContainerType*>(containerType)->addEventType (name, alias);
   typeMap[newType->identifier()] = newType;
+  typeNamesMap[newType->name] = newType;
 }
 
 void PajeSimulator::pajeDefineStateType (PajeEvent *event)
@@ -173,6 +177,7 @@ void PajeSimulator::pajeDefineStateType (PajeEvent *event)
   }
   newType = dynamic_cast<PajeContainerType*>(containerType)->addStateType (name, alias);
   typeMap[newType->identifier()] = newType;
+  typeNamesMap[newType->name] = newType;
 }
 
 void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
@@ -198,6 +203,7 @@ void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
   }
   newType = dynamic_cast<PajeContainerType*>(containerType)->addVariableType (name, alias);
   typeMap[newType->identifier()] = newType;
+  typeNamesMap[newType->name] = newType;
 }
 
 void PajeSimulator::pajeDefineEntityValue (PajeEvent *event)
