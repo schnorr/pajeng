@@ -142,10 +142,11 @@ bool VivaGraph::hasChildren (PajeContainer *container)
   std::vector<PajeType*>::iterator it;
   ret = containedTypesForContainerType (container->type);
   for (it = ret.begin(); it != ret.end(); it++){
-    if (isContainerType(*it)){
+    PajeType *type = (*it);
+    if (isContainerType(type) && nodeTypes.count (type->name)){
       std::vector<PajeContainer*> conts;
       std::vector<PajeContainer*>::iterator it2;
-      conts = enumeratorOfContainersTypedInContainer ((*it), container);
+      conts = enumeratorOfContainersTypedInContainer (type, container);
       if (conts.size()) return true;
     }
   }
@@ -154,7 +155,6 @@ bool VivaGraph::hasChildren (PajeContainer *container)
 
 bool VivaGraph::hasParent (PajeContainer *container)
 {
-  //this should be customized according to graph configuration
   if (container->parent) return true;
   else return false;
 }
@@ -166,16 +166,16 @@ void VivaGraph::expandNode (VivaNode *node)
   //delete the node
   deleteNode (node);
 
-  //this should be customized accoridng to graph configuration
   //add its children to the graph
   std::vector<PajeType*> ret;
   std::vector<PajeType*>::iterator it;
   ret = containedTypesForContainerType (container->type);
   for (it = ret.begin(); it != ret.end(); it++){
-    if (isContainerType(*it)){
+    PajeType *type = (*it);
+    if (isContainerType(type) && nodeTypes.count (type->name)){
       std::vector<PajeContainer*> conts;
       std::vector<PajeContainer*>::iterator it2;
-      conts = enumeratorOfContainersTypedInContainer ((*it), container);
+      conts = enumeratorOfContainersTypedInContainer (type, container);
       for (it2 = conts.begin(); it2 != conts.end(); it2++){
         addNode (*it2);
       }
@@ -185,16 +185,16 @@ void VivaGraph::expandNode (VivaNode *node)
 
 void VivaGraph::collapseNode (PajeContainer *container)
 {
-  //this should be customized accoridng to graph configuration
   //delete all the children of PajeContainer
   std::vector<PajeType*> ret;
   std::vector<PajeType*>::iterator it;
   ret = containedTypesForContainerType (container->type);
   for (it = ret.begin(); it != ret.end(); it++){
-    if (isContainerType(*it)){
+    PajeType *type = (*it);
+    if (isContainerType(type) && nodeTypes.count (type->name)){
       std::vector<PajeContainer*> conts;
       std::vector<PajeContainer*>::iterator it2;
-      conts = enumeratorOfContainersTypedInContainer ((*it), container);
+      conts = enumeratorOfContainersTypedInContainer (type, container);
       for (it2 = conts.begin(); it2 != conts.end(); it2++){
         deleteNode (nodeMap[*it2]);
       }
