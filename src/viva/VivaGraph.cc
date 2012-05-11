@@ -36,38 +36,37 @@ VivaGraph::VivaGraph (std::string conffile)
   runner = NULL;
 
   //extract types for nodes and edges
-  libconfig::Config cfg;
-  cfg.readFile (conffile.c_str());
-  try {
-    libconfig::Setting &node = cfg.lookup ("node");
-    if (!node.isList()){
-      //throw something
-    }
-    for (i = 0; i < node.getLength(); i++){
-      nodeTypes.insert (node[i]);
-    }
+  config_init (&config);
+  config_read_file (&config, conffile.c_str());
 
-    libconfig::Setting &edge = cfg.lookup ("edge");
-    if (!edge.isList()){
-      //throw something
-    }
-    for (i = 0; i < edge.getLength(); i++){
-      edgeTypes.insert (edge[i]);
-    }
-  }catch (...){
-    throw "configuration file is not valid";
+  //get node types, put them in the nodeTypes set
+  config_setting_t *node = config_lookup (&config, "node");
+  if (!node || !config_setting_is_list (node)){
+    //throw something
   }
+  for (i = 0; i < config_setting_length (node); i++){
+    const char *elem = config_setting_get_string_elem (node, i);
+    nodeTypes.insert (std::string(elem));
+  }
+  config_setting_remove (config_setting_parent(node), "node");
 
-  //get the composition configuration for nodes
-  configuration = &cfg.getRoot();
-  configuration->remove ("node");
-  configuration->remove ("edge");
+  //get edge types, put them in the edgeTypes set
+  config_setting_t *edge = config_lookup (&config, "edge");
+  if (!edge || !config_setting_is_list (edge)){
+    //throw something
+  }
+  for (i = 0; i < config_setting_length (edge); i++){
+    const char *elem = config_setting_get_string_elem (edge, i);
+    edgeTypes.insert (std::string(elem));
+  }
+  config_setting_remove (config_setting_parent(edge), "edge");
 }
 
 VivaGraph::~VivaGraph (void)
 {
   layout_free (layout);
   layout = NULL;
+  config_destroy (&config);
 }
 
 void VivaGraph::stop_runner (void)
@@ -212,7 +211,7 @@ void VivaGraph::collapseNode (PajeContainer *container)
 void VivaGraph::addNode (PajeContainer *container)
 {
   if (shouldBePresent (container)){
-    VivaNode *node = new VivaNode (container, layout);
+    VivaNode *node = new VivaNode (this, container, config_root_setting(&config), layout);
     nodes.push_back (node);
     nodeMap[container] = node;
   }

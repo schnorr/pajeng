@@ -71,23 +71,25 @@ bool TrivaWXApp::OnCmdLineParsed(wxCmdLineParser& parser)
   filename = parser.GetParam(0);
   parser.Found (_("g"), &configuration);
   //validate configuration
-  libconfig::Config cfg;
-  try {
-    cfg.readFile (configuration.mb_str());
-  }catch( libconfig::ParseException &pex){
+  config_t config;
+  config_init (&config);
+  if (config_read_file (&config, std::string(configuration.mb_str()).c_str()) == CONFIG_FALSE){
     wxString message;
     message << _("Parsing of configuration file '")
             << configuration
             << _("' failed with '")
-            << wxString::FromUTF8(pex.getError())
+            << wxString::FromUTF8(config_error_text(&config))
             << _("' at line ")
-            << pex.getLine();
+            << config_error_line (&config);
     wxMessageDialog *dial = new wxMessageDialog(NULL,
                                                 message,
                                                 wxT("Parsing Error"),
                                                 wxOK | wxICON_ERROR);
     dial->ShowModal();
+    config_destroy (&config);
     return false;
+  }else{
+    config_destroy (&config);
   }
   return true;
 }

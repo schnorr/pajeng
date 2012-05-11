@@ -1,4 +1,4 @@
-#include <libconfig.h++>
+#include <libconfig.h>
 #include <wx/wxprec.h>
 #include <wx/cmdline.h>
 #include <wx/event.h>

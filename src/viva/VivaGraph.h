@@ -1,7 +1,7 @@
 #ifndef __VIVA_GRAPH_H
 #define __VIVA_GRAPH_H
 #include <wx/wx.h> //to VivaNode
-#include <libconfig.h++>
+#include <libconfig.h>
 #include <algorithm>
 #include "graphframe.h"
 #include "timesliceframe.h"
@@ -28,7 +28,7 @@ class VivaGraph : public PajeComponent
 private:
   std::set<std::string> nodeTypes;
   std::set<std::string> edgeTypes;
-  libconfig::Setting *configuration;
+  config_t config;
 
 private:
   GraphFrame *view;
