@@ -64,14 +64,7 @@ void GraphFrame::OnPaint(wxPaintEvent& event)
 
   std::vector<VivaNode*>::iterator it;
   for (it = vivagraph->nodes.begin(); it != vivagraph->nodes.end(); it++){
-    wxPoint position = (*it)->position();
-
-    dc.SetPen(wxPen(black));
-    dc.DrawRectangle(position.x-NODE_SIZE/2,
-                     position.y-NODE_SIZE/2,
-                     NODE_SIZE,
-                     NODE_SIZE);
-    dc.DrawText (wxString((*it)->node->name, wxConvUTF8), position.x+15, position.y+15);
+    (*it)->draw(dc);
   }
 }
 

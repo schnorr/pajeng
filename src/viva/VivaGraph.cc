@@ -105,10 +105,19 @@ void VivaGraph::timeLimitsChanged (void)
 void VivaGraph::timeSelectionChanged (void)
 {
   //udpate layout according to new time/spatial integration
+  std::cout << __FUNCTION__ << " [" << selectionStartTime() << ", " << selectionEndTime() << "]"<<std::endl;
+
+  std::vector<VivaNode*>::iterator it;
+  for (it = nodes.begin(); it != nodes.end(); it++){
+    VivaNode *node = (*it);
+    node->layout();
+  }
 }
 
 void VivaGraph::hierarchyChanged (void)
 {
+  std::cout << __FUNCTION__ << " [" << startTime() << ", " << endTime() << "]"<<std::endl;
+
   //clean-up nodes
   nodes.clear();
 
@@ -119,6 +128,8 @@ void VivaGraph::hierarchyChanged (void)
   }else{
     //user should know that her configuration is bad
   }
+
+  //layout the node
 }
 
 VivaNode *VivaGraph::getSelectedNodeByPosition (wxPoint p)
