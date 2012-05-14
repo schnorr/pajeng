@@ -63,6 +63,9 @@ private:
   void pajeEndLink (PajeEvent *event);
 
 public:
+  //commands
+  void setSelectionStartEndTime (double start, double end);
+
   //queries
   PajeContainer *rootInstance (void);
   std::vector<PajeType*> containedTypesForContainerType (PajeType *type);

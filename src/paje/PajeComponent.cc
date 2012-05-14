@@ -58,6 +58,12 @@ void PajeComponent::hierarchyChanged (void)
   if (outputComponent) outputComponent->hierarchyChanged ();
 }
 
+//commands
+void PajeComponent::setSelectionStartEndTime (double start, double end)
+{
+  if (inputComponent) inputComponent->setSelectionStartEndTime (start, end);
+}
+
 //queries
 PajeContainer *PajeComponent::rootInstance (void)
 {

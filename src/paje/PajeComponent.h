@@ -29,6 +29,9 @@ public:
   void virtual timeSelectionChanged (void);
   void virtual hierarchyChanged (void);
 
+  //commands
+  void virtual setSelectionStartEndTime (double start, double end);
+
   //queries
   PajeContainer virtual *rootInstance (void);
   std::vector<PajeType*> virtual containedTypesForContainerType (PajeType *type);
