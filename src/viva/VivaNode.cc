@@ -43,14 +43,13 @@ VivaComposition::~VivaComposition (void)
   values_type.clear();
 }
 
-tp_rect VivaComposition::layout (void)
+void VivaComposition::layout (void)
 {
   if (size_type == NULL){
     bb = tp_Rect (0, 0, 0, 0);
   }else{
     bb = tp_Rect (0, 0, 30, 30);
   }
-  return bb;
 }
 
 void VivaComposition::draw (wxDC& dc, tp_point base)
@@ -98,26 +97,20 @@ tp_point VivaNode::position ()
   return pos;
 }
 
-tp_rect VivaNode::layout ()
+void VivaNode::layout (void)
 {
   bb = tp_Rect(0,0,0,0);
-  tp_rect region = bb;
 
   std::vector<VivaComposition*>::iterator it;
   for (it = compositions.begin(); it != compositions.end(); it++){
     VivaComposition *comp = (*it);
-    tp_rect compRect = comp->layout();
-    region = tp_UnionRect (region, compRect);
+    comp->layout ();
+    if (comp->bb.size.height > bb.size.height) bb.size.height = comp->bb.size.height;
+    bb.size.width += comp->bb.size.width;
   }
-  bb = region;
 
-  tp_rect mask;
-  mask = tp_Rect (position().x/100 - bb.size.width/2,
-                  position().y/100 - bb.size.height/2,
-                  bb.size.width,
-                  bb.size.height);
+  tp_rect mask = tp_Rect (0, 0, bb.size.width/100, bb.size.height/100);
   particle_set_mask (node->particle, mask);
-  return bb;
 }
 
 void VivaNode::draw (wxDC& dc)

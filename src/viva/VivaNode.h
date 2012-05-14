@@ -20,7 +20,7 @@ private:
 public:
   VivaComposition (VivaGraph *filter, PajeContainer *container, config_setting_t *configuration);
   ~VivaComposition ();
-  tp_rect layout (void);
+  void layout (void);
   void draw (wxDC& dc, tp_point base);
 };
 
@@ -40,7 +40,7 @@ public:
   ~VivaNode ();
 
   tp_point position (void);
-  tp_rect layout (void);
+  void layout (void);
   void draw (wxDC& dc);
   bool hasPoint (double x, double y);
 };
