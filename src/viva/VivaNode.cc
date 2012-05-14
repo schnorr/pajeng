@@ -125,12 +125,17 @@ void VivaNode::draw (wxDC& dc)
   tp_point position = this->position();
   std::vector<VivaComposition*>::iterator it;
   tp_point point = position;
+  point.x -= bb.size.width/2;
+  point.y -= bb.size.height/2;
+
   for (it = compositions.begin(); it != compositions.end(); it++){
     VivaComposition *comp = (*it);
     comp->draw(dc, point);
     point.x += comp->bb.size.width;
   }
+
   dc.DrawText (wxString(node->name, wxConvUTF8), position.x, position.y);
+  dc.DrawPoint (position.x, position.y);
 }
 
 // bool operator!= (const VivaNode& t1, const VivaNode& t2)
