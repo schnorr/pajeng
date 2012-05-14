@@ -25,6 +25,9 @@ PajeSimulator::PajeSimulator ()
   typeNamesMap[rootType->name] = rootType;
   contMap[root->identifier()] = root;
   lastKnownTime = -1;
+
+  selectionStart = -1;
+  selectionEnd = -1;
 }
 
 void PajeSimulator::inputEntity (PajeObject *data)

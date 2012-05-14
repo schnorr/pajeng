@@ -27,6 +27,11 @@ private:
 
   double lastKnownTime;
 
+private:
+  //for time-slice selection (used by time aggregation)
+  double selectionStart;
+  double selectionEnd;
+
 public:
   PajeSimulator();
   

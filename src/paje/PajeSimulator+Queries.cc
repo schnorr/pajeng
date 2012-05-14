@@ -60,12 +60,20 @@ double PajeSimulator::endTime (void)
 
 double PajeSimulator::selectionStartTime (void)
 {
-  return startTime();
+  if (selectionStart >= 0){
+    return selectionStart;
+  }else{
+    return startTime();
+  }
 }
 
 double PajeSimulator::selectionEndTime (void)
 {
-  return endTime();
+  if (selectionEnd >= 0){
+    return selectionEnd;
+  }else{
+    return endTime();
+  }
 }
 
 PajeType *PajeSimulator::entityTypeWithName (std::string name)
