@@ -236,7 +236,7 @@ void particle_commit (tp_particle *particle)
   tp_point zero = {0,0};
   if (tp_DistanceBetweenPoints (particle->disp, zero) != 0){
     particle->position = tp_AddPoints (particle->position, particle->disp);
-  
+
     if (particle->cell == NULL){
       TUPI_DIE("No responsible cell?");
     }
