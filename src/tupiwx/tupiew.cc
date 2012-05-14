@@ -184,7 +184,7 @@ void Tupiew::OnLeftDown (wxMouseEvent& event)
   point.x = (double)mouseLogical.x/100;
   point.y = (double)mouseLogical.y/100;
 
-  selected = layout_find_node_by_position (layout, point, mask);
+  selected = layout_find_node_by_position (layout, point);
 }
 
 void Tupiew::OnSearchNode (wxMouseEvent& event)

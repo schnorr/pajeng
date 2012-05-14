@@ -22,6 +22,7 @@ tp_particle *particle_new (const char *name, tp_layout *layout, tp_box *box, tp_
   ret->name = strdup (name);
   ret->position.x = drand48() * 2 * layout->k - layout->k;
   ret->position.y = drand48() * 2 * layout->k - layout->k;
+  ret->mask = tp_Rect (0,0,0,0);
   ret->weight = 1;
   ret->cell = NULL;
   ret->layout = layout;
@@ -32,6 +33,11 @@ tp_particle *particle_new (const char *name, tp_layout *layout, tp_box *box, tp_
 
   ret->node = node;
   return ret;
+}
+
+void particle_set_mask (tp_particle *particle, tp_rect mask)
+{
+  particle->mask = mask;
 }
 
 void particle_free (tp_particle *p)

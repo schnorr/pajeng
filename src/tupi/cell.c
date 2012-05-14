@@ -382,8 +382,7 @@ int cell_is_valid (tp_cell *cell)
 }
 
 tp_particle *cell_find_particle_by_position (tp_cell *cell,
-                                             tp_point point,
-                                             tp_rect mask)
+                                             tp_point point)
 {
   int i;
   if (cell->sub != NULL){
@@ -392,18 +391,14 @@ tp_particle *cell_find_particle_by_position (tp_cell *cell,
       tp_cell *subcell = dynar_get_as (cell->sub, tp_cell*, i);
       if (tp_PointInRect (point, subcell->space)){
         return cell_find_particle_by_position (subcell,
-                                               point,
-                                               mask);
+                                               point);
       }
     }
   }else{
     //search locally
     for (i = 0; i < dynar_count(cell->particles); i++){
       tp_particle *p = dynar_get_as (cell->particles, tp_particle*, i);
-      tp_rect particle_mask;
-      particle_mask.origin.x = p->position.x - mask.size.width/2;
-      particle_mask.origin.y = p->position.y - mask.size.height/2;
-      particle_mask.size = mask.size;
+      tp_rect particle_mask = p->mask;
       if (tp_PointInRect (point, particle_mask)){
         return p;
       }

@@ -10,7 +10,7 @@ class VivaGraph;
 class VivaComposition
 {
 public:
-  wxRect bb;
+  tp_rect bb;
 private:
   VivaGraph *filter;
   PajeContainer *container;
@@ -20,8 +20,8 @@ private:
 public:
   VivaComposition (VivaGraph *filter, PajeContainer *container, config_setting_t *configuration);
   ~VivaComposition ();
-  wxRect layout (void);
-  void draw (wxDC& dc, wxPoint base);
+  tp_rect layout (void);
+  void draw (wxDC& dc, tp_point base);
 };
 
 class VivaNode
@@ -30,7 +30,7 @@ private:
   std::vector<VivaComposition*> compositions;
 
 public:
-  wxRect bb;
+  tp_rect bb;
   tp_node *node;
   tp_layout *tupi_layout;
   PajeContainer *container;
@@ -39,9 +39,10 @@ public:
   VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, tp_layout *layout);
   ~VivaNode ();
 
-  wxPoint position (void);
-  wxRect layout (void);
+  tp_point position (void);
+  tp_rect layout (void);
   void draw (wxDC& dc);
+  bool hasPoint (double x, double y);
 };
 
 /* bool operator!= (const VivaNode& t1, const VivaNode& t2); */

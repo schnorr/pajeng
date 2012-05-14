@@ -91,9 +91,9 @@ tp_node *layout_find_node (tp_layout *layout, char *name)
   return dict_get_element (layout->nodes, name);
 }
 
-tp_node *layout_find_node_by_position (tp_layout *layout, tp_point point, tp_rect mask)
+tp_node *layout_find_node_by_position (tp_layout *layout, tp_point point)
 {
-  tp_particle *p = box_find_particle_by_position (layout->box, point, mask);
+  tp_particle *p = box_find_particle_by_position (layout->box, point);
   if (p){
     return p->node;
   }else{

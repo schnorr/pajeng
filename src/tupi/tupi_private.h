@@ -97,6 +97,7 @@ typedef struct m_tp_bary {
 typedef struct m_tp_particle {
   char *name;
   tp_point position;
+  tp_rect mask; //used to search by point
   tp_cell *cell;
   double weight;
 
@@ -191,6 +192,7 @@ void dict_remove_element (tp_dict *dict, char *name);
 void *dict_get_element (tp_dict *dict, char *name);
 
 tp_particle *particle_new (const char *name, tp_layout *layout, tp_box *box, tp_node *node);
+void particle_set_mask (tp_particle *particle, tp_rect mask);
 void particle_free (tp_particle *p);
 int particle_compare (const void *p1, const void *p2);
 void particle_move (tp_particle *particle);
@@ -207,7 +209,7 @@ void cell_move_particle (tp_cell *cell, tp_particle *particle);
 int cell_is_valid (tp_cell *cell);
 void cell_resize_to (tp_cell *cell, tp_rect space);
 void cell_recompute (tp_cell *cell);
-tp_particle *cell_find_particle_by_position (tp_cell *cell, tp_point point, tp_rect mask);
+tp_particle *cell_find_particle_by_position (tp_cell *cell, tp_point point);
 
 tp_bary *bary_new (tp_cell *cell);
 void bary_free (tp_bary *bary);
@@ -222,7 +224,7 @@ void box_remove_particle (tp_box *box, tp_particle *particle);
 void box_remove_all_particles (tp_box *box);
 void box_handle_out_particle (tp_box *box, tp_particle *particle);
 tp_particle *box_find_particle (tp_box *box, const char *name);
-tp_particle *box_find_particle_by_position (tp_box *box, tp_point point, tp_rect mask);
+tp_particle *box_find_particle_by_position (tp_box *box, tp_point point);
 void box_step (tp_box *box);
 
 tp_layout *layout_new (void);
@@ -230,7 +232,7 @@ void layout_free (tp_layout *l);
 void layout_set_quality (tp_layout *layout, int quality);
 void layout_add_node (tp_layout *layout, tp_node *node);
 tp_node *layout_find_node (tp_layout *layout, char *name);
-tp_node *layout_find_node_by_position (tp_layout *layout, tp_point point, tp_rect mask);
+tp_node *layout_find_node_by_position (tp_layout *layout, tp_point point);
 void layout_remove_node (tp_layout *layout, tp_node *node);
 void layout_move_node (tp_layout *layout, tp_node *node, tp_point point);
 void layout_compute (tp_layout *layout);

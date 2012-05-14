@@ -135,17 +135,11 @@ void VivaGraph::hierarchyChanged (void)
 
 VivaNode *VivaGraph::getSelectedNodeByPosition (wxPoint p)
 {
-#define NODE_SIZE 30
-  tp_rect mask;
-  mask.size.width = (double)NODE_SIZE/100;
-  mask.size.height = (double)NODE_SIZE/100;
-#undef NODE_SIZE
-
   tp_point point;
   point.x = (double)p.x/100;
   point.y = (double)p.y/100;
 
-  tp_node *selected = layout_find_node_by_position (layout, point, mask);
+  tp_node *selected = layout_find_node_by_position (layout, point);
   if (!selected) return NULL;
   return ((VivaNode*)selected->data);
 }

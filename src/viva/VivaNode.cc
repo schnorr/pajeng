@@ -2,7 +2,7 @@
 
 VivaComposition::VivaComposition (VivaGraph *filter, PajeContainer *container, config_setting_t *configuration)
 {
-  bb = wxRect(0,0,0,0);
+  bb = tp_Rect(0,0,0,0);
   this->filter = filter;
   this->container = container;
 
@@ -43,14 +43,27 @@ VivaComposition::~VivaComposition (void)
   values_type.clear();
 }
 
-wxRect VivaComposition::layout (void)
+tp_rect VivaComposition::layout (void)
 {
-  //calculate new bb according to the new
+  if (size_type == NULL){
+    bb = tp_Rect (0, 0, 0, 0);
+  }else{
+    bb = tp_Rect (0, 0, 30, 30);
+  }
   return bb;
 }
 
-void VivaComposition::draw (wxDC& dc, wxPoint base)
+void VivaComposition::draw (wxDC& dc, tp_point base)
 {
+  wxColour black;
+  black.Set(wxT("#000000"));
+  dc.SetPen(wxPen(black));
+
+  bb.origin.x = base.x;
+  bb.origin.y = base.y;
+
+  wxRect rect = wxRect (bb.origin.x, bb.origin.y, bb.size.width, bb.size.height);
+  dc.DrawRectangle(rect);
 }
 
 VivaNode::VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, tp_layout *layout)
@@ -77,36 +90,45 @@ VivaNode::~VivaNode ()
   this->node = NULL;
 }
 
-wxPoint VivaNode::position ()
+tp_point VivaNode::position ()
 {
   tp_point pos = node->particle->position;
-  return wxPoint (pos.x*100, pos.y*100);
+  pos.x *= 100;
+  pos.y *= 100;
+  return pos;
 }
 
-wxRect VivaNode::layout ()
+tp_rect VivaNode::layout ()
 {
-  bb = wxRect(0,0,0,0);
-  wxRegion region = wxRegion (bb);
+  bb = tp_Rect(0,0,0,0);
+  tp_rect region = bb;
 
   std::vector<VivaComposition*>::iterator it;
   for (it = compositions.begin(); it != compositions.end(); it++){
     VivaComposition *comp = (*it);
-    wxRect compRect = comp->layout();
-    region.Union (compRect);
+    tp_rect compRect = comp->layout();
+    region = tp_UnionRect (region, compRect);
   }
-  bb = region.GetBox();
+  bb = region;
+
+  tp_rect mask;
+  mask = tp_Rect (position().x/100 - bb.size.width/2,
+                  position().y/100 - bb.size.height/2,
+                  bb.size.width,
+                  bb.size.height);
+  particle_set_mask (node->particle, mask);
   return bb;
 }
 
 void VivaNode::draw (wxDC& dc)
 {
-  wxPoint position = this->position();
+  tp_point position = this->position();
   std::vector<VivaComposition*>::iterator it;
-  wxPoint point = wxPoint (position);
+  tp_point point = position;
   for (it = compositions.begin(); it != compositions.end(); it++){
     VivaComposition *comp = (*it);
     comp->draw(dc, point);
-    point.x += comp->bb.GetWidth();
+    point.x += comp->bb.size.width;
   }
   dc.DrawText (wxString(node->name, wxConvUTF8), position.x, position.y);
 }

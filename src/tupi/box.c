@@ -169,9 +169,9 @@ tp_particle *box_find_particle (tp_box *box, const char *name)
   return NULL;
 }
 
-tp_particle *box_find_particle_by_position (tp_box *box, tp_point point, tp_rect mask)
+tp_particle *box_find_particle_by_position (tp_box *box, tp_point point)
 {
-  return cell_find_particle_by_position (box->rootCell, point, mask);
+  return cell_find_particle_by_position (box->rootCell, point);
 }
 
 void box_step (tp_box *box)
