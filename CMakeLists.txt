@@ -64,4 +64,4 @@ SET(VIVA_SRC
   src/viva/VivaNode.cc
   src/viva/TimeInterval.cc)
 ADD_EXECUTABLE(viva ${VIVA_SRC})
-target_link_libraries(viva ${wxWidgets_LIBRARIES} ${LIBCONFIGPP_LIBRARIES} tupic gvc graph pajecpp )
+target_link_libraries(viva ${wxWidgets_LIBRARIES} ${LIBCONFIG_LIBRARIES} tupic gvc graph pajecpp )
