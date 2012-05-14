@@ -398,8 +398,11 @@ tp_particle *cell_find_particle_by_position (tp_cell *cell,
     //search locally
     for (i = 0; i < dynar_count(cell->particles); i++){
       tp_particle *p = dynar_get_as (cell->particles, tp_particle*, i);
-      tp_rect particle_mask = p->mask;
-      if (tp_PointInRect (point, particle_mask)){
+      tp_point position = p->position;
+      tp_rect pmask = p->mask;
+      pmask.origin.x = p->position.x - pmask.size.width/2;
+      pmask.origin.y = p->position.y - pmask.size.height/2;
+      if (tp_PointInRect (point, pmask)){
         return p;
       }
     }
