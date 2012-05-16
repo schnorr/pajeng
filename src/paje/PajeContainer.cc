@@ -94,7 +94,9 @@ void PajeContainer::addVariable (double time, PajeType *type, double value, Paje
       throw "Illegal, trace is not time-ordered in "+eventdesc.str();
   }
   if (last->stime == time){
+    //only update last value
     last->value += value;
+    return;
   }else{
     last->etime = time;
   }
