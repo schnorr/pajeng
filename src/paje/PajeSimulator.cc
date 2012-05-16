@@ -57,6 +57,7 @@ void PajeSimulator::endOfChunkLast (bool last)
     root->recursiveDestroy (lastKnownTime, NULL);
     timeLimitsChanged ();
     hierarchyChanged ();
+    setSelectionStartEndTime (startTime(), endTime());
   }
 }
 
