@@ -13,6 +13,8 @@
 GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
   : wxFrame(parent, wxID_ANY, wxT("Viva Graph Window"), wxDefaultPosition, wxSize(700,400))
 {
+  this->vivagraph = vivagraph;
+
   menubar = new wxMenuBar;
   file = new wxMenu;
   file->Append(wxID_OPEN);
