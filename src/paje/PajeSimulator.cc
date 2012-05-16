@@ -567,7 +567,8 @@ void PajeSimulator::pajeSetVariable (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
   double evttime = atof(time.c_str());
-  container->setVariable (evttime, type, atof(value.c_str()), event);
+  float v = strtof (value.c_str(), NULL);
+  container->setVariable (evttime, type, v, event);
   lastKnownTime = evttime;
 }
 
@@ -614,7 +615,8 @@ void PajeSimulator::pajeAddVariable (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
   double evttime = atof(time.c_str());
-  container->addVariable (evttime, type, atof(value.c_str()), event);
+  float v = strtof (value.c_str(), NULL);
+  container->addVariable (evttime, type, v, event);
   lastKnownTime = evttime;
 }
 
@@ -661,7 +663,8 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
   double evttime = atof(time.c_str());
-  container->subVariable (evttime, type, atof(value.c_str()), event);
+  float v = strtof (value.c_str(), NULL);
+  container->subVariable (evttime, type, v, event);
   lastKnownTime = evttime;
 }
 
