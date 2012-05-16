@@ -112,6 +112,9 @@ void VivaGraph::timeSelectionChanged (void)
     VivaNode *node = (*it);
     node->layout();
   }
+
+  wxCommandEvent event (VivaGraphLayoutUpdated);
+  wxPostEvent (view, event);
 }
 
 void VivaGraph::hierarchyChanged (void)
