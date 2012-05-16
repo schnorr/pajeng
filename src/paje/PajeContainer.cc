@@ -172,3 +172,48 @@ double PajeContainer::endTime (void)
 {
   return etime;
 }
+
+bool operator< (const var_t& v1, const var_t& v2)
+{
+  return v1.stime < v2.stime;
+}
+
+std::ostream &operator<< (std::ostream &output, const var_t& v1)
+{
+  output << " VAR ["<< v1.stime << ", "<<v1.etime<<"] V=" <<v1.value;
+  return output;
+}
+
+std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (double start, double end, PajeType *type)
+{
+  std::map<std::string,double> empty;
+  std::vector<var_t> vector = variables[type];
+  if (vector.size() == 0) return empty;
+
+  std::vector<var_t>::iterator low, up, it;
+  var_t target;
+  target.stime = start;
+  low = lower_bound (vector.begin(), vector.end(), target);
+  target.stime = end;
+  up = lower_bound (vector.begin(), vector.end(), target);
+
+  if (low != vector.begin()){
+    low--;
+  }
+
+  double tsDuration = end - start;
+  double integrated = 0;
+  for (it = low; it != up; it++){
+    var_t var = (*it);
+    double s = var.stime;
+    double e = var.etime;
+    if (!var.value) continue;
+    if (s < start) s = start;
+    if (e > end) e = end;
+    double duration = e - s;
+    double var_integrated = duration/tsDuration * var.value;
+    integrated += var_integrated;
+  }
+  empty[type->name] = integrated;
+  return empty;
+}

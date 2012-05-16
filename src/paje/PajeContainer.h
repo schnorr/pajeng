@@ -2,6 +2,7 @@
 #define __PAJE_CONTAINER_H
 #include <map>
 #include <vector>
+#include <algorithm>
 #include <string>
 #include "PajeType.h"
 #include "PajeEvent.h"
@@ -49,6 +50,7 @@ public:
   //queries
   double startTime (void);
   double endTime (void);
+  std::map<std::string,double> timeIntegrationOfTypeInContainer (double start, double end, PajeType *type);
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container);

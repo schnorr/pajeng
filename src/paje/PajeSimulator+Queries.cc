@@ -83,8 +83,12 @@ PajeType *PajeSimulator::entityTypeWithName (std::string name)
 
 std::map<std::string,double> PajeSimulator::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)
 {
-  std::map<std::string,double> empty;
-  return empty;
+  if (container){
+    return container->timeIntegrationOfTypeInContainer (selectionStart, selectionEnd, type);
+  }else{
+    std::map<std::string,double> empty;
+    return empty;
+  }
 }
 
 std::map<std::string,double> PajeSimulator::integrationOfContainer (PajeContainer *container)
