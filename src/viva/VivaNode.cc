@@ -45,11 +45,15 @@ VivaComposition::~VivaComposition (void)
 
 void VivaComposition::layout (void)
 {
-  if (size_type == NULL){
-    bb = tp_Rect (0, 0, 0, 0);
-  }else{
-    bb = tp_Rect (0, 0, 30, 30);
-  }
+  bb = tp_Rect (0, 0, 0, 0);
+  if (!filter || !size_type || !container) return;
+  std::map<std::string,double> values = filter->timeIntegrationOfTypeInContainer (size_type, container);
+  if (values.size() == 0) return;
+
+  double size_var = values[size_type->name];
+  double scale = 0.01;
+  double size = scale * sqrt (size_var);
+  bb = tp_Rect (0, 0, size, size);
 }
 
 void VivaComposition::draw (wxDC& dc, tp_point base)
