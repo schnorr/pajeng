@@ -1,6 +1,6 @@
 #include "PajeContainer.h"
 
-PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeType *type)
+PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type)
 {
   this->name = name;
   this->alias = alias;
@@ -16,7 +16,7 @@ std::string PajeContainer::identifier ()
   return alias.empty() ? name : alias;
 }
 
-PajeContainer *PajeContainer::addContainer (double time, std::string name, std::string alias, PajeType *type, PajeEvent *event)
+PajeContainer *PajeContainer::addContainer (double time, std::string name, std::string alias, PajeContainerType *type, PajeEvent *event)
 {
   PajeContainer *newContainer = new PajeContainer (time, name, alias, this, type);
   children[newContainer->identifier()] = newContainer;

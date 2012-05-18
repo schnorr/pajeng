@@ -22,7 +22,7 @@ public:
   double etime;
 public:
   PajeContainer *parent;
-  PajeType *type;
+  PajeContainerType *type;
 
   std::map<std::string,PajeContainer*> children;
 
@@ -35,9 +35,9 @@ private:
   std::map<PajeType*,std::vector<var_t> > variables;
 
 public:
-  PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeType *type);
+  PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type);
   PajeContainer *getRoot (void);
-  PajeContainer *addContainer (double time, std::string name, std::string alias, PajeType *type, PajeEvent *event);
+  PajeContainer *addContainer (double time, std::string name, std::string alias, PajeContainerType *type, PajeEvent *event);
   std::string identifier (void);
   void destroy (double time, PajeEvent *event);
   void setVariable (double time, PajeType *type, double value, PajeEvent *event);
