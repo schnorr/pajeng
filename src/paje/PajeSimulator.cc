@@ -229,17 +229,24 @@ void PajeSimulator::pajeDefineEntityValue (PajeEvent *event)
 void PajeSimulator::pajeCreateContainer (PajeEvent *event)
 {
   std::string time = event->valueForFieldId (std::string("Time"));
-  std::string type = event->valueForFieldId (std::string("Type"));
+  std::string typestr = event->valueForFieldId (std::string("Type"));
   std::string containerid = event->valueForFieldId (std::string("Container"));
   std::string name = event->valueForFieldId (std::string("Name"));
   std::string alias = event->valueForFieldId (std::string("Alias"));
 
   //search the container type for the new container
-  PajeType *containerType = typeMap[type];
+  PajeType *type = typeMap[typestr];
+  if (!type){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown container type '"+typestr+"' in "+line.str();
+  }
+
+  PajeContainerType *containerType = dynamic_cast<PajeContainerType*>(type);
   if (!containerType){
     std::stringstream line;
     line << *event;
-    throw "Unknown container type '"+type+"' in "+line.str();
+    throw "Not a container type '"+typestr+"' in "+line.str();
   }
 
   //search the container of the new container
