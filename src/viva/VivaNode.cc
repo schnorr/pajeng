@@ -58,6 +58,16 @@ void VivaComposition::layout (void)
   double size_var = 2 * COMPOSITION_MAX_SIZE * values[size_type->name]/max;
   double size = sqrt (userScale * size_var);
   bb = tp_Rect (0, 0, size, size);
+
+  proportion.clear();
+  std::vector<PajeType*>::iterator it;
+  for (it = values_type.begin(); it != values_type.end(); it++){
+    PajeType *t = (*it);
+    double s = values[t->name];
+    if (s){
+      proportion[t] = s/values[size_type->name];
+    }
+  }
 }
 
 void VivaComposition::draw (wxDC& dc, tp_point base)
@@ -71,6 +81,13 @@ void VivaComposition::draw (wxDC& dc, tp_point base)
 
   wxRect rect = wxRect (bb.origin.x, bb.origin.y, bb.size.width, bb.size.height);
   dc.DrawRectangle(rect);
+
+  std::map<PajeType*,double>::iterator it;
+  for (it = proportion.begin(); it != proportion.end(); it++){
+    double size = (*it).second;
+    wxRect r = wxRect (bb.origin.x, bb.origin.y, bb.size.width, bb.size.height * size);
+    dc.DrawRectangle(r);
+  }
 }
 
 VivaNode::VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, tp_layout *layout)

@@ -14,6 +14,7 @@ class VivaComposition
 {
 public:
   tp_rect bb;
+  std::map<PajeType*,double> proportion;
 private:
   VivaGraph *filter;
   PajeContainer *container;
