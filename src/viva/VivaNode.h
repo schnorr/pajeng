@@ -15,6 +15,7 @@ private:
   VivaGraph *filter;
   PajeContainer *container;
   PajeType *size_type;
+  std::string name;
   std::vector<PajeType*> values_type;
 
 public:

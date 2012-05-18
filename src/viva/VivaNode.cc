@@ -6,6 +6,9 @@ VivaComposition::VivaComposition (VivaGraph *filter, PajeContainer *container, c
   this->filter = filter;
   this->container = container;
 
+  //get configuration name
+  name = std::string (config_setting_name (configuration));
+
   //get configuration
   config_setting_t *type = config_setting_get_member (configuration, "type");
   if (!type || config_setting_type (type) != CONFIG_TYPE_STRING){
