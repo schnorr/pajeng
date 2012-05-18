@@ -1,4 +1,5 @@
 #include "graphwindow.h"
+#include <limits>
 
 #define ID_QUALITY_0 0
 #define ID_QUALITY_1 1
@@ -14,6 +15,7 @@ GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
   : wxFrame(parent, wxID_ANY, wxT("Viva Graph Window"), wxDefaultPosition, wxSize(700,400))
 {
   this->vivagraph = vivagraph;
+  vivagraph->setWindow (this);
 
   menubar = new wxMenuBar;
   file = new wxMenu;
@@ -88,12 +90,42 @@ GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
   graphframe->setVivaGraph (vivagraph);
   wxBoxSizer *vbox = new wxBoxSizer (wxVERTICAL);
   vbox->Add (graphframe, 1, wxEXPAND);
+
+  wxBoxSizer *scale_sliders = new wxBoxSizer (wxHORIZONTAL);
+
+  std::map<std::string,double> comp = vivagraph->compositionsScale;
+  std::map<std::string,double>::iterator it;
+  for (it = comp.begin(); it != comp.end(); it++){
+    std::string confname = (*it).first;
+    double value = (*it).second;
+    int max = std::numeric_limits<int>::max();
+    wxSlider *slider = new wxSlider (panel, wxID_ANY, max * COMPOSITION_DEFAULT_USER_SCALE, 0, max);
+    wxStaticText *start_text = new wxStaticText (panel, -1, wxString(confname.c_str(), wxConvUTF8));
+    wxSizerFlags flags;
+    scale_sliders->Add (start_text);
+    scale_sliders->Add (slider, 1, wxEXPAND);
+
+    //saving scale slider so we can get its value after
+    scaleSliders[confname] = slider;
+  }
+  vbox->Add(scale_sliders, 0, wxEXPAND);
+
+  this->Connect (wxEVT_SCROLL_THUMBTRACK,
+                 wxScrollEventHandler(GraphWindow::OnScaleSliderChanged));
+
   panel->SetSizer(vbox);
   Centre();
 }
 
 GraphWindow::~GraphWindow ()
 {
+}
+
+double GraphWindow::scaleSliderValue (std::string name)
+{
+  int max = std::numeric_limits<int>::max();
+  double current_pos = (double)scaleSliders[name]->GetValue()/max;
+  return current_pos;
 }
 
 void GraphWindow::OnTimeIntervalMenu (wxCommandEvent& event)
@@ -128,4 +160,9 @@ void GraphWindow::OnOpen(wxCommandEvent& WXUNUSED(event))
 
 void GraphWindow::OnAbout(wxCommandEvent& WXUNUSED(event))
 {
+}
+
+void GraphWindow::OnScaleSliderChanged (wxScrollEvent& WXUNUSED(event))
+{
+  vivagraph->scaleSliderChanged ();
 }

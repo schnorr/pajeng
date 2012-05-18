@@ -50,12 +50,13 @@ void VivaComposition::layout (void)
 {
   bb = tp_Rect (0, 0, 0, 0);
   if (!filter || !size_type || !container) return;
-  std::map<std::string,double> values = filter->timeIntegrationOfTypeInContainer (size_type, container);
+  std::map<std::string,double> values = filter->spatialIntegrationOfContainer (container);
   if (values.size() == 0) return;
 
-  double size_var = values[size_type->name];
-  double scale = 0.01;
-  double size = scale * sqrt (size_var);
+  double max = filter->maxForConfigurationWithName (name);
+  double userScale = filter->userScaleForConfigurationWithName (name) * 100; //use a 100 magnification
+  double size_var = 2 * COMPOSITION_MAX_SIZE * values[size_type->name]/max;
+  double size = sqrt (userScale * size_var);
   bb = tp_Rect (0, 0, size, size);
 }
 

@@ -33,6 +33,7 @@ VivaGraph::VivaGraph (std::string conffile)
   int i;
   layout = layout_new ();
   view = NULL;
+  window = NULL;
   runner = NULL;
 
   //extract types for nodes and edges
@@ -60,6 +61,7 @@ VivaGraph::VivaGraph (std::string conffile)
     edgeTypes.insert (std::string(elem));
   }
   config_setting_remove (config_setting_parent(edge), "edge");
+
 }
 
 VivaGraph::~VivaGraph (void)
@@ -67,6 +69,18 @@ VivaGraph::~VivaGraph (void)
   layout_free (layout);
   layout = NULL;
   config_destroy (&config);
+}
+
+void VivaGraph::layoutNodes (void)
+{
+  std::vector<VivaNode*>::iterator it;
+  for (it = nodes.begin(); it != nodes.end(); it++){
+    VivaNode *node = (*it);
+    node->layout();
+  }
+
+  wxCommandEvent event (VivaGraphLayoutUpdated);
+  wxPostEvent (view, event);
 }
 
 void VivaGraph::stop_runner (void)
@@ -98,26 +112,41 @@ void VivaGraph::setView (GraphFrame *view)
   this->view = view;
 }
 
+void VivaGraph::setWindow (GraphWindow *window)
+{
+  this->window = window;
+}
+
+void VivaGraph::defineMaxForConfigurations (void)
+{
+  //configure scale for configurations
+  int i;
+  config_setting_t *root = config_root_setting(&config);
+  for (i = 0; i < config_setting_length (root); i++){
+    config_setting_t *conf = config_setting_get_elem (root, i);
+    config_setting_t *size = config_setting_get_member (conf, "size");
+    std::string size_typename (config_setting_get_string (size));
+    PajeType *size_type = entityTypeWithName (size_typename);
+    std::map<std::string,double> values = spatialIntegrationOfContainer (rootInstance());
+
+    std::string settingName = std::string(config_setting_name (conf));
+    compositionsScale[settingName] = values[size_typename];
+  }
+}
+
 void VivaGraph::timeLimitsChanged (void)
 {
+  //TODO
 }
 
 void VivaGraph::timeSelectionChanged (void)
 {
-  std::vector<VivaNode*>::iterator it;
-  for (it = nodes.begin(); it != nodes.end(); it++){
-    VivaNode *node = (*it);
-    node->layout();
-  }
-
-  wxCommandEvent event (VivaGraphLayoutUpdated);
-  wxPostEvent (view, event);
+  this->defineMaxForConfigurations ();
+  this->layoutNodes ();
 }
 
 void VivaGraph::hierarchyChanged (void)
 {
-  std::cout << __FUNCTION__ << " [" << startTime() << ", " << endTime() << "]"<<std::endl;
-
   //clean-up nodes
   nodes.clear();
 
@@ -128,9 +157,6 @@ void VivaGraph::hierarchyChanged (void)
   }else{
     //user should know that her configuration is bad
   }
-
-  //layout the node
-  this->timeSelectionChanged ();
 }
 
 VivaNode *VivaGraph::getSelectedNodeByPosition (wxPoint p)
@@ -296,4 +322,23 @@ void VivaGraph::qualityChanged (int quality)
   layout_set_quality (layout, quality);
   layout_reset_energies (layout);
   this->start_runner();
+}
+
+void VivaGraph::scaleSliderChanged (void)
+{
+  this->layoutNodes ();
+}
+
+double VivaGraph::maxForConfigurationWithName (std::string configurationName)
+{
+  return compositionsScale[configurationName];
+}
+
+double VivaGraph::userScaleForConfigurationWithName (std::string configurationName)
+{
+  if (window){
+    return window->scaleSliderValue (configurationName);
+  }else{
+    return COMPOSITION_DEFAULT_USER_SCALE;
+  }
 }

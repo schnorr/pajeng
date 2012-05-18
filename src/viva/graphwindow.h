@@ -22,6 +22,9 @@ private:
   wxMenu *view;
   wxMenu *help;
 
+private:
+  std::map<std::string,wxSlider*> scaleSliders;
+
 protected:
   void OnTimeIntervalMenu (wxCommandEvent& event);
   void OnGraphConfigurationMenu (wxCommandEvent& event);
@@ -30,9 +33,12 @@ protected:
   void OnOpen(wxCommandEvent& event);
   void OnAbout (wxCommandEvent& event);
 
+  void OnScaleSliderChanged (wxScrollEvent& event);
+
 public:
   GraphWindow (wxWindow *parent, VivaGraph *vivagraph);
   ~GraphWindow (void);
+  double scaleSliderValue (std::string name);
 };
 
 #endif

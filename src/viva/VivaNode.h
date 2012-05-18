@@ -5,6 +5,9 @@
 #include "tupi_private.h"
 #include "PajeComponent.h"
 
+#define COMPOSITION_MAX_SIZE 200
+#define COMPOSITION_DEFAULT_USER_SCALE 0.5
+
 class VivaGraph;
 
 class VivaComposition

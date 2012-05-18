@@ -4,12 +4,14 @@
 #include <libconfig.h>
 #include <algorithm>
 #include "graphframe.h"
+#include "graphwindow.h"
 #include "timesliceframe.h"
 #include "PajeComponent.h"
 #include "tupi_private.h"
 #include "VivaNode.h"
 
 class GraphFrame;
+class GraphWindow;
 
 class VivaRunner : public wxThread
 {
@@ -30,8 +32,12 @@ private:
   std::set<std::string> edgeTypes;
   config_t config;
 
+public: //for scale management
+  std::map<std::string,double> compositionsScale;
+
 private:
   GraphFrame *view;
+  GraphWindow *window;
   tp_layout *layout;
   VivaRunner *runner;
   std::map<PajeContainer*,VivaNode*> nodeMap;
@@ -50,13 +56,23 @@ private:
 public:
   std::vector<VivaNode*> nodes;
 
+private:
+  void layoutNodes (void);
+
 public:
   VivaGraph (std::string conffile);
   ~VivaGraph ();
   void setView (GraphFrame *view);
+  void setWindow (GraphWindow *window);
   void leftMouseClicked (wxPoint point);
   void rightMouseClicked (wxPoint point);
   void qualityChanged (int quality);
+  void scaleSliderChanged ();
+
+  //for configurations
+  void defineMaxForConfigurations (void);
+  double maxForConfigurationWithName (std::string configurationName);
+  double userScaleForConfigurationWithName (std::string configurationName);
 
 protected:
   void timeLimitsChanged (void);
