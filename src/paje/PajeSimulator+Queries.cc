@@ -85,8 +85,9 @@ std::map<std::string,double> PajeSimulator::timeIntegrationOfTypeInContainer (Pa
 {
   std::map<std::string,double> ret;
   if (container){
-    return empty;
+    ret = container->timeIntegrationOfTypeInContainer (selectionStart, selectionEnd, type);
   }
+  return ret;
 }
 
 std::map<std::string,double> PajeSimulator::integrationOfContainer (PajeContainer *container)
