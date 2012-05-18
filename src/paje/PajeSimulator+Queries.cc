@@ -92,12 +92,18 @@ std::map<std::string,double> PajeSimulator::timeIntegrationOfTypeInContainer (Pa
 
 std::map<std::string,double> PajeSimulator::integrationOfContainer (PajeContainer *container)
 {
-  std::map<std::string,double> empty;
-  return empty;
+  std::map<std::string,double> ret;
+  if (container){
+    ret = container->integrationOfContainer (selectionStart, selectionEnd);
+  }
+  return ret;
 }
 
 std::map<std::string,double> PajeSimulator::spatialIntegrationOfContainer (PajeContainer *container)
 {
-  std::map<std::string,double> empty;
-  return empty;
+  std::map<std::string,double> ret;
+  if (container){
+    ret = container->spatialIntegrationOfContainer (selectionStart, selectionEnd);
+  }
+  return ret;
 }

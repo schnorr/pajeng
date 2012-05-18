@@ -217,3 +217,52 @@ std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (do
   empty[type->name] = integrated;
   return empty;
 }
+
+std::map<std::string,double> PajeContainer::merge (std::map<std::string,double> a,
+                                                   std::map<std::string,double> b)
+{
+  std::map<std::string,double> ret = a;
+  std::map<std::string,double>::iterator it;
+  for (it = b.begin(); it != b.end(); it++){
+    if (ret[(*it).first]){
+      std::cout << "error on " << __FILE__ << ":" << __LINE__ << std::endl;
+    }
+    ret[(*it).first] = (*it).second;
+  }
+  return ret;
+}
+
+std::map<std::string,double> PajeContainer::add (std::map<std::string,double> a,
+                                                 std::map<std::string,double> b)
+{
+
+  std::map<std::string,double> ret = a;
+  std::map<std::string,double>::iterator it;
+  for (it = b.begin(); it != b.end(); it++){
+    std::string var = (*it).first;
+    ret[var] += (*it).second;
+  }
+  return ret;
+}
+
+std::map<std::string,double> PajeContainer::integrationOfContainer (double start, double end)
+{
+  std::map<std::string,PajeType*>::iterator it;
+  std::map<std::string,double> ret, partial;
+  for (it = type->children.begin(); it != type->children.end(); it++){
+    partial = timeIntegrationOfTypeInContainer (start, end, (*it).second);
+    ret = merge (ret, partial);
+  }
+  return ret;
+}
+
+std::map<std::string,double> PajeContainer::spatialIntegrationOfContainer (double start, double end)
+{
+  std::map<std::string,PajeContainer*>::iterator it;
+  std::map<std::string,double> ret = integrationOfContainer (start, end);
+  for (it = children.begin(); it != children.end() ; it++){
+    std::map<std::string,double> partial = ((*it).second)->spatialIntegrationOfContainer (start, end);
+    ret = add (ret, partial);
+  }
+  return ret;
+}

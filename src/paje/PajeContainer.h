@@ -51,6 +51,14 @@ public:
   double startTime (void);
   double endTime (void);
   std::map<std::string,double> timeIntegrationOfTypeInContainer (double start, double end, PajeType *type);
+  std::map<std::string,double> integrationOfContainer (double start, double end);
+  std::map<std::string,double> spatialIntegrationOfContainer (double start, double end);
+
+private:
+  std::map<std::string,double> merge (std::map<std::string,double> a,
+                                      std::map<std::string,double> b);
+  std::map<std::string,double> add (std::map<std::string,double> a,
+                                    std::map<std::string,double> b);
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container);
