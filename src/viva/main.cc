@@ -30,7 +30,7 @@ bool TrivaWXApp::OnInit()
 
   window = new GraphWindow (NULL, vivagraph);
   window->Show(true);
-  timeslicewindow = new TimeSliceWindow (NULL, timeinterval);
+  timeslicewindow = new TimeSliceWindow (window, timeinterval);
   timeslicewindow->Show (true);
   return true;
 }
