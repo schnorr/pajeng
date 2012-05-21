@@ -80,14 +80,25 @@ void VivaComposition::draw (wxDC& dc, tp_point base)
   bb.origin.y = base.y;
 
   wxRect rect = wxRect (bb.origin.x, bb.origin.y, bb.size.width, bb.size.height);
+  dc.SetPen(wxPen(*wxBLACK));
+  dc.SetBrush(wxBrush(*wxWHITE));
   dc.DrawRectangle(rect);
 
   std::map<PajeType*,double>::iterator it;
   for (it = proportion.begin(); it != proportion.end(); it++){
+    PajeColor *color = filter->colorForEntityType ((*it).first);
+    wxColour c;
+    c.Set (255*color->r, 255*color->g, 255*color->b, 255*color->a);
+    dc.SetPen(wxPen(c));
+    dc.SetBrush(wxBrush(c));
     double size = (*it).second;
     wxRect r = wxRect (bb.origin.x, bb.origin.y, bb.size.width, bb.size.height * size);
     dc.DrawRectangle(r);
   }
+
+  dc.SetPen(wxPen(*wxBLACK));
+  dc.SetBrush(*wxTRANSPARENT_BRUSH);
+  dc.DrawRectangle(rect);
 }
 
 VivaNode::VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, tp_layout *layout)
