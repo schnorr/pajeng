@@ -1,4 +1,6 @@
 #include "PajeType.h"
+#include <boost/foreach.hpp>
+#include <boost/tokenizer.hpp>
 
 PajeType::PajeType (std::string name, std::string alias, PajeType *parent)
 {
@@ -14,6 +16,22 @@ std::string PajeType::identifier (void) const
 
 PajeVariableType::PajeVariableType  (std::string name, std::string alias, PajeType *parent):PajeType(name,alias,parent)
 {
+  color = new PajeColor (1, 1, 1, 1); // white
+}
+
+PajeVariableType::PajeVariableType (std::string name, std::string alias, PajeType *parent, std::string c):PajeType(name,alias,parent)
+{
+  if (c.empty()){
+    color = new PajeColor (1, 1, 1, 1); //white
+  }else{
+    std::vector<float> v;
+    boost::char_separator<char> sep(", ");
+    boost::tokenizer< boost::char_separator<char> > tokens(c, sep);
+    BOOST_FOREACH(std::string t, tokens) {
+      v.push_back (atof(t.c_str()));
+    }
+    color = new PajeColor (v[0], v[1], v[2], v[3]);
+  }
 }
 
 PajeStateType::PajeStateType  (std::string name, std::string alias, PajeType *parent):PajeType(name,alias,parent)
@@ -55,9 +73,9 @@ PajeContainerType *PajeContainerType::addContainerType (std::string name, std::s
   return newType;
 }
 
-PajeVariableType *PajeContainerType::addVariableType (std::string name, std::string alias)
+PajeVariableType *PajeContainerType::addVariableType (std::string name, std::string alias, std::string color)
 {
-  PajeVariableType *newType = new PajeVariableType (name, alias, this);
+  PajeVariableType *newType = new PajeVariableType (name, alias, this, color);
   children[newType->identifier()] = newType;
   return newType;
 }

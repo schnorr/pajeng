@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 #include "PajeTraceController.h"
+#include "PajeColor.h"
 
 class PajeType {
 public:
@@ -21,7 +22,9 @@ public:
 
 class PajeVariableType : public PajeType {
 public:
+  PajeColor *color;
   PajeVariableType (std::string name, std::string alias, PajeType *parent);
+  PajeVariableType (std::string name, std::string alias, PajeType *parent, std::string color);
 };
 
 class PajeStateType : public PajeType {
@@ -52,7 +55,7 @@ public:
   PajeType *getRootType (void);
 
   PajeContainerType *addContainerType (std::string name, std::string alias);
-  PajeVariableType *addVariableType (std::string name, std::string alias);
+  PajeVariableType *addVariableType (std::string name, std::string alias, std::string color);
   PajeStateType *addStateType (std::string name, std::string alias);
   PajeEventType *addEventType (std::string name, std::string alias);
   PajeLinkType *addLinkType (std::string name, std::string alias, PajeType *starttype, PajeType *endtype);

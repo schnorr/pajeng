@@ -189,6 +189,7 @@ void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
   std::string name = event->valueForFieldId (std::string("Name"));
   std::string type = event->valueForFieldId (std::string("Type"));
   std::string alias = event->valueForFieldId (std::string("Alias"));
+  std::string color = event->valueForFieldId (std::string("Color"));
 
   //search for parent type
   PajeType *containerType = typeMap[type];
@@ -205,7 +206,7 @@ void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
     line << *event;
     throw "Variable type '"+identifier+"' in "+line.str()+" already defined";
   }
-  newType = dynamic_cast<PajeContainerType*>(containerType)->addVariableType (name, alias);
+  newType = dynamic_cast<PajeContainerType*>(containerType)->addVariableType (name, alias, color);
   typeMap[newType->identifier()] = newType;
   typeNamesMap[newType->name] = newType;
 }
