@@ -35,10 +35,10 @@ void PajeContainer::destroy (double time, PajeEvent *event)
   this->etime = time;
 
   //finish all variables
-  std::map<PajeType*,std::vector<var_t> >::iterator it1;
+  std::map<PajeType*,std::vector<PajeUserVariable> >::iterator it1;
   for (it1 = variables.begin(); it1 != variables.end(); it1++){
-    var_t *last = &((*it1).second).back();
-    last->etime = time;
+    PajeUserVariable *last = &((*it1).second).back();
+    last->setEndTime (time);
   }
 
   //finish all states, events, ... //TODO FIXME
@@ -46,31 +46,28 @@ void PajeContainer::destroy (double time, PajeEvent *event)
 
 void PajeContainer::setVariable (double time, PajeType *type, double value, PajeEvent *event)
 {
-  var_t *last = NULL;
+  PajeUserVariable *last = NULL;
   if (variables[type].size() != 0){
     last = &variables[type].back();
   }
   if (last){
-    if (last->stime > time){
+    if (last->startTime() > time){
       std::stringstream eventdesc;
       eventdesc << *event;
       throw "Illegal, trace is not time-ordered in "+eventdesc.str();
     }
-    if (last->stime == time){
+    if (last->startTime() == time){
       //only update last value
-      last->value = value;
+      last->setDoubleValue (value);
       return;
     }else{
-      last->etime = time;
+      last->setEndTime (time);
     }
   }
 
   //create new
-  var_t val;
-  val.stime = time;
-  val.etime = -1;
-  val.value = value;
-  variables[type].push_back(val);
+  PajeUserVariable *val = new PajeUserVariable (this, type, value, time, time);
+  variables[type].push_back(*val);
 
   //update container endtime
   this->etime = time;
@@ -84,26 +81,23 @@ void PajeContainer::addVariable (double time, PajeType *type, double value, Paje
     throw "Illegal addition to a variable that has no value (yet) in "+line.str();
   }
 
-  var_t *last = &variables[type].back();
-  if (last->stime > time){
+  PajeUserVariable *last = &variables[type].back();
+  if (last->startTime() > time){
       std::stringstream eventdesc;
       eventdesc << *event;
       throw "Illegal, trace is not time-ordered in "+eventdesc.str();
   }
-  if (last->stime == time){
+  if (last->startTime() == time){
     //only update last value
-    last->value += value;
+    last->addDoubleValue (value);
     return;
   }else{
-    last->etime = time;
+    last->setEndTime (time);
   }
 
   //create new
-  var_t val;
-  val.stime = time;
-  val.etime = -1;
-  val.value = last->value + value;
-  variables[type].push_back(val);
+  PajeUserVariable *val = new PajeUserVariable (this, type, last->doubleValue() + value, time, time);
+  variables[type].push_back(*val);
 
   //update container endtime
   this->etime = time;
@@ -117,25 +111,22 @@ void PajeContainer::subVariable (double time, PajeType *type, double value, Paje
     throw "Illegal subtraction from a variable that has no value (yet) in "+line.str();
   }
 
-  var_t *last = &variables[type].back();
-  if (last->stime > time){
+  PajeUserVariable *last = &variables[type].back();
+  if (last->startTime() > time){
       std::stringstream eventdesc;
       eventdesc << *event;
       throw "Illegal, trace is not time-ordered in "+eventdesc.str();
   }
-  if (last->stime == time){
-    last->value -= value;
+  if (last->startTime() == time){
+    last->subtractDoubleValue (value);
     return;
   }else{
-    last->etime = time;
+    last->setEndTime (time);
   }
 
   //create new
-  var_t val;
-  val.stime = time;
-  val.etime = -1;
-  val.value = last->value - value;
-  variables[type].push_back(val);
+  PajeUserVariable *val = new PajeUserVariable (this, type, last->doubleValue() - value, time, time);
+  variables[type].push_back(*val);
 
   //update container endtime
   this->etime = time;
@@ -284,29 +275,22 @@ double PajeContainer::endTime (void)
   return etime;
 }
 
-bool operator< (const var_t& v1, const var_t& v2)
+bool operator< (PajeUserVariable &t1, const double s)
 {
-  return v1.stime < v2.stime;
+  return t1.startTime() < s;
 }
 
-std::ostream &operator<< (std::ostream &output, const var_t& v1)
-{
-  output << " VAR ["<< v1.stime << ", "<<v1.etime<<"] V=" <<v1.value;
-  return output;
-}
 
 std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (double start, double end, PajeType *type)
 {
+
   std::map<std::string,double> empty;
-  std::vector<var_t> vector = variables[type];
+  std::vector<PajeUserVariable> vector = variables[type];
   if (vector.size() == 0) return empty;
 
-  std::vector<var_t>::iterator low, up, it;
-  var_t target;
-  target.stime = start;
-  low = lower_bound (vector.begin(), vector.end(), target);
-  target.stime = end;
-  up = lower_bound (vector.begin(), vector.end(), target);
+  std::vector<PajeUserVariable>::iterator low, up, it;
+  low = lower_bound (vector.begin(), vector.end(), start);
+  up = lower_bound (vector.begin(), vector.end(), end);
 
   if (low != vector.begin()){
     low--;
@@ -315,17 +299,19 @@ std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (do
   double tsDuration = end - start;
   double integrated = 0;
   for (it = low; it != up; it++){
-    var_t var = (*it);
-    double s = var.stime;
-    double e = var.etime;
-    if (!var.value) continue;
+    PajeUserVariable *var = &(*it);
+    double s = var->startTime();
+    double e = var->endTime();
+    if (!var->doubleValue()) continue;
     if (s < start) s = start;
     if (e > end) e = end;
     double duration = e - s;
-    double var_integrated = duration/tsDuration * var.value;
+    double var_integrated = duration/tsDuration * var->doubleValue();
     integrated += var_integrated;
   }
   empty[type->name] = integrated;
+
+
   return empty;
 }
 
@@ -346,7 +332,6 @@ std::map<std::string,double> PajeContainer::merge (std::map<std::string,double> 
 std::map<std::string,double> PajeContainer::add (std::map<std::string,double> a,
                                                  std::map<std::string,double> b)
 {
-
   std::map<std::string,double> ret = a;
   std::map<std::string,double>::iterator it;
   for (it = b.begin(); it != b.end(); it++){
