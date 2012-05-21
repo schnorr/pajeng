@@ -82,6 +82,8 @@ public:
   double selectionStartTime (void);
   double selectionEndTime (void);
   PajeType *entityTypeWithName (std::string name);
+  PajeColor *colorForValueOfEntityType (std::string value, PajeType *type);
+  PajeColor *colorForEntityType (PajeType *type);
   
   //spatial/time integration queries
   std::map<std::string,double> timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);
