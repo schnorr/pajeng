@@ -42,7 +42,7 @@ public:
 
 private:
   std::set<std::string> linksUsedKeys;
-  std::map<std::string,link_t> linksPool;
+  std::map<std::string,link_t> pendingLinks;
   std::map<PajeType*,std::vector<link_t> > links;
   std::map<PajeType*,std::vector<var_t> > variables;
 

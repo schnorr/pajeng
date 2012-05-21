@@ -146,7 +146,7 @@ void PajeContainer::subVariable (double time, PajeType *type, double value, Paje
 
 void PajeContainer::startLink (double time, PajeType *type, PajeContainer *startContainer, std::string value, std::string key, PajeEvent *event)
 {
-  if (!linksPool.count(key)){
+  if (!pendingLinks.count(key)){
     if (linksUsedKeys.count(key)){
       std::stringstream eventdesc;
       eventdesc << *event;
@@ -159,12 +159,12 @@ void PajeContainer::startLink (double time, PajeType *type, PajeContainer *start
     link.startContainer = startContainer;
     link.endContainer = NULL;
     link.value = value;
-    linksPool[key] = link;
+    pendingLinks[key] = link;
     return;
   }
 
   //key was already used
-  link_t link = linksPool[key];
+  link_t link = pendingLinks[key];
   if (link.startContainer){
     std::stringstream eventdesc;
     eventdesc << *event;
@@ -197,13 +197,13 @@ void PajeContainer::startLink (double time, PajeType *type, PajeContainer *start
   links[type].push_back(link);
 
   //remove the link for the temporary pool, add the key to usedKeys
-  linksPool.erase(key);
+  pendingLinks.erase(key);
   linksUsedKeys.insert(key);
 }
 
 void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endContainer, std::string value, std::string key, PajeEvent *event)
 {
-  if (!linksPool.count(key)){
+  if (!pendingLinks.count(key)){
     //check if key was already used
     if (linksUsedKeys.count(key)){
       std::stringstream eventdesc;
@@ -216,12 +216,12 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
     link.startContainer = NULL;
     link.endContainer = endContainer;
     link.value = value;
-    linksPool[key] = link;
+    pendingLinks[key] = link;
     return;
   }
 
   //key was already used
-  link_t link = linksPool[key];
+  link_t link = pendingLinks[key];
   if (link.endContainer){
     std::stringstream eventdesc;
     eventdesc << *event;
@@ -254,7 +254,7 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
   links[type].push_back(link);
 
   //remove the link for the temporary pool, add the key to usedKeys
-  linksPool.erase(key);
+  pendingLinks.erase(key);
   linksUsedKeys.insert(key);
 }
 
