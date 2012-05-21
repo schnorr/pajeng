@@ -4,6 +4,7 @@
 #include "PajeObject.h"
 #include "PajeData.h"
 #include "PajeContainer.h"
+#include "PajeColor.h"
 
 class PajeComponent : public PajeObject
 {
@@ -43,6 +44,8 @@ public:
   double virtual selectionStartTime (void);
   double virtual selectionEndTime (void);
   PajeType virtual *entityTypeWithName (std::string name);
+  PajeColor virtual *colorForValueOfEntityType (std::string value, PajeType *type);
+  PajeColor virtual *colorForEntityType (PajeType *type);
 
   //spatial/time integration queries
   std::map<std::string,double> virtual timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);

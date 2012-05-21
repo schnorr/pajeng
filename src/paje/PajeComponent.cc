@@ -128,6 +128,18 @@ PajeType *PajeComponent::entityTypeWithName (std::string name)
   else return NULL;
 }
 
+PajeColor *PajeComponent::colorForValueOfEntityType (std::string value, PajeType *type)
+{
+  if (inputComponent) return inputComponent->colorForValueOfEntityType (value, type);
+  else return NULL;
+}
+
+PajeColor *PajeComponent::colorForEntityType (PajeType *type)
+{
+  if (inputComponent) return inputComponent->colorForEntityType (type);
+  else return NULL;
+}
+
 std::map<std::string,double> PajeComponent::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)
 {
   std::map<std::string,double> empty;
