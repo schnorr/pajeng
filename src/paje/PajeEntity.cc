@@ -126,9 +126,29 @@ double PajeUserVariable::minValue (void)
   return val;
 }
 
+void PajeUserVariable::setStartTime (double startTime)
+{
+  this->stime = startTime;
+}
+
 void PajeUserVariable::setEndTime (double endTime)
 {
   this->etime = endTime;
+}
+
+void PajeUserVariable::setDoubleValue (double value)
+{
+  this->val = value;
+}
+
+void PajeUserVariable::addDoubleValue (double value)
+{
+  this->val += value;
+}
+
+void PajeUserVariable::subtractDoubleValue (double value)
+{
+  this->val -= value;
 }
 
 PajeUserState::PajeUserState (PajeContainer *container, PajeType *type, std::string value, PajeEvent *startEvent):PajeUserEvent(container, type, value, startEvent)

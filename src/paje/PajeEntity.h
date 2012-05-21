@@ -48,11 +48,12 @@ public:
 
 class PajeUserVariable : public PajeEntity
 {
-public:
+private:
   double val;
   double stime;
   double etime;
 
+public:
   double startTime (void);
   double endTime (void);
   double time (void);
@@ -61,7 +62,12 @@ public:
   double minValue (void);
 
   PajeUserVariable (PajeContainer *container, PajeType *type, double value, double startTime, double endTime);
+  void setStartTime (double startTime);
   void setEndTime (double endTime);
+  void setDoubleValue (double value);
+  void addDoubleValue (double value);
+  void subtractDoubleValue (double value);
+
 };
 
 class PajeUserState : public PajeUserEvent
