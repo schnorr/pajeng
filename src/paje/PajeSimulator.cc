@@ -30,6 +30,15 @@ PajeSimulator::PajeSimulator ()
   selectionEnd = -1;
 }
 
+PajeSimulator::~PajeSimulator ()
+{
+  delete root;
+  delete rootType;
+  typeMap.clear ();
+  typeNamesMap.clear ();
+  contMap.clear();
+}
+
 void PajeSimulator::inputEntity (PajeObject *data)
 {
   PajeEvent *event = (PajeEvent*)data;

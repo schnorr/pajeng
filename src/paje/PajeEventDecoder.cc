@@ -20,6 +20,11 @@ PajeEventDecoder::PajeEventDecoder ()
   //chunkInfo ...
 }
 
+PajeEventDecoder::~PajeEventDecoder ()
+{
+  eventDefinitions.clear ();
+}
+
 char *PajeEventDecoder::break_line (char *s, paje_line *line)
 {
   bool in_string = false;

@@ -34,6 +34,7 @@ private:
 
 public:
   PajeSimulator();
+  ~PajeSimulator();
   
   void inputEntity (PajeObject *data);
   bool canEndChunkBefore (PajeObject *data);
