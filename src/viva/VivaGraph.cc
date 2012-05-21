@@ -190,7 +190,7 @@ bool VivaGraph::hasChildren (PajeContainer *container)
 
 bool VivaGraph::hasParent (PajeContainer *container)
 {
-  if (container->parent) return true;
+  if (container->container) return true;
   else return false;
 }
 
@@ -305,7 +305,7 @@ void VivaGraph::rightMouseClicked (wxPoint p)
   this->stop_runner();
   {
     PajeContainer *clickedContainer = clickedNode->container;
-    PajeContainer *parent = clickedContainer->parent;
+    PajeContainer *parent = clickedContainer->container;
 
     //collapse the parent of the clicked node
     collapseNode (parent);

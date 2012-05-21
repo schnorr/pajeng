@@ -6,6 +6,7 @@
 #include <string>
 #include "PajeType.h"
 #include "PajeEvent.h"
+#include "PajeEntity.h"
 
 class PajeContainer;
 
@@ -23,17 +24,13 @@ typedef struct {
   std::string value;
 }link_t;
 
-class PajeContainer {
+class PajeContainer : public PajeEntity {
 public:
-  std::string name;
   std::string alias;
   bool destroyed;
   double stime;
   double etime;
 public:
-  PajeContainer *parent;
-  PajeContainerType *type;
-
   std::map<std::string,PajeContainer*> children;
 
   //keeps the values of states, events

@@ -1,11 +1,8 @@
 #include "PajeContainer.h"
 
-PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type)
+PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type):PajeEntity (parent, type, name)
 {
-  this->name = name;
   this->alias = alias;
-  this->parent = parent;
-  this->type = type;
   this->destroyed = false;
   this->stime = time;
   this->etime = time;
@@ -363,7 +360,8 @@ std::map<std::string,double> PajeContainer::integrationOfContainer (double start
 {
   std::map<std::string,PajeType*>::iterator it;
   std::map<std::string,double> ret, partial;
-  for (it = type->children.begin(); it != type->children.end(); it++){
+  PajeContainerType *contType = dynamic_cast<PajeContainerType*>(type);
+  for (it = contType->children.begin(); it != contType->children.end(); it++){
     partial = timeIntegrationOfTypeInContainer (start, end, (*it).second);
     ret = merge (ret, partial);
   }
