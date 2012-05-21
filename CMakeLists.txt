@@ -20,6 +20,7 @@ SET(PAJE_LIB_SRC
   src/paje/PajeType.cc
   src/paje/PajeContainer.cc
   src/paje/PajeColor.cc
+  src/paje/PajeEntity.cc
 )
 ADD_LIBRARY(pajecpp SHARED ${PAJE_LIB_SRC})
 
