@@ -741,14 +741,11 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' of container '"+startcontainerstr+"' is not the container type expected for the start of link type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
-  if (container->links[type].count(key) == 0){
-    container->links[type][key] = 1;
-  }else{
-    //key already present, remove it
-    container->links[type].erase(key);
-  }
   double evttime = atof(time.c_str());
+  float v = strtof (value.c_str(), NULL);
+  container->startLink (evttime, type, startcontainer, value, key, event);
   lastKnownTime = evttime;
+  return;
 }
 
 void PajeSimulator::pajeEndLink (PajeEvent *event)
@@ -816,12 +813,9 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' of container '"+endcontainerstr+"' is not the container type expected for the end of link type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
-  if (container->links[type].count(key) == 0){
-    container->links[type][key] = 1;
-  }else{
-    //key already present, remove it
-    container->links[type].erase(key);
-  }
   double evttime = atof(time.c_str());
+  float v = strtof (value.c_str(), NULL);
+  container->endLink (evttime, type, endcontainer, value, key, event);
   lastKnownTime = evttime;
+  return;
 }

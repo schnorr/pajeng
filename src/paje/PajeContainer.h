@@ -7,11 +7,21 @@
 #include "PajeType.h"
 #include "PajeEvent.h"
 
+class PajeContainer;
+
 typedef struct {
   double stime;
   double etime;
   double value;
 }var_t;
+
+typedef struct {
+  PajeContainer *startContainer;
+  PajeContainer *endContainer;
+  double stime;
+  double etime;
+  std::string value;
+}link_t;
 
 class PajeContainer {
 public:
@@ -26,12 +36,14 @@ public:
 
   std::map<std::string,PajeContainer*> children;
 
-  //keeps the values of variables, states, events, links
+  //keeps the values of states, events
   std::map<PajeType*,std::vector<double> > states;
   std::map<PajeType*,std::vector<double> > events;
-  std::map<PajeType*,std::map<std::string,double> > links;
 
 private:
+  std::set<std::string> linksUsedKeys;
+  std::map<std::string,link_t> linksPool;
+  std::map<PajeType*,std::vector<link_t> > links;
   std::map<PajeType*,std::vector<var_t> > variables;
 
 public:
@@ -43,6 +55,8 @@ public:
   void setVariable (double time, PajeType *type, double value, PajeEvent *event);
   void addVariable (double time, PajeType *type, double value, PajeEvent *event);
   void subVariable (double time, PajeType *type, double value, PajeEvent *event);
+  void startLink (double time, PajeType *type, PajeContainer *startContainer, std::string value, std::string key, PajeEvent *event);
+  void endLink (double time, PajeType *type, PajeContainer *endContainer, std::string value, std::string key, PajeEvent *event);
 
 public:
   void recursiveDestroy (double time, PajeEvent *event); //not a PajeSimulator event, EOF found
