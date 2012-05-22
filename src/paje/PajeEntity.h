@@ -2,7 +2,6 @@
 #define __PAJE_ENTITY_H
 #include "PajeObject.h"
 #include "PajeType.h"
-#include "PajeEvent.h"
 
 class PajeContainer;
 
@@ -37,61 +36,60 @@ public:
 
 class PajeUserEvent : public PajeEntity
 {
-public:
-  std::map<std::string,std::string> extraFields;
-  double time;
-
-public:
-  PajeUserEvent (PajeContainer *container, PajeType *type, std::string name, PajeEvent *event);
-  void setEvent (PajeEvent *event);
-};
-
-class PajeUserVariable : public PajeEntity
-{
 private:
-  double val;
-  double stime;
-  double etime;
+  double t;
 
 public:
-  double startTime (void);
-  double endTime (void);
-  double time (void);
-  double doubleValue (void);
-  double maxValue (void);
-  double minValue (void);
-
-  PajeUserVariable (PajeContainer *container, PajeType *type, double value, double startTime, double endTime);
+  PajeUserEvent (PajeContainer *container, PajeType *type, std::string name, double time);
   void setStartTime (double startTime);
-  void setEndTime (double endTime);
-  void setDoubleValue (double value);
-  void addDoubleValue (double value);
-  void subtractDoubleValue (double value);
-
+  double startTime (void);
+  double time (void);
 };
 
 class PajeUserState : public PajeUserEvent
 {
-public:
-  double endTime;
+private:
+  double etime;
   int imbricationLevel;
   double innerDuration;
 
 public:
-  PajeUserState (PajeContainer *container, PajeType *type, std::string value, PajeEvent *startEvent);
-  void setEndEvent (PajeEvent *event);
+  PajeUserState (PajeContainer *container, PajeType *type, std::string value, double startTime, double endTime);
+  void setEndTime (double endTime);
+  double endTime (void);
+};
+
+class PajeUserVariable : public PajeUserState
+{
+private:
+  double val;
+
+public:
+  PajeUserVariable (PajeContainer *container, PajeType *type, double value, double startTime, double endTime);
+  void setDoubleValue (double value);
+  void addDoubleValue (double value);
+  void subtractDoubleValue (double value);
+  double doubleValue (void);
+  double maxValue (void);
+  double minValue (void);
+
 };
 
 class PajeUserLink : public PajeUserState
 {
-public:
+private:
   std::string key;
-  PajeContainer *startContainer;
-  PajeContainer *endContainer;
+  PajeContainer *startCont;
+  PajeContainer *endCont;
 
 public:
-  PajeUserLink (PajeContainer *container, PajeType *type, std::string value, std::string key, PajeContainer *startContainer, PajeEvent *startEvent);
-//  PajeUserLink (PajeContainer *container, PajeType *type, std::string value, std::string key, PajeContainer *endContainer, PajeEvent *endEvent);
+  PajeUserLink (PajeContainer *container, PajeType *type, std::string value, std::string key, PajeContainer *startContainer, double startTime);
+  std::string value (void);
+
+  void setStartContainer (PajeContainer *startContainer);
+  void setEndContainer (PajeContainer *EndContainer);
+  PajeContainer *startContainer (void);
+  PajeContainer *endContainer (void);
 };
 
 #include "PajeContainer.h"

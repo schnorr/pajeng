@@ -85,30 +85,44 @@ double PajeEntity::maxvalue (void)
   return 0;
 }
 
-PajeUserEvent::PajeUserEvent (PajeContainer *container, PajeType *type, std::string name, PajeEvent *event):PajeEntity(container, type, name)
+PajeUserEvent::PajeUserEvent (PajeContainer *container, PajeType *type, std::string name, double time):PajeEntity(container, type, name)
 {
+  this->t = time;
 }
 
-PajeUserVariable::PajeUserVariable (PajeContainer *container, PajeType *type, double value, double startTime, double endTime):PajeEntity (container, type, "")
+void PajeUserEvent::setStartTime (double time)
 {
-  this->val = value;
-  this->stime = startTime;
+  this->t = time;
+}
+
+double PajeUserEvent::startTime (void)
+{
+  return t;
+}
+
+double PajeUserEvent::time (void)
+{
+  return t;
+}
+
+PajeUserState::PajeUserState (PajeContainer *container, PajeType *type, std::string value, double startTime, double endTime):PajeUserEvent(container, type, value, startTime)
+{
   this->etime = endTime;
 }
 
-double PajeUserVariable::startTime (void)
+void PajeUserState::setEndTime (double endTime)
 {
-  return stime;
+  this->etime = endTime;
 }
 
-double PajeUserVariable::endTime (void)
+double PajeUserState::endTime (void)
 {
   return etime;
 }
 
-double PajeUserVariable::time (void)
+PajeUserVariable::PajeUserVariable (PajeContainer *container, PajeType *type, double value, double startTime, double endTime):PajeUserState (container, type, "", startTime, endTime)
 {
-  return stime;
+  this->val = value;
 }
 
 double PajeUserVariable::doubleValue (void)
@@ -126,16 +140,6 @@ double PajeUserVariable::minValue (void)
   return val;
 }
 
-void PajeUserVariable::setStartTime (double startTime)
-{
-  this->stime = startTime;
-}
-
-void PajeUserVariable::setEndTime (double endTime)
-{
-  this->etime = endTime;
-}
-
 void PajeUserVariable::setDoubleValue (double value)
 {
   this->val = value;
@@ -151,18 +155,34 @@ void PajeUserVariable::subtractDoubleValue (double value)
   this->val -= value;
 }
 
-PajeUserState::PajeUserState (PajeContainer *container, PajeType *type, std::string value, PajeEvent *startEvent):PajeUserEvent(container, type, value, startEvent)
-{
-}
-
-PajeUserLink::PajeUserLink (PajeContainer *container, PajeType *type, std::string value, std::string key, PajeContainer *startContainer, PajeEvent *startEvent):PajeUserState(container, type, value, startEvent)
+PajeUserLink::PajeUserLink (PajeContainer *container, PajeType *type, std::string value, std::string key, PajeContainer *startContainer, double startTime):PajeUserState(container, type, value, startTime, startTime)
 {
   this->key = key;
-  this->startContainer = startContainer;
+  this->startCont = startContainer;
+  this->endCont = NULL;
 }
 
-// PajeUserLink::PajeUserLink (PajeContainer *container, PajeType *type, std::string value, std::string key, PajeContainer *endContainer, PajeEvent *endEvent)
-// {
-//   this->key = key;
-//   this->endContainer = endContainer;
-// }
+std::string PajeUserLink::value (void)
+{
+  return name;
+}
+
+void PajeUserLink::setStartContainer (PajeContainer *startContainer)
+{
+  this->startCont = startContainer;
+}
+
+void PajeUserLink::setEndContainer (PajeContainer *endContainer)
+{
+  this->endCont = endContainer;
+}
+
+PajeContainer *PajeUserLink::startContainer (void)
+{
+  return startCont;
+}
+
+PajeContainer *PajeUserLink::endContainer (void)
+{
+  return endCont;
+}
