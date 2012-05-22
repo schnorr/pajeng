@@ -134,116 +134,99 @@ void PajeContainer::subVariable (double time, PajeType *type, double value, Paje
 
 void PajeContainer::startLink (double time, PajeType *type, PajeContainer *startContainer, std::string value, std::string key, PajeEvent *event)
 {
-  if (!pendingLinks.count(key)){
-    if (linksUsedKeys.count(key)){
-      std::stringstream eventdesc;
-      eventdesc << *event;
-      throw "Illegal PajeEndLink in "+eventdesc.str()+", the key was already used for another link";
-    }
-
-    link_t link;
-    link.stime = time;
-    link.etime = -1;
-    link.startContainer = startContainer;
-    link.endContainer = NULL;
-    link.value = value;
-    pendingLinks[key] = link;
-    return;
-  }
-
-  //key was already used
-  link_t link = pendingLinks[key];
-  if (link.startContainer){
+  if (linksUsedKeys.count(key)){
     std::stringstream eventdesc;
     eventdesc << *event;
-    throw "Illegal PajeStartLink in "+eventdesc.str()+", the key was already used for another PajeStartLink";
+    throw "Illegal event in "+eventdesc.str()+", the key was already used for another link";
   }
 
-  //endlink was already registered for this key
-  link.stime = time;
-  link.startContainer = startContainer;
-  if (link.value != value){
-    std::stringstream eventdesc;
-    eventdesc << *event;
-    throw "Illegal PajeStartLink in "+eventdesc.str()+", value is different from the value of the corresponding PajeEndLink (which had "+link.value+")";
-  }
+  if (pendingLinks.count(key) == 0){
+    PajeUserLink link = PajeUserLink(this, type, value, key, startContainer, time);
+    pendingLinks.insert (std::make_pair(key, link));
 
-  //checking time-ordered for this type
-  link_t *last_link = NULL;
-  if (links[type].size() != 0){
-    last_link = &links[type].back();
-  }
-  if (last_link){
-    if (last_link->stime > link.stime){
+  }else{
+    //there is a PajeEndLink
+    PajeUserLink *link = &(pendingLinks.find(key))->second;
+    link->setStartTime (time);
+    link->setStartContainer (startContainer);
+
+    //check validity of the PajeEndLink when compared to its PajeStartLink
+    if (link->value() != value){
       std::stringstream eventdesc;
       eventdesc << *event;
-      throw "Illegal, trace is not time-ordered in "+eventdesc.str();
+      throw "Illegal PajeStartLink in "+eventdesc.str()+", value is different from the value of the corresponding PajeEndLink (which had "+link->value()+")";
     }
+
+    //checking time-ordered for this type
+    PajeUserLink *last_link = NULL;
+    if (links[type].size() != 0){
+      last_link = &links[type].back();
+    }
+    if (last_link){
+      if (last_link->startTime() > link->startTime()){
+        std::stringstream eventdesc;
+        eventdesc << *event;
+        throw "Illegal, trace is not time-ordered in "+eventdesc.str();
+      }
+    }
+
+    //push the newly completed link on the back of the vector
+    links[type].push_back(*link);
+
+    //remove the link for the temporary pool, add the key to usedKeys
+    pendingLinks.erase(key);
+    linksUsedKeys.insert(key);
   }
-
-  //push the newly completed link on the back of the vector
-  links[type].push_back(link);
-
-  //remove the link for the temporary pool, add the key to usedKeys
-  pendingLinks.erase(key);
-  linksUsedKeys.insert(key);
 }
 
 void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endContainer, std::string value, std::string key, PajeEvent *event)
 {
-  if (!pendingLinks.count(key)){
-    //check if key was already used
-    if (linksUsedKeys.count(key)){
-      std::stringstream eventdesc;
-      eventdesc << *event;
-      throw "Illegal PajeEndLink in "+eventdesc.str()+", the key was already used for another link";
-    }
-    link_t link;
-    link.stime = -1;
-    link.etime = time;
-    link.startContainer = NULL;
-    link.endContainer = endContainer;
-    link.value = value;
-    pendingLinks[key] = link;
-    return;
-  }
-
-  //key was already used
-  link_t link = pendingLinks[key];
-  if (link.endContainer){
+  if (linksUsedKeys.count(key)){
     std::stringstream eventdesc;
     eventdesc << *event;
-    throw "Illegal PajeEndLink in "+eventdesc.str()+", the key was already used for another PajeEndLink";
+    throw "Illegal event in "+eventdesc.str()+", the key was already used for another link";
   }
 
-  //startLink was already registered for this key
-  link.etime = time;
-  link.endContainer = endContainer;
-  if (link.value != value){
-    std::stringstream eventdesc;
-    eventdesc << *event;
-    throw "Illegal PajeEndLink in "+eventdesc.str()+", value is different from the value of the corresponding PajeStartLink (which had "+link.value+")";
-  }
+  if (pendingLinks.count(key) == 0){
+    //there is no corresponding PajeStartLink
+    PajeUserLink link = PajeUserLink(this, type, value, key, NULL, -1);
+    link.setEndContainer (endContainer);
+    link.setEndTime (time);
+    pendingLinks.insert (std::make_pair(key, link));
 
-  //checking time-ordered for this type
-  link_t *last_link = NULL;
-  if (links[type].size() != 0){
-    last_link = &links[type].back();
-  }
-  if (last_link){
-    if (last_link->stime > link.stime){
+  }else{
+    //there is a PajeStartLink
+    PajeUserLink *link = &(pendingLinks.find(key))->second;
+    link->setEndContainer (endContainer);
+    link->setEndTime (time);
+
+    //check validity of the PajeEndLink when compared to its PajeStartLink
+    if (link->value() != value){
       std::stringstream eventdesc;
       eventdesc << *event;
-      throw "Illegal, trace is not time-ordered in "+eventdesc.str();
+      throw "Illegal PajeEndLink in "+eventdesc.str()+", value is different from the value of the corresponding PajeStartLink (which had "+link->value()+")";
     }
+
+    //checking time-ordered for this type
+    PajeUserLink *last_link = NULL;
+    if (links[type].size() != 0){
+      last_link = &links[type].back();
+    }
+    if (last_link){
+      if (last_link->startTime() > link->startTime()){
+        std::stringstream eventdesc;
+        eventdesc << *event;
+        throw "Illegal, trace is not time-ordered in "+eventdesc.str();
+      }
+    }
+
+    //push the newly completed link on the back of the vector
+    links[type].push_back(*link);
+
+    //remove the link for the temporary pool, add the key to usedKeys
+    pendingLinks.erase(key);
+    linksUsedKeys.insert(key);
   }
-
-  //push the newly completed link on the back of the vector
-  links[type].push_back(link);
-
-  //remove the link for the temporary pool, add the key to usedKeys
-  pendingLinks.erase(key);
-  linksUsedKeys.insert(key);
 }
 
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container)

@@ -10,14 +10,6 @@
 
 class PajeContainer;
 
-typedef struct {
-  PajeContainer *startContainer;
-  PajeContainer *endContainer;
-  double stime;
-  double etime;
-  std::string value;
-}link_t;
-
 class PajeContainer : public PajeEntity {
 public:
   std::string alias;
@@ -33,8 +25,8 @@ public:
 
 private:
   std::set<std::string> linksUsedKeys;
-  std::map<std::string,link_t> pendingLinks;
-  std::map<PajeType*,std::vector<link_t> > links;
+  std::map<std::string,PajeUserLink> pendingLinks;
+  std::map<PajeType*,std::vector<PajeUserLink> > links;
   std::map<PajeType*,std::vector<PajeUserVariable> > variables;
 
 public:
