@@ -23,8 +23,8 @@ public:
 
 private:
   std::set<std::string> linksUsedKeys;
-  std::map<std::string,PajeUserLink> pendingLinks;
-  std::map<PajeType*,std::vector<PajeUserLink> > links;
+  std::map<std::string,PajeUserLink*> pendingLinks;
+  std::map<PajeType*,std::vector<PajeEntity*> > links;
   std::map<PajeType*,std::vector<PajeUserVariable> > variables;
 
 public:

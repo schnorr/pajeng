@@ -139,12 +139,12 @@ void PajeContainer::startLink (double time, PajeType *type, PajeContainer *start
   }
 
   if (pendingLinks.count(key) == 0){
-    PajeUserLink link = PajeUserLink(this, type, value, key, startContainer, time);
+    PajeUserLink *link = new PajeUserLink(this, type, value, key, startContainer, time);
     pendingLinks.insert (std::make_pair(key, link));
 
   }else{
     //there is a PajeEndLink
-    PajeUserLink *link = &(pendingLinks.find(key))->second;
+    PajeUserLink *link = (pendingLinks.find(key))->second;
     link->setStartTime (time);
     link->setStartContainer (startContainer);
 
@@ -156,9 +156,9 @@ void PajeContainer::startLink (double time, PajeType *type, PajeContainer *start
     }
 
     //checking time-ordered for this type
-    PajeUserLink *last_link = NULL;
+    PajeEntity *last_link = NULL;
     if (links[type].size() != 0){
-      last_link = &links[type].back();
+      last_link = links[type].back();
     }
     if (last_link){
       if (last_link->startTime() > link->startTime()){
@@ -169,7 +169,7 @@ void PajeContainer::startLink (double time, PajeType *type, PajeContainer *start
     }
 
     //push the newly completed link on the back of the vector
-    links[type].push_back(*link);
+    links[type].push_back(link);
 
     //remove the link for the temporary pool, add the key to usedKeys
     pendingLinks.erase(key);
@@ -187,14 +187,14 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
 
   if (pendingLinks.count(key) == 0){
     //there is no corresponding PajeStartLink
-    PajeUserLink link = PajeUserLink(this, type, value, key, NULL, -1);
-    link.setEndContainer (endContainer);
-    link.setEndTime (time);
+    PajeUserLink *link = new PajeUserLink(this, type, value, key, NULL, -1);
+    link->setEndContainer (endContainer);
+    link->setEndTime (time);
     pendingLinks.insert (std::make_pair(key, link));
 
   }else{
     //there is a PajeStartLink
-    PajeUserLink *link = &(pendingLinks.find(key))->second;
+    PajeUserLink *link = (pendingLinks.find(key))->second;
     link->setEndContainer (endContainer);
     link->setEndTime (time);
 
@@ -206,9 +206,9 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
     }
 
     //checking time-ordered for this type
-    PajeUserLink *last_link = NULL;
+    PajeEntity *last_link = NULL;
     if (links[type].size() != 0){
-      last_link = &links[type].back();
+      last_link = links[type].back();
     }
     if (last_link){
       if (last_link->startTime() > link->startTime()){
@@ -219,7 +219,7 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
     }
 
     //push the newly completed link on the back of the vector
-    links[type].push_back(*link);
+    links[type].push_back(link);
 
     //remove the link for the temporary pool, add the key to usedKeys
     pendingLinks.erase(key);
