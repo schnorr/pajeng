@@ -32,6 +32,12 @@ public:
   virtual double firstTime (void) = 0;
   virtual double lastTime (void) = 0;
   virtual double duration (void) = 0;
+
+  struct PajeEntityCompare {
+    bool operator() (PajeEntity *e, double t){
+      return e->startTime() < t;
+    }
+  };
 };
 
 class PajeUserEvent : public PajeEntity
