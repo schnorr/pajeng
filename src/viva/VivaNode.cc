@@ -167,6 +167,15 @@ void VivaNode::draw (wxDC& dc)
   dc.DrawPoint (position.x, position.y);
 }
 
+void VivaNode::setConnectedNodes (std::vector<tp_node*> connectedNodes)
+{
+  std::vector<tp_node*>::iterator it;
+  for (it = connectedNodes.begin(); it != connectedNodes.end(); it++){
+    tp_node *n = *it;
+    node_connect (node, n);
+  }
+}
+
 // bool operator!= (const VivaNode& t1, const VivaNode& t2)
 // {
 //   return t1.container->name != t2.container->name;

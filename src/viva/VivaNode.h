@@ -48,6 +48,7 @@ public:
   void layout (void);
   void draw (wxDC& dc);
   bool hasPoint (double x, double y);
+  void setConnectedNodes (std::vector<tp_node*> connectedNodes);
 };
 
 /* bool operator!= (const VivaNode& t1, const VivaNode& t2); */
