@@ -124,8 +124,12 @@ GraphWindow::~GraphWindow ()
 double GraphWindow::scaleSliderValue (std::string name)
 {
   int max = std::numeric_limits<int>::max();
-  double current_pos = (double)scaleSliders[name]->GetValue()/max;
-  return current_pos;
+  if (scaleSliders.count(name) == 0){
+    std::cout << "Warning, no scale slider for " << name << std::endl;
+    return COMPOSITION_DEFAULT_USER_SCALE;
+  }else{
+    return (double)scaleSliders[name]->GetValue()/max;
+  }
 }
 
 void GraphWindow::OnTimeIntervalMenu (wxCommandEvent& event)
