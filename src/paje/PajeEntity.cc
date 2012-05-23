@@ -37,6 +37,21 @@ std::string PajeEntity::value (void)
   return name();
 }
 
+void PajeEntity::setDoubleValue (double value)
+{
+  throw "should be implemented in subclass";
+}
+
+void PajeEntity::addDoubleValue (double value)
+{
+  setDoubleValue (value);
+}
+
+void PajeEntity::subtractDoubleValue (double value)
+{
+  setDoubleValue (value);
+}
+
 double PajeEntity::doubleValue (void)
 {
   return 0;

@@ -20,6 +20,9 @@ public:
   bool isContainedBy (PajeContainer *container);
   virtual bool isContainer (void);
   virtual std::string value (void);
+  virtual void setDoubleValue (double value);
+  virtual void addDoubleValue (double value);
+  virtual void subtractDoubleValue (double value);
   virtual double doubleValue (void);
   virtual PajeContainer *startContainer (void);
   virtual PajeContainer *endContainer (void);
