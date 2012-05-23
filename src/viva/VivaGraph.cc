@@ -214,7 +214,7 @@ bool VivaGraph::hasChildren (PajeContainer *container)
   //this should be customized according to graph configuration
   std::vector<PajeType*> ret;
   std::vector<PajeType*>::iterator it;
-  ret = containedTypesForContainerType (container->type);
+  ret = containedTypesForContainerType (container->type());
   for (it = ret.begin(); it != ret.end(); it++){
     PajeType *type = (*it);
     if (isContainerType(type) && nodeTypes.count (type->name)){
@@ -229,7 +229,7 @@ bool VivaGraph::hasChildren (PajeContainer *container)
 
 bool VivaGraph::hasParent (PajeContainer *container)
 {
-  if (container->container) return true;
+  if (container->container()) return true;
   else return false;
 }
 
@@ -243,7 +243,7 @@ void VivaGraph::expandNode (VivaNode *node)
   //add its children to the graph
   std::vector<PajeType*> ret;
   std::vector<PajeType*>::iterator it;
-  ret = containedTypesForContainerType (container->type);
+  ret = containedTypesForContainerType (container->type());
   for (it = ret.begin(); it != ret.end(); it++){
     PajeType *type = (*it);
     if (isContainerType(type) && nodeTypes.count (type->name)){
@@ -262,7 +262,7 @@ void VivaGraph::collapseNode (PajeContainer *container)
   //delete all the children of PajeContainer
   std::vector<PajeType*> ret;
   std::vector<PajeType*>::iterator it;
-  ret = containedTypesForContainerType (container->type);
+  ret = containedTypesForContainerType (container->type());
   for (it = ret.begin(); it != ret.end(); it++){
     PajeType *type = (*it);
     if (isContainerType(type) && nodeTypes.count (type->name)){
@@ -303,7 +303,7 @@ void VivaGraph::deleteNode (VivaNode *node)
 
 bool VivaGraph::shouldBePresent (PajeContainer *container)
 {
-  std::string name = container->type->name;
+  std::string name = container->type()->name;
   if (nodeTypes.count (name)) return true;
 
   std::vector<PajeContainer*> vector;
@@ -344,7 +344,7 @@ void VivaGraph::rightMouseClicked (wxPoint p)
   this->stop_runner();
   {
     PajeContainer *clickedContainer = clickedNode->container;
-    PajeContainer *parent = clickedContainer->container;
+    PajeContainer *parent = clickedContainer->container();
 
     //collapse the parent of the clicked node
     collapseNode (parent);
