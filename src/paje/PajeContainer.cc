@@ -249,14 +249,13 @@ void PajeContainer::recursiveDestroy (double time, PajeEvent *event)
 std::vector<PajeEntity*> PajeContainer::enumeratorOfEntitiesTyped (double start, double end, PajeType *type)
 {
   std::vector<PajeEntity*> empty;
-  std::vector<PajeEntity*> *vector = &entities[type];
-  if (vector->size() == 0) return empty;
+  if (entities[type].size() == 0) return empty;
 
   std::vector<PajeEntity*>::iterator low, up, it;
-  low = lower_bound (vector->begin(), vector->end(), start, PajeEntity::PajeEntityCompare());
-  up = lower_bound (vector->begin(), vector->end(), end, PajeEntity::PajeEntityCompare());
+  low = lower_bound (entities[type].begin(), entities[type].end(), start, PajeEntity::PajeEntityCompare());
+  up = lower_bound (entities[type].begin(), entities[type].end(), end, PajeEntity::PajeEntityCompare());
 
-  if (low != vector->begin()){
+  if (low != entities[type].begin()){
     low--;
   }
 
@@ -269,14 +268,13 @@ std::vector<PajeEntity*> PajeContainer::enumeratorOfEntitiesTyped (double start,
 std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (double start, double end, PajeType *type)
 {
   std::map<std::string,double> empty;
-  std::vector<PajeEntity*> vector = entities[type];
-  if (vector.size() == 0) return empty;
+  if (entities[type].size() == 0) return empty;
 
   std::vector<PajeEntity*>::iterator low, up, it;
-  low = lower_bound (vector.begin(), vector.end(), start, PajeEntity::PajeEntityCompare());
-  up = lower_bound (vector.begin(), vector.end(), end, PajeEntity::PajeEntityCompare());
+  low = lower_bound (entities[type].begin(), entities[type].end(), start, PajeEntity::PajeEntityCompare());
+  up = lower_bound (entities[type].begin(), entities[type].end(), end, PajeEntity::PajeEntityCompare());
 
-  if (low != vector.begin()){
+  if (low != entities[type].begin()){
     low--;
   }
 
