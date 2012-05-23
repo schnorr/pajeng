@@ -254,27 +254,25 @@ bool operator< (PajeEntity &t1, const double s)
 std::vector<PajeEntity*> PajeContainer::enumeratorOfEntitiesTyped (double start, double end, PajeType *type)
 {
   std::vector<PajeEntity*> empty;
-
-  std::vector<PajeUserLink> *vector = &links[type];
+  std::vector<PajeEntity*> *vector = &links[type];
   if (vector->size() == 0) return empty;
 
-  std::vector<PajeUserLink>::iterator low, up, it;
-  low = lower_bound (vector->begin(), vector->end(), start);
-  up = lower_bound (vector->begin(), vector->end(), end);
+  std::vector<PajeEntity*>::iterator low, up, it;
+  low = lower_bound (vector->begin(), vector->end(), start, PajeEntity::PajeEntityCompare());
+  up = lower_bound (vector->begin(), vector->end(), end, PajeEntity::PajeEntityCompare());
 
   if (low != vector->begin()){
     low--;
   }
 
   for (it = low; it != up; it++){
-    empty.push_back (&(*it));
+    empty.push_back (*it);
   }
   return empty;
 }
 
 std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (double start, double end, PajeType *type)
 {
-
   std::map<std::string,double> empty;
   std::vector<PajeUserVariable> vector = variables[type];
   if (vector.size() == 0) return empty;
