@@ -270,17 +270,12 @@ std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (do
   std::map<std::string,double> empty;
   if (entities[type].size() == 0) return empty;
 
-  std::vector<PajeEntity*>::iterator low, up, it;
-  low = lower_bound (entities[type].begin(), entities[type].end(), start, PajeEntity::PajeEntityCompare());
-  up = lower_bound (entities[type].begin(), entities[type].end(), end, PajeEntity::PajeEntityCompare());
+  std::vector<PajeEntity*> slice = enumeratorOfEntitiesTyped (start, end, type);
 
-  if (low != entities[type].begin()){
-    low--;
-  }
-
-  double tsDuration = end - start;
   double integrated = 0;
-  for (it = low; it != up; it++){
+  double tsDuration = end - start;
+  std::vector<PajeEntity*>::iterator it;
+  for (it = slice.begin(); it != slice.end(); it++){
     PajeEntity *var = *it;
     double s = var->startTime();
     double e = var->endTime();
@@ -292,8 +287,6 @@ std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (do
     integrated += var_integrated;
   }
   empty[type->name] = integrated;
-
-
   return empty;
 }
 
