@@ -1,4 +1,5 @@
 #include "VivaGraph.h"
+#include "PajeEntity.h"
 
 
 VivaRunner::VivaRunner (tp_layout *layout, GraphFrame *view)
@@ -69,6 +70,41 @@ VivaGraph::~VivaGraph (void)
   layout_free (layout);
   layout = NULL;
   config_destroy (&config);
+}
+
+void VivaGraph::defineEdges (void)
+{
+  edges.clear ();
+  defineEdges (rootInstance());
+}
+
+void VivaGraph::defineEdges (PajeContainer *container)
+{
+  std::vector<PajeType*> types = containedTypesForContainerType (container->type());
+  std::vector<PajeType*>::iterator type;
+  for (type = types.begin(); type != types.end(); type++){
+    PajeLinkType *link_type = dynamic_cast<PajeLinkType*>(*type);
+    if (link_type){
+      std::vector<PajeEntity*> links;
+      links = enumeratorOfEntitiesTypedInContainer (*type, container, startTime(), endTime());
+      std::vector<PajeEntity*>::iterator link;
+      for (link = links.begin(); link != links.end(); link++){
+        PajeContainer *startContainer = (*link)->startContainer();
+        PajeContainer *endContainer = (*link)->endContainer();
+        edges[startContainer].insert (endContainer);
+        edges[endContainer].insert (startContainer);
+      }
+    }else{
+      //recurse if container type
+      if (isContainerType(*type)){
+        std::vector<PajeContainer*> subs = enumeratorOfContainersTypedInContainer (*type, container);
+        std::vector<PajeContainer*>::iterator cont;
+        for (cont = subs.begin(); cont != subs.end(); cont++){
+          defineEdges (*cont);
+        }
+      }
+    }
+  }
 }
 
 void VivaGraph::layoutNodes (void)
@@ -147,6 +183,9 @@ void VivaGraph::timeSelectionChanged (void)
 
 void VivaGraph::hierarchyChanged (void)
 {
+  //define edges
+  defineEdges ();
+
   //clean-up nodes
   nodes.clear();
 

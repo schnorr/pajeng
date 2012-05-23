@@ -41,6 +41,7 @@ private:
   tp_layout *layout;
   VivaRunner *runner;
   std::map<PajeContainer*,VivaNode*> nodeMap;
+  std::map<PajeContainer*,std::set<PajeContainer*> > edges;
 
   void stop_runner (void);
   void start_runner (void);
@@ -57,6 +58,8 @@ public:
   std::vector<VivaNode*> nodes;
 
 private:
+  void defineEdges (void);
+  void defineEdges (PajeContainer *root); //recursive call
   void layoutNodes (void);
 
 public:
