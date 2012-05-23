@@ -35,7 +35,7 @@ void PajeContainer::destroy (double time, PajeEvent *event)
   //finish all variables
   std::map<PajeType*,std::vector<PajeUserVariable> >::iterator it1;
   for (it1 = variables.begin(); it1 != variables.end(); it1++){
-    PajeUserVariable *last = &((*it1).second).back();
+    PajeEntity *last = &((*it1).second).back();
     last->setEndTime (time);
   }
 
@@ -44,7 +44,7 @@ void PajeContainer::destroy (double time, PajeEvent *event)
 
 void PajeContainer::setVariable (double time, PajeType *type, double value, PajeEvent *event)
 {
-  PajeUserVariable *last = NULL;
+  PajeEntity *last = NULL;
   if (variables[type].size() != 0){
     last = &variables[type].back();
   }
@@ -79,7 +79,7 @@ void PajeContainer::addVariable (double time, PajeType *type, double value, Paje
     throw "Illegal addition to a variable that has no value (yet) in "+line.str();
   }
 
-  PajeUserVariable *last = &variables[type].back();
+  PajeEntity *last = &variables[type].back();
   if (last->startTime() > time){
       std::stringstream eventdesc;
       eventdesc << *event;
@@ -109,7 +109,7 @@ void PajeContainer::subVariable (double time, PajeType *type, double value, Paje
     throw "Illegal subtraction from a variable that has no value (yet) in "+line.str();
   }
 
-  PajeUserVariable *last = &variables[type].back();
+  PajeEntity *last = &variables[type].back();
   if (last->startTime() > time){
       std::stringstream eventdesc;
       eventdesc << *event;
@@ -290,7 +290,7 @@ std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (do
   double tsDuration = end - start;
   double integrated = 0;
   for (it = low; it != up; it++){
-    PajeUserVariable *var = &(*it);
+    PajeEntity *var = &(*it);
     double s = var->startTime();
     double e = var->endTime();
     if (!var->doubleValue()) continue;
