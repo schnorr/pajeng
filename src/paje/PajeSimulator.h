@@ -77,6 +77,7 @@ public:
   std::vector<PajeType*> containedTypesForContainerType (PajeType *type);
   std::vector<PajeContainer*> enumeratorOfContainersInContainer (PajeContainer *container);
   std::vector<PajeContainer*> enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container);
+  std::vector<PajeEntity*> enumeratorOfEntitiesTypedInContainer (PajeType *type, PajeContainer *container, double start, double end);
   bool isContainerType (PajeType *type);
   double startTime (void);
   double endTime (void);

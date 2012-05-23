@@ -41,6 +41,13 @@ std::vector<PajeContainer*> PajeSimulator::enumeratorOfContainersTypedInContaine
   return ret;
 }
 
+std::vector<PajeEntity*> PajeSimulator::enumeratorOfEntitiesTypedInContainer (PajeType *type, PajeContainer *container, double start, double end)
+{
+  std::vector<PajeEntity*> empty;
+  if (container) return container->enumeratorOfEntitiesTyped (start, end, type);
+  else return empty;
+}
+
 bool PajeSimulator::isContainerType (PajeType *type)
 {
   PajeContainerType *contType = dynamic_cast<PajeContainerType*>(type);

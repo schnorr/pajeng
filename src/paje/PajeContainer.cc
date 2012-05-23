@@ -246,9 +246,30 @@ void PajeContainer::recursiveDestroy (double time, PajeEvent *event)
   }
 }
 
-bool operator< (PajeUserVariable &t1, const double s)
+bool operator< (PajeEntity &t1, const double s)
 {
   return t1.startTime() < s;
+}
+
+std::vector<PajeEntity*> PajeContainer::enumeratorOfEntitiesTyped (double start, double end, PajeType *type)
+{
+  std::vector<PajeEntity*> empty;
+
+  std::vector<PajeUserLink> *vector = &links[type];
+  if (vector->size() == 0) return empty;
+
+  std::vector<PajeUserLink>::iterator low, up, it;
+  low = lower_bound (vector->begin(), vector->end(), start);
+  up = lower_bound (vector->begin(), vector->end(), end);
+
+  if (low != vector->begin()){
+    low--;
+  }
+
+  for (it = low; it != up; it++){
+    empty.push_back (&(*it));
+  }
+  return empty;
 }
 
 std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (double start, double end, PajeType *type)
