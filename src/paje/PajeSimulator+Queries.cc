@@ -34,7 +34,7 @@ std::vector<PajeContainer*> PajeSimulator::enumeratorOfContainersTypedInContaine
   std::vector<PajeContainer*> ret;
   std::map<std::string,PajeContainer*>::iterator it;
   for (it = container->children.begin(); it != container->children.end(); it++){
-    if (((*it).second)->type == type){
+    if (((*it).second)->type() == type){
       ret.push_back ((*it).second);
     }
   }

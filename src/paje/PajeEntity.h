@@ -7,31 +7,31 @@ class PajeContainer;
 
 class PajeEntity : public PajeObject
 {
-public:
-  PajeContainer *container;
-  PajeType *type;
-  std::string name;
+private:
+  PajeContainer *entityContainer;
+  PajeType *entityType;
+  std::string entityName;
 
 public:
   PajeEntity (PajeContainer *container, PajeType *type, std::string name);
- 
-  bool virtual isContainer (void);
-  std::string virtual value (void);
-  PajeContainer virtual *startContainer (void);
-  PajeContainer virtual *endContainer (void);
-  bool virtual isContainedBy (PajeContainer *container);
+  PajeContainer *container (void) const;
+  PajeType *type (void) const;
+  std::string name (void) const;
+  bool isContainedBy (PajeContainer *container);
+  virtual bool isContainer (void);
+  virtual std::string value (void);
+  virtual double doubleValue (void);
+  virtual PajeContainer *startContainer (void);
+  virtual PajeContainer *endContainer (void);
 
-  double virtual time (void);
-  double virtual startTime (void);
-  double virtual endTime (void);
-  double virtual firstTime (void);
-  double virtual lastTime (void);
-  double virtual duration (void);
-  double virtual exclusiveDuration (void);
-
-  double virtual doubleValue (void);
-  double virtual minValue (void);
-  double virtual maxvalue (void);
+  virtual double time (void) = 0;
+  virtual double startTime (void) = 0;
+  virtual void setStartTime (double startTime) = 0;
+  virtual double endTime (void) = 0;
+  virtual void setEndTime (double endTime) = 0;
+  virtual double firstTime (void) = 0;
+  virtual double lastTime (void) = 0;
+  virtual double duration (void) = 0;
 };
 
 class PajeUserEvent : public PajeEntity
@@ -41,22 +41,27 @@ private:
 
 public:
   PajeUserEvent (PajeContainer *container, PajeType *type, std::string name, double time);
-  void setStartTime (double startTime);
-  double startTime (void);
   double time (void);
+  double startTime (void);
+  void setStartTime (double startTime);
+  double endTime (void);
+  void setEndTime (double endTime);
+  double firstTime (void);
+  double lastTime (void);
+  double duration (void);
 };
 
 class PajeUserState : public PajeUserEvent
 {
 private:
   double etime;
-  int imbricationLevel;
-  double innerDuration;
 
 public:
   PajeUserState (PajeContainer *container, PajeType *type, std::string value, double startTime, double endTime);
-  void setEndTime (double endTime);
   double endTime (void);
+  void setEndTime (double endTime);
+  double lastTime (void);
+  double duration (void);
 };
 
 class PajeUserVariable : public PajeUserState
@@ -70,9 +75,6 @@ public:
   void addDoubleValue (double value);
   void subtractDoubleValue (double value);
   double doubleValue (void);
-  double maxValue (void);
-  double minValue (void);
-
 };
 
 class PajeUserLink : public PajeUserState
@@ -84,7 +86,6 @@ private:
 
 public:
   PajeUserLink (PajeContainer *container, PajeType *type, std::string value, std::string key, PajeContainer *startContainer, double startTime);
-  std::string value (void);
 
   void setStartContainer (PajeContainer *startContainer);
   void setEndContainer (PajeContainer *EndContainer);

@@ -268,13 +268,13 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
   }
 
   //verify if the container type is correctly informed
-  if (containerType->parent != container->type){
+  if (containerType->parent != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
     ctype1 << *containerType;
     std::stringstream ctype2;
-    ctype2 << *container->type;
+    ctype2 << *container->type();
     throw "Container type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
@@ -317,7 +317,7 @@ void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
   }
 
   //checks
-  if (container->type != containerType){
+  if (container->type() != containerType){
     std::stringstream line;
     line << *event;
     std::stringstream cont1;
@@ -366,13 +366,13 @@ void PajeSimulator::pajeNewEvent (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type){
+  if (type->parent != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
-    ctype2 << *container->type;
+    ctype2 << *container->type();
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
@@ -417,13 +417,13 @@ void PajeSimulator::pajeSetState (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type){
+  if (type->parent != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
-    ctype2 << *container->type;
+    ctype2 << *container->type();
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
@@ -468,13 +468,13 @@ void PajeSimulator::pajePushState (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type){
+  if (type->parent != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
-    ctype2 << *container->type;
+    ctype2 << *container->type();
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
@@ -519,13 +519,13 @@ void PajeSimulator::pajePopState (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type){
+  if (type->parent != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
-    ctype2 << *container->type;
+    ctype2 << *container->type();
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
@@ -574,13 +574,13 @@ void PajeSimulator::pajeSetVariable (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type){
+  if (type->parent != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
-    ctype2 << *container->type;
+    ctype2 << *container->type();
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
   double evttime = atof(time.c_str());
@@ -622,13 +622,13 @@ void PajeSimulator::pajeAddVariable (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type){
+  if (type->parent != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
-    ctype2 << *container->type;
+    ctype2 << *container->type();
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
   double evttime = atof(time.c_str());
@@ -670,13 +670,13 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type){
+  if (type->parent != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
-    ctype2 << *container->type;
+    ctype2 << *container->type();
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
   double evttime = atof(time.c_str());
@@ -729,22 +729,22 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type){
+  if (type->parent != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
-    ctype2 << *container->type;
+    ctype2 << *container->type();
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
   //verify if the type of start container is the type expected for the start of this link
-  if (linktype->starttype != startcontainer->type){
+  if (linktype->starttype != startcontainer->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
-    ctype1 << *startcontainer->type;
+    ctype1 << *startcontainer->type();
     std::stringstream ctype2;
     ctype2 << *type;
     throw "Type '"+ctype1.str()+"' of container '"+startcontainerstr+"' is not the container type expected for the start of link type '"+ctype2.str()+"' in "+eventdesc.str();
@@ -801,22 +801,22 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type){
+  if (type->parent != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
-    ctype2 << *container->type;
+    ctype2 << *container->type();
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
   //verify if the type of end container is the type expected for the end of this link
-  if (linktype->endtype != endcontainer->type){
+  if (linktype->endtype != endcontainer->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
-    ctype1 << *endcontainer->type;
+    ctype1 << *endcontainer->type();
     std::stringstream ctype2;
     ctype2 << *type;
     throw "Type '"+ctype1.str()+"' of container '"+endcontainerstr+"' is not the container type expected for the end of link type '"+ctype2.str()+"' in "+eventdesc.str();

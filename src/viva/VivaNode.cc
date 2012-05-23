@@ -103,7 +103,7 @@ void VivaComposition::draw (wxDC& dc, tp_point base)
 
 VivaNode::VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, tp_layout *layout)
 {
-  this->node = node_new (container->name.c_str(), this);
+  this->node = node_new (container->name().c_str(), this);
   this->tupi_layout = layout;
   this->container = container;
   this->filter = filter;

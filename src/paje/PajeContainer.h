@@ -10,12 +10,10 @@
 
 class PajeContainer;
 
-class PajeContainer : public PajeEntity {
+class PajeContainer : public PajeUserState {
 public:
   std::string alias;
   bool destroyed;
-  double stime;
-  double etime;
 public:
   std::map<std::string,PajeContainer*> children;
 
@@ -45,8 +43,6 @@ public:
   void recursiveDestroy (double time, PajeEvent *event); //not a PajeSimulator event, EOF found
 
   //queries
-  double startTime (void);
-  double endTime (void);
   std::map<std::string,double> timeIntegrationOfTypeInContainer (double start, double end, PajeType *type);
   std::map<std::string,double> integrationOfContainer (double start, double end);
   std::map<std::string,double> spatialIntegrationOfContainer (double start, double end);

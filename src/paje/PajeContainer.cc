@@ -1,16 +1,14 @@
 #include "PajeContainer.h"
 
-PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type):PajeEntity (parent, type, name)
+PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type):PajeUserState (parent, type, name, time, time)
 {
   this->alias = alias;
   this->destroyed = false;
-  this->stime = time;
-  this->etime = time;
 }
 
 std::string PajeContainer::identifier ()
 {
-  return alias.empty() ? name : alias;
+  return alias.empty() ? name() : alias;
 }
 
 PajeContainer *PajeContainer::addContainer (double time, std::string name, std::string alias, PajeContainerType *type, PajeEvent *event)
@@ -32,7 +30,7 @@ void PajeContainer::destroy (double time, PajeEvent *event)
 
   //mark as destroyed, update endtime
   destroyed = true;
-  this->etime = time;
+  setEndTime (time);
 
   //finish all variables
   std::map<PajeType*,std::vector<PajeUserVariable> >::iterator it1;
@@ -70,7 +68,7 @@ void PajeContainer::setVariable (double time, PajeType *type, double value, Paje
   variables[type].push_back(*val);
 
   //update container endtime
-  this->etime = time;
+  setEndTime (time);
 }
 
 void PajeContainer::addVariable (double time, PajeType *type, double value, PajeEvent *event)
@@ -100,7 +98,7 @@ void PajeContainer::addVariable (double time, PajeType *type, double value, Paje
   variables[type].push_back(*val);
 
   //update container endtime
-  this->etime = time;
+  setEndTime (time);
 }
 
 void PajeContainer::subVariable (double time, PajeType *type, double value, PajeEvent *event)
@@ -129,7 +127,7 @@ void PajeContainer::subVariable (double time, PajeType *type, double value, Paje
   variables[type].push_back(*val);
 
   //update container endtime
-  this->etime = time;
+  setEndTime (time);
 }
 
 void PajeContainer::startLink (double time, PajeType *type, PajeContainer *startContainer, std::string value, std::string key, PajeEvent *event)
@@ -232,7 +230,7 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container)
 {
   output << "(Container, name: "
-         << container.name
+         << container.name()
          << ", alias: " << container.alias << ")";
   return output;
 }
@@ -248,21 +246,10 @@ void PajeContainer::recursiveDestroy (double time, PajeEvent *event)
   }
 }
 
-double PajeContainer::startTime (void)
-{
-  return stime;
-}
-
-double PajeContainer::endTime (void)
-{
-  return etime;
-}
-
 bool operator< (PajeUserVariable &t1, const double s)
 {
   return t1.startTime() < s;
 }
-
 
 std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (double start, double end, PajeType *type)
 {
@@ -328,7 +315,7 @@ std::map<std::string,double> PajeContainer::integrationOfContainer (double start
 {
   std::map<std::string,PajeType*>::iterator it;
   std::map<std::string,double> ret, partial;
-  PajeContainerType *contType = dynamic_cast<PajeContainerType*>(type);
+  PajeContainerType *contType = dynamic_cast<PajeContainerType*>(type());
   for (it = contType->children.begin(); it != contType->children.end(); it++){
     partial = timeIntegrationOfTypeInContainer (start, end, (*it).second);
     ret = merge (ret, partial);
