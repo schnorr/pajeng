@@ -38,6 +38,7 @@ public:
   std::vector<PajeType*> virtual containedTypesForContainerType (PajeType *type);
   std::vector<PajeContainer*> virtual enumeratorOfContainersInContainer (PajeContainer *container);
   std::vector<PajeContainer*> virtual enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container);
+  std::vector<PajeEntity*> virtual enumeratorOfEntitiesTypedInContainer (PajeType *type, PajeContainer *container, double start, double end);
   bool virtual isContainerType (PajeType *type);
   double virtual startTime (void);
   double virtual endTime (void);

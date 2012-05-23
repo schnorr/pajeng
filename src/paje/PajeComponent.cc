@@ -92,6 +92,13 @@ std::vector<PajeContainer*> PajeComponent::enumeratorOfContainersTypedInContaine
   else return empty;
 }
 
+std::vector<PajeEntity*>  PajeComponent::enumeratorOfEntitiesTypedInContainer (PajeType *type, PajeContainer *container, double start, double end)
+{
+  std::vector<PajeEntity*> empty;
+  if (inputComponent) return inputComponent->enumeratorOfEntitiesTypedInContainer (type, container, start, end);
+  else return empty;
+}
+
 bool PajeComponent::isContainerType (PajeType *type)
 {
   if (inputComponent) return inputComponent->isContainerType (type);
