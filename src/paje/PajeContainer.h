@@ -24,8 +24,7 @@ public:
 private:
   std::set<std::string> linksUsedKeys;
   std::map<std::string,PajeUserLink*> pendingLinks;
-  std::map<PajeType*,std::vector<PajeEntity*> > links;
-  std::map<PajeType*,std::vector<PajeEntity*> > variables;
+  std::map<PajeType*,std::vector<PajeEntity*> > entities;
 
 public:
   PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type);

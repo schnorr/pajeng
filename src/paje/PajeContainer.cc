@@ -34,7 +34,7 @@ void PajeContainer::destroy (double time, PajeEvent *event)
 
   //finish all variables
   std::map<PajeType*,std::vector<PajeEntity*> >::iterator it1;
-  for (it1 = variables.begin(); it1 != variables.end(); it1++){
+  for (it1 = entities.begin(); it1 != entities.end(); it1++){
     PajeEntity *last = ((*it1).second).back();
     last->setEndTime (time);
   }
@@ -45,8 +45,8 @@ void PajeContainer::destroy (double time, PajeEvent *event)
 void PajeContainer::setVariable (double time, PajeType *type, double value, PajeEvent *event)
 {
   PajeEntity *last = NULL;
-  if (variables[type].size() != 0){
-    last = variables[type].back();
+  if (entities[type].size() != 0){
+    last = entities[type].back();
   }
   if (last){
     if (last->startTime() > time){
@@ -65,7 +65,7 @@ void PajeContainer::setVariable (double time, PajeType *type, double value, Paje
 
   //create new
   PajeUserVariable *val = new PajeUserVariable (this, type, value, time, time);
-  variables[type].push_back(val);
+  entities[type].push_back(val);
 
   //update container endtime
   setEndTime (time);
@@ -73,13 +73,13 @@ void PajeContainer::setVariable (double time, PajeType *type, double value, Paje
 
 void PajeContainer::addVariable (double time, PajeType *type, double value, PajeEvent *event)
 {
-  if (variables[type].size() == 0){
+  if (entities[type].size() == 0){
     std::stringstream line;
     line << *event;
     throw "Illegal addition to a variable that has no value (yet) in "+line.str();
   }
 
-  PajeEntity *last = variables[type].back();
+  PajeEntity *last = entities[type].back();
   if (last->startTime() > time){
       std::stringstream eventdesc;
       eventdesc << *event;
@@ -95,7 +95,7 @@ void PajeContainer::addVariable (double time, PajeType *type, double value, Paje
 
   //create new
   PajeUserVariable *val = new PajeUserVariable (this, type, last->doubleValue() + value, time, time);
-  variables[type].push_back(val);
+  entities[type].push_back(val);
 
   //update container endtime
   setEndTime (time);
@@ -103,13 +103,13 @@ void PajeContainer::addVariable (double time, PajeType *type, double value, Paje
 
 void PajeContainer::subVariable (double time, PajeType *type, double value, PajeEvent *event)
 {
-  if (variables[type].size() == 0){
+  if (entities[type].size() == 0){
     std::stringstream line;
     line << *event;
     throw "Illegal subtraction from a variable that has no value (yet) in "+line.str();
   }
 
-  PajeEntity *last = variables[type].back();
+  PajeEntity *last = entities[type].back();
   if (last->startTime() > time){
       std::stringstream eventdesc;
       eventdesc << *event;
@@ -124,7 +124,7 @@ void PajeContainer::subVariable (double time, PajeType *type, double value, Paje
 
   //create new
   PajeUserVariable *val = new PajeUserVariable (this, type, last->doubleValue() - value, time, time);
-  variables[type].push_back(val);
+  entities[type].push_back(val);
 
   //update container endtime
   setEndTime (time);
@@ -157,8 +157,8 @@ void PajeContainer::startLink (double time, PajeType *type, PajeContainer *start
 
     //checking time-ordered for this type
     PajeEntity *last_link = NULL;
-    if (links[type].size() != 0){
-      last_link = links[type].back();
+    if (entities[type].size() != 0){
+      last_link = entities[type].back();
     }
     if (last_link){
       if (last_link->startTime() > link->startTime()){
@@ -169,7 +169,7 @@ void PajeContainer::startLink (double time, PajeType *type, PajeContainer *start
     }
 
     //push the newly completed link on the back of the vector
-    links[type].push_back(link);
+    entities[type].push_back(link);
 
     //remove the link for the temporary pool, add the key to usedKeys
     pendingLinks.erase(key);
@@ -207,8 +207,8 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
 
     //checking time-ordered for this type
     PajeEntity *last_link = NULL;
-    if (links[type].size() != 0){
-      last_link = links[type].back();
+    if (entities[type].size() != 0){
+      last_link = entities[type].back();
     }
     if (last_link){
       if (last_link->startTime() > link->startTime()){
@@ -219,7 +219,7 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
     }
 
     //push the newly completed link on the back of the vector
-    links[type].push_back(link);
+    entities[type].push_back(link);
 
     //remove the link for the temporary pool, add the key to usedKeys
     pendingLinks.erase(key);
@@ -249,7 +249,7 @@ void PajeContainer::recursiveDestroy (double time, PajeEvent *event)
 std::vector<PajeEntity*> PajeContainer::enumeratorOfEntitiesTyped (double start, double end, PajeType *type)
 {
   std::vector<PajeEntity*> empty;
-  std::vector<PajeEntity*> *vector = &links[type];
+  std::vector<PajeEntity*> *vector = &entities[type];
   if (vector->size() == 0) return empty;
 
   std::vector<PajeEntity*>::iterator low, up, it;
@@ -269,7 +269,7 @@ std::vector<PajeEntity*> PajeContainer::enumeratorOfEntitiesTyped (double start,
 std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (double start, double end, PajeType *type)
 {
   std::map<std::string,double> empty;
-  std::vector<PajeEntity*> vector = variables[type];
+  std::vector<PajeEntity*> vector = entities[type];
   if (vector.size() == 0) return empty;
 
   std::vector<PajeEntity*>::iterator low, up, it;
