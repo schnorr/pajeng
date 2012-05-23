@@ -33,9 +33,9 @@ void PajeContainer::destroy (double time, PajeEvent *event)
   setEndTime (time);
 
   //finish all variables
-  std::map<PajeType*,std::vector<PajeUserVariable> >::iterator it1;
+  std::map<PajeType*,std::vector<PajeEntity*> >::iterator it1;
   for (it1 = variables.begin(); it1 != variables.end(); it1++){
-    PajeEntity *last = &((*it1).second).back();
+    PajeEntity *last = ((*it1).second).back();
     last->setEndTime (time);
   }
 
@@ -46,7 +46,7 @@ void PajeContainer::setVariable (double time, PajeType *type, double value, Paje
 {
   PajeEntity *last = NULL;
   if (variables[type].size() != 0){
-    last = &variables[type].back();
+    last = variables[type].back();
   }
   if (last){
     if (last->startTime() > time){
@@ -65,7 +65,7 @@ void PajeContainer::setVariable (double time, PajeType *type, double value, Paje
 
   //create new
   PajeUserVariable *val = new PajeUserVariable (this, type, value, time, time);
-  variables[type].push_back(*val);
+  variables[type].push_back(val);
 
   //update container endtime
   setEndTime (time);
@@ -79,7 +79,7 @@ void PajeContainer::addVariable (double time, PajeType *type, double value, Paje
     throw "Illegal addition to a variable that has no value (yet) in "+line.str();
   }
 
-  PajeEntity *last = &variables[type].back();
+  PajeEntity *last = variables[type].back();
   if (last->startTime() > time){
       std::stringstream eventdesc;
       eventdesc << *event;
@@ -95,7 +95,7 @@ void PajeContainer::addVariable (double time, PajeType *type, double value, Paje
 
   //create new
   PajeUserVariable *val = new PajeUserVariable (this, type, last->doubleValue() + value, time, time);
-  variables[type].push_back(*val);
+  variables[type].push_back(val);
 
   //update container endtime
   setEndTime (time);
@@ -109,7 +109,7 @@ void PajeContainer::subVariable (double time, PajeType *type, double value, Paje
     throw "Illegal subtraction from a variable that has no value (yet) in "+line.str();
   }
 
-  PajeEntity *last = &variables[type].back();
+  PajeEntity *last = variables[type].back();
   if (last->startTime() > time){
       std::stringstream eventdesc;
       eventdesc << *event;
@@ -124,7 +124,7 @@ void PajeContainer::subVariable (double time, PajeType *type, double value, Paje
 
   //create new
   PajeUserVariable *val = new PajeUserVariable (this, type, last->doubleValue() - value, time, time);
-  variables[type].push_back(*val);
+  variables[type].push_back(val);
 
   //update container endtime
   setEndTime (time);
@@ -246,11 +246,6 @@ void PajeContainer::recursiveDestroy (double time, PajeEvent *event)
   }
 }
 
-bool operator< (PajeEntity &t1, const double s)
-{
-  return t1.startTime() < s;
-}
-
 std::vector<PajeEntity*> PajeContainer::enumeratorOfEntitiesTyped (double start, double end, PajeType *type)
 {
   std::vector<PajeEntity*> empty;
@@ -274,12 +269,12 @@ std::vector<PajeEntity*> PajeContainer::enumeratorOfEntitiesTyped (double start,
 std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (double start, double end, PajeType *type)
 {
   std::map<std::string,double> empty;
-  std::vector<PajeUserVariable> vector = variables[type];
+  std::vector<PajeEntity*> vector = variables[type];
   if (vector.size() == 0) return empty;
 
-  std::vector<PajeUserVariable>::iterator low, up, it;
-  low = lower_bound (vector.begin(), vector.end(), start);
-  up = lower_bound (vector.begin(), vector.end(), end);
+  std::vector<PajeEntity*>::iterator low, up, it;
+  low = lower_bound (vector.begin(), vector.end(), start, PajeEntity::PajeEntityCompare());
+  up = lower_bound (vector.begin(), vector.end(), end, PajeEntity::PajeEntityCompare());
 
   if (low != vector.begin()){
     low--;
@@ -288,7 +283,7 @@ std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (do
   double tsDuration = end - start;
   double integrated = 0;
   for (it = low; it != up; it++){
-    PajeEntity *var = &(*it);
+    PajeEntity *var = *it;
     double s = var->startTime();
     double e = var->endTime();
     if (!var->doubleValue()) continue;
