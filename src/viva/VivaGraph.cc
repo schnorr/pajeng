@@ -255,6 +255,7 @@ void VivaGraph::expandNode (VivaNode *node)
       }
     }
   }
+  interconnectNodes ();
 }
 
 void VivaGraph::collapseNode (PajeContainer *container)
@@ -277,6 +278,7 @@ void VivaGraph::collapseNode (PajeContainer *container)
 
   //add the parent container
   addNode (container);
+  interconnectNodes ();
 }
 
 void VivaGraph::addNode (PajeContainer *container)
@@ -313,6 +315,23 @@ bool VivaGraph::shouldBePresent (PajeContainer *container)
     if (shouldBePresent (*it)) return true;
   }
   return false;
+}
+
+void VivaGraph::interconnectNodes (void)
+{
+  std::vector<VivaNode*>::iterator it;
+  for (it = nodes.begin(); it != nodes.end(); it++){
+    VivaNode *node = (*it);
+
+    std::vector<tp_node*> connected;
+    std::set<PajeContainer*>::iterator it;
+    for (it = edges[node->container].begin(); it != edges[node->container].end(); it++){
+      PajeContainer *c = *it;
+      VivaNode *cn = nodeMap[c];
+      connected.push_back (cn->node);
+    }
+    node->setConnectedNodes (connected);
+  }
 }
 
 void VivaGraph::leftMouseClicked (wxPoint p)

@@ -53,6 +53,7 @@ private:
   void addNode (PajeContainer *container);
   void deleteNode (VivaNode *node);
   bool shouldBePresent (PajeContainer *container);
+  void interconnectNodes (void);
 
 public:
   std::vector<VivaNode*> nodes;
