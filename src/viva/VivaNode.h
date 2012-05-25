@@ -47,6 +47,7 @@ public:
   tp_point position (void);
   void layout (void);
   void draw (wxDC& dc);
+  void drawEdges (wxDC& dc);
   bool hasPoint (double x, double y);
   void setConnectedNodes (std::vector<tp_node*> connectedNodes);
 };

@@ -64,6 +64,9 @@ void GraphFrame::OnPaint(wxPaintEvent& event)
 
   std::vector<VivaNode*>::iterator it;
   for (it = vivagraph->nodes.begin(); it != vivagraph->nodes.end(); it++){
+    (*it)->drawEdges(dc);
+  }
+  for (it = vivagraph->nodes.begin(); it != vivagraph->nodes.end(); it++){
     (*it)->draw(dc);
   }
 }

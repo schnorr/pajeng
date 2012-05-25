@@ -167,8 +167,20 @@ void VivaNode::draw (wxDC& dc)
   dc.DrawPoint (position.x, position.y);
 }
 
+void VivaNode::drawEdges (wxDC& dc)
+{
+  tp_point myposition = this->position();
+  int i, count = dynar_count(this->node->connected);
+  for (i = 0; i < count; i++){
+    tp_node *n = dynar_get_as (this->node->connected, tp_node*, i);
+    tp_point nposition = ((VivaNode*)n->data)->position();
+    dc.DrawLine (myposition.x, myposition.y, nposition.x, nposition.y);
+  }
+}
+
 void VivaNode::setConnectedNodes (std::vector<tp_node*> connectedNodes)
 {
+
   std::vector<tp_node*>::iterator it;
   for (it = connectedNodes.begin(); it != connectedNodes.end(); it++){
     tp_node *n = *it;
