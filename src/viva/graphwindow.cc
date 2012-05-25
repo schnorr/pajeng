@@ -71,12 +71,12 @@ GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
   wxToolBar *toolbar = CreateToolBar();
   toolbar->AddTool(ID_PLAY,
                    wxT("Play"),
-                   wxArtProvider::GetBitmap(wxT("gtk-media-play"),
-                                            wxART_TOOLBAR));
+                   wxArtProvider::GetBitmap(wxT("gtk-media-play"), wxART_TOOLBAR),
+                   wxT("Play the particle system algorithm"));
   toolbar->AddTool(ID_PAUSE,
-                   wxT("Pause"),
-                   wxArtProvider::GetBitmap(wxT("gtk-media-pause"),
-                                            wxART_TOOLBAR));
+                   wxT("Stop"),
+                   wxArtProvider::GetBitmap(wxT("gtk-media-stop"), wxART_TOOLBAR),
+                   wxT("Stop the particle system algorithm"));
   toolbar->Realize();
   this->Connect(ID_PLAY,
                 ID_PAUSE,
