@@ -14,8 +14,6 @@
 GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
   : wxFrame(parent, wxID_ANY, wxT("Viva Graph Window"), wxDefaultPosition, wxSize(700,400))
 {
-  this->vivagraph = vivagraph;
-  vivagraph->setWindow (this);
 
   menubar = new wxMenuBar;
   file = new wxMenu;
@@ -86,13 +84,10 @@ GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
   //               wxCommandEventHandler(GraphFrame::OnThreadManagement));
 
   wxPanel *panel = new wxPanel(this, -1);
-  GraphFrame *graphframe = new GraphFrame (panel, -1);
-  graphframe->setVivaGraph (vivagraph);
   wxBoxSizer *vbox = new wxBoxSizer (wxVERTICAL);
-  vbox->Add (graphframe, 1, wxEXPAND);
 
+  //creating the sliders to let user control the scale of compositions
   wxBoxSizer *scale_sliders = new wxBoxSizer (wxHORIZONTAL);
-
   std::map<std::string,double> comp = vivagraph->compositionsScale;
   std::map<std::string,double>::iterator it;
   for (it = comp.begin(); it != comp.end(); it++){
@@ -108,13 +103,24 @@ GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
     //saving scale slider so we can get its value after
     scaleSliders[confname] = slider;
   }
+
+  //creating the graphframe where the graph is drawn
+  GraphFrame *graphframe = new GraphFrame (panel, -1);
+
+  //add sliders box and graphframe to the vbox of this window's panel
   vbox->Add(scale_sliders, 0, wxEXPAND);
+  vbox->Add (graphframe, 1, wxEXPAND);
 
   this->Connect (wxEVT_SCROLL_THUMBTRACK,
                  wxScrollEventHandler(GraphWindow::OnScaleSliderChanged));
 
   panel->SetSizer(vbox);
   Centre();
+
+  //let everything work smoothly with filters
+  this->vivagraph = vivagraph;
+  vivagraph->setWindow (this);
+  graphframe->setVivaGraph (vivagraph);
 }
 
 GraphWindow::~GraphWindow ()
@@ -123,6 +129,9 @@ GraphWindow::~GraphWindow ()
 
 double GraphWindow::scaleSliderValue (std::string name)
 {
+  if (!vivagraph){
+    return COMPOSITION_DEFAULT_USER_SCALE;
+  }
   int max = std::numeric_limits<int>::max();
   if (scaleSliders.count(name) == 0){
     std::cout << "Warning, no scale slider for " << name << std::endl;
