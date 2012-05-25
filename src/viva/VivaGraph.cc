@@ -246,7 +246,7 @@ void VivaGraph::expandNode (VivaNode *node)
   ret = containedTypesForContainerType (container->type());
   for (it = ret.begin(); it != ret.end(); it++){
     PajeType *type = (*it);
-    if (isContainerType(type) && nodeTypes.count (type->name)){
+    if (isContainerType(type)){
       std::vector<PajeContainer*> conts;
       std::vector<PajeContainer*>::iterator it2;
       conts = enumeratorOfContainersTypedInContainer (type, container);
@@ -266,7 +266,7 @@ void VivaGraph::collapseNode (PajeContainer *container)
   ret = containedTypesForContainerType (container->type());
   for (it = ret.begin(); it != ret.end(); it++){
     PajeType *type = (*it);
-    if (isContainerType(type) && nodeTypes.count (type->name)){
+    if (isContainerType(type)){
       std::vector<PajeContainer*> conts;
       std::vector<PajeContainer*>::iterator it2;
       conts = enumeratorOfContainersTypedInContainer (type, container);
