@@ -284,9 +284,8 @@ void VivaGraph::expandNode (VivaNode *node)
   interconnectNodes ();
 }
 
-void VivaGraph::collapseNode (PajeContainer *container)
+void VivaGraph::collapseNodeRecurse (PajeContainer *container)
 {
-  //delete all the children of PajeContainer
   std::vector<PajeType*> ret;
   std::vector<PajeType*>::iterator it;
   ret = containedTypesForContainerType (container->type());
@@ -297,10 +296,20 @@ void VivaGraph::collapseNode (PajeContainer *container)
       std::vector<PajeContainer*>::iterator it2;
       conts = enumeratorOfContainersTypedInContainer (type, container);
       for (it2 = conts.begin(); it2 != conts.end(); it2++){
-        deleteNode (nodeMap[*it2]);
+        PajeContainer *cont = *it2;
+        if (!nodeMap.count(cont)){
+          collapseNodeRecurse (cont);
+        }else{
+          deleteNode (nodeMap[cont]);
+        }
       }
     }
   }
+}
+
+void VivaGraph::collapseNode (PajeContainer *container)
+{
+  collapseNodeRecurse (container);
 
   //add the parent container
   addNode (container);
