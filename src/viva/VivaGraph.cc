@@ -96,10 +96,29 @@ void VivaGraph::defineEdges (PajeContainer *container)
       links = enumeratorOfEntitiesTypedInContainer (*type, container, startTime(), endTime());
       std::vector<PajeEntity*>::iterator link;
       for (link = links.begin(); link != links.end(); link++){
+        PajeContainer *p, *a1, *a2;
         PajeContainer *startContainer = (*link)->startContainer();
         PajeContainer *endContainer = (*link)->endContainer();
-        edges[startContainer].insert (endContainer);
-        edges[endContainer].insert (startContainer);
+
+        p = endContainer;
+        while (p){
+          addEdge (startContainer, p);
+          p = p->container();
+        }
+
+        p = startContainer;
+        while (p){
+          addEdge (endContainer, p);
+          p = p->container();
+        }
+
+        a1 = startContainer;
+        a2 = endContainer;
+        while (a1 && a2){
+          addEdge (a1, a2);
+          a1 = a1->container();
+          a2 = a2->container();
+        }
       }
     }else{
       //recurse if container type
