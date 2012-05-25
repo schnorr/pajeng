@@ -68,7 +68,7 @@ GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
   CreateStatusBar(3);
 
   //tool bar
-  wxToolBar *toolbar = CreateToolBar();
+  wxToolBar *toolbar = CreateToolBar(wxTB_TEXT);
   toolbar->AddTool(ID_PLAY,
                    wxT("Play"),
                    wxArtProvider::GetBitmap(wxT("gtk-media-play"), wxART_TOOLBAR),
