@@ -202,6 +202,8 @@ void VivaNode::drawEdges (wxDC& dc)
 
 void VivaNode::setConnectedNodes (std::vector<tp_node*> connectedNodes)
 {
+  //clear current connections
+  node_connect_clear (node);
 
   std::vector<tp_node*>::iterator it;
   for (it = connectedNodes.begin(); it != connectedNodes.end(); it++){
