@@ -60,6 +60,7 @@ public:
 
 private:
   void defineEdges (void);
+  void addEdge (PajeContainer *a1, PajeContainer *a2);
   void defineEdges (PajeContainer *root); //recursive call
   void layoutNodes (void);
 

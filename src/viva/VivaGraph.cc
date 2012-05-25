@@ -78,6 +78,13 @@ void VivaGraph::defineEdges (void)
   defineEdges (rootInstance());
 }
 
+void VivaGraph::addEdge (PajeContainer *a1, PajeContainer *a2)
+{
+  if (a1 == a2) return;
+  edges[a1].insert (a2);
+  edges[a2].insert (a1);
+}
+
 void VivaGraph::defineEdges (PajeContainer *container)
 {
   std::vector<PajeType*> types = containedTypesForContainerType (container->type());
