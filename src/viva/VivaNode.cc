@@ -44,6 +44,11 @@ VivaComposition::VivaComposition (VivaGraph *filter, PajeContainer *container, c
 VivaComposition::~VivaComposition (void)
 {
   values_type.clear();
+  proportion.clear();
+  this->filter = NULL;
+  this->container = NULL;
+  this->size_type = NULL;
+  name = std::string ("deleted composition");
 }
 
 void VivaComposition::layout (void)
@@ -120,9 +125,26 @@ VivaNode::VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_
 
 VivaNode::~VivaNode ()
 {
+  //delete all compositions
+  std::vector<VivaComposition*>::iterator it;
+  for (it = compositions.begin(); it != compositions.end(); it++){
+    VivaComposition *comp = (*it);
+    delete comp;
+  }
+  compositions.clear();
+
+  //remove node from the particle system
   layout_remove_node (tupi_layout, this->node);
+
+  //free the node of the particle system
   node_free (this->node);
+
+  //set to NULL
   this->node = NULL;
+  this->tupi_layout = NULL;
+  this->container = NULL;
+  this->filter = NULL;
+  this->bb = tp_Rect(-1,-1,-1,-1);
 }
 
 tp_point VivaNode::position ()
