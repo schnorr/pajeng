@@ -32,8 +32,8 @@ protected:
   void OnQuit(wxCommandEvent& event);
   void OnOpen(wxCommandEvent& event);
   void OnAbout (wxCommandEvent& event);
-
   void OnScaleSliderChanged (wxScrollEvent& event);
+  void OnFDThreadManagement (wxCommandEvent& event);
 
 public:
   GraphWindow (wxWindow *parent, VivaGraph *vivagraph);

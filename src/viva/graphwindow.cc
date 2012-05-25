@@ -78,10 +78,10 @@ GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
                    wxArtProvider::GetBitmap(wxT("gtk-media-pause"),
                                             wxART_TOOLBAR));
   toolbar->Realize();
-  // this->Connect(ID_PLAY,
-  //               ID_PAUSE,
-  //               wxEVT_COMMAND_TOOL_CLICKED,
-  //               wxCommandEventHandler(GraphFrame::OnThreadManagement));
+  this->Connect(ID_PLAY,
+                ID_PAUSE,
+                wxEVT_COMMAND_TOOL_CLICKED,
+                wxCommandEventHandler(GraphWindow::OnFDThreadManagement));
 
   wxPanel *panel = new wxPanel(this, -1);
   wxBoxSizer *vbox = new wxBoxSizer (wxVERTICAL);
@@ -178,4 +178,14 @@ void GraphWindow::OnAbout(wxCommandEvent& WXUNUSED(event))
 void GraphWindow::OnScaleSliderChanged (wxScrollEvent& WXUNUSED(event))
 {
   vivagraph->scaleSliderChanged ();
+}
+
+void GraphWindow::OnFDThreadManagement(wxCommandEvent& event)
+{
+  if (!vivagraph) return;
+  switch (event.GetId()){
+  case ID_PLAY: vivagraph->start_runner(); break;
+  case ID_PAUSE: vivagraph->stop_runner(); break;
+  default: break;
+  }
 }

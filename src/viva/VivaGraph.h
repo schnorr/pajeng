@@ -43,8 +43,6 @@ private:
   std::map<PajeContainer*,VivaNode*> nodeMap;
   std::map<PajeContainer*,std::set<PajeContainer*> > edges;
 
-  void stop_runner (void);
-  void start_runner (void);
   VivaNode *getSelectedNodeByPosition (wxPoint point);
   bool hasChildren (PajeContainer *container);
   bool hasParent (PajeContainer *container);
@@ -73,6 +71,8 @@ public:
   void rightMouseClicked (wxPoint point);
   void qualityChanged (int quality);
   void scaleSliderChanged ();
+  void stop_runner (void);
+  void start_runner (void);
 
   //for configurations
   void defineMaxForConfigurations (void);
