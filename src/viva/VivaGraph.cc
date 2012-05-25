@@ -353,8 +353,10 @@ void VivaGraph::interconnectNodes (void)
     std::set<PajeContainer*>::iterator it;
     for (it = edges[node->container].begin(); it != edges[node->container].end(); it++){
       PajeContainer *c = *it;
-      VivaNode *cn = nodeMap[c];
-      connected.push_back (cn->node);
+      if (nodeMap.count(c)){
+        VivaNode *cn = nodeMap[c];
+        connected.push_back (cn->node);
+      }
     }
     node->setConnectedNodes (connected);
   }
