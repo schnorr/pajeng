@@ -244,6 +244,7 @@ tp_node *node_new (const char *name, const void *data);
 void node_free (tp_node *node);
 int node_compare (const void *p1, const void *p2);
 void node_connect (tp_node *n1, tp_node *n2);
+void node_connect_clear (tp_node *n);
 void node_set_particle (tp_node *n1, tp_particle *p);
 
 #include "tupi_functions.h"

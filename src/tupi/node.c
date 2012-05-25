@@ -62,6 +62,12 @@ void node_connect (tp_node *n1, tp_node *n2)
   if (!node_is_connected (n2, n1)) dynar_add_as (n2->connected, tp_node*, n1);
 }
 
+void node_connect_clear (tp_node *n)
+{
+  dynar_free (n->connected);
+  n->connected = dynar_new (sizeof(tp_particle*), &node_compare);
+}
+
 void node_set_particle (tp_node *n1, tp_particle *p)
 {
   n1->particle = p;
