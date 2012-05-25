@@ -22,9 +22,9 @@ void *VivaRunner::Entry (void)
       break;
     }else{
       layout_compute (layout);
+      wxCommandEvent event (VivaGraphLayoutUpdated);
+      wxPostEvent (view, event);
     }
-    wxCommandEvent event (VivaGraphLayoutUpdated);
-    wxPostEvent (view, event);
   }
   return static_cast<ExitCode>(NULL);
 }
