@@ -286,7 +286,10 @@ std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (do
     double var_integrated = duration/tsDuration * var->doubleValue();
     integrated += var_integrated;
   }
-  empty[type->name] = integrated;
+
+  if (integrated){
+    empty[type->name] = integrated;
+  }
   return empty;
 }
 
