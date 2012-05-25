@@ -28,6 +28,7 @@ private:
 
 public:
   PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type);
+  bool isContainer (void);
   PajeContainer *getRoot (void);
   PajeContainer *addContainer (double time, std::string name, std::string alias, PajeContainerType *type, PajeEvent *event);
   std::string identifier (void);

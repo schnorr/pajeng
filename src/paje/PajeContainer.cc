@@ -6,6 +6,11 @@ PajeContainer::PajeContainer (double time, std::string name, std::string alias, 
   this->destroyed = false;
 }
 
+bool PajeContainer::isContainer (void)
+{
+  return true;
+}
+
 std::string PajeContainer::identifier ()
 {
   return alias.empty() ? name() : alias;
