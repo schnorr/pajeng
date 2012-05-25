@@ -319,6 +319,11 @@ void VivaGraph::addNode (PajeContainer *container)
   }
 }
 
+void VivaGraph::addNode (PajeContainer *container, tp_point np)
+{
+  //to be implemented
+}
+
 void VivaGraph::deleteNode (VivaNode *node)
 {
   PajeContainer *container = node->container;

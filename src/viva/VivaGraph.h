@@ -49,6 +49,7 @@ private:
   void expandNode (VivaNode *node);
   void collapseNode (PajeContainer *container);
   void addNode (PajeContainer *container);
+  void addNode (PajeContainer *container, tp_point np);
   void deleteNode (VivaNode *node);
   bool shouldBePresent (PajeContainer *container);
   void interconnectNodes (void);
