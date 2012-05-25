@@ -34,6 +34,8 @@ class VivaNode
 private:
   std::vector<VivaComposition*> compositions;
 
+  void createCompositions (config_setting_t *conf);
+
 public:
   tp_rect bb;
   tp_node *node;

@@ -113,14 +113,7 @@ VivaNode::VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_
   this->container = container;
   this->filter = filter;
   layout_add_node (layout, this->node);
-
-  //use configuration to create compositions
-  int i;
-  for (i = 0; i < config_setting_length (conf); i++){
-    config_setting_t *child = config_setting_get_elem (conf, i);
-    VivaComposition *comp = new VivaComposition (filter, container, child);
-    compositions.push_back (comp);
-  }
+  this->createCompositions (conf);
 }
 
 VivaNode::~VivaNode ()
@@ -145,6 +138,17 @@ VivaNode::~VivaNode ()
   this->container = NULL;
   this->filter = NULL;
   this->bb = tp_Rect(-1,-1,-1,-1);
+}
+
+void VivaNode::createCompositions (config_setting_t *conf)
+{
+  //use configuration to create compositions
+  int i;
+  for (i = 0; i < config_setting_length (conf); i++){
+    config_setting_t *child = config_setting_get_elem (conf, i);
+    VivaComposition *comp = new VivaComposition (filter, container, child);
+    compositions.push_back (comp);
+  }
 }
 
 tp_point VivaNode::position ()
