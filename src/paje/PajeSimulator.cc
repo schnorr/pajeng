@@ -376,11 +376,8 @@ void PajeSimulator::pajeNewEvent (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
-  if (container->states[type].size() != 0){
-    container->states[type].clear ();
-  }
-  container->states[type].push_back (0);
   double evttime = atof(time.c_str());
+  container->newEvent (evttime, type, value, event);
   lastKnownTime = evttime;
 }
 

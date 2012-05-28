@@ -232,6 +232,13 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
   }
 }
 
+void PajeContainer::newEvent (double time, PajeType *type, std::string value, PajeEvent *event)
+{
+  checkTimeOrder (time, type, event);
+  PajeUserEvent *n = new PajeUserEvent(this, type, value, time);
+  entities[type].push_back (n);
+}
+
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container)
 {
   output << "(Container, name: "

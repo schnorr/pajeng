@@ -38,6 +38,7 @@ public:
   void subVariable (double time, PajeType *type, double value, PajeEvent *event);
   void startLink (double time, PajeType *type, PajeContainer *startContainer, std::string value, std::string key, PajeEvent *event);
   void endLink (double time, PajeType *type, PajeContainer *endContainer, std::string value, std::string key, PajeEvent *event);
+  void newEvent (double time, PajeType *type, std::string value, PajeEvent *event);
 
 public:
   void recursiveDestroy (double time, PajeEvent *event); //not a PajeSimulator event, EOF found
