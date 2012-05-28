@@ -346,3 +346,16 @@ std::map<std::string,double> PajeContainer::spatialIntegrationOfContainer (doubl
   }
   return ret;
 }
+
+bool PajeContainer::checkTimeOrder (double time, PajeType *type, PajeEvent *event)
+{
+  std::vector<PajeEntity*> *v = &entities[type];
+  if (v->size()){
+    PajeEntity *last = entities[type].back();
+    if (last && last->startTime() > time){
+      std::stringstream eventdesc;
+      eventdesc << *event;
+      throw "Illegal, trace is not time-ordered in "+eventdesc.str();
+    }
+  }
+}

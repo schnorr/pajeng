@@ -53,6 +53,7 @@ private:
                                       std::map<std::string,double> b);
   std::map<std::string,double> add (std::map<std::string,double> a,
                                     std::map<std::string,double> b);
+  bool checkTimeOrder (double time, PajeType *type, PajeEvent *event);
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container);
