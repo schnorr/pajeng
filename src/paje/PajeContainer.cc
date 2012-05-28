@@ -54,11 +54,7 @@ void PajeContainer::setVariable (double time, PajeType *type, double value, Paje
     last = entities[type].back();
   }
   if (last){
-    if (last->startTime() > time){
-      std::stringstream eventdesc;
-      eventdesc << *event;
-      throw "Illegal, trace is not time-ordered in "+eventdesc.str();
-    }
+    checkTimeOrder (time, type, event);
     if (last->startTime() == time){
       //only update last value
       last->setDoubleValue (value);
@@ -84,12 +80,9 @@ void PajeContainer::addVariable (double time, PajeType *type, double value, Paje
     throw "Illegal addition to a variable that has no value (yet) in "+line.str();
   }
 
+  checkTimeOrder (time, type, event);
+
   PajeEntity *last = entities[type].back();
-  if (last->startTime() > time){
-      std::stringstream eventdesc;
-      eventdesc << *event;
-      throw "Illegal, trace is not time-ordered in "+eventdesc.str();
-  }
   if (last->startTime() == time){
     //only update last value
     last->addDoubleValue (value);
@@ -114,12 +107,9 @@ void PajeContainer::subVariable (double time, PajeType *type, double value, Paje
     throw "Illegal subtraction from a variable that has no value (yet) in "+line.str();
   }
 
+  checkTimeOrder (time, type, event);
+
   PajeEntity *last = entities[type].back();
-  if (last->startTime() > time){
-      std::stringstream eventdesc;
-      eventdesc << *event;
-      throw "Illegal, trace is not time-ordered in "+eventdesc.str();
-  }
   if (last->startTime() == time){
     last->subtractDoubleValue (value);
     return;
@@ -161,17 +151,7 @@ void PajeContainer::startLink (double time, PajeType *type, PajeContainer *start
     }
 
     //checking time-ordered for this type
-    PajeEntity *last_link = NULL;
-    if (entities[type].size() != 0){
-      last_link = entities[type].back();
-    }
-    if (last_link){
-      if (last_link->startTime() > link->startTime()){
-        std::stringstream eventdesc;
-        eventdesc << *event;
-        throw "Illegal, trace is not time-ordered in "+eventdesc.str();
-      }
-    }
+    checkTimeOrder (link->startTime(), type, event);
 
     //push the newly completed link on the back of the vector
     entities[type].push_back(link);
@@ -211,17 +191,7 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
     }
 
     //checking time-ordered for this type
-    PajeEntity *last_link = NULL;
-    if (entities[type].size() != 0){
-      last_link = entities[type].back();
-    }
-    if (last_link){
-      if (last_link->startTime() > link->startTime()){
-        std::stringstream eventdesc;
-        eventdesc << *event;
-        throw "Illegal, trace is not time-ordered in "+eventdesc.str();
-      }
-    }
+    checkTimeOrder (link->startTime(), type, event);
 
     //push the newly completed link on the back of the vector
     entities[type].push_back(link);
