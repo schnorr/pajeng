@@ -37,14 +37,12 @@ void PajeContainer::destroy (double time, PajeEvent *event)
   destroyed = true;
   setEndTime (time);
 
-  //finish all variables
+  //finish all entities
   std::map<PajeType*,std::vector<PajeEntity*> >::iterator it1;
   for (it1 = entities.begin(); it1 != entities.end(); it1++){
     PajeEntity *last = ((*it1).second).back();
     last->setEndTime (time);
   }
-
-  //finish all states, events, ... //TODO FIXME
 }
 
 void PajeContainer::setVariable (double time, PajeType *type, double value, PajeEvent *event)
