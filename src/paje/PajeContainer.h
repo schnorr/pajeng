@@ -21,8 +21,10 @@ public:
   std::map<PajeType*,std::vector<double> > states;
 
 private:
-  std::set<std::string> linksUsedKeys;
-  std::map<std::string,PajeUserLink*> pendingLinks;
+  std::set<std::string> linksUsedKeys; //all used keys for this container
+  std::map<std::string,PajeUserLink*> pendingLinks; //all pending links
+
+  //keeps all simulated entities (variables, links, states and events)
   std::map<PajeType*,std::vector<PajeEntity*> > entities;
 
 public:
