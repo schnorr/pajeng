@@ -17,9 +17,8 @@ public:
 public:
   std::map<std::string,PajeContainer*> children;
 
-  //keeps the values of states, events
+  //keeps the values of states
   std::map<PajeType*,std::vector<double> > states;
-  std::map<PajeType*,std::vector<double> > events;
 
 private:
   std::set<std::string> linksUsedKeys;
