@@ -32,6 +32,8 @@ private:
   double selectionStart;
   double selectionEnd;
 
+  void setLastKnownTime (PajeEvent *event);
+
 public:
   PajeSimulator();
   ~PajeSimulator();

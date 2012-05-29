@@ -30,6 +30,15 @@ PajeSimulator::PajeSimulator ()
   selectionEnd = -1;
 }
 
+void PajeSimulator::setLastKnownTime (PajeEvent *event)
+{
+  std::string time = event->valueForFieldId (std::string("Time"));
+  if (time.length()){
+    double evttime = atof(time.c_str());
+    lastKnownTime = evttime;
+  }
+}
+
 PajeSimulator::~PajeSimulator ()
 {
   delete root;
@@ -42,6 +51,7 @@ PajeSimulator::~PajeSimulator ()
 void PajeSimulator::inputEntity (PajeObject *data)
 {
   PajeEvent *event = (PajeEvent*)data;
+  setLastKnownTime (event);
   PajeEventId eventId = event->pajeEventId();
   if (eventId < PajeEventIdCount){
     CALL_MEMBER_PAJE_SIMULATOR(*this,invocation[eventId])(event);
@@ -288,10 +298,8 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
   }
 
   //everything seems ok, create the container
-  double evttime = atof(time.c_str());
-  PajeContainer *newContainer = container->addContainer (evttime, name, alias, containerType, event);
+  PajeContainer *newContainer = container->addContainer (lastKnownTime, name, alias, containerType, event);
   contMap[newContainer->identifier()] = newContainer;
-  lastKnownTime = evttime;
 }
 
 void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
@@ -328,9 +336,7 @@ void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
   }
 
   //mark container as destroyed
-  double evttime = atof(time.c_str());
-  container->destroy (evttime, event);
-  lastKnownTime = evttime;
+  container->destroy (lastKnownTime, event);
 }
 
 void PajeSimulator::pajeNewEvent (PajeEvent *event)
@@ -376,9 +382,7 @@ void PajeSimulator::pajeNewEvent (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
-  double evttime = atof(time.c_str());
-  container->newEvent (evttime, type, value, event);
-  lastKnownTime = evttime;
+  container->newEvent (lastKnownTime, type, value, event);
 }
 
 void PajeSimulator::pajeSetState (PajeEvent *event)
@@ -580,10 +584,9 @@ void PajeSimulator::pajeSetVariable (PajeEvent *event)
     ctype2 << *container->type();
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
-  double evttime = atof(time.c_str());
+
   float v = strtof (value.c_str(), NULL);
-  container->setVariable (evttime, type, v, event);
-  lastKnownTime = evttime;
+  container->setVariable (lastKnownTime, type, v, event);
 }
 
 void PajeSimulator::pajeAddVariable (PajeEvent *event)
@@ -628,10 +631,9 @@ void PajeSimulator::pajeAddVariable (PajeEvent *event)
     ctype2 << *container->type();
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
-  double evttime = atof(time.c_str());
+
   float v = strtof (value.c_str(), NULL);
-  container->addVariable (evttime, type, v, event);
-  lastKnownTime = evttime;
+  container->addVariable (lastKnownTime, type, v, event);
 }
 
 void PajeSimulator::pajeSubVariable (PajeEvent *event)
@@ -676,10 +678,9 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
     ctype2 << *container->type();
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
-  double evttime = atof(time.c_str());
+
   float v = strtof (value.c_str(), NULL);
-  container->subVariable (evttime, type, v, event);
-  lastKnownTime = evttime;
+  container->subVariable (lastKnownTime, type, v, event);
 }
 
 void PajeSimulator::pajeStartLink (PajeEvent *event)
@@ -747,11 +748,8 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' of container '"+startcontainerstr+"' is not the container type expected for the start of link type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
-  double evttime = atof(time.c_str());
   float v = strtof (value.c_str(), NULL);
-  container->startLink (evttime, type, startcontainer, value, key, event);
-  lastKnownTime = evttime;
-  return;
+  container->startLink (lastKnownTime, type, startcontainer, value, key, event);
 }
 
 void PajeSimulator::pajeEndLink (PajeEvent *event)
@@ -819,9 +817,6 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' of container '"+endcontainerstr+"' is not the container type expected for the end of link type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
-  double evttime = atof(time.c_str());
   float v = strtof (value.c_str(), NULL);
-  container->endLink (evttime, type, endcontainer, value, key, event);
-  lastKnownTime = evttime;
-  return;
+  container->endLink (lastKnownTime, type, endcontainer, value, key, event);
 }
