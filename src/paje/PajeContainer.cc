@@ -40,8 +40,10 @@ void PajeContainer::destroy (double time, PajeEvent *event)
   //finish all entities
   std::map<PajeType*,std::vector<PajeEntity*> >::iterator it1;
   for (it1 = entities.begin(); it1 != entities.end(); it1++){
-    PajeEntity *last = ((*it1).second).back();
-    last->setEndTime (time);
+    if (((*it1).second).size()){
+      PajeEntity *last = ((*it1).second).back();
+      last->setEndTime (time);
+    }
   }
 }
 
