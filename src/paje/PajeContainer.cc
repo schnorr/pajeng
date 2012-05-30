@@ -347,7 +347,8 @@ bool PajeContainer::checkTimeOrder (double time, PajeType *type, PajeEvent *even
   std::vector<PajeEntity*> *v = &entities[type];
   if (v->size()){
     PajeEntity *last = entities[type].back();
-    if (last && last->startTime() > time){
+    if ( (last && last->startTime() > time) ||
+         (last && last->endTime() != -1 && last->endTime() > time)){
       std::stringstream eventdesc;
       eventdesc << *event;
       throw "Illegal, trace is not time-ordered in "+eventdesc.str();
