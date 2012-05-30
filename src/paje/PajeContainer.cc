@@ -209,6 +209,24 @@ void PajeContainer::newEvent (double time, PajeType *type, std::string value, Pa
   entities[type].push_back (n);
 }
 
+void PajeContainer::setState (double time, PajeType *type, std::string value, PajeEvent *event)
+{
+  std::cout << __FUNCTION__ << std::endl;
+  checkTimeOrder (time, type, event);
+}
+
+void PajeContainer::pushState (double time, PajeType *type, std::string value, PajeEvent *event)
+{
+  std::cout << __FUNCTION__ << std::endl;
+  checkTimeOrder (time, type, event);
+}
+
+void PajeContainer::popState (double time, PajeType *type, std::string value, PajeEvent *event)
+{
+  std::cout << __FUNCTION__ << std::endl;
+  checkTimeOrder (time, type, event);
+}
+
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container)
 {
   output << "(Container, name: "

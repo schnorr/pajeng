@@ -428,12 +428,7 @@ void PajeSimulator::pajeSetState (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
-  if (container->states[type].size() != 0){
-    container->states[type].clear ();
-  }
-  container->states[type].push_back (0);
-  double evttime = atof(time.c_str());
-  lastKnownTime = evttime;
+  container->setState (lastKnownTime, type, value, event);
 }
 
 void PajeSimulator::pajePushState (PajeEvent *event)
@@ -479,12 +474,7 @@ void PajeSimulator::pajePushState (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
-  if (container->states[type].size() != 0){
-    container->states[type].clear ();
-  }
-  container->states[type].push_back (0);
-  double evttime = atof(time.c_str());
-  lastKnownTime = evttime;
+  container->pushState (lastKnownTime, type, value, event);
 }
 
 void PajeSimulator::pajePopState (PajeEvent *event)
@@ -530,16 +520,7 @@ void PajeSimulator::pajePopState (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
-  if (container->states[type].size() == 0){
-    std::stringstream line;
-    line << *event;
-    throw "Illegal pop event of a state that has no value in "+line.str();
-  }else{
-    container->states[type].clear ();
-  }
-  container->states[type].push_back (0);
-  double evttime = atof(time.c_str());
-  lastKnownTime = evttime;
+  container->pushState (lastKnownTime, type, value, event);
 }
 
 void PajeSimulator::pajeSetVariable (PajeEvent *event)
