@@ -42,7 +42,9 @@ void PajeContainer::destroy (double time, PajeEvent *event)
   for (it1 = entities.begin(); it1 != entities.end(); it1++){
     if (((*it1).second).size()){
       PajeEntity *last = ((*it1).second).back();
-      last->setEndTime (time);
+      if (last->endTime() == -1){
+        last->setEndTime (time);
+      }
     }
   }
 }
