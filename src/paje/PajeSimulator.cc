@@ -520,7 +520,7 @@ void PajeSimulator::pajePopState (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
-  container->pushState (lastKnownTime, type, value, event);
+  container->popState (lastKnownTime, type, value, event);
 }
 
 void PajeSimulator::pajeSetVariable (PajeEvent *event)
