@@ -86,6 +86,7 @@ public:
   double selectionStartTime (void);
   double selectionEndTime (void);
   PajeType *entityTypeWithName (std::string name);
+  PajeContainer *containerWithName (std::string name);
   PajeColor *colorForValueOfEntityType (std::string value, PajeType *type);
   PajeColor *colorForEntityType (PajeType *type);
   
