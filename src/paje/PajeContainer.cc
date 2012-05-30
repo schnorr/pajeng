@@ -52,6 +52,17 @@ void PajeContainer::destroy (double time, PajeEvent *event)
   if (pendingLinks.size()){
     throw "Incomplete links at the end of container "+name();
   }
+
+  //check stackStates, finish all stacked states, clear stacks
+  std::map<PajeType*,std::vector<PajeUserState*> >::iterator it2;
+  for (it2 = stackStates.begin(); it2 != stackStates.end(); it2++){
+    std::vector<PajeUserState*> *stack = &((*it2).second);
+    std::vector<PajeUserState*>::iterator it3;
+    for (it3 = stack->begin(); it3 != stack->end(); it3++){
+      (*it3)->setEndTime (time);
+    }
+    stack->clear();
+  }
 }
 
 void PajeContainer::setVariable (double time, PajeType *type, double value, PajeEvent *event)
@@ -218,20 +229,54 @@ void PajeContainer::newEvent (double time, PajeType *type, std::string value, Pa
 
 void PajeContainer::setState (double time, PajeType *type, std::string value, PajeEvent *event)
 {
-  std::cout << __FUNCTION__ << std::endl;
   checkTimeOrder (time, type, event);
+
+  //clean the stack, using time as endTime
+  std::vector<PajeUserState*> *stack = &stackStates[type];
+  std::vector<PajeUserState*>::iterator it;
+  for (it = stack->begin(); it != stack->end(); it++){
+    PajeUserState *state = (*it);
+    state->setEndTime (time);
+  }
+  stack->clear();
+
+  PajeUserState *state = new PajeUserState (this, type, value, time);
+  entities[type].push_back (state);
+  stack->push_back (state);
 }
 
 void PajeContainer::pushState (double time, PajeType *type, std::string value, PajeEvent *event)
 {
-  std::cout << __FUNCTION__ << std::endl;
   checkTimeOrder (time, type, event);
+
+  std::vector<PajeUserState*> *stack = &stackStates[type];
+
+  //define new imbrication level
+  int imbrication = !stack->size() ? 0 : (stack->back())->imbricationLevel() + 1;
+
+  PajeUserState *state = new PajeUserState (this, type, value, time, imbrication);
+  entities[type].push_back (state);
+  stack->push_back (state);
 }
 
 void PajeContainer::popState (double time, PajeType *type, std::string value, PajeEvent *event)
 {
-  std::cout << __FUNCTION__ << std::endl;
   checkTimeOrder (time, type, event);
+
+  //check if there is something in the stack
+  std::vector<PajeUserState*> *stack = &stackStates[type];
+  if (!stack->size()){
+    std::stringstream line;
+    line << *event;
+    throw "Illegal pop event of a state that has no value in "+line.str();
+  }
+
+  //update the top of the stack, set its endTime
+  PajeUserState *last_stacked = stack->back();
+  last_stacked->setEndTime (time);
+
+  //pop the stack
+  stack->pop_back();
 }
 
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container)

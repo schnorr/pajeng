@@ -23,6 +23,7 @@ public:
 private:
   std::set<std::string> linksUsedKeys; //all used keys for this container
   std::map<std::string,PajeUserLink*> pendingLinks; //all pending links
+  std::map<PajeType*,std::vector<PajeUserState*> > stackStates; //the simulation stack for state types
 
   //keeps all simulated entities (variables, links, states and events)
   std::map<PajeType*,std::vector<PajeEntity*> > entities;
