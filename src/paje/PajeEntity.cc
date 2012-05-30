@@ -22,6 +22,11 @@ std::string PajeEntity::name (void) const
   return entityName;
 }
 
+void PajeEntity::setName (std::string newname)
+{
+  this->entityName = newname;
+}
+
 bool PajeEntity::isContainedBy (PajeContainer *container)
 {
   return this->container() == container;
@@ -35,6 +40,11 @@ bool PajeEntity::isContainer (void)
 std::string PajeEntity::value (void)
 {
   return name();
+}
+
+void PajeEntity::setValue (std::string newvalue)
+{
+  throw "should be implemented in subclass";
 }
 
 void PajeEntity::setDoubleValue (double value)
@@ -65,6 +75,11 @@ PajeContainer *PajeEntity::startContainer (void)
 PajeContainer *PajeEntity::endContainer (void)
 {
   return container();
+}
+
+int PajeEntity::imbricationLevel (void)
+{
+  return 0;
 }
 
 /**************************************************************
@@ -118,9 +133,21 @@ double PajeUserEvent::duration (void)
 /**************************************************************
  * PajeUserState
  */
-PajeUserState::PajeUserState (PajeContainer *container, PajeType *type, std::string value, double startTime, double endTime):PajeUserEvent(container, type, value, startTime)
+PajeUserState::PajeUserState (PajeContainer *container, PajeType *type, std::string value, double startTime):PajeUserEvent(container, type, value, startTime)
 {
-  this->etime = endTime;
+  this->etime = -1;
+  this->imbrication = 0;
+}
+
+PajeUserState::PajeUserState (PajeContainer *container, PajeType *type, std::string value, double startTime, int imbric):PajeUserEvent(container, type, value, startTime)
+{
+  this->etime = -1;
+  this->imbrication = imbric;
+}
+
+void PajeUserState::setValue (std::string newvalue)
+{
+  setName (newvalue);
 }
 
 void PajeUserState::setEndTime (double endTime)
@@ -141,6 +168,11 @@ double PajeUserState::lastTime (void)
 double PajeUserState::duration (void)
 {
   return endTime() - startTime();
+}
+
+int PajeUserState::imbricationLevel (void)
+{
+  return imbrication;
 }
 
 /**************************************************************

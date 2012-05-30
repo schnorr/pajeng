@@ -17,15 +17,18 @@ public:
   PajeContainer *container (void) const;
   PajeType *type (void) const;
   std::string name (void) const;
+  void setName (std::string newname);
   bool isContainedBy (PajeContainer *container);
   virtual bool isContainer (void);
   virtual std::string value (void);
+  virtual void setValue (std::string newvalue);
   virtual void setDoubleValue (double value);
   virtual void addDoubleValue (double value);
   virtual void subtractDoubleValue (double value);
   virtual double doubleValue (void);
   virtual PajeContainer *startContainer (void);
   virtual PajeContainer *endContainer (void);
+  virtual int imbricationLevel (void);
 
   virtual double time (void) = 0;
   virtual double startTime (void) = 0;
@@ -64,13 +67,17 @@ class PajeUserState : public PajeUserEvent
 {
 private:
   double etime;
+  double imbrication;
 
 public:
-  PajeUserState (PajeContainer *container, PajeType *type, std::string value, double startTime, double endTime);
+  PajeUserState (PajeContainer *container, PajeType *type, std::string value, double startTime);
+  PajeUserState (PajeContainer *container, PajeType *type, std::string value, double startTime, int imbrication);
+  void setValue (std::string newvalue);
   double endTime (void);
   void setEndTime (double endTime);
   double lastTime (void);
   double duration (void);
+  int imbricationLevel (void);
 };
 
 class PajeUserVariable : public PajeUserState
