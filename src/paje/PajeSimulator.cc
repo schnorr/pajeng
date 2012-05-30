@@ -60,7 +60,9 @@ void PajeSimulator::inputEntity (PajeObject *data)
   setLastKnownTime (event);
   PajeEventId eventId = event->pajeEventId();
   if (eventId < PajeEventIdCount){
-    CALL_MEMBER_PAJE_SIMULATOR(*this,invocation[eventId])(event);
+    if (invocation[eventId]){
+      CALL_MEMBER_PAJE_SIMULATOR(*this,invocation[eventId])(event);
+    }
   }else{
     throw "Unknow event id.";
   }
