@@ -209,7 +209,7 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
     }
 
     //checking time-ordered for this type
-    checkTimeOrder (link->startTime(), type, event);
+    checkTimeOrder (link->endTime(), type, event);
 
     //push the newly completed link on the back of the vector
     entities[type].push_back(link);
