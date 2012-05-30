@@ -47,6 +47,11 @@ void PajeContainer::destroy (double time, PajeEvent *event)
       }
     }
   }
+
+  //check pendingLinks
+  if (pendingLinks.size()){
+    throw "Incomplete links at the end of container "+name();
+  }
 }
 
 void PajeContainer::setVariable (double time, PajeType *type, double value, PajeEvent *event)
