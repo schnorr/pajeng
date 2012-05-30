@@ -30,6 +30,12 @@ PajeSimulator::PajeSimulator ()
   selectionEnd = -1;
 }
 
+void PajeSimulator::report (void)
+{
+  std::cout << __PRETTY_FUNCTION__ << " Containers: " << contMap.size() << std::endl;
+  std::cout << __PRETTY_FUNCTION__ << " Types: " << typeMap.size() << std::endl;
+}
+
 void PajeSimulator::setLastKnownTime (PajeEvent *event)
 {
   std::string time = event->valueForFieldId (std::string("Time"));
