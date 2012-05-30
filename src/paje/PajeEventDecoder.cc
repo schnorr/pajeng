@@ -193,6 +193,7 @@ void PajeEventDecoder::inputEntity (PajeObject *data)
   while ((dataPointer - initDataPointer) < length){
     dataPointer = PajeEventDecoder::break_line (dataPointer, &line);
     if (line.word_count == 0) {
+      currentLineNumber++;
       continue;
     }
     if (line.word[0][0] == '%') {
