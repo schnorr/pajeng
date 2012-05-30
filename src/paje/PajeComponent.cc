@@ -135,6 +135,12 @@ PajeType *PajeComponent::entityTypeWithName (std::string name)
   else return NULL;
 }
 
+PajeContainer *PajeComponent::containerWithName (std::string name)
+{
+  if (inputComponent) return inputComponent->containerWithName (name);
+    else return NULL;
+}
+
 PajeColor *PajeComponent::colorForValueOfEntityType (std::string value, PajeType *type)
 {
   if (inputComponent) return inputComponent->colorForValueOfEntityType (value, type);

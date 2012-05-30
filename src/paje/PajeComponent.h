@@ -45,6 +45,7 @@ public:
   double virtual selectionStartTime (void);
   double virtual selectionEndTime (void);
   PajeType virtual *entityTypeWithName (std::string name);
+  virtual PajeContainer *containerWithName (std::string name);
   PajeColor virtual *colorForValueOfEntityType (std::string value, PajeType *type);
   PajeColor virtual *colorForEntityType (PajeType *type);
 

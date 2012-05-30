@@ -88,6 +88,11 @@ PajeType *PajeSimulator::entityTypeWithName (std::string name)
   return typeNamesMap[name];
 }
 
+PajeContainer *PajeSimulator::containerWithName (std::string name)
+{
+  return contMap[name];
+}
+
 PajeColor *PajeSimulator::colorForValueOfEntityType (std::string value, PajeType *type)
 {
   PajeVariableType *varType = dynamic_cast<PajeVariableType*>(type);
