@@ -3,6 +3,8 @@ PROJECT(viva)
 SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 FIND_PACKAGE(wxWidgets COMPONENTS gl core base REQUIRED)
 FIND_PACKAGE(LibConfig REQUIRED)
+FIND_PACKAGE(GTK2 REQUIRED)
+FIND_PACKAGE(Cairo)
 
 SET(CMAKE_CXX_FLAGS "-g -rdynamic")
 
@@ -67,4 +69,7 @@ SET(VIVA_SRC
   src/viva/VivaNode.cc
   src/viva/TimeInterval.cc)
 ADD_EXECUTABLE(viva ${VIVA_SRC})
-target_link_libraries(viva ${wxWidgets_LIBRARIES} ${LIBCONFIG_LIBRARIES} tupic gvc graph pajecpp )
+include_directories(viva ${GTK2_INCLUDE_DIRS})
+include_directories(viva ${Cairo_INCLUDE_DIRS})
+target_link_libraries(viva ${wxWidgets_LIBRARIES} ${Cairo_LIBRARIES} ${GTK2_LIBRARIES} ${LIBCONFIG_LIBRARIES} tupic pajecpp )
+
