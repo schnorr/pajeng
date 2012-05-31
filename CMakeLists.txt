@@ -5,6 +5,7 @@ FIND_PACKAGE(wxWidgets COMPONENTS gl core base REQUIRED)
 FIND_PACKAGE(LibConfig REQUIRED)
 FIND_PACKAGE(GTK2 REQUIRED)
 FIND_PACKAGE(Cairo)
+FIND_PACKAGE(Graphviz)
 
 SET(CMAKE_CXX_FLAGS "-g -rdynamic")
 
@@ -54,7 +55,8 @@ SET(TUPIWX_SRC
   src/tupiwx/tupiew.cc
   src/tupiwx/runner.cc)
 ADD_EXECUTABLE(tupi ${TUPIWX_SRC})
-TARGET_LINK_LIBRARIES(tupi ${wxWidgets_LIBRARIES} tupic gvc graph)
+INCLUDE_DIRECTORIES(${graphviz_INCLUDE_DIRS})
+TARGET_LINK_LIBRARIES(tupi ${wxWidgets_LIBRARIES} tupic ${graphviz_GVC_LIBRARY} ${graphviz_GRAPH_LIBRARY})
 
 # viva executable
 SET(VIVA_SRC
