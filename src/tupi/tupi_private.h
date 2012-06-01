@@ -198,6 +198,7 @@ int particle_compare (const void *p1, const void *p2);
 void particle_move (tp_particle *particle);
 void particle_commit (tp_particle *particle);
 void particle_suicide (tp_particle *particle);
+void particle_shake (tp_particle *particle);
 
 tp_cell *cell_new (int index, tp_cell *parent, tp_rect space, tp_box *box);
 void cell_free (tp_cell *cell);
@@ -226,6 +227,7 @@ void box_handle_out_particle (tp_box *box, tp_particle *particle);
 tp_particle *box_find_particle (tp_box *box, const char *name);
 tp_particle *box_find_particle_by_position (tp_box *box, tp_point point);
 void box_step (tp_box *box);
+void box_shake (tp_box *box);
 
 tp_layout *layout_new (void);
 void layout_free (tp_layout *l);
@@ -239,6 +241,7 @@ void layout_compute (tp_layout *layout);
 double layout_stabilization_limit (tp_layout *layout);
 double layout_stabilization (tp_layout *layout);
 void layout_reset_energies (tp_layout *layout);
+void layout_shake (tp_layout *layout);
 
 tp_node *node_new (const char *name, const void *data);
 void node_free (tp_node *node);

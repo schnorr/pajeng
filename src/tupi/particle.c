@@ -250,3 +250,11 @@ void particle_suicide (tp_particle *particle)
 {
   box_remove_particle (particle->box, particle);
 }
+
+void particle_shake (tp_particle *particle)
+{
+  double k = particle->layout->k;
+  double shake_factor = drand48() * k * 2 - 1;
+  particle->position.x += shake_factor;
+  particle->position.y += shake_factor;
+}

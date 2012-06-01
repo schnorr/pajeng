@@ -185,3 +185,8 @@ void layout_reset_energies (tp_layout *layout)
   layout->energies_count = 0;
   layout->energies_index = 0;
 }
+
+void layout_shake (tp_layout *layout)
+{
+  box_shake (layout->box);
+}

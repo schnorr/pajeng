@@ -218,3 +218,13 @@ void box_step (tp_box *box)
 
   box->time++;
 }
+
+void box_shake (tp_box *box)
+{
+  unsigned int i;
+
+  for (i = 0; i < dynar_count(box->particles_array); i++){
+    tp_particle *p = dynar_get_as (box->particles_array, tp_particle*, i);
+    particle_shake (p);
+  }
+}
