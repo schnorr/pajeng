@@ -32,6 +32,8 @@ public:
   PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type);
   bool isContainer (void);
   PajeContainer *getRoot (void);
+  bool isAncestorOf (PajeContainer *c);
+
   PajeContainer *addContainer (double time, std::string name, std::string alias, PajeContainerType *type, PajeEvent *event);
   std::string identifier (void);
   void destroy (double time, PajeEvent *event);

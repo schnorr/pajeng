@@ -6,6 +6,16 @@ PajeContainer::PajeContainer (double time, std::string name, std::string alias, 
   this->destroyed = false;
 }
 
+bool PajeContainer::isAncestorOf (PajeContainer *c)
+{
+  c = c->container();
+  while (c){
+    if (c == this) return true;
+    c = c->container();
+  }
+  return false;
+}
+
 bool PajeContainer::isContainer (void)
 {
   return true;
