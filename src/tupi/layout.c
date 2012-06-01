@@ -179,9 +179,9 @@ double layout_stabilization (tp_layout *layout)
   return 1/standard;
 }
 
-void layout_reset_energies (tp_layout *ret)
+void layout_reset_energies (tp_layout *layout)
 {
-  ret->energy = 0;
-  ret->energies_count = 0;
-  ret->energies_index = 0;
+  layout->energy = 0;
+  layout->energies_count = 0;
+  layout->energies_index = 0;
 }

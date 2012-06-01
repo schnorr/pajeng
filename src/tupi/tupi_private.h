@@ -238,7 +238,7 @@ void layout_move_node (tp_layout *layout, tp_node *node, tp_point point);
 void layout_compute (tp_layout *layout);
 double layout_stabilization_limit (tp_layout *layout);
 double layout_stabilization (tp_layout *layout);
-void layout_reset_energies (tp_layout *ret);
+void layout_reset_energies (tp_layout *layout);
 
 tp_node *node_new (const char *name, const void *data);
 void node_free (tp_node *node);
