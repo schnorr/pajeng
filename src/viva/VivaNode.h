@@ -2,6 +2,8 @@
 #define __VIVA_NODE_H
 #include <wx/wx.h>
 #include <libconfig.h>
+#include <gtk/gtk.h>
+#include <cairo.h>
 #include "tupi_private.h"
 #include "PajeComponent.h"
 
@@ -13,7 +15,8 @@ class VivaGraph;
 class VivaComposition
 {
 public:
-  tp_rect bb;
+  double width;
+  double height;
   std::map<PajeType*,double> proportion;
 private:
   VivaGraph *filter;
@@ -26,7 +29,7 @@ public:
   VivaComposition (VivaGraph *filter, PajeContainer *container, config_setting_t *configuration);
   ~VivaComposition ();
   void layout (void);
-  void draw (wxDC& dc, tp_point base);
+  void draw (cairo_t *cr, tp_point base);
 };
 
 class VivaNode
@@ -37,7 +40,8 @@ private:
   void createCompositions (config_setting_t *conf);
 
 public:
-  tp_rect bb;
+  double width;
+  double height;
   tp_node *node;
   tp_layout *tupi_layout;
   PajeContainer *container;
@@ -48,8 +52,8 @@ public:
 
   tp_point position (void);
   void layout (void);
-  void draw (wxDC& dc);
-  void drawEdges (wxDC& dc);
+  void draw (cairo_t *cr);
+  void drawEdges (cairo_t *cr);
   bool hasPoint (double x, double y);
   void setConnectedNodes (std::vector<tp_node*> connectedNodes);
 };

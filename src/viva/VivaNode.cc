@@ -2,7 +2,8 @@
 
 VivaComposition::VivaComposition (VivaGraph *filter, PajeContainer *container, config_setting_t *configuration)
 {
-  bb = tp_Rect(0,0,0,0);
+  width = 0;
+  height = 0;
   this->filter = filter;
   this->container = container;
 
@@ -53,7 +54,9 @@ VivaComposition::~VivaComposition (void)
 
 void VivaComposition::layout (void)
 {
-  bb = tp_Rect (0, 0, 0, 0);
+  width = 0;
+  height = 0;
+
   if (!filter || !size_type || !container) return;
   std::map<std::string,double> values = filter->spatialIntegrationOfContainer (container);
   if (values.size() == 0) return;
@@ -62,7 +65,10 @@ void VivaComposition::layout (void)
   double userScale = filter->userScaleForConfigurationWithName (name) * 100; //use a 100 magnification
   double size_var = 2 * COMPOSITION_MAX_SIZE * values[size_type->name]/max;
   double size = sqrt (userScale * size_var);
-  bb = tp_Rect (0, 0, size, size);
+
+  //update the new width and height
+  width = size;
+  height = size;
 
   proportion.clear();
   std::vector<PajeType*>::iterator it;
@@ -75,39 +81,41 @@ void VivaComposition::layout (void)
   }
 }
 
-void VivaComposition::draw (wxDC& dc, tp_point base)
+void VivaComposition::draw (cairo_t *cr, tp_point base)
 {
-  wxColour black;
-  black.Set(wxT("#000000"));
-  dc.SetPen(wxPen(black));
+  cairo_translate (cr, base.x, base.y);
 
-  bb.origin.x = base.x;
-  bb.origin.y = base.y;
-
-  wxRect rect = wxRect (bb.origin.x, bb.origin.y, bb.size.width, bb.size.height);
-  dc.SetPen(wxPen(*wxBLACK));
-  dc.SetBrush(wxBrush(*wxWHITE));
-  dc.DrawRectangle(rect);
+  //fill my rectangle
+  cairo_set_source_rgb (cr, 1, 1, 1);
+  cairo_rectangle (cr, 0, 0, width, height);
+  cairo_fill (cr);
 
   std::map<PajeType*,double>::iterator it;
+  double yaccum = 0;
   for (it = proportion.begin(); it != proportion.end(); it++){
-    PajeColor *color = filter->colorForEntityType ((*it).first);
-    wxColour c;
-    c.Set (255*color->r, 255*color->g, 255*color->b, 255*color->a);
-    dc.SetPen(wxPen(c));
-    dc.SetBrush(wxBrush(c));
     double size = (*it).second;
-    wxRect r = wxRect (bb.origin.x, bb.origin.y, bb.size.width, bb.size.height * size);
-    dc.DrawRectangle(r);
+    PajeColor *color = filter->colorForEntityType ((*it).first);
+
+    cairo_set_source_rgb (cr, color->r, color->g, color->b);
+    cairo_rectangle (cr, 0, yaccum, width, height * size);
+    cairo_fill (cr);
+
+    yaccum += size;
   }
 
-  dc.SetPen(wxPen(*wxBLACK));
-  dc.SetBrush(*wxTRANSPARENT_BRUSH);
-  dc.DrawRectangle(rect);
+  //dark thin border
+  cairo_set_source_rgb (cr, 0, 0, 0);
+  cairo_rectangle (cr, 0, 0, width, height);
+  cairo_set_line_width (cr, 0.2);
+  cairo_stroke (cr);
+
+  cairo_translate (cr, -base.x, -base.y);
 }
 
 VivaNode::VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, tp_layout *layout)
 {
+  this->width = 0;
+  this->height = 0;
   this->node = node_new (container->name().c_str(), this);
   this->tupi_layout = layout;
   this->container = container;
@@ -137,7 +145,8 @@ VivaNode::~VivaNode ()
   this->tupi_layout = NULL;
   this->container = NULL;
   this->filter = NULL;
-  this->bb = tp_Rect(-1,-1,-1,-1);
+  this->width = -1;
+  this->height = -1;
 }
 
 void VivaNode::createCompositions (config_setting_t *conf)
@@ -161,46 +170,57 @@ tp_point VivaNode::position ()
 
 void VivaNode::layout (void)
 {
-  bb = tp_Rect(0,0,0,0);
+  width = 0;
+  height = 0;
 
   std::vector<VivaComposition*>::iterator it;
   for (it = compositions.begin(); it != compositions.end(); it++){
     VivaComposition *comp = (*it);
     comp->layout ();
-    if (comp->bb.size.height > bb.size.height) bb.size.height = comp->bb.size.height;
-    bb.size.width += comp->bb.size.width;
+    if (comp->height > height) height = comp->height;
+    width += comp->width;
   }
 
-  tp_rect mask = tp_Rect (0, 0, bb.size.width/100, bb.size.height/100);
+  tp_rect mask = tp_Rect (0, 0, width/100, height/100);
   particle_set_mask (node->particle, mask);
 }
 
-void VivaNode::draw (wxDC& dc)
+void VivaNode::draw (cairo_t *cr)
 {
   tp_point position = this->position();
-  std::vector<VivaComposition*>::iterator it;
-  tp_point point = position;
-  point.x -= bb.size.width/2;
-  point.y -= bb.size.height/2;
+  tp_point translate = tp_Point (position.x - width/2,
+                                 position.y - height/2);
 
+  //apply node transformation matrix
+  cairo_translate (cr, translate.x, translate.y);
+
+  tp_point base = tp_Point (0, 0);
+
+  std::vector<VivaComposition*>::iterator it;
   for (it = compositions.begin(); it != compositions.end(); it++){
     VivaComposition *comp = (*it);
-    comp->draw(dc, point);
-    point.x += comp->bb.size.width;
+    comp->draw(cr, base);
+    base.x += comp->width;
   }
 
-  dc.DrawText (wxString(node->name, wxConvUTF8), position.x, position.y);
-  dc.DrawPoint (position.x, position.y);
+  // TODO, FIXME: draw the name of the node
+
+  //unde node transformation matrix
+  cairo_translate (cr, -translate.x, -translate.y);
 }
 
-void VivaNode::drawEdges (wxDC& dc)
+void VivaNode::drawEdges (cairo_t *cr)
 {
   tp_point myposition = this->position();
   int i, count = dynar_count(this->node->connected);
   for (i = 0; i < count; i++){
     tp_node *n = dynar_get_as (this->node->connected, tp_node*, i);
     tp_point nposition = ((VivaNode*)n->data)->position();
-    dc.DrawLine (myposition.x, myposition.y, nposition.x, nposition.y);
+
+    cairo_move_to (cr, myposition.x, myposition.y);
+    cairo_line_to (cr, nposition.x, nposition.y);
+    cairo_set_line_width (cr, 0.5);
+    cairo_stroke (cr);
   }
 }
 

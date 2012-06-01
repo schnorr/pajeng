@@ -51,24 +51,24 @@ void GraphFrame::setVivaGraph (VivaGraph *vivagraph)
 
 void GraphFrame::OnPaint(wxPaintEvent& event)
 {
-  wxPaintDC dc(this);
-  wxColour black, gray, white;
-  black.Set(wxT("#000000"));
-  gray.Set(wxT("#c0c0c0"));
-  white.Set(wxT("#ffffff"));
-
-  dc.SetUserScale (ratio, ratio);
-  dc.SetDeviceOrigin (translate.x, translate.y);
-
   if (!vivagraph) return;
 
+  //apply transformation matrix to take mouse user interaction
+  wxPaintDC dc(this);
+  cairo_t* cr = gdk_cairo_create(dc.m_window);
+  cairo_translate (cr, translate.x, translate.y);
+  cairo_scale (cr, ratio, ratio);
+
+  //draw edges, then the nodes themselves
   std::vector<VivaNode*>::iterator it;
   for (it = vivagraph->nodes.begin(); it != vivagraph->nodes.end(); it++){
-    (*it)->drawEdges(dc);
+    (*it)->drawEdges(cr);
   }
   for (it = vivagraph->nodes.begin(); it != vivagraph->nodes.end(); it++){
-    (*it)->draw(dc);
+    (*it)->draw(cr);
   }
+
+  cairo_destroy(cr);
 }
 
 void GraphFrame::leftMouseClicked (wxMouseEvent& event)
@@ -78,15 +78,16 @@ void GraphFrame::leftMouseClicked (wxMouseEvent& event)
 
   //get the device context, apply the current transformations
   wxPaintDC dc(this);
-  dc.SetUserScale (ratio, ratio);
-  dc.SetDeviceOrigin (translate.x, translate.y);
+  cairo_t* cr = gdk_cairo_create(dc.m_window);
+  cairo_translate (cr, translate.x, translate.y);
+  cairo_scale (cr, ratio, ratio);
 
   //transform the mouse position in the screen space to the logical space
-  wxPoint mouseLogical;
-  mouseLogical.x = dc.DeviceToLogicalX (screen.x);
-  mouseLogical.y = dc.DeviceToLogicalY (screen.y);
+  wxRealPoint mouseLogical = wxRealPoint (screen.x, screen.y);
+  cairo_device_to_user (cr, &mouseLogical.x, &mouseLogical.y);
+  cairo_destroy (cr);
 
-  vivagraph->leftMouseClicked (mouseLogical);
+  vivagraph->leftMouseClicked (wxPoint(mouseLogical.x, mouseLogical.y));
 }
 
 void GraphFrame::rightMouseClicked (wxMouseEvent& event)
@@ -96,15 +97,16 @@ void GraphFrame::rightMouseClicked (wxMouseEvent& event)
 
   //get the device context, apply the current transformations
   wxPaintDC dc(this);
-  dc.SetUserScale (ratio, ratio);
-  dc.SetDeviceOrigin (translate.x, translate.y);
+  cairo_t* cr = gdk_cairo_create(dc.m_window);
+  cairo_translate (cr, translate.x, translate.y);
+  cairo_scale (cr, ratio, ratio);
 
   //transform the mouse position in the screen space to the logical space
-  wxPoint mouseLogical;
-  mouseLogical.x = dc.DeviceToLogicalX (screen.x);
-  mouseLogical.y = dc.DeviceToLogicalY (screen.y);
+  wxRealPoint mouseLogical = wxRealPoint (screen.x, screen.y);
+  cairo_device_to_user (cr, &mouseLogical.x, &mouseLogical.y);
+  cairo_destroy (cr);
 
-  vivagraph->rightMouseClicked (mouseLogical);
+  vivagraph->rightMouseClicked (wxPoint(mouseLogical.x, mouseLogical.y));
 }
 
 void GraphFrame::OnVivaGraphChanged (wxCommandEvent& event)

@@ -1,6 +1,8 @@
 #ifndef __GRAPH_FRAME_H
 #define __GRAPH_FRAME_H
 #include <wx/wx.h>
+#include <gtk/gtk.h>
+#include <cairo.h>
 #include "basic.h"
 
 class VivaGraph;
