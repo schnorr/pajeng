@@ -27,7 +27,7 @@ bool BasicFrame::Create(wxWindow* parent,
   mousePosition = wxPoint(0,0);
 
   this->Connect(wxEVT_MOTION, wxMouseEventHandler(BasicFrame::OnMouseMotion));
-  this->Connect(wxEVT_MOUSEWHEEL, wxMouseEventHandler(BasicFrame::OnMouseWheel));
+  this->Connect(wxEVT_MOUSEWHEEL, wxMouseEventHandler(BasicFrame::OnMouseWheelCairo));
   this->Connect(wxEVT_SIZE, wxSizeEventHandler(BasicFrame::OnSize));
 
   return true;
