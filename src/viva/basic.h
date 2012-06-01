@@ -1,6 +1,8 @@
 #ifndef __BASIC_FRAME_H
 #define __BASIC_FRAME_H
 #include <wx/wx.h>
+#include <gtk/gtk.h>
+#include <cairo.h>
 
 class BasicFrame : public wxPanel
 {
@@ -30,6 +32,7 @@ protected:
 private:
   void OnMouseMotion (wxMouseEvent& event);
   void OnMouseWheel (wxMouseEvent& event);
+  void OnMouseWheelCairo (wxMouseEvent& event);
   void OnSize (wxSizeEvent& event);
 };
 

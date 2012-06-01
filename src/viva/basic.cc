@@ -85,6 +85,48 @@ void BasicFrame::OnMouseWheel (wxMouseEvent& event)
   Refresh();
 }
 
+void BasicFrame::OnMouseWheelCairo (wxMouseEvent& event)
+{
+  //get mouse position in the screen (in the frame to be precise)
+  wxPoint mouse;
+  event.GetPosition (&mouse.x, &mouse.y);
+
+  //apply current transformations
+  wxPaintDC dc(this);
+  cairo_t* cr = gdk_cairo_create(dc.m_window);
+  cairo_translate (cr, translate.x, translate.y);
+  cairo_scale (cr, ratio, ratio);
+
+  //transform the mouse position in the screen space to the logical space
+  wxRealPoint graphPoint = wxRealPoint (mouse.x, mouse.y);
+  cairo_device_to_user (cr, &graphPoint.x, &graphPoint.y);
+
+  //calculate and apply the new user scale in the device context
+  double factor = ratio * 0.1;
+  if (event.GetWheelRotation() > 0){
+    ratio += factor;
+  }else{
+    ratio -= factor;
+  }
+  cairo_destroy (cr);
+  cr = NULL;
+  cr =  gdk_cairo_create(dc.m_window);
+  cairo_translate (cr, translate.x, translate.y);
+  cairo_scale (cr, ratio, ratio);
+
+  wxRealPoint aux = graphPoint;
+  cairo_user_to_device (cr, &aux.x, &aux.y);
+  cairo_destroy (cr);
+
+  //calculate the difference between the two mouse screen positions
+  wxRealPoint dif = wxRealPoint(mouse.x, mouse.y) - aux;
+  translate = translate + dif;
+
+  //update mousePosition
+  mousePosition = mouse;
+  Refresh();
+}
+
 void BasicFrame::OnSize (wxSizeEvent& event)
 {
   Refresh();
