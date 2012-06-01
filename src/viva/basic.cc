@@ -40,11 +40,7 @@ void BasicFrame::OnMouseMotion (wxMouseEvent& event)
 
   if (event.Dragging()){
     wxPoint dif = p - mousePosition;
-    if (translate == wxRealPoint(0,0)){
-      translate = wxRealPoint(dif.x, dif.y);
-    }else{
-      translate = translate + wxRealPoint(dif.x, dif.y);
-    }
+    translate = translate + wxRealPoint(dif.x, dif.y);
     Refresh();
   }
   mousePosition = p;
