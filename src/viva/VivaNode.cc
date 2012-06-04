@@ -250,6 +250,7 @@ void VivaNode::drawEdges (cairo_t *cr)
 
     cairo_move_to (cr, myposition.x, myposition.y);
     cairo_line_to (cr, nposition.x, nposition.y);
+    cairo_set_source_rgba (cr, 0, 0, 0, 0.1);
     cairo_set_line_width (cr, 0.5);
     cairo_stroke (cr);
   }
