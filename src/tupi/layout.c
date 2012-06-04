@@ -72,6 +72,25 @@ void layout_set_quality (tp_layout *layout, int quality)
            layout->quality, layout->viewZone);
 }
 
+static void _layout_associate_particle_node (tp_particle *particle, tp_node *node)
+{
+  node_set_particle (node, particle);
+  box_add_particle (particle->layout->box, particle);
+  dict_insert_element (particle->layout->nodes, node->name, node);
+}
+
+void layout_add_node_with_point (tp_layout *layout, tp_node *node, tp_point point)
+{
+  pthread_mutex_lock (&mutex);
+  tp_particle *particle = particle_new_with_point (node->name,
+                                        layout,
+                                        layout->box,
+                                        node,
+                                        point);
+  _layout_associate_particle_node (particle, node);
+  pthread_mutex_unlock (&mutex);
+}
+
 void layout_add_node (tp_layout *layout, tp_node *node)
 {
   pthread_mutex_lock (&mutex);
@@ -79,10 +98,7 @@ void layout_add_node (tp_layout *layout, tp_node *node)
                                         layout,
                                         layout->box,
                                         node);
-  node_set_particle (node, particle);
-  box_add_particle (layout->box, particle);
-
-  dict_insert_element (layout->nodes, node->name, node);
+  _layout_associate_particle_node (particle, node);
   pthread_mutex_unlock (&mutex);
 }
 

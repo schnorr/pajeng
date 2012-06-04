@@ -16,12 +16,11 @@
 */
 #include "tupi_private.h"
 
-tp_particle *particle_new (const char *name, tp_layout *layout, tp_box *box, tp_node *node)
+tp_particle *particle_new_with_point (const char *name, tp_layout *layout, tp_box *box, tp_node *node, tp_point point)
 {
   tp_particle *ret = (tp_particle*) malloc (sizeof(tp_particle));
   ret->name = strdup (name);
-  ret->position.x = drand48() * 2 * layout->k - layout->k;
-  ret->position.y = drand48() * 2 * layout->k - layout->k;
+  ret->position = point;
   ret->mask = tp_Rect (0,0,0,0);
   ret->weight = 1;
   ret->cell = NULL;
@@ -33,6 +32,14 @@ tp_particle *particle_new (const char *name, tp_layout *layout, tp_box *box, tp_
 
   ret->node = node;
   return ret;
+}
+
+tp_particle *particle_new (const char *name, tp_layout *layout, tp_box *box, tp_node *node)
+{
+  tp_point point;
+  point.x = drand48() * 2 * layout->k - layout->k;
+  point.y = drand48() * 2 * layout->k - layout->k;
+  return particle_new_with_point (name, layout, box, node, point);
 }
 
 void particle_set_mask (tp_particle *particle, tp_rect mask)

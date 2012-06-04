@@ -191,6 +191,7 @@ void dict_insert_element (tp_dict *dict, char *name, void *object);
 void dict_remove_element (tp_dict *dict, char *name);
 void *dict_get_element (tp_dict *dict, char *name);
 
+tp_particle *particle_new_with_point (const char *name, tp_layout *layout, tp_box *box, tp_node *node, tp_point point);
 tp_particle *particle_new (const char *name, tp_layout *layout, tp_box *box, tp_node *node);
 void particle_set_mask (tp_particle *particle, tp_rect mask);
 void particle_free (tp_particle *p);
@@ -232,6 +233,7 @@ void box_shake (tp_box *box);
 tp_layout *layout_new (void);
 void layout_free (tp_layout *l);
 void layout_set_quality (tp_layout *layout, int quality);
+void layout_add_node_with_point (tp_layout *layout, tp_node *node, tp_point point);
 void layout_add_node (tp_layout *layout, tp_node *node);
 tp_node *layout_find_node (tp_layout *layout, char *name);
 tp_node *layout_find_node_by_position (tp_layout *layout, tp_point point);
