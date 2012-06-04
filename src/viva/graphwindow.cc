@@ -10,6 +10,11 @@
 #define ID_PAUSE 6
 #define ID_VIEW_TIMEINTERVAL 7
 #define ID_VIEW_GRAPHCONFIGURATION 8
+#define ID_GOTO_BOTTOM 9
+#define ID_GO_DOWN 10
+#define ID_GO_UP 11
+#define ID_GOTO_TOP 12
+#define ID_REFRESH 13
 
 GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
   : wxFrame(parent, wxID_ANY, wxT("Viva Graph Window"), wxDefaultPosition, wxSize(700,400))
@@ -77,11 +82,39 @@ GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
                    wxT("Stop"),
                    wxArtProvider::GetBitmap(wxT("gtk-media-stop"), wxART_TOOLBAR),
                    wxT("Stop the particle system algorithm"));
+  toolbar->AddTool(ID_GOTO_BOTTOM,
+                   wxT("Bottom"),
+                   wxArtProvider::GetBitmap(wxT("gtk-goto-bottom"), wxART_TOOLBAR),
+                   wxT("Expand as much as possible the current nodes of the graph"));
+  toolbar->AddTool(ID_GO_DOWN,
+                   wxT("Down"),
+                   wxArtProvider::GetBitmap(wxT("gtk-go-down"), wxART_TOOLBAR),
+                   wxT("Expand by one level all current nodes of the graph"));
+  toolbar->AddTool(ID_GO_UP,
+                   wxT("Up"),
+                   wxArtProvider::GetBitmap(wxT("gtk-go-up"), wxART_TOOLBAR),
+                   wxT("Collapse by one level all current nodes of the graph"));
+  toolbar->AddTool(ID_GOTO_TOP,
+                   wxT("Top"),
+                   wxArtProvider::GetBitmap(wxT("gtk-goto-top"), wxART_TOOLBAR),
+                   wxT("Collapse as much as possible the current nodes of the graph"));
+  toolbar->AddTool(ID_REFRESH,
+                   wxT("Shake"),
+                   wxArtProvider::GetBitmap(wxT("gtk-refresh"), wxART_TOOLBAR),
+                   wxT("Shake the graph layout"));
+
   toolbar->Realize();
   this->Connect(ID_PLAY,
                 ID_PAUSE,
                 wxEVT_COMMAND_TOOL_CLICKED,
                 wxCommandEventHandler(GraphWindow::OnFDThreadManagement));
+  this->Connect(ID_GOTO_BOTTOM,
+                ID_GOTO_TOP,
+                wxEVT_COMMAND_TOOL_CLICKED,
+                wxCommandEventHandler(GraphWindow::OnGoButtonsPressed));
+  this->Connect(ID_REFRESH,
+                wxEVT_COMMAND_TOOL_CLICKED,
+                wxCommandEventHandler(GraphWindow::OnRefreshButtonPressed));
 
   wxPanel *panel = new wxPanel(this, -1);
   wxBoxSizer *vbox = new wxBoxSizer (wxVERTICAL);
@@ -188,4 +221,21 @@ void GraphWindow::OnFDThreadManagement(wxCommandEvent& event)
   case ID_PAUSE: vivagraph->stop_runner(); break;
   default: break;
   }
+}
+
+void GraphWindow::OnGoButtonsPressed(wxCommandEvent& event)
+{
+  if (!vivagraph) return;
+  switch (event.GetId()){
+  case ID_GOTO_BOTTOM: vivagraph->go_bottom(); break;
+  case ID_GO_DOWN: vivagraph->go_down(); break;
+  case ID_GO_UP: vivagraph->go_up(); break;
+  case ID_GOTO_TOP: vivagraph->go_top(); break;
+  default: break;
+  }
+}
+
+void GraphWindow::OnRefreshButtonPressed(wxCommandEvent& event)
+{
+  vivagraph->refresh ();
 }
