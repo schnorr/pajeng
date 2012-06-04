@@ -26,6 +26,7 @@ int main (int argc, char **argv)
     }
   }catch (std::string exception){
     std::cout << exception << std::endl;
+    return 1;
   }
 
   delete reader;
