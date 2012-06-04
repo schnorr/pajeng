@@ -329,7 +329,13 @@ void VivaGraph::defineMaxForConfigurations (void)
   for (i = 0; i < config_setting_length (root); i++){
     config_setting_t *conf = config_setting_get_elem (root, i);
     config_setting_t *size = config_setting_get_member (conf, "size");
-    std::string size_typename (config_setting_get_string (size));
+    if (size == NULL){
+      throw "The 'size' field is not defined for configuration '"+std::string(config_setting_name(size))+"'";
+    }
+    if (config_setting_type (size) != CONFIG_TYPE_STRING){
+      continue;
+    }
+    std::string size_typename = std::string(config_setting_get_string (size));
     PajeType *size_type = entityTypeWithName (size_typename);
     std::map<std::string,double> values = spatialIntegrationOfContainer (rootInstance());
 
