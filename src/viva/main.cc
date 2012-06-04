@@ -28,10 +28,18 @@ bool TrivaWXApp::OnInit()
     dial.ShowModal();
   }
 
-  window = new GraphWindow (NULL, vivagraph);
-  window->Show(true);
-  timeslicewindow = new TimeSliceWindow (window, timeinterval);
-  timeslicewindow->Show (true);
+  simulator->report();
+
+  try {
+    window = new GraphWindow (NULL, vivagraph);
+    window->Show(true);
+    timeslicewindow = new TimeSliceWindow (window, timeinterval);
+    timeslicewindow->Show (true);
+  }catch (std::string error){
+    std::cout << error << std::endl;
+    exit(1);
+    return false;
+  }
   return true;
 }
 
