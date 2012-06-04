@@ -12,16 +12,27 @@ VivaComposition::VivaComposition (VivaGraph *filter, PajeContainer *container, c
 
   //get configuration
   config_setting_t *type = config_setting_get_member (configuration, "type");
-  if (!type || config_setting_type (type) != CONFIG_TYPE_STRING){
-    //throw something
+  if (!type){
+    throw "The 'type' field is not defined for configuration '"+name+"'";
   }
+  if (config_setting_type (type) != CONFIG_TYPE_STRING){
+    throw "The 'type' field is not a string in configuration '"+name+"'";
+  }
+
   config_setting_t *size = config_setting_get_member (configuration, "size");
-  if (!size || config_setting_type (size) != CONFIG_TYPE_STRING){
-    //throw something
+  if (!size){
+    throw "The 'size' field is not defined for configuration '"+name+"'";
   }
+  if (config_setting_type (size) != CONFIG_TYPE_STRING){
+    throw "The 'size' field is not a string in configuration '"+name+"'";
+  }
+
   config_setting_t *values = config_setting_get_member (configuration, "values");
-  if (!values || config_setting_type (values) != CONFIG_TYPE_LIST){
-    //throw something
+  if (!values){
+    throw "The 'values' field is not defined for configuration '"+name+"'";
+  }
+  if (config_setting_type (values) != CONFIG_TYPE_LIST){
+    throw "The 'values' field is not a list in configuration '"+name+"'";
   }
 
   //transform configuration
