@@ -74,6 +74,10 @@ public:
   void scaleSliderChanged ();
   void stop_runner (void);
   void start_runner (void);
+  void go_bottom (void);
+  void go_down (void);
+  void go_up (void);
+  void go_top (void);
   void refresh (void);
 
   //for configurations

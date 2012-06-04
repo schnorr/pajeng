@@ -169,6 +169,140 @@ void VivaGraph::start_runner (void)
   }
 }
 
+void VivaGraph::go_bottom (void)
+{
+  this->stop_runner();
+  //first we need to remove all nodes
+  {
+    std::vector<VivaNode*> toremove;
+    std::vector<VivaNode*>::iterator it;
+    for (it = nodes.begin(); it != nodes.end(); it++){
+      toremove.push_back (*it);
+    }
+
+    for (it = toremove.begin(); it != toremove.end(); it++){
+      deleteNode (*it);
+    }
+    nodes.clear();
+  }
+
+  //FIXME: should not access directly PajeContainer data structure
+
+  //then we traverse the tree and add all nodes without children
+  {
+    std::vector<PajeContainer*> stack;
+    stack.push_back (rootInstance());
+    while (stack.size()){
+      PajeContainer *container = stack.back();
+      stack.pop_back ();
+      std::vector<PajeContainer*> children = container->getChildren();
+      if (children.size()){
+        stack.insert (stack.end(), children.begin(), children.end());
+      }else{
+        addNode (container);
+      }
+    }
+    interconnectNodes ();
+  }
+  layout_reset_energies (layout);
+  this->start_runner();
+}
+
+void VivaGraph::go_down (void)
+{
+  //create a list of nodes to expand
+  std::vector<VivaNode*> toexpand;
+  std::vector<VivaNode*>::iterator it;
+  for (it = nodes.begin(); it != nodes.end(); it++){
+    VivaNode *node = (*it);
+    if (hasChildren(node->container)){
+      toexpand.push_back (node);
+    }
+  }
+
+  if (toexpand.size() == 0) return;
+  this->stop_runner ();
+  {
+    if (toexpand.size()){
+      for (it = toexpand.begin(); it != toexpand.end(); it++){
+        VivaNode *node = (*it);
+        expandNode (node);
+      }
+      interconnectNodes();
+    }
+  }
+  this->start_runner ();
+}
+
+void VivaGraph::go_up (void)
+{
+  //create a *set* of containers to collapse
+  std::set<PajeContainer*> tocollapse, toremove;
+  std::vector<VivaNode*>::iterator it;
+  for (it = nodes.begin(); it != nodes.end(); it++){
+    VivaNode *node = (*it);
+    PajeContainer *parent = node->container->container();
+    if (parent){
+      tocollapse.insert (parent);
+    }
+  }
+
+  //check if we have common ancestors among nodes to be collapsed
+  std::set<PajeContainer*>::iterator i;
+  for (i = tocollapse.begin(); i != tocollapse.end(); i++){
+    std::set<PajeContainer*>::iterator j;
+    PajeContainer *c1 = (*i);
+
+    //check if c1 is ancestor of one of the nodes
+    for (j = tocollapse.begin(); j != tocollapse.end(); j++){
+      PajeContainer *c2 = (*j);
+      if (c1->isAncestorOf (c2)){
+        //if it is, mark the descendant for removal
+        toremove.insert (c2);
+      }
+    }
+  }
+
+  //remove the selected descendants from the nodes to be collapsed
+  for (i = toremove.begin(); i != toremove.end(); i++){
+    tocollapse.erase (*i);
+  }
+
+  if (tocollapse.size() == 0) return;
+
+  this->stop_runner ();
+  {
+    if (tocollapse.size()){
+      std::set<PajeContainer*>::iterator i;
+      for (i = tocollapse.begin(); i != tocollapse.end(); i++){
+        PajeContainer *cont = (*i);
+        collapseNode (cont);
+      }
+      interconnectNodes();
+    }
+  }
+  this->start_runner ();
+}
+
+void VivaGraph::go_top (void)
+{
+  this->stop_runner ();
+  {
+    PajeContainer *root = rootInstance();
+
+    //check if root is not already present
+    if (nodeMap.count(root)) return;
+
+    collapseNode (root);
+    interconnectNodes ();
+
+    //tell view that the graph changed
+    wxCommandEvent event (VivaGraphChanged);
+    wxPostEvent (view, event);
+  }
+  this->start_runner ();
+}
+
 void VivaGraph::refresh (void)
 {
   this->stop_runner ();
