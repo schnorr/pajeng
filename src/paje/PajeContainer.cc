@@ -6,6 +6,16 @@ PajeContainer::PajeContainer (double time, std::string name, std::string alias, 
   this->destroyed = false;
 }
 
+std::vector<PajeContainer*> PajeContainer::getChildren (void)
+{
+  std::vector<PajeContainer*> ret;
+  std::map<std::string,PajeContainer*>::iterator i;
+  for (i = children.begin(); i != children.end(); i++){
+    ret.push_back ((*i).second);
+  }
+  return ret;
+}
+
 bool PajeContainer::isAncestorOf (PajeContainer *c)
 {
   c = c->container();
