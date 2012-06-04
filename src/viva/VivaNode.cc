@@ -34,11 +34,15 @@ VivaComposition::VivaComposition (VivaGraph *filter, PajeContainer *container, c
     if (!value || config_setting_type (value) != CONFIG_TYPE_STRING){
       //throw something
     }
+    if (config_setting_type (value) != CONFIG_TYPE_STRING){
+      continue;
+    }
     std::string value_typename (config_setting_get_string (value));
     PajeType *value_type = filter->entityTypeWithName (value_typename);
-    if (value_type){
-      values_type.push_back (value_type);
+    if (!value_type){
+      continue;
     }
+    values_type.push_back (value_type);
   }
 }
 
