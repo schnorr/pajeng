@@ -48,6 +48,7 @@ public:
   VivaGraph *filter;
 
   VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, tp_layout *layout);
+  VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, tp_layout *layout, tp_point point);
   ~VivaNode ();
 
   tp_point position (void);
