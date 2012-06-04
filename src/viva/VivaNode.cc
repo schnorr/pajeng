@@ -150,7 +150,6 @@ VivaNode::VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_
   //transform point to tupi space
   point.x /= 100;
   point.y /= 100;
-  std::cout << __FUNCTION__ << " " << container->name()  << " (" << point.x << ", " << point.y << ")" << std::endl;
   layout_add_node_with_point (layout, this->node, point);
   this->createCompositions (conf);
 }
