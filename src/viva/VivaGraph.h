@@ -74,6 +74,7 @@ public:
   void scaleSliderChanged ();
   void stop_runner (void);
   void start_runner (void);
+  void refresh (void);
 
   //for configurations
   void defineMaxForConfigurations (void);

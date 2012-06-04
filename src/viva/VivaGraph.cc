@@ -169,6 +169,14 @@ void VivaGraph::start_runner (void)
   }
 }
 
+void VivaGraph::refresh (void)
+{
+  this->stop_runner ();
+  layout_shake (layout);
+  layout_reset_energies(layout);
+  this->start_runner ();
+}
+
 void VivaGraph::setView (GraphFrame *view)
 {
   this->view = view;
