@@ -47,7 +47,6 @@ private:
   bool hasChildren (PajeContainer *container);
   bool hasParent (PajeContainer *container);
   void expandNode (VivaNode *node);
-  void collapseNodeRecurse (PajeContainer *container);
   void collapseNode (PajeContainer *container);
   void addNode (PajeContainer *container);
   void addNode (PajeContainer *container, tp_point np);

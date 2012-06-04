@@ -270,6 +270,7 @@ void VivaGraph::expandNode (VivaNode *node)
   std::vector<PajeType*> ret;
   std::vector<PajeType*>::iterator it;
   ret = containedTypesForContainerType (container->type());
+  bool expandWasCorrect = false;
   for (it = ret.begin(); it != ret.end(); it++){
     PajeType *type = (*it);
     if (isContainerType(type)){
@@ -278,42 +279,37 @@ void VivaGraph::expandNode (VivaNode *node)
       conts = enumeratorOfContainersTypedInContainer (type, container);
       for (it2 = conts.begin(); it2 != conts.end(); it2++){
         addNode (*it2);
+        expandWasCorrect = true;
       }
     }
   }
-  interconnectNodes ();
-}
-
-void VivaGraph::collapseNodeRecurse (PajeContainer *container)
-{
-  std::vector<PajeType*> ret;
-  std::vector<PajeType*>::iterator it;
-  ret = containedTypesForContainerType (container->type());
-  for (it = ret.begin(); it != ret.end(); it++){
-    PajeType *type = (*it);
-    if (isContainerType(type)){
-      std::vector<PajeContainer*> conts;
-      std::vector<PajeContainer*>::iterator it2;
-      conts = enumeratorOfContainersTypedInContainer (type, container);
-      for (it2 = conts.begin(); it2 != conts.end(); it2++){
-        PajeContainer *cont = *it2;
-        if (!nodeMap.count(cont)){
-          collapseNodeRecurse (cont);
-        }else{
-          deleteNode (nodeMap[cont]);
-        }
-      }
-    }
+  if (!expandWasCorrect){
+    std::cout << "Expand not correct" << std::endl;
+    exit(1);
   }
 }
 
 void VivaGraph::collapseNode (PajeContainer *container)
 {
-  collapseNodeRecurse (container);
+  //FIXME: should not access directly PajeContainer data structure
+
+  //remove all expanded nodes below this container
+  std::vector<PajeContainer*> stack;
+  stack.push_back (container);
+  while (stack.size()){
+    PajeContainer *container = stack.back();
+    stack.pop_back ();
+
+    if (!nodeMap.count(container)){
+      std::vector<PajeContainer*> children = container->getChildren();
+      stack.insert (stack.end(), children.begin(), children.end());
+    }else{
+      deleteNode (nodeMap[container]);
+    }
+  }
 
   //add the parent container
   addNode (container);
-  interconnectNodes ();
 }
 
 void VivaGraph::addNode (PajeContainer *container)
@@ -388,11 +384,13 @@ void VivaGraph::leftMouseClicked (wxPoint p)
 
     //expand the clicked node
     expandNode (clickedNode);
+    interconnectNodes ();
 
     //tell view that the graph changed
     wxCommandEvent event (VivaGraphChanged);
     wxPostEvent (view, event);
   }
+
   this->start_runner ();
 }
 
