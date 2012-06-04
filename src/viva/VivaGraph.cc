@@ -457,7 +457,14 @@ void VivaGraph::collapseNode (PajeContainer *container)
 void VivaGraph::addNode (PajeContainer *container)
 {
   if (shouldBePresent (container)){
-    VivaNode *node = new VivaNode (this, container, config_root_setting(&config), layout);
+    tp_point point = tp_Point(0,0);
+    if (positions.count(container)){
+      point = positions[container];
+    }else if (container->container() && positions.count(container->container())){
+      point = positions[container->container()];
+    }
+
+    VivaNode *node = new VivaNode (this, container, config_root_setting(&config), layout, point);
     nodes.push_back (node);
     nodeMap[container] = node;
 
@@ -466,14 +473,12 @@ void VivaGraph::addNode (PajeContainer *container)
   }
 }
 
-void VivaGraph::addNode (PajeContainer *container, tp_point np)
-{
-  //to be implemented
-}
-
 void VivaGraph::deleteNode (VivaNode *node)
 {
   PajeContainer *container = node->container;
+  //save position of this container for the future
+  positions[container] = node->position();
+
   std::vector<VivaNode*>::iterator itx;
   itx = find (nodes.begin(), nodes.end(), node);
   nodes.erase (itx);

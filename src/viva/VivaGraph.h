@@ -42,6 +42,7 @@ private:
   VivaRunner *runner;
   std::map<PajeContainer*,VivaNode*> nodeMap;
   std::map<PajeContainer*,std::set<PajeContainer*> > edges;
+  std::map<PajeContainer*,tp_point> positions;
 
   VivaNode *getSelectedNodeByPosition (wxPoint point);
   bool hasChildren (PajeContainer *container);
