@@ -21,6 +21,8 @@ tp_particle *particle_new_with_point (const char *name, tp_layout *layout, tp_bo
   tp_particle *ret = (tp_particle*) malloc (sizeof(tp_particle));
   ret->name = strdup (name);
   ret->position = point;
+  ret->position.x += drand48() * 0.1;
+  ret->position.y += drand48() * 0.1;
   ret->mask = tp_Rect (0,0,0,0);
   ret->weight = 1;
   ret->cell = NULL;
