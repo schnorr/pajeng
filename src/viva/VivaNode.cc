@@ -106,7 +106,7 @@ void VivaComposition::draw (cairo_t *cr, tp_point base)
   //dark thin border
   cairo_set_source_rgb (cr, 0, 0, 0);
   cairo_rectangle (cr, 0, 0, width, height);
-  cairo_set_line_width (cr, 0.2);
+  cairo_set_line_width (cr, 1);
   cairo_stroke (cr);
 
   cairo_translate (cr, -base.x, -base.y);
