@@ -549,6 +549,7 @@ void VivaGraph::rightMouseClicked (wxPoint p)
 
     //collapse the parent of the clicked node
     collapseNode (parent);
+    interconnectNodes ();
 
     //tell view that the graph changed
     wxCommandEvent event (VivaGraphChanged);
