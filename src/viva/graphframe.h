@@ -24,14 +24,13 @@ public:
                 const wxSize & size = wxDefaultSize,
                 long style = wxDEFAULT_FRAME_STYLE,
                 const wxString & name = _T("GraphFrame"));
-
+  void setVivaGraph (VivaGraph *vivagraph);
 
 private:
   VivaGraph *vivagraph;
   wxRealPoint convertPoint (wxPoint point);
 
   void OnPaint (wxPaintEvent& event);
-  void setVivaGraph (VivaGraph *vivagraph);
   void OnMouseMotion (wxMouseEvent& event);
   void OnMouseWheel (wxMouseEvent& event);
   void OnSize (wxSizeEvent& event);
