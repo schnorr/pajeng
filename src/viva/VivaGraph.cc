@@ -585,6 +585,9 @@ void VivaGraph::qualityChanged (int quality)
 void VivaGraph::scaleSliderChanged (void)
 {
   this->layoutNodes ();
+
+  wxCommandEvent event (VivaGraphLayoutUpdated);
+  wxPostEvent (view, event);
 }
 
 double VivaGraph::maxForConfigurationWithName (std::string configurationName)
