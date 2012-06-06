@@ -29,7 +29,7 @@ public:
   VivaComposition (VivaGraph *filter, PajeContainer *container, config_setting_t *configuration);
   ~VivaComposition ();
   void layout (void);
-  void draw (cairo_t *cr, tp_point base);
+  void draw (tp_point base);
 };
 
 class VivaNode
@@ -53,8 +53,8 @@ public:
 
   tp_point position (void);
   void layout (void);
-  void draw (cairo_t *cr);
-  void drawEdges (cairo_t *cr);
+  void draw (void);
+  void drawEdges (void);
   bool hasPoint (double x, double y);
   void setConnectedNodes (std::vector<tp_node*> connectedNodes);
 };

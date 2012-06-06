@@ -96,14 +96,13 @@ void VivaComposition::layout (void)
   }
 }
 
-void VivaComposition::draw (cairo_t *cr, tp_point base)
+void VivaComposition::draw (tp_point base)
 {
-  cairo_translate (cr, base.x, base.y);
+  glTranslatef (base.x, base.y, 0);
 
   //fill my rectangle
-  cairo_set_source_rgb (cr, 1, 1, 1);
-  cairo_rectangle (cr, 0, 0, width, height);
-  cairo_fill (cr);
+  glColor3f (1.0, 1.0, 1.0);
+  glRectf (0, 0, width, -height);
 
   std::map<PajeType*,double>::iterator it;
   double yaccum = 0;
@@ -111,20 +110,22 @@ void VivaComposition::draw (cairo_t *cr, tp_point base)
     double size = (*it).second;
     PajeColor *color = filter->colorForEntityType ((*it).first);
 
-    cairo_set_source_rgb (cr, color->r, color->g, color->b);
-    cairo_rectangle (cr, 0, yaccum, width, height * size);
-    cairo_fill (cr);
+    glColor3f (color->r, color->g, color->b);
+    glRectf (0, yaccum, width, -height * size);
 
-    yaccum += size;
+    yaccum -= size;
   }
 
   //dark thin border
-  cairo_set_source_rgb (cr, 0, 0, 0);
-  cairo_rectangle (cr, 0, 0, width, height);
-  cairo_set_line_width (cr, 1);
-  cairo_stroke (cr);
+  glColor3f (0, 0, 0);
+  glBegin (GL_LINE_LOOP);
+  glVertex2f (0, 0);
+  glVertex2f (0, -height);
+  glVertex2f (width, -height);
+  glVertex2f (width, 0);
+  glEnd ();
 
-  cairo_translate (cr, -base.x, -base.y);
+  glTranslatef (-base.x, -base.y, 0);
 }
 
 VivaNode::VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, tp_layout *layout)
@@ -215,43 +216,37 @@ void VivaNode::layout (void)
   particle_set_mask (node->particle, mask);
 }
 
-void VivaNode::draw (cairo_t *cr)
+void VivaNode::draw (void)
 {
   tp_point position = this->position();
   tp_point translate = tp_Point (position.x - width/2,
-                                 position.y - height/2);
+                                 position.y + height/2);
 
-  //apply node transformation matrix
-  cairo_translate (cr, translate.x, translate.y);
-
-  tp_point base = tp_Point (0, 0);
-
-  std::vector<VivaComposition*>::iterator it;
-  for (it = compositions.begin(); it != compositions.end(); it++){
-    VivaComposition *comp = (*it);
-    comp->draw(cr, base);
-    base.x += comp->width;
+  glTranslatef(translate.x, translate.y, 0);
+  {
+    tp_point base = tp_Point (0, 0);
+    std::vector<VivaComposition*>::iterator it;
+    for (it = compositions.begin(); it != compositions.end(); it++){
+      VivaComposition *comp = (*it);
+      comp->draw(base);
+      base.x += comp->width;
+    }
   }
-
-  // TODO, FIXME: draw the name of the node
-
-  //unde node transformation matrix
-  cairo_translate (cr, -translate.x, -translate.y);
+  glTranslatef(-translate.x, -translate.y, 0);
 }
 
-void VivaNode::drawEdges (cairo_t *cr)
+void VivaNode::drawEdges ()
 {
-  tp_point myposition = this->position();
+  tp_point position = this->position();
   int i, count = dynar_count(this->node->connected);
   for (i = 0; i < count; i++){
     tp_node *n = dynar_get_as (this->node->connected, tp_node*, i);
     tp_point nposition = ((VivaNode*)n->data)->position();
 
-    cairo_move_to (cr, myposition.x, myposition.y);
-    cairo_line_to (cr, nposition.x, nposition.y);
-    cairo_set_source_rgba (cr, 0, 0, 0, 0.1);
-    cairo_set_line_width (cr, 0.5);
-    cairo_stroke (cr);
+    glBegin (GL_LINES);
+    glVertex2f (position.x, position.y);
+    glVertex2f (nposition.x, nposition.y);
+    glEnd ();
   }
 }
 
