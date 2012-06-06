@@ -568,6 +568,11 @@ void VivaGraph::rightMouseClicked (wxRealPoint p)
   this->start_runner();
 }
 
+VivaNode *VivaGraph::mouseOver (wxRealPoint point)
+{
+  return getSelectedNodeByPosition (point);
+}
+
 void VivaGraph::qualityChanged (int quality)
 {
   layout_set_quality (layout, quality);

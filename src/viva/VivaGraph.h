@@ -71,6 +71,7 @@ public:
   void setWindow (GraphWindow *window);
   void leftMouseClicked (wxRealPoint point);
   void rightMouseClicked (wxRealPoint point);
+  VivaNode *mouseOver (wxRealPoint point);
   void qualityChanged (int quality);
   void scaleSliderChanged ();
   void stop_runner (void);
