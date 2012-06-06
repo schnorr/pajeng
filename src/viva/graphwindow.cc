@@ -128,7 +128,7 @@ GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
 
   this->Connect(CreateScaleSliders,
                 wxCommandEventHandler(GraphWindow::OnCreateScaleSliders));
-  this->Connect (wxEVT_SCROLL_THUMBTRACK,
+  this->Connect (wxEVT_SCROLL_THUMBRELEASE,
                  wxScrollEventHandler(GraphWindow::OnScaleSliderChanged));
 
   main_panel->SetSizer(main_vbox);
