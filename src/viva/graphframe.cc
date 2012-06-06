@@ -49,6 +49,28 @@ void GraphFrame::setVivaGraph (VivaGraph *vivagraph)
   vivagraph->setView (this);
 }
 
+wxRealPoint GraphFrame::convertPoint (wxPoint point)
+{
+  //detect
+  GLdouble   sx,sy,sz;
+  GLdouble   depth;
+  GLdouble pMat[4*4];
+  GLdouble   mMat[4*4];
+  GLint viewport[4]; // MinX MinY MaxX MaxY
+
+  glLoadIdentity();
+  glTranslatef (translate.x, -translate.y, 0);
+  glScalef (ratio, ratio, 1);
+  glGetDoublev(GL_MODELVIEW_MATRIX, mMat);
+  glGetDoublev(GL_PROJECTION_MATRIX, pMat);
+  glGetIntegerv(GL_VIEWPORT, viewport);
+  gluUnProject((GLint)point.x, viewport[3] - (GLint)point.y,  // send the mouse coordinates
+               0,
+               mMat,pMat,viewport,
+               &sx, &sy, &sz);
+  return wxRealPoint (sx, sy);
+}
+
 void GraphFrame::OnPaint(wxPaintEvent& event)
 {
   if (!vivagraph) return;

@@ -28,6 +28,7 @@ public:
 
 private:
   VivaGraph *vivagraph;
+  wxRealPoint convertPoint (wxPoint point);
 
   void OnPaint (wxPaintEvent& event);
 
