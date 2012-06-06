@@ -243,6 +243,8 @@ void VivaNode::drawEdges ()
     tp_node *n = dynar_get_as (this->node->connected, tp_node*, i);
     tp_point nposition = ((VivaNode*)n->data)->position();
 
+    glColor4f (0, 0, 0, 0.1);
+
     glBegin (GL_LINES);
     glVertex2f (position.x, position.y);
     glVertex2f (nposition.x, nposition.y);
