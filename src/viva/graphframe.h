@@ -2,35 +2,39 @@
 #define __GRAPH_FRAME_H
 #include <wx/wx.h>
 #include <gtk/gtk.h>
+#include <wx/glcanvas.h>
+#include <GL/glu.h>
 #include <cairo.h>
 #include "basic.h"
 
 class VivaGraph;
 
-class GraphFrame : public BasicFrame
+class GraphFrame : public wxGLCanvas
 {
+protected:
+  double ratio;
+  wxRealPoint translate;
+  wxPoint mousePosition;
+  double aspect_ratio;
+
 public:
-  GraphFrame () {;};
   GraphFrame (wxWindow *parent,
-              wxWindowID id,
-              const wxPoint & pos = wxDefaultPosition,
-              const wxSize & size = wxDefaultSize,
-              long style = wxDEFAULT_FRAME_STYLE,
-              const wxString & name = _T("GraphFrame"));
-  ~GraphFrame () {;};
-  bool Create(wxWindow* parent,
-              wxWindowID id,
-              const wxPoint & pos = wxDefaultPosition,
-              const wxSize & size = wxDefaultSize,
-              long style = wxDEFAULT_FRAME_STYLE,
-              const wxString & name = _T("GraphFrame"));
-  void setVivaGraph (VivaGraph *vivagraph);
+                wxWindowID id,
+                const wxPoint & pos = wxDefaultPosition,
+                const wxSize & size = wxDefaultSize,
+                long style = wxDEFAULT_FRAME_STYLE,
+                const wxString & name = _T("GraphFrame"));
+
 
 private:
   VivaGraph *vivagraph;
   wxRealPoint convertPoint (wxPoint point);
 
   void OnPaint (wxPaintEvent& event);
+  void setVivaGraph (VivaGraph *vivagraph);
+  void OnMouseMotion (wxMouseEvent& event);
+  void OnMouseWheel (wxMouseEvent& event);
+  void OnSize (wxSizeEvent& event);
 
   //user interactions
   void leftMouseClicked (wxMouseEvent& event);
