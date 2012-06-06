@@ -44,7 +44,7 @@ private:
   std::map<PajeContainer*,std::set<PajeContainer*> > edges;
   std::map<PajeContainer*,tp_point> positions;
 
-  VivaNode *getSelectedNodeByPosition (wxPoint point);
+  VivaNode *getSelectedNodeByPosition (wxRealPoint point);
   bool hasChildren (PajeContainer *container);
   bool hasParent (PajeContainer *container);
   void expandNode (VivaNode *node);
@@ -69,8 +69,8 @@ public:
   ~VivaGraph ();
   void setView (GraphFrame *view);
   void setWindow (GraphWindow *window);
-  void leftMouseClicked (wxPoint point);
-  void rightMouseClicked (wxPoint point);
+  void leftMouseClicked (wxRealPoint point);
+  void rightMouseClicked (wxRealPoint point);
   void qualityChanged (int quality);
   void scaleSliderChanged ();
   void stop_runner (void);

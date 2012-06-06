@@ -372,7 +372,7 @@ void VivaGraph::hierarchyChanged (void)
   }
 }
 
-VivaNode *VivaGraph::getSelectedNodeByPosition (wxPoint p)
+VivaNode *VivaGraph::getSelectedNodeByPosition (wxRealPoint p)
 {
   tp_point point;
   point.x = (double)p.x/100;
@@ -525,7 +525,7 @@ void VivaGraph::interconnectNodes (void)
   }
 }
 
-void VivaGraph::leftMouseClicked (wxPoint p)
+void VivaGraph::leftMouseClicked (wxRealPoint p)
 {
   VivaNode *clickedNode = getSelectedNodeByPosition (p);
   if (!clickedNode) return;
@@ -543,11 +543,10 @@ void VivaGraph::leftMouseClicked (wxPoint p)
     wxCommandEvent event (VivaGraphChanged);
     wxPostEvent (view, event);
   }
-
   this->start_runner ();
 }
 
-void VivaGraph::rightMouseClicked (wxPoint p)
+void VivaGraph::rightMouseClicked (wxRealPoint p)
 {
   VivaNode *clickedNode = getSelectedNodeByPosition (p);
   if (!clickedNode) return;
