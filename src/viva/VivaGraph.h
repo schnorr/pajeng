@@ -57,6 +57,7 @@ private:
 
 public:
   std::vector<VivaNode*> nodes;
+  bool layoutDone;
 
 private:
   void defineEdges (void);

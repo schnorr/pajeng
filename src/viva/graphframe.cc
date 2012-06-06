@@ -65,6 +65,7 @@ wxRealPoint GraphFrame::convertPoint (wxPoint point)
 void GraphFrame::OnPaint(wxPaintEvent& event)
 {
   if (!vivagraph) return;
+  if (!vivagraph->layoutDone) return;
 
   SetCurrent();
   glDisable(GL_DEPTH_TEST);
