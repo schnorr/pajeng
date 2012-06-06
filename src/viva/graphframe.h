@@ -38,10 +38,6 @@ private:
   //from VivaGraph, and runner
   void OnVivaGraphChanged (wxCommandEvent& event);
   void OnVivaGraphLayoutUpdated (wxCommandEvent& event);
-
-protected:
-  wxSize DoGetBestSize ();
-
 };
 
 BEGIN_DECLARE_EVENT_TYPES()
