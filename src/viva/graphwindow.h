@@ -8,9 +8,6 @@
 
 class VivaGraph;
 
-DECLARE_EVENT_TYPE (VivaGraphChanged, -1)
-DECLARE_EVENT_TYPE (VivaGraphLayoutUpdated, -1)
-
 class GraphWindow : public wxFrame
 {
 private:
@@ -21,6 +18,9 @@ private:
   wxMenu *edit;
   wxMenu *view;
   wxMenu *help;
+
+  wxPanel *main_panel;
+  wxBoxSizer *main_vbox;
 
 private:
   std::map<std::string,wxSlider*> scaleSliders;
@@ -36,11 +36,16 @@ protected:
   void OnFDThreadManagement (wxCommandEvent& event);
   void OnGoButtonsPressed (wxCommandEvent& event);
   void OnRefreshButtonPressed (wxCommandEvent& event);
+  void OnCreateScaleSliders (wxCommandEvent& event);
 
 public:
   GraphWindow (wxWindow *parent, VivaGraph *vivagraph);
   ~GraphWindow (void);
   double scaleSliderValue (std::string name);
 };
+
+BEGIN_DECLARE_EVENT_TYPES()
+DECLARE_EVENT_TYPE(CreateScaleSliders, -1)
+END_DECLARE_EVENT_TYPES()
 
 #endif

@@ -16,9 +16,12 @@
 #define ID_GOTO_TOP 12
 #define ID_REFRESH 13
 
+DEFINE_EVENT_TYPE (CreateScaleSliders)
+
 GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
   : wxFrame(parent, wxID_ANY, wxT("Viva Graph Window"), wxDefaultPosition, wxSize(700,400))
 {
+  this->vivagraph = vivagraph;
 
   menubar = new wxMenuBar;
   file = new wxMenu;
@@ -116,42 +119,26 @@ GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
                 wxEVT_COMMAND_TOOL_CLICKED,
                 wxCommandEventHandler(GraphWindow::OnRefreshButtonPressed));
 
-  wxPanel *panel = new wxPanel(this, -1);
-  wxBoxSizer *vbox = new wxBoxSizer (wxVERTICAL);
-
-  //creating the sliders to let user control the scale of compositions
-  wxBoxSizer *scale_sliders = new wxBoxSizer (wxHORIZONTAL);
-  std::map<std::string,double> comp = vivagraph->compositionsScale;
-  std::map<std::string,double>::iterator it;
-  for (it = comp.begin(); it != comp.end(); it++){
-    std::string confname = (*it).first;
-    double value = (*it).second;
-    int max = std::numeric_limits<int>::max();
-    wxSlider *slider = new wxSlider (panel, wxID_ANY, max * COMPOSITION_DEFAULT_USER_SCALE, 0, max);
-    wxStaticText *start_text = new wxStaticText (panel, -1, wxString(confname.c_str(), wxConvUTF8));
-    wxSizerFlags flags;
-    scale_sliders->Add (start_text);
-    scale_sliders->Add (slider, 1, wxEXPAND);
-
-    //saving scale slider so we can get its value after
-    scaleSliders[confname] = slider;
-  }
+  main_panel = new wxPanel(this, -1);
+  main_vbox = new wxBoxSizer (wxVERTICAL);
 
   //creating the graphframe where the graph is drawn
-  GraphFrame *graphframe = new GraphFrame (panel, -1);
+  GraphFrame *graphframe = new GraphFrame (main_panel, -1);
+  main_vbox->Add (graphframe, 1, wxEXPAND);
 
-  //add sliders box and graphframe to the vbox of this window's panel
-  vbox->Add(scale_sliders, 0, wxEXPAND);
-  vbox->Add (graphframe, 1, wxEXPAND);
-
+  this->Connect(CreateScaleSliders,
+                wxCommandEventHandler(GraphWindow::OnCreateScaleSliders));
   this->Connect (wxEVT_SCROLL_THUMBTRACK,
                  wxScrollEventHandler(GraphWindow::OnScaleSliderChanged));
 
-  panel->SetSizer(vbox);
+  main_panel->SetSizer(main_vbox);
   Centre();
 
+  //try to create sliders now
+  wxCommandEvent event (CreateScaleSliders);
+  wxPostEvent (this, event);
+
   //let everything work smoothly with filters
-  this->vivagraph = vivagraph;
   vivagraph->setWindow (this);
   graphframe->setVivaGraph (vivagraph);
 }
@@ -165,11 +152,16 @@ double GraphWindow::scaleSliderValue (std::string name)
   if (!vivagraph){
     return COMPOSITION_DEFAULT_USER_SCALE;
   }
-  int max = std::numeric_limits<int>::max();
+  if (scaleSliders.size () == 0){
+    wxCommandEvent event (CreateScaleSliders);
+    wxPostEvent (this, event);
+    return COMPOSITION_DEFAULT_USER_SCALE;
+  }
+
   if (scaleSliders.count(name) == 0){
-    std::cout << "Warning, no scale slider for " << name << std::endl;
     return COMPOSITION_DEFAULT_USER_SCALE;
   }else{
+    int max = std::numeric_limits<int>::max();
     return (double)scaleSliders[name]->GetValue()/max;
   }
 }
@@ -238,4 +230,41 @@ void GraphWindow::OnGoButtonsPressed(wxCommandEvent& event)
 void GraphWindow::OnRefreshButtonPressed(wxCommandEvent& event)
 {
   vivagraph->refresh ();
+}
+
+void GraphWindow::OnCreateScaleSliders (wxCommandEvent& event)
+{
+  if (!vivagraph){
+    throw "vivagraph is not defined on "+std::string(__FUNCTION__);
+  }
+
+  if (!vivagraph->compositionsScale.size()){
+    return;
+  }
+
+  static int created = 0;
+  if (created) return;
+
+  //creating the sliders to let user control the scale of compositions
+  wxBoxSizer *scale_sliders = new wxBoxSizer (wxHORIZONTAL);
+  std::map<std::string,double> comp = vivagraph->compositionsScale;
+  std::map<std::string,double>::iterator it;
+  for (it = comp.begin(); it != comp.end(); it++){
+    std::string confname = (*it).first;
+    double value = (*it).second;
+    int max = std::numeric_limits<int>::max();
+    wxSlider *slider = new wxSlider (main_panel, wxID_ANY, max * COMPOSITION_DEFAULT_USER_SCALE, 0, max);
+    wxStaticText *start_text = new wxStaticText (main_panel, -1, wxString(confname.c_str(), wxConvUTF8));
+    wxSizerFlags flags;
+    scale_sliders->Add (start_text);
+    scale_sliders->Add (slider, 1, wxEXPAND);
+
+    //saving scale slider so we can get its value after
+    scaleSliders[confname] = slider;
+  }
+  main_vbox->Add(scale_sliders, 0, wxEXPAND);
+  main_panel->Fit();
+  Fit();
+
+  created = 1;
 }
