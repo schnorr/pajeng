@@ -36,6 +36,7 @@ VivaGraph::VivaGraph (std::string conffile)
   view = NULL;
   window = NULL;
   runner = NULL;
+  layoutDone = false;
 
   //extract types for nodes and edges
   config_init (&config);
@@ -135,14 +136,15 @@ void VivaGraph::defineEdges (PajeContainer *container)
 
 void VivaGraph::layoutNodes (void)
 {
+  layoutDone = false;
+
   std::vector<VivaNode*>::iterator it;
   for (it = nodes.begin(); it != nodes.end(); it++){
     VivaNode *node = (*it);
     node->layout();
   }
 
-  wxCommandEvent event (VivaGraphLayoutUpdated);
-  wxPostEvent (view, event);
+  layoutDone = true;
 }
 
 void VivaGraph::stop_runner (void)
