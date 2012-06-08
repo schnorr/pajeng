@@ -29,6 +29,8 @@ int main (int argc, char **argv)
     return 1;
   }
 
+  simulator->report();
+
   delete reader;
   delete decoder;
   delete simulator;
