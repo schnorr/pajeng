@@ -136,17 +136,22 @@ void PajeContainer::addVariable (double time, PajeType *type, double value, Paje
 
   checkTimeOrder (time, type, event);
 
-  PajeEntity *last = entities[type].back();
-  if (last->startTime() == time){
-    //only update last value
-    last->addDoubleValue (value);
-    return;
-  }else{
-    last->setEndTime (time);
+  double lastValue = 0;
+  if (entities.count(type)){
+    if (entities[type].size()){
+      PajeEntity *last = entities[type].back();
+      if (last->startTime() == time){
+        //only update last value
+        last->addDoubleValue (value);
+        return;
+      }else{
+        last->setEndTime (time);
+      }
+      lastValue = last->doubleValue();
+    }
   }
-
   //create new
-  PajeUserVariable *val = new PajeUserVariable (this, type, last->doubleValue() + value, time, time);
+  PajeUserVariable *val = new PajeUserVariable (this, type, lastValue + value, time, time);
   entities[type].push_back(val);
 
   //update container endtime
@@ -163,16 +168,23 @@ void PajeContainer::subVariable (double time, PajeType *type, double value, Paje
 
   checkTimeOrder (time, type, event);
 
-  PajeEntity *last = entities[type].back();
-  if (last->startTime() == time){
-    last->subtractDoubleValue (value);
-    return;
-  }else{
-    last->setEndTime (time);
+  double lastValue = 0;
+  if (entities.count(type)){
+    if (entities[type].size()){
+      PajeEntity *last = entities[type].back();
+      if (last->startTime() == time){
+        //only update last value
+        last->subtractDoubleValue (value);
+        return;
+      }else{
+        last->setEndTime (time);
+      }
+      lastValue = last->doubleValue();
+    }
   }
 
   //create new
-  PajeUserVariable *val = new PajeUserVariable (this, type, last->doubleValue() - value, time, time);
+  PajeUserVariable *val = new PajeUserVariable (this, type, lastValue - value, time, time);
   entities[type].push_back(val);
 
   //update container endtime
