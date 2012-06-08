@@ -15,6 +15,7 @@ std::map<std::string,PajeEventId> initPajeEventNamesToID ()
   ret["PajeSetState"] = PajeSetStateEventId;
   ret["PajePushState"] = PajePushStateEventId;
   ret["PajePopState"] = PajePopStateEventId;
+  ret["PajeResetState"] = PajeResetStateEventId;
   ret["PajeSetVariable"] = PajeSetVariableEventId;
   ret["PajeAddVariable"] = PajeAddVariableEventId;
   ret["PajeSubVariable"] = PajeSubVariableEventId;
@@ -38,6 +39,7 @@ std::map<PajeEventId,std::string> initPajeEventIDToNames ()
   ret[PajeSetStateEventId] = "PajeSetState";
   ret[PajePushStateEventId] = "PajePushState";
   ret[PajePopStateEventId] = "PajePopState";
+  ret[PajeResetStateEventId] = "PajeResetState";
   ret[PajeSetVariableEventId] = "PajeSetVariable";
   ret[PajeAddVariableEventId] = "PajeAddVariable";
   ret[PajeSubVariableEventId] = "PajeSubVariable";
@@ -125,6 +127,11 @@ std::map<PajeEventId,std::set<std::string> > initObligatoryFields ()
   ret[PajePopStateEventId].insert (type);
   ret[PajePopStateEventId].insert (container);
 
+  ret[PajeResetStateEventId] = std::set<std::string>();
+  ret[PajeResetStateEventId].insert (time);
+  ret[PajeResetStateEventId].insert (type);
+  ret[PajeResetStateEventId].insert (container);
+
   ret[PajeSetVariableEventId] = std::set<std::string>();
   ret[PajeSetVariableEventId].insert (time);
   ret[PajeSetVariableEventId].insert (type);
@@ -210,6 +217,10 @@ std::map<PajeEventId,std::set<std::string> > initOptionalFields ()
   ret[PajePopStateEventId] = std::set<std::string>();
   ret[PajePopStateEventId].insert (file);
   ret[PajePopStateEventId].insert (line);
+
+  ret[PajeResetStateEventId] = std::set<std::string>();
+  ret[PajeResetStateEventId].insert (file);
+  ret[PajeResetStateEventId].insert (line);
 
   ret[PajeSetVariableEventId] = std::set<std::string>();
   ret[PajeAddVariableEventId] = std::set<std::string>();

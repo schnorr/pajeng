@@ -14,6 +14,7 @@ PajeSimulator::PajeSimulator ()
   invocation[PajeSetStateEventId] = &PajeSimulator::pajeSetState;
   invocation[PajePushStateEventId] = &PajeSimulator::pajePushState;
   invocation[PajePopStateEventId] = &PajeSimulator::pajePopState;
+  invocation[PajeResetStateEventId] = &PajeSimulator::pajeResetState;
   invocation[PajeSetVariableEventId] = &PajeSimulator::pajeSetVariable;
   invocation[PajeAddVariableEventId] = &PajeSimulator::pajeAddVariable;
   invocation[PajeSubVariableEventId] = &PajeSimulator::pajeSubVariable;
@@ -529,6 +530,53 @@ void PajeSimulator::pajePopState (PajeEvent *event)
   }
 
   container->popState (lastKnownTime, type, value, event);
+}
+
+
+void PajeSimulator::pajeResetState (PajeEvent *event)
+{
+  std::string time = event->valueForFieldId (std::string("Time"));
+  std::string typestr = event->valueForFieldId (std::string("Type"));
+  std::string containerstr = event->valueForFieldId (std::string("Container"));
+  std::string value = event->valueForFieldId (std::string("Value"));
+
+  //search the container
+  PajeContainer *container = contMap[containerstr];
+  if (!container){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown container '"+containerstr+"' in "+line.str();
+  }
+
+  //search the type
+  PajeType *type = typeMap[typestr];
+  if (!type){
+    std::stringstream line;
+    line << *event;
+    throw "Unknown type '"+typestr+"' in "+line.str();
+  }
+
+  //verify if the type is a state type
+  if (!dynamic_cast<PajeStateType*>(type)){
+    std::stringstream line;
+    line << *event;
+    std::stringstream desc;
+    desc << *type;
+    throw "Type '"+desc.str()+"' is not a state type in "+line.str();
+  }
+
+  //verify if the type is child of container type
+  if (type->parent != container->type()){
+    std::stringstream eventdesc;
+    eventdesc << *event;
+    std::stringstream ctype1;
+    ctype1 << *type;
+    std::stringstream ctype2;
+    ctype2 << *container->type();
+    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+  }
+
+  container->resetState (lastKnownTime, type, value, event);
 }
 
 void PajeSimulator::pajeSetVariable (PajeEvent *event)

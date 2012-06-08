@@ -47,6 +47,7 @@ public:
   void setState (double time, PajeType *type, std::string value, PajeEvent *event);
   void pushState (double time, PajeType *type, std::string value, PajeEvent *event);
   void popState (double time, PajeType *type, std::string value, PajeEvent *event);
+  void resetState (double time, PajeType *type, std::string value, PajeEvent *event);
 
 public:
   void recursiveDestroy (double time, PajeEvent *event); //not a PajeSimulator event, EOF found

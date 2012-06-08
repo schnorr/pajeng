@@ -251,17 +251,12 @@ void PajeContainer::setState (double time, PajeType *type, std::string value, Pa
 {
   checkTimeOrder (time, type, event);
 
-  //clean the stack, using time as endTime
-  std::vector<PajeUserState*> *stack = &stackStates[type];
-  std::vector<PajeUserState*>::iterator it;
-  for (it = stack->begin(); it != stack->end(); it++){
-    PajeUserState *state = (*it);
-    state->setEndTime (time);
-  }
-  stack->clear();
+  resetState (time, type, value, event);
 
   PajeUserState *state = new PajeUserState (this, type, value, time);
   entities[type].push_back (state);
+
+  std::vector<PajeUserState*> *stack = &stackStates[type];
   stack->push_back (state);
 }
 
@@ -297,6 +292,20 @@ void PajeContainer::popState (double time, PajeType *type, std::string value, Pa
 
   //pop the stack
   stack->pop_back();
+}
+
+void PajeContainer::resetState (double time, PajeType *type, std::string value, PajeEvent *event)
+{
+  checkTimeOrder (time, type, event);
+
+  //clean the stack, using time as endTime
+  std::vector<PajeUserState*> *stack = &stackStates[type];
+  std::vector<PajeUserState*>::iterator it;
+  for (it = stack->begin(); it != stack->end(); it++){
+    PajeUserState *state = (*it);
+    state->setEndTime (time);
+  }
+  stack->clear();
 }
 
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container)
