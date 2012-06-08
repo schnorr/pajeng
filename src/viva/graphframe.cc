@@ -67,6 +67,11 @@ void GraphFrame::OnPaint(wxPaintEvent& event)
   if (!vivagraph) return;
   if (!vivagraph->layoutDone) return;
 
+  if (vivagraph->nodes.size() == 0){
+    std::cout << "nothing to draw" << std::endl;
+    return;
+  }
+
   SetCurrent();
   glEnable (GL_BLEND);
   glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
