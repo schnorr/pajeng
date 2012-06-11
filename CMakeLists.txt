@@ -11,6 +11,9 @@ FIND_PACKAGE(Graphviz)
 
 SET(CMAKE_CXX_FLAGS "-g -rdynamic")
 
+#
+# The Paje Library
+#
 SET(PAJE_LIB_SRC
   src/pajelib/PajeEventDefinition.cc
   src/pajelib/PajeEvent.cc
@@ -27,40 +30,48 @@ SET(PAJE_LIB_SRC
   src/pajelib/PajeColor.cc
   src/pajelib/PajeEntity.cc
 )
-ADD_LIBRARY(pajecpp SHARED ${PAJE_LIB_SRC})
+ADD_LIBRARY(pajelib SHARED ${PAJE_LIB_SRC})
 
+#
+# The Tupi Library written in C (particle system)
+#
 SET(TUPI_LIB_SRC
-  src/tupi/bary.c
-  src/tupi/basic.c
-  src/tupi/dynar.c
-  src/tupi/dict.c
-  src/tupi/particle.c
-  src/tupi/box.c
-  src/tupi/cell.c
-  src/tupi/layout.c
-  src/tupi/node.c)
-ADD_LIBRARY(tupic SHARED ${TUPI_LIB_SRC})
-TARGET_LINK_LIBRARIES(tupic m)
+  src/tupilib/bary.c
+  src/tupilib/basic.c
+  src/tupilib/dynar.c
+  src/tupilib/dict.c
+  src/tupilib/particle.c
+  src/tupilib/box.c
+  src/tupilib/cell.c
+  src/tupilib/layout.c
+  src/tupilib/node.c)
+ADD_LIBRARY(tupilib SHARED ${TUPI_LIB_SRC})
+TARGET_LINK_LIBRARIES(tupilib m)
 
-INCLUDE_DIRECTORIES (src/paje/)
-INCLUDE_DIRECTORIES (src/tupi/)
-INCLUDE( "${wxWidgets_USE_FILE}" )
+#
+# Paje Validate (checks if a trace file is valid or not)
+# 
+ADD_EXECUTABLE(paje_validate src/paje_validate/main.cc)
+INCLUDE_DIRECTORIES (paje_validate ${PROJECT_SOURCE_DIR}/src/pajelib/)
+TARGET_LINK_LIBRARIES(paje_validate pajelib)
 
-# paje command-line executable
-ADD_EXECUTABLE(paje src/main-paje.cc)
-TARGET_LINK_LIBRARIES(paje pajecpp)
-
+#
 # tupi wxwidgets viewer (loads dot files)
+#
+INCLUDE ( "${wxWidgets_USE_FILE}" )
 SET(TUPIWX_SRC
   src/tupiwx/main.cc
   src/tupiwx/basic.cc
   src/tupiwx/tupiew.cc
   src/tupiwx/runner.cc)
 ADD_EXECUTABLE(tupi ${TUPIWX_SRC})
+INCLUDE_DIRECTORIES (paje_validate ${PROJECT_SOURCE_DIR}/src/tupilib/)
 INCLUDE_DIRECTORIES(${graphviz_INCLUDE_DIRS})
-TARGET_LINK_LIBRARIES(tupi ${wxWidgets_LIBRARIES} tupic ${graphviz_GVC_LIBRARY} ${graphviz_GRAPH_LIBRARY})
+TARGET_LINK_LIBRARIES(tupi ${wxWidgets_LIBRARIES} tupilib ${graphviz_GVC_LIBRARY} ${graphviz_GRAPH_LIBRARY})
 
+#
 # viva executable
+#
 SET(VIVA_SRC
   src/viva/main.cc
   src/viva/basic.cc
@@ -75,5 +86,5 @@ SET(VIVA_SRC
 ADD_EXECUTABLE(viva ${VIVA_SRC})
 include_directories(viva ${GTK2_INCLUDE_DIRS})
 include_directories(viva ${Cairo_INCLUDE_DIRS})
-target_link_libraries(viva ${wxWidgets_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${Cairo_LIBRARIES} ${GTK2_LIBRARIES} ${LIBCONFIG_LIBRARIES} tupic pajecpp )
+target_link_libraries(viva ${wxWidgets_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${Cairo_LIBRARIES} ${GTK2_LIBRARIES} ${LIBCONFIG_LIBRARIES} tupilib pajelib )
 
