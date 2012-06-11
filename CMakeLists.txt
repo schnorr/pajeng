@@ -12,20 +12,20 @@ FIND_PACKAGE(Graphviz)
 SET(CMAKE_CXX_FLAGS "-g -rdynamic")
 
 SET(PAJE_LIB_SRC
-  src/paje/PajeEventDefinition.cc
-  src/paje/PajeEvent.cc
-  src/paje/PajeData.cc
-  src/paje/PajeFileReader.cc
-  src/paje/PajeEventDecoder.cc
-  src/paje/PajeSimulator.cc
-  src/paje/PajeSimulator+Queries.cc
-  src/paje/PajeSimulator+Commands.cc
-  src/paje/PajeTraceController.cc
-  src/paje/PajeComponent.cc
-  src/paje/PajeType.cc
-  src/paje/PajeContainer.cc
-  src/paje/PajeColor.cc
-  src/paje/PajeEntity.cc
+  src/pajelib/PajeEventDefinition.cc
+  src/pajelib/PajeEvent.cc
+  src/pajelib/PajeData.cc
+  src/pajelib/PajeFileReader.cc
+  src/pajelib/PajeEventDecoder.cc
+  src/pajelib/PajeSimulator.cc
+  src/pajelib/PajeSimulator+Queries.cc
+  src/pajelib/PajeSimulator+Commands.cc
+  src/pajelib/PajeTraceController.cc
+  src/pajelib/PajeComponent.cc
+  src/pajelib/PajeType.cc
+  src/pajelib/PajeContainer.cc
+  src/pajelib/PajeColor.cc
+  src/pajelib/PajeEntity.cc
 )
 ADD_LIBRARY(pajecpp SHARED ${PAJE_LIB_SRC})
 
