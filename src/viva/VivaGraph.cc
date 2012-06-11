@@ -339,10 +339,10 @@ void VivaGraph::defineMaxForConfigurations (void)
     }
     std::string size_typename = std::string(config_setting_get_string (size));
     PajeType *size_type = entityTypeWithName (size_typename);
-    std::map<std::string,double> values = spatialIntegrationOfContainer (rootInstance());
+    std::map<PajeType*,double> values = spatialIntegrationOfContainer (rootInstance());
 
     std::string settingName = std::string(config_setting_name (conf));
-    compositionsScale[settingName] = values[size_typename];
+    compositionsScale[settingName] = values[size_type];
   }
 }
 
