@@ -5,6 +5,7 @@ FIND_PACKAGE(wxWidgets COMPONENTS gl core base REQUIRED)
 FIND_PACKAGE(OpenGL REQUIRED)
 FIND_PACKAGE(LibConfig REQUIRED)
 FIND_PACKAGE(GTK2 REQUIRED)
+FIND_PACKAGE(GLUT REQUIRED)
 FIND_PACKAGE(Cairo)
 FIND_PACKAGE(Graphviz)
 
@@ -74,5 +75,5 @@ SET(VIVA_SRC
 ADD_EXECUTABLE(viva ${VIVA_SRC})
 include_directories(viva ${GTK2_INCLUDE_DIRS})
 include_directories(viva ${Cairo_INCLUDE_DIRS})
-target_link_libraries(viva ${wxWidgets_LIBRARIES} ${OPENGL_glu_LIBRARY} ${Cairo_LIBRARIES} ${GTK2_LIBRARIES} ${LIBCONFIG_LIBRARIES} tupic pajecpp )
+target_link_libraries(viva ${wxWidgets_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${Cairo_LIBRARIES} ${GTK2_LIBRARIES} ${LIBCONFIG_LIBRARIES} tupic pajecpp )
 
