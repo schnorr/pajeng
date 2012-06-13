@@ -10,7 +10,9 @@ using namespace std;
 bool is_readable (const string & filename)
 {
   ifstream file(filename.c_str());
-  return !file.fail();
+  bool ret = !file.fail();
+  file.close();
+  return ret;
 }
 
 int main (int argc, char **argv)
