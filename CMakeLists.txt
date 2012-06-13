@@ -56,6 +56,13 @@ INCLUDE_DIRECTORIES (paje_validate ${PROJECT_SOURCE_DIR}/src/pajelib/)
 TARGET_LINK_LIBRARIES(paje_validate pajelib)
 
 #
+# Paje Interrogate
+#
+ADD_EXECUTABLE(paje_interrogate src/paje_interrogate/main.cc)
+INCLUDE_DIRECTORIES (paje_interrogate ${PROJECT_SOURCE_DIR}/src/pajelib/)
+TARGET_LINK_LIBRARIES(paje_interrogate pajelib)
+
+#
 # tupi wxwidgets viewer (loads dot files)
 #
 INCLUDE ( "${wxWidgets_USE_FILE}" )
