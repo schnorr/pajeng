@@ -7,10 +7,10 @@
 
 using namespace std;
 
-bool is_readable (const string & file)
+bool is_readable (const string & filename)
 {
-  ifstream fichier(file.c_str());
-  return !fichier.fail();
+  ifstream file(filename.c_str());
+  return !file.fail();
 }
 
 int main (int argc, char **argv)
