@@ -49,8 +49,28 @@ PajeSimulator::PajeSimulator ()
 
 void PajeSimulator::report (void)
 {
-  std::cout << __PRETTY_FUNCTION__ << " Containers: " << contMap.size() << std::endl;
-  std::cout << __PRETTY_FUNCTION__ << " Types: " << typeMap.size() << std::endl;
+  std::cout << __FUNCTION__ << " Containers: " << contMap.size() << std::endl;
+  std::cout << __FUNCTION__ << " Types: " << typeMap.size() <<  std::endl;
+  std::cout << __FUNCTION__ << " Type Hierarchy:" << std::endl;
+
+  std::vector<PajeType*> stack;
+  stack.push_back (rootType);
+  while (stack.size()){
+    PajeType *last = stack.back();
+    stack.pop_back();
+    std::string name = typeid(*last).name();
+    printf ("%s |%*.*s%s (%s)\n", __FUNCTION__, last->depth, last->depth, "| ", last->name.c_str(), name.c_str());
+
+    //push back more types
+    if (this->isContainerType (last)){
+      std::vector<PajeType*> children = this->containedTypesForContainerType(last);
+      while (children.size()){
+        PajeType *x = children.back();
+        stack.push_back (x);
+        children.pop_back();
+      }
+    }
+  }
 }
 
 void PajeSimulator::setLastKnownTime (PajeEvent *event)
