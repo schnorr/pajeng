@@ -30,6 +30,7 @@ public:
   std::string name;
   std::string alias;
   PajeType *parent;
+  int depth;
 
 public:
   PajeType (std::string name, std::string alias, PajeType *parent);

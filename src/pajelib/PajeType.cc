@@ -23,6 +23,11 @@ PajeType::PajeType (std::string name, std::string alias, PajeType *parent)
   this->name = name;
   this->alias = alias;
   this->parent = parent;
+  if (parent){
+    this->depth = parent->depth + 1;
+  }else{
+    this->depth = 0;
+  }
 }
 
 std::string PajeType::identifier (void) const
