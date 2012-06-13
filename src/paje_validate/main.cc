@@ -5,11 +5,9 @@
 #include "PajeEventDecoder.h"
 #include "PajeSimulator.h"
 
-using namespace std;
-
-bool is_readable (const string & filename)
+bool is_readable (const std::string & filename)
 {
-  ifstream file(filename.c_str());
+  std::ifstream file(filename.c_str());
   bool ret = !file.fail();
   file.close();
   return ret;
@@ -18,11 +16,11 @@ bool is_readable (const string & filename)
 int main (int argc, char **argv)
 {
   if (argc != 2){
-    cerr << "usage : paje_validate [trace-file]" <<endl;
+    std::cerr << "usage : paje_validate [trace-file]" << std::endl;
     return 1;
   }
-  if (!is_readable(string(argv[1]))){
-    cerr << "trace file \"" << argv[1] << "\" not found" <<endl;
+  if (!is_readable(std::string(argv[1]))){
+    std::cerr << "trace file \"" << argv[1] << "\" not found" << std::endl;
     return 1;
   }
 
@@ -44,7 +42,7 @@ int main (int argc, char **argv)
       i++;
     }
   }catch (std::string exception){
-    cout << exception << endl;
+    std::cout << exception << std::endl;
     return 1;
   }
 
