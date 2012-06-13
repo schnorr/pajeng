@@ -22,6 +22,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <typeinfo>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
