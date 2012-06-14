@@ -41,14 +41,14 @@ GraphWindow::GraphWindow (wxWindow *parent, VivaGraph *vivagraph)
 
   menubar->Append(edit, wxT("&Edit"));
 
-  view = new wxMenu;
-  menubar->Append(view, wxT("&View"));
-  view->AppendCheckItem (ID_VIEW_TIMEINTERVAL, wxT("&Time Interval\tCtrl+T"));
-  view->AppendCheckItem (ID_VIEW_GRAPHCONFIGURATION, wxT("&Graph Configuration\tCtrl+G"));
+  // view = new wxMenu;
+  // menubar->Append(view, wxT("&View"));
+  // view->AppendCheckItem (ID_VIEW_TIMEINTERVAL, wxT("&Time Interval\tCtrl+T"));
+  // view->AppendCheckItem (ID_VIEW_GRAPHCONFIGURATION, wxT("&Graph Configuration\tCtrl+G"));
 
-  help = new wxMenu;
-  help->Append(wxID_ABOUT, wxT("&About\tCtrl+A"));
-  menubar->Append(help, wxT("&Help"));
+  // help = new wxMenu;
+  // help->Append(wxID_ABOUT, wxT("&About\tCtrl+A"));
+  // menubar->Append(help, wxT("&Help"));
 
   SetMenuBar(menubar);
 
