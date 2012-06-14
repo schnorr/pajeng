@@ -32,6 +32,7 @@ public:
   bool destroyed;
 public:
   std::map<std::string,PajeContainer*> children;
+  int depth;
 
   //keeps the values of states
   std::map<PajeType*,std::vector<double> > states;

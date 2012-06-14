@@ -20,6 +20,11 @@ PajeContainer::PajeContainer (double time, std::string name, std::string alias, 
 {
   this->alias = alias;
   this->destroyed = false;
+  if (parent){
+    this->depth = parent->depth + 1;
+  }else{
+    this->depth = 0;
+  }
 }
 
 std::vector<PajeContainer*> PajeContainer::getChildren (void)
