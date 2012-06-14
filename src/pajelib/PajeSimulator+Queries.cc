@@ -101,12 +101,20 @@ double PajeSimulator::selectionEndTime (void)
 
 PajeType *PajeSimulator::entityTypeWithName (std::string name)
 {
-  return typeNamesMap[name];
+  if (typeNamesMap.count(name)){
+    return typeNamesMap[name];
+  }else{
+    return NULL;
+  }
 }
 
 PajeContainer *PajeSimulator::containerWithName (std::string name)
 {
-  return contMap[name];
+  if (contNamesMap.count(name)){
+    return contNamesMap[name];
+  }else{
+    return NULL;
+  }
 }
 
 PajeColor *PajeSimulator::colorForValueOfEntityType (std::string value, PajeType *type)
