@@ -109,7 +109,11 @@ PajeUserEvent::PajeUserEvent (PajeContainer *container, PajeType *type, std::str
 std::string PajeUserEvent::description (void)
 {
   std::stringstream description;
-  description << "(Event) " << container()->name() << " " << type()->name << " [" << startTime() << ", " << endTime() << "] " << name();
+  description << "Event, "
+              << container()->name() << ", "
+              << type()->name << ", "
+              << "[" << startTime() << " " << endTime() << "], "
+              << name();
   return description.str();
 }
 
@@ -171,7 +175,11 @@ PajeUserState::PajeUserState (PajeContainer *container, PajeType *type, std::str
 std::string PajeUserState::description (void)
 {
   std::stringstream description;
-  description << "(State) " << container()->name() << " " << type()->name << " [" << startTime() << ", " << endTime() << "] " << name();
+  description << "State, "
+              << container()->name() << ", "
+              << type()->name << ", "
+              << "[" << startTime() << " " << endTime() << "], "
+              << name();
   return description.str();
 }
 
@@ -215,8 +223,13 @@ PajeUserVariable::PajeUserVariable (PajeContainer *container, PajeType *type, do
 
 std::string PajeUserVariable::description (void)
 {
+
   std::stringstream description;
-  description << "(Variable) " << container()->name() << " " << type()->name << " [" << startTime() << ", " << endTime() << "] " << doubleValue();
+  description << "Variable, "
+              << container()->name() << ", "
+              << type()->name << ", "
+              << "[" << startTime() << " " << endTime() << "], "
+              << doubleValue();
   return description.str();
 }
 
@@ -253,7 +266,13 @@ PajeUserLink::PajeUserLink (PajeContainer *container, PajeType *type, std::strin
 std::string PajeUserLink::description (void)
 {
   std::stringstream description;
-  description << "(Link) " << container()->name() << " " << type()->name << " [" << startTime() << ", " << endTime() << "] " << value();
+  description << "Link, "
+              << container()->name() << ", "
+              << type()->name << ", "
+              << "[" << startTime() << " " << endTime() << "], "
+              << value() << ", "
+              << startContainer()->name() << ", "
+              << endContainer()->name();
   return description.str();
 }
 
