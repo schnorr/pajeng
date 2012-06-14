@@ -51,23 +51,23 @@ TARGET_LINK_LIBRARIES(tupilib m)
 #
 # Paje Validate (checks if a trace file is valid or not)
 # 
-ADD_EXECUTABLE(paje_validate src/paje_validate/main.cc)
-INCLUDE_DIRECTORIES (paje_validate ${PROJECT_SOURCE_DIR}/src/pajelib/)
-TARGET_LINK_LIBRARIES(paje_validate pajelib)
+ADD_EXECUTABLE(pj_validate src/paje_validate/main.cc)
+INCLUDE_DIRECTORIES (pj_validate ${PROJECT_SOURCE_DIR}/src/pajelib/)
+TARGET_LINK_LIBRARIES(pj_validate pajelib)
 
 #
 # Paje Interrogate
 #
-ADD_EXECUTABLE(paje_interrogate src/paje_interrogate/main.cc)
-INCLUDE_DIRECTORIES (paje_interrogate ${PROJECT_SOURCE_DIR}/src/pajelib/)
-TARGET_LINK_LIBRARIES(paje_interrogate pajelib)
+ADD_EXECUTABLE(pj_interrogate src/paje_interrogate/main.cc)
+INCLUDE_DIRECTORIES (pj_interrogate ${PROJECT_SOURCE_DIR}/src/pajelib/)
+TARGET_LINK_LIBRARIES(pj_interrogate pajelib)
 
 #
 # Paje Dump
 #
-ADD_EXECUTABLE(paje_dump src/paje_dump/main.cc)
-INCLUDE_DIRECTORIES (paje_dump ${PROJECT_SOURCE_DIR}/src/pajelib/)
-TARGET_LINK_LIBRARIES(paje_dump pajelib)
+ADD_EXECUTABLE(pj_dump src/paje_dump/main.cc)
+INCLUDE_DIRECTORIES (pj_dump ${PROJECT_SOURCE_DIR}/src/pajelib/)
+TARGET_LINK_LIBRARIES(pj_dump pajelib)
 
 #
 # tupi wxwidgets viewer (loads dot files)
