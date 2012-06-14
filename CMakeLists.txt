@@ -79,7 +79,7 @@ SET(TUPIWX_SRC
   src/tupiwx/tupiew.cc
   src/tupiwx/runner.cc)
 ADD_EXECUTABLE(tupi ${TUPIWX_SRC})
-INCLUDE_DIRECTORIES (paje_validate ${PROJECT_SOURCE_DIR}/src/tupilib/)
+INCLUDE_DIRECTORIES (tupi ${PROJECT_SOURCE_DIR}/src/tupilib/)
 INCLUDE_DIRECTORIES(${graphviz_INCLUDE_DIRS})
 TARGET_LINK_LIBRARIES(tupi ${wxWidgets_LIBRARIES} tupilib ${graphviz_GVC_LIBRARY} ${graphviz_GRAPH_LIBRARY})
 
