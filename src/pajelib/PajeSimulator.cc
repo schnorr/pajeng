@@ -502,6 +502,11 @@ void PajeSimulator::pajeSetState (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
+  //check if the value was previously declared
+  if (type->hasValueForIdentifier (value)){
+    value = type->valueForIdentifier (value);
+  }
+
   container->setState (lastKnownTime, type, value, event);
 }
 
@@ -546,6 +551,11 @@ void PajeSimulator::pajePushState (PajeEvent *event)
     std::stringstream ctype2;
     ctype2 << *container->type();
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+  }
+
+  //check if the value was previously declared
+  if (type->hasValueForIdentifier (value)){
+    value = type->valueForIdentifier (value);
   }
 
   container->pushState (lastKnownTime, type, value, event);
