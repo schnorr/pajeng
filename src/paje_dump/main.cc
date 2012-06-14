@@ -58,7 +58,7 @@ void dump (PajeSimulator *simulator)
 int main (int argc, char **argv)
 {
   if (argc < 2){
-    std::cerr << "usage : " << argv[0] << " <trace-file> <list-of-commands>" << std::endl;
+    std::cerr << "usage : " << argv[0] << " <trace-file>" << std::endl;
     return 1;
   }
   if (!is_readable(std::string(argv[1]))){
