@@ -106,6 +106,13 @@ PajeUserEvent::PajeUserEvent (PajeContainer *container, PajeType *type, std::str
   this->t = time;
 }
 
+std::string PajeUserEvent::description (void)
+{
+  std::stringstream description;
+  description << "(Event) " << container()->name() << " " << type()->name << " [" << startTime() << ", " << endTime() << "] " << name();
+  return description.str();
+}
+
 double PajeUserEvent::time (void)
 {
   return t;
@@ -161,6 +168,13 @@ PajeUserState::PajeUserState (PajeContainer *container, PajeType *type, std::str
   this->imbrication = imbric;
 }
 
+std::string PajeUserState::description (void)
+{
+  std::stringstream description;
+  description << "(State) " << container()->name() << " " << type()->name << " [" << startTime() << ", " << endTime() << "] " << name();
+  return description.str();
+}
+
 void PajeUserState::setValue (std::string newvalue)
 {
   setName (newvalue);
@@ -199,6 +213,13 @@ PajeUserVariable::PajeUserVariable (PajeContainer *container, PajeType *type, do
   this->val = value;
 }
 
+std::string PajeUserVariable::description (void)
+{
+  std::stringstream description;
+  description << "(Variable) " << container()->name() << " " << type()->name << " [" << startTime() << ", " << endTime() << "] " << doubleValue();
+  return description.str();
+}
+
 double PajeUserVariable::doubleValue (void)
 {
   return val;
@@ -227,6 +248,13 @@ PajeUserLink::PajeUserLink (PajeContainer *container, PajeType *type, std::strin
   this->key = key;
   this->startCont = startContainer;
   this->endCont = NULL;
+}
+
+std::string PajeUserLink::description (void)
+{
+  std::stringstream description;
+  description << "(Link) " << container()->name() << " " << type()->name << " [" << startTime() << ", " << endTime() << "] " << value();
+  return description.str();
 }
 
 PajeContainer *PajeUserLink::startContainer (void)

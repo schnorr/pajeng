@@ -47,6 +47,7 @@ private:
 
 public:
   PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type);
+  std::string description (void);
   bool isContainer (void);
   PajeContainer *getRoot (void);
   std::vector<PajeContainer*> getChildren (void);

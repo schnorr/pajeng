@@ -54,6 +54,7 @@ public:
   virtual double firstTime (void) = 0;
   virtual double lastTime (void) = 0;
   virtual double duration (void) = 0;
+  virtual std::string description (void) = 0;
 
   struct PajeEntityCompare {
     bool operator() (PajeEntity *e, double t){
@@ -69,6 +70,7 @@ private:
 
 public:
   PajeUserEvent (PajeContainer *container, PajeType *type, std::string name, double time);
+  std::string description (void);
   double time (void);
   double startTime (void);
   void setStartTime (double startTime);
@@ -88,6 +90,7 @@ private:
 public:
   PajeUserState (PajeContainer *container, PajeType *type, std::string value, double startTime);
   PajeUserState (PajeContainer *container, PajeType *type, std::string value, double startTime, int imbrication);
+  std::string description (void);
   void setValue (std::string newvalue);
   double endTime (void);
   void setEndTime (double endTime);
@@ -103,6 +106,8 @@ private:
 
 public:
   PajeUserVariable (PajeContainer *container, PajeType *type, double value, double startTime, double endTime);
+  std::string description (void);
+
   void setDoubleValue (double value);
   void addDoubleValue (double value);
   void subtractDoubleValue (double value);
@@ -118,6 +123,7 @@ private:
 
 public:
   PajeUserLink (PajeContainer *container, PajeType *type, std::string value, std::string key, PajeContainer *startContainer, double startTime);
+  std::string description (void);
 
   void setStartContainer (PajeContainer *startContainer);
   void setEndContainer (PajeContainer *EndContainer);

@@ -47,6 +47,13 @@ bool PajeContainer::isAncestorOf (PajeContainer *c)
   return false;
 }
 
+std::string PajeContainer::description (void)
+{
+  std::stringstream description;
+  description << "PajeContainer";
+  return description.str();
+}
+
 bool PajeContainer::isContainer (void)
 {
   return true;
