@@ -291,6 +291,32 @@ void PajeSimulator::pajeDefineEntityValue (PajeEvent *event)
     line << *event;
     throw "Unknow type '"+typestr+"' in "+line.str();
   }
+
+  //check if the type accepts values
+  if (this->isContainerType (type)){
+    std::stringstream line;
+    line << *event;
+    throw "Trying to define the value '"+name+"' for the type '"+typestr+"' (which is a container type) is invalid in "+line.str();
+  }
+
+  if (this->isVariableType (type)){
+    std::stringstream line;
+    line << *event;
+    throw "Trying to define the value '"+name+"' for the type '"+typestr+"' (which is a variable type) is invalid in "+line.str();
+  }
+
+  //check if the value already exists using the alias or the name
+  if (!alias.empty() && type->hasValueForIdentifier (alias)){
+    std::stringstream line;
+    line << *event;
+    throw "Trying to redefine the value identified by '"+alias+"' for the type '"+typestr+"' in "+line.str();
+  }else if (type->hasValueForIdentifier (name)){
+    std::stringstream line;
+    line << *event;
+    throw "Trying to redefine the value identified by '"+name+"' for the type '"+typestr+"' in "+line.str();
+  }
+
+  type->addNewValue (alias, name, color);
 }
 
 void PajeSimulator::pajeCreateContainer (PajeEvent *event)
