@@ -56,13 +56,6 @@ INCLUDE_DIRECTORIES (pj_validate ${PROJECT_SOURCE_DIR}/src/pajelib/)
 TARGET_LINK_LIBRARIES(pj_validate pajelib)
 
 #
-# Paje Interrogate
-#
-ADD_EXECUTABLE(pj_interrogate src/paje_interrogate/main.cc)
-INCLUDE_DIRECTORIES (pj_interrogate ${PROJECT_SOURCE_DIR}/src/pajelib/)
-TARGET_LINK_LIBRARIES(pj_interrogate pajelib)
-
-#
 # Paje Dump
 #
 ADD_EXECUTABLE(pj_dump src/paje_dump/main.cc)
