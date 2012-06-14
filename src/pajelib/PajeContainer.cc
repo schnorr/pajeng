@@ -50,7 +50,13 @@ bool PajeContainer::isAncestorOf (PajeContainer *c)
 std::string PajeContainer::description (void)
 {
   std::stringstream description;
-  description << "PajeContainer";
+  std::string containername;
+  if (container()){
+    containername = container()->name();
+  }else{
+    containername = std::string("0");
+  }
+  description << "(Container) " << containername << " " << type()->name << " [" << startTime() << ", " << endTime() << "] " << name();
   return description.str();
 }
 
