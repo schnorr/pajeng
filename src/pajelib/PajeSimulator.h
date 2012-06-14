@@ -41,6 +41,7 @@ private:
   std::map<std::string,PajeType*> typeMap;
   std::map<std::string,PajeType*> typeNamesMap; //for names
   std::map<std::string,PajeContainer*> contMap;
+  std::map<std::string,PajeContainer*> contNamesMap; //for names
 
   double lastKnownTime;
 

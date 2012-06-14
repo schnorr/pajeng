@@ -41,6 +41,7 @@ PajeSimulator::PajeSimulator ()
   typeMap[rootType->identifier()] = rootType;
   typeNamesMap[rootType->name] = rootType;
   contMap[root->identifier()] = root;
+  contNamesMap[root->name()] = root;
   lastKnownTime = -1;
 
   selectionStart = -1;
@@ -89,6 +90,7 @@ PajeSimulator::~PajeSimulator ()
   typeMap.clear ();
   typeNamesMap.clear ();
   contMap.clear();
+  contNamesMap.clear();
 }
 
 void PajeSimulator::inputEntity (PajeObject *data)
@@ -345,6 +347,7 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
   //everything seems ok, create the container
   PajeContainer *newContainer = container->addContainer (lastKnownTime, name, alias, containerType, event);
   contMap[newContainer->identifier()] = newContainer;
+  contNamesMap[newContainer->name()] = newContainer;
 }
 
 void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
