@@ -73,12 +73,12 @@ void VivaComposition::layout (void)
   height = 0;
 
   if (!filter || !size_type || !container) return;
-  std::map<PajeType*,double> values = filter->spatialIntegrationOfContainer (container);
+  std::map<std::string,double> values = filter->spatialIntegrationOfContainer (container);
   if (values.size() == 0) return;
 
   double max = filter->maxForConfigurationWithName (name);
   double userScale = filter->userScaleForConfigurationWithName (name) * 100; //use a 100 magnification
-  double size_var = 2 * COMPOSITION_MAX_SIZE * values[size_type]/max;
+  double size_var = 2 * COMPOSITION_MAX_SIZE * values[size_type->name]/max;
   double size = sqrt (userScale * size_var);
 
   //update the new width and height
@@ -89,9 +89,9 @@ void VivaComposition::layout (void)
   std::vector<PajeType*>::iterator it;
   for (it = values_type.begin(); it != values_type.end(); it++){
     PajeType *t = (*it);
-    double s = values[t];
+    double s = values[t->name];
     if (s){
-      proportion[t] = s/values[size_type];
+      proportion[t] = s/values[size_type->name];
     }
   }
 }
