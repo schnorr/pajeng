@@ -101,6 +101,7 @@ public:
   std::vector<PajeContainer*> enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container);
   std::vector<PajeEntity*> enumeratorOfEntitiesTypedInContainer (PajeType *type, PajeContainer *container, double start, double end);
   bool isContainerType (PajeType *type);
+  bool isVariableType (PajeType *type);
   double startTime (void);
   double endTime (void);
   double selectionStartTime (void);

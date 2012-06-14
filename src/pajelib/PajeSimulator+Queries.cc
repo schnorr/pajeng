@@ -71,6 +71,13 @@ bool PajeSimulator::isContainerType (PajeType *type)
   else return false;
 }
 
+bool PajeSimulator::isVariableType (PajeType *type)
+{
+  PajeVariableType *varType = dynamic_cast<PajeVariableType*>(type);
+  if (varType) return true;
+  else return false;
+}
+
 double PajeSimulator::startTime (void)
 {
   return root->startTime ();
