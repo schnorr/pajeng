@@ -20,12 +20,10 @@ void dump (PajeSimulator *simulator)
 
   while (stack.size ()){
     PajeContainer *container = stack.back();
-    // int depth = container->depth;
     stack.pop_back ();
-    std::cout << container->description() << std::endl;
 
-    // std::string classname = typeid(*container).name();
-    
+    //output container description
+    std::cout << container->description() << std::endl;
 
     std::vector<PajeType*> containedTypes;
     std::vector<PajeType*>::iterator it;
@@ -48,6 +46,8 @@ void dump (PajeSimulator *simulator)
                                                                     simulator->endTime());
         for (it = entities.begin(); it != entities.end(); it++){
           PajeEntity *entity = *it;
+
+          //output entity description
           std::cout << entity->description() << std::endl;
         }
       }
