@@ -456,6 +456,11 @@ void PajeSimulator::pajeNewEvent (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
+  //check if the value was previously declared
+  if (type->hasValueForIdentifier (value)){
+    value = type->valueForIdentifier (value);
+  }
+
   container->newEvent (lastKnownTime, type, value, event);
 }
 
@@ -860,6 +865,11 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' of container '"+startcontainerstr+"' is not the container type expected for the start of link type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
+  //check if the value was previously declared
+  if (type->hasValueForIdentifier (value)){
+    value = type->valueForIdentifier (value);
+  }
+
   float v = strtof (value.c_str(), NULL);
   container->startLink (lastKnownTime, type, startcontainer, value, key, event);
 }
@@ -927,6 +937,11 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
     std::stringstream ctype2;
     ctype2 << *type;
     throw "Type '"+ctype1.str()+"' of container '"+endcontainerstr+"' is not the container type expected for the end of link type '"+ctype2.str()+"' in "+eventdesc.str();
+  }
+
+  //check if the value was previously declared
+  if (type->hasValueForIdentifier (value)){
+    value = type->valueForIdentifier (value);
   }
 
   float v = strtof (value.c_str(), NULL);
