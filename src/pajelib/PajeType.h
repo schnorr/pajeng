@@ -35,6 +35,22 @@ public:
 public:
   PajeType (std::string name, std::string alias, PajeType *parent);
   virtual std::string identifier (void) const;
+  virtual void addNewValue (std::string alias, std::string value, std::string color);
+  virtual std::string valueForIdentifier (std::string identifier);
+  virtual bool hasValueForIdentifier (std::string identifier);
+  virtual PajeColor *colorForIdentifier (std::string identifier);
+};
+
+class PajeCategorizedType : public PajeType {
+public:
+  PajeCategorizedType (std::string name, std::string alias, PajeType *parent);
+  std::map<std::string,std::string> values;
+  std::map<std::string,PajeColor*> colors;
+
+  void addNewValue (std::string alias, std::string value, std::string color);
+  std::string valueForIdentifier (std::string identifier);
+  bool hasValueForIdentifier (std::string identifier);
+  PajeColor *colorForIdentifier (std::string identifier);
 };
 
 class PajeVariableType : public PajeType {
@@ -44,17 +60,17 @@ public:
   PajeVariableType (std::string name, std::string alias, PajeType *parent, std::string color);
 };
 
-class PajeStateType : public PajeType {
+class PajeStateType : public PajeCategorizedType {
 public:
   PajeStateType (std::string name, std::string alias, PajeType *parent);
 };
 
-class PajeEventType : public PajeType {
+class PajeEventType : public PajeCategorizedType {
 public:
   PajeEventType (std::string name, std::string alias, PajeType *parent);
 };
 
-class PajeLinkType : public PajeType {
+class PajeLinkType : public PajeCategorizedType {
 public:
   PajeType *starttype;
   PajeType *endtype;
