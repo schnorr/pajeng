@@ -1,0 +1,13 @@
+  node = ("HOST","LINK");
+  edge = ("0-LINK3-HOST1","0-HOST1-LINK3","0-LINK3-LINK3");
+
+  host = {
+    type = "square";
+    size = "power";
+    values = ("pdata","pcompute","pfinalize","prequest");
+  };
+  link = {
+    type = "rhombus";
+    size = "bandwidth";
+    values = ("bdata","bcompute","bfinalize","brequest");
+  };
