@@ -28,6 +28,7 @@
 #define __USE_GNU
 #endif //__USE_GNU
 #include <search.h>
+#include "tupi.h"
 
 #define TUPI_MAX_ENERGIES 256
 
@@ -54,22 +55,6 @@ typedef struct m_tp_dict {
   struct hsearch_data hash;
   unsigned long count;
 } tp_dict;
-
-/* geometric and particle system types */
-typedef struct m_tp_point {
-  double x;
-  double y;
-} tp_point;
-
-typedef struct m_tp_size {
-  double width;
-  double height;
-} tp_size;
-
-typedef struct m_tp_rect {
-  tp_point origin;
-  tp_size size;
-} tp_rect;
 
 typedef struct m_tp_cell {
   //the cell hierarchical structure
@@ -154,27 +139,14 @@ typedef struct m_tp_box {
   tp_point maxPointForResize;
 } tp_box;
 
-
-/* graph type */
-typedef struct m_tp_node {
-  char *name;
-  const void *data; //user data
-  tp_dynar *connected;
-  tp_particle *particle; //the particle that represents this node
-} tp_node;
-
 tp_dynar *dynar_new (const unsigned long elmsize, dynar_cmp_f compare);
 void dynar_free (tp_dynar *dynar);
-unsigned long dynar_count (const tp_dynar *dynar);
 void *dynar_add_ptr (tp_dynar *dynar);
-void *dynar_get_ptr (tp_dynar *dynar, const unsigned long idx);
 void dynar_remove (tp_dynar *dynar, const void *src);
 void dynar_remove_idx (tp_dynar *dynar, const unsigned long idx);
 int dynar_has_element (tp_dynar *dynar, const void *src);
 #define dynar_add_as(dynar,type,value) \
   (*(type*)dynar_add_ptr(dynar)=value)
-#define dynar_get_as(dynar,type,idx) \
-  (*(type*)dynar_get_ptr(dynar,idx))
 #define dynar_remove_as(dynar,type,value)  \
   unsigned long i; \
   for (i = 0; i < dynar->used; i++){ \
@@ -230,30 +202,15 @@ tp_particle *box_find_particle_by_position (tp_box *box, tp_point point);
 void box_step (tp_box *box);
 void box_shake (tp_box *box);
 
-tp_layout *layout_new (void);
-void layout_free (tp_layout *l);
-void layout_set_quality (tp_layout *layout, int quality);
-void layout_add_node_with_point (tp_layout *layout, tp_node *node, tp_point point);
-void layout_add_node (tp_layout *layout, tp_node *node);
-tp_node *layout_find_node (tp_layout *layout, char *name);
-tp_node *layout_find_node_by_position (tp_layout *layout, tp_point point);
-void layout_remove_node (tp_layout *layout, tp_node *node);
-void layout_move_node (tp_layout *layout, tp_node *node, tp_point point);
-void layout_compute (tp_layout *layout);
-double layout_stabilization_limit (tp_layout *layout);
-double layout_stabilization (tp_layout *layout);
-void layout_reset_energies (tp_layout *layout);
-void layout_shake (tp_layout *layout);
-
-tp_node *node_new (const char *name, const void *data);
-void node_free (tp_node *node);
 int node_compare (const void *p1, const void *p2);
-void node_connect (tp_node *n1, tp_node *n2);
-void node_connect_clear (tp_node *n);
 void node_set_particle (tp_node *n1, tp_particle *p);
 
-#include "tupi_functions.h"
-
+static inline double tp_gettime ()
+{
+  struct timeval tr;
+  gettimeofday(&tr, NULL);
+  return (double)tr.tv_sec+(double)tr.tv_usec/1000000;
+}
 
 #if defined(__cplusplus)
 }

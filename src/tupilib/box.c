@@ -181,7 +181,7 @@ void box_step (tp_box *box)
   unsigned long i;
 
   if (debug){
-    tt1 = gettime();
+    tt1 = tp_gettime();
   }
 
   //this is the most expensive operation
@@ -191,10 +191,10 @@ void box_step (tp_box *box)
   }
 
   if (debug){
-    tt2 = gettime();
+    tt2 = tp_gettime();
     fprintf (stderr, "%f (%f) ",
              tt2-tt1, (tt2-tt1)/dynar_count(box->particles_array));
-    tt1 = gettime();
+    tt1 = tp_gettime();
   }
 
   for (i = 0; i < dynar_count(box->particles_array); i++){
@@ -203,16 +203,16 @@ void box_step (tp_box *box)
   }
 
   if (debug){
-    tt2 = gettime();
+    tt2 = tp_gettime();
     fprintf (stderr, "%f ",
              tt2-tt1);
-    tt1 = gettime();
+    tt1 = tp_gettime();
   }
 
   box_check_divisions (box);
 
   if (debug){
-    tt2 = gettime();
+    tt2 = tp_gettime();
     fprintf (stderr, "%f\n", tt2-tt1);
   }
 

@@ -19,7 +19,7 @@
 
 static pthread_mutex_t mutex;
 
-tp_layout *layout_new (void)
+void *layout_new (void)
 {
   tp_layout *ret = (tp_layout*) malloc (sizeof(tp_layout));
 
@@ -47,29 +47,32 @@ tp_layout *layout_new (void)
   return ret;
 }
 
-void layout_free (tp_layout *l)
+void layout_free (void *layout)
 {
+  tp_layout *l = (tp_layout*)layout;
   box_free (l->box);
   dict_free(l->nodes);
   free (l);
   pthread_mutex_destroy (&mutex);
 }
 
-void layout_set_quality (tp_layout *layout, int quality)
+void layout_set_quality (void *layout, int quality)
 {
-  //viewZone depends on the quality
-  layout->quality = quality;
+  tp_layout *l = (tp_layout*)layout;
 
-  switch (layout->quality) {
-  case 0: layout->viewZone = layout->k; break;
-  case 1: layout->viewZone = 2 * layout->k; break;
-  case 2: layout->viewZone = 5 * layout->k; break;
-  case 3: layout->viewZone = 10 * layout->k; break;
-  case 4: layout->viewZone = -1; break; //N2 algorithm
-  default: layout->viewZone = layout->k; break;
+  //viewZone depends on the quality
+  l->quality = quality;
+
+  switch (l->quality) {
+  case 0: l->viewZone = l->k; break;
+  case 1: l->viewZone = 2 * l->k; break;
+  case 2: l->viewZone = 5 * l->k; break;
+  case 3: l->viewZone = 10 * l->k; break;
+  case 4: l->viewZone = -1; break; //N2 algorithm
+  default: l->viewZone = l->k; break;
   }
   fprintf (stderr, "quality set to %d, viewZone calculated to %f\n",
-           layout->quality, layout->viewZone);
+           l->quality, l->viewZone);
 }
 
 static void _layout_associate_particle_node (tp_particle *particle, tp_node *node)
@@ -79,37 +82,41 @@ static void _layout_associate_particle_node (tp_particle *particle, tp_node *nod
   dict_insert_element (particle->layout->nodes, node->name, node);
 }
 
-void layout_add_node_with_point (tp_layout *layout, tp_node *node, tp_point point)
+void layout_add_node_with_point (void *layout, tp_node *node, tp_point point)
 {
   pthread_mutex_lock (&mutex);
+  tp_layout *l = (tp_layout*)layout;
   tp_particle *particle = particle_new_with_point (node->name,
-                                        layout,
-                                        layout->box,
+                                        l,
+                                        l->box,
                                         node,
                                         point);
   _layout_associate_particle_node (particle, node);
   pthread_mutex_unlock (&mutex);
 }
 
-void layout_add_node (tp_layout *layout, tp_node *node)
+void layout_add_node (void *layout, tp_node *node)
 {
   pthread_mutex_lock (&mutex);
+  tp_layout *l = (tp_layout*)layout;
   tp_particle *particle = particle_new (node->name,
-                                        layout,
-                                        layout->box,
+                                        l,
+                                        l->box,
                                         node);
   _layout_associate_particle_node (particle, node);
   pthread_mutex_unlock (&mutex);
 }
 
-tp_node *layout_find_node (tp_layout *layout, char *name)
+tp_node *layout_find_node (void *layout, char *name)
 {
-  return dict_get_element (layout->nodes, name);
+  tp_layout *l = (tp_layout*)layout;
+  return dict_get_element (l->nodes, name);
 }
 
-tp_node *layout_find_node_by_position (tp_layout *layout, tp_point point)
+tp_node *layout_find_node_by_position (void *layout, tp_point point)
 {
-  tp_particle *p = box_find_particle_by_position (layout->box, point);
+  tp_layout *l = (tp_layout*)layout;
+  tp_particle *p = box_find_particle_by_position (l->box, point);
   if (p){
     return p->node;
   }else{
@@ -117,92 +124,98 @@ tp_node *layout_find_node_by_position (tp_layout *layout, tp_point point)
   }
 }
 
-void layout_remove_node (tp_layout *layout, tp_node *node)
+void layout_remove_node (void *layout, tp_node *node)
 {
   pthread_mutex_lock (&mutex);
-  //tp_particle *particle = box_find_particle (layout->box, nodeName);
+  tp_layout *l = (tp_layout*)layout;
   tp_particle *particle = node->particle;
-  box_remove_particle (layout->box, particle);
+  box_remove_particle (l->box, particle);
   particle_free (particle);
 
-  dict_remove_element (layout->nodes, node->name);
+  dict_remove_element (l->nodes, node->name);
   pthread_mutex_unlock (&mutex);
 }
 
-void layout_move_node (tp_layout *layout, tp_node *node, tp_point point)
+void layout_move_node (void *layout, tp_node *node, tp_point point)
 {
   pthread_mutex_lock (&mutex);
+  tp_layout *l = (tp_layout*)layout;
   //remove current particle
-  box_remove_particle (layout->box, node->particle);
+  box_remove_particle (l->box, node->particle);
   particle_free (node->particle);
   node_set_particle (node, NULL);
 
   //add new particle at point
   tp_particle *particle = particle_new (node->name,
-                                        layout,
-                                        layout->box,
+                                        l,
+                                        l->box,
                                         node);
   particle->position = point;
-  box_add_particle (layout->box, particle);
+  box_add_particle (l->box, particle);
   node_set_particle (node, particle);
 
   //particle is now frozen (it might be moving)
-  node->particle->frozen = 1;
-  layout_reset_energies (layout);
+  ((tp_particle*)(node->particle))->frozen = 1;
+  layout_reset_energies (l);
   pthread_mutex_unlock (&mutex);
 }
 
-void layout_compute (tp_layout *layout)
+void layout_compute (void *layout)
 {
   pthread_mutex_lock (&mutex);
-  layout->energy = 0;
-  tp_rect area = layout->box->rootCell->space;
-  layout->diagonalOfArea = tp_DiagonalRect (area);
-  box_step (layout->box);
+  tp_layout *l = (tp_layout*)layout;
+  l->energy = 0;
+  tp_rect area = l->box->rootCell->space;
+  l->diagonalOfArea = tp_DiagonalRect (area);
+  box_step (l->box);
 
   //add the newest energy accumulated to the energies vector
-  layout->energies_index = (layout->energies_index+1)%TUPI_MAX_ENERGIES;
-  layout->energies_count++;
-  if (layout->energies_count > TUPI_MAX_ENERGIES) layout->energies_count = TUPI_MAX_ENERGIES;
-  layout->energies[layout->energies_index] = layout->energy;
+  l->energies_index = (l->energies_index+1)%TUPI_MAX_ENERGIES;
+  l->energies_count++;
+  if (l->energies_count > TUPI_MAX_ENERGIES) l->energies_count = TUPI_MAX_ENERGIES;
+  l->energies[l->energies_index] = l->energy;
   pthread_mutex_unlock (&mutex);
 }
 
-double inline layout_stabilization_limit (tp_layout *layout)
+double inline layout_stabilization_limit (void *layout)
 {
-  return layout->stabilizationLimit;
+  tp_layout *l = (tp_layout*)layout;
+  return l->stabilizationLimit;
 }
 
-double layout_stabilization (tp_layout *layout)
+double layout_stabilization (void *layout)
 {
-  if (layout->energies_count < TUPI_MAX_ENERGIES){
+  tp_layout *l = (tp_layout*)layout;
+  if (l->energies_count < TUPI_MAX_ENERGIES){
     return 0;
   }
 
   int i;
   double average = 0;
   for (i = 0; i < TUPI_MAX_ENERGIES; i++){
-    average += layout->energies[i];
+    average += l->energies[i];
   }
   average /= TUPI_MAX_ENERGIES;
 
   //calculate the standard deviation
   double standard = 0;
   for (i = 0; i < TUPI_MAX_ENERGIES; i++){
-    standard += pow (layout->energies[i] - average, 2);
+    standard += pow (l->energies[i] - average, 2);
   }
   standard = sqrt (standard/TUPI_MAX_ENERGIES);
   return 1/standard;
 }
 
-void layout_reset_energies (tp_layout *layout)
+void layout_reset_energies (void *layout)
 {
-  layout->energy = 0;
-  layout->energies_count = 0;
-  layout->energies_index = 0;
+  tp_layout *l = (tp_layout*)layout;
+  l->energy = 0;
+  l->energies_count = 0;
+  l->energies_index = 0;
 }
 
-void layout_shake (tp_layout *layout)
+void layout_shake (void *layout)
 {
-  box_shake (layout->box);
+  tp_layout *l = (tp_layout*)layout;
+  box_shake (l->box);
 }

@@ -72,3 +72,13 @@ void node_set_particle (tp_node *n1, tp_particle *p)
 {
   n1->particle = p;
 }
+
+tp_point node_get_position (tp_node *node)
+{
+  return ((tp_particle*)node->particle)->position;
+}
+
+void node_set_mask (tp_node *node, tp_rect mask)
+{
+  particle_set_mask (node->particle, mask);
+}

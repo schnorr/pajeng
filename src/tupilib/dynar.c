@@ -33,9 +33,9 @@ void dynar_free (tp_dynar *dynar)
   free (dynar);
 }
 
-unsigned long dynar_count (const tp_dynar *dynar)
+unsigned long dynar_count (const void *dynar)
 {
-  return dynar->used;
+  return ((tp_dynar*)dynar)->used;
 }
 
 static void _dynar_resize (tp_dynar *dynar, const unsigned long new_size)
@@ -108,8 +108,9 @@ void *dynar_add_ptr (tp_dynar *dynar)
   return _dynar_insert_at_ptr(dynar, dynar->used);
 }
 
-void *dynar_get_ptr (tp_dynar *d, const unsigned long idx)
+void *dynar_get_ptr (void *dynar, const unsigned long idx)
 {
+  tp_dynar *d = (tp_dynar*)dynar;
   if (idx >= d->used){
     return NULL;
   }
