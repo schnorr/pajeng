@@ -71,8 +71,9 @@ SET(TUPIWX_SRC
   src/tupiwx/basic.cc
   src/tupiwx/tupiew.cc
   src/tupiwx/runner.cc)
-ADD_EXECUTABLE(tupi ${TUPIWX_SRC})
-INCLUDE_DIRECTORIES (tupi ${PROJECT_SOURCE_DIR}/src/tupilib/)
+ADD_EXECUTABLE(tupiwx ${TUPIWX_SRC})
+SET_TARGET_PROPERTIES(tupiwx PROPERTIES OUTPUT_NAME tupi)
+INCLUDE_DIRECTORIES (tupiwx ${PROJECT_SOURCE_DIR}/src/tupilib/)
 INCLUDE_DIRECTORIES(${graphviz_INCLUDE_DIRS})
 TARGET_LINK_LIBRARIES(tupiwx ${wxWidgets_LIBRARIES} tupi ${graphviz_GVC_LIBRARY} ${graphviz_GRAPH_LIBRARY})
 
