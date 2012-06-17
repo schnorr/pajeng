@@ -30,7 +30,7 @@ SET(PAJE_LIB_SRC
   src/pajelib/PajeColor.cc
   src/pajelib/PajeEntity.cc
 )
-ADD_LIBRARY(pajelib SHARED ${PAJE_LIB_SRC})
+ADD_LIBRARY(paje SHARED ${PAJE_LIB_SRC})
 
 #
 # The Tupi Library written in C (particle system)
@@ -45,22 +45,22 @@ SET(TUPI_LIB_SRC
   src/tupilib/cell.c
   src/tupilib/layout.c
   src/tupilib/node.c)
-ADD_LIBRARY(tupilib SHARED ${TUPI_LIB_SRC})
-TARGET_LINK_LIBRARIES(tupilib m)
+ADD_LIBRARY(tupi SHARED ${TUPI_LIB_SRC})
+TARGET_LINK_LIBRARIES(tupi m)
 
 #
 # Paje Validate (checks if a trace file is valid or not)
 # 
 ADD_EXECUTABLE(pj_validate src/paje_validate/main.cc)
 INCLUDE_DIRECTORIES (pj_validate ${PROJECT_SOURCE_DIR}/src/pajelib/)
-TARGET_LINK_LIBRARIES(pj_validate pajelib)
+TARGET_LINK_LIBRARIES(pj_validate paje)
 
 #
 # Paje Dump
 #
 ADD_EXECUTABLE(pj_dump src/paje_dump/main.cc)
 INCLUDE_DIRECTORIES (pj_dump ${PROJECT_SOURCE_DIR}/src/pajelib/)
-TARGET_LINK_LIBRARIES(pj_dump pajelib)
+TARGET_LINK_LIBRARIES(pj_dump paje)
 
 #
 # tupi wxwidgets viewer (loads dot files)
@@ -74,7 +74,7 @@ SET(TUPIWX_SRC
 ADD_EXECUTABLE(tupi ${TUPIWX_SRC})
 INCLUDE_DIRECTORIES (tupi ${PROJECT_SOURCE_DIR}/src/tupilib/)
 INCLUDE_DIRECTORIES(${graphviz_INCLUDE_DIRS})
-TARGET_LINK_LIBRARIES(tupi ${wxWidgets_LIBRARIES} tupilib ${graphviz_GVC_LIBRARY} ${graphviz_GRAPH_LIBRARY})
+TARGET_LINK_LIBRARIES(tupiwx ${wxWidgets_LIBRARIES} tupi ${graphviz_GVC_LIBRARY} ${graphviz_GRAPH_LIBRARY})
 
 #
 # viva executable
@@ -93,5 +93,6 @@ SET(VIVA_SRC
 ADD_EXECUTABLE(viva ${VIVA_SRC})
 include_directories(viva ${GTK2_INCLUDE_DIRS})
 include_directories(viva ${Cairo_INCLUDE_DIRS})
-target_link_libraries(viva ${wxWidgets_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${Cairo_LIBRARIES} ${GTK2_LIBRARIES} ${LIBCONFIG_LIBRARIES} tupilib pajelib )
-
+include_directories(viva ${PROJECT_SOURCE_DIR}/src/tupilib/)
+include(${wxWidgets_USE_FILE})
+target_link_libraries(viva ${wxWidgets_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${Cairo_LIBRARIES} ${GTK2_LIBRARIES} ${LIBCONFIG_LIBRARIES} tupi paje )
