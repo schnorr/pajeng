@@ -7,7 +7,7 @@
 #include "graphwindow.h"
 #include "timesliceframe.h"
 #include "PajeComponent.h"
-#include "tupi_private.h"
+#include "tupi.h"
 #include "VivaNode.h"
 
 class GraphFrame;
@@ -17,11 +17,11 @@ class VivaRunner : public wxThread
 {
 public:
   GraphFrame *view;
-  tp_layout *layout;
+  void *layout;
   bool keepRunning;
 
 public:
-  VivaRunner (tp_layout *layout, GraphFrame *view);
+  VivaRunner (void *layout, GraphFrame *view);
   virtual ExitCode Entry (void);
 };
 
@@ -38,7 +38,7 @@ public: //for scale management
 private:
   GraphFrame *view;
   GraphWindow *window;
-  tp_layout *layout;
+  void *layout;
   VivaRunner *runner;
   std::map<PajeContainer*,VivaNode*> nodeMap;
   std::map<PajeContainer*,std::set<PajeContainer*> > edges;

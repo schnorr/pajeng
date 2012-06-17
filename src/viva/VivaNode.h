@@ -4,7 +4,7 @@
 #include <libconfig.h>
 #include <gtk/gtk.h>
 #include <cairo.h>
-#include "tupi_private.h"
+#include "tupi.h"
 #include "PajeComponent.h"
 
 #define COMPOSITION_MAX_SIZE 200
@@ -43,12 +43,12 @@ public:
   double width;
   double height;
   tp_node *node;
-  tp_layout *tupi_layout;
+  void *tupi_layout;
   PajeContainer *container;
   VivaGraph *filter;
 
-  VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, tp_layout *layout);
-  VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, tp_layout *layout, tp_point point);
+  VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, void *layout);
+  VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, void *layout, tp_point point);
   ~VivaNode ();
 
   tp_point position (void);

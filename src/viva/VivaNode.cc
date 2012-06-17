@@ -128,7 +128,7 @@ void VivaComposition::draw (tp_point base)
   glTranslatef (-base.x, -base.y, 0);
 }
 
-VivaNode::VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, tp_layout *layout)
+VivaNode::VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, void *layout)
 {
   this->width = 0;
   this->height = 0;
@@ -140,7 +140,7 @@ VivaNode::VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_
   this->createCompositions (conf);
 }
 
-VivaNode::VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, tp_layout *layout, tp_point point)
+VivaNode::VivaNode (VivaGraph *filter, PajeContainer *container, config_setting_t *conf, void *layout, tp_point point)
 {
   this->width = 0;
   this->height = 0;
@@ -193,7 +193,7 @@ void VivaNode::createCompositions (config_setting_t *conf)
 
 tp_point VivaNode::position ()
 {
-  tp_point pos = node->particle->position;
+  tp_point pos = node_get_position (node);
   pos.x *= 100;
   pos.y *= 100;
   return pos;
@@ -213,7 +213,7 @@ void VivaNode::layout (void)
   }
 
   tp_rect mask = tp_Rect (0, 0, width/100, height/100);
-  particle_set_mask (node->particle, mask);
+  node_set_mask (node, mask);
 }
 
 void VivaNode::draw (void)

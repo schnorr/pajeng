@@ -2,7 +2,7 @@
 #include "PajeEntity.h"
 
 
-VivaRunner::VivaRunner (tp_layout *layout, GraphFrame *view)
+VivaRunner::VivaRunner (void *layout, GraphFrame *view)
   : wxThread (wxTHREAD_JOINABLE)
 {
   this->layout = layout;
@@ -15,6 +15,7 @@ VivaRunner::VivaRunner (tp_layout *layout, GraphFrame *view)
 
 void *VivaRunner::Entry (void)
 {
+  std::cout << "Starting the thread particle system... " << std::endl;
   while(!TestDestroy() && keepRunning){
     double limit = layout_stabilization_limit (layout);
     double current = layout_stabilization (layout);
@@ -26,6 +27,7 @@ void *VivaRunner::Entry (void)
       wxPostEvent (view, event);
     }
   }
+  std::cout << "Terminate the thread particle system... " << std::endl;
   return static_cast<ExitCode>(NULL);
 }
 
