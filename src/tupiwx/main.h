@@ -2,7 +2,7 @@
 #include <wx/cmdline.h>
 #include <graphviz/types.h>
 #include <graphviz/graph.h>
-#include "tupi_private.h"
+#include "tupi.h"
 #include "tupiew.h"
 #include "runner.h"
 
@@ -10,7 +10,7 @@
        #include <wx/wx.h>
 #endif
 
-tp_layout *layout;
+void *layout;
 
 class MyApp : public wxApp
 {

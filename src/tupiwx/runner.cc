@@ -1,6 +1,6 @@
 #include "runner.h"
 
-LayoutRunner::LayoutRunner (Tupiew *t, tp_layout *l)
+LayoutRunner::LayoutRunner (Tupiew *t, void *l)
   : wxThread (wxTHREAD_JOINABLE)
 {
   tupiew = t;

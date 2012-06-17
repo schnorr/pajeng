@@ -139,14 +139,10 @@ typedef struct m_tp_box {
   tp_point maxPointForResize;
 } tp_box;
 
-tp_dynar *dynar_new (const unsigned long elmsize, dynar_cmp_f compare);
-void dynar_free (tp_dynar *dynar);
-void *dynar_add_ptr (tp_dynar *dynar);
+
 void dynar_remove (tp_dynar *dynar, const void *src);
 void dynar_remove_idx (tp_dynar *dynar, const unsigned long idx);
 int dynar_has_element (tp_dynar *dynar, const void *src);
-#define dynar_add_as(dynar,type,value) \
-  (*(type*)dynar_add_ptr(dynar)=value)
 #define dynar_remove_as(dynar,type,value)  \
   unsigned long i; \
   for (i = 0; i < dynar->used; i++){ \
@@ -204,13 +200,6 @@ void box_shake (tp_box *box);
 
 int node_compare (const void *p1, const void *p2);
 void node_set_particle (tp_node *n1, tp_particle *p);
-
-static inline double tp_gettime ()
-{
-  struct timeval tr;
-  gettimeofday(&tr, NULL);
-  return (double)tr.tv_sec+(double)tr.tv_usec/1000000;
-}
 
 #if defined(__cplusplus)
 }

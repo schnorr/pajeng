@@ -16,6 +16,9 @@
 */
 #ifndef __TUPI_H
 #define __TUPI_H
+#include <stdio.h>
+#include <math.h>
+#include <sys/time.h>
 
 #if defined(__cplusplus)
 extern "C" {
@@ -64,9 +67,16 @@ void node_connect (tp_node *n1, tp_node *n2);
 void node_connect_clear (tp_node *n);
 tp_point node_get_position (tp_node *node);
 void node_set_mask (tp_node *node, tp_rect mask);
+void node_frozen (tp_node *node, int frozen);
 
+typedef int (*dynar_cmp_f)(const void *p1, const void *p2);
+void *dynar_new (const unsigned long elmsize, dynar_cmp_f compare);
+void dynar_free (void *dynar);
 void *dynar_get_ptr (void *dynar, const unsigned long idx);
+void *dynar_add_ptr (void *dynar);
 unsigned long dynar_count (const void *dynar);
+#define dynar_add_as(dynar,type,value) \
+  (*(type*)dynar_add_ptr(dynar)=value)
 #define dynar_get_as(dynar,type,idx) \
   (*(type*)dynar_get_ptr(dynar,idx))
 
@@ -266,6 +276,13 @@ static inline int tp_PointInRect2 (tp_point p, tp_rect r)
   printf ("%s p(%f,%f) r(%f,%f,%f,%f) => %d\n", __FUNCTION__,
           p.x, p.y, r.origin.x, r.origin.y, r.size.width, r.size.height, cond2);
   return cond2;
+}
+
+static inline double tp_gettime ()
+{
+  struct timeval tr;
+  gettimeofday(&tr, NULL);
+  return (double)tr.tv_sec+(double)tr.tv_usec/1000000;
 }
 
 #if defined(__cplusplus)

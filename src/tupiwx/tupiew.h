@@ -2,9 +2,9 @@
 #define __TUPIEW_H
 #include "basic.h"
 #include "runner.h"
-#include "tupi_private.h"
+#include "tupi.h"
 
-extern tp_layout *layout;
+extern void *layout;
 
 DECLARE_EVENT_TYPE (TupiLayoutUpdated, -1)
 

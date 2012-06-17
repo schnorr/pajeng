@@ -16,7 +16,7 @@
 */
 #include "tupi_private.h"
 
-tp_dynar *dynar_new (const unsigned long elmsize, dynar_cmp_f compare)
+void *dynar_new (const unsigned long elmsize, dynar_cmp_f compare)
 {
   tp_dynar *ret = (tp_dynar*) malloc (sizeof(tp_dynar));
   ret->size = 0;
@@ -27,8 +27,9 @@ tp_dynar *dynar_new (const unsigned long elmsize, dynar_cmp_f compare)
   return ret;
 }
 
-void dynar_free (tp_dynar *dynar)
+void dynar_free (void *d)
 {
+  tp_dynar *dynar = (tp_dynar*)d;
   free (dynar->data);
   free (dynar);
 }
@@ -103,9 +104,9 @@ static void _dynar_remove_at_ptr (tp_dynar *dynar, const unsigned long idx)
   dynar->used--;
 }
 
-void *dynar_add_ptr (tp_dynar *dynar)
+void *dynar_add_ptr (void *dynar)
 {
-  return _dynar_insert_at_ptr(dynar, dynar->used);
+  return _dynar_insert_at_ptr(dynar, ((tp_dynar*)dynar)->used);
 }
 
 void *dynar_get_ptr (void *dynar, const unsigned long idx)

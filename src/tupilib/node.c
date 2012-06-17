@@ -82,3 +82,8 @@ void node_set_mask (tp_node *node, tp_rect mask)
 {
   particle_set_mask (node->particle, mask);
 }
+
+void node_frozen (tp_node *node, int frozen)
+{
+  ((tp_particle*)node->particle)->frozen = frozen;
+}

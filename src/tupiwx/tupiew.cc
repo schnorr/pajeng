@@ -5,7 +5,7 @@ DEFINE_EVENT_TYPE (TupiLayoutUpdated)
 
 #define NODE_SIZE 30
 
-extern tp_dynar *nodes;
+extern void *nodes;
 
 #define ID_QUALITY_0 0
 #define ID_QUALITY_1 1
@@ -129,19 +129,19 @@ void Tupiew::OnPaint(wxPaintEvent& event)
   int i;
   for (i = 0; i < dynar_count (nodes); i++){
     tp_node *node = *(tp_node**)dynar_get_ptr (nodes, i);
-    tp_point pos = node->particle->position;
+    tp_point pos = node_get_position (node);
 
     int j;
     for (j = 0; j < dynar_count (node->connected); j++){
       tp_node *c = *(tp_node**)dynar_get_ptr(node->connected, j);
-      tp_point pc = c->particle->position;
+      tp_point pc = node_get_position (c);
       dc.SetPen(wxPen(gray));
       dc.DrawLine (pos.x*100, pos.y*100, pc.x*100, pc.y*100);
     }
   }
   for (i = 0; i < dynar_count (nodes); i++){
     tp_node *node = *(tp_node**)dynar_get_ptr (nodes, i);
-    tp_point pos = node->particle->position;
+    tp_point pos = node_get_position (node);
 
     //dc.FloodFill (pos.x*100, pos.y*100, white);
     dc.SetPen(wxPen(black));
@@ -156,7 +156,7 @@ void Tupiew::OnPaint(wxPaintEvent& event)
 void Tupiew::OnLeftUp (wxMouseEvent& event)
 {
   if (selected){
-    selected->particle->frozen = 0;
+    node_frozen (selected, 0);
   }
   selected = NULL;
 }
@@ -281,7 +281,7 @@ void Tupiew::OnAbout(wxCommandEvent& WXUNUSED(event))
 void Tupiew::OnLayoutUpdated (wxCommandEvent& event)
 {
   static double last = 0;
-  double current = gettime();
+  double current = tp_gettime();
   double dif = current - last;
   if (dif > 0.01){
     Refresh();

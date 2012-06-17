@@ -7,7 +7,7 @@ int node_compare (const void *p1, const void *p2)
 {
   return strcmp (((tp_node*)p1)->name, ((tp_node*)p2)->name);
 }
-tp_dynar *nodes = dynar_new (sizeof(tp_node*), &node_compare);
+void *nodes = dynar_new (sizeof(tp_node*), &node_compare);
 
 bool MyApp::OnInit()
 {
