@@ -6,7 +6,6 @@ FIND_PACKAGE(OpenGL REQUIRED)
 FIND_PACKAGE(LibConfig REQUIRED)
 FIND_PACKAGE(GTK2 REQUIRED)
 FIND_PACKAGE(GLUT REQUIRED)
-FIND_PACKAGE(Cairo)
 FIND_PACKAGE(Graphviz)
 
 #
@@ -95,21 +94,6 @@ ADD_EXECUTABLE(pj_dump src/paje_dump/main.cc)
 INCLUDE_DIRECTORIES (pj_dump ${PROJECT_SOURCE_DIR}/src/libpaje/)
 TARGET_LINK_LIBRARIES(pj_dump paje)
 INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/pj_dump DESTINATION bin)
-
-#
-# dotfd (dot visualization using a force-directed particle system algorithm)
-#
-INCLUDE ( "${wxWidgets_USE_FILE}" )
-SET(DOTFD_SOURCES
-  src/dotfd/main.cc
-  src/dotfd/basic.cc
-  src/dotfd/tupiew.cc
-  src/dotfd/runner.cc)
-ADD_EXECUTABLE(dotfd ${DOTFD_SOURCES})
-INCLUDE_DIRECTORIES (dotfd ${PROJECT_SOURCE_DIR}/src/libtupi/)
-INCLUDE_DIRECTORIES(${graphviz_INCLUDE_DIRS})
-TARGET_LINK_LIBRARIES(dotfd ${wxWidgets_LIBRARIES} tupi ${graphviz_GVC_LIBRARY} ${graphviz_GRAPH_LIBRARY})
-INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/dotfd DESTINATION bin)
 
 #
 # viva executable
