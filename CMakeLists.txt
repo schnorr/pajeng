@@ -12,9 +12,24 @@ FIND_PACKAGE(Graphviz)
 SET(CMAKE_CXX_FLAGS "-g -rdynamic")
 
 #
-# The Paje Library
+# The Paje Library (libpaje)
 #
-SET(PAJE_LIB_SRC
+SET(LIBPAJE_HEADERS
+  src/pajelib/PajeColor.h
+  src/pajelib/PajeComponent.h
+  src/pajelib/PajeContainer.h
+  src/pajelib/PajeData.h
+  src/pajelib/PajeEntity.h
+  src/pajelib/PajeEventDecoder.h
+  src/pajelib/PajeEventDefinition.h
+  src/pajelib/PajeEvent.h
+  src/pajelib/PajeFileReader.h
+  src/pajelib/PajeObject.h
+  src/pajelib/PajeSimulator.h
+  src/pajelib/PajeTraceController.h
+  src/pajelib/PajeType.h)
+
+SET(LIBPAJE_SOURCES
   src/pajelib/PajeEventDefinition.cc
   src/pajelib/PajeEvent.cc
   src/pajelib/PajeData.cc
@@ -28,14 +43,24 @@ SET(PAJE_LIB_SRC
   src/pajelib/PajeType.cc
   src/pajelib/PajeContainer.cc
   src/pajelib/PajeColor.cc
-  src/pajelib/PajeEntity.cc
-)
-ADD_LIBRARY(paje SHARED ${PAJE_LIB_SRC})
+  src/pajelib/PajeEntity.cc)
+ADD_LIBRARY(paje SHARED ${LIBPAJE_SOURCES})
+SET_TARGET_PROPERTIES(paje PROPERTIES
+  # bump when new function are added in the library
+  VERSION 1.0
+  # bump when ABI is broken (symbols removed or parameters changed)
+  SOVERSION 1)
+# bump when the API change (new functions in the header file)
+SET(LIBPAJE_APIVERSION 1)
+INSTALL(TARGETS paje DESTINATION lib)
+INSTALL(FILES ${LIBPAJE_HEADERS} DESTINATION include)
 
 #
 # The Tupi Library written in C (particle system)
 #
-SET(TUPI_LIB_SRC
+SET(LIBTUPI_HEADERS
+  src/tupilib/tupi.h)
+SET(LIBTUPI_SOURCES
   src/tupilib/bary.c
   src/tupilib/basic.c
   src/tupilib/dynar.c
@@ -45,8 +70,17 @@ SET(TUPI_LIB_SRC
   src/tupilib/cell.c
   src/tupilib/layout.c
   src/tupilib/node.c)
-ADD_LIBRARY(tupi SHARED ${TUPI_LIB_SRC})
+ADD_LIBRARY(tupi SHARED ${LIBTUPI_SOURCES})
 TARGET_LINK_LIBRARIES(tupi m)
+SET_TARGET_PROPERTIES(tupi PROPERTIES
+  # bump when new function are added in the library
+  VERSION 1.0
+  # bump when ABI is broken (symbols removed or parameters changed)
+  SOVERSION 1)
+# bump when the API change (new functions in the header file)
+SET(LIBTUPI_APIVERSION 1)
+INSTALL(TARGETS tupi DESTINATION lib)
+INSTALL(FILES ${LIBTUPI_HEADERS} DESTINATION include)
 
 #
 # Paje Validate (checks if a trace file is valid or not)
@@ -97,3 +131,8 @@ include_directories(viva ${Cairo_INCLUDE_DIRS})
 include_directories(viva ${PROJECT_SOURCE_DIR}/src/tupilib/)
 include(${wxWidgets_USE_FILE})
 target_link_libraries(viva ${wxWidgets_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${Cairo_LIBRARIES} ${GTK2_LIBRARIES} ${LIBCONFIG_LIBRARIES} tupi paje )
+
+#
+# For pkgconfig
+#
+ADD_SUBDIRECTORY(pkgconfig)
