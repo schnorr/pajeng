@@ -98,7 +98,8 @@ int main (int argc, char **argv)
       i++;
     }
   }catch (std::string exception){
-    std::cout << exception << std::endl;
+    std::cout << "Exception: " << exception << std::endl;
+    std::cout << "This trace file does not follow the Paje file format description. Sorry." << std::endl;
     return 1;
   }
 
