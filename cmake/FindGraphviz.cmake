@@ -2,7 +2,7 @@
 if ( NOT WIN32 )
 
   find_package(PkgConfig)
-  pkg_check_modules( graphviz ${REQUIRED} libgvc libagraph libcdt libgraph libpathplan )
+  pkg_check_modules( graphviz ${REQUIRED} libgvc libcdt libgraph libpathplan )
   if ( graphviz_FOUND )
     set ( graphviz_INCLUDE_DIRECTORIES ${graphviz_INCLUDE_DIRS} )
   endif ( graphviz_FOUND )
