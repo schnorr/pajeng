@@ -111,6 +111,7 @@ ADD_EXECUTABLE(dotfd ${DOTFD_SOURCES})
 INCLUDE_DIRECTORIES (dotfd ${PROJECT_SOURCE_DIR}/src/libtupi/)
 INCLUDE_DIRECTORIES(${graphviz_INCLUDE_DIRS})
 TARGET_LINK_LIBRARIES(dotfd ${wxWidgets_LIBRARIES} tupi ${graphviz_GVC_LIBRARY} ${graphviz_GRAPH_LIBRARY})
+INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/dotfd DESTINATION bin)
 
 #
 # viva executable
@@ -132,6 +133,7 @@ include_directories(viva ${Cairo_INCLUDE_DIRS})
 include_directories(viva ${PROJECT_SOURCE_DIR}/src/libtupi/)
 include(${wxWidgets_USE_FILE})
 target_link_libraries(viva ${wxWidgets_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${Cairo_LIBRARIES} ${GTK2_LIBRARIES} ${LIBCONFIG_LIBRARIES} tupi paje )
+INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/viva DESTINATION bin)
 
 #
 # For pkgconfig
