@@ -15,35 +15,35 @@ SET(CMAKE_CXX_FLAGS "-g -rdynamic")
 # The Paje Library (libpaje)
 #
 SET(LIBPAJE_HEADERS
-  src/pajelib/PajeColor.h
-  src/pajelib/PajeComponent.h
-  src/pajelib/PajeContainer.h
-  src/pajelib/PajeData.h
-  src/pajelib/PajeEntity.h
-  src/pajelib/PajeEventDecoder.h
-  src/pajelib/PajeEventDefinition.h
-  src/pajelib/PajeEvent.h
-  src/pajelib/PajeFileReader.h
-  src/pajelib/PajeObject.h
-  src/pajelib/PajeSimulator.h
-  src/pajelib/PajeTraceController.h
-  src/pajelib/PajeType.h)
+  src/libpaje/PajeColor.h
+  src/libpaje/PajeComponent.h
+  src/libpaje/PajeContainer.h
+  src/libpaje/PajeData.h
+  src/libpaje/PajeEntity.h
+  src/libpaje/PajeEventDecoder.h
+  src/libpaje/PajeEventDefinition.h
+  src/libpaje/PajeEvent.h
+  src/libpaje/PajeFileReader.h
+  src/libpaje/PajeObject.h
+  src/libpaje/PajeSimulator.h
+  src/libpaje/PajeTraceController.h
+  src/libpaje/PajeType.h)
 
 SET(LIBPAJE_SOURCES
-  src/pajelib/PajeEventDefinition.cc
-  src/pajelib/PajeEvent.cc
-  src/pajelib/PajeData.cc
-  src/pajelib/PajeFileReader.cc
-  src/pajelib/PajeEventDecoder.cc
-  src/pajelib/PajeSimulator.cc
-  src/pajelib/PajeSimulator+Queries.cc
-  src/pajelib/PajeSimulator+Commands.cc
-  src/pajelib/PajeTraceController.cc
-  src/pajelib/PajeComponent.cc
-  src/pajelib/PajeType.cc
-  src/pajelib/PajeContainer.cc
-  src/pajelib/PajeColor.cc
-  src/pajelib/PajeEntity.cc)
+  src/libpaje/PajeEventDefinition.cc
+  src/libpaje/PajeEvent.cc
+  src/libpaje/PajeData.cc
+  src/libpaje/PajeFileReader.cc
+  src/libpaje/PajeEventDecoder.cc
+  src/libpaje/PajeSimulator.cc
+  src/libpaje/PajeSimulator+Queries.cc
+  src/libpaje/PajeSimulator+Commands.cc
+  src/libpaje/PajeTraceController.cc
+  src/libpaje/PajeComponent.cc
+  src/libpaje/PajeType.cc
+  src/libpaje/PajeContainer.cc
+  src/libpaje/PajeColor.cc
+  src/libpaje/PajeEntity.cc)
 ADD_LIBRARY(paje SHARED ${LIBPAJE_SOURCES})
 SET_TARGET_PROPERTIES(paje PROPERTIES
   # bump when new function are added in the library
@@ -59,17 +59,17 @@ INSTALL(FILES ${LIBPAJE_HEADERS} DESTINATION include)
 # The Tupi Library written in C (particle system)
 #
 SET(LIBTUPI_HEADERS
-  src/tupilib/tupi.h)
+  src/libtupi/tupi.h)
 SET(LIBTUPI_SOURCES
-  src/tupilib/bary.c
-  src/tupilib/basic.c
-  src/tupilib/dynar.c
-  src/tupilib/dict.c
-  src/tupilib/particle.c
-  src/tupilib/box.c
-  src/tupilib/cell.c
-  src/tupilib/layout.c
-  src/tupilib/node.c)
+  src/libtupi/bary.c
+  src/libtupi/basic.c
+  src/libtupi/dynar.c
+  src/libtupi/dict.c
+  src/libtupi/particle.c
+  src/libtupi/box.c
+  src/libtupi/cell.c
+  src/libtupi/layout.c
+  src/libtupi/node.c)
 ADD_LIBRARY(tupi SHARED ${LIBTUPI_SOURCES})
 TARGET_LINK_LIBRARIES(tupi m)
 SET_TARGET_PROPERTIES(tupi PROPERTIES
@@ -86,15 +86,17 @@ INSTALL(FILES ${LIBTUPI_HEADERS} DESTINATION include)
 # Paje Validate (checks if a trace file is valid or not)
 # 
 ADD_EXECUTABLE(pj_validate src/paje_validate/main.cc)
-INCLUDE_DIRECTORIES (pj_validate ${PROJECT_SOURCE_DIR}/src/pajelib/)
+INCLUDE_DIRECTORIES (pj_validate ${PROJECT_SOURCE_DIR}/src/libpaje/)
 TARGET_LINK_LIBRARIES(pj_validate paje)
+INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/pj_validate DESTINATION bin)
 
 #
 # Paje Dump
 #
 ADD_EXECUTABLE(pj_dump src/paje_dump/main.cc)
-INCLUDE_DIRECTORIES (pj_dump ${PROJECT_SOURCE_DIR}/src/pajelib/)
+INCLUDE_DIRECTORIES (pj_dump ${PROJECT_SOURCE_DIR}/src/libpaje/)
 TARGET_LINK_LIBRARIES(pj_dump paje)
+INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/pj_dump DESTINATION bin)
 
 #
 # tupi wxwidgets viewer (loads dot files)
@@ -107,7 +109,7 @@ SET(TUPIWX_SRC
   src/tupiwx/runner.cc)
 ADD_EXECUTABLE(tupiwx ${TUPIWX_SRC})
 SET_TARGET_PROPERTIES(tupiwx PROPERTIES OUTPUT_NAME tupi)
-INCLUDE_DIRECTORIES (tupiwx ${PROJECT_SOURCE_DIR}/src/tupilib/)
+INCLUDE_DIRECTORIES (tupiwx ${PROJECT_SOURCE_DIR}/src/libtupi/)
 INCLUDE_DIRECTORIES(${graphviz_INCLUDE_DIRS})
 TARGET_LINK_LIBRARIES(tupiwx ${wxWidgets_LIBRARIES} tupi ${graphviz_GVC_LIBRARY} ${graphviz_GRAPH_LIBRARY})
 
@@ -128,7 +130,7 @@ SET(VIVA_SRC
 ADD_EXECUTABLE(viva ${VIVA_SRC})
 include_directories(viva ${GTK2_INCLUDE_DIRS})
 include_directories(viva ${Cairo_INCLUDE_DIRS})
-include_directories(viva ${PROJECT_SOURCE_DIR}/src/tupilib/)
+include_directories(viva ${PROJECT_SOURCE_DIR}/src/libtupi/)
 include(${wxWidgets_USE_FILE})
 target_link_libraries(viva ${wxWidgets_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${Cairo_LIBRARIES} ${GTK2_LIBRARIES} ${LIBCONFIG_LIBRARIES} tupi paje )
 
