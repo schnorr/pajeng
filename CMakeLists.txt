@@ -41,15 +41,16 @@ SET(LIBPAJE_SOURCES
   src/libpaje/PajeContainer.cc
   src/libpaje/PajeColor.cc
   src/libpaje/PajeEntity.cc)
-ADD_LIBRARY(paje SHARED ${LIBPAJE_SOURCES})
-SET_TARGET_PROPERTIES(paje PROPERTIES
+ADD_LIBRARY(paje_library SHARED ${LIBPAJE_SOURCES})
+SET_TARGET_PROPERTIES(paje_library PROPERTIES OUTPUT_NAME paje)
+SET_TARGET_PROPERTIES(paje_library PROPERTIES
   # bump when new function are added in the library
   VERSION 1.0
   # bump when ABI is broken (symbols removed or parameters changed)
   SOVERSION 1)
 # bump when the API change (new functions in the header file)
 SET(LIBPAJE_APIVERSION 1)
-INSTALL(TARGETS paje DESTINATION lib)
+INSTALL(TARGETS paje_library DESTINATION lib)
 INSTALL(FILES ${LIBPAJE_HEADERS} DESTINATION include)
 
 #
@@ -67,16 +68,17 @@ SET(LIBTUPI_SOURCES
   src/libtupi/cell.c
   src/libtupi/layout.c
   src/libtupi/node.c)
-ADD_LIBRARY(tupi SHARED ${LIBTUPI_SOURCES})
-TARGET_LINK_LIBRARIES(tupi m)
-SET_TARGET_PROPERTIES(tupi PROPERTIES
+ADD_LIBRARY(tupi_library SHARED ${LIBTUPI_SOURCES})
+SET_TARGET_PROPERTIES(tupi_library PROPERTIES OUTPUT_NAME tupi)
+TARGET_LINK_LIBRARIES(tupi_library m)
+SET_TARGET_PROPERTIES(tupi_library PROPERTIES
   # bump when new function are added in the library
   VERSION 1.0
   # bump when ABI is broken (symbols removed or parameters changed)
   SOVERSION 1)
 # bump when the API change (new functions in the header file)
 SET(LIBTUPI_APIVERSION 1)
-INSTALL(TARGETS tupi DESTINATION lib)
+INSTALL(TARGETS tupi_library DESTINATION lib)
 INSTALL(FILES ${LIBTUPI_HEADERS} DESTINATION include)
 
 #
@@ -84,7 +86,7 @@ INSTALL(FILES ${LIBTUPI_HEADERS} DESTINATION include)
 # 
 ADD_EXECUTABLE(pj_validate src/paje_validate/main.cc)
 INCLUDE_DIRECTORIES (pj_validate ${PROJECT_SOURCE_DIR}/src/libpaje/)
-TARGET_LINK_LIBRARIES(pj_validate paje)
+TARGET_LINK_LIBRARIES(pj_validate paje_library)
 INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/pj_validate DESTINATION bin)
 
 #
@@ -92,7 +94,7 @@ INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/pj_validate DESTINATION bin)
 #
 ADD_EXECUTABLE(pj_dump src/paje_dump/main.cc)
 INCLUDE_DIRECTORIES (pj_dump ${PROJECT_SOURCE_DIR}/src/libpaje/)
-TARGET_LINK_LIBRARIES(pj_dump paje)
+TARGET_LINK_LIBRARIES(pj_dump paje_library)
 INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/pj_dump DESTINATION bin)
 
 #
@@ -114,7 +116,7 @@ include_directories(viva ${GTK2_INCLUDE_DIRS})
 include_directories(viva ${Cairo_INCLUDE_DIRS})
 include_directories(viva ${PROJECT_SOURCE_DIR}/src/libtupi/)
 include(${wxWidgets_USE_FILE})
-target_link_libraries(viva ${wxWidgets_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${Cairo_LIBRARIES} ${GTK2_LIBRARIES} ${LIBCONFIG_LIBRARIES} tupi paje )
+target_link_libraries(viva ${wxWidgets_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${Cairo_LIBRARIES} ${GTK2_LIBRARIES} ${LIBCONFIG_LIBRARIES} tupi_library paje_library )
 INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/viva DESTINATION bin)
 
 #
