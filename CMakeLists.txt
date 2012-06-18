@@ -9,8 +9,6 @@ FIND_PACKAGE(GLUT REQUIRED)
 FIND_PACKAGE(Cairo)
 FIND_PACKAGE(Graphviz)
 
-SET(CMAKE_CXX_FLAGS "-g -rdynamic")
-
 #
 # The Paje Library (libpaje)
 #
