@@ -80,8 +80,6 @@ int main (int argc, char **argv)
     return 1;
   }
 
-  std::cout << arguments.input[0] << std::endl;
-
   PajeFileReader *reader = new PajeFileReader (std::string(arguments.input[0]), NULL);
   PajeEventDecoder *decoder = new PajeEventDecoder ();
   PajeSimulator *simulator = new PajeSimulator ();
