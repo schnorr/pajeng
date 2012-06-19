@@ -112,7 +112,7 @@ std::string PajeUserEvent::description (void)
   description << "Event, "
               << container()->name() << ", "
               << type()->name << ", "
-              << "[" << startTime() << " " << endTime() << "], "
+              << startTime() << ", "
               << name();
   return description.str();
 }
@@ -178,7 +178,8 @@ std::string PajeUserState::description (void)
   description << "State, "
               << container()->name() << ", "
               << type()->name << ", "
-              << "[" << startTime() << " " << endTime() << "], "
+              << startTime() << ", "
+              << endTime() << ", "
               << name();
   return description.str();
 }
@@ -228,7 +229,8 @@ std::string PajeUserVariable::description (void)
   description << "Variable, "
               << container()->name() << ", "
               << type()->name << ", "
-              << "[" << startTime() << " " << endTime() << "], "
+              << startTime() << ", "
+              << endTime() << ", "
               << doubleValue();
   return description.str();
 }
@@ -269,7 +271,8 @@ std::string PajeUserLink::description (void)
   description << "Link, "
               << container()->name() << ", "
               << type()->name << ", "
-              << "[" << startTime() << " " << endTime() << "], "
+              << startTime() << ", "
+              << endTime() << ", "
               << value() << ", "
               << startContainer()->name() << ", "
               << endContainer()->name();

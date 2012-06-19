@@ -59,7 +59,8 @@ std::string PajeContainer::description (void)
   description << "Container, "
               << containername << ", "
               << type()->name << ", "
-              << "[" << startTime() << " " << endTime() << "], "
+              << startTime() << ", "
+              << endTime() << ", "
               << name();
   return description.str();
 }
@@ -153,7 +154,7 @@ void PajeContainer::addVariable (double time, PajeType *type, double value, Paje
   if (entities[type].size() == 0){
     std::stringstream line;
     line << *event;
-    throw "Illegal addition to a variable that has no value (yet) in "+line.str();
+//    throw "Illegal addition to a variable that has no value (yet) in "+line.str();
   }
 
   checkTimeOrder (time, type, event);
