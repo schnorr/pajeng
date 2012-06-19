@@ -145,11 +145,6 @@ int main (int argc, char **argv)
     return 1;
   }
 
-  std::string x = std::string(argv[0])+": ";
-  std::cout << x << "This program dumps the contents of a Paje trace file." << std::endl;
-  std::cout << x << "The column description is this:" << std::endl;
-  std::cout << x << "Nature, container, type, [starttime - endtime], value" << std::endl;
-
   dump (simulator);
 
   delete reader;
