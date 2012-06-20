@@ -218,12 +218,14 @@ std::map<PajeEventId,std::set<std::string> > initOptionalFields ()
 
   ret[PajeDefineEventTypeEventId] = std::set<std::string>();
   ret[PajeDefineEventTypeEventId].insert (alias);
+  ret[PajeDefineEventTypeEventId].insert (color);
 
   ret[PajeDefineStateTypeEventId] = std::set<std::string>();
   ret[PajeDefineStateTypeEventId].insert (alias);
 
   ret[PajeDefineVariableTypeEventId]  = std::set<std::string>();
   ret[PajeDefineVariableTypeEventId].insert (alias);
+  ret[PajeDefineVariableTypeEventId].insert (color);
 
   ret[PajeDefineLinkTypeEventId] = std::set<std::string>();
   ret[PajeDefineLinkTypeEventId].insert (alias);
