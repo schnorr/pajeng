@@ -296,7 +296,7 @@ void PajeEventDefinition::addField (std::string name, std::string type)
   }
   found = set.find (name);
   if (found != set.end()){
-    throw "The field '"+name+"' with type '"+type+"' has been defined previously.";
+    throw "The field '"+name+"' with type '"+type+"' has been previously defined.";
   }else{
     set.clear();
   }
