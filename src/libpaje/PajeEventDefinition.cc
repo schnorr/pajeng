@@ -332,7 +332,7 @@ void PajeEventDefinition::addField (std::string name, std::string type)
   std::set<std::string> obligatory = it_obligatory->second;
   std::set<std::string> optional = it_optional->second;
   if (obligatory.count(name) == 0 && optional.count(name) == 0){
-    extraFieldNames.insert (name);
+    extraFieldNames.push_back (name);
   }
 
   //add the field and its type
@@ -399,7 +399,7 @@ void PajeEventDefinition::showObligatoryFields (void)
   std::cout << std::endl;
 }
 
-std::set<std::string> PajeEventDefinition::extraFields (void)
+std::vector<std::string> PajeEventDefinition::extraFields (void)
 {
   return extraFieldNames;
 }
