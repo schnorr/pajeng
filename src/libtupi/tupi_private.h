@@ -42,7 +42,6 @@ void tupi_exception (const char *func,
 #define TUPI_DIE(str) tupi_exception(__FUNCTION__, __FILE__, __LINE__, str)
 
 /* data structures */
-typedef int (*dynar_cmp_f)(const void *p1, const void *p2);
 typedef struct m_tp_dynar {
   unsigned long size;
   unsigned long used;
