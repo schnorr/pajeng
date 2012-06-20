@@ -67,6 +67,7 @@ std::map<PajeEventId,std::string> initPajeEventIDToNames ()
 std::map<PajeEventId,std::set<std::string> > initObligatoryFields ()
 {
   std::map<PajeEventId,std::set<std::string> > ret;
+  std::string eventid("EventId");
   std::string time("Time");
   std::string name("Name");
   std::string alias("Alias");
@@ -84,89 +85,106 @@ std::map<PajeEventId,std::set<std::string> > initObligatoryFields ()
 
   // The obligatory fields
   ret[PajeDefineContainerTypeEventId] = std::set<std::string>();
+  ret[PajeDefineContainerTypeEventId].insert (eventid);
   ret[PajeDefineContainerTypeEventId].insert (name);
   ret[PajeDefineContainerTypeEventId].insert (type);
 
   ret[PajeDefineEventTypeEventId] = std::set<std::string>();
+  ret[PajeDefineEventTypeEventId].insert (eventid);
   ret[PajeDefineEventTypeEventId].insert (name);
   ret[PajeDefineEventTypeEventId].insert (type);
 
   ret[PajeDefineStateTypeEventId] = std::set<std::string>();
+  ret[PajeDefineStateTypeEventId].insert (eventid);
   ret[PajeDefineStateTypeEventId].insert (name);
   ret[PajeDefineStateTypeEventId].insert (type);
 
   ret[PajeDefineVariableTypeEventId]  = std::set<std::string>();
+  ret[PajeDefineVariableTypeEventId].insert (eventid);
   ret[PajeDefineVariableTypeEventId].insert (name);
   ret[PajeDefineVariableTypeEventId].insert (type);
 
   ret[PajeDefineLinkTypeEventId] = std::set<std::string>();
+  ret[PajeDefineLinkTypeEventId].insert (eventid);
   ret[PajeDefineLinkTypeEventId].insert (name);
   ret[PajeDefineLinkTypeEventId].insert (type);
   ret[PajeDefineLinkTypeEventId].insert (startContainerType);
   ret[PajeDefineLinkTypeEventId].insert (endContainerType);
 
   ret[PajeDefineEntityValueEventId] = std::set<std::string>();
+  ret[PajeDefineEntityValueEventId].insert (eventid);
   ret[PajeDefineEntityValueEventId].insert (name);
   ret[PajeDefineEntityValueEventId].insert (type);
 
   ret[PajeCreateContainerEventId] = std::set<std::string>();
+  ret[PajeCreateContainerEventId].insert (eventid);
   ret[PajeCreateContainerEventId].insert (time);
   ret[PajeCreateContainerEventId].insert (name);
   ret[PajeCreateContainerEventId].insert (type);
   ret[PajeCreateContainerEventId].insert (container);
 
   ret[PajeDestroyContainerEventId] = std::set<std::string>();
+  ret[PajeDestroyContainerEventId].insert (eventid);
   ret[PajeDestroyContainerEventId].insert (time);
   ret[PajeDestroyContainerEventId].insert (name);
   ret[PajeDestroyContainerEventId].insert (type);
 
   ret[PajeNewEventEventId] = std::set<std::string>();
+  ret[PajeNewEventEventId].insert (eventid);
   ret[PajeNewEventEventId].insert (time);
   ret[PajeNewEventEventId].insert (type);
   ret[PajeNewEventEventId].insert (container);
   ret[PajeNewEventEventId].insert (value);
 
   ret[PajeSetStateEventId] = std::set<std::string>();
+  ret[PajeSetStateEventId].insert (eventid);
   ret[PajeSetStateEventId].insert (time);
   ret[PajeSetStateEventId].insert (type);
   ret[PajeSetStateEventId].insert (container);
   ret[PajeSetStateEventId].insert (value);
 
   ret[PajePushStateEventId] = std::set<std::string>();
+  ret[PajePushStateEventId].insert (eventid);
   ret[PajePushStateEventId].insert (time);
   ret[PajePushStateEventId].insert (type);
   ret[PajePushStateEventId].insert (container);
   ret[PajePushStateEventId].insert (value);
 
   ret[PajePopStateEventId] = std::set<std::string>();
+  ret[PajePopStateEventId].insert (eventid);
   ret[PajePopStateEventId].insert (time);
   ret[PajePopStateEventId].insert (type);
   ret[PajePopStateEventId].insert (container);
 
   ret[PajeResetStateEventId] = std::set<std::string>();
+  ret[PajeResetStateEventId].insert (eventid);
   ret[PajeResetStateEventId].insert (time);
   ret[PajeResetStateEventId].insert (type);
   ret[PajeResetStateEventId].insert (container);
 
   ret[PajeSetVariableEventId] = std::set<std::string>();
+  ret[PajeSetVariableEventId].insert (eventid);
   ret[PajeSetVariableEventId].insert (time);
   ret[PajeSetVariableEventId].insert (type);
   ret[PajeSetVariableEventId].insert (container);
   ret[PajeSetVariableEventId].insert (value);
 
   ret[PajeAddVariableEventId] = std::set<std::string>();
+  ret[PajeAddVariableEventId].insert (eventid);
   ret[PajeAddVariableEventId].insert (time);
   ret[PajeAddVariableEventId].insert (type);
   ret[PajeAddVariableEventId].insert (container);
   ret[PajeAddVariableEventId].insert (value);
 
   ret[PajeSubVariableEventId] = std::set<std::string>();
+  ret[PajeSubVariableEventId].insert (eventid);
   ret[PajeSubVariableEventId].insert (time);
   ret[PajeSubVariableEventId].insert (type);
   ret[PajeSubVariableEventId].insert (container);
   ret[PajeSubVariableEventId].insert (value);
 
   ret[PajeStartLinkEventId] = std::set<std::string>();
+  ret[PajeStartLinkEventId].insert (eventid);
   ret[PajeStartLinkEventId].insert (time);
   ret[PajeStartLinkEventId].insert (type);
   ret[PajeStartLinkEventId].insert (container);
@@ -175,6 +193,7 @@ std::map<PajeEventId,std::set<std::string> > initObligatoryFields ()
   ret[PajeStartLinkEventId].insert (key);
 
   ret[PajeEndLinkEventId] = std::set<std::string>();
+  ret[PajeEndLinkEventId].insert (eventid);
   ret[PajeEndLinkEventId].insert (time);
   ret[PajeEndLinkEventId].insert (type);
   ret[PajeEndLinkEventId].insert (container);
