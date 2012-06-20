@@ -65,10 +65,7 @@ public:
   int fieldCount;
   std::list<std::string> fields;
   std::list<std::string> types;
-
-  /* std::list<PajeFieldId> extraFieldNames; */
-  /* int extraFieldCount; */
-  /* NSArray *extraFieldNames; */
+  std::set<std::string> extraFieldNames;
 
 public:
   PajeEventDefinition (PajeEventId pajeEventId, std::string number);
@@ -78,6 +75,7 @@ public:
   int indexForFieldId (std::string name);
   bool isValid (void);
   void showObligatoryFields (void);
+  std::set<std::string> extraFields (void);
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeEventDefinition &eventDef);

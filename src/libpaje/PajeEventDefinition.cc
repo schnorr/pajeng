@@ -321,6 +321,20 @@ void PajeEventDefinition::addField (std::string name, std::string type)
     set.clear();
   }
 
+  //check if the field to be added is obligatory|optional or user-defined
+  std::map<PajeEventId,std::set<std::string> >::iterator it_obligatory;
+  std::map<PajeEventId,std::set<std::string> >::iterator it_optional;
+  it_obligatory = pajeObligatoryFields.find (pajeEventId);
+  it_optional = pajeOptionalFields.find (pajeEventId);
+  if (it_obligatory == pajeObligatoryFields.end()){
+    throw "Couldn't find the obligatory fields for event id '"+number+"' when adding field named '"+name+"'.";
+  }
+  std::set<std::string> obligatory = it_obligatory->second;
+  std::set<std::string> optional = it_optional->second;
+  if (obligatory.count(name) == 0 && optional.count(name) == 0){
+    extraFieldNames.insert (name);
+  }
+
   //add the field and its type
   fields.push_back (name);
   types.push_back (type);
@@ -383,6 +397,11 @@ void PajeEventDefinition::showObligatoryFields (void)
     iter++;
   }
   std::cout << std::endl;
+}
+
+std::set<std::string> PajeEventDefinition::extraFields (void)
+{
+  return extraFieldNames;
 }
 
 std::ostream &operator<< (std::ostream &output, const PajeEventDefinition &eventDef)
