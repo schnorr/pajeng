@@ -83,16 +83,16 @@ bool PajeFileReader::canEndChunk (void)
     return true;
   }
 
-  std::streampos offsetInFile = file.tellg();
+  std::streamoff offsetInFile = file.tellg();
   PajeData *buffer = new PajeData(chunkSize);
   file.read (buffer->bytes, chunkSize);
   if (file.eof()){
     file.close();
     file.open (filename.c_str());
   }
-  std::streamsize length = file.gcount ();
+  std::streamoff length = file.gcount ();
   buffer->length = length;
-  std::streamsize line_size = std::streamsize(chunkSize);
+  std::streamoff line_size = std::streamoff(chunkSize);
   if (length < line_size){
     moreData = false;
   }
@@ -102,7 +102,7 @@ bool PajeFileReader::canEndChunk (void)
   char *eol;
   eol = (char*)memchr (bytes, '\n', length);
   if (eol != NULL){
-    std::streamsize newlength = std::streamsize (eol - bytes + 1);
+    std::streamoff newlength = std::streamoff (eol - bytes + 1);
     if (newlength != length){
       length = newlength;
       moreData = true;
@@ -140,7 +140,7 @@ void PajeFileReader::readNextChunk (void)
     PajeData *buffer = new PajeData (chunkSize);
     file.read (buffer->bytes, chunkSize);
     current = file.tellg();
-    std::streamsize length = file.gcount();
+    std::streamoff length = file.gcount();
     buffer->length = length;
     if (length != chunkSize){
       fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
@@ -157,7 +157,7 @@ void PajeFileReader::readNextChunk (void)
     PajeData *buffer = new PajeData(chunkSize);
     file.read (buffer->bytes, chunkSize);
     current = file.tellg();
-    std::streamsize length = file.gcount ();
+    std::streamoff length = file.gcount ();
     buffer->length = length;
     if (length < chunkSize){
       moreData = false;
@@ -189,7 +189,7 @@ bool PajeFileReader::hasMoreData (void)
   return moreData;
 }
 
-void PajeFileReader::setUserChunkSize (std::streamsize userChunkSize)
+void PajeFileReader::setUserChunkSize (std::streamoff userChunkSize)
 {
   chunkSize = userChunkSize;
 }

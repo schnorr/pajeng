@@ -34,7 +34,7 @@ private:
   std::string filename;
   std::ifstream file;
   PajeTraceController *controller;
-  std::streamsize chunkSize;
+  std::streamoff chunkSize;
   int currentChunk;
   bool moreData;
   std::map<int,std::streampos> chunkInfo;
@@ -51,7 +51,7 @@ public:
   void startChunk (int chunkNumber);
   void endOfChunkLast (bool last);
   bool hasMoreData (void);
-  void setUserChunkSize (std::streamsize userChunkSize);
+  void setUserChunkSize (std::streamoff userChunkSize);
   unsigned long long traceSize (void);
   unsigned long long traceRead (void);
 };
