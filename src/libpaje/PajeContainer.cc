@@ -484,6 +484,8 @@ bool PajeContainer::checkTimeOrder (double time, PajeType *type, PajeEvent *even
       std::stringstream eventdesc;
       eventdesc << *event;
       throw "Illegal, trace is not time-ordered in "+eventdesc.str();
+      return false;
     }
   }
+  return true;
 }
