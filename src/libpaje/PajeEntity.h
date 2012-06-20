@@ -32,6 +32,7 @@ private:
 
 public:
   PajeEntity (PajeContainer *container, PajeType *type, std::string name, PajeEvent *event);
+  virtual void addPajeEvent (PajeEvent *event); //for Paje[Start|End]Link
   PajeContainer *container (void) const;
   PajeType *type (void) const;
   std::string name (void) const;

@@ -236,6 +236,7 @@ void PajeContainer::startLink (double time, PajeType *type, PajeContainer *start
     PajeUserLink *link = (pendingLinks.find(key))->second;
     link->setStartTime (time);
     link->setStartContainer (startContainer);
+    link->addPajeEvent (event);
 
     //check validity of the PajeEndLink when compared to its PajeStartLink
     if (link->value() != value){
@@ -276,6 +277,7 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
     PajeUserLink *link = (pendingLinks.find(key))->second;
     link->setEndContainer (endContainer);
     link->setEndTime (time);
+    link->addPajeEvent (event);
 
     //check validity of the PajeEndLink when compared to its PajeStartLink
     if (link->value() != value){

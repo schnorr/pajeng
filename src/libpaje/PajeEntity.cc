@@ -22,6 +22,11 @@ PajeEntity::PajeEntity (PajeContainer *container, PajeType *type, std::string na
   this->entityType = type;
   this->entityName = name;
 
+  addPajeEvent (event);
+}
+
+void PajeEntity::addPajeEvent (PajeEvent *event)
+{
   if (!event) return;
 
   PajeEventDefinition *def = event->pajeEventDefinition;
@@ -30,7 +35,18 @@ PajeEntity::PajeEntity (PajeContainer *container, PajeType *type, std::string na
   for (it = extra.begin(); it != extra.end(); it++){
     std::string fieldName = *it;
     std::string value = event->valueForFieldId (fieldName);
-    extraFields[fieldName] = value;
+
+    //check if fieldName already exists
+    if (extraFields.count(fieldName)){
+      //if it does, check if value is NOT the same
+      if (extraFields[fieldName] != value){
+        std::stringstream line;
+        line << *event;
+        throw "When treating event "+line.str()+", the value for "+fieldName+" is "+extraFields[fieldName]+", but it is different from "+value;
+      }
+    }else{
+      extraFields[fieldName] = value;
+    }
   }
 }
 
