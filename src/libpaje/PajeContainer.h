@@ -34,9 +34,6 @@ public:
   std::map<std::string,PajeContainer*> children;
   int depth;
 
-  //keeps the values of states
-  std::map<PajeType*,std::vector<double> > states;
-
 private:
   std::set<std::string> linksUsedKeys; //all used keys for this container
   std::map<std::string,PajeUserLink*> pendingLinks; //all pending links
