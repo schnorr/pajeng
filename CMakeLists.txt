@@ -81,8 +81,9 @@ OPTION(VIVA         "Compile viva (a hierarchical graph visualization tool" OFF)
 # The Paje Library (libpaje)
 # 
 IF(PAJE_LIBRARY)
-  FIND_PACKAGE (Boost REQUIRED)
+  FIND_PACKAGE(Boost REQUIRED)
   ADD_LIBRARY(paje_library SHARED ${LIBPAJE_SOURCES})
+  INCLUDE_DIRECTORIES(paje_library ${Boost_INCLUDE_DIR})
   SET_TARGET_PROPERTIES(paje_library PROPERTIES OUTPUT_NAME paje)
   SET_TARGET_PROPERTIES(paje_library PROPERTIES
     # bump when new function are added in the library
