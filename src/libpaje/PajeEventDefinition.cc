@@ -282,7 +282,6 @@ PajeEventDefinition::PajeEventDefinition (PajeEventId pajeEventId, std::string n
   this->pajeEventId = pajeEventId;
   this->number = number;
   fieldCount = 0;
-  // extraFieldCount = 0;
 
   //the first field is always the event identification
   PajeEventDefinition::addField ("EventId", "int");
