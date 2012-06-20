@@ -37,7 +37,7 @@ PajeSimulator::PajeSimulator ()
   invocation[PajeStartLinkEventId] = &PajeSimulator::pajeStartLink;
   invocation[PajeEndLinkEventId] = &PajeSimulator::pajeEndLink;
   rootType = new PajeContainerType ("0", "0", NULL);
-  root = new PajeContainer (0, "0", "0", NULL, rootType);
+  root = new PajeContainer (0, "0", "0", NULL, rootType, NULL);
   typeMap[rootType->identifier()] = rootType;
   typeNamesMap[rootType->name] = rootType;
   contMap[root->identifier()] = root;

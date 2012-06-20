@@ -46,7 +46,7 @@ private:
   std::map<PajeType*,std::vector<PajeEntity*> > entities;
 
 public:
-  PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type);
+  PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeEvent *event);
   std::string description (void);
   bool isContainer (void);
   PajeContainer *getRoot (void);

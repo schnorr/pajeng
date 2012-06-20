@@ -16,7 +16,7 @@
 */
 #include "PajeContainer.h"
 
-PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type):PajeUserState (parent, type, name, time, time)
+PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeEvent *event):PajeUserState (parent, type, name, time, time, event)
 {
   this->alias = alias;
   this->destroyed = false;
@@ -77,7 +77,7 @@ std::string PajeContainer::identifier ()
 
 PajeContainer *PajeContainer::addContainer (double time, std::string name, std::string alias, PajeContainerType *type, PajeEvent *event)
 {
-  PajeContainer *newContainer = new PajeContainer (time, name, alias, this, type);
+  PajeContainer *newContainer = new PajeContainer (time, name, alias, this, type, event);
   children[newContainer->identifier()] = newContainer;
   return newContainer;
 }
@@ -142,7 +142,7 @@ void PajeContainer::setVariable (double time, PajeType *type, double value, Paje
   }
 
   //create new
-  PajeUserVariable *val = new PajeUserVariable (this, type, value, time, time);
+  PajeUserVariable *val = new PajeUserVariable (this, type, value, time, time, event);
   entities[type].push_back(val);
 
   //update container endtime
@@ -174,7 +174,7 @@ void PajeContainer::addVariable (double time, PajeType *type, double value, Paje
     }
   }
   //create new
-  PajeUserVariable *val = new PajeUserVariable (this, type, lastValue + value, time, time);
+  PajeUserVariable *val = new PajeUserVariable (this, type, lastValue + value, time, time, event);
   entities[type].push_back(val);
 
   //update container endtime
@@ -207,7 +207,7 @@ void PajeContainer::subVariable (double time, PajeType *type, double value, Paje
   }
 
   //create new
-  PajeUserVariable *val = new PajeUserVariable (this, type, lastValue - value, time, time);
+  PajeUserVariable *val = new PajeUserVariable (this, type, lastValue - value, time, time, event);
   entities[type].push_back(val);
 
   //update container endtime
@@ -223,7 +223,7 @@ void PajeContainer::startLink (double time, PajeType *type, PajeContainer *start
   }
 
   if (pendingLinks.count(key) == 0){
-    PajeUserLink *link = new PajeUserLink(this, type, value, key, startContainer, time);
+    PajeUserLink *link = new PajeUserLink(this, type, value, key, startContainer, time, event);
     pendingLinks.insert (std::make_pair(key, link));
 
   }else{
@@ -261,7 +261,7 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
 
   if (pendingLinks.count(key) == 0){
     //there is no corresponding PajeStartLink
-    PajeUserLink *link = new PajeUserLink(this, type, value, key, NULL, -1);
+    PajeUserLink *link = new PajeUserLink(this, type, value, key, NULL, -1, event);
     link->setEndContainer (endContainer);
     link->setEndTime (time);
     pendingLinks.insert (std::make_pair(key, link));
@@ -294,7 +294,7 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
 void PajeContainer::newEvent (double time, PajeType *type, std::string value, PajeEvent *event)
 {
   checkTimeOrder (time, type, event);
-  PajeUserEvent *n = new PajeUserEvent(this, type, value, time);
+  PajeUserEvent *n = new PajeUserEvent(this, type, value, time, event);
   entities[type].push_back (n);
 }
 
@@ -304,7 +304,7 @@ void PajeContainer::setState (double time, PajeType *type, std::string value, Pa
 
   resetState (time, type, value, event);
 
-  PajeUserState *state = new PajeUserState (this, type, value, time);
+  PajeUserState *state = new PajeUserState (this, type, value, time, event);
   entities[type].push_back (state);
 
   std::vector<PajeUserState*> *stack = &stackStates[type];
@@ -320,7 +320,7 @@ void PajeContainer::pushState (double time, PajeType *type, std::string value, P
   //define new imbrication level
   int imbrication = !stack->size() ? 0 : (stack->back())->imbricationLevel() + 1;
 
-  PajeUserState *state = new PajeUserState (this, type, value, time, imbrication);
+  PajeUserState *state = new PajeUserState (this, type, value, time, imbrication, event);
   entities[type].push_back (state);
   stack->push_back (state);
 }
