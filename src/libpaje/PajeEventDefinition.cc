@@ -284,7 +284,7 @@ void PajeEventDefinition::addField (std::string name, std::string type)
   std::set<std::string>::iterator found;
   found = set.find (type);
   if (found == set.end()){
-    throw "The type '"+type+"' used in the field '"+name+"' is not recognised.";
+    throw "The type '"+type+"' used in the field '"+name+"' is not recognized.";
   }else{
     set.clear();
   }
