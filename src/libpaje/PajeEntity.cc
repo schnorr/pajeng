@@ -21,6 +21,17 @@ PajeEntity::PajeEntity (PajeContainer *container, PajeType *type, std::string na
   this->entityContainer = container;
   this->entityType = type;
   this->entityName = name;
+
+  if (!event) return;
+
+  PajeEventDefinition *def = event->pajeEventDefinition;
+  std::vector<std::string> extra = def->extraFields();
+  std::vector<std::string>::iterator it;
+  for (it = extra.begin(); it != extra.end(); it++){
+    std::string fieldName = *it;
+    std::string value = event->valueForFieldId (fieldName);
+    extraFields[fieldName] = value;
+  }
 }
 
 PajeContainer *PajeEntity::container (void) const
@@ -56,6 +67,25 @@ bool PajeEntity::isContainer (void)
 std::string PajeEntity::value (void)
 {
   return name();
+}
+
+std::string PajeEntity::extraDescription (void)
+{
+  if (extraFields.size() == 0) return std::string("");
+
+  std::stringstream description;
+  std::map<std::string,std::string>::iterator it;
+  for (it = extraFields.begin(); it != extraFields.end(); it++){
+    description << (*it).second;
+
+    //look forward to see if we ouput a comma
+    it++;
+    if (it != extraFields.end()){
+      description << ", ";
+    }
+    it--;
+  }
+  return description.str();
 }
 
 void PajeEntity::setValue (std::string newvalue)
@@ -114,6 +144,11 @@ std::string PajeUserEvent::description (void)
               << type()->name << ", "
               << startTime() << ", "
               << name();
+  std::string extra = extraDescription();
+  if (!extra.empty()){
+    description << ", "
+                << extra;
+  }
   return description.str();
 }
 
@@ -181,6 +216,11 @@ std::string PajeUserState::description (void)
               << startTime() << ", "
               << endTime() << ", "
               << name();
+  std::string extra = extraDescription();
+  if (!extra.empty()){
+    description << ", "
+                << extra;
+  }
   return description.str();
 }
 
@@ -232,6 +272,11 @@ std::string PajeUserVariable::description (void)
               << startTime() << ", "
               << endTime() << ", "
               << doubleValue();
+  std::string extra = extraDescription();
+  if (!extra.empty()){
+    description << ", "
+                << extra;
+  }
   return description.str();
 }
 
@@ -276,6 +321,11 @@ std::string PajeUserLink::description (void)
               << value() << ", "
               << startContainer()->name() << ", "
               << endContainer()->name();
+  std::string extra = extraDescription();
+  if (!extra.empty()){
+    description << ", "
+                << extra;
+  }
   return description.str();
 }
 

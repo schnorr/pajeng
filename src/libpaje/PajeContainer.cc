@@ -62,6 +62,11 @@ std::string PajeContainer::description (void)
               << startTime() << ", "
               << endTime() << ", "
               << name();
+  std::string extra = extraDescription();
+  if (!extra.empty()){
+    description << ", "
+                << extra;
+  }
   return description.str();
 }
 
