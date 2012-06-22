@@ -277,22 +277,26 @@ std::map<PajeEventId,std::set<std::string> > initOptionalFields ()
 static std::map<PajeEventId,std::set<std::string> > pajeObligatoryFields = initObligatoryFields ();
 static std::map<PajeEventId,std::set<std::string> > pajeOptionalFields = initOptionalFields ();
 
-PajeEventDefinition::PajeEventDefinition (PajeEventId pajeEventId, std::string number)
+PajeEventDefinition::PajeEventDefinition (PajeEventId pajeEventId, std::string number, paje_line *line)
 {
   this->pajeEventId = pajeEventId;
   this->number = number;
   fieldCount = 0;
 
   //the first field is always the event identification
-  PajeEventDefinition::addField ("EventId", "int");
+  PajeEventDefinition::addField ("EventId", "int", line);
 }
 
 PajeEventDefinition::~PajeEventDefinition (void)
 {
 }
 
-void PajeEventDefinition::addField (std::string name, std::string type)
+void PajeEventDefinition::addField (std::string name, std::string type, paje_line *line)
 {
+  std::stringstream st;
+  st << *line;
+  std::string lreport = st.str();
+
   //check if the type is valid
   std::set<std::string> set;
   set.insert("int");
@@ -304,7 +308,7 @@ void PajeEventDefinition::addField (std::string name, std::string type)
   std::set<std::string>::iterator found;
   found = set.find (type);
   if (found == set.end()){
-    throw "The type '"+type+"' used in the field '"+name+"' is not recognized.";
+    throw "The type '"+type+"' used in the field '"+name+"' is not recognized in line "+lreport;
   }else{
     set.clear();
   }
@@ -316,7 +320,9 @@ void PajeEventDefinition::addField (std::string name, std::string type)
   }
   found = set.find (name);
   if (found != set.end()){
-    throw "The field '"+name+"' with type '"+type+"' has been previously defined.";
+    std::stringstream st;
+    st << line->lineNumber;
+    throw "The field '"+name+"' with type '"+type+"' is already defined when treating line "+lreport;
   }else{
     set.clear();
   }
@@ -327,7 +333,7 @@ void PajeEventDefinition::addField (std::string name, std::string type)
   it_obligatory = pajeObligatoryFields.find (pajeEventId);
   it_optional = pajeOptionalFields.find (pajeEventId);
   if (it_obligatory == pajeObligatoryFields.end()){
-    throw "Couldn't find the obligatory fields for event id '"+number+"' when adding field named '"+name+"'.";
+    throw "Couldn't find the obligatory fields for event id '"+number+"' when adding field named '"+name+"' in line "+lreport;
   }
   std::set<std::string> obligatory = it_obligatory->second;
   std::set<std::string> optional = it_optional->second;
@@ -424,5 +430,18 @@ std::ostream &operator<< (std::ostream &output, const PajeEventDefinition &event
     itt++;
   }
   output << "  %EndEventDef";
+  return output;
+}
+
+std::ostream &operator<< (std::ostream &output, const paje_line &line)
+{
+  int i;
+  output << "(Line: " << line.lineNumber;
+  output << ", Contents: '";
+  for (i = 0; i < line.word_count; i++){
+    output << std::string(line.word[i]);
+    if (i+1 != line.word_count) output << " ";
+  }
+  output << "')";
   return output;
 }

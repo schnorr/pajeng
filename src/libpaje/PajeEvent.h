@@ -31,12 +31,15 @@ class PajeEvent : public PajeObject {
 public:
   paje_line *valueLine;
   PajeEventDefinition *pajeEventDefinition;
+
+private:
   long long lineNumber;
 
 public:
   PajeEvent (PajeEventDefinition *def, paje_line *line);
   PajeEventId pajeEventId (void);
   std::string valueForFieldId (std::string name);
+  long long getLineNumber (void) const;
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeEvent &event);

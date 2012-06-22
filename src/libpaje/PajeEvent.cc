@@ -28,11 +28,11 @@ PajeEvent::PajeEvent (PajeEventDefinition *def, paje_line *line)
     std::cout << *def << std::endl;
     std::cout << "Line field count: " << line->word_count << std::endl;
     std::cout << "Definition field count: " << def->fieldCount << std::endl;
-    throw "Field count does not match definition for line '"+ str + "'.";
+    throw "Field count does not match definition for line '"+ str + "' in line .";
   }
-
   valueLine = line;
   pajeEventDefinition = def;
+  lineNumber = line->lineNumber;
 }
 
 PajeEventId PajeEvent::pajeEventId (void)
@@ -50,15 +50,13 @@ std::string PajeEvent::valueForFieldId (std::string name)
   }
 }
 
+long long PajeEvent::getLineNumber (void) const
+{
+  return lineNumber;
+}
+
 std::ostream &operator<< (std::ostream &output, const PajeEvent &event)
 {
-  int i;
-  output << "(Line: " << event.lineNumber;
-  output << ", Contents: '";
-  for (i = 0; i < event.valueLine->word_count; i++){
-    output << std::string(event.valueLine->word[i]);
-    if (i+1 != event.valueLine->word_count) output << " ";
-  }
-  output << "')";
+  output << event.valueLine;
   return output;
 }

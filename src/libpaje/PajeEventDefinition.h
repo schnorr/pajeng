@@ -21,6 +21,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -31,6 +32,7 @@
 typedef struct {
     char *word[PAJE_MAX_FIELDS];
     int word_count;
+    long long lineNumber;
 } paje_line;
 
 typedef enum {
@@ -69,9 +71,9 @@ public:
   std::vector<std::string> extraFieldNames;
 
 public:
-  PajeEventDefinition (PajeEventId pajeEventId, std::string number);
+  PajeEventDefinition (PajeEventId pajeEventId, std::string number, paje_line *line);
   ~PajeEventDefinition (void);
-  void addField (std::string name, std::string type);
+  void addField (std::string name, std::string type, paje_line *line);
 
   int indexForFieldId (std::string name);
   bool isValid (void);
@@ -80,5 +82,6 @@ public:
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeEventDefinition &eventDef);
+std::ostream &operator<< (std::ostream &output, const paje_line &line);
 
 #endif

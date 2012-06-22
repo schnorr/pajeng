@@ -43,10 +43,14 @@ PajeEventDecoder::~PajeEventDecoder ()
 
 char *PajeEventDecoder::break_line (char *s, paje_line *line)
 {
+  //a new line is born
+  currentLineNumber++;
+
   bool in_string = false;
   bool in_word = false;
   char *p;
   line->word_count = 0;
+  line->lineNumber = currentLineNumber;
 
   for (p = s; *p != '\0'; p++) {
     if (*p == '\n') {
@@ -104,6 +108,9 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
   char *eventId;
   char *fieldName;
   char *fieldType;
+  std::stringstream st;
+  st << *line;
+  std::string lreport = st.str();
 
   str = line->word[n++];
   if (*str++ != '%') {
@@ -121,21 +128,21 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
 
     //check if this event definition has a good start
     if (n != line->word_count || strcmp(str, "EventDef") != 0) {
-      throw std::string("'EventDef <event name> <event id>' expected.");
+      throw "'EventDef <event name> <event id>' expected in "+lreport;
     }
 
     //check if this event definition has been already defined
     if (eventDefinitions[eventId]){
-      throw "Redefinition of event with id '"+std::string(eventId)+"'";
+      throw "Redefinition of event with id '"+std::string(eventId)+"' in "+lreport;
     }
 
     //check if we know the event name found in the trace file
     PajeEventId pajeEventId = getPajeEventId (eventName);
     if (pajeEventId == PajeUnknownEventId) {
-      throw "Unknown event name '"+std::string(eventName)+"'";
+      throw "Unknown event name '"+std::string(eventName)+"' in "+lreport;
     }
 
-    eventBeingDefined = new PajeEventDefinition (pajeEventId, eventId);
+    eventBeingDefined = new PajeEventDefinition (pajeEventId, eventId, line);
     eventDefinitions[eventId] = eventBeingDefined;
     defStatus = IN_DEF;
   }
@@ -145,14 +152,15 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
     fieldName = str;
 
     if (n > line->word_count) {
-      throw std::string("Incomplete line, missing field name");
+      throw "Incomplete line, missing field name in "+lreport;
     }
 
     if (strcmp(fieldName, "EndEventDef") == 0) {
       if (!eventBeingDefined->isValid()){
-        std::cout << "This event definition is not valid:" << std::endl;
+        std::cout << "This event definition is invalid:" << std::endl;
         std::cout << *eventBeingDefined << std::endl;
         eventBeingDefined->showObligatoryFields();
+        std::cout << "When treating line " << lreport << std::endl;
         exit(1);
       }
       defStatus = OUT_DEF;
@@ -163,39 +171,35 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
       std::map<PajeEventId,std::string> eventNames = initPajeEventIDToNames();
       std::string name = eventNames[eventBeingDefined->pajeEventId];
 
-      throw "Incomplete line, missing field type for " + name +
-        " with id " + eventBeingDefined->number;
+      throw "Incomplete line, missing field type for " + name + " with id " + " in "+lreport;
     }
 
     fieldType = line->word[n++];
-    eventBeingDefined->addField (fieldName, fieldType);
+    eventBeingDefined->addField (fieldName, fieldType, line);
   }
   break;
   default:
     throw std::string("Internal error, invalid status.");
   }
-  currentLineNumber++;
 }
 
 PajeEvent *PajeEventDecoder::scanEventLine (paje_line *line)
 {
   char *eventId = NULL;
-  PajeEvent *event = NULL;
   PajeEventDefinition *eventDefinition = NULL;
+  std::stringstream st;
+  st << *line;
+  std::string lreport = st.str();
 
   eventId = line->word[0];
   if (*eventId == '%') {
-    throw std::string("Line should not start with a '%%'");
+    throw "Line should not start with a '%%' in "+lreport;
   }
   eventDefinition = eventDefinitions[eventId];
   if (eventDefinition == NULL) {
-    throw "Event with id '"+std::string(eventId)+"' has not been defined";
+    throw "Event with id '"+std::string(eventId)+"' has not been defined in "+lreport;
   }
-
-  currentLineNumber++;
-  event = new PajeEvent (eventDefinition, line);
-  event->lineNumber = currentLineNumber;
-  return event;
+  return new PajeEvent (eventDefinition, line);
 }
 
 void PajeEventDecoder::inputEntity (PajeObject *data)
@@ -209,7 +213,6 @@ void PajeEventDecoder::inputEntity (PajeObject *data)
   while ((dataPointer - initDataPointer) < length){
     dataPointer = PajeEventDecoder::break_line (dataPointer, &line);
     if (line.word_count == 0) {
-      currentLineNumber++;
       continue;
     }
     if (line.word[0][0] == '%') {

@@ -20,6 +20,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
