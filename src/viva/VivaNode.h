@@ -16,10 +16,8 @@
 */
 #ifndef __VIVA_NODE_H
 #define __VIVA_NODE_H
-#include <wx/wx.h>
+#include <GL/gl.h>
 #include <libconfig.h>
-#include <gtk/gtk.h>
-#include <cairo.h>
 #include "tupi.h"
 #include "PajeComponent.h"
 

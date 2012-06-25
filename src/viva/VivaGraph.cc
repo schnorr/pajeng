@@ -17,42 +17,11 @@
 #include "VivaGraph.h"
 #include "PajeEntity.h"
 
-
-VivaRunner::VivaRunner (void *layout, GraphFrame *view)
-  : wxThread (wxTHREAD_JOINABLE)
-{
-  this->layout = layout;
-  this->view = view;
-  this->keepRunning = true;
-  if(wxTHREAD_NO_ERROR == Create()) {
-    Run();
-  }
-}
-
-void *VivaRunner::Entry (void)
-{
-  std::cout << "Starting the thread particle system... " << std::endl;
-  while(!TestDestroy() && keepRunning){
-    double limit = layout_stabilization_limit (layout);
-    double current = layout_stabilization (layout);
-    if (current > limit){
-      break;
-    }else{
-      layout_compute (layout);
-      wxCommandEvent event (VivaGraphLayoutUpdated);
-      wxPostEvent (view, event);
-    }
-  }
-  std::cout << "Terminate the thread particle system... " << std::endl;
-  return static_cast<ExitCode>(NULL);
-}
-
 VivaGraph::VivaGraph (std::string conffile)
 {
   int i;
   layout = layout_new ();
   view = NULL;
-  window = NULL;
   runner = NULL;
   layoutDone = false;
 
@@ -89,6 +58,23 @@ VivaGraph::~VivaGraph (void)
   layout_free (layout);
   layout = NULL;
   config_destroy (&config);
+}
+
+void VivaGraph::setView (VivaGraphView *view)
+{
+  this->view = view;
+}
+
+void VivaGraph::draw (void)
+{
+  //draw edges, then the nodes
+  std::vector<VivaNode*>::iterator it;
+  for (it = nodes.begin(); it != nodes.end(); it++){
+    (*it)->drawEdges();
+  }
+  for (it = nodes.begin(); it != nodes.end(); it++){
+    (*it)->draw();
+  }
 }
 
 void VivaGraph::defineEdges (void)
@@ -169,7 +155,8 @@ void VivaGraph::stop_runner (void)
 {
   if (runner){
     runner->keepRunning = false;
-    runner->Wait();
+    runner->wait();
+    delete runner;
     runner = NULL;
   }
 }
@@ -178,14 +165,11 @@ void VivaGraph::start_runner (void)
 {
   stop_runner();
   if (!runner){
-    if (!view){
-      throw "Unable to launch VivaRunner because view is not defined";
-    }
     if (!layout){
       throw "Unable to launch VivaRunner because layout is not defined";
     }
     layout_reset_energies(layout);
-    runner = new VivaRunner (layout, view);
+    runner = new VivaLayoutRunner (this, view, layout);
   }
 }
 
@@ -317,8 +301,7 @@ void VivaGraph::go_top (void)
     interconnectNodes ();
 
     //tell view that the graph changed
-    wxCommandEvent event (VivaGraphChanged);
-    wxPostEvent (view, event);
+    emit graphChanged ();
   }
   this->start_runner ();
 }
@@ -331,15 +314,15 @@ void VivaGraph::refresh (void)
   this->start_runner ();
 }
 
-void VivaGraph::setView (GraphFrame *view)
-{
-  this->view = view;
-}
+// void VivaGraph::setView (GraphFrame *view)
+// {
+//   this->view = view;
+// }
 
-void VivaGraph::setWindow (GraphWindow *window)
-{
-  this->window = window;
-}
+// void VivaGraph::setWindow (GraphWindow *window)
+// {
+//   this->window = window;
+// }
 
 void VivaGraph::defineMaxForConfigurations (void)
 {
@@ -392,13 +375,12 @@ void VivaGraph::hierarchyChanged (void)
   }
 }
 
-VivaNode *VivaGraph::getSelectedNodeByPosition (wxRealPoint p)
+VivaNode *VivaGraph::getSelectedNodeByPosition (tp_point p)
 {
-  tp_point point;
-  point.x = (double)p.x/100;
-  point.y = (double)p.y/100;
+  p.x /= 100;
+  p.y /= 100;
 
-  tp_node *selected = layout_find_node_by_position (layout, point);
+  tp_node *selected = layout_find_node_by_position (layout, p);
   if (!selected) return NULL;
   return ((VivaNode*)selected->data);
 }
@@ -545,8 +527,9 @@ void VivaGraph::interconnectNodes (void)
   }
 }
 
-void VivaGraph::leftMouseClicked (wxRealPoint p)
+void VivaGraph::leftMouseClicked (QPointF point)
 {
+  tp_point p = tp_Point (point.x(), point.y());
   VivaNode *clickedNode = getSelectedNodeByPosition (p);
   if (!clickedNode) return;
   if (!hasChildren(clickedNode->container)) return;
@@ -560,14 +543,14 @@ void VivaGraph::leftMouseClicked (wxRealPoint p)
     interconnectNodes ();
 
     //tell view that the graph changed
-    wxCommandEvent event (VivaGraphChanged);
-    wxPostEvent (view, event);
+    emit graphChanged ();
   }
   this->start_runner ();
 }
 
-void VivaGraph::rightMouseClicked (wxRealPoint p)
+void VivaGraph::rightMouseClicked (QPointF point)
 {
+  tp_point p = tp_Point (point.x(), point.y());
   VivaNode *clickedNode = getSelectedNodeByPosition (p);
   if (!clickedNode) return;
   if (!hasParent(clickedNode->container)) return;
@@ -582,15 +565,20 @@ void VivaGraph::rightMouseClicked (wxRealPoint p)
     interconnectNodes ();
 
     //tell view that the graph changed
-    wxCommandEvent event (VivaGraphChanged);
-    wxPostEvent (view, event);
+    emit graphChanged ();
   }
   this->start_runner();
 }
 
-VivaNode *VivaGraph::mouseOver (wxRealPoint point)
+void VivaGraph::mouseOverPoint (QPointF point)
 {
-  return getSelectedNodeByPosition (point);
+  tp_point p = tp_Point (point.x(), point.y());
+  VivaNode *node = getSelectedNodeByPosition (p);
+  if (node){
+    emit highlightNode (node);
+  }else{
+    emit unhighlightNode ();
+  }
 }
 
 void VivaGraph::qualityChanged (int quality)
@@ -603,9 +591,7 @@ void VivaGraph::qualityChanged (int quality)
 void VivaGraph::scaleSliderChanged (void)
 {
   this->layoutNodes ();
-
-  wxCommandEvent event (VivaGraphLayoutUpdated);
-  wxPostEvent (view, event);
+  emit graphChanged ();
 }
 
 double VivaGraph::maxForConfigurationWithName (std::string configurationName)
@@ -615,9 +601,16 @@ double VivaGraph::maxForConfigurationWithName (std::string configurationName)
 
 double VivaGraph::userScaleForConfigurationWithName (std::string configurationName)
 {
-  if (window){
-    return window->scaleSliderValue (configurationName);
-  }else{
-    return COMPOSITION_DEFAULT_USER_SCALE;
-  }
+  return COMPOSITION_DEFAULT_USER_SCALE;
+
+  // if (window){
+  //   return window->scaleSliderValue (configurationName);
+  // }else{
+  //   return COMPOSITION_DEFAULT_USER_SCALE;
+  // }
+}
+
+void VivaGraph::layoutUpdated (void)
+{
+  emit graphChanged ();
 }

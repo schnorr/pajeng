@@ -16,33 +16,23 @@
 */
 #ifndef __VIVA_GRAPH_H
 #define __VIVA_GRAPH_H
-#include <wx/wx.h> //to VivaNode
+#include <QObject>
+#include <QPoint>
 #include <libconfig.h>
 #include <algorithm>
-#include "graphframe.h"
-#include "graphwindow.h"
-#include "timesliceframe.h"
+#include "VivaLayoutRunner.h"
 #include "PajeComponent.h"
 #include "tupi.h"
 #include "VivaNode.h"
+#include "VivaGraphView.h"
 
-class GraphFrame;
-class GraphWindow;
+class VivaLayoutRunner;
+class VivaGraphView;
 
-class VivaRunner : public wxThread
+class VivaGraph : public QObject, public PajeComponent 
 {
-public:
-  GraphFrame *view;
-  void *layout;
-  bool keepRunning;
+  Q_OBJECT;
 
-public:
-  VivaRunner (void *layout, GraphFrame *view);
-  virtual ExitCode Entry (void);
-};
-
-class VivaGraph : public PajeComponent 
-{
 private:
   std::set<std::string> nodeTypes;
   std::set<std::string> edgeTypes;
@@ -52,15 +42,14 @@ public: //for scale management
   std::map<std::string,double> compositionsScale;
 
 private:
-  GraphFrame *view;
-  GraphWindow *window;
   void *layout;
-  VivaRunner *runner;
+  VivaLayoutRunner *runner;
+  VivaGraphView *view;
   std::map<PajeContainer*,VivaNode*> nodeMap;
   std::map<PajeContainer*,std::set<PajeContainer*> > edges;
   std::map<PajeContainer*,tp_point> positions;
 
-  VivaNode *getSelectedNodeByPosition (wxRealPoint point);
+  VivaNode *getSelectedNodeByPosition (tp_point point);
   bool hasChildren (PajeContainer *container);
   bool hasParent (PajeContainer *container);
   void expandNode (VivaNode *node);
@@ -84,13 +73,12 @@ private:
 public:
   VivaGraph (std::string conffile);
   ~VivaGraph ();
-  void setView (GraphFrame *view);
-  void setWindow (GraphWindow *window);
-  void leftMouseClicked (wxRealPoint point);
-  void rightMouseClicked (wxRealPoint point);
-  VivaNode *mouseOver (wxRealPoint point);
+  void setView (VivaGraphView *view);
+  void draw (void);
   void qualityChanged (int quality);
   void scaleSliderChanged ();
+
+public slots:
   void stop_runner (void);
   void start_runner (void);
   void go_bottom (void);
@@ -99,6 +87,7 @@ public:
   void go_top (void);
   void refresh (void);
 
+public:
   //for configurations
   void defineMaxForConfigurations (void);
   double maxForConfigurationWithName (std::string configurationName);
@@ -108,6 +97,17 @@ protected:
   void timeLimitsChanged (void);
   void timeSelectionChanged (void);
   void hierarchyChanged (void);
+
+signals:
+  void graphChanged (void);
+  void highlightNode (VivaNode *node);
+  void unhighlightNode (void);
+
+public slots:
+  void mouseOverPoint (QPointF point);
+  void leftMouseClicked (QPointF point);
+  void rightMouseClicked (QPointF point);
+  void layoutUpdated (void);
 };
 
 #endif

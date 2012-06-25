@@ -4,6 +4,15 @@ SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 # Define sources, headers for all targets
 #
+# The Paje++ (Qt4 version)
+SET(PAJE_HEADERS
+  src/paje/PajeWindow.h
+  src/paje/PajeSpaceTimeView.h)
+SET(PAJE_SOURCES
+  src/paje/main.cc
+  src/paje/PajeWindow.cc
+  src/paje/PajeSpaceTimeView.cc)
+#
 # The Paje Library (libpaje)
 SET(LIBPAJE_HEADERS
   src/libpaje/PajeColor.h
@@ -56,21 +65,41 @@ SET(PAJEVALIDATE_SOURCES src/paje_validate/main.cc)
 SET(PAJEDUMP_SOURCES src/paje_dump/main.cc)
 #
 # Viva Sources
+SET(VIVA_HEADERS
+  src/viva/VivaWindow.h
+  src/viva/VivaGraphView.h
+  src/viva/VivaApplication.h
+  src/viva/PajeThreadReader.h
+  src/viva/VivaLayoutRunner.h
+  src/viva/VivaGraph.h
+  src/viva/VivaRenderingThread.h)
 SET(VIVA_SOURCES
   src/viva/main.cc
-  src/viva/basic.cc
-  src/viva/loadingbar.cc
-  src/viva/graphframe.cc
-  src/viva/timesliceframe.cc
-  src/viva/graphwindow.cc
-  src/viva/timeslicewindow.cc
+  src/viva/VivaWindow.cc
+  src/viva/VivaGraphView.cc
+  src/viva/VivaApplication.cc
+  src/viva/PajeThreadReader.cc
+  src/viva/VivaLayoutRunner.cc
   src/viva/VivaGraph.cc
   src/viva/VivaNode.cc
-  src/viva/TimeInterval.cc)
+  src/viva/VivaRenderingThread.cc)
+SET(VIVA_RESOURCES
+  src/viva/VivaResource.qrc)
+  # src/viva/main.cc
+  # src/viva/basic.cc
+  # src/viva/loadingbar.cc
+  # src/viva/graphframe.cc
+  # src/viva/timesliceframe.cc
+  # src/viva/graphwindow.cc
+  # src/viva/timeslicewindow.cc
+  # src/viva/VivaGraph.cc
+  # src/viva/VivaNode.cc
+  # src/viva/TimeInterval.cc)
 
 #
 # the cmake options
 #
+OPTION(PAJE         "The Paje++ visualization tool (Qt4 version)" ON)
 OPTION(PAJE_LIBRARY "The Paje library with all the basic components" ON)
 OPTION(PAJE_DUMP    "Compile pj_dump (program to dump the contents of a trace" ON)
 OPTION(PAJE_VALIDATE "Compile pj_validate (program to validate a trace" ON)
@@ -95,6 +124,7 @@ IF(PAJE_LIBRARY)
   INSTALL(TARGETS paje_library DESTINATION lib)
   INSTALL(FILES ${LIBPAJE_HEADERS} DESTINATION include)
 ENDIF(PAJE_LIBRARY)
+
 
 #
 # The Tupi Library written in C (particle system)
@@ -151,21 +181,37 @@ IF(VIVA)
     MESSAGE(FATAL_ERROR "You must enable TUPI_LIBRARY to compile viva")
   ENDIF(NOT TUPI_LIBRARY)
 
-  FIND_PACKAGE(wxWidgets COMPONENTS gl core base REQUIRED)
+  FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtOpenGl)
+  FIND_PACKAGE(GLUT REQUIRED)
   FIND_PACKAGE(OpenGL REQUIRED)
   FIND_PACKAGE(LibConfig REQUIRED)
-  FIND_PACKAGE(GTK2 REQUIRED)
-  FIND_PACKAGE(GLUT REQUIRED)
 
-  ADD_EXECUTABLE(viva ${VIVA_SOURCES})
-  include_directories(viva ${GTK2_INCLUDE_DIRS})
-  include_directories(viva ${Cairo_INCLUDE_DIRS})
+  QT4_WRAP_CPP(VIVA_HEADERS_MOC ${VIVA_HEADERS})
+  QT4_ADD_RESOURCES(VIVA_RESOURCES_RCC ${VIVA_RESOURCES})
+  INCLUDE(${QT_USE_FILE})
+  ADD_DEFINITIONS(${QT_DEFINITIONS})
   include_directories(viva ${PROJECT_SOURCE_DIR}/src/libtupi/)
   include_directories(viva ${PROJECT_SOURCE_DIR}/src/libpaje/)
-  include(${wxWidgets_USE_FILE})
-  target_link_libraries(viva ${wxWidgets_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${Cairo_LIBRARIES} ${GTK2_LIBRARIES} ${LIBCONFIG_LIBRARIES} tupi_library paje_library )
+
+  ADD_EXECUTABLE(viva ${VIVA_SOURCES} ${VIVA_HEADERS_MOC} ${VIVA_RESOURCES_RCC})
+  target_link_libraries(viva ${QT_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${LIBCONFIG_LIBRARIES} tupi_library paje_library )
   INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/viva DESTINATION bin)
 ENDIF(VIVA)
+
+#
+# The Paje++
+#
+IF(PAJE)
+  FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtOpenGl)
+  FIND_PACKAGE(GLUT REQUIRED)
+  FIND_PACKAGE(OpenGL REQUIRED)
+  QT4_WRAP_CPP(PAJE_HEADERS_MOC ${PAJE_HEADERS})
+  INCLUDE(${QT_USE_FILE})
+  ADD_DEFINITIONS(${QT_DEFINITIONS})
+  ADD_EXECUTABLE(paje ${PAJE_SOURCES} ${PAJE_HEADERS_MOC})
+  INCLUDE_DIRECTORIES(paje ${PROJECT_SOURCE_DIR}/src/libpaje/)
+  TARGET_LINK_LIBRARIES(paje ${QT_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} paje_library)
+ENDIF(PAJE)
 
 #
 # For pkgconfig

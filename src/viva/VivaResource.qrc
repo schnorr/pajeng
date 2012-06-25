@@ -1,0 +1,11 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+  <file>images/go-bottom.svg</file>
+  <file>images/go-down.svg</file>
+  <file>images/go-top.svg</file>
+  <file>images/go-up.svg</file>
+  <file>images/media-playback-start.svg</file>
+  <file>images/media-playback-stop.svg</file>
+  <file>images/view-refresh.svg</file>
+</qresource>
+</RCC>
