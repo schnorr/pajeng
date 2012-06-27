@@ -133,18 +133,38 @@ PajeVariableType::PajeVariableType (std::string name, std::string alias, PajeTyp
   }
 }
 
+PajeDrawingType PajeVariableType::drawingType (void)
+{
+  return PajeVariableDrawingType;
+}
+
 PajeStateType::PajeStateType  (std::string name, std::string alias, PajeType *parent):PajeCategorizedType(name,alias,parent)
 {
+}
+
+PajeDrawingType PajeStateType::drawingType (void)
+{
+  return PajeStateDrawingType;
 }
 
 PajeEventType::PajeEventType  (std::string name, std::string alias, PajeType *parent):PajeCategorizedType(name,alias,parent)
 {
 }
 
+PajeDrawingType PajeEventType::drawingType (void)
+{
+  return PajeEventDrawingType;
+}
+
 PajeLinkType::PajeLinkType (std::string name, std::string alias, PajeType *start, PajeType *end, PajeType *parent):PajeCategorizedType(name,alias,parent)
 {
   this->starttype = start;
   this->endtype = end;
+}
+
+PajeDrawingType PajeLinkType::drawingType (void)
+{
+  return PajeLinkDrawingType;
 }
 
 PajeContainerType::PajeContainerType (std::string name, std::string alias, PajeType *parent):
@@ -198,6 +218,11 @@ PajeLinkType *PajeContainerType::addLinkType (std::string name, std::string alia
   PajeLinkType *newType = new PajeLinkType (name, alias, starttype, endtype, this);
   children[newType->identifier()] = newType;
   return newType;
+}
+
+PajeDrawingType PajeContainerType::drawingType (void)
+{
+  return PajeContainerDrawingType;
 }
 
 std::ostream &operator<< (std::ostream &output, const PajeType &type)

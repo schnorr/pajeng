@@ -21,7 +21,9 @@
 #include "PajeData.h"
 #include "PajeContainer.h"
 #include "PajeColor.h"
+#include "PajeProtocols.h"
 
+// PajeComponent : where the Paje protocol is declared
 class PajeComponent : public PajeObject
 {
 private:

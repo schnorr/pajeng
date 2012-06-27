@@ -26,6 +26,7 @@ SET(PAJE_SOURCES
 # The Paje Library (libpaje)
 SET(LIBPAJE_HEADERS
   src/libpaje/PajeColor.h
+  src/libpaje/PajeProtocols.h
   src/libpaje/PajeComponent.h
   src/libpaje/PajeContainer.h
   src/libpaje/PajeData.h

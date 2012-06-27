@@ -24,6 +24,7 @@
 #include <string>
 #include "PajeTraceController.h"
 #include "PajeColor.h"
+#include "PajeProtocols.h"
 
 class PajeType {
 public:
@@ -39,6 +40,7 @@ public:
   virtual std::string valueForIdentifier (std::string identifier);
   virtual bool hasValueForIdentifier (std::string identifier);
   virtual PajeColor *colorForIdentifier (std::string identifier);
+  virtual PajeDrawingType drawingType (void) = 0;
 };
 
 class PajeCategorizedType : public PajeType {
@@ -58,16 +60,19 @@ public:
   PajeColor *color;
   PajeVariableType (std::string name, std::string alias, PajeType *parent);
   PajeVariableType (std::string name, std::string alias, PajeType *parent, std::string color);
+  PajeDrawingType drawingType (void);
 };
 
 class PajeStateType : public PajeCategorizedType {
 public:
   PajeStateType (std::string name, std::string alias, PajeType *parent);
+  PajeDrawingType drawingType (void);
 };
 
 class PajeEventType : public PajeCategorizedType {
 public:
   PajeEventType (std::string name, std::string alias, PajeType *parent);
+  PajeDrawingType drawingType (void);
 };
 
 class PajeLinkType : public PajeCategorizedType {
@@ -77,6 +82,7 @@ public:
 
 public:
   PajeLinkType (std::string name, std::string alias, PajeType *start, PajeType *end, PajeType *parent);
+  PajeDrawingType drawingType (void);
 };
 
 class PajeContainerType : public PajeType {
@@ -92,6 +98,7 @@ public:
   PajeStateType *addStateType (std::string name, std::string alias);
   PajeEventType *addEventType (std::string name, std::string alias);
   PajeLinkType *addLinkType (std::string name, std::string alias, PajeType *starttype, PajeType *endtype);
+  PajeDrawingType drawingType (void);
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeType &type);
