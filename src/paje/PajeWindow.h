@@ -1,5 +1,6 @@
 #include <QtGui>
 #include <QMainWindow>
+#include "PajeSpaceTimeView.h"
 
 class QAction;
 class QMenu;
@@ -11,6 +12,7 @@ class PajeWindow : public QMainWindow
 
 public:
   PajeWindow();
+  PajeSpaceTimeView *view;
 
 protected:
   void closeEvent(QCloseEvent *event);

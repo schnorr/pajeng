@@ -12,12 +12,14 @@ PajeApplication::PajeApplication( int &argc, char **argv) : QApplication(argc,ar
 
 void PajeApplication::init (void)
 {
+  pajeWindow = new PajeWindow ();
   PajeFileReader *reader = new PajeFileReader (filename.toStdString(), NULL);
   PajeEventDecoder *decoder = new PajeEventDecoder ();
   PajeSimulator *simulator = new PajeSimulator ();
 
   connectComponents (reader, decoder);
   connectComponents (decoder, simulator);
+  connectComponents (simulator, pajeWindow->view);
 
   {
     PajeThreadReader *thread = new PajeThreadReader (reader);
@@ -26,8 +28,6 @@ void PajeApplication::init (void)
   }
 
   simulator->report();
-
-  pajeWindow = new PajeWindow ();
   pajeWindow->show();
 }
 

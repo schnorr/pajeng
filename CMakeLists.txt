@@ -14,14 +14,13 @@ SET(UTILS_SOURCES
 SET(PAJE_HEADERS
   src/paje/PajeApplication.h
   src/paje/PajeWindow.h
-  src/paje/PajeSpaceTimeView.h
-  src/paje/PajeRenderingThread.h)
+  src/paje/PajeSpaceTimeView.h)
 SET(PAJE_SOURCES
   src/paje/main.cc
   src/paje/PajeApplication.cc
   src/paje/PajeWindow.cc
   src/paje/PajeSpaceTimeView.cc
-  src/paje/PajeRenderingThread.cc)
+  src/paje/STEntityTypeLayout.cc)
 #
 # The Paje Library (libpaje)
 SET(LIBPAJE_HEADERS

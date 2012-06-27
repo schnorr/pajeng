@@ -1,46 +1,34 @@
 #ifndef __PAJE_SPACE_TIME_VIEW_H_
 #define __PAJE_SPACE_TIME_VIEW_H_
-#include <iostream>
-#include <QtGui>
 #include <QGLWidget>
-#include <GL/glu.h>
+#include <QGraphicsView>
+#include <QGraphicsScene>
 #include "PajeComponent.h"
-#include "PajeRenderingThread.h"
+#include "STEntityTypeLayout.h"
 
-class PajeRenderingThread;
-
-class PajeSpaceTimeView : public QGLWidget, public PajeComponent
+class PajeSpaceTimeView : public QGraphicsView, public PajeComponent
 {
   Q_OBJECT;
-  friend class PajeRenderingThread;
+
+private:
+  QGraphicsScene scene;
 
 public:
   PajeSpaceTimeView (QWidget *parent = NULL);
 
-protected:
-  void mousePressEvent (QMouseEvent *event);
-  void mouseMoveEvent (QMouseEvent *event);
-  void wheelEvent (QWheelEvent *event);
-  void keyPressEvent (QKeyEvent *event);
-  void closeEvent (QCloseEvent *event);
-  void paintEvent (QPaintEvent *event);
-  void resizeEvent (QResizeEvent *event);
-
-protected: //methods to deal with the PajeRenderingThread
-  void lockGLContext (void);
-  void unlockGLContext (void);
-  QWaitCondition *renderCondition (void);
-  QMutex *renderMutex (void);
-
 private:
-  PajeRenderingThread *thread;
-  QMutex *render_mutex;
-  QWaitCondition *render_condition;
-  void initRendering (void);
-  void finishRendering (void);
-  void render (void);
-  void draw (void);
+  /* Handling with layout descriptors */
+  std::map<PajeType*,STTypeLayout*> layoutDescriptors;
+  STTypeLayout *layoutDescriptorForType (PajeType *type);
+  STTypeLayout *createTypeLayout (PajeType *type, STContainerTypeLayout *containerLayout);
+  QRectF *calcRectOfContainer (PajeContainer *container, STContainerTypeLayout *layout, double minY);
+  QRectF *calcRectOfAllInstances (PajeContainer *container, STContainerTypeLayout *layout, double minY);
+  void renewLayoutDescriptors (void);
 
+protected: //from PajeComponent protocol
+  void hierarchyChanged (void);
+
+protected: //from QGraphicsView
 };
 
 #endif

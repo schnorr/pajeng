@@ -1,13 +1,12 @@
 #include "PajeWindow.h"
-#include "PajeSpaceTimeView.h"
 
 PajeWindow::PajeWindow()
 {
   textEdit = new QPlainTextEdit;
   //setCentralWidget(textEdit);
 
-  PajeSpaceTimeView *widget = new PajeSpaceTimeView;
-  setCentralWidget (widget);
+  view = new PajeSpaceTimeView;
+  setCentralWidget (view);
 
   createActions();
   createMenus();
