@@ -85,6 +85,29 @@ void PajeSimulator::setLastKnownTime (PajeEvent *event)
   }
 }
 
+PajeColor *PajeSimulator::getColor (std::string color, PajeEvent *event)
+{
+  PajeColor *ret = NULL;
+  if (!color.empty()){
+    std::vector<float> v;
+    boost::char_separator<char> sep(", ");
+    boost::tokenizer< boost::char_separator<char> > tokens(color, sep);
+    BOOST_FOREACH(std::string t, tokens) {
+      v.push_back (atof(t.c_str()));
+    }
+    if (v.size()==3){
+      ret = new PajeColor (v[0], v[1], v[2], 1);
+    }else if (v.size()==4){
+        ret = new PajeColor (v[0], v[1], v[2], v[3]);
+    }else{
+      std::stringstream line;
+      line << *event;
+      throw "Could not understand color parameter in "+line.str();
+    }
+  }
+  return ret;
+}
+
 PajeSimulator::~PajeSimulator ()
 {
   delete root;
@@ -276,16 +299,7 @@ void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
   }
 
   //validate the color, if provided
-  PajeColor *pajeColor = NULL;
-  if (!color.empty()){
-    std::vector<float> v;
-    boost::char_separator<char> sep(", ");
-    boost::tokenizer< boost::char_separator<char> > tokens(color, sep);
-    BOOST_FOREACH(std::string t, tokens) {
-      v.push_back (atof(t.c_str()));
-    }
-    pajeColor = new PajeColor (v[0], v[1], v[2], v[3]);
-  }
+  PajeColor *pajeColor = getColor (color, event);
 
   newType = dynamic_cast<PajeContainerType*>(containerType)->addVariableType (name, alias, pajeColor);
   typeMap[newType->identifier()] = newType;
@@ -332,16 +346,7 @@ void PajeSimulator::pajeDefineEntityValue (PajeEvent *event)
   }
 
   //validate the color, if provided
-  PajeColor *pajeColor = NULL;
-  if (!color.empty()){
-    std::vector<float> v;
-    boost::char_separator<char> sep(", ");
-    boost::tokenizer< boost::char_separator<char> > tokens(color, sep);
-    BOOST_FOREACH(std::string t, tokens) {
-      v.push_back (atof(t.c_str()));
-    }
-    pajeColor = new PajeColor (v[0], v[1], v[2], v[3]);
-  }
+  PajeColor *pajeColor = getColor (color, event);
 
   type->addNewValue (alias, name, pajeColor);
 }

@@ -51,6 +51,7 @@ private:
   double selectionEnd;
 
   void setLastKnownTime (PajeEvent *event);
+  PajeColor *getColor (std::string color, PajeEvent *event);
 
 public:
   PajeSimulator();
