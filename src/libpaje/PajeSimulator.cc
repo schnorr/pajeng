@@ -15,6 +15,8 @@
     along with Paje. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeSimulator.h"
+#include <boost/foreach.hpp>
+#include <boost/tokenizer.hpp>
 
 PajeSimulator::PajeSimulator ()
 {
@@ -272,7 +274,20 @@ void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
     line << *event;
     throw "Variable type '"+identifier+"' in "+line.str()+" already defined";
   }
-  newType = dynamic_cast<PajeContainerType*>(containerType)->addVariableType (name, alias, color);
+
+  //validate the color, if provided
+  PajeColor *pajeColor = NULL;
+  if (!color.empty()){
+    std::vector<float> v;
+    boost::char_separator<char> sep(", ");
+    boost::tokenizer< boost::char_separator<char> > tokens(color, sep);
+    BOOST_FOREACH(std::string t, tokens) {
+      v.push_back (atof(t.c_str()));
+    }
+    pajeColor = new PajeColor (v[0], v[1], v[2], v[3]);
+  }
+
+  newType = dynamic_cast<PajeContainerType*>(containerType)->addVariableType (name, alias, pajeColor);
   typeMap[newType->identifier()] = newType;
   typeNamesMap[newType->name] = newType;
 }
@@ -316,7 +331,19 @@ void PajeSimulator::pajeDefineEntityValue (PajeEvent *event)
     throw "Trying to redefine the value identified by '"+name+"' for the type '"+typestr+"' in "+line.str();
   }
 
-  type->addNewValue (alias, name, color);
+  //validate the color, if provided
+  PajeColor *pajeColor = NULL;
+  if (!color.empty()){
+    std::vector<float> v;
+    boost::char_separator<char> sep(", ");
+    boost::tokenizer< boost::char_separator<char> > tokens(color, sep);
+    BOOST_FOREACH(std::string t, tokens) {
+      v.push_back (atof(t.c_str()));
+    }
+    pajeColor = new PajeColor (v[0], v[1], v[2], v[3]);
+  }
+
+  type->addNewValue (alias, name, pajeColor);
 }
 
 void PajeSimulator::pajeCreateContainer (PajeEvent *event)

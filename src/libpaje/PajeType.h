@@ -28,18 +28,21 @@
 
 class PajeType {
 public:
+  PajeColor *typeColor;
   std::string name;
   std::string alias;
   PajeType *parent;
   int depth;
 
 public:
-  PajeType (std::string name, std::string alias, PajeType *parent);
+  PajeType (std::string name, std::string alias, PajeType *parent, PajeColor *color);
   virtual std::string identifier (void) const;
-  virtual void addNewValue (std::string alias, std::string value, std::string color);
+  virtual bool isCategorizedType (void) const;
+  virtual void addNewValue (std::string alias, std::string value, PajeColor *color);
   virtual std::string valueForIdentifier (std::string identifier);
   virtual bool hasValueForIdentifier (std::string identifier);
   virtual PajeColor *colorForIdentifier (std::string identifier);
+  virtual PajeColor *color (void);
   virtual PajeDrawingType drawingType (void) = 0;
 };
 
@@ -49,7 +52,8 @@ public:
   std::map<std::string,std::string> values;
   std::map<std::string,PajeColor*> colors;
 
-  void addNewValue (std::string alias, std::string value, std::string color);
+  bool isCategorizedType (void) const;
+  void addNewValue (std::string alias, std::string value, PajeColor *color);
   std::string valueForIdentifier (std::string identifier);
   bool hasValueForIdentifier (std::string identifier);
   PajeColor *colorForIdentifier (std::string identifier);
@@ -57,9 +61,8 @@ public:
 
 class PajeVariableType : public PajeType {
 public:
-  PajeColor *color;
   PajeVariableType (std::string name, std::string alias, PajeType *parent);
-  PajeVariableType (std::string name, std::string alias, PajeType *parent, std::string color);
+  PajeVariableType (std::string name, std::string alias, PajeType *parent, PajeColor *color);
   PajeDrawingType drawingType (void);
 };
 
@@ -94,7 +97,7 @@ public:
   PajeType *getRootType (void);
 
   PajeContainerType *addContainerType (std::string name, std::string alias);
-  PajeVariableType *addVariableType (std::string name, std::string alias, std::string color);
+  PajeVariableType *addVariableType (std::string name, std::string alias, PajeColor *color);
   PajeStateType *addStateType (std::string name, std::string alias);
   PajeEventType *addEventType (std::string name, std::string alias);
   PajeLinkType *addLinkType (std::string name, std::string alias, PajeType *starttype, PajeType *endtype);

@@ -15,14 +15,15 @@
     along with Paje. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeType.h"
-#include <boost/foreach.hpp>
-#include <boost/tokenizer.hpp>
 
-PajeType::PajeType (std::string name, std::string alias, PajeType *parent)
+
+
+PajeType::PajeType (std::string name, std::string alias, PajeType *parent, PajeColor *color)
 {
   this->name = name;
   this->alias = alias;
   this->parent = parent;
+  this->typeColor = color;
   if (parent){
     this->depth = parent->depth + 1;
   }else{
@@ -35,7 +36,12 @@ std::string PajeType::identifier (void) const
   return alias.empty() ? name : alias;
 }
 
-void PajeType::addNewValue (std::string alias, std::string value, std::string color)
+bool PajeType::isCategorizedType (void) const
+{
+  return false;
+}
+
+void PajeType::addNewValue (std::string alias, std::string value, PajeColor *color)
 {
   throw "should be implemented in subclass";
 }
@@ -56,33 +62,29 @@ PajeColor *PajeType::colorForIdentifier (std::string identifier)
   throw "should be implemented in subclass";
 }
 
-PajeCategorizedType::PajeCategorizedType (std::string name, std::string alias, PajeType *parent):PajeType(name,alias,parent)
+PajeColor *PajeType::color (void)
+{
+  return typeColor;
+}
+
+PajeCategorizedType::PajeCategorizedType (std::string name, std::string alias, PajeType *parent)
+  : PajeType(name,alias,parent, NULL)
 {
 }
 
-void PajeCategorizedType::addNewValue (std::string alias, std::string value, std::string color)
+bool PajeCategorizedType::isCategorizedType (void) const
 {
-  PajeColor *c = NULL;
-  if (color.empty()){
-    c = new PajeColor (1, 1, 1, 1);
-  }else{
-    {
-      std::vector<float> v;
-      boost::char_separator<char> sep(", ");
-      boost::tokenizer< boost::char_separator<char> > tokens(color, sep);
-      BOOST_FOREACH(std::string t, tokens) {
-        v.push_back (atof(t.c_str()));
-      }
-      c = new PajeColor (v[0], v[1], v[2], v[3]);
-    }
-  }
+  return true;
+}
 
+void PajeCategorizedType::addNewValue (std::string alias, std::string value, PajeColor *color)
+{
   if (alias.empty()){
     values[value] = value;
-    colors[value] = c;
+    colors[value] = color;
   }else{
     values[alias] = value;
-    colors[alias] = c;
+    colors[alias] = color;
   }
 }
 
@@ -113,24 +115,15 @@ PajeColor *PajeCategorizedType::colorForIdentifier (std::string identifier)
   }
 }
 
-PajeVariableType::PajeVariableType  (std::string name, std::string alias, PajeType *parent):PajeType(name,alias,parent)
+PajeVariableType::PajeVariableType  (std::string name, std::string alias, PajeType *parent)
+  : PajeType(name,alias,parent, NULL)
 {
-  color = new PajeColor (1, 1, 1, 1); // white
 }
 
-PajeVariableType::PajeVariableType (std::string name, std::string alias, PajeType *parent, std::string c):PajeType(name,alias,parent)
+PajeVariableType::PajeVariableType (std::string name, std::string alias, PajeType *parent, PajeColor *color)
+ : PajeType(name,alias,parent,color)
 {
-  if (c.empty()){
-    color = new PajeColor (1, 1, 1, 1); //white
-  }else{
-    std::vector<float> v;
-    boost::char_separator<char> sep(", ");
-    boost::tokenizer< boost::char_separator<char> > tokens(c, sep);
-    BOOST_FOREACH(std::string t, tokens) {
-      v.push_back (atof(t.c_str()));
-    }
-    color = new PajeColor (v[0], v[1], v[2], v[3]);
-  }
+
 }
 
 PajeDrawingType PajeVariableType::drawingType (void)
@@ -167,8 +160,8 @@ PajeDrawingType PajeLinkType::drawingType (void)
   return PajeLinkDrawingType;
 }
 
-PajeContainerType::PajeContainerType (std::string name, std::string alias, PajeType *parent):
-  PajeType (name, alias, parent)
+PajeContainerType::PajeContainerType (std::string name, std::string alias, PajeType *parent)
+  : PajeType (name, alias, parent, NULL)
 {
 }
 
@@ -192,7 +185,7 @@ PajeContainerType *PajeContainerType::addContainerType (std::string name, std::s
   return newType;
 }
 
-PajeVariableType *PajeContainerType::addVariableType (std::string name, std::string alias, std::string color)
+PajeVariableType *PajeContainerType::addVariableType (std::string name, std::string alias, PajeColor *color)
 {
   PajeVariableType *newType = new PajeVariableType (name, alias, this, color);
   children[newType->identifier()] = newType;
