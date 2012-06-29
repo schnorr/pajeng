@@ -1,5 +1,7 @@
 #include "PajeWindow.h"
 
+PajeWindow *PajeWindow::instance = NULL;
+
 PajeWindow::PajeWindow()
 {
   textEdit = new QPlainTextEdit;

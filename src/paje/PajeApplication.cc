@@ -12,7 +12,7 @@ PajeApplication::PajeApplication( int &argc, char **argv) : QApplication(argc,ar
 
 void PajeApplication::init (void)
 {
-  pajeWindow = new PajeWindow ();
+  pajeWindow = PajeWindow::getInstance ();
   PajeFileReader *reader = new PajeFileReader (filename.toStdString(), NULL);
   PajeEventDecoder *decoder = new PajeEventDecoder ();
   PajeSimulator *simulator = new PajeSimulator ();

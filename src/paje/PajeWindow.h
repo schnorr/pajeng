@@ -10,11 +10,14 @@ class PajeWindow : public QMainWindow
 {
   Q_OBJECT;
 
+private:
+  static PajeWindow *instance;
 public:
-  PajeWindow();
   PajeSpaceTimeView *view;
+  static PajeWindow *getInstance() { if (!instance){ instance = new PajeWindow (); } return instance; };
 
 protected:
+  PajeWindow();
   void closeEvent(QCloseEvent *event);
 
   private slots:
