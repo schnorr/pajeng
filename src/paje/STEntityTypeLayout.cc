@@ -1,8 +1,14 @@
 #include "STEntityTypeLayout.h"
 
-STTypeLayout::STTypeLayout (PajeType *type)
+STTypeLayout::STTypeLayout (PajeType *type, STContainerTypeLayout *parentLayout)
 {
   this->entityType = type;
+  this->parentContainerLayout = parentLayout;
+}
+
+STContainerTypeLayout *STTypeLayout::parentLayout (void)
+{
+  return parentContainerLayout;
 }
 
 PajeType *STTypeLayout::type (void)
@@ -24,62 +30,164 @@ bool STTypeLayout::isContainer (void)
 
 double STTypeLayout::height (void)
 {
-  return 10;
+  return 3;
 }
 
-double STTypeLayout::offset (void)
+QPointF STTypeLayout::layoutPositionForContainer (PajeContainer *container)
 {
-  return offset_verticalaxis;
+  if (layoutPos.count(container)){
+    return layoutPos[container];
+  }else{
+    std::cout << __FUNCTION__ << " exception, asking for layoutPosition of container " << container->name() << std::endl;
+    throw "error";
+  }
 }
 
-void STTypeLayout::setOffset (double val)
+void STTypeLayout::setLayoutPositionForContainer (PajeContainer *container, QPointF pos)
 {
-  offset_verticalaxis = val;
+  if (layoutPos.count(container)){
+    std::cout << __FUNCTION__ << " exception" << std::endl;
+    throw "error";
+  }else{
+    layoutPos[container] = pos;
+  }
 }
 
-void STTypeLayout::setRectInContainer (QRectF *rect, PajeContainer *container)
+double STTypeLayout::layoutHeightForContainer (PajeContainer *container)
 {
-  rectInContainer[container] = rect;
+  if (layoutHeight.count(container)){
+    return layoutHeight[container];
+  }else{
+    std::cout << __FUNCTION__ << " exception" << std::endl;
+    throw "error";
+  }
 }
 
-STTypeLayout *STTypeLayout::Create (PajeType *type)
+void STTypeLayout::setLayoutHeightForContainer (PajeContainer *container, double val)
+{
+  if (layoutHeight.count(container)){
+    std::cout << __FUNCTION__ << " exception" << std::endl;
+    throw "error";
+  }else{
+    layoutHeight[container] = val;
+  }
+}
+
+STTypeLayout *STTypeLayout::Create (PajeType *type, STContainerTypeLayout *parentLayout)
 {
   switch (type->drawingType()){
-  case PajeEventDrawingType: return new STEventTypeLayout (type, 10);
-  case PajeStateDrawingType: return new STStateTypeLayout (type, 2);
-  case PajeLinkDrawingType: return new STLinkTypeLayout (type);
-  case PajeVariableDrawingType: return new STVariableTypeLayout (type);
-  case PajeContainerDrawingType: return new STContainerTypeLayout (type);
+  case PajeEventDrawingType: return new STEventTypeLayout (type, parentLayout, 10);
+  case PajeStateDrawingType: return new STStateTypeLayout (type, parentLayout, 2);
+  case PajeLinkDrawingType: return new STLinkTypeLayout (type, parentLayout);
+  case PajeVariableDrawingType: return new STVariableTypeLayout (type, parentLayout);
+  case PajeContainerDrawingType: return new STContainerTypeLayout (type, parentLayout);
   }
   return NULL;
 }
 
-STEventTypeLayout::STEventTypeLayout (PajeType *type, double width)
-  : STTypeLayout (type)
+STEventTypeLayout::STEventTypeLayout (PajeType *type, STContainerTypeLayout *parentLayout, double width)
+  : STTypeLayout (type, parentLayout)
 {
   this->width = width;
 }
 
-STStateTypeLayout::STStateTypeLayout (PajeType *type, double inset)
-  : STTypeLayout (type)
+STStateTypeLayout::STStateTypeLayout (PajeType *type, STContainerTypeLayout *parentLayout, double inset)
+  : STTypeLayout (type, parentLayout)
 {
   this->inset = inset;
 }
 
-STLinkTypeLayout::STLinkTypeLayout (PajeType *type)
-  : STTypeLayout (type)
+STLinkTypeLayout::STLinkTypeLayout (PajeType *type, STContainerTypeLayout *parentLayout)
+  : STTypeLayout (type, parentLayout)
 {
 }
 
-STVariableTypeLayout::STVariableTypeLayout (PajeType *type)
-  : STTypeLayout (type)
+STVariableTypeLayout::STVariableTypeLayout (PajeType *type, STContainerTypeLayout *parentLayout)
+  : STTypeLayout (type, parentLayout)
 {
 }
 
-STContainerTypeLayout::STContainerTypeLayout (PajeType *type)
-  : STTypeLayout (type)
+STContainerTypeLayout::STContainerTypeLayout (PajeType *type, STContainerTypeLayout *parentLayout)
+  : STTypeLayout (type, parentLayout)
 {
+  _siblingSeparation = 4; // separation from other containers of same type in same container
+  _subtypeSeparation = 1; // separation between two subtypes
 }
+
+QPointF STContainerTypeLayout::recursiveSetLayoutPositions (PajeContainer *container, PajeComponent *filter, QPointF current)
+{
+  QPointF top = current;
+  setLayoutPositionForContainer (container, top);
+
+  //for states
+  {
+    std::vector<STStateTypeLayout*>::iterator sit, aux;
+    for (sit = stateSubtypes.begin(); sit != stateSubtypes.end(); sit++){
+      STStateTypeLayout *stateTypeLayout = *sit;
+      stateTypeLayout->setLayoutPositionForContainer (container, top);
+
+      //check if there are entities of this type
+      std::vector<PajeEntity*> subc;
+      subc = filter->enumeratorOfEntitiesTypedInContainer (stateTypeLayout->type(),
+                                                           container,
+                                                           container->startTime(),
+                                                           container->endTime());
+      double h = 0;
+      if (subc.size()){
+        h = stateTypeLayout->height();
+      }
+      stateTypeLayout->setLayoutHeightForContainer (container, h);
+      top += QPointF(0, h);
+
+      {
+        sit++;
+        if (sit != stateSubtypes.end()){
+//          top += QPointF(0, subtypeSeparation());
+        }
+        sit--;
+      }
+    }
+  }
+
+  //for containers, recurse on each container type layout for each container instance
+  {
+    std::vector<STContainerTypeLayout*>::iterator cit;
+    for (cit = containerSubtypes.begin(); cit != containerSubtypes.end(); cit++){
+      STContainerTypeLayout *containerTypeLayout = *cit;
+      QPointF container_top = top;
+      containerTypeLayout->setLayoutPositionForContainer (container, container_top);
+
+      //check if there are entities of this type
+      std::vector<PajeContainer*> subc;
+      std::vector<PajeContainer*>::iterator it;
+      subc = filter->enumeratorOfContainersTypedInContainer (containerTypeLayout->type(), container);
+      for (it = subc.begin(); it != subc.end(); it++){
+        PajeContainer *subcontainer = *it;
+        if (!subcontainer) throw "error";
+        top = containerTypeLayout->recursiveSetLayoutPositions (subcontainer, filter, top);
+//        top += QPointF(0, siblingSeparation());
+      }
+      double h = 0;
+      if (subc.size()){
+        h = container_top.y() - top.y();
+      }
+      containerTypeLayout->setLayoutHeightForContainer (container, 0);
+
+      {
+        cit++;
+        if (cit != containerSubtypes.end()){
+          top += QPointF(0, subtypeSeparation());  
+        }
+        cit--;
+      } 
+    }
+  }
+
+  double h = top.y() - current.y();
+  setLayoutHeightForContainer (container, h);
+  return top;
+}
+
 
 std::vector<STTypeLayout*> STContainerTypeLayout::subtypes (void)
 {
@@ -118,49 +226,4 @@ double STContainerTypeLayout::subtypeSeparation (void)
 double STContainerTypeLayout::siblingSeparation (void)
 {
   return _siblingSeparation;
-}
-
-void STContainerTypeLayout::setRectOfContainer (PajeContainer *container, QRectF *rect)
-{
-  rectsOfContainers[container] = rect;
-}
-
-QRectF *STContainerTypeLayout::rectOfContainer (PajeContainer *container)
-{
-  if (rectsOfContainers.count(container)){
-    return rectsOfContainers[container];
-  }else{
-    throw "You found a bug, congrats. The rect of container named "+container->name()+" was not calculated.";
-  }
-}
-
-void STContainerTypeLayout::setVerticalOffsets (void)
-{
-  _supEventsOffset = 0;
-  //for superior events (TODO, FIXME)
-  //for states
-  {
-    _infEventsOffset = _supEventsOffset;
-    std::vector<STStateTypeLayout*>::iterator sit;
-    for (sit = stateSubtypes.begin(); sit != stateSubtypes.end(); sit++){
-      STStateTypeLayout *stateTypeLayout = *sit;
-      if (_infEventsOffset != _supEventsOffset){
-        _infEventsOffset += subtypeSeparation ();
-      }
-      stateTypeLayout->setOffset (_infEventsOffset);
-      _infEventsOffset += stateTypeLayout->height ();
-    }
-  }
-
-  //for inferior events (TODO, FIXME)
-  //for variables (TODO, FIXME)
-
-  _subcontainersOffset = _infEventsOffset;
-
-  //recurse
-  std::vector<STContainerTypeLayout*>::iterator cit;
-  for (cit = containerSubtypes.begin(); cit != containerSubtypes.end(); cit++){
-    STContainerTypeLayout *containerTypeLayout = *cit;
-    containerTypeLayout->setVerticalOffsets ();
-  }
 }

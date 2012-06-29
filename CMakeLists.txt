@@ -20,7 +20,8 @@ SET(PAJE_SOURCES
   src/paje/PajeApplication.cc
   src/paje/PajeWindow.cc
   src/paje/PajeSpaceTimeView.cc
-  src/paje/STEntityTypeLayout.cc)
+  src/paje/STEntityTypeLayout.cc
+  src/paje/PajeGraphicsItem.cc)
 #
 # The Paje Library (libpaje)
 SET(LIBPAJE_HEADERS

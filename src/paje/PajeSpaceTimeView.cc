@@ -2,9 +2,8 @@
 
 PajeSpaceTimeView::PajeSpaceTimeView (QWidget *parent) : QGraphicsView(parent)
 {
-  scene.setSceneRect( -100.0, -100.0, 200.0, 2000.0 );
   setScene (&scene);
-  //setViewport (new QGLWidget (this));
+  setViewport (new QGLWidget (this));
 }
 
 STTypeLayout *PajeSpaceTimeView::layoutDescriptorForType (PajeType *type)
@@ -19,7 +18,9 @@ STTypeLayout *PajeSpaceTimeView::layoutDescriptorForType (PajeType *type)
 STTypeLayout *PajeSpaceTimeView::createTypeLayout (PajeType *type, STContainerTypeLayout *containerLayout)
 {
   //create the type layout using STTypeLayout factory
-  STTypeLayout *typeLayout = STTypeLayout::Create (type);
+  STTypeLayout *typeLayout = STTypeLayout::Create (type, containerLayout);
+
+  //add to parent if parent exists
   if (containerLayout){
     containerLayout->addSubtype (typeLayout);
   }
@@ -27,7 +28,7 @@ STTypeLayout *PajeSpaceTimeView::createTypeLayout (PajeType *type, STContainerTy
   //associate the type to its layout
   layoutDescriptors[type] = typeLayout;
 
-  //recurse if possible
+  //recurse
   if (isContainerType (type)){
     std::vector<PajeType*> containedTypes = containedTypesForContainerType (type);
     std::vector<PajeType*>::iterator it;
@@ -38,103 +39,117 @@ STTypeLayout *PajeSpaceTimeView::createTypeLayout (PajeType *type, STContainerTy
   return typeLayout;
 }
 
-QRectF *PajeSpaceTimeView::calcRectOfContainer (PajeContainer *container, STContainerTypeLayout *layout, double minY)
-{
-  QRectF *rect = new QRectF();
-  rect->setLeft (container->startTime());
-  rect->setRight (container->endTime());
-
-  //define the space occupied by every sub type except containers
-  std::vector<STTypeLayout*> sublayouts = layout->subtypes();
-  std::vector<STTypeLayout*>::iterator it;
-  for (it = sublayouts.begin(); it != sublayouts.end(); it++){
-    STTypeLayout *sublayout = *it;
-    if (sublayout->isContainer()) continue;
-    rect->setTop (minY + sublayout->offset());
-    rect->setHeight (sublayout->height());
-
-    sublayout->setRectInContainer (rect, container);
-  }
-
-  double separation = 0;
-
-  rect->setTop (minY);
-  rect->setHeight (layout->subcontainersOffset());
-
-  for (it = sublayouts.begin(); it != sublayouts.end(); it++){
-    STTypeLayout *sublayout = *it;
-    if (!sublayout->isContainer()) continue;
-
-    STContainerTypeLayout *containerSublayout = dynamic_cast<STContainerTypeLayout*>(sublayout);
-    double subtypeOffset = rect->bottom() + separation;
-    QRectF *r = calcRectOfAllInstances (container, containerSublayout, subtypeOffset);
-    if (!r->isNull()){
-      rect = new QRectF(rect->united (*r));
-      separation = layout->subtypeSeparation();
-    }
-  }
-  layout->setRectOfContainer (container, rect);
-  std::cout << __FUNCTION__ << " - " << container->name() << " = [" << 
-    rect->x() << ", " <<
-    rect->y() << "] [" <<
-    rect->width() << ", " <<
-    rect->height () << "]"<<std::endl;
-  return rect;
-}
-
-QRectF *PajeSpaceTimeView::calcRectOfAllInstances (PajeContainer *container, STContainerTypeLayout *layout, double minY)
-{
-  double separation = 0;
-  QRectF *rect = new QRectF();
-  rect->setLeft (container->startTime());
-  rect->setRight (container->endTime());
-  rect->setTop (minY);
-  rect->setHeight (0);
-
-  // check all instances on this hierarchy
-  std::vector<PajeContainer*> containers;
-  std::vector<PajeContainer*>::iterator it;
-  containers = enumeratorOfContainersTypedInContainer (layout->type(), container);
-  for (it = containers.begin(); it != containers.end(); it++){
-    PajeContainer *child = *it;
-    
-    QRectF *r = calcRectOfContainer (child, layout, rect->bottom() + separation);
-    if (!r->isNull()){
-      if (rect->isNull()){
-        rect = r;
-        separation = layout->siblingSeparation();
-      }else{
-        rect = new QRectF(rect->united (*r));
-      }
-    }
-  }
-  layout->setRectInContainer (rect, container);
-  return rect;
-}
-
-
 void PajeSpaceTimeView::renewLayoutDescriptors (void)
 {
   PajeContainer *container = rootInstance ();
   PajeType *type = container->type();
 
   layoutDescriptors.clear();
+
   STContainerTypeLayout *layout = dynamic_cast<STContainerTypeLayout*>(createTypeLayout (type, NULL));
-  layout->setVerticalOffsets ();
-  calcRectOfContainer (container, layout, 0);
+  layout->recursiveSetLayoutPositions (container, this, QPointF());
+}
+
+void PajeSpaceTimeView::drawContainer (STTypeLayout *layout, PajeContainer *container, PajeGraphicsItem *parent)
+{
+  PajeContainerItem *item = new PajeContainerItem (layout, container, parent, this);
+  if (!parent){
+    scene.addItem (item);
+  }
+
+  std::vector<STTypeLayout*> sublayouts = layout->subtypes();
+  std::vector<STTypeLayout*>::iterator it;
+  for (it = sublayouts.begin(); it != sublayouts.end(); it++){
+    STTypeLayout *sublayout = *it;
+    if (sublayout->isContainer()){
+      //recurse
+      std::vector<PajeContainer*> containers;
+      std::vector<PajeContainer*>::iterator it;
+      containers = enumeratorOfContainersTypedInContainer (sublayout->type(), container);
+      for (it = containers.begin(); it != containers.end(); it++){
+        PajeContainer *child = *it;
+        drawContainer (sublayout, child, item);
+      }
+    }else{
+      //sublayout is not a container, draw things
+      std::vector<PajeEntity*> entities;
+      std::vector<PajeEntity*>::iterator it;
+      entities = enumeratorOfEntitiesTypedInContainer (sublayout->type(),
+                                                       container,
+                                                       container->startTime(),
+                                                       container->endTime());
+      for (it = entities.begin(); it != entities.end(); it++){
+        PajeEntity *entity = *it;
+        PajeStateItem *item = new PajeStateItem (sublayout, entity, parent, this);
+      }
+    }
+  }
 }
 
 void PajeSpaceTimeView::hierarchyChanged (void)
 {
-  std::cout << __FUNCTION__ << std::endl;
-  std::cout << startTime() << " - " << endTime() << std::endl;
+  //set an initial X ratio
+  double traceDuration = endTime() - startTime();
+  xratio = width()/traceDuration;
+  yratio = 1;
 
+  //clear the scene
+  scene.clear ();
+
+  //scene reconstruction
   renewLayoutDescriptors ();
-  STContainerTypeLayout *layout = dynamic_cast<STContainerTypeLayout*>(layoutDescriptorForType (rootInstance()->type()));
-  QRectF *rect = layout->rectOfContainer (rootInstance());
-  scene.setSceneRect (*rect);
-  scene.addRect (*rect);
 
-  //change X scale
-  scale (50000, 1);
+  PajeContainer *root = rootInstance();
+  PajeType *rootType = root->type();
+  STContainerTypeLayout *rootLayout = dynamic_cast<STContainerTypeLayout*>(layoutDescriptorForType (rootType));
+
+  double height = rootLayout->layoutHeightForContainer (root);
+  double width = root->endTime() - root->startTime();
+
+  QRectF rect = QRectF(0,0,width,height);
+  scene.setSceneRect (rect);
+
+  drawContainer (rootLayout, root, NULL);
+
+  fitInView (rect);
+  //change scale
+//  scale (xratio, yratio);
+}
+
+void PajeSpaceTimeView::mouseMoveEvent (QMouseEvent *event)
+{
+  QPointF p = mapToScene (event->pos());
+  QGraphicsView::mouseMoveEvent (event);
+}
+
+void PajeSpaceTimeView::wheelEvent (QWheelEvent *event)
+{
+  //save scene position
+  QPointF p = mapToScene (event->pos());
+
+  setTransform (QTransform());
+  double r;
+  if (event->modifiers() & Qt::ControlModifier){
+    r = yratio;
+  }else{
+    r = xratio;
+  }
+
+  double factor = r * 0.1;
+  if (event->delta() > 0){
+    r -= factor;
+  }else{
+    r += factor;
+  }
+
+  if (event->modifiers() & Qt::ControlModifier){
+    yratio = r;
+  }else{
+    xratio = r;
+  }
+
+  scale (xratio, yratio);
+  centerOn (p);
+
+  event->accept();
 }
