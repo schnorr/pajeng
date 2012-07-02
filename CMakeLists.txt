@@ -98,7 +98,7 @@ SET(VIVA_RESOURCES
 #
 # the cmake options
 #
-OPTION(PAJE         "The Paje++ visualization tool (Qt4 version)" ON)
+OPTION(PAJE         "The Paje++ visualization tool (Qt4 version)" OFF)
 OPTION(PAJE_LIBRARY "The Paje library with all the basic components" ON)
 OPTION(PAJE_DUMP    "Compile pj_dump (program to dump the contents of a trace" ON)
 OPTION(PAJE_VALIDATE "Compile pj_validate (program to validate a trace" ON)
