@@ -231,6 +231,7 @@ std::string PajeUserState::description (void)
               << type()->name << ", "
               << startTime() << ", "
               << endTime() << ", "
+              << endTime() - startTime() << ", "
               << name();
   std::string extra = extraDescription();
   if (!extra.empty()){
@@ -287,6 +288,7 @@ std::string PajeUserVariable::description (void)
               << type()->name << ", "
               << startTime() << ", "
               << endTime() << ", "
+              << endTime() - startTime() << ", "
               << doubleValue();
   std::string extra = extraDescription();
   if (!extra.empty()){
@@ -334,6 +336,7 @@ std::string PajeUserLink::description (void)
               << type()->name << ", "
               << startTime() << ", "
               << endTime() << ", "
+              << endTime() - startTime() << ", "
               << value() << ", "
               << startContainer()->name() << ", "
               << endContainer()->name();
