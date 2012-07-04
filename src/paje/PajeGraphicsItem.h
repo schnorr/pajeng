@@ -11,6 +11,7 @@ class PajeSpaceTimeView;
 class PajeGraphicsItem : public QGraphicsItem
 {
 protected:
+  bool hover;
   STTypeLayout *layout;
   PajeEntity *entity;
   PajeSpaceTimeView *filter;
@@ -18,7 +19,6 @@ protected:
 public:
   PajeGraphicsItem (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, PajeSpaceTimeView *filter);
 };
-
 
 class PajeContainerItem : public PajeGraphicsItem
 {
@@ -32,9 +32,6 @@ public:
 
 class PajeStateItem : public PajeGraphicsItem
 {
-private:
-  bool hover;
-
 public:
   PajeStateItem (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, PajeSpaceTimeView *filter);
   QRectF boundingRect (void) const;

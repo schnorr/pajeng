@@ -7,12 +7,13 @@ PajeGraphicsItem::PajeGraphicsItem (STTypeLayout *layout, PajeEntity *entity, QG
   this->layout = layout;
   this->entity = entity;
   this->filter = filter;
+  hover = false;
 }
 
 PajeContainerItem::PajeContainerItem (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, PajeSpaceTimeView *filter)
   : PajeGraphicsItem (layout, entity, parent, filter)
 {
-//  setOpacity (0.9);
+  setZValue (100);
 }
 
 
@@ -22,8 +23,6 @@ QRectF PajeContainerItem::boundingRect (void) const
   PajeContainer *container = dynamic_cast<PajeContainer*>(entity);
   QPointF pos = containerLayout->layoutPositionForContainer (container);
   double height = containerLayout->layoutHeightForContainer (container);
-
-  // std::cout << __FUNCTION__ << ": " << container->name() << " " << pos.x() << "," << pos.y() << " - h: "<<height<<std::endl;
 
   QRectF ret;
   ret.setTop (pos.y());
@@ -41,20 +40,17 @@ void PajeContainerItem::paint (QPainter *painter, const QStyleOptionGraphicsItem
 
   QRectF rect = boundingRect ();
   painter->setPen (Qt::lightGray);
-  painter->drawRect(rect);
-  // painter->drawText(rect.center(), QString (entity->name().c_str()));
-
- //  painter->fillRect(*rect, QColor(1,1,1));
-//   painter->drawRect(*rect);
-//   painter->drawText(rect->center(), QString (entity->name().c_str()));
+  painter->drawLine (rect.bottomLeft(), rect.bottomRight());
+  painter->setPen (Qt::black);
+  painter->setFont(QFont("Arial", 2));
+  painter->drawText (rect.bottomLeft(), QString::fromStdString(entity->name()));
 }
 
 PajeStateItem::PajeStateItem (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, PajeSpaceTimeView *filter)
   : PajeGraphicsItem (layout, entity, parent, filter)
 {
-//  setOpacity (1);
   setAcceptHoverEvents (true);
-  hover = false;
+  setZValue (entity->imbricationLevel());
 }
 
 QRectF PajeStateItem::boundingRect (void) const
@@ -63,7 +59,6 @@ QRectF PajeStateItem::boundingRect (void) const
   int imbric = entity->imbricationLevel();
   QPointF pos = layout->layoutPositionForContainer (container);
   double height = layout->layoutHeightForContainer (container);
-
 
   QRectF ret;
   ret.setTop (pos.y());
@@ -86,7 +81,9 @@ void PajeStateItem::paint (QPainter *painter, const QStyleOptionGraphicsItem *op
   }
   QRectF rect = boundingRect();
   painter->fillRect(rect, QBrush(c));
-  painter->drawRect(rect);
+  if (hover){
+    painter->drawRect(rect);
+  }
   if (hover){
     //FIXME, TODO: this code is not working
     painter->setFont (QFont("Times", 5));
