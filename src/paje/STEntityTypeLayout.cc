@@ -126,6 +126,7 @@ STContainerTypeLayout::STContainerTypeLayout (PajeType *type, STContainerTypeLay
 
 QPointF STContainerTypeLayout::recursiveSetLayoutPositions (PajeContainer *container, PajeComponent *filter, QPointF current)
 {
+  bool present = false;
   QPointF top = current;
   setLayoutPositionForContainer (container, top);
 
@@ -144,6 +145,7 @@ QPointF STContainerTypeLayout::recursiveSetLayoutPositions (PajeContainer *conta
                                                            container->endTime());
       double h = 0;
       if (subc.size()){
+        present = true;
         h = stateTypeLayout->height();
       }
       stateTypeLayout->setLayoutHeightForContainer (container, h);
@@ -174,11 +176,15 @@ QPointF STContainerTypeLayout::recursiveSetLayoutPositions (PajeContainer *conta
       for (it = subc.begin(); it != subc.end(); it++){
         PajeContainer *subcontainer = *it;
         if (!subcontainer) throw "error";
+        QPointF saved = top;
         top = containerTypeLayout->recursiveSetLayoutPositions (subcontainer, filter, top);
-        top += QPointF(0, siblingSeparation());
+        if (saved != top){
+          top += QPointF(0, siblingSeparation());
+        }
       }
       double h = 0;
       if (subc.size()){
+        present = true;
         h = container_top.y() - top.y();
       }
       containerTypeLayout->setLayoutHeightForContainer (container, 0);
@@ -193,9 +199,14 @@ QPointF STContainerTypeLayout::recursiveSetLayoutPositions (PajeContainer *conta
     }
   }
 
-  double h = top.y() - current.y();
-  setLayoutHeightForContainer (container, h);
-  return top;
+  if (present == true){
+    double h = top.y() - current.y();
+    setLayoutHeightForContainer (container, h);
+    return top;
+  }else{
+    setLayoutHeightForContainer (container, 0);
+    return current;
+  }
 }
 
 
