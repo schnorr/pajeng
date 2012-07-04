@@ -14,11 +14,13 @@ SET(UTILS_SOURCES
 SET(PAJE_HEADERS
   src/paje/PajeApplication.h
   src/paje/PajeWindow.h
+  src/paje/PajeSpaceTimeFrame.h
   src/paje/PajeSpaceTimeView.h)
 SET(PAJE_SOURCES
   src/paje/main.cc
   src/paje/PajeApplication.cc
   src/paje/PajeWindow.cc
+  src/paje/PajeSpaceTimeFrame.cc
   src/paje/PajeSpaceTimeView.cc
   src/paje/STEntityTypeLayout.cc
   src/paje/PajeGraphicsItem.cc)
