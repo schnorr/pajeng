@@ -55,8 +55,22 @@ long long PajeEvent::getLineNumber (void) const
   return lineNumber;
 }
 
+std::string PajeEvent::description (void) const
+{
+  std::stringstream output;
+  unsigned int i;
+  output << "(Line: " << valueLine->lineNumber;
+  output << ", Contents: '";
+  for (i = 0; i < valueLine->word_count; i++){
+    output << std::string(valueLine->word[i]);
+    if (i+1 != valueLine->word_count) output << " ";
+  }
+  output << "')";
+  return output.str();
+}
+
 std::ostream &operator<< (std::ostream &output, const PajeEvent &event)
 {
-  output << event.valueLine;
+  output << event.description();
   return output;
 }

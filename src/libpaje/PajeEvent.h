@@ -40,6 +40,7 @@ public:
   PajeEventId pajeEventId (void);
   std::string valueForFieldId (std::string name);
   long long getLineNumber (void) const;
+  std::string description (void) const;
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeEvent &event);
