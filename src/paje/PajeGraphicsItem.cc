@@ -25,10 +25,12 @@ QRectF PajeContainerItem::boundingRect (void) const
   double height = containerLayout->layoutHeightForContainer (container);
 
   QRectF ret;
-  ret.setTop (pos.y());
-  ret.setLeft (container->startTime());
-  ret.setRight (container->endTime());
-  ret.setBottom (pos.y() + height);
+  if (height != 0){
+    ret.setTop (pos.y());
+    ret.setLeft (container->startTime());
+    ret.setRight (container->endTime());
+    ret.setBottom (pos.y() + height);
+  }
   return ret;
 }
 
@@ -39,11 +41,13 @@ void PajeContainerItem::paint (QPainter *painter, const QStyleOptionGraphicsItem
   }
 
   QRectF rect = boundingRect ();
-  painter->setPen (Qt::lightGray);
-  painter->drawLine (rect.bottomLeft(), rect.bottomRight());
-  painter->setPen (Qt::black);
-  painter->setFont(QFont("Arial", 2));
-  painter->drawText (rect.bottomLeft(), QString::fromStdString(entity->name()));
+  if (rect != QRectF()){
+    painter->setPen (Qt::lightGray);
+    painter->drawLine (rect.bottomLeft(), rect.bottomRight());
+    painter->setPen (Qt::black);
+    painter->setFont(QFont("Arial", 2));
+    painter->drawText (rect.bottomLeft(), QString::fromStdString(entity->name()));
+  }
 }
 
 PajeStateItem::PajeStateItem (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, PajeSpaceTimeView *filter)
