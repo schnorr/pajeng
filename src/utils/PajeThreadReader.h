@@ -15,10 +15,6 @@ private:
 signals:
   void percentageCompleted (int);
   void closeDialogIfStillOpen (void);
-  void readingException (std::string exception);
-
-public slots:
-  void throwException (std::string exception);
 
 public:
   PajeThreadReader (PajeFileReader *reader);
