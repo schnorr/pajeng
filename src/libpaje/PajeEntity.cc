@@ -232,6 +232,7 @@ std::string PajeUserState::description (void)
               << startTime() << ", "
               << endTime() << ", "
               << endTime() - startTime() << ", "
+              << imbrication << ", "
               << name();
   std::string extra = extraDescription();
   if (!extra.empty()){
