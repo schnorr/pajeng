@@ -196,6 +196,7 @@ IF(VIVA)
   ADD_DEFINITIONS(${QT_DEFINITIONS})
   include_directories(viva ${PROJECT_SOURCE_DIR}/src/libtupi/)
   include_directories(viva ${PROJECT_SOURCE_DIR}/src/libpaje/)
+  INCLUDE_DIRECTORIES(viva ${PROJECT_SOURCE_DIR}/src/utils/)
 
   ADD_EXECUTABLE(viva ${VIVA_SOURCES} ${VIVA_HEADERS_MOC} ${VIVA_RESOURCES_RCC} ${UTILS_SOURCES} ${UTILS_HEADERS_MOC})
   target_link_libraries(viva ${QT_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${LIBCONFIG_LIBRARIES} tupi_library paje_library )
