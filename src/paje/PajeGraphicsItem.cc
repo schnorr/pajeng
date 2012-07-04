@@ -60,6 +60,7 @@ PajeStateItem::PajeStateItem (STTypeLayout *layout, PajeEntity *entity, QGraphic
 QRectF PajeStateItem::boundingRect (void) const
 {
   PajeContainer *container = entity->container();
+  int imbric = entity->imbricationLevel();
   QPointF pos = layout->layoutPositionForContainer (container);
   double height = layout->layoutHeightForContainer (container);
 
@@ -68,7 +69,7 @@ QRectF PajeStateItem::boundingRect (void) const
   ret.setTop (pos.y());
   ret.setLeft (entity->startTime());
   ret.setRight (entity->endTime());
-  ret.setBottom (pos.y() + height);
+  ret.setBottom (pos.y() + height - layout->inset()*imbric);
   return ret;
 }
 
