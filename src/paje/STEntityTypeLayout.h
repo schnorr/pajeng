@@ -25,6 +25,7 @@ public:
   virtual bool isContainer (void);
   virtual std::vector<STTypeLayout*> subtypes (void);
   double height (void);
+  virtual double inset (void);
   QPointF layoutPositionForContainer (PajeContainer *container); //in parent's coordinates
   void setLayoutPositionForContainer (PajeContainer *container, QPointF val); //in parent's coordinates
   double layoutHeightForContainer (PajeContainer *container);
@@ -43,10 +44,11 @@ public:
 class STStateTypeLayout : public STTypeLayout
 {
 private:
-  double inset;
+  double _inset;
 
 public:
   STStateTypeLayout (PajeType *type, STContainerTypeLayout *parent, double inset);
+  double inset();
 };
 
 class STLinkTypeLayout : public STTypeLayout

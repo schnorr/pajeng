@@ -33,6 +33,11 @@ double STTypeLayout::height (void)
   return 3;
 }
 
+double STTypeLayout::inset (void)
+{
+  return 0;
+}
+
 QPointF STTypeLayout::layoutPositionForContainer (PajeContainer *container)
 {
   if (layoutPos.count(container)){
@@ -77,7 +82,7 @@ STTypeLayout *STTypeLayout::Create (PajeType *type, STContainerTypeLayout *paren
 {
   switch (type->drawingType()){
   case PajeEventDrawingType: return new STEventTypeLayout (type, parentLayout, 10);
-  case PajeStateDrawingType: return new STStateTypeLayout (type, parentLayout, 2);
+  case PajeStateDrawingType: return new STStateTypeLayout (type, parentLayout, 1);
   case PajeLinkDrawingType: return new STLinkTypeLayout (type, parentLayout);
   case PajeVariableDrawingType: return new STVariableTypeLayout (type, parentLayout);
   case PajeContainerDrawingType: return new STContainerTypeLayout (type, parentLayout);
@@ -94,7 +99,12 @@ STEventTypeLayout::STEventTypeLayout (PajeType *type, STContainerTypeLayout *par
 STStateTypeLayout::STStateTypeLayout (PajeType *type, STContainerTypeLayout *parentLayout, double inset)
   : STTypeLayout (type, parentLayout)
 {
-  this->inset = inset;
+  this->_inset = inset;
+}
+
+double STStateTypeLayout::inset (void)
+{
+  return _inset;
 }
 
 STLinkTypeLayout::STLinkTypeLayout (PajeType *type, STContainerTypeLayout *parentLayout)
