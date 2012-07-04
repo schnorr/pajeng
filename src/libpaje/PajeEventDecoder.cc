@@ -229,6 +229,7 @@ void PajeEventDecoder::inputEntity (PajeObject *data)
 
 bool PajeEventDecoder::canEndChunkBefore (PajeObject *data)
 {
+  long long save_currentLineNumber = currentLineNumber;
   PajeData *d = (PajeData*)data;
   paje_line line;
 
@@ -256,6 +257,7 @@ bool PajeEventDecoder::canEndChunkBefore (PajeObject *data)
     }
   }
   if (canEndChunk){
+    currentLineNumber = save_currentLineNumber;
     return canEndChunk;
   }
   // the chunk cannot be ended -- process all remaining data
