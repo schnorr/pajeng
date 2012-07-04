@@ -7,15 +7,15 @@ PajeWindow::PajeWindow()
   textEdit = new QPlainTextEdit;
   //setCentralWidget(textEdit);
 
-  view = new PajeSpaceTimeView;
-  setCentralWidget (view);
+  frame = new PajeSpaceTimeFrame (this);
+  setCentralWidget (frame);
 
   createActions();
   createMenus();
-  createToolBars();
+  // createToolBars();
   createStatusBar();
 
-  readSettings();
+  // readSettings();
 
   connect(textEdit->document(), SIGNAL(contentsChanged()),
           this, SLOT(documentWasModified()));

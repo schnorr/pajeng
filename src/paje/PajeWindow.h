@@ -1,6 +1,6 @@
 #include <QtGui>
 #include <QMainWindow>
-#include "PajeSpaceTimeView.h"
+#include "PajeSpaceTimeFrame.h"
 
 class QAction;
 class QMenu;
@@ -13,7 +13,7 @@ class PajeWindow : public QMainWindow
 private:
   static PajeWindow *instance;
 public:
-  PajeSpaceTimeView *view;
+  PajeSpaceTimeFrame *frame;
   static PajeWindow *getInstance() { if (!instance){ instance = new PajeWindow (); } return instance; };
 
 protected:

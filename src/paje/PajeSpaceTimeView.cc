@@ -1,9 +1,9 @@
 #include "PajeSpaceTimeView.h"
 
-PajeSpaceTimeView::PajeSpaceTimeView (QWidget *parent) : QGraphicsView(parent)
+PajeSpaceTimeView::PajeSpaceTimeView (PajeSpaceTimeFrame *frame, QWidget *parent) : QGraphicsView(parent)
 {
+  this->frame = frame;
   setScene (&scene);
-  setViewport (new QGLWidget (this));
 }
 
 STTypeLayout *PajeSpaceTimeView::layoutDescriptorForType (PajeType *type)
@@ -52,10 +52,10 @@ void PajeSpaceTimeView::renewLayoutDescriptors (void)
 
 void PajeSpaceTimeView::drawContainer (STTypeLayout *layout, PajeContainer *container, PajeGraphicsItem *parent)
 {
-  PajeContainerItem *item = new PajeContainerItem (layout, container, parent, this);
-  if (!parent){
+  PajeContainerItem *item = new PajeContainerItem (layout, container, NULL, this);
+  // if (!parent){
     scene.addItem (item);
-  }
+  // }
 
   std::vector<STTypeLayout*> sublayouts = layout->subtypes();
   std::vector<STTypeLayout*>::iterator it;
@@ -80,7 +80,8 @@ void PajeSpaceTimeView::drawContainer (STTypeLayout *layout, PajeContainer *cont
                                                        container->endTime());
       for (it = entities.begin(); it != entities.end(); it++){
         PajeEntity *entity = *it;
-        PajeStateItem *item = new PajeStateItem (sublayout, entity, parent, this);
+        PajeStateItem *item = new PajeStateItem (sublayout, entity, NULL, this);
+        scene.addItem (item);
       }
     }
   }
@@ -88,11 +89,6 @@ void PajeSpaceTimeView::drawContainer (STTypeLayout *layout, PajeContainer *cont
 
 void PajeSpaceTimeView::hierarchyChanged (void)
 {
-  //set an initial X ratio
-  double traceDuration = endTime() - startTime();
-  xratio = width()/traceDuration;
-  yratio = 1;
-
   //clear the scene
   scene.clear ();
 
@@ -112,44 +108,18 @@ void PajeSpaceTimeView::hierarchyChanged (void)
   drawContainer (rootLayout, root, NULL);
 
   fitInView (rect);
-  //change scale
-//  scale (xratio, yratio);
-}
-
-void PajeSpaceTimeView::mouseMoveEvent (QMouseEvent *event)
-{
-  QPointF p = mapToScene (event->pos());
-  QGraphicsView::mouseMoveEvent (event);
 }
 
 void PajeSpaceTimeView::wheelEvent (QWheelEvent *event)
 {
-  //save scene position
-  QPointF p = mapToScene (event->pos());
-
-  setTransform (QTransform());
-  double r;
   if (event->modifiers() & Qt::ControlModifier){
-    r = yratio;
+    if (event->delta() > 0){
+      frame->zoomIn(6);
+    }else{
+      frame->zoomOut(6);
+    }
+    event->accept();
   }else{
-    r = xratio;
+    QGraphicsView::wheelEvent(event);
   }
-
-  double factor = r * 0.1;
-  if (event->delta() > 0){
-    r -= factor;
-  }else{
-    r += factor;
-  }
-
-  if (event->modifiers() & Qt::ControlModifier){
-    yratio = r;
-  }else{
-    xratio = r;
-  }
-
-  scale (xratio, yratio);
-  centerOn (p);
-
-  event->accept();
 }

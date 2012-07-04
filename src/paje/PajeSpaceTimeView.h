@@ -7,20 +7,21 @@
 #include "PajeComponent.h"
 #include "STEntityTypeLayout.h"
 #include "PajeGraphicsItem.h"
+#include "PajeSpaceTimeFrame.h"
 
 class PajeGraphicsItem;
+class PajeSpaceTimeFrame;
 
 class PajeSpaceTimeView : public QGraphicsView, public PajeComponent
 {
   Q_OBJECT;
 
 private:
-  double xratio;
-  double yratio;
   QGraphicsScene scene;
+  PajeSpaceTimeFrame *frame;
 
 public:
-  PajeSpaceTimeView (QWidget *parent = NULL);
+  PajeSpaceTimeView (PajeSpaceTimeFrame *frame, QWidget *parent = NULL);
 
 private:
   /* Handling with layout descriptors */
@@ -34,7 +35,6 @@ protected: //from PajeComponent protocol
   void hierarchyChanged (void);
 
 protected: //from QGraphicsView
-  void mouseMoveEvent (QMouseEvent *event);
   void wheelEvent (QWheelEvent *event);
 };
 

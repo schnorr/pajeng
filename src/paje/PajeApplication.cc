@@ -19,7 +19,7 @@ void PajeApplication::init (void)
 
   connectComponents (reader, decoder);
   connectComponents (decoder, simulator);
-  connectComponents (simulator, pajeWindow->view);
+  connectComponents (simulator, pajeWindow->frame->view());
 
   {
     PajeThreadReader *thread = new PajeThreadReader (reader);
