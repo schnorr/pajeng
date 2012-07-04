@@ -152,7 +152,7 @@ QPointF STContainerTypeLayout::recursiveSetLayoutPositions (PajeContainer *conta
       {
         sit++;
         if (sit != stateSubtypes.end()){
-//          top += QPointF(0, subtypeSeparation());
+          top += QPointF(0, subtypeSeparation());
         }
         sit--;
       }
@@ -175,7 +175,7 @@ QPointF STContainerTypeLayout::recursiveSetLayoutPositions (PajeContainer *conta
         PajeContainer *subcontainer = *it;
         if (!subcontainer) throw "error";
         top = containerTypeLayout->recursiveSetLayoutPositions (subcontainer, filter, top);
-//        top += QPointF(0, siblingSeparation());
+        top += QPointF(0, siblingSeparation());
       }
       double h = 0;
       if (subc.size()){
