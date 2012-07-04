@@ -81,11 +81,11 @@ void PajeCategorizedType::addNewValue (std::string alias, std::string value, Paj
 {
   if (alias.empty()){
     values[value] = value;
-    colors[value] = color;
   }else{
     values[alias] = value;
-    colors[alias] = color;
   }
+  colors[value] = color;
+  colors[alias] = color;
 }
 
 std::string PajeCategorizedType::valueForIdentifier (std::string identifier)
