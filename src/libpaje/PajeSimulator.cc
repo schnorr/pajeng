@@ -438,7 +438,9 @@ void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
     cont1 << *container;
     std::stringstream cont2;
     cont2 << *containerType;
-    throw "Wrong container type '"+cont2.str()+"' of container '"+cont1.str()+"' in "+line.str();
+    std::stringstream cont3;
+    cont3 << *container->type();
+    throw "Wrong container type '"+cont2.str()+"' of container '"+cont1.str()+"' with type '"+cont3.str()+"' in "+line.str();
   }
 
   //mark container as destroyed
