@@ -36,7 +36,8 @@ private:
   QToolButton *openGlButton;
   QToolButton *antialiasButton;
   QToolButton *resetButton;
-  QSlider *zoomSlider;
+  QSlider *zoomVSlider;
+  QSlider *zoomHSlider;
 };
 
 #endif

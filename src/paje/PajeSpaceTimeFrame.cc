@@ -34,15 +34,25 @@ PajeSpaceTimeFrame::PajeSpaceTimeFrame (QWidget *parent)
   resetButton->setText(tr("ResetZoom"));
   resetButton->setEnabled(false);
 
-  zoomSlider = new QSlider;
-  zoomSlider->setMinimum(0);
-  zoomSlider->setMaximum(500);
-  zoomSlider->setValue(250);
-  zoomSlider->setTickPosition(QSlider::TicksRight);
+  zoomVSlider = new QSlider;
+  zoomVSlider->setMinimum(0);
+  zoomVSlider->setMaximum(500);
+  zoomVSlider->setValue(250);
+  zoomVSlider->setTickPosition(QSlider::TicksRight);
 
-  // Zoom slider layout
-  QVBoxLayout *zoomSliderLayout = new QVBoxLayout;
-  zoomSliderLayout->addWidget(zoomSlider);
+  zoomHSlider = new QSlider (Qt::Horizontal);
+  zoomHSlider->setMinimum(0);
+  zoomHSlider->setMaximum(500);
+  zoomHSlider->setValue(250);
+  zoomHSlider->setTickPosition(QSlider::TicksRight);
+
+  // VZoom slider layout
+  QVBoxLayout *zoomVSliderLayout = new QVBoxLayout;
+  zoomVSliderLayout->addWidget(zoomVSlider);
+  // HZoom slider layout
+  QHBoxLayout *zoomHSliderLayout = new QHBoxLayout;
+  zoomHSliderLayout->addWidget(zoomHSlider);
+
 
   QHBoxLayout *labelLayout = new QHBoxLayout;
   label2 = new QLabel(tr("Pointer Mode"));
@@ -86,12 +96,14 @@ PajeSpaceTimeFrame::PajeSpaceTimeFrame (QWidget *parent)
   QGridLayout *topLayout = new QGridLayout;
   topLayout->addLayout(labelLayout, 0, 0);
   topLayout->addWidget(graphicsView, 1, 0);
-  topLayout->addLayout(zoomSliderLayout, 1, 1);
+  topLayout->addLayout(zoomVSliderLayout, 1, 1);
+  topLayout->addLayout(zoomHSliderLayout, 2, 0);
   setLayout(topLayout);
 
 
   connect(resetButton, SIGNAL(clicked()), this, SLOT(resetView()));
-  connect(zoomSlider, SIGNAL(valueChanged(int)), this, SLOT(setupMatrix()));
+  connect(zoomVSlider, SIGNAL(valueChanged(int)), this, SLOT(setupMatrix()));
+  connect(zoomHSlider, SIGNAL(valueChanged(int)), this, SLOT(setupMatrix()));
   connect(graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(setResetButtonEnabled()));
   connect(graphicsView->horizontalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(setResetButtonEnabled()));
   connect(selectModeButton, SIGNAL(toggled(bool)), this, SLOT(togglePointerMode()));
@@ -112,7 +124,8 @@ PajeSpaceTimeView *PajeSpaceTimeFrame::view () const
 
 void PajeSpaceTimeFrame::resetView()
 {
-  zoomSlider->setValue(250);
+  zoomVSlider->setValue(250);
+  zoomHSlider->setValue(250);
   setupMatrix();
   graphicsView->ensureVisible(QRectF(0, 0, 0, 0));
 
@@ -126,10 +139,11 @@ void PajeSpaceTimeFrame::setResetButtonEnabled()
 
 void PajeSpaceTimeFrame::setupMatrix()
 {
-  qreal scale = qPow(qreal(2), (zoomSlider->value() - 250) / qreal(50));
+  qreal scaley = qPow(qreal(2), (zoomVSlider->value() - 250) / qreal(50));
+  qreal scalex = qPow(qreal(2), (zoomHSlider->value() - 250) / qreal(50));
 
   QMatrix matrix;
-  matrix.scale(scale, scale);
+  matrix.scale(scalex, scaley);
 
   graphicsView->setMatrix(matrix);
   setResetButtonEnabled();
@@ -157,10 +171,10 @@ void PajeSpaceTimeFrame::toggleAntialiasing()
 
 void PajeSpaceTimeFrame::zoomIn(int level)
 {
-  zoomSlider->setValue(zoomSlider->value() + level);
+  zoomVSlider->setValue(zoomVSlider->value() + level);
 }
 
 void PajeSpaceTimeFrame::zoomOut(int level)
 {
-  zoomSlider->setValue(zoomSlider->value() - level);
+  zoomVSlider->setValue(zoomVSlider->value() - level);
 }
