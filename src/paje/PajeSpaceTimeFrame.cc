@@ -30,6 +30,10 @@ PajeSpaceTimeFrame::PajeSpaceTimeFrame (QWidget *parent)
   zoomOutIcon->setAutoRepeatDelay(0);
   zoomOutIcon->setText("ZoomOut");
 
+  resetButton = new QToolButton;
+  resetButton->setText(tr("ResetZoom"));
+  resetButton->setEnabled(false);
+
   zoomSlider = new QSlider;
   zoomSlider->setMinimum(0);
   zoomSlider->setMaximum(500);
@@ -41,10 +45,6 @@ PajeSpaceTimeFrame::PajeSpaceTimeFrame (QWidget *parent)
 //  zoomSliderLayout->addWidget(zoomInIcon);
   zoomSliderLayout->addWidget(zoomSlider);
 //  zoomSliderLayout->addWidget(zoomOutIcon);
-
-  resetButton = new QToolButton;
-  resetButton->setText(tr("0"));
-  resetButton->setEnabled(false);
 
   QHBoxLayout *labelLayout = new QHBoxLayout;
   label2 = new QLabel(tr("Pointer Mode"));
@@ -80,6 +80,7 @@ PajeSpaceTimeFrame::PajeSpaceTimeFrame (QWidget *parent)
   labelLayout->addStretch();
   labelLayout->addWidget (zoomInIcon);
   labelLayout->addWidget (zoomOutIcon);
+  labelLayout->addWidget(resetButton);
   labelLayout->addStretch();
   labelLayout->addWidget(antialiasButton);
   labelLayout->addWidget(openGlButton);
@@ -88,7 +89,6 @@ PajeSpaceTimeFrame::PajeSpaceTimeFrame (QWidget *parent)
   topLayout->addLayout(labelLayout, 0, 0);
   topLayout->addWidget(graphicsView, 1, 0);
   topLayout->addLayout(zoomSliderLayout, 1, 1);
-  topLayout->addWidget(resetButton, 2, 1);
   setLayout(topLayout);
 
 
