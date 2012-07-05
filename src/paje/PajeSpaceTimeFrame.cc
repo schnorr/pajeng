@@ -42,9 +42,7 @@ PajeSpaceTimeFrame::PajeSpaceTimeFrame (QWidget *parent)
 
   // Zoom slider layout
   QVBoxLayout *zoomSliderLayout = new QVBoxLayout;
-//  zoomSliderLayout->addWidget(zoomInIcon);
   zoomSliderLayout->addWidget(zoomSlider);
-//  zoomSliderLayout->addWidget(zoomOutIcon);
 
   QHBoxLayout *labelLayout = new QHBoxLayout;
   label2 = new QLabel(tr("Pointer Mode"));
