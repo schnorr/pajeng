@@ -23,14 +23,12 @@ PajeSpaceTimeFrame::PajeSpaceTimeFrame (QWidget *parent)
   zoomInIcon->setAutoRepeat(true);
   zoomInIcon->setAutoRepeatInterval(33);
   zoomInIcon->setAutoRepeatDelay(0);
-  zoomInIcon->setIcon(QPixmap(":/zoomin.png"));
-  zoomInIcon->setIconSize(iconSize);
+  zoomInIcon->setText("ZoomIn");
   QToolButton *zoomOutIcon = new QToolButton;
   zoomOutIcon->setAutoRepeat(true);
   zoomOutIcon->setAutoRepeatInterval(33);
   zoomOutIcon->setAutoRepeatDelay(0);
-  zoomOutIcon->setIcon(QPixmap(":/zoomout.png"));
-  zoomOutIcon->setIconSize(iconSize);
+  zoomOutIcon->setText("ZoomOut");
 
   zoomSlider = new QSlider;
   zoomSlider->setMinimum(0);
@@ -40,9 +38,9 @@ PajeSpaceTimeFrame::PajeSpaceTimeFrame (QWidget *parent)
 
   // Zoom slider layout
   QVBoxLayout *zoomSliderLayout = new QVBoxLayout;
-  zoomSliderLayout->addWidget(zoomInIcon);
+//  zoomSliderLayout->addWidget(zoomInIcon);
   zoomSliderLayout->addWidget(zoomSlider);
-  zoomSliderLayout->addWidget(zoomOutIcon);
+//  zoomSliderLayout->addWidget(zoomOutIcon);
 
   resetButton = new QToolButton;
   resetButton->setText(tr("0"));
@@ -79,6 +77,9 @@ PajeSpaceTimeFrame::PajeSpaceTimeFrame (QWidget *parent)
   labelLayout->addWidget(label2);
   labelLayout->addWidget(selectModeButton);
   labelLayout->addWidget(dragModeButton);
+  labelLayout->addStretch();
+  labelLayout->addWidget (zoomInIcon);
+  labelLayout->addWidget (zoomOutIcon);
   labelLayout->addStretch();
   labelLayout->addWidget(antialiasButton);
   labelLayout->addWidget(openGlButton);

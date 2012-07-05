@@ -106,8 +106,6 @@ void PajeSpaceTimeView::hierarchyChanged (void)
   scene.setSceneRect (rect);
 
   drawContainer (rootLayout, root, NULL);
-
-  fitInView (rect);
 }
 
 void PajeSpaceTimeView::wheelEvent (QWheelEvent *event)

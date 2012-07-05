@@ -14,19 +14,19 @@ private:
   static PajeWindow *instance;
 public:
   PajeSpaceTimeFrame *frame;
-  static PajeWindow *getInstance() { if (!instance){ instance = new PajeWindow (); } return instance; };
+  static PajeWindow *getInstance() {
+    if (!instance){
+      instance = new PajeWindow ();
+    }
+    return instance;
+  };
 
 protected:
   PajeWindow();
   void closeEvent(QCloseEvent *event);
 
-  private slots:
-  void newFile();
-  void open();
-  bool save();
-  bool saveAs();
+private slots:
   void about();
-  void documentWasModified();
 
 private:
   void createActions();
@@ -35,28 +35,10 @@ private:
   void createStatusBar();
   void readSettings();
   void writeSettings();
-  bool maybeSave();
-  void loadFile(const QString &fileName);
-  bool saveFile(const QString &fileName);
-  void setCurrentFile(const QString &fileName);
-  QString strippedName(const QString &fullFileName);
-
-  QPlainTextEdit *textEdit;
-  QString curFile;
 
   QMenu *fileMenu;
-  QMenu *editMenu;
   QMenu *helpMenu;
-  QToolBar *fileToolBar;
-  QToolBar *editToolBar;
-  QAction *newAct;
-  QAction *openAct;
-  QAction *saveAct;
-  QAction *saveAsAct;
   QAction *exitAct;
-  QAction *cutAct;
-  QAction *copyAct;
-  QAction *pasteAct;
   QAction *aboutAct;
   QAction *aboutQtAct;
 };
