@@ -171,9 +171,19 @@ void PajeSpaceTimeFrame::toggleAntialiasing()
 
 void PajeSpaceTimeFrame::zoomIn(int level)
 {
-  int new_vlevel = zoomVSlider->value() + level;
-  zoomVSlider->setValue (new_vlevel);
+  zoomVSlider->setValue(zoomVSlider->value() + level);
+  zoomHSlider->setValue(zoomHSlider->value() + level);
+}
 
+
+void PajeSpaceTimeFrame::zoomOut(int level)
+{
+  zoomVSlider->setValue(zoomVSlider->value() - level);
+  zoomHSlider->setValue(zoomHSlider->value() - level);
+}
+
+void PajeSpaceTimeFrame::zoomXIn (int level)
+{
   int new_hlevel = zoomHSlider->value() + level;
   if (new_hlevel > zoomHSlider->maximum()){
     zoomHSlider->setMaximum (new_hlevel);
@@ -181,8 +191,11 @@ void PajeSpaceTimeFrame::zoomIn(int level)
   zoomHSlider->setValue(new_hlevel);
 }
 
-void PajeSpaceTimeFrame::zoomOut(int level)
+void PajeSpaceTimeFrame::zoomXOut (int level)
 {
-  zoomVSlider->setValue(zoomVSlider->value() - level);
-  zoomHSlider->setValue(zoomHSlider->value() - level);
+  int new_hlevel = zoomHSlider->value() - level;
+  if (new_hlevel > zoomHSlider->maximum()){
+    zoomHSlider->setMaximum (new_hlevel);
+  }
+  zoomHSlider->setValue(new_hlevel);
 }

@@ -110,7 +110,14 @@ void PajeSpaceTimeView::hierarchyChanged (void)
 
 void PajeSpaceTimeView::wheelEvent (QWheelEvent *event)
 {
-  if (event->modifiers() & Qt::ControlModifier){
+  if (event->modifiers() & Qt::ShiftModifier){
+    if (event->delta() > 0){
+      frame->zoomXIn (6);
+    }else{
+      frame->zoomXOut (6);
+    }
+    event->accept();
+  }else if (event->modifiers() & Qt::ControlModifier){
     if (event->delta() > 0){
       frame->zoomIn(6);
     }else{

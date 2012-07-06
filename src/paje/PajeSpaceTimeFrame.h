@@ -19,6 +19,8 @@ public:
 public slots:
   void zoomIn (int level = 1);
   void zoomOut (int level = 1);
+  void zoomXIn (int level = 1);
+  void zoomXOut (int level = 1);
 
 private slots:
   void resetView();
