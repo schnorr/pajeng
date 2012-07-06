@@ -4,8 +4,16 @@ PajeWindow *PajeWindow::instance = NULL;
 
 PajeWindow::PajeWindow()
 {
-  frame = new PajeSpaceTimeFrame (this);
-  setCentralWidget (frame);
+  spacetimeFrame = new PajeSpaceTimeFrame ();
+  treemapFrame = new PajeTreemapFrame ();
+
+  QSplitter *split = new QSplitter;
+  split->setChildrenCollapsible (false);
+  split->setOrientation (Qt::Horizontal);
+  split->addWidget (spacetimeFrame);
+  split->addWidget (treemapFrame);
+
+  setCentralWidget (split);//Layout(layout);
 
   createActions();
   createMenus();

@@ -1,10 +1,11 @@
 #include <QtGui>
 #include <QMainWindow>
 #include "PajeSpaceTimeFrame.h"
+#include "PajeTreemapFrame.h"
 
-class QAction;
-class QMenu;
-class QPlainTextEdit;
+QT_FORWARD_DECLARE_CLASS(QSplitter)
+QT_FORWARD_DECLARE_CLASS(QAction)
+QT_FORWARD_DECLARE_CLASS(QMenu)
 
 class PajeWindow : public QMainWindow
 {
@@ -13,7 +14,9 @@ class PajeWindow : public QMainWindow
 private:
   static PajeWindow *instance;
 public:
-  PajeSpaceTimeFrame *frame;
+  PajeSpaceTimeFrame *spacetimeFrame;
+  PajeTreemapFrame *treemapFrame;
+
   static PajeWindow *getInstance() {
     if (!instance){
       instance = new PajeWindow ();
