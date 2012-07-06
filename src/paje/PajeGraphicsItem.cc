@@ -46,7 +46,6 @@ void PajeContainerItem::paint (QPainter *painter, const QStyleOptionGraphicsItem
     painter->drawLine (rect.bottomLeft(), rect.bottomRight());
     painter->setPen (Qt::black);
     painter->setFont(QFont("Arial", 2));
-    painter->drawText (rect.bottomLeft(), QString::fromStdString(entity->name()));
   }
 }
 
