@@ -84,8 +84,34 @@ void PajeStateItem::paint (QPainter *painter, const QStyleOptionGraphicsItem *op
   }
   QRectF rect = boundingRect();
   painter->fillRect(rect, QBrush(c));
+  double height = rect.height();
+  double width = rect.width();
+  QPointF aux = QPointF(0,height*.01);
+  painter->drawLine (rect.topLeft() + aux, rect.bottomLeft() - aux);
   if (hover){
-    painter->drawRect(rect);
+    QColor c_negative = c;
+    c_negative.setHsv ((c.hue() + 200)%400, c.saturation(), c.value());
+    painter->fillRect (rect, QBrush(c_negative));
+    painter->drawRect (rect);
+
+    double size = width;
+    if (height < size) size = height;
+    size /= 2;
+    QPolygonF pol;
+    pol << rect.topLeft()
+        << rect.topLeft() + QPointF(size, 0)
+        << rect.topLeft() + QPointF(0, size)
+        << rect.topLeft();
+    painter->setBrush (QBrush(Qt::black));
+    painter->drawPolygon (pol);
+
+    QPolygonF pol2;
+    pol2 << rect.bottomRight()
+         << rect.bottomRight() - QPointF(0, size)
+         << rect.bottomRight() - QPointF(size, 0)
+         << rect.bottomRight();
+    painter->drawPolygon (pol2);
+
   }
   if (hover){
     //FIXME, TODO: this code is not working
