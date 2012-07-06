@@ -17,6 +17,7 @@
 #ifndef __PAJECOMPONENT_H__
 #define __PAJECOMPONENT_H__
 #include <iostream>
+#include <vector>
 #include "PajeObject.h"
 #include "PajeData.h"
 #include "PajeContainer.h"
@@ -27,7 +28,7 @@
 class PajeComponent : public PajeObject
 {
 private:
-  PajeComponent *outputComponent;
+  std::vector<PajeComponent*> outputComponent;
   PajeComponent *inputComponent;
 
 public:

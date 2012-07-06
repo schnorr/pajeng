@@ -19,7 +19,6 @@
 PajeComponent::PajeComponent (void)
 {
   inputComponent = NULL;
-  outputComponent = NULL;
 }
 
 void PajeComponent::setInputComponent (PajeComponent *component)
@@ -29,7 +28,7 @@ void PajeComponent::setInputComponent (PajeComponent *component)
 
 void PajeComponent::setOutputComponent (PajeComponent *component)
 {
-  outputComponent = component;
+  outputComponent.push_back(component);
 }
 
 void PajeComponent::inputEntity (PajeObject *data)
@@ -39,39 +38,76 @@ void PajeComponent::inputEntity (PajeObject *data)
 
 void PajeComponent::outputEntity (PajeObject *data)
 {
-  if (outputComponent) outputComponent->inputEntity (data);
+  if (outputComponent.size()){
+    std::vector<PajeComponent*>::iterator it;
+    for (it = outputComponent.begin(); it != outputComponent.end(); it++){
+      (*it)->inputEntity (data);
+    }
+  }
 }
 
 bool PajeComponent::canEndChunkBefore (PajeObject *data)
 {
-  if (outputComponent) return outputComponent->canEndChunkBefore (data);
-  else return true;
+  if (outputComponent.size()){
+    std::vector<PajeComponent*>::iterator it;
+    for (it = outputComponent.begin(); it != outputComponent.end(); it++){
+      if ((*it)->canEndChunkBefore (data) == false){
+        return false;
+      }
+    }
+  }
+  return true;
 }
 
 void PajeComponent::startChunk (int chunkNumber)
 {
-  if (outputComponent) outputComponent->startChunk (chunkNumber);
+  if (outputComponent.size()){
+    std::vector<PajeComponent*>::iterator it;
+    for (it = outputComponent.begin(); it != outputComponent.end(); it++){
+      (*it)->startChunk (chunkNumber);
+    }
+  }
 }
 
 void PajeComponent::endOfChunkLast (bool last)
 {
-  if (outputComponent) outputComponent->endOfChunkLast (last);
+  if (outputComponent.size()){
+    std::vector<PajeComponent*>::iterator it;
+    for (it = outputComponent.begin(); it != outputComponent.end(); it++){
+      (*it)->endOfChunkLast (last);
+    }
+  }
 }
 
 //notifications
 void PajeComponent::timeLimitsChanged (void)
 {
-  if (outputComponent) outputComponent->timeLimitsChanged ();
+  if (outputComponent.size()){
+    std::vector<PajeComponent*>::iterator it;
+    for (it = outputComponent.begin(); it != outputComponent.end(); it++){
+      (*it)->timeLimitsChanged ();
+    }
+  }
 }
 
 void PajeComponent::timeSelectionChanged (void)
 {
-  if (outputComponent) outputComponent->timeSelectionChanged ();
+  if (outputComponent.size()){
+    std::vector<PajeComponent*>::iterator it;
+    for (it = outputComponent.begin(); it != outputComponent.end(); it++){
+      (*it)->timeSelectionChanged ();
+    }
+  }
 }
 
 void PajeComponent::hierarchyChanged (void)
 {
-  if (outputComponent) outputComponent->hierarchyChanged ();
+  if (outputComponent.size()){
+    std::vector<PajeComponent*>::iterator it;
+    for (it = outputComponent.begin(); it != outputComponent.end(); it++){
+      (*it)->hierarchyChanged ();
+    }
+  }
 }
 
 //commands
