@@ -172,9 +172,6 @@ void PajeSpaceTimeFrame::toggleAntialiasing()
 void PajeSpaceTimeFrame::zoomIn(int level)
 {
   int new_vlevel = zoomVSlider->value() + level;
-  if (new_vlevel > zoomVSlider->maximum()){
-    zoomVSlider->setMaximum (new_vlevel);
-  }
   zoomVSlider->setValue (new_vlevel);
 
   int new_hlevel = zoomHSlider->value() + level;
