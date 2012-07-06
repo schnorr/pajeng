@@ -19,7 +19,8 @@ void PajeApplication::init (void)
 
   connectComponents (reader, decoder);
   connectComponents (decoder, simulator);
-  connectComponents (simulator, pajeWindow->frame->view());
+  connectComponents (simulator, pajeWindow->spacetimeFrame->view());
+  connectComponents (simulator, pajeWindow->treemapFrame->view());
 
   {
     PajeThreadReader *thread = new PajeThreadReader (reader);
