@@ -100,7 +100,9 @@ void PajeStateItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
   hover = true;
   update();
-  PajeWindow::getInstance()->statusBar()->showMessage (QString::fromStdString(entity->description()));
+  QString description = QString::fromStdString(entity->description());
+  PajeWindow::getInstance()->statusBar()->showMessage (description);
+  setToolTip (description);
 }
 
 void PajeStateItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
@@ -108,4 +110,5 @@ void PajeStateItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
   hover = false;
   update();
   PajeWindow::getInstance()->statusBar()->clearMessage ();
+  setToolTip (NULL);
 }
