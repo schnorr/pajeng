@@ -36,6 +36,7 @@ protected: //from PajeComponent protocol
 
 protected: //from QGraphicsView
   void wheelEvent (QWheelEvent *event);
+  void mouseMoveEvent (QMouseEvent *event);
 };
 
 #endif

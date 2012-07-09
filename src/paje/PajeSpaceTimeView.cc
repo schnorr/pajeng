@@ -132,3 +132,14 @@ void PajeSpaceTimeView::wheelEvent (QWheelEvent *event)
     QGraphicsView::wheelEvent(event);
   }
 }
+
+void PajeSpaceTimeView::mouseMoveEvent (QMouseEvent *event)
+{
+  QPointF sp = mapToScene (event->pos());
+  if (sp.x() >= startTime() && sp.x() <= endTime()){
+    frame->setCurrentTime (sp.x());
+  }else{
+    frame->setCurrentTime (-1);
+  }
+  QGraphicsView::mouseMoveEvent (event);
+}

@@ -16,6 +16,7 @@ public:
   PajeSpaceTimeFrame (QWidget *parent = 0);
   PajeSpaceTimeView *view () const;
   void setSpaceTimeLimit (double space, double time);
+  void setCurrentTime (double current_time);
 
 protected:
   void showEvent (QShowEvent *event);
@@ -45,6 +46,7 @@ private:
   QToolButton *resetButton;
   QSlider *zoomVSlider;
   QSlider *zoomHSlider;
+  QLabel *currentTimeLabel;
 
   double spaceLimit;
   double timeLimit;

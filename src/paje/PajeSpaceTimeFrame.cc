@@ -47,13 +47,16 @@ PajeSpaceTimeFrame::PajeSpaceTimeFrame (QWidget *parent)
   zoomHSlider->setValue  (0);
   zoomHSlider->setTickPosition(QSlider::NoTicks);
 
+  currentTimeLabel = new QLabel ();
+  currentTimeLabel->setMinimumWidth(100);
+
   // VZoom slider layout
   QVBoxLayout *zoomVSliderLayout = new QVBoxLayout;
   zoomVSliderLayout->addWidget(zoomVSlider);
   // HZoom slider layout
   QHBoxLayout *zoomHSliderLayout = new QHBoxLayout;
   zoomHSliderLayout->addWidget(zoomHSlider);
-
+  zoomHSliderLayout->addWidget(currentTimeLabel);
 
   QHBoxLayout *labelLayout = new QHBoxLayout;
   label2 = new QLabel(tr("Pointer Mode"));
@@ -129,6 +132,15 @@ void PajeSpaceTimeFrame::setSpaceTimeLimit (double space, double time)
   this->spaceLimit = space;
   this->timeLimit = time;
   resetView ();
+}
+
+void PajeSpaceTimeFrame::setCurrentTime (double current_time)
+{
+  QString description;
+  if (current_time >= 0){
+    description = QString::number(current_time);
+    currentTimeLabel->setText(description);
+  }
 }
 
 void PajeSpaceTimeFrame::showEvent ( QShowEvent * event )
