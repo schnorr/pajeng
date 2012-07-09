@@ -15,6 +15,11 @@ class PajeSpaceTimeFrame : public QFrame
 public:
   PajeSpaceTimeFrame (QWidget *parent = 0);
   PajeSpaceTimeView *view () const;
+  void setSpaceTimeLimit (double space, double time);
+
+protected:
+  void showEvent (QShowEvent *event);
+  void resizeEvent (QResizeEvent *event);
 
 public slots:
   void zoomIn (int level = 1);
@@ -40,6 +45,9 @@ private:
   QToolButton *resetButton;
   QSlider *zoomVSlider;
   QSlider *zoomHSlider;
+
+  double spaceLimit;
+  double timeLimit;
 };
 
 #endif

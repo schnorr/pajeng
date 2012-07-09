@@ -36,15 +36,16 @@ PajeSpaceTimeFrame::PajeSpaceTimeFrame (QWidget *parent)
 
   zoomVSlider = new QSlider;
   zoomVSlider->setMinimum(0);
-  zoomVSlider->setMaximum(500);
-  zoomVSlider->setValue(250);
-  zoomVSlider->setTickPosition(QSlider::TicksRight);
+  zoomVSlider->setMaximum(1000);
+  zoomVSlider->setValue(0);
+  zoomVSlider->setTickPosition(QSlider::NoTicks);
+  zoomVSlider->setInvertedAppearance (true);
 
   zoomHSlider = new QSlider (Qt::Horizontal);
   zoomHSlider->setMinimum(0);
-  zoomHSlider->setMaximum(500);
-  zoomHSlider->setValue(250);
-  zoomHSlider->setTickPosition(QSlider::TicksRight);
+  zoomHSlider->setMaximum(1000);
+  zoomHSlider->setValue  (0);
+  zoomHSlider->setTickPosition(QSlider::NoTicks);
 
   // VZoom slider layout
   QVBoxLayout *zoomVSliderLayout = new QVBoxLayout;
@@ -113,7 +114,9 @@ PajeSpaceTimeFrame::PajeSpaceTimeFrame (QWidget *parent)
   connect(zoomInIcon, SIGNAL(clicked()), this, SLOT(zoomIn()));
   connect(zoomOutIcon, SIGNAL(clicked()), this, SLOT(zoomOut()));
 
-  setupMatrix();
+  spaceLimit = 0;
+  timeLimit = 0;
+  resetView();
 }
 
 PajeSpaceTimeView *PajeSpaceTimeFrame::view () const
@@ -121,11 +124,27 @@ PajeSpaceTimeView *PajeSpaceTimeFrame::view () const
   return graphicsView;
 }
 
+void PajeSpaceTimeFrame::setSpaceTimeLimit (double space, double time)
+{
+  this->spaceLimit = space;
+  this->timeLimit = time;
+  resetView ();
+}
+
+void PajeSpaceTimeFrame::showEvent ( QShowEvent * event )
+{
+  setupMatrix();
+}
+
+void PajeSpaceTimeFrame::resizeEvent ( QResizeEvent * event )
+{
+  setupMatrix();
+}
 
 void PajeSpaceTimeFrame::resetView()
 {
-  zoomVSlider->setValue(250);
-  zoomHSlider->setValue(250);
+  zoomVSlider->setValue(0);
+  zoomHSlider->setValue(0);
   setupMatrix();
   graphicsView->ensureVisible(QRectF(0, 0, 0, 0));
 
@@ -139,8 +158,12 @@ void PajeSpaceTimeFrame::setResetButtonEnabled()
 
 void PajeSpaceTimeFrame::setupMatrix()
 {
-  qreal scaley = qPow(qreal(2), (zoomVSlider->value() - 250) / qreal(50));
-  qreal scalex = qPow(qreal(2), (zoomHSlider->value() - 250) / qreal(50));
+  QSize s = this->view()->viewport()->size();
+  double h = s.height() - .1*s.height();
+  double w = s.width() - .1*s.width();
+
+  double scaley = h/spaceLimit * qPow (2, (double)(zoomVSlider->value())/50);
+  double scalex = w/timeLimit * qPow (2, (double)(zoomHSlider->value())/50);
 
   QMatrix matrix;
   matrix.scale(scalex, scaley);

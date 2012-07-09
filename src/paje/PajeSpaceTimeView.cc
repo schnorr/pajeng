@@ -106,6 +106,10 @@ void PajeSpaceTimeView::hierarchyChanged (void)
   scene.setSceneRect (rect);
 
   drawContainer (rootLayout, root, NULL);
+
+  double time = (endTime() - startTime());
+  double space = scene.sceneRect().height();
+  frame->setSpaceTimeLimit (space, time);
 }
 
 void PajeSpaceTimeView::wheelEvent (QWheelEvent *event)
