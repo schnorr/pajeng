@@ -23,10 +23,10 @@ protected:
   void resizeEvent (QResizeEvent *event);
 
 public slots:
-  void zoomIn (int level = 1);
-  void zoomOut (int level = 1);
-  void zoomXIn (int level = 1);
-  void zoomXOut (int level = 1);
+  void zoomIn (int level = 6);
+  void zoomOut (int level = 6);
+  void zoomXIn (int level = 6);
+  void zoomXOut (int level = 6);
 
 private slots:
   void resetView();
