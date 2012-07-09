@@ -4,6 +4,7 @@ PajeSpaceTimeView::PajeSpaceTimeView (PajeSpaceTimeFrame *frame, QWidget *parent
 {
   this->frame = frame;
   setScene (&scene);
+  selectionRect = NULL;
 }
 
 STTypeLayout *PajeSpaceTimeView::layoutDescriptorForType (PajeType *type)
@@ -92,6 +93,9 @@ void PajeSpaceTimeView::hierarchyChanged (void)
   //clear the scene
   scene.clear ();
 
+  //add the selection rect
+  selectionRect = scene.addRect (QRect(), QPen());
+
   //scene reconstruction
   renewLayoutDescriptors ();
 
@@ -110,6 +114,20 @@ void PajeSpaceTimeView::hierarchyChanged (void)
   double time = (endTime() - startTime());
   double space = scene.sceneRect().height();
   frame->setSpaceTimeLimit (space, time);
+}
+
+void PajeSpaceTimeView::timeSelectionChanged (void)
+{
+  double x1 = selectionStartTime ();
+  double x2 = selectionEndTime ();
+  if (selectionRect){
+    if (x1 != startTime() || x2 != endTime()){
+      QRectF r = scene.sceneRect();
+      selectionRect->setRect (QRectF(x1, -5, x2-x1, r.height()+10));
+    }else{
+      selectionRect->setRect (0,0,0,0);
+    }
+  }
 }
 
 void PajeSpaceTimeView::wheelEvent (QWheelEvent *event)
@@ -142,4 +160,31 @@ void PajeSpaceTimeView::mouseMoveEvent (QMouseEvent *event)
     frame->setCurrentTime (-1);
   }
   QGraphicsView::mouseMoveEvent (event);
+}
+
+void PajeSpaceTimeView::mousePressEvent (QMouseEvent *event)
+{
+  QPointF sp = mapToScene (event->pos());
+  firstSelectionPoint = sp.x();
+  QGraphicsView::mousePressEvent (event);
+}
+
+void PajeSpaceTimeView::mouseReleaseEvent (QMouseEvent *event)
+{
+  QPointF sp = mapToScene (event->pos());
+  double selectionEnd;
+  double selectionStart;
+  if (sp.x() > firstSelectionPoint){
+    selectionStart = firstSelectionPoint;
+    selectionEnd = sp.x();
+  }else{
+    selectionStart = sp.x();
+    selectionEnd = firstSelectionPoint;
+  }
+  if (selectionStart != selectionEnd){
+    setSelectionStartEndTime (selectionStart, selectionEnd);
+  }else{
+    setSelectionStartEndTime (startTime(), endTime());
+  }
+  QGraphicsView::mouseReleaseEvent (event);
 }

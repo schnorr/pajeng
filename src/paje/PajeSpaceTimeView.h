@@ -33,10 +33,17 @@ private:
 
 protected: //from PajeComponent protocol
   void hierarchyChanged (void);
+  void timeSelectionChanged (void);
 
 protected: //from QGraphicsView
   void wheelEvent (QWheelEvent *event);
   void mouseMoveEvent (QMouseEvent *event);
+  void mousePressEvent (QMouseEvent *event);
+  void mouseReleaseEvent (QMouseEvent *event);
+
+private:
+  double firstSelectionPoint;
+  QGraphicsRectItem *selectionRect;
 };
 
 #endif
