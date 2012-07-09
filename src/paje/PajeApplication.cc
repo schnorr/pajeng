@@ -28,7 +28,6 @@ void PajeApplication::init (void)
     delete thread;
   }
 
-  simulator->report();
   pajeWindow->show();
 }
 
