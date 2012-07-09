@@ -146,9 +146,9 @@ void PajeSimulator::endOfChunkLast (bool last)
   if (last){
     //file has ended, mark all containers as destroyed
     root->recursiveDestroy (lastKnownTime, NULL);
-    setSelectionStartEndTime (startTime(), endTime());
-    timeLimitsChanged ();
     hierarchyChanged ();
+    timeLimitsChanged ();
+    setSelectionStartEndTime (startTime(), endTime());
   }
 }
 
