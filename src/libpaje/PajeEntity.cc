@@ -126,7 +126,7 @@ void PajeEntity::subtractDoubleValue (double value)
 
 double PajeEntity::doubleValue (void)
 {
-  return 0;
+  return 1;
 }
 
 PajeContainer *PajeEntity::startContainer (void)
