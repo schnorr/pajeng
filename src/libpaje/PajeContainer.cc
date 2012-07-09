@@ -409,6 +409,7 @@ std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (do
 {
   std::map<std::string,double> empty;
   if (entities[type].size() == 0) return empty;
+  if (dynamic_cast<PajeLinkType*>(type)) return empty;
 
   std::vector<PajeEntity*> slice = enumeratorOfEntitiesTyped (start, end, type);
 
