@@ -101,6 +101,7 @@ public:
   double lastTime (void);
   double duration (void);
   int imbricationLevel (void);
+  double doubleValue (void);
 };
 
 class PajeUserVariable : public PajeUserState

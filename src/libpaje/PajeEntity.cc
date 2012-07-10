@@ -126,7 +126,7 @@ void PajeEntity::subtractDoubleValue (double value)
 
 double PajeEntity::doubleValue (void)
 {
-  return 1;
+  return 0;
 }
 
 PajeContainer *PajeEntity::startContainer (void)
@@ -270,6 +270,11 @@ double PajeUserState::duration (void)
 int PajeUserState::imbricationLevel (void)
 {
   return imbrication;
+}
+
+double PajeUserState::doubleValue (void)
+{
+  return 1;
 }
 
 /**************************************************************
