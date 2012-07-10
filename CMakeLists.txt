@@ -26,8 +26,10 @@ SET(PAJE_SOURCES
   src/paje/PajeSpaceTimeView.cc
   src/paje/PajeTreemapFrame.cc
   src/paje/PajeTreemapView.cc
+  src/paje/PajeTreemap.cc
   src/paje/STEntityTypeLayout.cc
-  src/paje/PajeGraphicsItem.cc)
+  src/paje/PajeGraphicsItem.cc
+  src/paje/PajeTreemapItem.cc)
 #
 # The Paje Library (libpaje)
 SET(LIBPAJE_HEADERS
