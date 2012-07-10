@@ -17,15 +17,11 @@ PajeTreemap::PajeTreemap (PajeTreemap *parent, PajeContainer *container, PajeTre
 
 void PajeTreemap::recursiveTimeSelectionChanged (void)
 {
+  //clear and update the values because of the new time slice selection
   values.clear();
   values = filter->spatialIntegrationOfContainer (container);
 
-  std::cout << container->name() << std::endl;
-  std::map<std::string,double>::iterator it;
-  for (it = values.begin(); it != values.end(); it++){
-    std::cout << "    " << (*it).first << " = " << (*it).second << std::endl;
-  }
-
+  //recurse
   std::vector<PajeTreemap*>::iterator child;
   for (child = children.begin(); child != children.end(); child++){
     (*child)->recursiveTimeSelectionChanged();
@@ -75,8 +71,10 @@ void PajeTreemap::recursiveCalculateTreemapWithFactor (double factor)
   //calculate the smaller size
   double w = bb.width() < bb.height() ? bb.width() : bb.height();
 
+  //squarify my children
   this->squarifyWithOrderedChildren (sorted, w, factor);
 
+  //recurse
   for (child = children.begin(); child != children.end(); child++){
     (*child)->recursiveCalculateTreemapWithFactor(factor);
   }
