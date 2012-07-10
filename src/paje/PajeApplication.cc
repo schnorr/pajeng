@@ -1,8 +1,4 @@
 #include "PajeApplication.h"
-#include "../utils/PajeThreadReader.h"
-#include "PajeFileReader.h"
-#include "PajeEventDecoder.h"
-#include "PajeSimulator.h"
 
 PajeApplication::PajeApplication( int &argc, char **argv) : QApplication(argc,argv)
 {
@@ -13,14 +9,16 @@ PajeApplication::PajeApplication( int &argc, char **argv) : QApplication(argc,ar
 void PajeApplication::init (void)
 {
   pajeWindow = PajeWindow::getInstance ();
-  PajeFileReader *reader = new PajeFileReader (filename.toStdString(), NULL);
-  PajeEventDecoder *decoder = new PajeEventDecoder ();
-  PajeSimulator *simulator = new PajeSimulator ();
+  pajeWindow->setApplication (this);
+
+  reader = new PajeFileReader (filename.toStdString(), NULL);
+  decoder = new PajeEventDecoder ();
+  simulator = new PajeSimulator ();
 
   connectComponents (reader, decoder);
   connectComponents (decoder, simulator);
-  connectComponents (simulator, pajeWindow->spacetimeFrame->view());
-  connectComponents (simulator, pajeWindow->treemapFrame->view());
+  connectSpacetime ();
+  connectTreemap ();
 
   {
     PajeThreadReader *thread = new PajeThreadReader (reader);
@@ -35,4 +33,30 @@ void PajeApplication::connectComponents (PajeComponent *c1, PajeComponent *c2)
 {
   c1->setOutputComponent (c2);
   c2->setInputComponent (c1);
+}
+
+void PajeApplication::disconnectComponents (PajeComponent *c1, PajeComponent *c2)
+{
+  c1->disconnectOutputComponent (c2);
+  c2->disconnectFromInput ();
+}
+
+void PajeApplication::disconnectTreemap (void)
+{
+  disconnectComponents (simulator, pajeWindow->treemapFrame->view());
+}
+
+void PajeApplication::connectTreemap (void)
+{
+  connectComponents (simulator, pajeWindow->treemapFrame->view());
+}
+
+void PajeApplication::disconnectSpacetime (void)
+{
+  disconnectComponents (simulator, pajeWindow->spacetimeFrame->view());
+}
+
+void PajeApplication::connectSpacetime (void)
+{
+  connectComponents (simulator, pajeWindow->spacetimeFrame->view());
 }
