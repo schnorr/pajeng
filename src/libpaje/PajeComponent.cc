@@ -31,6 +31,20 @@ void PajeComponent::setOutputComponent (PajeComponent *component)
   outputComponent.push_back(component);
 }
 
+void PajeComponent::disconnectFromInput (void)
+{
+  inputComponent = NULL;
+}
+
+void PajeComponent::disconnectOutputComponent (PajeComponent *component)
+{
+  std::vector<PajeComponent*>::iterator it;
+  it = std::find (outputComponent.begin(), outputComponent.end(), component);
+  if (it != outputComponent.end()){
+    outputComponent.erase (it);
+  }
+}
+
 void PajeComponent::inputEntity (PajeObject *data)
 {
   throw "PajeComponent::inputEntity should be implemented in the subclass";

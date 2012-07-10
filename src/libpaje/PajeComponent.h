@@ -36,6 +36,8 @@ public:
 
   void setInputComponent (PajeComponent *component);
   void setOutputComponent (PajeComponent *component);
+  void disconnectFromInput (void);
+  void disconnectOutputComponent (PajeComponent *component);
 
   void virtual inputEntity (PajeObject *data);
   void virtual outputEntity (PajeObject *data);
