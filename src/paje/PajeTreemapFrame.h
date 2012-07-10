@@ -16,6 +16,10 @@ public:
   PajeTreemapFrame (QWidget *parent = 0);
   PajeTreemapView *view () const;
 
+protected:
+  void showEvent (QShowEvent *event);
+  void resizeEvent (QResizeEvent *event);
+
 public slots:
 //  void zoomIn (int level = 1);
 //  void zoomOut (int level = 1);
