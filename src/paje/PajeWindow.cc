@@ -28,6 +28,28 @@ void PajeWindow::closeEvent(QCloseEvent *event)
   event->accept();
 }
 
+void PajeWindow::treemap()
+{
+  if (treemapFrame->isHidden()){
+    app->connectTreemap ();
+    treemapFrame->show();
+  }else{
+    app->disconnectTreemap ();
+    treemapFrame->hide();
+  }
+}
+
+void PajeWindow::spacetime()
+{
+  if (spacetimeFrame->isHidden()){
+    app->connectSpacetime ();
+    spacetimeFrame->show();
+  }else{
+    app->disconnectSpacetime ();
+    spacetimeFrame->hide();
+  }
+}
+
 void PajeWindow::about()
 {
   QMessageBox::about(this, tr("About Paje"),
@@ -40,6 +62,14 @@ void PajeWindow::createActions()
   exitAct->setShortcuts(QKeySequence::Quit);
   exitAct->setStatusTip(tr("Exit the application"));
   connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
+
+  treemapAct = new QAction(tr("&Treemap View"), this);
+  treemapAct->setStatusTip(tr("Enable or disable the treemap view"));
+  connect(treemapAct, SIGNAL(triggered()), this, SLOT(treemap()));
+
+  spacetimeAct = new QAction(tr("&Space/Time View"), this);
+  spacetimeAct->setStatusTip(tr("Enable or disable the Space/Time view"));
+  connect(spacetimeAct, SIGNAL(triggered()), this, SLOT(spacetime()));
 
   aboutAct = new QAction(tr("&About"), this);
   aboutAct->setStatusTip(tr("Show the application's About box"));
@@ -54,6 +84,10 @@ void PajeWindow::createMenus()
 {
   fileMenu = menuBar()->addMenu(tr("&File"));
   fileMenu->addAction(exitAct);
+
+  viewMenu = menuBar()->addMenu(tr("&View"));
+  viewMenu->addAction (spacetimeAct);
+  viewMenu->addAction (treemapAct);
 
   menuBar()->addSeparator();
 

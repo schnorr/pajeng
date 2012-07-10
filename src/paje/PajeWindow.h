@@ -36,7 +36,10 @@ protected:
   void closeEvent(QCloseEvent *event);
 
 private slots:
+  void treemap();
+  void spacetime();
   void about();
+
 
 private:
   void createActions();
@@ -47,8 +50,11 @@ private:
   void writeSettings();
 
   QMenu *fileMenu;
+  QMenu *viewMenu;
   QMenu *helpMenu;
   QAction *exitAct;
+  QAction *treemapAct;
+  QAction *spacetimeAct;
   QAction *aboutAct;
   QAction *aboutQtAct;
 };
