@@ -18,6 +18,10 @@ void PajeTreemapView::hierarchyChanged (void)
 
 void PajeTreemapView::timeSelectionChanged (void)
 {
+  if (!treemap){
+    hierarchyChanged (); //to create treemap hierarchical data structure
+  }
+
   treemap->recursiveTimeSelectionChanged ();
   treemap->recursiveSetTreemapValue ();
 
@@ -40,6 +44,10 @@ void PajeTreemapView::drawTreemap (PajeTreemap *treemap, PajeTreemapItem *parent
 
 void PajeTreemapView::repopulate (void)
 {
+  if (!treemap){
+    timeSelectionChanged (); //to create something to populate
+  }
+
   QSize s = viewport()->size();
   QRectF bb = QRectF(QPointF(0,0), s);
   treemap->setBB (bb);
