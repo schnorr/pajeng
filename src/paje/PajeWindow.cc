@@ -6,6 +6,7 @@ PajeWindow::PajeWindow()
 {
   spacetimeFrame = new PajeSpaceTimeFrame ();
   treemapFrame = new PajeTreemapFrame ();
+  treemapFrame->hide();
 
   QSplitter *split = new QSplitter;
   split->setChildrenCollapsible (false);

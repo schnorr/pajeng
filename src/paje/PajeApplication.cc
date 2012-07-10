@@ -18,7 +18,6 @@ void PajeApplication::init (void)
   connectComponents (reader, decoder);
   connectComponents (decoder, simulator);
   connectSpacetime ();
-  connectTreemap ();
 
   {
     PajeThreadReader *thread = new PajeThreadReader (reader);
