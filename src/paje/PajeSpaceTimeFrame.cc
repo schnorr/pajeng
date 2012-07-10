@@ -117,6 +117,11 @@ PajeSpaceTimeFrame::PajeSpaceTimeFrame (QWidget *parent)
   connect(zoomInIcon, SIGNAL(clicked()), this, SLOT(zoomIn()));
   connect(zoomOutIcon, SIGNAL(clicked()), this, SLOT(zoomOut()));
 
+  //activate opengl by default
+#ifndef QT_NO_OPENGL
+  openGlButton->click();
+#endif
+
   spaceLimit = 0;
   timeLimit = 0;
   resetView();
