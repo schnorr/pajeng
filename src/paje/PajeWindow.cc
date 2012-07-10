@@ -13,7 +13,7 @@ PajeWindow::PajeWindow()
   split->addWidget (spacetimeFrame);
   split->addWidget (treemapFrame);
 
-  setCentralWidget (split);//Layout(layout);
+  setCentralWidget (split);
 
   createActions();
   createMenus();
