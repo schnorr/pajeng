@@ -70,6 +70,8 @@ public:
   //queries
   std::vector<PajeEntity*> enumeratorOfEntitiesTyped (double start, double end, PajeType *type);
   std::map<std::string,double> timeIntegrationOfTypeInContainer (double start, double end, PajeType *type);
+  std::map<std::string,double> timeIntegrationOfStateTypeInContainer (double start, double end, PajeStateType *type);
+  std::map<std::string,double> timeIntegrationOfVariableTypeInContainer (double start, double end, PajeVariableType *type);
   std::map<std::string,double> integrationOfContainer (double start, double end);
   std::map<std::string,double> spatialIntegrationOfContainer (double start, double end);
 

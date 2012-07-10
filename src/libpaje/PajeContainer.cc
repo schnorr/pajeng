@@ -407,12 +407,50 @@ std::vector<PajeEntity*> PajeContainer::enumeratorOfEntitiesTyped (double start,
 
 std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (double start, double end, PajeType *type)
 {
-  std::map<std::string,double> empty;
-  if (entities[type].size() == 0) return empty;
-  if (dynamic_cast<PajeLinkType*>(type)) return empty;
+  std::map<std::string,double> ret;
+  if (entities[type].size() == 0) return ret;
+  if (dynamic_cast<PajeLinkType*>(type)) return ret;
+
+  PajeStateType *stype = dynamic_cast<PajeStateType*>(type);
+  PajeVariableType *vtype = dynamic_cast<PajeVariableType*>(type);
+  if (stype){
+    ret = timeIntegrationOfStateTypeInContainer (start, end, stype);
+  }else if (vtype){
+    ret = timeIntegrationOfVariableTypeInContainer (start, end, vtype);
+  }
+  return ret;
+}
+
+std::map<std::string,double> PajeContainer::timeIntegrationOfStateTypeInContainer (double start, double end, PajeStateType *type)
+{
+  std::map<std::string,double> ret;
+  std::vector<PajeEntity*> slice = enumeratorOfEntitiesTyped (start, end, type);
+  double tsDuration = end - start;
+  std::vector<PajeEntity*>::iterator it;
+  for (it = slice.begin(); it != slice.end(); it++){
+    PajeEntity *var = *it;
+    double s = var->startTime();
+    double e = var->endTime();
+    if (!var->doubleValue()) continue;
+    if (s < start) s = start;
+    if (e > end) e = end;
+    double duration = e - s;
+    double var_integrated = duration/tsDuration * var->doubleValue();
+
+    if (ret.count(var->value())== 0){
+      ret[var->value()] = var_integrated;
+    }else{
+      ret[var->value()] += var_integrated;
+    }
+  }
+  return ret;
+}
+
+std::map<std::string,double> PajeContainer::timeIntegrationOfVariableTypeInContainer (double start, double end, PajeVariableType *type)
+{
+  std::map<std::string,double> ret;
 
   std::vector<PajeEntity*> slice = enumeratorOfEntitiesTyped (start, end, type);
-
   double integrated = 0;
   double tsDuration = end - start;
   std::vector<PajeEntity*>::iterator it;
@@ -429,9 +467,10 @@ std::map<std::string,double> PajeContainer::timeIntegrationOfTypeInContainer (do
   }
 
   if (integrated){
-    empty[type->name] = integrated;
+    ret[type->name] = integrated;
   }
-  return empty;
+
+  return ret;
 }
 
 std::map<std::string,double> PajeContainer::merge (std::map<std::string,double> a,
