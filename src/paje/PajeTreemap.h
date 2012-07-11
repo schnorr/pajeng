@@ -10,7 +10,7 @@ public:
   PajeTreemap *parent;
   PajeTreemapView *filter;
   std::vector<PajeTreemap*> children;
-  std::map<std::string,double> values;
+  std::map<PajeAggregatedType*,double> values;
 
 public:
   PajeContainer *container;

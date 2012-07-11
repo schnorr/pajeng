@@ -32,7 +32,7 @@ void PajeTreemap::recursiveSetTreemapValue (void)
 {
   treemapValue = 0;
 
-  std::map<std::string,double>::iterator val;
+  std::map<PajeAggregatedType*,double>::iterator val;
   for (val = values.begin(); val != values.end(); val++){
     treemapValue += (*val).second;
   }

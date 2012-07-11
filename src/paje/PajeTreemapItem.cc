@@ -77,7 +77,7 @@ void PajeTreemapItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
   setToolTip (description);
 
   std::cout << treemap->container->description() << std::endl;
-  std::map<std::string,double>::iterator it;
+  std::map<PajeAggregatedType*,double>::iterator it;
   for (it = treemap->values.begin(); it != treemap->values.end(); it++){
     std::cout << (*it).first << " = " << (*it).second << std::endl;
   }
