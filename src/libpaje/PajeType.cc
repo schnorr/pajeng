@@ -289,8 +289,3 @@ std::string PajeAggregatedType::name (void) const
     return aggregatedValue;
   }
 }
-
-bool operator== (const PajeAggregatedType& t1, const PajeAggregatedType& t2)
-{
-  return t1.name() == t2.name();
-}

@@ -69,17 +69,17 @@ public:
 
   //queries
   std::vector<PajeEntity*> enumeratorOfEntitiesTyped (double start, double end, PajeType *type);
-  std::map<PajeAggregatedType*,double> timeIntegrationOfTypeInContainer (double start, double end, PajeType *type);
-  std::map<PajeAggregatedType*,double> timeIntegrationOfStateTypeInContainer (double start, double end, PajeStateType *type);
-  std::map<PajeAggregatedType*,double> timeIntegrationOfVariableTypeInContainer (double start, double end, PajeVariableType *type);
-  std::map<PajeAggregatedType*,double> integrationOfContainer (double start, double end);
-  std::map<PajeAggregatedType*,double> spatialIntegrationOfContainer (double start, double end);
+  PajeAggregatedDict timeIntegrationOfTypeInContainer (double start, double end, PajeType *type);
+  PajeAggregatedDict timeIntegrationOfStateTypeInContainer (double start, double end, PajeStateType *type);
+  PajeAggregatedDict timeIntegrationOfVariableTypeInContainer (double start, double end, PajeVariableType *type);
+  PajeAggregatedDict integrationOfContainer (double start, double end);
+  PajeAggregatedDict spatialIntegrationOfContainer (double start, double end);
 
 private:
-  std::map<PajeAggregatedType*,double> merge (std::map<PajeAggregatedType*,double> a,
-                                              std::map<PajeAggregatedType*,double> b);
-  std::map<PajeAggregatedType*,double> add (std::map<PajeAggregatedType*,double> a,
-                                            std::map<PajeAggregatedType*,double> b);
+  PajeAggregatedDict merge (PajeAggregatedDict a,
+                            PajeAggregatedDict b);
+  PajeAggregatedDict add (PajeAggregatedDict a,
+                          PajeAggregatedDict b);
   bool checkTimeOrder (double time, PajeType *type, PajeEvent *event);
 };
 

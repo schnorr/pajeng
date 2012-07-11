@@ -122,9 +122,15 @@ public:
   PajeAggregatedType (PajeType *type);
   PajeColor *color (void) const;
   PajeType *type (void) const;
-  std::string name (void) const;  
+  std::string name (void) const;
 };
 
-bool operator== (const PajeAggregatedType& t1, const PajeAggregatedType& t2);
+struct PajeAggregatedTypeCompare {
+  bool operator () (const PajeAggregatedType *t1, const PajeAggregatedType *t2) const {
+    return t1->name() < t2->name();
+  };
+};
+
+typedef std::map<PajeAggregatedType*, double, PajeAggregatedTypeCompare> PajeAggregatedDict;
 
 #endif

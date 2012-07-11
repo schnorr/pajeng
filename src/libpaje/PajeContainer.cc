@@ -405,9 +405,9 @@ std::vector<PajeEntity*> PajeContainer::enumeratorOfEntitiesTyped (double start,
   return empty;
 }
 
-std::map<PajeAggregatedType*,double> PajeContainer::timeIntegrationOfTypeInContainer (double start, double end, PajeType *type)
+PajeAggregatedDict PajeContainer::timeIntegrationOfTypeInContainer (double start, double end, PajeType *type)
 {
-  std::map<PajeAggregatedType*,double> ret;
+  PajeAggregatedDict ret;
   if (entities[type].size() == 0) return ret;
   if (dynamic_cast<PajeLinkType*>(type)) return ret;
 
@@ -416,14 +416,14 @@ std::map<PajeAggregatedType*,double> PajeContainer::timeIntegrationOfTypeInConta
   if (stype){
     ret = timeIntegrationOfStateTypeInContainer (start, end, stype);
   }else if (vtype){
-    ret = timeIntegrationOfVariableTypeInContainer (start, end, vtype);
+//    ret = timeIntegrationOfVariableTypeInContainer (start, end, vtype);
   }
   return ret;
 }
 
-std::map<PajeAggregatedType*,double> PajeContainer::timeIntegrationOfStateTypeInContainer (double start, double end, PajeStateType *type)
+PajeAggregatedDict PajeContainer::timeIntegrationOfStateTypeInContainer (double start, double end, PajeStateType *type)
 {
-  std::map<PajeAggregatedType*,double> ret;
+  PajeAggregatedDict ret;
   std::vector<PajeEntity*> slice = enumeratorOfEntitiesTyped (start, end, type);
   double tsDuration = end - start;
   std::vector<PajeEntity*>::iterator it;
@@ -438,7 +438,7 @@ std::map<PajeAggregatedType*,double> PajeContainer::timeIntegrationOfStateTypeIn
     double var_integrated = duration/tsDuration * var->doubleValue();
 
     PajeAggregatedType *agtype = new PajeAggregatedType (type, var->value());
-    std::map<PajeAggregatedType*,double>::iterator found = ret.find (agtype);
+    PajeAggregatedDict::iterator found = ret.find (agtype);
     if (found != ret.end()){
       ret[agtype] += var_integrated;
     }else{
@@ -448,9 +448,9 @@ std::map<PajeAggregatedType*,double> PajeContainer::timeIntegrationOfStateTypeIn
   return ret;
 }
 
-std::map<PajeAggregatedType*,double> PajeContainer::timeIntegrationOfVariableTypeInContainer (double start, double end, PajeVariableType *type)
+PajeAggregatedDict PajeContainer::timeIntegrationOfVariableTypeInContainer (double start, double end, PajeVariableType *type)
 {
-  std::map<PajeAggregatedType*,double> ret;
+  PajeAggregatedDict ret;
 
   std::vector<PajeEntity*> slice = enumeratorOfEntitiesTyped (start, end, type);
   double integrated = 0;
@@ -475,11 +475,11 @@ std::map<PajeAggregatedType*,double> PajeContainer::timeIntegrationOfVariableTyp
   return ret;
 }
 
-std::map<PajeAggregatedType*,double> PajeContainer::merge (std::map<PajeAggregatedType*,double> a,
-                                                           std::map<PajeAggregatedType*,double> b)
+PajeAggregatedDict PajeContainer::merge (PajeAggregatedDict a,
+                                                           PajeAggregatedDict b)
 {
-  std::map<PajeAggregatedType*,double> ret = a;
-  std::map<PajeAggregatedType*,double>::iterator it;
+  PajeAggregatedDict ret = a;
+  PajeAggregatedDict::iterator it;
   for (it = b.begin(); it != b.end(); it++){
     if (ret.count((*it).first)){
       std::cout << "error on " << __FILE__ << ":" << __LINE__ << std::endl;
@@ -489,21 +489,21 @@ std::map<PajeAggregatedType*,double> PajeContainer::merge (std::map<PajeAggregat
   return ret;
 }
 
-std::map<PajeAggregatedType*,double> PajeContainer::add (std::map<PajeAggregatedType*,double> a,
-                                                         std::map<PajeAggregatedType*,double> b)
+PajeAggregatedDict PajeContainer::add (PajeAggregatedDict a,
+                                                         PajeAggregatedDict b)
 {
-  std::map<PajeAggregatedType*,double> ret = a;
-  std::map<PajeAggregatedType*,double>::iterator it;
+  PajeAggregatedDict ret = a;
+  PajeAggregatedDict::iterator it;
   for (it = b.begin(); it != b.end(); it++){
     ret[(*it).first] += (*it).second;
   }
   return ret;
 }
 
-std::map<PajeAggregatedType*,double> PajeContainer::integrationOfContainer (double start, double end)
+PajeAggregatedDict PajeContainer::integrationOfContainer (double start, double end)
 {
   std::map<std::string,PajeType*>::iterator it;
-  std::map<PajeAggregatedType*,double> ret, partial;
+  PajeAggregatedDict ret, partial;
   PajeContainerType *contType = dynamic_cast<PajeContainerType*>(type());
   for (it = contType->children.begin(); it != contType->children.end(); it++){
     partial = timeIntegrationOfTypeInContainer (start, end, (*it).second);
@@ -512,12 +512,12 @@ std::map<PajeAggregatedType*,double> PajeContainer::integrationOfContainer (doub
   return ret;
 }
 
-std::map<PajeAggregatedType*,double> PajeContainer::spatialIntegrationOfContainer (double start, double end)
+PajeAggregatedDict PajeContainer::spatialIntegrationOfContainer (double start, double end)
 {
   std::map<std::string,PajeContainer*>::iterator it;
-  std::map<PajeAggregatedType*,double> ret = integrationOfContainer (start, end);
+  PajeAggregatedDict ret = integrationOfContainer (start, end);
   for (it = children.begin(); it != children.end() ; it++){
-    std::map<PajeAggregatedType*,double> partial = ((*it).second)->spatialIntegrationOfContainer (start, end);
+    PajeAggregatedDict partial = ((*it).second)->spatialIntegrationOfContainer (start, end);
     ret = add (ret, partial);
   }
   return ret;

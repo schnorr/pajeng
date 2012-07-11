@@ -113,8 +113,8 @@ public:
   PajeColor *colorForEntityType (PajeType *type);
   
   //spatial/time integration queries
-  std::map<PajeAggregatedType*,double> timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);
-  std::map<PajeAggregatedType*,double> integrationOfContainer (PajeContainer *container);
-  std::map<PajeAggregatedType*,double> spatialIntegrationOfContainer (PajeContainer *container);
+  PajeAggregatedDict timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);
+  PajeAggregatedDict integrationOfContainer (PajeContainer *container);
+  PajeAggregatedDict spatialIntegrationOfContainer (PajeContainer *container);
 };
 #endif
