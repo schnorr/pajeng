@@ -20,20 +20,40 @@
 
 PajeType::PajeType (std::string name, std::string alias, PajeType *parent, PajeColor *color)
 {
-  this->name = name;
-  this->alias = alias;
-  this->parent = parent;
+  this->typeName = name;
+  this->typeAlias = alias;
+  this->typeParent = parent;
   this->typeColor = color;
   if (parent){
-    this->depth = parent->depth + 1;
+    this->typeDepth = parent->depth() + 1;
   }else{
-    this->depth = 0;
+    this->typeDepth = 0;
   }
+}
+
+std::string PajeType::name (void) const
+{
+  return typeName;
+}
+
+std::string PajeType::alias (void) const
+{
+  return typeAlias;
+}
+
+int PajeType::depth (void) const
+{
+  return typeDepth;
+}
+
+PajeType *PajeType::parent (void) const
+{
+  return typeParent;
 }
 
 std::string PajeType::identifier (void) const
 {
-  return alias.empty() ? name : alias;
+  return typeAlias.empty() ? typeName : typeAlias;
 }
 
 bool PajeType::isCategorizedType (void) const
@@ -169,8 +189,8 @@ PajeType *PajeContainerType::getRootType (void)
 {
   PajeType *root = this;
   while (root != NULL){
-    if (root->parent != NULL) {
-      root = root->parent;
+    if (root->parent() != NULL) {
+      root = root->parent();
     }else{
       break;
     }
@@ -221,8 +241,8 @@ PajeDrawingType PajeContainerType::drawingType (void)
 std::ostream &operator<< (std::ostream &output, const PajeType &type)
 {
   output << "(Type, name: "
-         << type.name
-         << ", alias: " << type.alias << ")";
+         << type.name()
+         << ", alias: " << type.alias() << ")";
   return output;
 }
 

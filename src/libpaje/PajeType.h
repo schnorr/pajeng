@@ -27,16 +27,20 @@
 #include "PajeProtocols.h"
 
 class PajeType {
-public:
+protected:
   PajeColor *typeColor;
-  std::string name;
-  std::string alias;
-  PajeType *parent;
-  int depth;
+  std::string typeName;
+  std::string typeAlias;
+  PajeType *typeParent;
+  int typeDepth;
 
 public:
   PajeType (std::string name, std::string alias, PajeType *parent, PajeColor *color);
-  virtual std::string identifier (void) const;
+  std::string name (void) const;
+  std::string alias (void) const;
+  int depth (void) const;
+  PajeType *parent (void) const;
+  std::string identifier (void) const;
   virtual bool isCategorizedType (void) const;
   virtual void addNewValue (std::string alias, std::string value, PajeColor *color);
   virtual std::string valueForIdentifier (std::string identifier);

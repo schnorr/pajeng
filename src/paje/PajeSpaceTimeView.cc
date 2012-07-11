@@ -12,7 +12,7 @@ STTypeLayout *PajeSpaceTimeView::layoutDescriptorForType (PajeType *type)
   if (layoutDescriptors.count (type)){
     return layoutDescriptors[type];
   }else{
-    throw "You found a bug, congrats. The layout descriptor for type "+type->name+" was not created.";
+    throw "You found a bug, congrats. The layout descriptor for type "+type->name()+" was not created.";
   }
 }
 

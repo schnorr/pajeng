@@ -58,7 +58,7 @@ std::string PajeContainer::description (void)
   }
   description << "Container, "
               << containername << ", "
-              << type()->name << ", "
+              << type()->name() << ", "
               << startTime() << ", "
               << endTime() << ", "
               << endTime() - startTime() << ", "
@@ -467,7 +467,7 @@ std::map<std::string,double> PajeContainer::timeIntegrationOfVariableTypeInConta
   }
 
   if (integrated){
-    ret[type->name] = integrated;
+    ret[type->name()] = integrated;
   }
 
   return ret;

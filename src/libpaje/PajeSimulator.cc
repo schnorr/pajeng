@@ -41,7 +41,7 @@ PajeSimulator::PajeSimulator ()
   rootType = new PajeContainerType ("0", "0", NULL);
   root = new PajeContainer (0, "0", "0", NULL, rootType, NULL);
   typeMap[rootType->identifier()] = rootType;
-  typeNamesMap[rootType->name] = rootType;
+  typeNamesMap[rootType->name()] = rootType;
   contMap[root->identifier()] = root;
   contNamesMap[root->name()] = root;
   lastKnownTime = -1;
@@ -62,7 +62,7 @@ void PajeSimulator::report (void)
     PajeType *last = stack.back();
     stack.pop_back();
     std::string name = typeid(*last).name();
-    printf ("%s |%*.*s%s (%s)\n", __FUNCTION__, last->depth, last->depth, "| ", last->name.c_str(), name.c_str());
+    printf ("%s |%*.*s%s (%s)\n", __FUNCTION__, last->depth(), last->depth(), "| ", last->name().c_str(), name.c_str());
 
     //push back more types
     if (this->isContainerType (last)){
@@ -175,7 +175,7 @@ void PajeSimulator::pajeDefineContainerType (PajeEvent *event)
   }
   newType = dynamic_cast<PajeContainerType*>(containerType)->addContainerType (name, alias);
   typeMap[newType->identifier()] = newType;
-  typeNamesMap[newType->name] = newType;
+  typeNamesMap[newType->name()] = newType;
 }
 
 void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
@@ -220,7 +220,7 @@ void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
   }
   newType = dynamic_cast<PajeContainerType*>(containerType)->addLinkType (name, alias, startcontainertype, endcontainertype);
   typeMap[newType->identifier()] = newType;
-  typeNamesMap[newType->name] = newType;
+  typeNamesMap[newType->name()] = newType;
 }
 
 void PajeSimulator::pajeDefineEventType (PajeEvent *event)
@@ -246,7 +246,7 @@ void PajeSimulator::pajeDefineEventType (PajeEvent *event)
   }
   newType = dynamic_cast<PajeContainerType*>(containerType)->addEventType (name, alias);
   typeMap[newType->identifier()] = newType;
-  typeNamesMap[newType->name] = newType;
+  typeNamesMap[newType->name()] = newType;
 }
 
 void PajeSimulator::pajeDefineStateType (PajeEvent *event)
@@ -272,7 +272,7 @@ void PajeSimulator::pajeDefineStateType (PajeEvent *event)
   }
   newType = dynamic_cast<PajeContainerType*>(containerType)->addStateType (name, alias);
   typeMap[newType->identifier()] = newType;
-  typeNamesMap[newType->name] = newType;
+  typeNamesMap[newType->name()] = newType;
 }
 
 void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
@@ -303,7 +303,7 @@ void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
 
   newType = dynamic_cast<PajeContainerType*>(containerType)->addVariableType (name, alias, pajeColor);
   typeMap[newType->identifier()] = newType;
-  typeNamesMap[newType->name] = newType;
+  typeNamesMap[newType->name()] = newType;
 }
 
 void PajeSimulator::pajeDefineEntityValue (PajeEvent *event)
@@ -383,7 +383,7 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
   }
 
   //verify if the container type is correctly informed
-  if (containerType->parent != container->type()){
+  if (containerType->parent() != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
@@ -480,7 +480,7 @@ void PajeSimulator::pajeNewEvent (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type()){
+  if (type->parent() != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
@@ -531,7 +531,7 @@ void PajeSimulator::pajeSetState (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type()){
+  if (type->parent() != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
@@ -582,7 +582,7 @@ void PajeSimulator::pajePushState (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type()){
+  if (type->parent() != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
@@ -633,7 +633,7 @@ void PajeSimulator::pajePopState (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type()){
+  if (type->parent() != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
@@ -680,7 +680,7 @@ void PajeSimulator::pajeResetState (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type()){
+  if (type->parent() != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
@@ -726,7 +726,7 @@ void PajeSimulator::pajeSetVariable (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type()){
+  if (type->parent() != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
@@ -773,7 +773,7 @@ void PajeSimulator::pajeAddVariable (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type()){
+  if (type->parent() != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
@@ -820,7 +820,7 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type()){
+  if (type->parent() != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
@@ -878,7 +878,7 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type()){
+  if (type->parent() != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
@@ -952,7 +952,7 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
   }
 
   //verify if the type is child of container type
-  if (type->parent != container->type()){
+  if (type->parent() != container->type()){
     std::stringstream eventdesc;
     eventdesc << *event;
     std::stringstream ctype1;
