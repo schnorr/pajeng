@@ -219,23 +219,23 @@ PajeColor *PajeComponent::colorForEntityType (PajeType *type)
   else return NULL;
 }
 
-std::map<std::string,double> PajeComponent::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)
+std::map<PajeAggregatedType*,double> PajeComponent::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)
 {
-  std::map<std::string,double> empty;
+  std::map<PajeAggregatedType*,double> empty;
   if (inputComponent) return inputComponent->timeIntegrationOfTypeInContainer (type, container);
   else return empty;
 }
 
-std::map<std::string,double> PajeComponent::integrationOfContainer (PajeContainer *container)
+std::map<PajeAggregatedType*,double> PajeComponent::integrationOfContainer (PajeContainer *container)
 {
-  std::map<std::string,double> empty;
+  std::map<PajeAggregatedType*,double> empty;
   if (inputComponent) return inputComponent->integrationOfContainer (container);
   return empty;
 }
 
-std::map<std::string,double> PajeComponent::spatialIntegrationOfContainer (PajeContainer *container)
+std::map<PajeAggregatedType*,double> PajeComponent::spatialIntegrationOfContainer (PajeContainer *container)
 {
-  std::map<std::string,double> empty;
+  std::map<PajeAggregatedType*,double> empty;
   if (inputComponent) return inputComponent->spatialIntegrationOfContainer (container);
   else return empty;
 }

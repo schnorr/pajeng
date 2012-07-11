@@ -134,27 +134,27 @@ PajeColor *PajeSimulator::colorForEntityType (PajeType *type)
   return type->color ();
 }
 
-std::map<std::string,double> PajeSimulator::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)
+std::map<PajeAggregatedType*,double> PajeSimulator::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)
 {
-  std::map<std::string,double> ret;
+  std::map<PajeAggregatedType*,double> ret;
   if (container){
     ret = container->timeIntegrationOfTypeInContainer (selectionStart, selectionEnd, type);
   }
   return ret;
 }
 
-std::map<std::string,double> PajeSimulator::integrationOfContainer (PajeContainer *container)
+std::map<PajeAggregatedType*,double> PajeSimulator::integrationOfContainer (PajeContainer *container)
 {
-  std::map<std::string,double> ret;
+  std::map<PajeAggregatedType*,double> ret;
   if (container){
     ret = container->integrationOfContainer (selectionStart, selectionEnd);
   }
   return ret;
 }
 
-std::map<std::string,double> PajeSimulator::spatialIntegrationOfContainer (PajeContainer *container)
+std::map<PajeAggregatedType*,double> PajeSimulator::spatialIntegrationOfContainer (PajeContainer *container)
 {
-  std::map<std::string,double> ret;
+  std::map<PajeAggregatedType*,double> ret;
   if (container){
     ret = container->spatialIntegrationOfContainer (selectionStart, selectionEnd);
   }

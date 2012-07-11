@@ -255,3 +255,42 @@ bool operator== (const PajeType& t1, const PajeType& t2)
 {
   return t1.identifier() == t2.identifier();
 }
+
+PajeAggregatedType::PajeAggregatedType (PajeType *type, std::string value)
+{
+  this->aggregatedType = type;
+  this->aggregatedValue = value;
+}
+
+PajeAggregatedType::PajeAggregatedType (PajeType *type)
+{
+  this->aggregatedType = type;
+}
+
+PajeColor *PajeAggregatedType::color (void) const
+{
+  if (aggregatedValue.empty()){
+    return aggregatedType->color();
+  }else{
+    return aggregatedType->colorForIdentifier (aggregatedValue);
+  }
+}
+
+PajeType *PajeAggregatedType::type (void) const
+{
+  return aggregatedType;
+}
+
+std::string PajeAggregatedType::name (void) const
+{
+  if (aggregatedValue.empty()){
+    return aggregatedType->name();
+  }else{
+    return aggregatedValue;
+  }
+}
+
+bool operator== (const PajeAggregatedType& t1, const PajeAggregatedType& t2)
+{
+  return t1.name() == t2.name();
+}

@@ -112,4 +112,19 @@ std::ostream &operator<< (std::ostream &output, const PajeType &type);
 bool operator!= (const PajeType& t1, const PajeType& t2);
 bool operator== (const PajeType& t1, const PajeType& t2);
 
+class PajeAggregatedType {
+private:
+  std::string aggregatedValue;
+  PajeType *aggregatedType;
+
+public:
+  PajeAggregatedType (PajeType *type, std::string value);
+  PajeAggregatedType (PajeType *type);
+  PajeColor *color (void) const;
+  PajeType *type (void) const;
+  std::string name (void) const;  
+};
+
+bool operator== (const PajeAggregatedType& t1, const PajeAggregatedType& t2);
+
 #endif
