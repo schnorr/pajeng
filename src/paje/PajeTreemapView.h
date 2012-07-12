@@ -9,8 +9,9 @@
 #include "PajeTreemapItem.h"
 
 class PajeTreemapFrame;
-class PajeTreemapItem;
+class PajeTreemapContainerItem;
 class PajeTreemap;
+class PajeTreemapNode;
 
 class PajeTreemapView : public QGraphicsView, public PajeComponent
 {
@@ -19,7 +20,7 @@ class PajeTreemapView : public QGraphicsView, public PajeComponent
 private:
   QGraphicsScene scene;
   PajeTreemapFrame *frame;
-  PajeTreemap *treemap;
+  PajeTreemapNode *treemap;
 
 public:
   PajeTreemapView (PajeTreemapFrame *frame, QWidget *parent = NULL);
@@ -35,7 +36,8 @@ protected: //from QGraphicsView
   void resizeEvent (QResizeEvent *event);
 
 protected: //from PajeTreemapView
-  void drawTreemap (PajeTreemap *treemap, PajeTreemapItem *parent);
+  void drawTreemap (PajeTreemap *treemap, PajeTreemapContainerItem *parent);
+  void recreate (void);
   void repopulate (void);
 };
 

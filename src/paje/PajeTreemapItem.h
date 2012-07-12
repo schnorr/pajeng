@@ -9,15 +9,14 @@
 class PajeTreemapView;
 class PajeTreemap;
 
-class PajeTreemapItem : public QGraphicsItem
+class PajeTreemapValueItem : public QGraphicsItem
 {
-protected:
   bool hover;
   PajeTreemap *treemap;
   PajeTreemapView *filter;
 
 public:
-  PajeTreemapItem (PajeTreemap *treemap, QGraphicsItem *parent, PajeTreemapView *filter);
+  PajeTreemapValueItem (PajeTreemap *treemap, QGraphicsItem *parent, PajeTreemapView *filter);
   QRectF boundingRect (void) const;
   void paint (QPainter *painter, const QStyleOptionGraphicsItem *options, QWidget *widget);
   void hoverEnterEvent(QGraphicsSceneHoverEvent *event);

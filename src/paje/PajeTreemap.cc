@@ -1,62 +1,110 @@
 #include "PajeTreemap.h"
 #include <float.h>
 
-PajeTreemap::PajeTreemap (PajeTreemap *parent, PajeContainer *container, PajeTreemapView *filter)
+PajeTreemap::PajeTreemap (PajeTreemap *parent, PajeTreemapView *filter, PajeContainer *container)
 {
-  this->parent = parent;
-  this->container = container;
+  this->_parent = parent;
   this->filter = filter;
+  this->container = container;
+  _treemapValue = 0;
+}
+
+PajeTreemapValue::PajeTreemapValue (PajeTreemap *parent, PajeTreemapView *filter, PajeContainer *container, PajeAggregatedType *type, double value)
+  : PajeTreemap (parent, filter, container)
+{
+  this->_type = type;
+  _treemapValue = value;
+}
+
+std::vector<PajeTreemap*> PajeTreemapValue::children (void)
+{
+  throw "should not be called for PajeTreemapValue";
+}
+
+std::vector<PajeTreemap*> PajeTreemapValue::valueChildren (void)
+{
+  throw "should not be called for PajeTreemapValue";
+}
+
+PajeTreemapNode::PajeTreemapNode (PajeTreemap *parent, PajeTreemapView *filter, PajeContainer *container)
+  : PajeTreemap (parent, filter, container)
+{
+  std::cout << __FUNCTION__ << " " << container->description() << std::endl;
 
   std::vector<PajeContainer*> subcontainers = filter->enumeratorOfContainersInContainer (container);
   std::vector<PajeContainer*>::iterator sub;
   for (sub = subcontainers.begin(); sub != subcontainers.end(); sub++){
-    PajeTreemap *child = new PajeTreemap (this, *sub, filter);
-    children.push_back (child);
+    PajeTreemapNode *child = new PajeTreemapNode (this, filter, *sub);
+    _children.push_back (child);
   }
 }
 
-void PajeTreemap::recursiveTimeSelectionChanged (void)
+void PajeTreemapNode::timeSelectionChanged (void)
 {
   //clear and update the values because of the new time slice selection
   values.clear();
   values = filter->spatialIntegrationOfContainer (container);
 
+  //update the treemapValue
+  _treemapValue = 0;
+  PajeAggregatedDict::iterator val;
+  for (val = values.begin(); val != values.end(); val++){
+    _treemapValue += (*val).second;
+    std::cout << container->name() << " | " << ((*val).first)->name() << " = " << (*val).second << std::endl;
+  }
+  std::cout << container->name() << " = " << _treemapValue << std::endl;
+
+  //update aggregatedChildren since aggregated values have changed
+  _valueChildren.clear();
+  PajeAggregatedDict::iterator it;
+  for (it = values.begin(); it != values.end(); it++){
+    PajeAggregatedType *type = (*it).first;
+    double value = (*it).second;
+    PajeTreemapValue *valueChild = new PajeTreemapValue (this, filter, container, type, value);
+    _valueChildren.push_back (valueChild);
+  }
+  std::cout << container->name() << " _valueChildren.size() " << _valueChildren.size() << std::endl;
+
   //recurse
   std::vector<PajeTreemap*>::iterator child;
-  for (child = children.begin(); child != children.end(); child++){
-    (*child)->recursiveTimeSelectionChanged();
+  for (child = _children.begin(); child != _children.end(); child++){
+    (*child)->timeSelectionChanged();
   }
 }
 
-void PajeTreemap::recursiveSetTreemapValue (void)
+void PajeTreemapNode::calculateTreemapWithFactor (double factor)
 {
-  treemapValue = 0;
+  std::vector<PajeTreemap*> sortedChildren = this->prepareChildren (_children);
+  std::vector<PajeTreemap*> sortedAggregatedChildren = this->prepareChildren (_valueChildren);
 
-  std::map<PajeAggregatedType*,double>::iterator val;
-  for (val = values.begin(); val != values.end(); val++){
-    treemapValue += (*val).second;
-  }
+  //calculate the smaller size
+  double w = bb.width() < bb.height() ? bb.width() : bb.height();
 
+  //squarify my children
+  this->squarifyWithOrderedChildren (sortedChildren, w, factor);
+  this->squarifyWithOrderedChildren (sortedAggregatedChildren, w, factor);
+
+  //recurse
   std::vector<PajeTreemap*>::iterator child;
-  for (child = children.begin(); child != children.end(); child++){
-    (*child)->recursiveSetTreemapValue();
+  for (child = _children.begin(); child != _children.end(); child++){
+    (*child)->calculateTreemapWithFactor(factor);
   }
 }
 
 bool myfunction (PajeTreemap *i, PajeTreemap *j)
 {
-  return (i->treemapValue < j->treemapValue);
+  return (i->treemapValue() < j->treemapValue());
 }
 
-void PajeTreemap::recursiveCalculateTreemapWithFactor (double factor)
+std::vector<PajeTreemap*> PajeTreemapNode::prepareChildren (std::vector<PajeTreemap*> input)
 {
   //clear all children bounding boxes
   std::vector<PajeTreemap*>::iterator it;
-  for (it = children.begin(); it != children.end(); it++){
-    (*it)->setBB(QRectF(0,0,0,0));
+  for (it = input.begin(); it != input.end(); it++){
+    (*it)->setRect(QRectF(0,0,0,0));
   }
 
-  std::vector<PajeTreemap*> sorted = children;
+  std::vector<PajeTreemap*> sorted = input;
   std::sort (sorted.begin(), sorted.end(), myfunction);
   std::reverse (sorted.begin(), sorted.end());
 
@@ -64,34 +112,20 @@ void PajeTreemap::recursiveCalculateTreemapWithFactor (double factor)
   std::vector<PajeTreemap*>::iterator child;
   std::vector<PajeTreemap*>::iterator saved = sorted.begin();
   for (child = sorted.begin(); child != sorted.end(); child++){
-    if ((*child)->treemapValue == 0) break;
+    if ((*child)->treemapValue() == 0) break;
   }
   sorted.erase (child, sorted.end());
-
-  //calculate the smaller size
-  double w = bb.width() < bb.height() ? bb.width() : bb.height();
-
-  //squarify my children
-  this->squarifyWithOrderedChildren (sorted, w, factor);
-
-  //recurse
-  for (child = children.begin(); child != children.end(); child++){
-    (*child)->recursiveCalculateTreemapWithFactor(factor);
-  }
+  return sorted;
 }
 
-void PajeTreemap::setBB (QRectF bb)
-{
-  this->bb = bb;
-}
 
-double PajeTreemap::worstf (std::vector<PajeTreemap*> list, double w, double factor)
+double PajeTreemapNode::worstf (std::vector<PajeTreemap*> list, double w, double factor)
 {
   double rmax = 0, rmin = FLT_MAX, s = 0;
   std::vector<PajeTreemap*>::iterator it;
   for (it = list.begin(); it != list.end(); it++){
     PajeTreemap *child = *it;
-    double childValue = child->treemapValue * factor;
+    double childValue = child->treemapValue() * factor;
     rmin = rmin < childValue ? rmin : childValue;
     rmax = rmax > childValue ? rmax : childValue;
     s += childValue;
@@ -102,13 +136,13 @@ double PajeTreemap::worstf (std::vector<PajeTreemap*> list, double w, double fac
 
 }
 
-QRectF PajeTreemap::layoutRow (std::vector<PajeTreemap*> list, double w, QRectF r, double factor)
+QRectF PajeTreemapNode::layoutRow (std::vector<PajeTreemap*> list, double w, QRectF r, double factor)
 {
   double s = 0; // sum
   std::vector<PajeTreemap*>::iterator it;
   for (it = list.begin(); it != list.end(); it++){
     PajeTreemap *child = *it;
-    s += child->treemapValue * factor;
+    s += child->treemapValue() * factor;
   }
   double x = r.topLeft().x(), y = r.topLeft().y(), d = 0;
   double h = w==0 ? 0 : s/w;
@@ -122,7 +156,7 @@ QRectF PajeTreemap::layoutRow (std::vector<PajeTreemap*> list, double w, QRectF 
     }else{
       childRect.setTopLeft (QPointF(x, y+d));
     }
-    double nw = child->treemapValue * factor / h;
+    double nw = child->treemapValue() * factor / h;
     if (horiz){
       childRect.setWidth (nw);
       childRect.setHeight (h);
@@ -132,7 +166,7 @@ QRectF PajeTreemap::layoutRow (std::vector<PajeTreemap*> list, double w, QRectF 
       childRect.setHeight (nw);
       d += nw;
     }
-    child->setBB (childRect);
+    child->setRect (childRect);
   }
   if (horiz){
     r = QRectF (x, y+h, r.width(), r.height()-h);
@@ -142,7 +176,7 @@ QRectF PajeTreemap::layoutRow (std::vector<PajeTreemap*> list, double w, QRectF 
   return r;
 }
 
-void PajeTreemap::squarifyWithOrderedChildren (std::vector<PajeTreemap*> list, double w, double factor)
+void PajeTreemapNode::squarifyWithOrderedChildren (std::vector<PajeTreemap*> list, double w, double factor)
 {
   std::vector<PajeTreemap*> row;
   double worst = FLT_MAX, nworst;
@@ -151,16 +185,16 @@ void PajeTreemap::squarifyWithOrderedChildren (std::vector<PajeTreemap*> list, d
   while (list.size()){
     // check if w is still valid
     if (w < 1){
-      /* w should not be smaller than 1 pixel
-         no space left for other children to appear */
+      // w should not be smaller than 1 pixel
+      // no space left for other children to appear 
       break;
     }
 
     row.insert (row.begin(), *(list.begin()));
     nworst = this->worstf (row, w, factor);
     if (nworst <= 1){
-      /* nworst should not be smaller than ratio 1,
-         which is the perfect square */
+      // nworst should not be smaller than ratio 1,
+      //  which is the perfect square 
       break;
     }
     if (nworst <= worst){

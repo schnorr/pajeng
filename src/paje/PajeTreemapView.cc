@@ -8,57 +8,70 @@ PajeTreemapView::PajeTreemapView (PajeTreemapFrame *frame, QWidget *parent)
   treemap = NULL;
 }
 
-void PajeTreemapView::hierarchyChanged (void)
+void PajeTreemapView::recreate (void)
 {
   if (treemap){
     delete treemap;
   }
-  treemap = new PajeTreemap (NULL, rootInstance(), this);
+  treemap = new PajeTreemapNode (NULL, this, rootInstance());
+}
+
+void PajeTreemapView::hierarchyChanged (void)
+{
+  this->recreate();
 }
 
 void PajeTreemapView::timeSelectionChanged (void)
 {
   if (!treemap){
-    hierarchyChanged (); //to create treemap hierarchical data structure
+    this->recreate(); //to create treemap hierarchical data structure
   }
 
-  treemap->recursiveTimeSelectionChanged ();
-  treemap->recursiveSetTreemapValue ();
+  treemap->timeSelectionChanged();
 
   this->repopulate ();
 }
 
-void PajeTreemapView::drawTreemap (PajeTreemap *treemap, PajeTreemapItem *parent)
+void PajeTreemapView::drawTreemap (PajeTreemap *t, PajeTreemapContainerItem *parent)
 {
-  PajeTreemapItem *item = new PajeTreemapItem (treemap, parent, this);
-  if (!parent){
-    scene.addItem (item);
+
+  // PajeTreemapContainerItem *item = new PajeTreemapContainerItem (treemap, parent, this);
+  // if (!parent){
+  //   scene.addItem (item);
+  // }
+
+  //aggregated children
+  std::vector<PajeTreemap*> valueChildren = t->valueChildren();
+  std::vector<PajeTreemap*>::iterator it;
+  for (it = valueChildren.begin(); it != valueChildren.end(); it++){
+    PajeTreemapValueItem *vitem = new PajeTreemapValueItem (*it, NULL, this);
+    scene.addItem (vitem);
   }
 
-  std::vector<PajeTreemap*>::iterator it;
-  for (it = treemap->children.begin(); it != treemap->children.end(); it++){
+  //normal children
+  std::vector<PajeTreemap*> children = t->children();
+  for (it = children.begin(); it != children.end(); it++){
     PajeTreemap *child = *it;
-    drawTreemap (child, item);
+    this->drawTreemap (child, NULL);
   }
 }
 
 void PajeTreemapView::repopulate (void)
 {
   if (!treemap){
-    timeSelectionChanged (); //to create something to populate
+    this->recreate (); //to create something to populate
   }
 
   QSize s = viewport()->size();
   QRectF bb = QRectF(QPointF(0,0), s);
-  treemap->setBB (bb);
-  treemap->recursiveCalculateTreemapWithFactor ((bb.width() * bb.height())/treemap->treemapValue);
+  treemap->setRect (bb);
+  treemap->calculateTreemapWithFactor ((bb.width() * bb.height())/treemap->treemapValue());
 
   //clear
   scene.clear();
 
   scene.setSceneRect (treemap->rect());
   this->drawTreemap (treemap, NULL);
-
 }
 
 void PajeTreemapView::wheelEvent (QWheelEvent *event)
