@@ -29,8 +29,6 @@ std::vector<PajeTreemap*> PajeTreemapValue::valueChildren (void)
 PajeTreemapNode::PajeTreemapNode (PajeTreemap *parent, PajeTreemapView *filter, PajeContainer *container)
   : PajeTreemap (parent, filter, container)
 {
-  std::cout << __FUNCTION__ << " " << container->description() << std::endl;
-
   std::vector<PajeContainer*> subcontainers = filter->enumeratorOfContainersInContainer (container);
   std::vector<PajeContainer*>::iterator sub;
   for (sub = subcontainers.begin(); sub != subcontainers.end(); sub++){
@@ -50,9 +48,7 @@ void PajeTreemapNode::timeSelectionChanged (void)
   PajeAggregatedDict::iterator val;
   for (val = values.begin(); val != values.end(); val++){
     _treemapValue += (*val).second;
-    std::cout << container->name() << " | " << ((*val).first)->name() << " = " << (*val).second << std::endl;
   }
-  std::cout << container->name() << " = " << _treemapValue << std::endl;
 
   //update aggregatedChildren since aggregated values have changed
   _valueChildren.clear();
@@ -63,7 +59,6 @@ void PajeTreemapNode::timeSelectionChanged (void)
     PajeTreemapValue *valueChild = new PajeTreemapValue (this, filter, container, type, value);
     _valueChildren.push_back (valueChild);
   }
-  std::cout << container->name() << " _valueChildren.size() " << _valueChildren.size() << std::endl;
 
   //recurse
   std::vector<PajeTreemap*>::iterator child;
