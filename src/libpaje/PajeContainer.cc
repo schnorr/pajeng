@@ -115,7 +115,8 @@ void PajeContainer::destroy (double time, PajeEvent *event)
 
   //check pendingLinks
   if (pendingLinks.size()){
-    throw "Incomplete links at the end of container "+name();
+    std::cerr << "Incomplete links at the end of container " << name() << std::endl;
+//    throw "Incomplete links at the end of container "+name();
   }
 
   //check stackStates, finish all stacked states, clear stacks
