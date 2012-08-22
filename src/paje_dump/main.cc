@@ -12,6 +12,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include <stdlib.h>
 #include <string>
 #include <iostream>
 #include <exception>
@@ -25,11 +26,14 @@ static char doc[] = "Dumps the <paje.trace> file in a CSV-like textual format";
 static char args_doc[] = "<paje.trace>";
 
 static struct argp_option options[] = {
+  {"start", 's', "START", 0, "Use this timestamp instead of 0 timestamp"},
+  {"end", 'e', "END", 0, "Use this timestamp instead of EOF timestamp"},
   { 0 }
 };
 
 struct arguments {
   char *input[VALIDATE_INPUT_SIZE];
+  double start, end;
   int input_size;
 };
 
@@ -37,6 +41,8 @@ static int parse_options (int key, char *arg, struct argp_state *state)
 {
   struct arguments *arguments = (struct arguments*)(state->input);
   switch (key){
+  case 's': arguments->start = atof(arg); break;
+  case 'e': arguments->end = atof(arg); break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
       /* Too many arguments. */
@@ -66,8 +72,11 @@ bool is_readable (const std::string & filename)
   return ret;
 }
 
-void dump (PajeSimulator *simulator)
+void dump (double start, double end, PajeSimulator *simulator)
 {
+  if (start == -1) start = simulator->startTime();
+  if (end == -1) end = simulator->endTime();
+
   std::vector<PajeContainer*> stack;
   stack.push_back (simulator->rootInstance());
 
@@ -95,8 +104,8 @@ void dump (PajeSimulator *simulator)
         std::vector<PajeEntity*>::iterator it;
         entities = simulator->enumeratorOfEntitiesTypedInContainer (type,
                                                                     container,
-                                                                    simulator->startTime(),
-                                                                    simulator->endTime());
+                                                                    start,
+                                                                    end);
         for (it = entities.begin(); it != entities.end(); it++){
           PajeEntity *entity = *it;
 
@@ -112,6 +121,7 @@ int main (int argc, char **argv)
 {
   struct arguments arguments;
   bzero (&arguments, sizeof(struct arguments));
+  arguments.start = arguments.end = -1;
   if (argp_parse (&argp, argc, argv, 0, 0, &arguments) == ARGP_KEY_ERROR){
     fprintf(stderr, "%s, error during the parsing of parameters\n", argv[0]);
     return 1;
@@ -145,7 +155,7 @@ int main (int argc, char **argv)
     return 1;
   }
 
-  dump (simulator);
+  dump (arguments.start, arguments.end, simulator);
 
   delete reader;
   delete decoder;
