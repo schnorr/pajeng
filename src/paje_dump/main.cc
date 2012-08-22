@@ -118,11 +118,11 @@ int main (int argc, char **argv)
   }
 
   if (!is_readable(std::string(arguments.input[0]))){
-    std::cerr << "trace file \"" << argv[1] << "\" not found" << std::endl;
+    std::cerr << "trace file \"" << arguments.input[0] << "\" not found" << std::endl;
     return 1;
   }
 
-  PajeFileReader *reader = new PajeFileReader (std::string(argv[1]), NULL);
+  PajeFileReader *reader = new PajeFileReader (std::string(arguments.input[0]), NULL);
   PajeEventDecoder *decoder = new PajeEventDecoder ();
   PajeSimulator *simulator = new PajeSimulator ();
 
