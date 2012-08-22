@@ -222,19 +222,19 @@ void PajeContainer::subVariable (double time, PajeType *type, double value, Paje
 
 void PajeContainer::startLink (double time, PajeType *type, PajeContainer *startContainer, std::string value, std::string key, PajeEvent *event)
 {
-  if (linksUsedKeys.count(key)){
+  if (linksUsedKeys[type].count(key)){
     std::stringstream eventdesc;
     eventdesc << *event;
     throw "Illegal event in "+eventdesc.str()+", the key was already used for another link";
   }
 
-  if (pendingLinks.count(key) == 0){
+  if (pendingLinks[type].count(key) == 0){
     PajeUserLink *link = new PajeUserLink(this, type, value, key, startContainer, time, event);
-    pendingLinks.insert (std::make_pair(key, link));
+    pendingLinks[type].insert (std::make_pair(key, link));
 
   }else{
     //there is a PajeEndLink
-    PajeUserLink *link = (pendingLinks.find(key))->second;
+    PajeUserLink *link = (pendingLinks[type].find(key))->second;
     link->setStartTime (time);
     link->setStartContainer (startContainer);
     link->addPajeEvent (event);
@@ -253,29 +253,29 @@ void PajeContainer::startLink (double time, PajeType *type, PajeContainer *start
     entities[type].push_back(link);
 
     //remove the link for the temporary pool, add the key to usedKeys
-    pendingLinks.erase(key);
-    linksUsedKeys.insert(key);
+    pendingLinks[type].erase(key);
+    linksUsedKeys[type].insert(key);
   }
 }
 
 void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endContainer, std::string value, std::string key, PajeEvent *event)
 {
-  if (linksUsedKeys.count(key)){
+  if (linksUsedKeys[type].count(key)){
     std::stringstream eventdesc;
     eventdesc << *event;
     throw "Illegal event in "+eventdesc.str()+", the key was already used for another link";
   }
 
-  if (pendingLinks.count(key) == 0){
+  if (pendingLinks[type].count(key) == 0){
     //there is no corresponding PajeStartLink
     PajeUserLink *link = new PajeUserLink(this, type, value, key, NULL, -1, event);
     link->setEndContainer (endContainer);
     link->setEndTime (time);
-    pendingLinks.insert (std::make_pair(key, link));
+    pendingLinks[type].insert (std::make_pair(key, link));
 
   }else{
     //there is a PajeStartLink
-    PajeUserLink *link = (pendingLinks.find(key))->second;
+    PajeUserLink *link = (pendingLinks[type].find(key))->second;
     link->setEndContainer (endContainer);
     link->setEndTime (time);
     link->addPajeEvent (event);
@@ -294,8 +294,8 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
     entities[type].push_back(link);
 
     //remove the link for the temporary pool, add the key to usedKeys
-    pendingLinks.erase(key);
-    linksUsedKeys.insert(key);
+    pendingLinks[type].erase(key);
+    linksUsedKeys[type].insert(key);
   }
 }
 
