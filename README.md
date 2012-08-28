@@ -1,21 +1,21 @@
-PajeNG -- Trace Visualization Tool
+PajeNG - Trace Visualization Tool
 ==================================
 
-PajeNG (for Next Generation) is a re-implementation (in C++) of the
+PajeNG (Paje Next Generation) is a re-implementation (in C++) of the
 well-known [Paje visualization tool](http://paje.sf.net) for the
 analysis of execution traces (in the [Paje File
-Format](http://paje.sourceforge.net/download/publication/lang-paje.pdf).
+Format](http://paje.sourceforge.net/download/publication/lang-paje.pdf)).
 The tool is released under the [GNU General Public Licence
 3](http://www.gnu.org/licenses/gpl.html).
 
 Installation
 ------------
 
-We recommend an out-of-source compilation. Just follow these steps:
+We recommend an out-of-source compilation:
 
      $ git clone git://github.com/schnorr/pajeng.git
-     $ mkdir build
-     $ cd build
+     $ mkdir -p pajeng/build
+     $ cd pajeng/build
      $ cmake ..
      $ make
      $ make install
