@@ -89,9 +89,6 @@ void PajeStateItem::paint (QPainter *painter, const QStyleOptionGraphicsItem *op
   QPointF aux = QPointF(0,height*.01);
   painter->drawLine (rect.topLeft() + aux, rect.bottomLeft() - aux);
   if (hover){
-    QColor c_negative = c;
-    c_negative.setHsv ((c.hue() + 200)%400, c.saturation(), c.value());
-    painter->fillRect (rect, QBrush(c_negative));
     painter->drawRect (rect);
 
     double size = width;
