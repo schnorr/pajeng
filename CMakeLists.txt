@@ -99,6 +99,10 @@ IF(PAJE_LIBRARY)
   SET(LIBPAJE_APIVERSION 1)
   INSTALL(TARGETS paje_library DESTINATION lib)
   INSTALL(FILES ${LIBPAJE_HEADERS} DESTINATION include)
+
+  #pkgconfig
+  CONFIGURE_FILE (src/libpaje.pc.cmake libpaje.pc @ONLY)
+  INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/libpaje.pc DESTINATION lib/pkgconfig)
 ENDIF(PAJE_LIBRARY)
 
 # Paje Validate (checks if a trace file is valid or not)
@@ -137,6 +141,3 @@ IF(PAJE)
   TARGET_LINK_LIBRARIES(pajeng ${QT_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} paje_library)
   INSTALL(PROGRAMS ${pajeng_BINARY_DIR}/pajeng DESTINATION bin)
 ENDIF(PAJE)
-
-# For pkgconfig
-ADD_SUBDIRECTORY(pkgconfig)
