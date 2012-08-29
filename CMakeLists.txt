@@ -101,7 +101,7 @@ IF(PAJE_LIBRARY)
   INSTALL(FILES ${LIBPAJE_HEADERS} DESTINATION include)
 
   #pkgconfig
-  CONFIGURE_FILE (src/libpaje.pc.cmake libpaje.pc @ONLY)
+  CONFIGURE_FILE (src/libpaje/libpaje.pc.cmake libpaje.pc @ONLY)
   INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/libpaje.pc DESTINATION lib/pkgconfig)
 ENDIF(PAJE_LIBRARY)
 
