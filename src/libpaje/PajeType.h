@@ -22,7 +22,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "PajeTraceController.h"
 #include "PajeColor.h"
 #include "PajeProtocols.h"
 

@@ -24,7 +24,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "PajeTraceController.h"
 #include "PajeComponent.h"
 #include "PajeEventDefinition.h"
 #include "PajeEvent.h"

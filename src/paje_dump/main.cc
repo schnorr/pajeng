@@ -134,7 +134,7 @@ int main (int argc, char **argv)
     return 1;
   }
 
-  PajeFileReader *reader = new PajeFileReader (std::string(arguments.input[0]), NULL);
+  PajeFileReader *reader = new PajeFileReader (std::string(arguments.input[0]));
   PajeEventDecoder *decoder = new PajeEventDecoder ();
   PajeSimulator *simulator = new PajeSimulator ();
 

@@ -56,7 +56,6 @@ SET(LIBPAJE_HEADERS
   src/libpaje/PajeFileReader.h
   src/libpaje/PajeObject.h
   src/libpaje/PajeSimulator.h
-  src/libpaje/PajeTraceController.h
   src/libpaje/PajeType.h)
 SET(LIBPAJE_SOURCES
   src/libpaje/PajeEventDefinition.cc
@@ -67,7 +66,6 @@ SET(LIBPAJE_SOURCES
   src/libpaje/PajeSimulator.cc
   src/libpaje/PajeSimulator+Queries.cc
   src/libpaje/PajeSimulator+Commands.cc
-  src/libpaje/PajeTraceController.cc
   src/libpaje/PajeComponent.cc
   src/libpaje/PajeType.cc
   src/libpaje/PajeContainer.cc

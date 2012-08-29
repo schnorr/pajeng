@@ -27,7 +27,7 @@ void PajeApplication::init (void)
   pajeWindow = PajeWindow::getInstance ();
   pajeWindow->setApplication (this);
 
-  reader = new PajeFileReader (filename.toStdString(), NULL);
+  reader = new PajeFileReader (filename.toStdString());
   decoder = new PajeEventDecoder ();
   simulator = new PajeSimulator ();
 

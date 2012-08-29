@@ -23,7 +23,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "PajeTraceController.h"
 #include "PajeComponent.h"
 
 #define PAJE_DEFAULT_CHUNK_SIZE 1500000
@@ -33,7 +32,6 @@ class PajeFileReader : public PajeComponent {
 private:
   std::string filename;
   std::ifstream file;
-  PajeTraceController *controller;
   std::streamoff chunkSize;
   int currentChunk;
   bool moreData;
@@ -45,7 +43,7 @@ private:
   bool canEndChunk (void);
 
 public:
-  PajeFileReader (std::string f, PajeTraceController *c);
+  PajeFileReader (std::string f);
   ~PajeFileReader (void);
   void readNextChunk (void);
   void startChunk (int chunkNumber);

@@ -24,7 +24,7 @@ double gettime ()
   return (double)tr.tv_sec+(double)tr.tv_usec/1000000;
 }
 
-PajeFileReader::PajeFileReader (std::string f, PajeTraceController *c)
+PajeFileReader::PajeFileReader (std::string f)
 {
   chunkSize = PAJE_DEFAULT_CHUNK_SIZE;
   moreData = true;
