@@ -24,7 +24,7 @@
 
 class WapajeSpaceTimeView;
 
-class  : public QGraphicsItem
+class WapajeGraphicsItem : public QGraphicsItem
 {
 protected:
   bool hover;
@@ -33,23 +33,23 @@ protected:
   WapajeSpaceTimeView *filter;
 
 public:
-   (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, WapajeSpaceTimeView *filter);
+  WapajeGraphicsItem (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, WapajeSpaceTimeView *filter);
 };
 
-class PajeContainerItem : public
+class WapajeContainerItem : public WapajeGraphicsItem
 {
 public:
-  PajeContainerItem (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, WapajeSpaceTimeView *filter);
+  WapajeContainerItem (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, WapajeSpaceTimeView *filter);
   QRectF boundingRect (void) const;
   void paint (QPainter *painter, const QStyleOptionGraphicsItem *options, QWidget *widget);
 
 };
 
 
-class PajeStateItem : public
+class WapajeStateItem : public WapajeGraphicsItem
 {
 public:
-  PajeStateItem (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, WapajeSpaceTimeView *filter);
+  WapajeStateItem (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, WapajeSpaceTimeView *filter);
   QRectF boundingRect (void) const;
   void paint (QPainter *painter, const QStyleOptionGraphicsItem *options, QWidget *widget);
   void hoverEnterEvent(QGraphicsSceneHoverEvent *event);

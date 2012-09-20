@@ -22,10 +22,10 @@
 #include <QMouseEvent>
 #include "PajeComponent.h"
 #include "STEntityTypeLayout.h"
-#include ".h"
+#include "WapajeGraphicsItem.h"
 #include "WapajeSpaceTimeFrame.h"
 
-class ;
+class WapajeGraphicsItem;
 class WapajeSpaceTimeFrame;
 
 class WapajeSpaceTimeView : public QGraphicsView, public PajeComponent
@@ -45,7 +45,7 @@ private:
   STTypeLayout *layoutDescriptorForType (PajeType *type);
   STTypeLayout *createTypeLayout (PajeType *type, STContainerTypeLayout *containerLayout);
   void renewLayoutDescriptors (void);
-  void drawContainer (STTypeLayout *layout, PajeContainer *container,  *parent);
+  void drawContainer (STTypeLayout *layout, PajeContainer *container, WapajeGraphicsItem *parent);
 
 protected: //from PajeComponent protocol
   void hierarchyChanged (void);

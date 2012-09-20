@@ -14,10 +14,10 @@
     You should have received a copy of the GNU Public License
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
-#include ".h"
+#include "WapajeGraphicsItem.h"
 #include "WapajeWindow.h"
 
-:: (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, WapajeSpaceTimeView *filter)
+WapajeGraphicsItem::WapajeGraphicsItem (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, WapajeSpaceTimeView *filter)
   : QGraphicsItem (parent)
 {
   this->layout = layout;
@@ -26,14 +26,14 @@
   hover = false;
 }
 
-PajeContainerItem::PajeContainerItem (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, WapajeSpaceTimeView *filter)
-  :  (layout, entity, parent, filter)
+WapajeContainerItem::WapajeContainerItem (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, WapajeSpaceTimeView *filter)
+  : WapajeGraphicsItem (layout, entity, parent, filter)
 {
   setZValue (100);
 }
 
 
-QRectF PajeContainerItem::boundingRect (void) const
+QRectF WapajeContainerItem::boundingRect (void) const
 {
   STContainerTypeLayout *containerLayout = dynamic_cast<STContainerTypeLayout*>(layout);
   PajeContainer *container = dynamic_cast<PajeContainer*>(entity);
@@ -50,7 +50,7 @@ QRectF PajeContainerItem::boundingRect (void) const
   return ret;
 }
 
-void PajeContainerItem::paint (QPainter *painter, const QStyleOptionGraphicsItem *options, QWidget *widget)
+void WapajeContainerItem::paint (QPainter *painter, const QStyleOptionGraphicsItem *options, QWidget *widget)
 {
   if (!layout->isContainer()){
     throw "You found a bug, congrats. Calling paint on a container with a layout which is not a container layout";
@@ -65,14 +65,14 @@ void PajeContainerItem::paint (QPainter *painter, const QStyleOptionGraphicsItem
   }
 }
 
-PajeStateItem::PajeStateItem (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, WapajeSpaceTimeView *filter)
-  :  (layout, entity, parent, filter)
+WapajeStateItem::WapajeStateItem (STTypeLayout *layout, PajeEntity *entity, QGraphicsItem *parent, WapajeSpaceTimeView *filter)
+  : WapajeGraphicsItem (layout, entity, parent, filter)
 {
   setAcceptHoverEvents (true);
   setZValue (entity->imbricationLevel());
 }
 
-QRectF PajeStateItem::boundingRect (void) const
+QRectF WapajeStateItem::boundingRect (void) const
 {
   PajeContainer *container = entity->container();
   int imbric = entity->imbricationLevel();
@@ -87,7 +87,7 @@ QRectF PajeStateItem::boundingRect (void) const
   return ret;
 }
 
-void PajeStateItem::paint (QPainter *painter, const QStyleOptionGraphicsItem *options, QWidget *widget)
+void WapajeStateItem::paint (QPainter *painter, const QStyleOptionGraphicsItem *options, QWidget *widget)
 {
   painter->save();
 
@@ -135,7 +135,7 @@ void PajeStateItem::paint (QPainter *painter, const QStyleOptionGraphicsItem *op
   painter->restore();
 }
 
-void PajeStateItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+void WapajeStateItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
   hover = true;
   update();
@@ -144,7 +144,7 @@ void PajeStateItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
   setToolTip (description);
 }
 
-void PajeStateItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+void WapajeStateItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
   hover = false;
   update();

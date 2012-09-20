@@ -67,9 +67,9 @@ void WapajeSpaceTimeView::renewLayoutDescriptors (void)
   layout->recursiveSetLayoutPositions (container, this, QPointF());
 }
 
-void WapajeSpaceTimeView::drawContainer (STTypeLayout *layout, PajeContainer *container,  *parent)
+void WapajeSpaceTimeView::drawContainer (STTypeLayout *layout, PajeContainer *container, WapajeGraphicsItem *parent)
 {
-  PajeContainerItem *item = new PajeContainerItem (layout, container, NULL, this);
+  WapajeContainerItem *item = new WapajeContainerItem (layout, container, NULL, this);
   // if (!parent){
     scene.addItem (item);
   // }
@@ -97,7 +97,7 @@ void WapajeSpaceTimeView::drawContainer (STTypeLayout *layout, PajeContainer *co
                                                        container->endTime());
       for (it = entities.begin(); it != entities.end(); it++){
         PajeEntity *entity = *it;
-        PajeStateItem *item = new PajeStateItem (sublayout, entity, NULL, this);
+        WapajeStateItem *item = new WapajeStateItem (sublayout, entity, NULL, this);
         scene.addItem (item);
       }
     }
