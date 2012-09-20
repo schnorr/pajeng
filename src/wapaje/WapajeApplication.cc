@@ -24,7 +24,7 @@ WapajeApplication::WapajeApplication( int &argc, char **argv) : QApplication(arg
 
 void WapajeApplication::init (void)
 {
-  wapajeWindow = WawapajeWindow::getInstance ();
+  wapajeWindow = WapajeWindow::getInstance ();
   wapajeWindow->setApplication (this);
 
   reader = new PajeFileReader (filename.toStdString());
