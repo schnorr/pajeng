@@ -18,8 +18,9 @@
 
 WapajeApplication::WapajeApplication( int &argc, char **argv) : QApplication(argc,argv)
 {
+  initialized=false;
   setApplicationName("Paje++");
-  filename = arguments().at(1);
+  fileName = arguments().at(1);
 }
 
 void WapajeApplication::init (void)
@@ -27,14 +28,47 @@ void WapajeApplication::init (void)
   wapajeWindow = WapajeWindow::getInstance ();
   wapajeWindow->setApplication (this);
 
-  reader = new PajeFileReader (filename.toStdString());
-  decoder = new PajeEventDecoder ();
-  simulator = new PajeSimulator ();
+  if (fileName!=NULL){
+    reader = new PajeFileReader (fileName.toStdString());
+    decoder = new PajeEventDecoder ();
+    simulator = new PajeSimulator ();
+
+    connectComponents (reader, decoder);
+    connectComponents (decoder, simulator);
+    connectSpacetime ();
+    initialized = true;
+
+    {
+      PajeThreadReader *thread = new PajeThreadReader (reader);
+      thread->read (); //this blocks until all file is read or user is bored
+      delete thread;
+    }
+  }
+
+  wapajeWindow->show();
+}
+
+void WapajeApplication::newtraceFile (QString newFileName){
+  wapajeWindow = WapajeWindow::getInstance ();
+
+  if (initialized){
+    disconnectComponents(reader, decoder);
+    disconnectComponents(decoder, simulator);
+    disconnectSpacetime();
+
+    delete reader;
+
+  }
+  std::cout << "test" << std::endl;
+
+  reader = new PajeFileReader (newFileName.toStdString());
 
   connectComponents (reader, decoder);
   connectComponents (decoder, simulator);
   connectSpacetime ();
+  initialized = true;
 
+  std::cout << "test2" << std::endl;
   {
     PajeThreadReader *thread = new PajeThreadReader (reader);
     thread->read (); //this blocks until all file is read or user is bored
@@ -43,6 +77,7 @@ void WapajeApplication::init (void)
 
   wapajeWindow->show();
 }
+
 
 void WapajeApplication::connectComponents (PajeComponent *c1, PajeComponent *c2)
 {

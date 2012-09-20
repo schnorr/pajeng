@@ -36,13 +36,15 @@ private:
   PajeEventDecoder *decoder;
   PajeSimulator *simulator;
   WapajeWindow *wapajeWindow;
-  QString filename;
+  QString fileName;
+  bool initialized;
   void disconnectComponents (PajeComponent *c1, PajeComponent *c2);
   void connectComponents (PajeComponent *c1, PajeComponent *c2);
 
 public:
   WapajeApplication ( int & argc, char ** argv );
   void init (void);
+  void newtraceFile (QString newFileName);
   void disconnectTreemap (void);
   void disconnectSpacetime (void);
   void connectTreemap (void);

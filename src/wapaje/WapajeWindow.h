@@ -18,6 +18,7 @@
 #define __PAJE_WINDOW_H
 #include <QtGui>
 #include <QMainWindow>
+#include <QFileDialog>
 #include "WapajeSpaceTimeFrame.h"
 #include "WapajeTreemapFrame.h"
 #include "WapajeApplication.h"
@@ -52,6 +53,7 @@ protected:
   void closeEvent(QCloseEvent *event);
 
 private slots:
+  void openFile();
   void treemap();
   void spacetime();
   void about();
@@ -69,6 +71,7 @@ private:
   QMenu *viewMenu;
   QMenu *helpMenu;
   QAction *exitAct;
+  QAction *openFileAct;
   QAction *treemapAct;
   QAction *spacetimeAct;
   QAction *aboutAct;

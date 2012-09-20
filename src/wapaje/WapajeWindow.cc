@@ -67,6 +67,12 @@ void WapajeWindow::spacetime()
   }
 }
 
+void WapajeWindow::openFile()
+{
+  QString filename2 = QFileDialog::getOpenFileName();
+  app->newtraceFile(filename2);
+}
+
 void WapajeWindow::about()
 {
   QMessageBox::about(this, tr("About Wapaje"),
@@ -79,6 +85,10 @@ void WapajeWindow::createActions()
   exitAct->setShortcuts(QKeySequence::Quit);
   exitAct->setStatusTip(tr("Exit the application"));
   connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
+
+  openFileAct = new QAction(tr("&Open File"), this);
+  openFileAct->setStatusTip(tr("Open a new Trace File"));
+  connect(openFileAct, SIGNAL(triggered()), this, SLOT(openFile()));
 
   treemapAct = new QAction(tr("&Treemap View"), this);
   treemapAct->setStatusTip(tr("Enable or disable the treemap view"));
@@ -100,6 +110,7 @@ void WapajeWindow::createActions()
 void WapajeWindow::createMenus()
 {
   fileMenu = menuBar()->addMenu(tr("&File"));
+  fileMenu->addAction(openFileAct);
   fileMenu->addAction(exitAct);
 
   viewMenu = menuBar()->addMenu(tr("&View"));
