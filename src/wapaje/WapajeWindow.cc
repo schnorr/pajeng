@@ -21,14 +21,14 @@ WapajeWindow *WapajeWindow::instance = NULL;
 WapajeWindow::WapajeWindow()
 {
   spacetimeFrame = new WapajeSpaceTimeFrame ();
-  treemapFrame = new WapajeTreemapFrame ();
-  treemapFrame->hide();
+  //treemapFrame = new WapajeTreemapFrame ();
+  //treemapFrame->hide();
 
   QSplitter *split = new QSplitter;
   split->setChildrenCollapsible (false);
   split->setOrientation (Qt::Horizontal);
   split->addWidget (spacetimeFrame);
-  split->addWidget (treemapFrame);
+  //split->addWidget (treemapFrame);
 
   setCentralWidget (split);
 
@@ -69,8 +69,8 @@ void WapajeWindow::spacetime()
 
 void WapajeWindow::about()
 {
-  QMessageBox::about(this, tr("About Paje"),
-                     tr("<b>Paje</b>, a space/time viewer of Paje trace files."));
+  QMessageBox::about(this, tr("About Wapaje"),
+                     tr("<b>Wapaje</b>, a space/time viewer of Paje trace files."));
 }
 
 void WapajeWindow::createActions()
@@ -103,8 +103,8 @@ void WapajeWindow::createMenus()
   fileMenu->addAction(exitAct);
 
   viewMenu = menuBar()->addMenu(tr("&View"));
-  viewMenu->addAction (spacetimeAct);
-  viewMenu->addAction (treemapAct);
+  //viewMenu->addAction (spacetimeAct);
+  //viewMenu->addAction (treemapAct);
 
   menuBar()->addSeparator();
 
