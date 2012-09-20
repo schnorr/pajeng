@@ -35,7 +35,7 @@ private:
   PajeFileReader *reader;
   PajeEventDecoder *decoder;
   PajeSimulator *simulator;
-  WapajeWindow *pajeWindow;
+  WapajeWindow *wapajeWindow;
   QString filename;
   void disconnectComponents (PajeComponent *c1, PajeComponent *c2);
   void connectComponents (PajeComponent *c1, PajeComponent *c2);

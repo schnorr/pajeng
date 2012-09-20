@@ -24,8 +24,8 @@ WapajeApplication::WapajeApplication( int &argc, char **argv) : QApplication(arg
 
 void WapajeApplication::init (void)
 {
-  pajeWindow = WapajeWindow::getInstance ();
-  pajeWindow->setApplication (this);
+  wapajeWindow = WawapajeWindow::getInstance ();
+  wapajeWindow->setApplication (this);
 
   reader = new PajeFileReader (filename.toStdString());
   decoder = new PajeEventDecoder ();
@@ -41,7 +41,7 @@ void WapajeApplication::init (void)
     delete thread;
   }
 
-  pajeWindow->show();
+  wapajeWindow->show();
 }
 
 void WapajeApplication::connectComponents (PajeComponent *c1, PajeComponent *c2)
@@ -58,20 +58,20 @@ void WapajeApplication::disconnectComponents (PajeComponent *c1, PajeComponent *
 
 void WapajeApplication::disconnectTreemap (void)
 {
-  disconnectComponents (simulator, pajeWindow->treemapFrame->view());
+  disconnectComponents (simulator, wapajeWindow->treemapFrame->view());
 }
 
 void WapajeApplication::connectTreemap (void)
 {
-  connectComponents (simulator, pajeWindow->treemapFrame->view());
+  connectComponents (simulator, wapajeWindow->treemapFrame->view());
 }
 
 void WapajeApplication::disconnectSpacetime (void)
 {
-  disconnectComponents (simulator, pajeWindow->spacetimeFrame->view());
+  disconnectComponents (simulator, wapajeWindow->spacetimeFrame->view());
 }
 
 void WapajeApplication::connectSpacetime (void)
 {
-  connectComponents (simulator, pajeWindow->spacetimeFrame->view());
+  connectComponents (simulator, wapajeWindow->spacetimeFrame->view());
 }
