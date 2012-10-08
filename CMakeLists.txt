@@ -100,7 +100,7 @@ SET(PAJEVALIDATE_SOURCES src/paje_validate/main.cc)
 SET(PAJEDUMP_SOURCES src/paje_dump/main.cc)
 
 # the cmake options
-OPTION(PAJE         "The PajeNG visualization tool (Qt4 version)" OFF)
+OPTION(PAJENG         "The PajeNG visualization tool (Qt4 version)" ON)
 OPTION(WAPAJE         "The Experimental clone of PajeNG visualization tool (Qt4 version)" OFF)
 OPTION(PAJE_UTILS_LIBRARY "The Paje Utils library with QT-dependent components" ON)
 OPTION(PAJE_LIBRARY "The Paje library with all the basic components" ON)
@@ -183,7 +183,7 @@ IF(PAJE_DUMP)
 ENDIF(PAJE_DUMP)
 
 # The PajeNG
-IF(PAJE)
+IF(PAJENG)
   FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtOpenGl)
   FIND_PACKAGE(GLUT REQUIRED)
   FIND_PACKAGE(OpenGL REQUIRED)
@@ -200,6 +200,7 @@ IF(PAJE)
   TARGET_LINK_LIBRARIES(pajeng paje_utils_library)
   INSTALL(PROGRAMS ${pajeng_BINARY_DIR}/pajeng DESTINATION bin)
   INSTALL(FILES ${UTILS_HEADERS} DESTINATION include)
+<<<<<<< HEAD
 ENDIF(PAJE)
 
 # Wapaje (Experimental)
@@ -218,3 +219,6 @@ IF(WAPAJE)
   INSTALL(FILES ${UTILS_HEADERS} DESTINATION include)
 ENDIF(WAPAJE)
 
+=======
+ENDIF(PAJENG)
+>>>>>>> change the name of the option to follow binary name
