@@ -17,24 +17,24 @@ PROJECT(pajeng)
 
 # The PajeNG (Qt4 version)
 SET(PAJE_HEADERS
-  src/paje/PajeApplication.h
-  src/paje/PajeWindow.h
-  src/paje/PajeSpaceTimeFrame.h
-  src/paje/PajeSpaceTimeView.h
-  src/paje/PajeTreemapFrame.h
-  src/paje/PajeTreemapView.h)
+  src/pajeng/PajeApplication.h
+  src/pajeng/PajeWindow.h
+  src/pajeng/PajeSpaceTimeFrame.h
+  src/pajeng/PajeSpaceTimeView.h
+  src/pajeng/PajeTreemapFrame.h
+  src/pajeng/PajeTreemapView.h)
 SET(PAJE_SOURCES
-  src/paje/main.cc
-  src/paje/PajeApplication.cc
-  src/paje/PajeWindow.cc
-  src/paje/PajeSpaceTimeFrame.cc
-  src/paje/PajeSpaceTimeView.cc
-  src/paje/PajeTreemapFrame.cc
-  src/paje/PajeTreemapView.cc
-  src/paje/PajeTreemap.cc
-  src/paje/STEntityTypeLayout.cc
-  src/paje/PajeGraphicsItem.cc
-  src/paje/PajeTreemapItem.cc)
+  src/pajeng/main.cc
+  src/pajeng/PajeApplication.cc
+  src/pajeng/PajeWindow.cc
+  src/pajeng/PajeSpaceTimeFrame.cc
+  src/pajeng/PajeSpaceTimeView.cc
+  src/pajeng/PajeTreemapFrame.cc
+  src/pajeng/PajeTreemapView.cc
+  src/pajeng/PajeTreemap.cc
+  src/pajeng/STEntityTypeLayout.cc
+  src/pajeng/PajeGraphicsItem.cc
+  src/pajeng/PajeTreemapItem.cc)
 
 # Wapaje
 SET(WAPAJE_HEADERS
@@ -94,10 +94,10 @@ SET(UTILS_SOURCES
   src/utils/PajeThreadReader.cc)
 
 # Paje Validate (checks if a trace file is valid or not)
-SET(PAJEVALIDATE_SOURCES src/paje_validate/main.cc)
+SET(PAJEVALIDATE_SOURCES src/pj_validate/main.cc)
 
 # Paje Dump
-SET(PAJEDUMP_SOURCES src/paje_dump/main.cc)
+SET(PAJEDUMP_SOURCES src/pj_dump/main.cc)
 
 # the cmake options
 OPTION(PAJENG         "The PajeNG visualization tool (Qt4 version)" ON)
