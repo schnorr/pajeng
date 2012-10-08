@@ -15,12 +15,6 @@
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 PROJECT(pajeng)
 
-# Utils
-SET(UTILS_HEADERS
-  src/utils/PajeThreadReader.h)
-SET(UTILS_SOURCES
-  src/utils/PajeThreadReader.cc)
-
 # The PajeNG (Qt4 version)
 SET(PAJE_HEADERS
   src/paje/PajeApplication.h
@@ -93,6 +87,12 @@ SET(LIBPAJE_SOURCES
   src/libpaje/PajeColor.cc
   src/libpaje/PajeEntity.cc)
 
+# The Paje Utils Library (libpajeutils)
+SET(UTILS_HEADERS
+  src/utils/PajeThreadReader.h)
+SET(UTILS_SOURCES
+  src/utils/PajeThreadReader.cc)
+
 # Paje Validate (checks if a trace file is valid or not)
 SET(PAJEVALIDATE_SOURCES src/paje_validate/main.cc)
 
@@ -102,6 +102,7 @@ SET(PAJEDUMP_SOURCES src/paje_dump/main.cc)
 # the cmake options
 OPTION(PAJE         "The PajeNG visualization tool (Qt4 version)" OFF)
 OPTION(WAPAJE         "The Experimental clone of PajeNG visualization tool (Qt4 version)" OFF)
+OPTION(PAJE_UTILS_LIBRARY "The Paje Utils library with QT-dependent components" ON)
 OPTION(PAJE_LIBRARY "The Paje library with all the basic components" ON)
 OPTION(PAJE_DUMP    "Compile pj_dump (program to dump the contents of a trace" ON)
 OPTION(PAJE_VALIDATE "Compile pj_validate (program to validate a trace" ON)
@@ -127,7 +128,39 @@ IF(PAJE_LIBRARY)
   INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/libpaje.pc DESTINATION lib/pkgconfig)
 ENDIF(PAJE_LIBRARY)
 
+#
+# The Paje Utils Library (libpajeutils)
+#
+IF(PAJE_UTILS_LIBRARY)
+  FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtOpenGl)
+  FIND_PACKAGE(GLUT REQUIRED)
+  FIND_PACKAGE(OpenGL REQUIRED)
+  QT4_WRAP_CPP(UTILS_HEADERS_MOC ${UTILS_HEADERS})
+  INCLUDE(${QT_USE_FILE})
+  ADD_DEFINITIONS(${QT_DEFINITIONS})
+  ADD_LIBRARY(paje_utils_library SHARED ${UTILS_SOURCES} ${UTILS_HEADERS_MOC})
+  TARGET_LINK_LIBRARIES(paje_utils_library ${QT_LIBRARIES})
+#  TARGET_LINK_LIBRARIES(paje_utils_library ${GLUT_glut_LIBRARY})
+
+  SET_TARGET_PROPERTIES(paje_utils_library PROPERTIES OUTPUT_NAME pajeutils)
+  SET_TARGET_PROPERTIES(paje_utils_library PROPERTIES
+    # bump when new function are added in the library
+    VERSION 1.0
+    # bump when ABI is broken (symbols removed or parameters changed)
+    SOVERSION 1)
+  # bump when the API change (new functions in the header file)
+  SET(LIBPAJE_APIVERSION 1)
+  INSTALL(TARGETS paje_utils_library DESTINATION lib)
+  INSTALL(FILES ${UTILS_HEADERS} DESTINATION include)
+
+  #pkgconfig
+  CONFIGURE_FILE (src/utils/libpajeutils.pc.cmake libpajeutils.pc @ONLY)
+  INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/libpajeutils.pc DESTINATION lib/pkgconfig)
+ENDIF(PAJE_UTILS_LIBRARY)
+
+#
 # Paje Validate (checks if a trace file is valid or not)
+#
 IF(PAJE_VALIDATE)
   IF(NOT PAJE_LIBRARY)
     MESSAGE(FATAL_ERROR "You must enable PAJE_LIBRARY to compile pj_validate")
@@ -155,12 +188,16 @@ IF(PAJE)
   FIND_PACKAGE(GLUT REQUIRED)
   FIND_PACKAGE(OpenGL REQUIRED)
   QT4_WRAP_CPP(PAJE_HEADERS_MOC ${PAJE_HEADERS})
-  QT4_WRAP_CPP(UTILS_HEADERS_MOC ${UTILS_HEADERS})
   INCLUDE(${QT_USE_FILE})
   ADD_DEFINITIONS(${QT_DEFINITIONS})
-  ADD_EXECUTABLE(pajeng ${PAJE_SOURCES} ${PAJE_HEADERS_MOC} ${UTILS_SOURCES} ${UTILS_HEADERS_MOC})
+  ADD_EXECUTABLE(pajeng ${PAJE_SOURCES} ${PAJE_HEADERS_MOC})
   INCLUDE_DIRECTORIES(pajeng ${PROJECT_SOURCE_DIR}/src/libpaje/)
-  TARGET_LINK_LIBRARIES(pajeng ${QT_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} paje_library)
+  TARGET_LINK_LIBRARIES(pajeng ${QT_LIBRARIES})
+  TARGET_LINK_LIBRARIES(pajeng ${GLUT_glut_LIBRARY})
+  TARGET_LINK_LIBRARIES(pajeng ${OPENGL_gl_LIBRARY})
+  TARGET_LINK_LIBRARIES(pajeng ${OPENGL_glu_LIBRARY})
+  TARGET_LINK_LIBRARIES(pajeng paje_library)
+  TARGET_LINK_LIBRARIES(pajeng paje_utils_library)
   INSTALL(PROGRAMS ${pajeng_BINARY_DIR}/pajeng DESTINATION bin)
   INSTALL(FILES ${UTILS_HEADERS} DESTINATION include)
 ENDIF(PAJE)
