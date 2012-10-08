@@ -206,8 +206,7 @@ IF(PAJENG)
   TARGET_LINK_LIBRARIES(pajeng paje_utils_library)
   INSTALL(PROGRAMS ${pajeng_BINARY_DIR}/pajeng DESTINATION bin)
   INSTALL(FILES ${UTILS_HEADERS} DESTINATION include)
-<<<<<<< HEAD
-ENDIF(PAJE)
+ENDIF(PAJENG)
 
 # Wapaje (Experimental)
 IF(WAPAJE)
@@ -224,7 +223,3 @@ IF(WAPAJE)
   INSTALL(PROGRAMS ${wapaje_BINARY_DIR}/wapaje DESTINATION bin)
   INSTALL(FILES ${UTILS_HEADERS} DESTINATION include)
 ENDIF(WAPAJE)
-
-=======
-ENDIF(PAJENG)
->>>>>>> change the name of the option to follow binary name
