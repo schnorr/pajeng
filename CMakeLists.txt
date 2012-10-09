@@ -94,10 +94,10 @@ SET(UTILS_SOURCES
   src/utils/PajeThreadReader.cc)
 
 # Paje Validate (checks if a trace file is valid or not)
-SET(PAJEVALIDATE_SOURCES src/pj_validate/main.cc)
+SET(PAJEVALIDATE_SOURCES src/pj_validate/pj_validate.cc)
 
 # Paje Dump
-SET(PAJEDUMP_SOURCES src/pj_dump/main.cc)
+SET(PAJEDUMP_SOURCES src/pj_dump/pj_dump.cc)
 
 # the cmake options
 OPTION(PAJENG         "The PajeNG visualization tool (Qt4 version)" ON)
