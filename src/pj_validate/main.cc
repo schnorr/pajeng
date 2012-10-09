@@ -23,8 +23,8 @@
 #include <argp.h>
 
 #define VALIDATE_INPUT_SIZE 2
-static char doc[] = "Checks if <paje.trace> strictly follows the Paje file format definition";
-static char args_doc[] = "<paje.trace>";
+static char doc[] = "Checks if FILE, or standard input, strictly follows the Paje file format definition";
+static char args_doc[] = "[FILE]";
 
 static struct argp_option options[] = {
   { 0 }
@@ -48,7 +48,7 @@ static int parse_options (int key, char *arg, struct argp_state *state)
     arguments->input_size++;
     break;
   case ARGP_KEY_END:
-    if (state->arg_num < 1) {
+    if (state->arg_num < 0) {
       /* Not enough arguments. */
       argp_usage (state);
     }
@@ -77,12 +77,19 @@ int main (int argc, char **argv)
     return 1;
   }
 
-  if (!is_readable(std::string(arguments.input[0]))){
-    std::cerr << "trace file \"" << argv[1] << "\" not found" << std::endl;
-    return 1;
+  PajeFileReader *reader;
+
+  if (arguments.input_size != 0){
+    if (!is_readable(std::string(arguments.input[0]))){
+      std::cerr << "trace file \"" << arguments.input[0] << "\" not found" << std::endl;
+      return 1;
+    }else{
+      reader = new PajeFileReader (std::string(arguments.input[0]));
+    }
+  }else{
+    reader = new PajeFileReader ();
   }
 
-  PajeFileReader *reader = new PajeFileReader (std::string(arguments.input[0]));
   PajeEventDecoder *decoder = new PajeEventDecoder ();
   PajeSimulator *simulator = new PajeSimulator ();
 
@@ -92,13 +99,11 @@ int main (int argc, char **argv)
   simulator->setInputComponent (decoder);
 
   try {
-    int i = 0;
+    reader->startReading();
     while (reader->hasMoreData()){
-      reader->startChunk (i);
       reader->readNextChunk();
-      reader->endOfChunkLast (!reader->hasMoreData());
-      i++;
     }
+    reader->finishedReading();
   }catch (std::string exception){
     std::cout << "Exception: " << exception << std::endl;
     std::cout << "This trace file does not follow the Paje file format description. Sorry." << std::endl;
