@@ -18,11 +18,18 @@
 
 PajeData::PajeData (int capacity)
 {
-  bytes = new char [capacity];
-  length = capacity;
+  this->bytes = (char*) malloc (capacity * sizeof(char));
+  this->capacity = capacity;
+  this->length = 0;
 }
 
 PajeData::~PajeData (void)
 {
-  if (bytes) delete [] bytes;
+  free (bytes);
+}
+
+void PajeData::increaseCapacityOf (int additionalCapacity)
+{
+  this->capacity += additionalCapacity;
+  this->bytes = (char*) realloc (this->bytes, capacity * sizeof(char));
 }
