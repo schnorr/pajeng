@@ -37,10 +37,23 @@ PajeFileReader::PajeFileReader (std::string f)
   file.seekg (0, std::ios::end);
   length = file.tellg ();
   file.seekg (0, std::ios::beg);
+
+  input = &file;
+}
+
+PajeFileReader::PajeFileReader ()
+{
+  chunkSize = PAJE_DEFAULT_CHUNK_SIZE;
+  moreData = true;
+  currentChunk = 0;
+  filename = std::string ("stdin");
+
+  input = &std::cin;
 }
 
 PajeFileReader::~PajeFileReader (void)
 {
+  file.close();
 }
 
 void PajeFileReader::startChunk (int chunkNumber)
@@ -52,12 +65,12 @@ void PajeFileReader::startChunk (int chunkNumber)
     }
 
     std::streampos position = chunkInfo.find (chunkNumber)->second;
-    file.seekg (position);
+    input->seekg (position);
     currentChunk = chunkNumber;
     moreData = true;
   }else{
     if (chunkInfo.size() == 0){
-      std::streampos position = file.tellg();
+      std::streampos position = input->tellg();
       chunkInfo.insert (std::pair<int,std::streampos>(chunkNumber, position));
     }
   }
@@ -69,7 +82,7 @@ void PajeFileReader::endOfChunkLast (bool last)
   currentChunk++;
   if (!last){
     if (currentChunk == chunkInfo.size()){
-      std::streampos position = file.tellg();
+      std::streampos position = input->tellg();
       chunkInfo.insert (std::pair<int,std::streampos>(currentChunk,position));
     }
   }
@@ -83,14 +96,14 @@ bool PajeFileReader::canEndChunk (void)
     return true;
   }
 
-  std::streamoff offsetInFile = file.tellg();
+  std::streamoff offsetInFile = input->tellg();
   PajeData *buffer = new PajeData(chunkSize);
-  file.read (buffer->bytes, chunkSize);
-  if (file.eof()){
-    file.close();
-    file.open (filename.c_str());
+  input->read (buffer->bytes, chunkSize);
+  if (input->eof()){
+    // file.close();
+    // file.open (filename.c_str());
   }
-  std::streamoff length = file.gcount ();
+  std::streamoff length = input->gcount ();
   buffer->length = length;
   std::streamoff line_size = std::streamoff(chunkSize);
   if (length < line_size){
@@ -106,7 +119,7 @@ bool PajeFileReader::canEndChunk (void)
     if (newlength != length){
       length = newlength;
       moreData = true;
-      file.seekg (offsetInFile + length);
+      input->seekg (offsetInFile + length);
       buffer->bytes[length] = '\0';
       buffer->length = length;
     }
@@ -115,10 +128,10 @@ bool PajeFileReader::canEndChunk (void)
   bool ret = true;
   if (length > 0){
     if (PajeComponent::canEndChunkBefore(buffer)){
-      file.seekg(offsetInFile);
+      input->seekg(offsetInFile);
       ret = true;
     }else{
-      file.seekg(offsetInFile+length);
+      input->seekg(offsetInFile+length);
       ret = false;
     }
   }else{
@@ -136,11 +149,11 @@ void PajeFileReader::readNextChunk (void)
   if (nextChunk < chunkInfo.size()){
     // this chunk has already been read, we should know its size
     std::streampos nextChunkPosition = chunkInfo.find (nextChunk)->second;
-    std::streampos chunkSize = nextChunkPosition - file.tellg();
+    std::streampos chunkSize = nextChunkPosition - input->tellg();
     PajeData *buffer = new PajeData (chunkSize);
-    file.read (buffer->bytes, chunkSize);
-    current = file.tellg();
-    std::streamoff length = file.gcount();
+    input->read (buffer->bytes, chunkSize);
+    current = input->tellg();
+    std::streamoff length = input->gcount();
     buffer->length = length;
     if (length != chunkSize){
       fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
@@ -155,9 +168,9 @@ void PajeFileReader::readNextChunk (void)
     // and in a date-changing event).
     // need to create a NSMutableData from a NSData
     PajeData *buffer = new PajeData(chunkSize);
-    file.read (buffer->bytes, chunkSize);
-    current = file.tellg();
-    std::streamoff length = file.gcount ();
+    input->read (buffer->bytes, chunkSize);
+    current = input->tellg();
+    std::streamoff length = input->gcount ();
     buffer->length = length;
     if (length < chunkSize){
       moreData = false;
@@ -169,7 +182,7 @@ void PajeFileReader::readNextChunk (void)
         offset++;
       }
       if ((i >= 0) && (offset > 0)) {
-        file.seekg (file.tellg() - std::streampos(offset));
+        input->seekg (input->tellg() - std::streampos(offset));
         length = length - std::streampos(offset);
         buffer->bytes[length] = '\0';
         buffer->length = length;
@@ -201,7 +214,7 @@ unsigned long long PajeFileReader::traceSize (void)
 
 unsigned long long PajeFileReader::traceRead (void)
 {
-  if (!file.eof())
+  if (!input->eof())
     return current;
   else
     return length;

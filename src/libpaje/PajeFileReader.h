@@ -32,6 +32,7 @@ class PajeFileReader : public PajeComponent {
 private:
   std::string filename;
   std::ifstream file;
+  std::istream *input;
   std::streamoff chunkSize;
   int currentChunk;
   bool moreData;
@@ -44,6 +45,7 @@ private:
 
 public:
   PajeFileReader (std::string f);
+  PajeFileReader (void); //reads from stdin
   ~PajeFileReader (void);
   void readNextChunk (void);
   void startChunk (int chunkNumber);
