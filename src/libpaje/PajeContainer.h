@@ -81,6 +81,7 @@ private:
   PajeAggregatedDict add (PajeAggregatedDict a,
                           PajeAggregatedDict b);
   bool checkTimeOrder (double time, PajeType *type, PajeEvent *event);
+  bool checkPendingLinks (void);
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container);

@@ -88,6 +88,17 @@ PajeContainer *PajeContainer::addContainer (double time, std::string name, std::
   return newContainer;
 }
 
+bool PajeContainer::checkPendingLinks (void)
+{
+  std::map<PajeType*,std::map<std::string,PajeUserLink*> >::iterator it;
+  for (it = pendingLinks.begin(); it != pendingLinks.end(); it++){
+    if (((*it).second).size()){
+      return false;
+    }
+  }
+  return true;
+}
+
 void PajeContainer::destroy (double time, PajeEvent *event)
 {
   if (destroyed){
@@ -114,9 +125,8 @@ void PajeContainer::destroy (double time, PajeEvent *event)
   }
 
   //check pendingLinks
-  if (pendingLinks.size()){
-    std::cerr << "Incomplete links at the end of container " << name() << std::endl;
-//    throw "Incomplete links at the end of container "+name();
+  if (!checkPendingLinks()){
+    throw "Incomplete links at the end of container with name '"+name()+"'";
   }
 
   //check stackStates, finish all stacked states, clear stacks
