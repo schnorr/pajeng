@@ -132,24 +132,17 @@ void PajeSimulator::inputEntity (PajeObject *data)
   }
 }
 
-bool PajeSimulator::canEndChunkBefore (PajeObject *data)
-{
-  return true;
-}
-
-void PajeSimulator::startChunk (int chunkNumber)
+void PajeSimulator::startReading (void)
 {
 }
 
-void PajeSimulator::endOfChunkLast (bool last)
+void PajeSimulator::finishedReading (void)
 {
-  if (last){
-    //file has ended, mark all containers as destroyed
-    root->recursiveDestroy (lastKnownTime, NULL);
-    hierarchyChanged ();
-    timeLimitsChanged ();
-    setSelectionStartEndTime (startTime(), endTime());
-  }
+  //file has ended, mark all containers as destroyed
+  root->recursiveDestroy (lastKnownTime, NULL);
+  hierarchyChanged ();
+  timeLimitsChanged ();
+  setSelectionStartEndTime (startTime(), endTime());
 }
 
 void PajeSimulator::pajeDefineContainerType (PajeEvent *event)

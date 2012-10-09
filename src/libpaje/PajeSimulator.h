@@ -58,10 +58,8 @@ public:
   void report (void);
   
   void inputEntity (PajeObject *data);
-  bool canEndChunkBefore (PajeObject *data);
-
-  void startChunk (int chunkNumber);
-  void endOfChunkLast (bool last);
+  void startReading (void);
+  void finishedReading (void);
 
 private:
   void (PajeSimulator::*invocation[PajeEventIdCount])(PajeEvent*);

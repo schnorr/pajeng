@@ -60,35 +60,22 @@ void PajeComponent::outputEntity (PajeObject *data)
   }
 }
 
-bool PajeComponent::canEndChunkBefore (PajeObject *data)
+void PajeComponent::startReading (void)
 {
   if (outputComponent.size()){
     std::vector<PajeComponent*>::iterator it;
     for (it = outputComponent.begin(); it != outputComponent.end(); it++){
-      if ((*it)->canEndChunkBefore (data) == false){
-        return false;
-      }
-    }
-  }
-  return true;
-}
-
-void PajeComponent::startChunk (int chunkNumber)
-{
-  if (outputComponent.size()){
-    std::vector<PajeComponent*>::iterator it;
-    for (it = outputComponent.begin(); it != outputComponent.end(); it++){
-      (*it)->startChunk (chunkNumber);
+      (*it)->startReading ();
     }
   }
 }
 
-void PajeComponent::endOfChunkLast (bool last)
+void PajeComponent::finishedReading (void)
 {
   if (outputComponent.size()){
     std::vector<PajeComponent*>::iterator it;
     for (it = outputComponent.begin(); it != outputComponent.end(); it++){
-      (*it)->endOfChunkLast (last);
+      (*it)->finishedReading ();
     }
   }
 }

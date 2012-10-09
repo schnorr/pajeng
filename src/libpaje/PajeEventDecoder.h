@@ -45,6 +45,5 @@ public:
   ~PajeEventDecoder (void);
 
   void inputEntity (PajeObject *data);
-  bool canEndChunkBefore (PajeObject *data);
 };
 #endif

@@ -49,145 +49,33 @@ PajeFileReader::~PajeFileReader (void)
   file.close();
 }
 
-void PajeFileReader::startChunk (int chunkNumber)
-{
-  if (chunkNumber != currentChunk){
-    if (chunkNumber >= chunkInfo.size()){
-      fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-      exit(1);
-    }
-
-    std::streampos position = chunkInfo.find (chunkNumber)->second;
-    input->seekg (position);
-    currentChunk = chunkNumber;
-    moreData = true;
-  }else{
-    if (chunkInfo.size() == 0){
-      std::streampos position = input->tellg();
-      chunkInfo.insert (std::pair<int,std::streampos>(chunkNumber, position));
-    }
-  }
-  PajeComponent::startChunk (chunkNumber);
-}
-
-void PajeFileReader::endOfChunkLast (bool last)
-{
-  currentChunk++;
-  if (!last){
-    if (currentChunk == chunkInfo.size()){
-      std::streampos position = input->tellg();
-      chunkInfo.insert (std::pair<int,std::streampos>(currentChunk,position));
-    }
-  }
-  PajeComponent::endOfChunkLast (last);
-}
-
-bool PajeFileReader::canEndChunk (void)
-{
-  if (!this->hasMoreData()){
-    //file reached end, so we can end current chunk
-    return true;
-  }
-
-  std::streamoff offsetInFile = input->tellg();
-  PajeData *buffer = new PajeData(chunkSize);
-  input->read (buffer->bytes, chunkSize);
-  if (input->eof()){
-    // file.close();
-    // file.open (filename.c_str());
-  }
-  std::streamoff length = input->gcount ();
-  buffer->length = length;
-  std::streamoff line_size = std::streamoff(chunkSize);
-  if (length < line_size){
-    moreData = false;
-  }
-
-  //align data based on EOL
-  char *bytes = buffer->bytes;
-  char *eol;
-  eol = (char*)memchr (bytes, '\n', length);
-  if (eol != NULL){
-    std::streamoff newlength = std::streamoff (eol - bytes + 1);
-    if (newlength != length){
-      length = newlength;
-      moreData = true;
-      input->seekg (offsetInFile + length);
-      buffer->bytes[length] = '\0';
-      buffer->length = length;
-    }
-  }
-
-  bool ret = true;
-  if (length > 0){
-    if (PajeComponent::canEndChunkBefore(buffer)){
-      input->seekg(offsetInFile);
-      ret = true;
-    }else{
-      input->seekg(offsetInFile+length);
-      ret = false;
-    }
-  }else{
-    ret = true;
-  }
-  delete buffer;
-  return ret;
-}
-
 void PajeFileReader::readNextChunk (void)
 {
+  if (input->eof()) moreData = false;
   if (!moreData) return;
 
-  int nextChunk = currentChunk + 1;
-  if (nextChunk < chunkInfo.size()){
-    // this chunk has already been read, we should know its size
-    std::streampos nextChunkPosition = chunkInfo.find (nextChunk)->second;
-    std::streampos chunkSize = nextChunkPosition - input->tellg();
-    PajeData *buffer = new PajeData (chunkSize);
-    input->read (buffer->bytes, chunkSize);
-    current = input->tellg();
-    std::streamoff length = input->gcount();
-    buffer->length = length;
-    if (length != chunkSize){
-      fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-      exit(1);
-    }
-    PajeComponent::outputEntity (buffer);
-    fprintf (stderr, "%s %d TODO\n", __FILE__, __LINE__);
-    exit(1);
-  }else{
-    // first time reading this chunk.
-    // must determine its correct size (must end in a line boundary
-    // and in a date-changing event).
-    // need to create a NSMutableData from a NSData
-    PajeData *buffer = new PajeData(chunkSize);
-    input->read (buffer->bytes, chunkSize);
-    current = input->tellg();
-    std::streamoff length = input->gcount ();
-    buffer->length = length;
-    if (length < chunkSize){
-      moreData = false;
-    }else{
-      char *bytes = buffer->bytes;
-      int i;
-      int offset = 0;
-      for (i = length-1; i >= 0 && bytes[i] != '\n'; i--) {
-        offset++;
-      }
-      if ((i >= 0) && (offset > 0)) {
-        input->seekg (input->tellg() - std::streampos(offset));
-        length = length - std::streampos(offset);
-        buffer->bytes[length] = '\0';
-        buffer->length = length;
-      }
-    }
+  //read a chunk
+  PajeData *buffer = new PajeData(chunkSize);
+  input->read (buffer->bytes, chunkSize);
+  current = input->tellg();
+  length = buffer->length = input->gcount ();
 
-    if (length > 0){
-      PajeComponent::outputEntity (buffer);
+  //read until next \n
+  while (!input->eof()){
+    char c;
+    input->get (c);
+    if (buffer->length + 1 > buffer->capacity){
+      buffer->increaseCapacityOf (100);
     }
-    delete buffer;
-    while (!this->canEndChunk());
+    buffer->bytes[buffer->length] = c;
+    length = buffer->length++;
+    if (c == '\n') break;
   }
+
+  if (length > 0){
+    PajeComponent::outputEntity (buffer);
+  }
+  delete buffer;
 }
 
 bool PajeFileReader::hasMoreData (void)

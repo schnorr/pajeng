@@ -41,10 +41,8 @@ public:
 
   void virtual inputEntity (PajeObject *data);
   void virtual outputEntity (PajeObject *data);
-  bool virtual canEndChunkBefore (PajeObject *data);
-              
-  void virtual startChunk (int chunkNumber); //a new chunk is starting
-  void virtual endOfChunkLast (bool last);   //the current chunk is ending
+  void virtual startReading (void);
+  void virtual finishedReading (void);
 
   //notifications
   void virtual timeLimitsChanged (void);
