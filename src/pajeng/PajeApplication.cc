@@ -19,7 +19,10 @@
 PajeApplication::PajeApplication( int &argc, char **argv) : QApplication(argc,argv)
 {
   setApplicationName("Paje++");
-  filename = arguments().at(1);
+  filename.clear();
+  if (arguments().count() > 1){
+    filename = arguments().at(1);
+  }
 }
 
 void PajeApplication::init (void)
@@ -27,7 +30,11 @@ void PajeApplication::init (void)
   pajeWindow = PajeWindow::getInstance ();
   pajeWindow->setApplication (this);
 
-  reader = new PajeFileReader (filename.toStdString());
+  if (filename.isEmpty()){
+    reader = new PajeFileReader ();
+  }else{
+    reader = new PajeFileReader (filename.toStdString());
+  }
   decoder = new PajeEventDecoder ();
   simulator = new PajeSimulator ();
 
