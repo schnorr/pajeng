@@ -58,7 +58,7 @@ void PajeFileReader::readNextChunk (void)
   PajeData *buffer = new PajeData(chunkSize);
   input->read (buffer->bytes, chunkSize);
   current = input->tellg();
-  length = buffer->length = input->gcount ();
+  std::streamoff length = buffer->length = input->gcount ();
 
   //read until next \n
   while (!input->eof()){
