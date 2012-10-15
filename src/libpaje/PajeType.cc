@@ -287,3 +287,14 @@ std::string PajeAggregatedType::name (void) const
     return aggregatedValue;
   }
 }
+
+std::string PajeAggregatedType::description (void) const
+{
+  std::string result;
+  result.append (aggregatedType->name());
+  if (!aggregatedValue.empty()){
+    result.append ("_");
+    result.append (aggregatedValue);
+  }
+  return result;
+}

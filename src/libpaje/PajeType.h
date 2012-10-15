@@ -122,6 +122,7 @@ public:
   PajeColor *color (void) const;
   PajeType *type (void) const;
   std::string name (void) const;
+  std::string description (void) const;
 };
 
 struct PajeAggregatedTypeCompare {
