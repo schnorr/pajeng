@@ -553,6 +553,9 @@ bool PajeContainer::checkTimeOrder (double time, PajeType *type, PajeEvent *even
 
 std::vector<PajeAggregatedDict> PajeContainer::computeGainDivergence (double start, double end)
 {
+  gain.clear();
+  div.clear();
+
   std::vector<PajeAggregatedDict> V;
   std::vector<PajeAggregatedDict>::iterator v;
 
@@ -602,7 +605,6 @@ std::vector<PajeAggregatedDict> PajeContainer::computeGainDivergence (double sta
       if (!gain.count(type)) gain[type] = 0;
       gain[type] = S[type] * log2(S[type]) - B[type];
     }
-
 
     // calculate div for all variables
     for (v = V.begin(); v != V.end(); v++){

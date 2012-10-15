@@ -72,6 +72,9 @@ public:
   PajeAggregatedDict virtual timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);
   PajeAggregatedDict virtual integrationOfContainer (PajeContainer *container);
   PajeAggregatedDict virtual spatialIntegrationOfContainer (PajeContainer *container);
+
+  //entropy queries
+  std::pair<double,std::vector<PajeContainer*> > virtual findBestAggregation (PajeContainer *root, PajeAggregatedType *type, double p);
 };
 
 #endif

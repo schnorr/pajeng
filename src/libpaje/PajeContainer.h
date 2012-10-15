@@ -27,7 +27,7 @@
 class PajeContainer;
 
 class PajeContainer : public PajeUserState {
-private: //entropy attributes
+public: //entropy attributes
   PajeAggregatedDict gain;
   PajeAggregatedDict div;
 

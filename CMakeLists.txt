@@ -71,7 +71,8 @@ SET(LIBPAJE_HEADERS
   src/libpaje/PajeFileReader.h
   src/libpaje/PajeObject.h
   src/libpaje/PajeSimulator.h
-  src/libpaje/PajeType.h)
+  src/libpaje/PajeType.h
+  src/libpaje/PajeEntropy.h)
 SET(LIBPAJE_SOURCES
   src/libpaje/PajeEventDefinition.cc
   src/libpaje/PajeEvent.cc
@@ -85,7 +86,8 @@ SET(LIBPAJE_SOURCES
   src/libpaje/PajeType.cc
   src/libpaje/PajeContainer.cc
   src/libpaje/PajeColor.cc
-  src/libpaje/PajeEntity.cc)
+  src/libpaje/PajeEntity.cc
+  src/libpaje/PajeEntropy.cc)
 
 # The Paje Utils Library (libpajeutils)
 SET(UTILS_HEADERS
