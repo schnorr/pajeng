@@ -15,6 +15,7 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeContainer.h"
+#include <math.h>
 
 PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeEvent *event):PajeUserState (parent, type, name, time, time, event)
 {
@@ -548,4 +549,73 @@ bool PajeContainer::checkTimeOrder (double time, PajeType *type, PajeEvent *even
     }
   }
   return true;
+}
+
+std::vector<PajeAggregatedDict> PajeContainer::computeGainDivergence (double start, double end)
+{
+  std::vector<PajeAggregatedDict> V;
+  std::vector<PajeAggregatedDict>::iterator v;
+
+  if (children.size() == 0){
+    PajeAggregatedDict timeIntegration = integrationOfContainer (start, end);
+
+    //set gain and div to zero, because I have no children
+    PajeAggregatedDict::iterator it;
+    for (it = timeIntegration.begin(); it != timeIntegration.end() ; it++){
+      PajeAggregatedType *type = (*it).first;
+      gain[type] = 0;
+      div[type] = 0;
+    }
+    V.push_back(timeIntegration);
+  }else{
+    //recursion, put all time aggregated dictionaries on V
+    {
+      std::map<std::string,PajeContainer*>::iterator it;
+      for (it = children.begin(); it != children.end() ; it++){
+        std::vector<PajeAggregatedDict> vl = ((*it).second)->computeGainDivergence (start, end);
+        V.insert (V.end(), vl.begin(), vl.end());
+      }
+    }
+
+    //calculate S and B for all variables
+    PajeAggregatedDict S, B;
+    for (v = V.begin(); v != V.end(); v++){
+
+      PajeAggregatedDict vv = (*v);
+      PajeAggregatedDict::iterator vvit;
+      for (vvit = vv.begin(); vvit != vv.end(); vvit++){
+        PajeAggregatedType *type = (*vvit).first;
+        double value = (*vvit).second;
+
+        if (!S.count(type)) S[type] = 0;
+        S[type] += value;
+
+        if (!B.count(type)) B[type] = 0;
+        B[type] += value * log2(value);
+      }
+    }
+
+    // //calculate gain for all variables
+    PajeAggregatedDict::iterator git;
+    for (git = S.begin(); git != S.end(); git++){
+      PajeAggregatedType *type = (*git).first;
+      if (!gain.count(type)) gain[type] = 0;
+      gain[type] = S[type] * log2(S[type]) - B[type];
+    }
+
+
+    // calculate div for all variables
+    for (v = V.begin(); v != V.end(); v++){
+      PajeAggregatedDict vv = (*v);
+      PajeAggregatedDict::iterator vvit;
+      for (vvit = vv.begin(); vvit != vv.end(); vvit++){
+        PajeAggregatedType *type = (*vvit).first;
+        double value = (*vvit).second;
+
+        if (!div.count(type)) div[type] = 0;
+        div[type] += value * log2 ( value/S[type] * V.size() );
+      }
+    }
+  }
+  return V;
 }

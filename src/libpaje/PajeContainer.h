@@ -27,6 +27,10 @@
 class PajeContainer;
 
 class PajeContainer : public PajeUserState {
+private: //entropy attributes
+  PajeAggregatedDict gain;
+  PajeAggregatedDict div;
+
 public:
   std::string alias;
   bool destroyed;
@@ -74,6 +78,9 @@ public:
   PajeAggregatedDict timeIntegrationOfVariableTypeInContainer (double start, double end, PajeVariableType *type);
   PajeAggregatedDict integrationOfContainer (double start, double end);
   PajeAggregatedDict spatialIntegrationOfContainer (double start, double end);
+
+  //queries for entropy
+  std::vector<PajeAggregatedDict> computeGainDivergence (double start, double end);
 
 private:
   PajeAggregatedDict merge (PajeAggregatedDict a,
