@@ -124,6 +124,12 @@ PajeContainer *PajeComponent::rootInstance (void)
   else return NULL;
 }
 
+PajeType *PajeComponent::rootEntityType (void)
+{
+  if (inputComponent) return inputComponent->rootEntityType ();
+  else return NULL;
+}
+
 std::vector<PajeType*> PajeComponent::containedTypesForContainerType (PajeType *type)
 {
   std::vector<PajeType*> empty;
