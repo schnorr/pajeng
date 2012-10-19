@@ -21,6 +21,11 @@ PajeContainer *PajeSimulator::rootInstance (void)
   return root;
 }
 
+PajeType *PajeSimulator::rootEntityType (void)
+{
+  return root->type();
+}
+
 std::vector<PajeType*> PajeSimulator::containedTypesForContainerType (PajeType *type)
 {
   std::vector<PajeType *> ret;

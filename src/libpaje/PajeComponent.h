@@ -54,6 +54,7 @@ public:
 
   //queries
   PajeContainer virtual *rootInstance (void);
+  PajeType virtual *rootEntityType (void);
   std::vector<PajeType*> virtual containedTypesForContainerType (PajeType *type);
   std::vector<PajeContainer*> virtual enumeratorOfContainersInContainer (PajeContainer *container);
   std::vector<PajeContainer*> virtual enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container);
