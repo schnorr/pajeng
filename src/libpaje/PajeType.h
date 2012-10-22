@@ -47,6 +47,7 @@ public:
   virtual PajeColor *colorForIdentifier (std::string identifier);
   virtual PajeColor *color (void);
   virtual PajeDrawingType drawingType (void) = 0;
+  virtual std::string nature (void) = 0;
 };
 
 class PajeCategorizedType : public PajeType {
@@ -67,18 +68,21 @@ public:
   PajeVariableType (std::string name, std::string alias, PajeType *parent);
   PajeVariableType (std::string name, std::string alias, PajeType *parent, PajeColor *color);
   PajeDrawingType drawingType (void);
+  std::string nature (void);
 };
 
 class PajeStateType : public PajeCategorizedType {
 public:
   PajeStateType (std::string name, std::string alias, PajeType *parent);
   PajeDrawingType drawingType (void);
+  std::string nature (void);
 };
 
 class PajeEventType : public PajeCategorizedType {
 public:
   PajeEventType (std::string name, std::string alias, PajeType *parent);
   PajeDrawingType drawingType (void);
+  std::string nature (void);
 };
 
 class PajeLinkType : public PajeCategorizedType {
@@ -89,6 +93,7 @@ public:
 public:
   PajeLinkType (std::string name, std::string alias, PajeType *start, PajeType *end, PajeType *parent);
   PajeDrawingType drawingType (void);
+  std::string nature (void);
 };
 
 class PajeContainerType : public PajeType {
@@ -105,6 +110,7 @@ public:
   PajeEventType *addEventType (std::string name, std::string alias);
   PajeLinkType *addLinkType (std::string name, std::string alias, PajeType *starttype, PajeType *endtype);
   PajeDrawingType drawingType (void);
+  std::string nature (void);
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeType &type);
