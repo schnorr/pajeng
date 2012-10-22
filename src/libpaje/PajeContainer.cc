@@ -56,7 +56,7 @@ std::string PajeContainer::description (void)
   }else{
     containername = std::string("0");
   }
-  description << "Container, "
+  description << type()->nature() << ", "
               << containername << ", "
               << type()->name() << ", "
               << startTime() << ", "
