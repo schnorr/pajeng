@@ -212,6 +212,13 @@ PajeColor *PajeComponent::colorForEntityType (PajeType *type)
   else return NULL;
 }
 
+std::vector<std::string> PajeComponent::valuesForEntityType (PajeType *type)
+{
+  std::vector<std::string> empty;
+  if (inputComponent) return inputComponent->valuesForEntityType (type);
+  else return empty;
+}
+
 PajeAggregatedDict PajeComponent::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)
 {
   PajeAggregatedDict empty;

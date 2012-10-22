@@ -15,6 +15,7 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeSimulator.h"
+#include <boost/foreach.hpp>
 
 PajeContainer *PajeSimulator::rootInstance (void)
 {
@@ -137,6 +138,19 @@ PajeColor *PajeSimulator::colorForValueOfEntityType (std::string value, PajeType
 PajeColor *PajeSimulator::colorForEntityType (PajeType *type)
 {
   return type->color ();
+}
+
+std::vector<std::string> PajeSimulator::valuesForEntityType (PajeType *type)
+{
+  std::vector<std::string> ret;
+  PajeCategorizedType *catType = dynamic_cast<PajeCategorizedType*>(type);
+  if (catType){
+    std::pair<std::string,std::string> val;
+    BOOST_FOREACH (val, catType->values){
+      ret.push_back (val.first);
+    }
+  }
+  return ret;
 }
 
 PajeAggregatedDict PajeSimulator::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)

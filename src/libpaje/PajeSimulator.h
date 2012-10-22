@@ -109,6 +109,7 @@ public:
   PajeContainer *containerWithName (std::string name);
   PajeColor *colorForValueOfEntityType (std::string value, PajeType *type);
   PajeColor *colorForEntityType (PajeType *type);
+  std::vector<std::string> valuesForEntityType (PajeType *type);
   
   //spatial/time integration queries
   PajeAggregatedDict timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);
