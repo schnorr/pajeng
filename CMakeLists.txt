@@ -36,27 +36,6 @@ SET(PAJE_SOURCES
   src/pajeng/PajeGraphicsItem.cc
   src/pajeng/PajeTreemapItem.cc)
 
-# Wapaje
-SET(WAPAJE_HEADERS
-  src/wapaje/WapajeApplication.h
-  src/wapaje/WapajeWindow.h
-  src/wapaje/WapajeSpaceTimeFrame.h
-  src/wapaje/WapajeSpaceTimeView.h
-  src/wapaje/WapajeTreemapFrame.h
-  src/wapaje/WapajeTreemapView.h)
-SET(WAPAJE_SOURCES
-  src/wapaje/main.cc
-  src/wapaje/WapajeApplication.cc
-  src/wapaje/WapajeWindow.cc
-  src/wapaje/WapajeSpaceTimeFrame.cc
-  src/wapaje/WapajeSpaceTimeView.cc
-  src/wapaje/WapajeTreemapFrame.cc
-  src/wapaje/WapajeTreemapView.cc
-  src/wapaje/WapajeTreemap.cc
-  src/wapaje/STEntityTypeLayout.cc
-  src/wapaje/WapajeGraphicsItem.cc
-  src/wapaje/WapajeTreemapItem.cc)
-
 # The Paje Library (libpaje)
 SET(LIBPAJE_HEADERS
   src/libpaje/PajeColor.h
@@ -103,7 +82,6 @@ SET(PAJEDUMP_SOURCES src/pj_dump/pj_dump.cc)
 
 # the cmake options
 OPTION(PAJENG         "The PajeNG visualization tool (Qt4 version)" ON)
-OPTION(WAPAJE         "The Experimental clone of PajeNG visualization tool (Qt4 version)" OFF)
 OPTION(PAJE_UTILS_LIBRARY "The Paje Utils library with QT-dependent components" ON)
 OPTION(PAJE_LIBRARY "The Paje library with all the basic components" ON)
 OPTION(PJ_DUMP    "Compile pj_dump (program to dump the contents of a trace" ON)
@@ -209,19 +187,3 @@ IF(PAJENG)
   INSTALL(PROGRAMS ${pajeng_BINARY_DIR}/pajeng DESTINATION bin)
   INSTALL(FILES ${UTILS_HEADERS} DESTINATION include)
 ENDIF(PAJENG)
-
-# Wapaje (Experimental)
-IF(WAPAJE)
-  FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtOpenGl)
-  FIND_PACKAGE(GLUT REQUIRED)
-  FIND_PACKAGE(OpenGL REQUIRED)
-  QT4_WRAP_CPP(WAPAJE_HEADERS_MOC ${WAPAJE_HEADERS})
-  QT4_WRAP_CPP(UTILS_HEADERS_MOC ${UTILS_HEADERS})
-  INCLUDE(${QT_USE_FILE})
-  ADD_DEFINITIONS(${QT_DEFINITIONS})
-  ADD_EXECUTABLE(wapaje ${WAPAJE_SOURCES} ${WAPAJE_HEADERS_MOC} ${UTILS_SOURCES} ${UTILS_HEADERS_MOC})
-  INCLUDE_DIRECTORIES(wapaje ${PROJECT_SOURCE_DIR}/src/libpaje/)
-  TARGET_LINK_LIBRARIES(wapaje ${QT_LIBRARIES} ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} paje_library)
-  INSTALL(PROGRAMS ${wapaje_BINARY_DIR}/wapaje DESTINATION bin)
-  INSTALL(FILES ${UTILS_HEADERS} DESTINATION include)
-ENDIF(WAPAJE)
