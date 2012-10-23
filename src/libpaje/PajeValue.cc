@@ -39,6 +39,15 @@ std::string PajeValue::alias (void)
   return _alias;
 }
 
+std::string PajeValue::identifier (void)
+{
+  if (alias().empty()){
+    return _name;
+  }else{
+    return _alias;
+  }
+}
+
 PajeType *PajeValue::type (void)
 {
   return _type;

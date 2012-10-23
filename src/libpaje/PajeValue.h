@@ -31,6 +31,7 @@ public:
   PajeColor *color (void);
   std::string name (void);
   std::string alias (void);
+  std::string identifier (void);
   PajeType *type (void);
 };
 
