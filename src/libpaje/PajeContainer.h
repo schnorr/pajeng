@@ -26,7 +26,7 @@
 
 class PajeContainer;
 
-class PajeContainer : public PajeUserState {
+class PajeContainer : public PajeNamedEntity {
 public: //entropy attributes
   PajeAggregatedDict gain;
   PajeAggregatedDict div;
@@ -48,8 +48,8 @@ private:
 
 public:
   PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeEvent *event);
-  std::string description (void);
-  bool isContainer (void);
+  std::string description (void) const;
+  bool isContainer (void) const;
   PajeContainer *getRoot (void);
   std::vector<PajeContainer*> getChildren (void);
   bool isAncestorOf (PajeContainer *c);
@@ -60,13 +60,13 @@ public:
   void setVariable (double time, PajeType *type, double value, PajeEvent *event);
   void addVariable (double time, PajeType *type, double value, PajeEvent *event);
   void subVariable (double time, PajeType *type, double value, PajeEvent *event);
-  void startLink (double time, PajeType *type, PajeContainer *startContainer, std::string value, std::string key, PajeEvent *event);
-  void endLink (double time, PajeType *type, PajeContainer *endContainer, std::string value, std::string key, PajeEvent *event);
-  void newEvent (double time, PajeType *type, std::string value, PajeEvent *event);
-  void setState (double time, PajeType *type, std::string value, PajeEvent *event);
-  void pushState (double time, PajeType *type, std::string value, PajeEvent *event);
-  void popState (double time, PajeType *type, std::string value, PajeEvent *event);
-  void resetState (double time, PajeType *type, std::string value, PajeEvent *event);
+  void startLink (double time, PajeType *type, PajeContainer *startContainer, PajeValue *value, std::string key, PajeEvent *event);
+  void endLink (double time, PajeType *type, PajeContainer *endContainer, PajeValue *value, std::string key, PajeEvent *event);
+  void newEvent (double time, PajeType *type, PajeValue *value, PajeEvent *event);
+  void setState (double time, PajeType *type, PajeValue *value, PajeEvent *event);
+  void pushState (double time, PajeType *type, PajeValue *value, PajeEvent *event);
+  void popState (double time, PajeType *type, PajeEvent *event);
+  void resetState (double time, PajeType *type, PajeEvent *event);
 
 public:
   void recursiveDestroy (double time, PajeEvent *event); //not a PajeSimulator event, EOF found

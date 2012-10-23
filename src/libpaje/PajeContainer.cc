@@ -17,7 +17,8 @@
 #include "PajeContainer.h"
 #include <math.h>
 
-PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeEvent *event):PajeUserState (parent, type, name, time, time, event)
+PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeEvent *event)
+  : PajeNamedEntity (parent, type, time, name, event)
 {
   this->alias = alias;
   this->destroyed = false;
@@ -48,7 +49,7 @@ bool PajeContainer::isAncestorOf (PajeContainer *c)
   return false;
 }
 
-std::string PajeContainer::description (void)
+std::string PajeContainer::description (void) const
 {
   std::stringstream description;
   std::string containername;
@@ -72,7 +73,7 @@ std::string PajeContainer::description (void)
   return description.str();
 }
 
-bool PajeContainer::isContainer (void)
+bool PajeContainer::isContainer (void) const
 {
   return true;
 }
@@ -160,7 +161,7 @@ void PajeContainer::setVariable (double time, PajeType *type, double value, Paje
   }
 
   //create new
-  PajeUserVariable *val = new PajeUserVariable (this, type, value, time, time, event);
+  PajeUserVariable *val = new PajeUserVariable (this, type, time, value, event);
   entities[type].push_back(val);
 
   //update container endtime
@@ -192,7 +193,7 @@ void PajeContainer::addVariable (double time, PajeType *type, double value, Paje
     }
   }
   //create new
-  PajeUserVariable *val = new PajeUserVariable (this, type, lastValue + value, time, time, event);
+  PajeUserVariable *val = new PajeUserVariable (this, type, time, lastValue + value, event);
   entities[type].push_back(val);
 
   //update container endtime
@@ -225,14 +226,14 @@ void PajeContainer::subVariable (double time, PajeType *type, double value, Paje
   }
 
   //create new
-  PajeUserVariable *val = new PajeUserVariable (this, type, lastValue - value, time, time, event);
+  PajeUserVariable *val = new PajeUserVariable (this, type, time, lastValue - value, event);
   entities[type].push_back(val);
 
   //update container endtime
   setEndTime (time);
 }
 
-void PajeContainer::startLink (double time, PajeType *type, PajeContainer *startContainer, std::string value, std::string key, PajeEvent *event)
+void PajeContainer::startLink (double time, PajeType *type, PajeContainer *startContainer, PajeValue *value, std::string key, PajeEvent *event)
 {
   if (linksUsedKeys[type].count(key)){
     std::stringstream eventdesc;
@@ -241,7 +242,7 @@ void PajeContainer::startLink (double time, PajeType *type, PajeContainer *start
   }
 
   if (pendingLinks[type].count(key) == 0){
-    PajeUserLink *link = new PajeUserLink(this, type, value, key, startContainer, time, event);
+    PajeUserLink *link = new PajeUserLink(this, type, time, value, key, startContainer, event);
     pendingLinks[type].insert (std::make_pair(key, link));
 
   }else{
@@ -255,7 +256,7 @@ void PajeContainer::startLink (double time, PajeType *type, PajeContainer *start
     if (link->value() != value){
       std::stringstream eventdesc;
       eventdesc << *event;
-      throw "Illegal PajeStartLink in "+eventdesc.str()+", value is different from the value of the corresponding PajeEndLink (which had "+link->value()+")";
+      throw "Illegal PajeStartLink in "+eventdesc.str()+", value is different from the value of the corresponding PajeEndLink (which had "+link->value()->identifier()+")";
     }
 
     //checking time-ordered for this type
@@ -270,7 +271,7 @@ void PajeContainer::startLink (double time, PajeType *type, PajeContainer *start
   }
 }
 
-void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endContainer, std::string value, std::string key, PajeEvent *event)
+void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endContainer, PajeValue *value, std::string key, PajeEvent *event)
 {
   if (linksUsedKeys[type].count(key)){
     std::stringstream eventdesc;
@@ -280,7 +281,7 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
 
   if (pendingLinks[type].count(key) == 0){
     //there is no corresponding PajeStartLink
-    PajeUserLink *link = new PajeUserLink(this, type, value, key, NULL, -1, event);
+    PajeUserLink *link = new PajeUserLink(this, type, -1, value, key, NULL, event);
     link->setEndContainer (endContainer);
     link->setEndTime (time);
     pendingLinks[type].insert (std::make_pair(key, link));
@@ -296,7 +297,7 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
     if (link->value() != value){
       std::stringstream eventdesc;
       eventdesc << *event;
-      throw "Illegal PajeEndLink in "+eventdesc.str()+", value is different from the value of the corresponding PajeStartLink (which had "+link->value()+")";
+      throw "Illegal PajeEndLink in "+eventdesc.str()+", value is different from the value of the corresponding PajeStartLink (which had "+link->value()->identifier()+")";
     }
 
     //checking time-ordered for this type
@@ -311,27 +312,27 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
   }
 }
 
-void PajeContainer::newEvent (double time, PajeType *type, std::string value, PajeEvent *event)
+void PajeContainer::newEvent (double time, PajeType *type, PajeValue *value, PajeEvent *event)
 {
   checkTimeOrder (time, type, event);
-  PajeUserEvent *n = new PajeUserEvent(this, type, value, time, event);
+  PajeUserEvent *n = new PajeUserEvent(this, type, time, value, event);
   entities[type].push_back (n);
 }
 
-void PajeContainer::setState (double time, PajeType *type, std::string value, PajeEvent *event)
+void PajeContainer::setState (double time, PajeType *type, PajeValue *value, PajeEvent *event)
 {
   checkTimeOrder (time, type, event);
 
-  resetState (time, type, value, event);
+  resetState (time, type, event);
 
-  PajeUserState *state = new PajeUserState (this, type, value, time, event);
+  PajeUserState *state = new PajeUserState (this, type, time, value, event);
   entities[type].push_back (state);
 
   std::vector<PajeUserState*> *stack = &stackStates[type];
   stack->push_back (state);
 }
 
-void PajeContainer::pushState (double time, PajeType *type, std::string value, PajeEvent *event)
+void PajeContainer::pushState (double time, PajeType *type, PajeValue *value, PajeEvent *event)
 {
   checkTimeOrder (time, type, event);
 
@@ -340,12 +341,12 @@ void PajeContainer::pushState (double time, PajeType *type, std::string value, P
   //define new imbrication level
   int imbrication = !stack->size() ? 0 : (stack->back())->imbricationLevel() + 1;
 
-  PajeUserState *state = new PajeUserState (this, type, value, time, imbrication, event);
+  PajeUserState *state = new PajeUserState (this, type, time, value, imbrication, event);
   entities[type].push_back (state);
   stack->push_back (state);
 }
 
-void PajeContainer::popState (double time, PajeType *type, std::string value, PajeEvent *event)
+void PajeContainer::popState (double time, PajeType *type, PajeEvent *event)
 {
   checkTimeOrder (time, type, event);
 
@@ -365,7 +366,7 @@ void PajeContainer::popState (double time, PajeType *type, std::string value, Pa
   stack->pop_back();
 }
 
-void PajeContainer::resetState (double time, PajeType *type, std::string value, PajeEvent *event)
+void PajeContainer::resetState (double time, PajeType *type, PajeEvent *event)
 {
   checkTimeOrder (time, type, event);
 

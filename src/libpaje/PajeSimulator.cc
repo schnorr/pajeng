@@ -341,7 +341,7 @@ void PajeSimulator::pajeDefineEntityValue (PajeEvent *event)
   //validate the color, if provided
   PajeColor *pajeColor = getColor (color, event);
 
-  type->addNewValue (alias, name, pajeColor);
+  type->addValue (alias, name, pajeColor);
 }
 
 void PajeSimulator::pajeCreateContainer (PajeEvent *event)
@@ -484,11 +484,14 @@ void PajeSimulator::pajeNewEvent (PajeEvent *event)
   }
 
   //check if the value was previously declared
+  PajeValue *val = NULL;
   if (type->hasValueForIdentifier (value)){
-    value = type->valueForIdentifier (value);
+    val = type->valueForIdentifier (value);
+  }else{
+    val = type->addValue (value, value, NULL);
   }
 
-  container->newEvent (lastKnownTime, type, value, event);
+  container->newEvent (lastKnownTime, type, val, event);
 }
 
 void PajeSimulator::pajeSetState (PajeEvent *event)
@@ -535,11 +538,14 @@ void PajeSimulator::pajeSetState (PajeEvent *event)
   }
 
   //check if the value was previously declared
+  PajeValue *val = NULL;
   if (type->hasValueForIdentifier (value)){
-    value = type->valueForIdentifier (value);
+    val = type->valueForIdentifier (value);
+  }else{
+    val = type->addValue (value, value, NULL);
   }
 
-  container->setState (lastKnownTime, type, value, event);
+  container->setState (lastKnownTime, type, val, event);
 }
 
 void PajeSimulator::pajePushState (PajeEvent *event)
@@ -586,11 +592,14 @@ void PajeSimulator::pajePushState (PajeEvent *event)
   }
 
   //check if the value was previously declared
+  PajeValue *val = NULL;
   if (type->hasValueForIdentifier (value)){
-    value = type->valueForIdentifier (value);
+    val = type->valueForIdentifier (value);
+  }else{
+    val = type->addValue (value, value, NULL);
   }
 
-  container->pushState (lastKnownTime, type, value, event);
+  container->pushState (lastKnownTime, type, val, event);
 }
 
 void PajeSimulator::pajePopState (PajeEvent *event)
@@ -598,7 +607,6 @@ void PajeSimulator::pajePopState (PajeEvent *event)
   std::string time = event->valueForFieldId (std::string("Time"));
   std::string typestr = event->valueForFieldId (std::string("Type"));
   std::string containerstr = event->valueForFieldId (std::string("Container"));
-  std::string value = event->valueForFieldId (std::string("Value"));
 
   //search the container
   PajeContainer *container = contMap[containerstr];
@@ -636,7 +644,7 @@ void PajeSimulator::pajePopState (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
-  container->popState (lastKnownTime, type, value, event);
+  container->popState (lastKnownTime, type, event);
 }
 
 
@@ -645,7 +653,6 @@ void PajeSimulator::pajeResetState (PajeEvent *event)
   std::string time = event->valueForFieldId (std::string("Time"));
   std::string typestr = event->valueForFieldId (std::string("Type"));
   std::string containerstr = event->valueForFieldId (std::string("Container"));
-  std::string value = event->valueForFieldId (std::string("Value"));
 
   //search the container
   PajeContainer *container = contMap[containerstr];
@@ -683,7 +690,7 @@ void PajeSimulator::pajeResetState (PajeEvent *event)
     throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
   }
 
-  container->resetState (lastKnownTime, type, value, event);
+  container->resetState (lastKnownTime, type, event);
 }
 
 void PajeSimulator::pajeSetVariable (PajeEvent *event)
@@ -893,12 +900,15 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
   }
 
   //check if the value was previously declared
+  PajeValue *val;
   if (type->hasValueForIdentifier (value)){
-    value = type->valueForIdentifier (value);
+    val = type->valueForIdentifier (value);
+  }else{
+    val = type->addValue (value, value, NULL);
   }
 
   float v = strtof (value.c_str(), NULL);
-  container->startLink (lastKnownTime, type, startcontainer, value, key, event);
+  container->startLink (lastKnownTime, type, startcontainer, val, key, event);
 }
 
 void PajeSimulator::pajeEndLink (PajeEvent *event)
@@ -967,10 +977,13 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
   }
 
   //check if the value was previously declared
+  PajeValue *val = NULL;
   if (type->hasValueForIdentifier (value)){
-    value = type->valueForIdentifier (value);
+    val = type->valueForIdentifier (value);
+  }else{
+    val = type->addValue (value, value, NULL);
   }
 
   float v = strtof (value.c_str(), NULL);
-  container->endLink (lastKnownTime, type, endcontainer, value, key, event);
+  container->endLink (lastKnownTime, type, endcontainer, val, key, event);
 }

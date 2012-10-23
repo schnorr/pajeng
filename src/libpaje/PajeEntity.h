@@ -22,104 +22,193 @@
 
 class PajeContainer;
 
-class PajeEntity : public PajeObject
+/*
+ * PajeVirtualEntity
+ */
+class PajeVirtualEntity : public PajeObject
+{
+public:
+  virtual void addPajeEvent (PajeEvent *event) = 0; //for Paje[Start|End]Link
+  virtual PajeContainer *container (void) const = 0;
+  virtual PajeType *type (void) const = 0;
+  virtual std::string name (void) const = 0;
+  virtual bool isContainedBy (PajeContainer *container) const = 0;
+  virtual bool isContainer (void) const = 0;
+  virtual PajeValue *value (void) const = 0;
+
+  virtual void setDoubleValue (double value) = 0;
+  virtual void addDoubleValue (double value) = 0;
+  virtual void subtractDoubleValue (double value) = 0;
+  virtual double doubleValue (void) const = 0;
+  virtual PajeContainer *startContainer (void) const = 0;
+  virtual PajeContainer *endContainer (void) const = 0;
+  virtual int imbricationLevel (void) const = 0;
+
+  virtual double time (void) const = 0;
+  virtual double startTime (void) const = 0;
+  virtual void setStartTime (double startTime) = 0;
+  virtual double endTime (void) const = 0;
+  virtual void setEndTime (double endTime) = 0;
+  virtual double firstTime (void) const = 0;
+  virtual double lastTime (void) const = 0;
+  virtual double duration (void) const = 0;
+  virtual std::string description (void) const = 0;
+
+protected:
+  virtual std::string extraDescription (void) const = 0;
+};
+
+/*
+ * PajeEntity: implements generic methods
+ */
+class PajeEntity : public PajeVirtualEntity
 {
 private:
-  PajeContainer *entityContainer;
-  PajeType *entityType;
-  std::string entityName;
+  PajeContainer *_container;
+  PajeType *_type;
   std::map<std::string,std::string> extraFields;
 
 public:
-  PajeEntity (PajeContainer *container, PajeType *type, std::string name, PajeEvent *event);
-  virtual void addPajeEvent (PajeEvent *event); //for Paje[Start|End]Link
+  PajeEntity (PajeContainer *container, PajeType *type, PajeEvent *event);
+  void addPajeEvent (PajeEvent *event);
   PajeContainer *container (void) const;
   PajeType *type (void) const;
   std::string name (void) const;
-  void setName (std::string newname);
-  bool isContainedBy (PajeContainer *container);
-  virtual bool isContainer (void);
-  virtual std::string value (void);
-  virtual std::string extraDescription (void);
-  virtual void setValue (std::string newvalue);
-  virtual void setDoubleValue (double value);
-  virtual void addDoubleValue (double value);
-  virtual void subtractDoubleValue (double value);
-  virtual double doubleValue (void);
-  virtual PajeContainer *startContainer (void);
-  virtual PajeContainer *endContainer (void);
-  virtual int imbricationLevel (void);
+  bool isContainedBy (PajeContainer *container) const;
+  bool isContainer (void) const;
+  PajeValue *value (void) const;
 
-  virtual double time (void) = 0;
-  virtual double startTime (void) = 0;
-  virtual void setStartTime (double startTime) = 0;
-  virtual double endTime (void) = 0;
-  virtual void setEndTime (double endTime) = 0;
-  virtual double firstTime (void) = 0;
-  virtual double lastTime (void) = 0;
-  virtual double duration (void) = 0;
-  virtual std::string description (void) = 0;
+  void setDoubleValue (double value);
+  void addDoubleValue (double value);
+  void subtractDoubleValue (double value);
+  double doubleValue (void) const;
+  PajeContainer *startContainer (void) const;
+  PajeContainer *endContainer (void) const;
+  int imbricationLevel (void) const;
 
   struct PajeEntityCompare {
     bool operator() (PajeEntity *e, double t){
       return e->startTime() < t;
     }
   };
+
+protected:
+  std::string extraDescription (void) const;
 };
 
-class PajeUserEvent : public PajeEntity
+/*
+ * PajeSingleTimedEntity
+ */
+class PajeSingleTimedEntity : public PajeEntity
 {
 private:
-  double t;
+  double _stime;
 
 public:
-  PajeUserEvent (PajeContainer *container, PajeType *type, std::string name, double time, PajeEvent *event);
-  std::string description (void);
-  double time (void);
-  double startTime (void);
+  PajeSingleTimedEntity (PajeContainer *container, PajeType *type, double time, PajeEvent *event);
+  double time (void) const;
+  double startTime (void) const;
+  double firstTime (void) const;
   void setStartTime (double startTime);
-  double endTime (void);
+  double endTime (void) const;
+  double lastTime (void) const;
   void setEndTime (double endTime);
-  double firstTime (void);
-  double lastTime (void);
-  double duration (void);
+  double duration (void) const;
 };
 
-class PajeUserState : public PajeUserEvent
+/*
+ * PajeDoubleTimedEntity
+ */
+class PajeDoubleTimedEntity : public PajeSingleTimedEntity
 {
 private:
-  double etime;
+  double _etime;
+
+public:
+  PajeDoubleTimedEntity (PajeContainer *container, PajeType *type, double time, PajeEvent *event);
+  double endTime (void) const;
+  double lastTime (void) const;
+  void setEndTime (double endTime);
+  double duration (void) const;
+};
+
+/*
+ * PajeValueEntity
+ */
+class PajeValueEntity : public PajeDoubleTimedEntity
+{
+private:
+  PajeValue *_value;
+
+public:
+  PajeValueEntity (PajeContainer *container, PajeType *type, double time, PajeValue *value, PajeEvent *event);
+  PajeValue *value (void) const;
+};
+
+/*
+ * PajeNamedEntity
+ */
+class PajeNamedEntity : public PajeDoubleTimedEntity
+{
+private:
+  std::string _name;
+
+public:
+  PajeNamedEntity (PajeContainer *container, PajeType *type, double time, std::string name, PajeEvent *event);
+  std::string name (void) const;
+};
+
+/*
+ * PajeUserEvent
+ */
+class PajeUserEvent : public PajeSingleTimedEntity
+{
+private:
+  PajeValue *_value;
+
+public:
+  PajeUserEvent (PajeContainer *container, PajeType *type, double time, PajeValue *value, PajeEvent *event);
+  PajeValue *value (void) const;
+  std::string description (void) const;
+};
+
+/*
+ * PajeUserState
+ */
+class PajeUserState : public PajeValueEntity
+{
+private:
   double imbrication;
 
 public:
-  PajeUserState (PajeContainer *container, PajeType *type, std::string value, double startTime, PajeEvent *event);
-  PajeUserState (PajeContainer *container, PajeType *type, std::string value, double startTime, int imbrication, PajeEvent *event);
-  std::string description (void);
-  void setValue (std::string newvalue);
-  double endTime (void);
-  void setEndTime (double endTime);
-  double lastTime (void);
-  double duration (void);
-  int imbricationLevel (void);
-  double doubleValue (void);
+  PajeUserState (PajeContainer *container, PajeType *type, double time, PajeValue *value, PajeEvent *event);
+  PajeUserState (PajeContainer *container, PajeType *type, double time, PajeValue *value, int imbrication, PajeEvent *event);
+  std::string description (void) const;
+  int imbricationLevel (void) const;
 };
 
-class PajeUserVariable : public PajeUserState
+/*
+ * PajeUserVariable
+ */
+class PajeUserVariable : public PajeDoubleTimedEntity
 {
 private:
-  double val;
+  double _value;
 
 public:
-  PajeUserVariable (PajeContainer *container, PajeType *type, double value, double startTime, double endTime, PajeEvent *event);
-  std::string description (void);
+  PajeUserVariable (PajeContainer *container, PajeType *type, double time, double value, PajeEvent *event);
+  std::string description (void) const;
 
   void setDoubleValue (double value);
   void addDoubleValue (double value);
   void subtractDoubleValue (double value);
-  double doubleValue (void);
+  double doubleValue (void) const;
 };
 
-class PajeUserLink : public PajeUserState
+/*
+ * PajeUserLink
+ */
+class PajeUserLink : public PajeValueEntity
 {
 private:
   std::string key;
@@ -127,13 +216,13 @@ private:
   PajeContainer *endCont;
 
 public:
-  PajeUserLink (PajeContainer *container, PajeType *type, std::string value, std::string key, PajeContainer *startContainer, double startTime, PajeEvent *event);
-  std::string description (void);
+  PajeUserLink (PajeContainer *container, PajeType *type, double time, PajeValue *value, std::string key, PajeContainer *startContainer, PajeEvent *event);
+  std::string description (void) const;
 
   void setStartContainer (PajeContainer *startContainer);
   void setEndContainer (PajeContainer *EndContainer);
-  PajeContainer *startContainer (void);
-  PajeContainer *endContainer (void);
+  PajeContainer *startContainer (void) const;
+  PajeContainer *endContainer (void) const;
 };
 
 #include "PajeContainer.h"

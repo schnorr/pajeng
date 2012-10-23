@@ -130,9 +130,9 @@ PajeContainer *PajeSimulator::containerWithName (std::string name)
   }
 }
 
-PajeColor *PajeSimulator::colorForValueOfEntityType (std::string value, PajeType *type)
+PajeColor *PajeSimulator::colorForValueOfEntityType (PajeType *type, PajeValue *value)
 {
-  return type->colorForIdentifier (value);
+  return type->colorForIdentifier (value->identifier());
 }
 
 PajeColor *PajeSimulator::colorForEntityType (PajeType *type)
@@ -140,14 +140,14 @@ PajeColor *PajeSimulator::colorForEntityType (PajeType *type)
   return type->color ();
 }
 
-std::vector<std::string> PajeSimulator::valuesForEntityType (PajeType *type)
+std::vector<PajeValue*> PajeSimulator::valuesForEntityType (PajeType *type)
 {
-  std::vector<std::string> ret;
+  std::vector<PajeValue*> ret;
   PajeCategorizedType *catType = dynamic_cast<PajeCategorizedType*>(type);
   if (catType){
-    std::pair<std::string,std::string> val;
+    std::pair<std::string,PajeValue*> val;
     BOOST_FOREACH (val, catType->values){
-      ret.push_back (val.first);
+      ret.push_back (val.second);
     }
   }
   return ret;

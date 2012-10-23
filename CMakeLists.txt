@@ -51,6 +51,7 @@ SET(LIBPAJE_HEADERS
   src/libpaje/PajeObject.h
   src/libpaje/PajeSimulator.h
   src/libpaje/PajeType.h
+  src/libpaje/PajeValue.h
   src/libpaje/PajeEntropy.h)
 SET(LIBPAJE_SOURCES
   src/libpaje/PajeEventDefinition.cc
@@ -63,6 +64,8 @@ SET(LIBPAJE_SOURCES
   src/libpaje/PajeSimulator+Commands.cc
   src/libpaje/PajeComponent.cc
   src/libpaje/PajeType.cc
+  src/libpaje/PajeValue.cc
+  src/libpaje/PajeEntity.cc
   src/libpaje/PajeContainer.cc
   src/libpaje/PajeColor.cc
   src/libpaje/PajeEntity.cc
