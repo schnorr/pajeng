@@ -59,7 +59,7 @@ bool PajeType::isCategorizedType (void) const
   return false;
 }
 
-void PajeType::addNewValue (std::string alias, std::string value, PajeColor *color)
+void PajeType::addValue (std::string alias, std::string value, PajeColor *color)
 {
   throw "should be implemented in subclass";
 }
@@ -95,7 +95,7 @@ bool PajeCategorizedType::isCategorizedType (void) const
   return true;
 }
 
-void PajeCategorizedType::addNewValue (std::string alias, std::string value, PajeColor *color)
+void PajeCategorizedType::addValue (std::string alias, std::string value, PajeColor *color)
 {
   if (alias.empty()){
     values[value] = value;

@@ -341,7 +341,7 @@ void PajeSimulator::pajeDefineEntityValue (PajeEvent *event)
   //validate the color, if provided
   PajeColor *pajeColor = getColor (color, event);
 
-  type->addNewValue (alias, name, pajeColor);
+  type->addValue (alias, name, pajeColor);
 }
 
 void PajeSimulator::pajeCreateContainer (PajeEvent *event)

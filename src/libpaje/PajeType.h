@@ -41,7 +41,7 @@ public:
   PajeType *parent (void) const;
   std::string identifier (void) const;
   virtual bool isCategorizedType (void) const;
-  virtual void addNewValue (std::string alias, std::string value, PajeColor *color);
+  virtual void addValue (std::string alias, std::string value, PajeColor *color);
   virtual std::string valueForIdentifier (std::string identifier);
   virtual bool hasValueForIdentifier (std::string identifier);
   virtual PajeColor *colorForIdentifier (std::string identifier);
@@ -57,7 +57,7 @@ public:
   std::map<std::string,PajeColor*> colors;
 
   bool isCategorizedType (void) const;
-  void addNewValue (std::string alias, std::string value, PajeColor *color);
+  void addValue (std::string alias, std::string value, PajeColor *color);
   std::string valueForIdentifier (std::string identifier);
   bool hasValueForIdentifier (std::string identifier);
   PajeColor *colorForIdentifier (std::string identifier);
