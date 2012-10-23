@@ -66,9 +66,9 @@ public:
   double virtual selectionEndTime (void);
   PajeType virtual *entityTypeWithName (std::string name);
   PajeContainer virtual *containerWithName (std::string name);
-  PajeColor virtual *colorForValueOfEntityType (std::string value, PajeType *type);
+  PajeColor virtual *colorForValueOfEntityType (PajeType *type, PajeValue *value);
   PajeColor virtual *colorForEntityType (PajeType *type);
-  std::vector<std::string> valuesForEntityType (PajeType *type);
+  std::vector<PajeValue*> virtual valuesForEntityType (PajeType *type);
 
   //spatial/time integration queries
   PajeAggregatedDict virtual timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);

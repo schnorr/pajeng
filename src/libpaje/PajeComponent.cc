@@ -200,9 +200,9 @@ PajeContainer *PajeComponent::containerWithName (std::string name)
     else return NULL;
 }
 
-PajeColor *PajeComponent::colorForValueOfEntityType (std::string value, PajeType *type)
+PajeColor *PajeComponent::colorForValueOfEntityType (PajeType *type, PajeValue *value)
 {
-  if (inputComponent) return inputComponent->colorForValueOfEntityType (value, type);
+  if (inputComponent) return inputComponent->colorForValueOfEntityType (type, value);
   else return NULL;
 }
 
@@ -212,9 +212,9 @@ PajeColor *PajeComponent::colorForEntityType (PajeType *type)
   else return NULL;
 }
 
-std::vector<std::string> PajeComponent::valuesForEntityType (PajeType *type)
+std::vector<PajeValue*> PajeComponent::valuesForEntityType (PajeType *type)
 {
-  std::vector<std::string> empty;
+  std::vector<PajeValue*> empty;
   if (inputComponent) return inputComponent->valuesForEntityType (type);
   else return empty;
 }
