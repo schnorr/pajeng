@@ -91,7 +91,7 @@ void PajeStateItem::paint (QPainter *painter, const QStyleOptionGraphicsItem *op
 {
   painter->save();
 
-  PajeColor *color = filter->colorForValueOfEntityType (entity->value(), entity->type());
+  PajeColor *color = filter->colorForValueOfEntityType (entity->type(), entity->value());
   QColor c;
   if (color){
     c = QColor (color->r*255, color->g*255, color->b*255, color->a*255);
@@ -130,7 +130,7 @@ void PajeStateItem::paint (QPainter *painter, const QStyleOptionGraphicsItem *op
     //FIXME, TODO: this code is not working
     painter->setFont (QFont("Times", 5));
     painter->setPen (QPen(Qt::black));
-    painter->drawText(rect, Qt::AlignLeft, QString::fromStdString (entity->value()));
+    painter->drawText(rect, Qt::AlignLeft, QString::fromStdString (entity->value()->name()));
   }
   painter->restore();
 }
