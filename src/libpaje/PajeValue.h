@@ -16,11 +16,12 @@
 */
 #ifndef __PAJE_VALUE_H
 #define __PAJE_VALUE_H
+#include "PajeObject.h"
 #include "PajeType.h"
 
 class PajeType;
 
-class PajeValue {
+class PajeValue : public PajeObject {
 private:
   PajeColor *_color;
   std::string _name;
