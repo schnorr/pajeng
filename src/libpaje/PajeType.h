@@ -24,25 +24,27 @@
 #include <string>
 #include "PajeColor.h"
 #include "PajeProtocols.h"
+#include "PajeValue.h"
+
+class PajeValue;
 
 class PajeType {
 protected:
-  PajeColor *_color;
   std::string _name;
   std::string _alias;
   PajeType *_parent;
   int _depth;
 
 public:
-  PajeType (std::string name, std::string alias, PajeType *parent, PajeColor *color);
+  PajeType (std::string name, std::string alias, PajeType *parent);
   std::string name (void) const;
   std::string alias (void) const;
   int depth (void) const;
   PajeType *parent (void) const;
   std::string identifier (void) const;
   virtual bool isCategorizedType (void) const;
-  virtual void addValue (std::string alias, std::string value, PajeColor *color);
-  virtual std::string valueForIdentifier (std::string identifier);
+  virtual PajeValue *addValue (std::string alias, std::string value, PajeColor *color);
+  virtual PajeValue *valueForIdentifier (std::string identifier);
   virtual bool hasValueForIdentifier (std::string identifier);
   virtual PajeColor *colorForIdentifier (std::string identifier);
   virtual PajeColor *color (void);
@@ -53,17 +55,19 @@ public:
 class PajeCategorizedType : public PajeType {
 public:
   PajeCategorizedType (std::string name, std::string alias, PajeType *parent);
-  std::map<std::string,std::string> values;
+  std::map<std::string,PajeValue*> values;
   std::map<std::string,PajeColor*> colors;
 
   bool isCategorizedType (void) const;
-  void addValue (std::string alias, std::string value, PajeColor *color);
-  std::string valueForIdentifier (std::string identifier);
+  PajeValue *addValue (std::string alias, std::string value, PajeColor *color);
+  PajeValue *valueForIdentifier (std::string identifier);
   bool hasValueForIdentifier (std::string identifier);
   PajeColor *colorForIdentifier (std::string identifier);
 };
 
 class PajeVariableType : public PajeType {
+protected:
+  PajeColor *_color;
 public:
   PajeVariableType (std::string name, std::string alias, PajeType *parent);
   PajeVariableType (std::string name, std::string alias, PajeType *parent, PajeColor *color);
@@ -119,11 +123,11 @@ bool operator== (const PajeType& t1, const PajeType& t2);
 
 class PajeAggregatedType {
 private:
-  std::string aggregatedValue;
+  PajeValue *aggregatedValue;
   PajeType *aggregatedType;
 
 public:
-  PajeAggregatedType (PajeType *type, std::string value);
+  PajeAggregatedType (PajeType *type, PajeValue *value);
   PajeAggregatedType (PajeType *type);
   PajeColor *color (void) const;
   PajeType *type (void) const;

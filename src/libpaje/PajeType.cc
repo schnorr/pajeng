@@ -16,12 +16,11 @@
 */
 #include "PajeType.h"
 
-PajeType::PajeType (std::string name, std::string alias, PajeType *parent, PajeColor *color)
+PajeType::PajeType (std::string name, std::string alias, PajeType *parent)
 {
   _name = name;
   _alias = alias;
   _parent = parent;
-  _color = color;
   if (parent){
     _depth = parent->depth() + 1;
   }else{
@@ -59,12 +58,12 @@ bool PajeType::isCategorizedType (void) const
   return false;
 }
 
-void PajeType::addValue (std::string alias, std::string value, PajeColor *color)
+PajeValue *PajeType::addValue (std::string alias, std::string value, PajeColor *color)
 {
   throw "should be implemented in subclass";
 }
 
-std::string PajeType::valueForIdentifier (std::string identifier)
+PajeValue *PajeType::valueForIdentifier (std::string identifier)
 {
   throw "should be implemented in subclass";
 }
@@ -82,11 +81,11 @@ PajeColor *PajeType::colorForIdentifier (std::string identifier)
 
 PajeColor *PajeType::color (void)
 {
-  return _color;
+  throw "should be implemented in subclass";
 }
 
 PajeCategorizedType::PajeCategorizedType (std::string name, std::string alias, PajeType *parent)
-  : PajeType(name,alias,parent, NULL)
+  : PajeType(name,alias,parent)
 {
 }
 
@@ -95,18 +94,15 @@ bool PajeCategorizedType::isCategorizedType (void) const
   return true;
 }
 
-void PajeCategorizedType::addValue (std::string alias, std::string value, PajeColor *color)
+PajeValue *PajeCategorizedType::addValue (std::string alias, std::string value, PajeColor *color)
 {
-  if (alias.empty()){
-    values[value] = value;
-  }else{
-    values[alias] = value;
-  }
-  colors[value] = color;
-  colors[alias] = color;
+  PajeValue *newValue = new PajeValue (value, alias, this, color);
+  values[newValue->identifier()] = newValue;
+  colors[newValue->identifier()] = color;
+  return newValue;
 }
 
-std::string PajeCategorizedType::valueForIdentifier (std::string identifier)
+PajeValue *PajeCategorizedType::valueForIdentifier (std::string identifier)
 {
   if (values.count(identifier)){
     return values[identifier];
@@ -134,14 +130,15 @@ PajeColor *PajeCategorizedType::colorForIdentifier (std::string identifier)
 }
 
 PajeVariableType::PajeVariableType  (std::string name, std::string alias, PajeType *parent)
-  : PajeType(name,alias,parent, NULL)
+  : PajeType(name,alias,parent)
 {
+  _color = NULL;
 }
 
 PajeVariableType::PajeVariableType (std::string name, std::string alias, PajeType *parent, PajeColor *color)
- : PajeType(name,alias,parent,color)
+ : PajeType(name,alias,parent)
 {
-
+  _color = color;
 }
 
 PajeDrawingType PajeVariableType::drawingType (void)
@@ -199,7 +196,7 @@ std::string PajeLinkType::nature (void)
 }
 
 PajeContainerType::PajeContainerType (std::string name, std::string alias, PajeType *parent)
-  : PajeType (name, alias, parent, NULL)
+  : PajeType (name, alias, parent)
 {
 }
 
@@ -279,7 +276,7 @@ bool operator== (const PajeType& t1, const PajeType& t2)
   return t1.identifier() == t2.identifier();
 }
 
-PajeAggregatedType::PajeAggregatedType (PajeType *type, std::string value)
+PajeAggregatedType::PajeAggregatedType (PajeType *type, PajeValue *value)
 {
   this->aggregatedType = type;
   this->aggregatedValue = value;
@@ -292,10 +289,10 @@ PajeAggregatedType::PajeAggregatedType (PajeType *type)
 
 PajeColor *PajeAggregatedType::color (void) const
 {
-  if (aggregatedValue.empty()){
-    return aggregatedType->color();
+  if (aggregatedType->isCategorizedType()){
+    return aggregatedType->colorForIdentifier (aggregatedValue->identifier());
   }else{
-    return aggregatedType->colorForIdentifier (aggregatedValue);
+    return aggregatedValue->color();
   }
 }
 
@@ -306,9 +303,9 @@ PajeType *PajeAggregatedType::type (void) const
 
 std::string PajeAggregatedType::name (void) const
 {
-  if (aggregatedValue.empty()){
-    return aggregatedType->name();
+  if (aggregatedType->isCategorizedType()){
+    return aggregatedValue->name();
   }else{
-    return aggregatedValue;
+    return aggregatedType->name();
   }
 }
