@@ -64,9 +64,10 @@ SET(LIBPAJE_SOURCES
   src/libpaje/PajeComponent.cc
   src/libpaje/PajeType.cc
   src/libpaje/PajeValue.cc
+  src/libpaje/PajeEntity.cc
   src/libpaje/PajeContainer.cc
   src/libpaje/PajeColor.cc
-  src/libpaje/PajeEntity.cc)
+)
 
 # The Paje Utils Library (libpajeutils)
 SET(UTILS_HEADERS
