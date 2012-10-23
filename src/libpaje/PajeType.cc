@@ -18,40 +18,40 @@
 
 PajeType::PajeType (std::string name, std::string alias, PajeType *parent, PajeColor *color)
 {
-  this->typeName = name;
-  this->typeAlias = alias;
-  this->typeParent = parent;
-  this->typeColor = color;
+  _name = name;
+  _alias = alias;
+  _parent = parent;
+  _color = color;
   if (parent){
-    this->typeDepth = parent->depth() + 1;
+    _depth = parent->depth() + 1;
   }else{
-    this->typeDepth = 0;
+    _depth = 0;
   }
 }
 
 std::string PajeType::name (void) const
 {
-  return typeName;
+  return _name;
 }
 
 std::string PajeType::alias (void) const
 {
-  return typeAlias;
+  return _alias;
 }
 
 int PajeType::depth (void) const
 {
-  return typeDepth;
+  return _depth;
 }
 
 PajeType *PajeType::parent (void) const
 {
-  return typeParent;
+  return _parent;
 }
 
 std::string PajeType::identifier (void) const
 {
-  return typeAlias.empty() ? typeName : typeAlias;
+  return _alias.empty() ? _name : _alias;
 }
 
 bool PajeType::isCategorizedType (void) const
@@ -82,7 +82,7 @@ PajeColor *PajeType::colorForIdentifier (std::string identifier)
 
 PajeColor *PajeType::color (void)
 {
-  return typeColor;
+  return _color;
 }
 
 PajeCategorizedType::PajeCategorizedType (std::string name, std::string alias, PajeType *parent)

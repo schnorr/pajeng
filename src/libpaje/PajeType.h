@@ -27,11 +27,11 @@
 
 class PajeType {
 protected:
-  PajeColor *typeColor;
-  std::string typeName;
-  std::string typeAlias;
-  PajeType *typeParent;
-  int typeDepth;
+  PajeColor *_color;
+  std::string _name;
+  std::string _alias;
+  PajeType *_parent;
+  int _depth;
 
 public:
   PajeType (std::string name, std::string alias, PajeType *parent, PajeColor *color);
