@@ -22,13 +22,14 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "PajeObject.h"
 #include "PajeColor.h"
 #include "PajeProtocols.h"
 #include "PajeValue.h"
 
 class PajeValue;
 
-class PajeType {
+class PajeType : public PajeObject {
 protected:
   std::string _name;
   std::string _alias;
