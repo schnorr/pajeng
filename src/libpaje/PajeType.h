@@ -132,6 +132,7 @@ public:
   PajeAggregatedType (PajeType *type);
   PajeColor *color (void) const;
   PajeType *type (void) const;
+  PajeValue *value (void) const;
   std::string name (void) const;
   std::string description (void) const;
 };
@@ -142,6 +143,7 @@ struct PajeAggregatedTypeCompare {
   };
 };
 
+typedef std::pair<PajeAggregatedType*, double> PajeAggregatedDictEntry;
 typedef std::map<PajeAggregatedType*, double, PajeAggregatedTypeCompare> PajeAggregatedDict;
 
 #endif
