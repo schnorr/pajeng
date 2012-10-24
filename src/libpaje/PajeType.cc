@@ -301,6 +301,11 @@ PajeType *PajeAggregatedType::type (void) const
   return aggregatedType;
 }
 
+PajeValue *PajeAggregatedType::value (void) const
+{
+  return aggregatedValue;
+}
+
 std::string PajeAggregatedType::name (void) const
 {
   if (aggregatedType->isCategorizedType()){

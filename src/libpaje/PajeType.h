@@ -132,6 +132,7 @@ public:
   PajeAggregatedType (PajeType *type);
   PajeColor *color (void) const;
   PajeType *type (void) const;
+  PajeValue *value (void) const;
   std::string name (void) const;
 };
 
