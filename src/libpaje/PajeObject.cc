@@ -14,17 +14,9 @@
     You should have received a copy of the GNU Public License
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __PAJEOBJECT_H__
-#define __PAJEOBJECT_H__
-#include <iostream>
+#include "PajeObject.h"
 
-/* abstract class for all Paje objects */
-class PajeVirtualObject {
-  virtual bool isPajeObject (void) = 0;
-};
-
-class PajeObject : PajeVirtualObject {
-  bool isPajeObject (void);
-};
-
-#endif
+bool PajeObject::isPajeObject (void)
+{
+  return true;
+}

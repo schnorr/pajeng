@@ -57,6 +57,7 @@ SET(LIBPAJE_SOURCES
   src/libpaje/PajeEvent.cc
   src/libpaje/PajeData.cc
   src/libpaje/PajeFileReader.cc
+  src/libpaje/PajeObject.cc
   src/libpaje/PajeEventDecoder.cc
   src/libpaje/PajeSimulator.cc
   src/libpaje/PajeSimulator+Queries.cc
