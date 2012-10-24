@@ -15,6 +15,7 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeComponent.h"
+#include <boost/foreach.hpp>
 
 PajeComponent::PajeComponent (void)
 {
@@ -83,32 +84,56 @@ void PajeComponent::finishedReading (void)
 //notifications
 void PajeComponent::timeLimitsChanged (void)
 {
-  if (outputComponent.size()){
-    std::vector<PajeComponent*>::iterator it;
-    for (it = outputComponent.begin(); it != outputComponent.end(); it++){
-      (*it)->timeLimitsChanged ();
-    }
-  }
+  BOOST_FOREACH(PajeComponent *component, outputComponent)
+    component->timeLimitsChanged ();
 }
 
 void PajeComponent::timeSelectionChanged (void)
 {
-  if (outputComponent.size()){
-    std::vector<PajeComponent*>::iterator it;
-    for (it = outputComponent.begin(); it != outputComponent.end(); it++){
-      (*it)->timeSelectionChanged ();
-    }
-  }
+  BOOST_FOREACH(PajeComponent *component, outputComponent)
+    component->timeSelectionChanged ();
 }
 
 void PajeComponent::hierarchyChanged (void)
 {
-  if (outputComponent.size()){
-    std::vector<PajeComponent*>::iterator it;
-    for (it = outputComponent.begin(); it != outputComponent.end(); it++){
-      (*it)->hierarchyChanged ();
-    }
-  }
+  BOOST_FOREACH(PajeComponent *component, outputComponent)
+    component->hierarchyChanged ();
+}
+
+void PajeComponent::containerSelectionChanged (void)
+{
+  BOOST_FOREACH(PajeComponent *component, outputComponent)
+    component->containerSelectionChanged ();
+}
+
+void PajeComponent::entitySelectionChanged (void)
+{
+  BOOST_FOREACH(PajeComponent *component, outputComponent)
+    component->entitySelectionChanged ();
+}
+
+void PajeComponent::dataChangedForEntityType (PajeType *type)
+{
+  BOOST_FOREACH(PajeComponent *component, outputComponent)
+    component->dataChangedForEntityType (type);
+}
+
+void PajeComponent::limitsChangedForEntityType (PajeType *type)
+{
+  BOOST_FOREACH(PajeComponent *component, outputComponent)
+    component->limitsChangedForEntityType (type);
+}
+
+void PajeComponent::colorChangedForEntityType (PajeType *type)
+{
+  BOOST_FOREACH(PajeComponent *component, outputComponent)
+    component->colorChangedForEntityType (type);
+}
+
+void PajeComponent::orderChangedForContainerType (PajeType *type)
+{
+  BOOST_FOREACH(PajeComponent *component, outputComponent)
+    component->orderChangedForContainerType (type);
 }
 
 //commands
