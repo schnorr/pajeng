@@ -45,9 +45,25 @@ public:
   void virtual finishedReading (void);
 
   //notifications
+  // Message sent when startTime or endTime of the whole visible trace changed
   void virtual timeLimitsChanged (void);
+  // Message sent when the selected time slice has changed (or deselected).
   void virtual timeSelectionChanged (void);
+  // Message sent when the hierarchy of types and/or containers has changed.
   void virtual hierarchyChanged (void);
+  // Message sent when containers have been (de)selected.
+  void virtual containerSelectionChanged (void);
+  // Message sent when the selected entities have changed
+  void virtual entitySelectionChanged (void);
+  // Generic message. Used when something not specified in the other messages
+  // has changed. entityType can be nil if not only one entityType is affected.
+  void virtual dataChangedForEntityType (PajeType *type);
+  // Message sent when the numeric limits of some variable entity type changed.
+  void virtual limitsChangedForEntityType (PajeType *type);
+  // Message sent when the color of something of entityType has changed.
+  void virtual colorChangedForEntityType (PajeType *type);
+  // Message sent when the order of the containers of some type has changed.
+  void virtual orderChangedForContainerType (PajeType *type);
 
   //commands
   void virtual setSelectionStartEndTime (double start, double end);
