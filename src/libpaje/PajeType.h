@@ -142,6 +142,7 @@ struct PajeAggregatedTypeCompare {
   };
 };
 
+typedef std::pair<PajeAggregatedType*, double> PajeAggregatedDictEntry;
 typedef std::map<PajeAggregatedType*, double, PajeAggregatedTypeCompare> PajeAggregatedDict;
 
 #endif
