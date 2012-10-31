@@ -447,7 +447,7 @@ PajeAggregatedDict PajeContainer::timeIntegrationOfStateTypeInContainer (double 
     if (s < start) s = start;
     if (e > end) e = end;
     double duration = e - s;
-    double var_integrated = duration/tsDuration * var->doubleValue();
+    double var_integrated = duration/tsDuration;
 
     PajeAggregatedType *agtype = new PajeAggregatedType (type, var->value());
     PajeAggregatedDict::iterator found = ret.find (agtype);
