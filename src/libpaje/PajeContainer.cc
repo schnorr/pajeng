@@ -448,7 +448,7 @@ PajeAggregatedDict PajeContainer::timeIntegrationOfStateTypeInContainer (double 
     if (s < start) s = start;
     if (e > end) e = end;
     double duration = e - s;
-    double var_integrated = duration/tsDuration * var->doubleValue();
+    double var_integrated = duration/tsDuration;
 
     PajeAggregatedType *agtype = new PajeAggregatedType (type, var->value());
     PajeAggregatedDict::iterator found = ret.find (agtype);
@@ -515,8 +515,10 @@ PajeAggregatedDict PajeContainer::add (PajeAggregatedDict a,
 
 PajeAggregatedDict PajeContainer::integrationOfContainer (double start, double end)
 {
+  PajeAggregatedDict ret;
+  if (start == -1 || end == -1) return ret;
   std::map<std::string,PajeType*>::iterator it;
-  PajeAggregatedDict ret, partial;
+  PajeAggregatedDict partial;
   PajeContainerType *contType = dynamic_cast<PajeContainerType*>(type());
   for (it = contType->children.begin(); it != contType->children.end(); it++){
     partial = timeIntegrationOfTypeInContainer (start, end, (*it).second);
