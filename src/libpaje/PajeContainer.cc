@@ -621,6 +621,13 @@ std::vector<PajeAggregatedDict> PajeContainer::computeGainDivergence (double sta
         div[type] += value * log2 ( value/S[type] * V.size() );
       }
     }
+
+    //false gain (introduced as better metric to use on real traces)
+    for (git = S.begin(); git != S.end(); git++){
+      PajeAggregatedType *type = (*git).first;
+      if (!gain.count(type)) gain[type] = 0;
+      gain[type] = V.size() - 1;
+    }
   }
   return V;
 }
