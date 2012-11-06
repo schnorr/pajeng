@@ -80,7 +80,7 @@ public:
   PajeAggregatedDict spatialIntegrationOfContainer (double start, double end);
 
   //queries for entropy
-  std::vector<PajeAggregatedDict> computeGainDivergence (double start, double end);
+  std::vector<PajeAggregatedDict> computeGainDivergence (double start, double end, bool entropyGain);
 
 private:
   PajeAggregatedDict merge (PajeAggregatedDict a,
