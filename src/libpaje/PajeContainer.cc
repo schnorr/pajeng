@@ -554,7 +554,7 @@ bool PajeContainer::checkTimeOrder (double time, PajeType *type, PajeEvent *even
   return true;
 }
 
-std::vector<PajeAggregatedDict> PajeContainer::computeGainDivergence (double start, double end, bool entropyGain)
+std::vector<PajeAggregatedDict> PajeContainer::computeGainDivergence (double start, double end, bool falseGain)
 {
   gain.clear();
   div.clear();
@@ -578,7 +578,7 @@ std::vector<PajeAggregatedDict> PajeContainer::computeGainDivergence (double sta
     {
       std::map<std::string,PajeContainer*>::iterator it;
       for (it = children.begin(); it != children.end() ; it++){
-        std::vector<PajeAggregatedDict> vl = ((*it).second)->computeGainDivergence (start, end, entropyGain);
+        std::vector<PajeAggregatedDict> vl = ((*it).second)->computeGainDivergence (start, end, falseGain);
         V.insert (V.end(), vl.begin(), vl.end());
       }
     }
@@ -622,7 +622,7 @@ std::vector<PajeAggregatedDict> PajeContainer::computeGainDivergence (double sta
       }
     }
 
-    if (!entropyGain){
+    if (falseGain){
       //false gain (introduced as better metric to use on real traces)
       for (git = S.begin(); git != S.end(); git++){
         PajeAggregatedType *type = (*git).first;
