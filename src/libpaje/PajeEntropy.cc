@@ -24,14 +24,30 @@ PajeEntropy::~PajeEntropy ()
 {
 }
 
-std::pair<double,std::vector<PajeContainer*> > PajeEntropy::findBestAggregation (PajeContainer *root, PajeAggregatedType *type, double p)
+std::pair<double,std::vector<PajeContainer*> > PajeEntropy::findBestAggregation (PajeContainer *root, PajeAggregatedType *type, double p, bool falseGain)
 {
   double maxRIC;
   std::pair<double,std::vector<PajeContainer*> > bestAgg;
 
+  PajeAggregatedDict::iterator git;
+  double g = 0;
+  if (falseGain){
+    g = root->gain[type];
+  }else{
+    for (git = root->gain.begin(); git != root->gain.end(); git++){
+      PajeAggregatedType *type = (*git).first;
+      g += root->gain[type];
+    }
+  }
+  double d = 0;
+  for (git = root->div.begin(); git != root->div.end(); git++){
+    PajeAggregatedType *type = (*git).first;
+    d += root->div[type];
+  }
+
   //calculate for root
   std::pair<double,std::vector<PajeContainer*> > rootAgg;
-  rootAgg.first = p * root->gain[type] - (1 - p) * root->div[type];
+  rootAgg.first = p * g - (1 - p) * d;
   rootAgg.second.push_back(root);
 
   //recursion control
@@ -43,7 +59,7 @@ std::pair<double,std::vector<PajeContainer*> > PajeEntropy::findBestAggregation 
     std::pair<double,std::vector<PajeContainer*> > childrenBestAgg;
     for (it = children.begin(); it != children.end(); it++){
       PajeContainer *child = *it;
-      std::pair<double,std::vector<PajeContainer*> > result = findBestAggregation (child, type, p);
+      std::pair<double,std::vector<PajeContainer*> > result = findBestAggregation (child, type, p, falseGain);
       childrenBestAgg.first += result.first;
       childrenBestAgg.second.insert (childrenBestAgg.second.end(), result.second.begin(), result.second.end());
     }

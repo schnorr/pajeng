@@ -24,7 +24,7 @@ public:
   ~PajeEntropy ();
 
 protected:
-  std::pair<double,std::vector<PajeContainer*> > findBestAggregation (PajeContainer *root, PajeAggregatedType *type, double p);  
+  std::pair<double,std::vector<PajeContainer*> > findBestAggregation (PajeContainer *root, PajeAggregatedType *type, double p, bool falseGain);
 };
 
 #endif

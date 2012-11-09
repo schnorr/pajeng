@@ -265,9 +265,9 @@ PajeAggregatedDict PajeComponent::spatialIntegrationOfContainer (PajeContainer *
   else return empty;
 }
 
-std::pair<double,std::vector<PajeContainer*> > PajeComponent::findBestAggregation (PajeContainer *root, PajeAggregatedType *type, double p)
+std::pair<double,std::vector<PajeContainer*> > PajeComponent::findBestAggregation (PajeContainer *root, PajeAggregatedType *type, double p, bool falseGain)
 {
   std::pair<double,std::vector<PajeContainer*> > empty;
-  if (inputComponent) return inputComponent->findBestAggregation (root, type, p);
+  if (inputComponent) return inputComponent->findBestAggregation (root, type, p, falseGain);
   else return empty;
 }
