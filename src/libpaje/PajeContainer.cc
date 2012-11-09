@@ -528,12 +528,18 @@ PajeAggregatedDict PajeContainer::integrationOfContainer (double start, double e
 
 PajeAggregatedDict PajeContainer::spatialIntegrationOfContainer (double start, double end)
 {
+  if (start == selectionStart && end == selectionEnd){
+    return spatialAggregated;
+  }
   std::map<std::string,PajeContainer*>::iterator it;
   PajeAggregatedDict ret = integrationOfContainer (start, end);
   for (it = children.begin(); it != children.end() ; it++){
     PajeAggregatedDict partial = ((*it).second)->spatialIntegrationOfContainer (start, end);
     ret = add (ret, partial);
   }
+  selectionStart = start;
+  selectionEnd = end;
+  spatialAggregated = ret;
   return ret;
 }
 
