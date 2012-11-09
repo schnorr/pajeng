@@ -89,6 +89,12 @@ private:
                           PajeAggregatedDict b);
   bool checkTimeOrder (double time, PajeType *type, PajeEvent *event);
   bool checkPendingLinks (void);
+
+
+private:
+  double selectionStart;
+  double selectionEnd;
+  PajeAggregatedDict spatialAggregated;
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container);
