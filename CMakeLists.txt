@@ -39,6 +39,7 @@ SET(PAJE_SOURCES
 # The Paje Library (libpaje)
 SET(LIBPAJE_HEADERS
   src/libpaje/PajeColor.h
+  src/libpaje/PajeException.h
   src/libpaje/PajeProtocols.h
   src/libpaje/PajeComponent.h
   src/libpaje/PajeContainer.h
@@ -68,6 +69,7 @@ SET(LIBPAJE_SOURCES
   src/libpaje/PajeEntity.cc
   src/libpaje/PajeContainer.cc
   src/libpaje/PajeColor.cc
+  src/libpaje/PajeException.cc
 )
 
 # The Paje Utils Library (libpajeutils)

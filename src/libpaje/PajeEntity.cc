@@ -15,6 +15,7 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeEntity.h"
+#include "PajeException.h"
 
 PajeEntity::PajeEntity (PajeContainer *container, PajeType *type, PajeEvent *event)
 {
@@ -41,7 +42,7 @@ void PajeEntity::addPajeEvent (PajeEvent *event)
       if (extraFields[fieldName] != value){
         std::stringstream line;
         line << *event;
-        throw "When treating event "+line.str()+", the value for "+fieldName+" is "+extraFields[fieldName]+", but it is different from "+value;
+        throw PajeDecodeException ("When treating event "+line.str()+", the value for "+fieldName+" is "+extraFields[fieldName]+", but it is different from "+value);
       }
     }else{
       extraFields[fieldName] = value;

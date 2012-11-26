@@ -15,6 +15,7 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeEventDefinition.h"
+#include "PajeException.h"
 
 std::map<std::string,PajeEventId> initPajeEventNamesToID ()
 {
@@ -308,7 +309,7 @@ void PajeEventDefinition::addField (std::string name, std::string type, paje_lin
   std::set<std::string>::iterator found;
   found = set.find (type);
   if (found == set.end()){
-    throw "The type '"+type+"' used in the field '"+name+"' is not recognized in line "+lreport;
+    throw PajeDecodeException ("The type '"+type+"' used in the field '"+name+"' is not recognized in line "+lreport);
   }else{
     set.clear();
   }
@@ -322,7 +323,7 @@ void PajeEventDefinition::addField (std::string name, std::string type, paje_lin
   if (found != set.end()){
     std::stringstream st;
     st << line->lineNumber;
-    throw "The field '"+name+"' with type '"+type+"' is already defined when treating line "+lreport;
+    throw PajeDecodeException ("The field '"+name+"' with type '"+type+"' is already defined when treating line "+lreport);
   }else{
     set.clear();
   }
@@ -333,7 +334,7 @@ void PajeEventDefinition::addField (std::string name, std::string type, paje_lin
   it_obligatory = pajeObligatoryFields.find (pajeEventId);
   it_optional = pajeOptionalFields.find (pajeEventId);
   if (it_obligatory == pajeObligatoryFields.end()){
-    throw "Couldn't find the obligatory fields for event id '"+number+"' when adding field named '"+name+"' in line "+lreport;
+    throw PajeDecodeException ("Couldn't find the obligatory fields for event id '"+number+"' when adding field named '"+name+"' in line "+lreport);
   }
   std::set<std::string> obligatory = it_obligatory->second;
   std::set<std::string> optional = it_optional->second;

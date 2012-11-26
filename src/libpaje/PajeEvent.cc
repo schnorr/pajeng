@@ -25,7 +25,8 @@ PajeEvent::PajeEvent (PajeEventDefinition *def, paje_line *line)
     std::cout << *def << std::endl;
     std::cout << "Line field count: " << line->word_count << std::endl;
     std::cout << "Definition field count: " << def->fieldCount << std::endl;
-    throw "Field count does not match definition for line "+lreport;
+    std::cout << "Field count does not match definition for line "+lreport << std::endl;
+    exit(1);
   }
   valueLine = line;
   pajeEventDefinition = def;

@@ -15,6 +15,7 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeSimulator.h"
+#include "PajeException.h"
 #include <boost/foreach.hpp>
 
 PajeContainer *PajeSimulator::rootInstance (void)
@@ -32,7 +33,7 @@ std::vector<PajeType*> PajeSimulator::containedTypesForContainerType (PajeType *
   std::vector<PajeType *> ret;
   PajeContainerType *contType = dynamic_cast<PajeContainerType*>(type);
   if (!contType){
-    throw "Type is not a container type";
+    throw PajeProtocolException ("Type is not a container type");
   }
   std::map<std::string,PajeType*>::iterator it;
   for (it = contType->children.begin(); it != contType->children.end(); it++){

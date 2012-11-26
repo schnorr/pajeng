@@ -15,6 +15,7 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeSimulator.h"
+#include "PajeException.h"
 #include <boost/foreach.hpp>
 #include <boost/tokenizer.hpp>
 
@@ -102,7 +103,7 @@ PajeColor *PajeSimulator::getColor (std::string color, PajeEvent *event)
     }else{
       std::stringstream line;
       line << *event;
-      throw "Could not understand color parameter in "+line.str();
+      throw PajeDecodeException ("Could not understand color parameter in "+line.str());
     }
   }
   return ret;
@@ -128,7 +129,7 @@ void PajeSimulator::inputEntity (PajeObject *data)
       CALL_MEMBER_PAJE_SIMULATOR(*this,invocation[eventId])(event);
     }
   }else{
-    throw "Unknow event id.";
+    throw PajeSimulationException ("Unknow event id.");
   }
 }
 
@@ -156,7 +157,7 @@ void PajeSimulator::pajeDefineContainerType (PajeEvent *event)
   if (!containerType){
     std::stringstream line;
     line << *event;
-    throw "Unknow container type '"+type+"' in "+line.str();
+    throw PajeTypeException ("Unknow container type '"+type+"' in "+line.str());
   }
 
   std::string identifier = !alias.empty() ? alias : name;
@@ -164,7 +165,7 @@ void PajeSimulator::pajeDefineContainerType (PajeEvent *event)
   if (newType){
     std::stringstream line;
     line << *event;
-    throw "Container type '"+identifier+"' in "+line.str()+" already defined";
+    throw PajeTypeException ("Container type '"+identifier+"' in "+line.str()+" already defined.");
   }
   newType = dynamic_cast<PajeContainerType*>(containerType)->addContainerType (name, alias);
   typeMap[newType->identifier()] = newType;
@@ -184,7 +185,7 @@ void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
   if (!containerType){
     std::stringstream line;
     line << *event;
-    throw "Unknow container type '"+type+"' in "+line.str();
+    throw PajeTypeException ("Unknow container type '"+type+"' in "+line.str());
   }
 
   //search for start container type
@@ -192,7 +193,7 @@ void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
   if (!startcontainertype){
     std::stringstream line;
     line << *event;
-    throw "Unknow start container type '"+starttype+"' for link definition in "+line.str();
+    throw PajeTypeException ("Unknow start container type '"+starttype+"' for link definition in "+line.str());
   }
 
   //search for end container type
@@ -200,7 +201,7 @@ void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
   if (!endcontainertype){
     std::stringstream line;
     line << *event;
-    throw "Unknow end container type '"+endtype+"' for link definition in "+line.str();
+    throw PajeTypeException ("Unknow end container type '"+endtype+"' for link definition in "+line.str());
   }
 
   //check if the new type already exists
@@ -209,7 +210,7 @@ void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
   if (newType){
     std::stringstream line;
     line << *event;
-    throw "Link type '"+identifier+"' in "+line.str()+" already defined";
+    throw PajeTypeException ("Link type '"+identifier+"' in "+line.str()+" already defined");
   }
   newType = dynamic_cast<PajeContainerType*>(containerType)->addLinkType (name, alias, startcontainertype, endcontainertype);
   typeMap[newType->identifier()] = newType;
@@ -227,7 +228,7 @@ void PajeSimulator::pajeDefineEventType (PajeEvent *event)
   if (!containerType){
     std::stringstream line;
     line << *event;
-    throw "Unknow container type '"+type+"' in "+line.str();
+    throw PajeTypeException ("Unknow container type '"+type+"' in "+line.str());
   }
 
   std::string identifier = !alias.empty() ? alias : name;
@@ -235,7 +236,7 @@ void PajeSimulator::pajeDefineEventType (PajeEvent *event)
   if (newType){
     std::stringstream line;
     line << *event;
-    throw "Event type '"+identifier+"' in "+line.str()+" already defined";
+    throw PajeTypeException ("Event type '"+identifier+"' in "+line.str()+" already defined");
   }
   newType = dynamic_cast<PajeContainerType*>(containerType)->addEventType (name, alias);
   typeMap[newType->identifier()] = newType;
@@ -253,7 +254,7 @@ void PajeSimulator::pajeDefineStateType (PajeEvent *event)
   if (!containerType){
     std::stringstream line;
     line << *event;
-    throw "Unknow container type '"+type+"' in "+line.str();
+    throw PajeTypeException ("Unknow container type '"+type+"' in "+line.str());
   }
 
   std::string identifier = !alias.empty() ? alias : name;
@@ -261,7 +262,7 @@ void PajeSimulator::pajeDefineStateType (PajeEvent *event)
   if (newType){
     std::stringstream line;
     line << *event;
-    throw "State type '"+identifier+"' in "+line.str()+" already defined";
+    throw PajeTypeException ("State type '"+identifier+"' in "+line.str()+" already defined");
   }
   newType = dynamic_cast<PajeContainerType*>(containerType)->addStateType (name, alias);
   typeMap[newType->identifier()] = newType;
@@ -280,7 +281,7 @@ void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
   if (!containerType){
     std::stringstream line;
     line << *event;
-    throw "Unknow container type '"+type+"' in "+line.str();
+    throw PajeTypeException ("Unknow container type '"+type+"' in "+line.str());
   }
 
   std::string identifier = !alias.empty() ? alias : name;
@@ -288,7 +289,7 @@ void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
   if (newType){
     std::stringstream line;
     line << *event;
-    throw "Variable type '"+identifier+"' in "+line.str()+" already defined";
+    throw PajeTypeException ("Variable type '"+identifier+"' in "+line.str()+" already defined");
   }
 
   //validate the color, if provided
@@ -311,31 +312,31 @@ void PajeSimulator::pajeDefineEntityValue (PajeEvent *event)
   if (!type){
     std::stringstream line;
     line << *event;
-    throw "Unknow type '"+typestr+"' in "+line.str();
+    throw PajeTypeException ("Unknow type '"+typestr+"' in "+line.str());
   }
 
   //check if the type accepts values
   if (this->isContainerType (type)){
     std::stringstream line;
     line << *event;
-    throw "Trying to define the value '"+name+"' for the type '"+typestr+"' (which is a container type) is invalid in "+line.str();
+    throw PajeTypeException ("Trying to define the value '"+name+"' for the type '"+typestr+"' (which is a container type) is invalid in "+line.str());
   }
 
   if (this->isVariableType (type)){
     std::stringstream line;
     line << *event;
-    throw "Trying to define the value '"+name+"' for the type '"+typestr+"' (which is a variable type) is invalid in "+line.str();
+    throw PajeTypeException ("Trying to define the value '"+name+"' for the type '"+typestr+"' (which is a variable type) is invalid in "+line.str());
   }
 
   //check if the value already exists using the alias or the name
   if (!alias.empty() && type->hasValueForIdentifier (alias)){
     std::stringstream line;
     line << *event;
-    throw "Trying to redefine the value identified by '"+alias+"' for the type '"+typestr+"' in "+line.str();
+    throw PajeTypeException ("Trying to redefine the value identified by '"+alias+"' for the type '"+typestr+"' in "+line.str());
   }else if (type->hasValueForIdentifier (name)){
     std::stringstream line;
     line << *event;
-    throw "Trying to redefine the value identified by '"+name+"' for the type '"+typestr+"' in "+line.str();
+    throw PajeTypeException ("Trying to redefine the value identified by '"+name+"' for the type '"+typestr+"' in "+line.str());
   }
 
   //validate the color, if provided
@@ -357,14 +358,14 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
   if (!type){
     std::stringstream line;
     line << *event;
-    throw "Unknown container type '"+typestr+"' in "+line.str();
+    throw PajeTypeException ("Unknown container type '"+typestr+"' in "+line.str());
   }
 
   PajeContainerType *containerType = dynamic_cast<PajeContainerType*>(type);
   if (!containerType){
     std::stringstream line;
     line << *event;
-    throw "Not a container type '"+typestr+"' in "+line.str();
+    throw PajeTypeException ("Not a container type '"+typestr+"' in "+line.str());
   }
 
   //search the container of the new container
@@ -372,7 +373,7 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
   if (!container){
     std::stringstream line;
     line << *event;
-    throw "Unknown container '"+containerid+"' in "+line.str();
+    throw PajeContainerException ("Unknown container '"+containerid+"' in "+line.str());
   }
 
   //verify if the container type is correctly informed
@@ -383,7 +384,7 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
     ctype1 << *containerType;
     std::stringstream ctype2;
     ctype2 << *container->type();
-    throw "Container type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+    throw PajeTypeException ("Container type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
   //verify if there is a container with the same name
@@ -392,7 +393,7 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
   if (cont){
     std::stringstream eventdesc;
     eventdesc << *event;
-    throw "(Container, name: '"+name+"' alias: '"+alias+"') already exists in "+eventdesc.str();
+    throw PajeContainerException ("(Container, name: '"+name+"' alias: '"+alias+"') already exists in "+eventdesc.str());
   }
 
   //everything seems ok, create the container
@@ -412,7 +413,7 @@ void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
   if (!containerType){
     std::stringstream line;
     line << *event;
-    throw "Unknown container type '"+type+"' in "+line.str();
+    throw PajeTypeException ("Unknown container type '"+type+"' in "+line.str());
   }
 
   //search the container to be destroyed
@@ -420,7 +421,7 @@ void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
   if (!container){
     std::stringstream line;
     line << *event;
-    throw "Unknown container '"+name+"' in "+line.str();
+    throw PajeContainerException ("Unknown container '"+name+"' in "+line.str());
   }
 
   //checks
@@ -433,7 +434,7 @@ void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
     cont2 << *containerType;
     std::stringstream cont3;
     cont3 << *container->type();
-    throw "Wrong container type '"+cont2.str()+"' of container '"+cont1.str()+"' with type '"+cont3.str()+"' in "+line.str();
+    throw PajeTypeException ("Wrong container type '"+cont2.str()+"' of container '"+cont1.str()+"' with type '"+cont3.str()+"' in "+line.str());
   }
 
   //mark container as destroyed
@@ -452,7 +453,7 @@ void PajeSimulator::pajeNewEvent (PajeEvent *event)
   if (!container){
     std::stringstream line;
     line << *event;
-    throw "Unknown container '"+containerstr+"' in "+line.str();
+    throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
   //search the type
@@ -460,7 +461,7 @@ void PajeSimulator::pajeNewEvent (PajeEvent *event)
   if (!type){
     std::stringstream line;
     line << *event;
-    throw "Unknown type '"+typestr+"' in "+line.str();
+    throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a event type
@@ -469,7 +470,7 @@ void PajeSimulator::pajeNewEvent (PajeEvent *event)
     line << *event;
     std::stringstream desc;
     desc << *type;
-    throw "Type '"+desc.str()+"' is not a event type in "+line.str();
+    throw PajeTypeException ("Type '"+desc.str()+"' is not a event type in "+line.str());
   }
 
   //verify if the type is child of container type
@@ -480,7 +481,7 @@ void PajeSimulator::pajeNewEvent (PajeEvent *event)
     ctype1 << *type;
     std::stringstream ctype2;
     ctype2 << *container->type();
-    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+    throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
   //check if the value was previously declared
@@ -506,7 +507,7 @@ void PajeSimulator::pajeSetState (PajeEvent *event)
   if (!container){
     std::stringstream line;
     line << *event;
-    throw "Unknown container '"+containerstr+"' in "+line.str();
+    throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
   //search the type
@@ -514,7 +515,7 @@ void PajeSimulator::pajeSetState (PajeEvent *event)
   if (!type){
     std::stringstream line;
     line << *event;
-    throw "Unknown type '"+typestr+"' in "+line.str();
+    throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a state type
@@ -523,7 +524,7 @@ void PajeSimulator::pajeSetState (PajeEvent *event)
     line << *event;
     std::stringstream desc;
     desc << *type;
-    throw "Type '"+desc.str()+"' is not a state type in "+line.str();
+    throw PajeTypeException ("Type '"+desc.str()+"' is not a state type in "+line.str());
   }
 
   //verify if the type is child of container type
@@ -534,7 +535,7 @@ void PajeSimulator::pajeSetState (PajeEvent *event)
     ctype1 << *type;
     std::stringstream ctype2;
     ctype2 << *container->type();
-    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+    throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
   //check if the value was previously declared
@@ -560,7 +561,7 @@ void PajeSimulator::pajePushState (PajeEvent *event)
   if (!container){
     std::stringstream line;
     line << *event;
-    throw "Unknown container '"+containerstr+"' in "+line.str();
+    throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
   //search the type
@@ -568,7 +569,7 @@ void PajeSimulator::pajePushState (PajeEvent *event)
   if (!type){
     std::stringstream line;
     line << *event;
-    throw "Unknown type '"+typestr+"' in "+line.str();
+    throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a state type
@@ -577,7 +578,7 @@ void PajeSimulator::pajePushState (PajeEvent *event)
     line << *event;
     std::stringstream desc;
     desc << *type;
-    throw "Type '"+desc.str()+"' is not a state type in "+line.str();
+    throw PajeTypeException ("Type '"+desc.str()+"' is not a state type in "+line.str());
   }
 
   //verify if the type is child of container type
@@ -588,7 +589,7 @@ void PajeSimulator::pajePushState (PajeEvent *event)
     ctype1 << *type;
     std::stringstream ctype2;
     ctype2 << *container->type();
-    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+    throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
   //check if the value was previously declared
@@ -613,7 +614,7 @@ void PajeSimulator::pajePopState (PajeEvent *event)
   if (!container){
     std::stringstream line;
     line << *event;
-    throw "Unknown container '"+containerstr+"' in "+line.str();
+    throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
   //search the type
@@ -621,7 +622,7 @@ void PajeSimulator::pajePopState (PajeEvent *event)
   if (!type){
     std::stringstream line;
     line << *event;
-    throw "Unknown type '"+typestr+"' in "+line.str();
+    throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a state type
@@ -630,7 +631,7 @@ void PajeSimulator::pajePopState (PajeEvent *event)
     line << *event;
     std::stringstream desc;
     desc << *type;
-    throw "Type '"+desc.str()+"' is not a state type in "+line.str();
+    throw PajeTypeException ("Type '"+desc.str()+"' is not a state type in "+line.str());
   }
 
   //verify if the type is child of container type
@@ -641,7 +642,7 @@ void PajeSimulator::pajePopState (PajeEvent *event)
     ctype1 << *type;
     std::stringstream ctype2;
     ctype2 << *container->type();
-    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+    throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
   container->popState (lastKnownTime, type, event);
@@ -659,7 +660,7 @@ void PajeSimulator::pajeResetState (PajeEvent *event)
   if (!container){
     std::stringstream line;
     line << *event;
-    throw "Unknown container '"+containerstr+"' in "+line.str();
+    throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
   //search the type
@@ -667,7 +668,7 @@ void PajeSimulator::pajeResetState (PajeEvent *event)
   if (!type){
     std::stringstream line;
     line << *event;
-    throw "Unknown type '"+typestr+"' in "+line.str();
+    throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a state type
@@ -676,7 +677,7 @@ void PajeSimulator::pajeResetState (PajeEvent *event)
     line << *event;
     std::stringstream desc;
     desc << *type;
-    throw "Type '"+desc.str()+"' is not a state type in "+line.str();
+    throw PajeTypeException ("Type '"+desc.str()+"' is not a state type in "+line.str());
   }
 
   //verify if the type is child of container type
@@ -687,7 +688,7 @@ void PajeSimulator::pajeResetState (PajeEvent *event)
     ctype1 << *type;
     std::stringstream ctype2;
     ctype2 << *container->type();
-    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+    throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
   container->resetState (lastKnownTime, type, event);
@@ -705,7 +706,7 @@ void PajeSimulator::pajeSetVariable (PajeEvent *event)
   if (!container){
     std::stringstream line;
     line << *event;
-    throw "Unknown container '"+containerstr+"' in "+line.str();
+    throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
   //search the type
@@ -713,7 +714,7 @@ void PajeSimulator::pajeSetVariable (PajeEvent *event)
   if (!type){
     std::stringstream line;
     line << *event;
-    throw "Unknown type '"+typestr+"' in "+line.str();
+    throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a variable type
@@ -722,7 +723,7 @@ void PajeSimulator::pajeSetVariable (PajeEvent *event)
     line << *event;
     std::stringstream desc;
     desc << *type;
-    throw "Type '"+desc.str()+"' is not a variable type in "+line.str();
+    throw PajeTypeException ("Type '"+desc.str()+"' is not a variable type in "+line.str());
   }
 
   //verify if the type is child of container type
@@ -733,7 +734,7 @@ void PajeSimulator::pajeSetVariable (PajeEvent *event)
     ctype1 << *type;
     std::stringstream ctype2;
     ctype2 << *container->type();
-    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+    throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
   float v = strtof (value.c_str(), NULL);
@@ -752,7 +753,7 @@ void PajeSimulator::pajeAddVariable (PajeEvent *event)
   if (!container){
     std::stringstream line;
     line << *event;
-    throw "Unknown container '"+containerstr+"' in "+line.str();
+    throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
   //search the type
@@ -760,7 +761,7 @@ void PajeSimulator::pajeAddVariable (PajeEvent *event)
   if (!type){
     std::stringstream line;
     line << *event;
-    throw "Unknown type '"+typestr+"' in "+line.str();
+    throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a variable type
@@ -769,7 +770,7 @@ void PajeSimulator::pajeAddVariable (PajeEvent *event)
     line << *event;
     std::stringstream desc;
     desc << *type;
-    throw "Type '"+desc.str()+"' is not a variable type in "+line.str();
+    throw PajeTypeException ("Type '"+desc.str()+"' is not a variable type in "+line.str());
   }
 
   //verify if the type is child of container type
@@ -780,7 +781,7 @@ void PajeSimulator::pajeAddVariable (PajeEvent *event)
     ctype1 << *type;
     std::stringstream ctype2;
     ctype2 << *container->type();
-    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+    throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
   float v = strtof (value.c_str(), NULL);
@@ -799,7 +800,7 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
   if (!container){
     std::stringstream line;
     line << *event;
-    throw "Unknown container '"+containerstr+"' in "+line.str();
+    throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
   //search the type
@@ -807,7 +808,7 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
   if (!type){
     std::stringstream line;
     line << *event;
-    throw "Unknown type '"+typestr+"' in "+line.str();
+    throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a variable type
@@ -816,7 +817,7 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
     line << *event;
     std::stringstream desc;
     desc << *type;
-    throw "Type '"+desc.str()+"' is not a variable type in "+line.str();
+    throw PajeTypeException ("Type '"+desc.str()+"' is not a variable type in "+line.str());
   }
 
   //verify if the type is child of container type
@@ -827,7 +828,7 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
     ctype1 << *type;
     std::stringstream ctype2;
     ctype2 << *container->type();
-    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+    throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
   float v = strtof (value.c_str(), NULL);
@@ -848,7 +849,7 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
   if (!container){
     std::stringstream line;
     line << *event;
-    throw "Unknown container '"+containerstr+"' in "+line.str();
+    throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
   //search the start container
@@ -856,7 +857,7 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
   if (!startcontainer){
     std::stringstream line;
     line << *event;
-    throw "Unknown start container '"+startcontainerstr+"' in "+line.str();
+    throw PajeContainerException ("Unknown start container '"+startcontainerstr+"' in "+line.str());
   }
 
   //search the type
@@ -864,7 +865,7 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
   if (!type){
     std::stringstream line;
     line << *event;
-    throw "Unknown type '"+typestr+"' in "+line.str();
+    throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a link type
@@ -874,7 +875,7 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
     line << *event;
     std::stringstream desc;
     desc << *type;
-    throw "Type '"+desc.str()+"' is not a link type in "+line.str();
+    throw PajeTypeException ("Type '"+desc.str()+"' is not a link type in "+line.str());
   }
 
   //verify if the type is child of container type
@@ -885,7 +886,7 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
     ctype1 << *type;
     std::stringstream ctype2;
     ctype2 << *container->type();
-    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+    throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
   //verify if the type of start container is the type expected for the start of this link
@@ -896,7 +897,7 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
     ctype1 << *startcontainer->type();
     std::stringstream ctype2;
     ctype2 << *type;
-    throw "Type '"+ctype1.str()+"' of container '"+startcontainerstr+"' is not the container type expected for the start of link type '"+ctype2.str()+"' in "+eventdesc.str();
+    throw PajeTypeException ("Type '"+ctype1.str()+"' of container '"+startcontainerstr+"' is not the container type expected for the start of link type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
   //check if the value was previously declared
@@ -925,7 +926,7 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
   if (!container){
     std::stringstream line;
     line << *event;
-    throw "Unknown container '"+containerstr+"' in "+line.str();
+    throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
   //search the end container
@@ -933,7 +934,7 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
   if (!endcontainer){
     std::stringstream line;
     line << *event;
-    throw "Unknown end container '"+endcontainerstr+"' in "+line.str();
+    throw PajeContainerException ("Unknown end container '"+endcontainerstr+"' in "+line.str());
   }
 
   //search the type
@@ -941,7 +942,7 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
   if (!type){
     std::stringstream line;
     line << *event;
-    throw "Unknown type '"+typestr+"' in "+line.str();
+    throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a link type
@@ -951,7 +952,7 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
     line << *event;
     std::stringstream desc;
     desc << *type;
-    throw "Type '"+desc.str()+"' is not a link type in "+line.str();
+    throw PajeTypeException ("Type '"+desc.str()+"' is not a link type in "+line.str());
   }
 
   //verify if the type is child of container type
@@ -962,7 +963,7 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
     ctype1 << *type;
     std::stringstream ctype2;
     ctype2 << *container->type();
-    throw "Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str();
+    throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
   //verify if the type of end container is the type expected for the end of this link
@@ -973,7 +974,7 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
     ctype1 << *endcontainer->type();
     std::stringstream ctype2;
     ctype2 << *type;
-    throw "Type '"+ctype1.str()+"' of container '"+endcontainerstr+"' is not the container type expected for the end of link type '"+ctype2.str()+"' in "+eventdesc.str();
+    throw PajeTypeException ("Type '"+ctype1.str()+"' of container '"+endcontainerstr+"' is not the container type expected for the end of link type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
   //check if the value was previously declared

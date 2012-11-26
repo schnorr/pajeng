@@ -15,6 +15,7 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeEventDecoder.h"
+#include "PajeException.h"
 
 static std::map<std::string,PajeEventId> knownPajeEvents = initPajeEventNamesToID ();
 static PajeEventId getPajeEventId (std::string eventName)
@@ -114,7 +115,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
 
   str = line->word[n++];
   if (*str++ != '%') {
-    throw std::string("Line should start with a '%%'");
+    throw PajeDecodeException ("Line should start with a '%%'");
   }
   if (*str == '\0') {
     str = line->word[n++];
@@ -128,18 +129,18 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
 
     //check if this event definition has a good start
     if (n != line->word_count || strcmp(str, "EventDef") != 0) {
-      throw "'EventDef <event name> <event id>' expected in "+lreport;
+      throw PajeDecodeException ("'EventDef <event name> <event id>' expected in "+lreport);
     }
 
     //check if this event definition has been already defined
     if (eventDefinitions[eventId]){
-      throw "Redefinition of event with id '"+std::string(eventId)+"' in "+lreport;
+      throw PajeDecodeException ("Redefinition of event with id '"+std::string(eventId)+"' in "+lreport);
     }
 
     //check if we know the event name found in the trace file
     PajeEventId pajeEventId = getPajeEventId (eventName);
     if (pajeEventId == PajeUnknownEventId) {
-      throw "Unknown event name '"+std::string(eventName)+"' in "+lreport;
+      throw PajeDecodeException ("Unknown event name '"+std::string(eventName)+"' in "+lreport);
     }
 
     eventBeingDefined = new PajeEventDefinition (pajeEventId, eventId, line);
@@ -152,7 +153,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
     fieldName = str;
 
     if (n > line->word_count) {
-      throw "Incomplete line, missing field name in "+lreport;
+      throw PajeDecodeException ("Incomplete line, missing field name in "+lreport);
     }
 
     if (strcmp(fieldName, "EndEventDef") == 0) {
@@ -171,7 +172,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
       std::map<PajeEventId,std::string> eventNames = initPajeEventIDToNames();
       std::string name = eventNames[eventBeingDefined->pajeEventId];
 
-      throw "Incomplete line, missing field type for " + name + " with id " + " in "+lreport;
+      throw PajeDecodeException ("Incomplete line, missing field type for " + name + " with id " + " in "+lreport);
     }
 
     fieldType = line->word[n++];
@@ -179,7 +180,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
   }
   break;
   default:
-    throw std::string("Internal error, invalid status.");
+    throw PajeDecodeException ("Internal error, invalid status.");
   }
 }
 
@@ -193,11 +194,11 @@ PajeEvent *PajeEventDecoder::scanEventLine (paje_line *line)
 
   eventId = line->word[0];
   if (*eventId == '%') {
-    throw "Line should not start with a '%%' in "+lreport;
+    throw PajeDecodeException ("Line should not start with a '%%' in "+lreport);
   }
   eventDefinition = eventDefinitions[eventId];
   if (eventDefinition == NULL) {
-    throw "Event with id '"+std::string(eventId)+"' has not been defined in "+lreport;
+    throw PajeDecodeException ("Event with id '"+std::string(eventId)+"' has not been defined in "+lreport);
   }
   return new PajeEvent (eventDefinition, line);
 }

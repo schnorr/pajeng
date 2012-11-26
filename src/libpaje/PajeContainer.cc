@@ -15,6 +15,7 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeContainer.h"
+#include "PajeException.h"
 
 PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeEvent *event)
   : PajeNamedEntity (parent, type, time, name, event)
@@ -107,7 +108,7 @@ void PajeContainer::destroy (double time, PajeEvent *event)
     line << *event;
     std::stringstream desc;
     desc << *this;
-    throw "Container '"+desc.str()+"' already destroyed in "+line.str();
+    throw PajeContainerException ("Container '"+desc.str()+"' already destroyed in "+line.str());
   }
 
   //mark as destroyed, update endtime
@@ -127,7 +128,7 @@ void PajeContainer::destroy (double time, PajeEvent *event)
 
   //check pendingLinks
   if (!checkPendingLinks()){
-    throw "Incomplete links at the end of container with name '"+name()+"'";
+    throw PajeLinkException ("Incomplete links at the end of container with name '"+name()+"'");
   }
 
   //check stackStates, finish all stacked states, clear stacks
@@ -172,7 +173,7 @@ void PajeContainer::addVariable (double time, PajeType *type, double value, Paje
   if (entities[type].size() == 0){
     std::stringstream line;
     line << *event;
-//    throw "Illegal addition to a variable that has no value (yet) in "+line.str();
+    throw PajeVariableException ("Illegal addition to a variable that has no value (yet) in "+line.str());
   }
 
   checkTimeOrder (time, type, event);
@@ -204,7 +205,7 @@ void PajeContainer::subVariable (double time, PajeType *type, double value, Paje
   if (entities[type].size() == 0){
     std::stringstream line;
     line << *event;
-    throw "Illegal subtraction from a variable that has no value (yet) in "+line.str();
+    throw PajeVariableException ("Illegal subtraction from a variable that has no value (yet) in "+line.str());
   }
 
   checkTimeOrder (time, type, event);
@@ -237,7 +238,7 @@ void PajeContainer::startLink (double time, PajeType *type, PajeContainer *start
   if (linksUsedKeys[type].count(key)){
     std::stringstream eventdesc;
     eventdesc << *event;
-    throw "Illegal event in "+eventdesc.str()+", the key was already used for another link";
+    throw PajeLinkException ("Illegal event in "+eventdesc.str()+", the key was already used for another link");
   }
 
   if (pendingLinks[type].count(key) == 0){
@@ -255,7 +256,7 @@ void PajeContainer::startLink (double time, PajeType *type, PajeContainer *start
     if (link->value() != value){
       std::stringstream eventdesc;
       eventdesc << *event;
-      throw "Illegal PajeStartLink in "+eventdesc.str()+", value is different from the value of the corresponding PajeEndLink (which had "+link->value()->identifier()+")";
+      throw PajeLinkException ("Illegal PajeStartLink in "+eventdesc.str()+", value is different from the value of the corresponding PajeEndLink (which had "+link->value()->identifier()+")");
     }
 
     //checking time-ordered for this type
@@ -275,7 +276,7 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
   if (linksUsedKeys[type].count(key)){
     std::stringstream eventdesc;
     eventdesc << *event;
-    throw "Illegal event in "+eventdesc.str()+", the key was already used for another link";
+    throw PajeLinkException ("Illegal event in "+eventdesc.str()+", the key was already used for another link");
   }
 
   if (pendingLinks[type].count(key) == 0){
@@ -296,7 +297,7 @@ void PajeContainer::endLink (double time, PajeType *type, PajeContainer *endCont
     if (link->value() != value){
       std::stringstream eventdesc;
       eventdesc << *event;
-      throw "Illegal PajeEndLink in "+eventdesc.str()+", value is different from the value of the corresponding PajeStartLink (which had "+link->value()->identifier()+")";
+      throw PajeLinkException ("Illegal PajeEndLink in "+eventdesc.str()+", value is different from the value of the corresponding PajeStartLink (which had "+link->value()->identifier()+")");
     }
 
     //checking time-ordered for this type
@@ -354,7 +355,7 @@ void PajeContainer::popState (double time, PajeType *type, PajeEvent *event)
   if (!stack->size()){
     std::stringstream line;
     line << *event;
-    throw "Illegal pop event of a state that has no value in "+line.str();
+    throw PajeStateException ("Illegal pop event of a state that has no value in "+line.str());
   }
 
   //update the top of the stack, set its endTime
@@ -552,7 +553,7 @@ bool PajeContainer::checkTimeOrder (double time, PajeType *type, PajeEvent *even
          (last && last->endTime() != -1 && last->endTime() > time)){
       std::stringstream eventdesc;
       eventdesc << *event;
-      throw "Illegal, trace is not time-ordered in "+eventdesc.str();
+      throw PajeSimulationException ("Illegal, trace is not time-ordered in "+eventdesc.str());
       return false;
     }
   }

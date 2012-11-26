@@ -19,6 +19,7 @@
 #include <iostream>
 #include <exception>
 #include "PajeFileReader.h"
+#include "PajeException.h"
 #include "PajeEventDecoder.h"
 #include "PajeSimulator.h"
 #include <argp.h>
@@ -65,14 +66,6 @@ static int parse_options (int key, char *arg, struct argp_state *state)
 }
 
 static struct argp argp = { options, parse_options, args_doc, doc };
-
-bool is_readable (const std::string & filename)
-{
-  std::ifstream file(filename.c_str());
-  bool ret = !file.fail();
-  file.close();
-  return ret;
-}
 
 void dump (double start, double end, PajeSimulator *simulator)
 {
@@ -132,11 +125,10 @@ int main (int argc, char **argv)
   PajeFileReader *reader;
 
   if (arguments.input_size != 0){
-    if (!is_readable(std::string(arguments.input[0]))){
-      std::cerr << "trace file \"" << arguments.input[0] << "\" not found" << std::endl;
-      return 1;
-    }else{
+    try {
       reader = new PajeFileReader (std::string(arguments.input[0]));
+    }catch (PajeException& e){
+      e.reportAndExit ();
     }
   }else{
     reader = new PajeFileReader ();
@@ -156,10 +148,8 @@ int main (int argc, char **argv)
       reader->readNextChunk ();
     }
     reader->finishedReading ();
-  }catch (std::string exception){
-    std::cout << "Exception: " << exception << std::endl;
-    std::cout << "This trace file does not follow the Paje file format description. Sorry." << std::endl;
-    return 1;
+  }catch (PajeException& e){
+    e.reportAndExit();
   }
 
   dump (arguments.start, arguments.end, simulator);

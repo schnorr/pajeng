@@ -28,7 +28,6 @@
 #include "PajeEventDefinition.h"
 #include "PajeEvent.h"
 
-
 class PajeEventDecoder : public PajeComponent {
 private:
   enum { OUT_DEF, IN_DEF } defStatus;
