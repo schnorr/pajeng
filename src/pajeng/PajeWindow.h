@@ -19,7 +19,6 @@
 #include <QtGui>
 #include <QMainWindow>
 #include "PajeSpaceTimeFrame.h"
-#include "PajeTreemapFrame.h"
 #include "PajeApplication.h"
 
 QT_FORWARD_DECLARE_CLASS(QSplitter)
@@ -37,7 +36,6 @@ private:
   static PajeWindow *instance;
 public:
   PajeSpaceTimeFrame *spacetimeFrame;
-  PajeTreemapFrame *treemapFrame;
   void setApplication (PajeApplication *a) { app = a; };
 
   static PajeWindow *getInstance() {
@@ -52,7 +50,6 @@ protected:
   void closeEvent(QCloseEvent *event);
 
 private slots:
-  void treemap();
   void spacetime();
   void about();
 
@@ -69,7 +66,6 @@ private:
   QMenu *viewMenu;
   QMenu *helpMenu;
   QAction *exitAct;
-  QAction *treemapAct;
   QAction *spacetimeAct;
   QAction *aboutAct;
   QAction *aboutQtAct;

@@ -20,21 +20,15 @@ SET(PAJE_HEADERS
   src/pajeng/PajeApplication.h
   src/pajeng/PajeWindow.h
   src/pajeng/PajeSpaceTimeFrame.h
-  src/pajeng/PajeSpaceTimeView.h
-  src/pajeng/PajeTreemapFrame.h
-  src/pajeng/PajeTreemapView.h)
+  src/pajeng/PajeSpaceTimeView.h)
 SET(PAJE_SOURCES
   src/pajeng/main.cc
   src/pajeng/PajeApplication.cc
   src/pajeng/PajeWindow.cc
   src/pajeng/PajeSpaceTimeFrame.cc
   src/pajeng/PajeSpaceTimeView.cc
-  src/pajeng/PajeTreemapFrame.cc
-  src/pajeng/PajeTreemapView.cc
-  src/pajeng/PajeTreemap.cc
   src/pajeng/STEntityTypeLayout.cc
-  src/pajeng/PajeGraphicsItem.cc
-  src/pajeng/PajeTreemapItem.cc)
+  src/pajeng/PajeGraphicsItem.cc)
 
 # The Paje Library (libpaje)
 SET(LIBPAJE_HEADERS
