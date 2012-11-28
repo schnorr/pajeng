@@ -29,8 +29,8 @@ static char doc[] = "Dumps FILE, or standard input, in a CSV-like textual format
 static char args_doc[] = "[FILE]";
 
 static struct argp_option options[] = {
-  {"start", 's', "START", 0, "Use this timestamp instead of 0 timestamp"},
-  {"end", 'e', "END", 0, "Use this timestamp instead of EOF timestamp"},
+  {"start", 's', "START", 0, "Dump starts at timestamp START (instead of 0)"},
+  {"end", 'e', "END", 0, "Dump ends at timestamp END (instead of EOF)"},
   { 0 }
 };
 
