@@ -44,6 +44,7 @@ private:
 
 public:
   PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeEvent *event);
+  int numberOfEntities (void); //recursive
   std::string description (void) const;
   bool isContainer (void) const;
   PajeContainer *getRoot (void);

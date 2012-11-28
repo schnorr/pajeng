@@ -29,6 +29,22 @@ PajeContainer::PajeContainer (double time, std::string name, std::string alias, 
   }
 }
 
+int PajeContainer::numberOfEntities (void)
+{
+  int ret = 0;
+
+  std::map<std::string,PajeContainer*>::iterator i;
+  for (i = children.begin(); i != children.end(); i++){
+    ret += ((*i).second)->numberOfEntities();
+  }
+
+  std::map<PajeType*,std::vector<PajeEntity*> >::iterator j;
+  for (j = entities.begin(); j != entities.end(); j++){
+    ret += ((*j).second).size();
+  }
+  return ret;
+}
+
 std::vector<PajeContainer*> PajeContainer::getChildren (void)
 {
   std::vector<PajeContainer*> ret;

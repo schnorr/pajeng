@@ -54,6 +54,7 @@ PajeSimulator::PajeSimulator ()
 void PajeSimulator::report (void)
 {
   std::cout << __FUNCTION__ << " Containers: " << contMap.size() << std::endl;
+  std::cout << __FUNCTION__ << " Entities: " << root->numberOfEntities () << std::endl;
   std::cout << __FUNCTION__ << " Types: " << typeMap.size() <<  std::endl;
   std::cout << __FUNCTION__ << " Type Hierarchy:" << std::endl;
 
