@@ -200,6 +200,11 @@ PajeContainerType::PajeContainerType (std::string name, std::string alias, PajeT
 {
 }
 
+PajeContainerType::~PajeContainerType (void)
+{
+  children.clear();
+}
+
 PajeType *PajeContainerType::getRootType (void)
 {
   PajeType *root = this;

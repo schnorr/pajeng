@@ -107,6 +107,7 @@ public:
   std::map<std::string,PajeType*> children;
 
   PajeContainerType (std::string name, std::string alias, PajeType *parent);
+  ~PajeContainerType (void);
   PajeType *getRootType (void);
 
   PajeContainerType *addContainerType (std::string name, std::string alias);
