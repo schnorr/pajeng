@@ -152,7 +152,7 @@ void PajeContainer::destroy (double time, PajeEvent *event)
   }
 }
 
-PajeContainer *PajeContainer::addContainer (double time, std::string name, std::string alias, PajeContainerType *type, PajeEvent *event)
+PajeContainer *PajeContainer::createContainer (double time, std::string name, std::string alias, PajeContainerType *type, PajeEvent *event)
 {
   PajeContainer *newContainer = new PajeContainer (time, name, alias, this, type, event);
   children[newContainer->identifier()] = newContainer;

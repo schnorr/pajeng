@@ -398,7 +398,7 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
   }
 
   //everything seems ok, create the container
-  PajeContainer *newContainer = container->addContainer (lastKnownTime, name, alias, containerType, event);
+  PajeContainer *newContainer = container->createContainer (lastKnownTime, name, alias, containerType, event);
   contMap[newContainer->identifier()] = newContainer;
   contNamesMap[newContainer->name()] = newContainer;
 }
