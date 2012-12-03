@@ -99,13 +99,6 @@ std::string PajeContainer::identifier ()
   return alias.empty() ? name() : alias;
 }
 
-PajeContainer *PajeContainer::addContainer (double time, std::string name, std::string alias, PajeContainerType *type, PajeEvent *event)
-{
-  PajeContainer *newContainer = new PajeContainer (time, name, alias, this, type, event);
-  children[newContainer->identifier()] = newContainer;
-  return newContainer;
-}
-
 bool PajeContainer::checkPendingLinks (void)
 {
   std::map<PajeType*,std::map<std::string,PajeUserLink*> >::iterator it;
@@ -157,6 +150,13 @@ void PajeContainer::destroy (double time, PajeEvent *event)
     }
     stack->clear();
   }
+}
+
+PajeContainer *PajeContainer::addContainer (double time, std::string name, std::string alias, PajeContainerType *type, PajeEvent *event)
+{
+  PajeContainer *newContainer = new PajeContainer (time, name, alias, this, type, event);
+  children[newContainer->identifier()] = newContainer;
+  return newContainer;
 }
 
 void PajeContainer::setVariable (double time, PajeType *type, double value, PajeEvent *event)
