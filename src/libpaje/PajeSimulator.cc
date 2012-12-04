@@ -164,7 +164,11 @@ void PajeSimulator::startReading (void)
 void PajeSimulator::finishedReading (void)
 {
   //file has ended, mark all containers as destroyed
-  root->recursiveDestroy (lastKnownTime);
+  if (stopSimulationAtTime == -1){
+    root->recursiveDestroy (lastKnownTime);
+  }else{
+    root->recursiveDestroy (stopSimulationAtTime);
+  }
   hierarchyChanged ();
   timeLimitsChanged ();
   setSelectionStartEndTime (startTime(), endTime());
