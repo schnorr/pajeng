@@ -134,8 +134,10 @@ PajeSimulator::~PajeSimulator ()
 
 void PajeSimulator::inputEntity (PajeObject *data)
 {
+  //get event, set last known time
   PajeTraceEvent *event = (PajeTraceEvent*)data;
   setLastKnownTime (event);
+  //change the simulated behavior according to the event
   PajeEventId eventId = event->pajeEventId();
   if (eventId < PajeEventIdCount){
     if (invocation[eventId]){
