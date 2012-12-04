@@ -41,6 +41,7 @@ SET(LIBPAJE_HEADERS
   src/libpaje/PajeEntity.h
   src/libpaje/PajeEventDecoder.h
   src/libpaje/PajeEventDefinition.h
+  src/libpaje/PajeTraceEvent.h
   src/libpaje/PajeEvent.h
   src/libpaje/PajeFileReader.h
   src/libpaje/PajeObject.h
@@ -49,6 +50,7 @@ SET(LIBPAJE_HEADERS
   src/libpaje/PajeValue.h)
 SET(LIBPAJE_SOURCES
   src/libpaje/PajeEventDefinition.cc
+  src/libpaje/PajeTraceEvent.cc
   src/libpaje/PajeEvent.cc
   src/libpaje/PajeData.cc
   src/libpaje/PajeFileReader.cc
