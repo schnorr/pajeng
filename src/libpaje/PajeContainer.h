@@ -21,7 +21,7 @@
 #include <algorithm>
 #include <string>
 #include "PajeType.h"
-#include "PajeEvent.h"
+#include "PajeTraceEvent.h"
 #include "PajeEntity.h"
 
 class PajeContainer;

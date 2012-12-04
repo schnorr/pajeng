@@ -26,7 +26,7 @@
 #include <string.h>
 #include "PajeComponent.h"
 #include "PajeEventDefinition.h"
-#include "PajeEvent.h"
+#include "PajeTraceEvent.h"
 
 class PajeEventDecoder : public PajeComponent {
 private:
@@ -36,7 +36,7 @@ private:
 
   char *break_line (char *s, paje_line *line);
   void scanDefinitionLine (paje_line *line);
-  PajeEvent *scanEventLine (paje_line *line);
+  PajeTraceEvent *scanEventLine (paje_line *line);
   long long currentLineNumber;
 
 public:

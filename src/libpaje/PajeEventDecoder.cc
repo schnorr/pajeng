@@ -184,7 +184,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
   }
 }
 
-PajeEvent *PajeEventDecoder::scanEventLine (paje_line *line)
+PajeTraceEvent *PajeEventDecoder::scanEventLine (paje_line *line)
 {
   char *eventId = NULL;
   PajeEventDefinition *eventDefinition = NULL;
@@ -200,7 +200,7 @@ PajeEvent *PajeEventDecoder::scanEventLine (paje_line *line)
   if (eventDefinition == NULL) {
     throw PajeDecodeException ("Event with id '"+std::string(eventId)+"' has not been defined in "+lreport);
   }
-  return new PajeEvent (eventDefinition, line);
+  return new PajeTraceEvent (eventDefinition, line);
 }
 
 void PajeEventDecoder::inputEntity (PajeObject *data)
@@ -219,7 +219,7 @@ void PajeEventDecoder::inputEntity (PajeObject *data)
     if (line.word[0][0] == '%') {
       PajeEventDecoder::scanDefinitionLine (&line);
     } else {
-      PajeEvent *event = PajeEventDecoder::scanEventLine (&line);
+      PajeTraceEvent *event = PajeEventDecoder::scanEventLine (&line);
       if (event != NULL){
         PajeComponent::outputEntity (event);
         delete event;

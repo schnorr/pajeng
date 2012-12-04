@@ -26,7 +26,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "PajeEvent.h"
+#include "PajeTraceEvent.h"
 #include "PajeType.h"
 #include "PajeContainer.h"
 #include "PajeComponent.h"
@@ -49,8 +49,8 @@ private:
   double selectionStart;
   double selectionEnd;
 
-  void setLastKnownTime (PajeEvent *event);
-  PajeColor *getColor (std::string color, PajeEvent *event);
+  void setLastKnownTime (PajeTraceEvent *event);
+  PajeColor *getColor (std::string color, PajeTraceEvent *event);
 
 public:
   PajeSimulator();
@@ -62,31 +62,31 @@ public:
   void finishedReading (void);
 
 private:
-  void (PajeSimulator::*invocation[PajeEventIdCount])(PajeEvent*);
+  void (PajeSimulator::*invocation[PajeEventIdCount])(PajeTraceEvent*);
 
-  void pajeDefineContainerType (PajeEvent *event);
-  void pajeDefineLinkType (PajeEvent *event);
-  void pajeDefineEventType (PajeEvent *event);
-  void pajeDefineStateType (PajeEvent *event);
-  void pajeDefineVariableType (PajeEvent *event);
-  void pajeDefineEntityValue (PajeEvent *event);
+  void pajeDefineContainerType (PajeTraceEvent *event);
+  void pajeDefineLinkType (PajeTraceEvent *event);
+  void pajeDefineEventType (PajeTraceEvent *event);
+  void pajeDefineStateType (PajeTraceEvent *event);
+  void pajeDefineVariableType (PajeTraceEvent *event);
+  void pajeDefineEntityValue (PajeTraceEvent *event);
 
-  void pajeCreateContainer (PajeEvent *event);
-  void pajeDestroyContainer (PajeEvent *event);
+  void pajeCreateContainer (PajeTraceEvent *event);
+  void pajeDestroyContainer (PajeTraceEvent *event);
 
-  void pajeNewEvent (PajeEvent *event);
+  void pajeNewEvent (PajeTraceEvent *event);
 
-  void pajeSetState (PajeEvent *event);
-  void pajePushState (PajeEvent *event);
-  void pajePopState (PajeEvent *event);
-  void pajeResetState (PajeEvent *event);
+  void pajeSetState (PajeTraceEvent *event);
+  void pajePushState (PajeTraceEvent *event);
+  void pajePopState (PajeTraceEvent *event);
+  void pajeResetState (PajeTraceEvent *event);
 
-  void pajeSetVariable (PajeEvent *event);
-  void pajeAddVariable (PajeEvent *event);
-  void pajeSubVariable (PajeEvent *event);
+  void pajeSetVariable (PajeTraceEvent *event);
+  void pajeAddVariable (PajeTraceEvent *event);
+  void pajeSubVariable (PajeTraceEvent *event);
 
-  void pajeStartLink (PajeEvent *event);
-  void pajeEndLink (PajeEvent *event);
+  void pajeStartLink (PajeTraceEvent *event);
+  void pajeEndLink (PajeTraceEvent *event);
 
 public:
   //commands

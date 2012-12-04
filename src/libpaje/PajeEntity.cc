@@ -17,15 +17,15 @@
 #include "PajeEntity.h"
 #include "PajeException.h"
 
-PajeEntity::PajeEntity (PajeContainer *container, PajeType *type, PajeEvent *event)
+PajeEntity::PajeEntity (PajeContainer *container, PajeType *type, PajeTraceEvent *event)
 {
   _container = container;
   _type = type;
 
-  addPajeEvent (event);
+  addPajeTraceEvent (event);
 }
 
-void PajeEntity::addPajeEvent (PajeEvent *event)
+void PajeEntity::addPajeTraceEvent (PajeTraceEvent *event)
 {
   if (!event) return;
 
@@ -133,7 +133,7 @@ std::string PajeEntity::extraDescription (void) const
 /**************************************************************
  * PajeSingleTimedEntity
  */
-PajeSingleTimedEntity::PajeSingleTimedEntity (PajeContainer *container, PajeType *type, double time, PajeEvent *event)
+PajeSingleTimedEntity::PajeSingleTimedEntity (PajeContainer *container, PajeType *type, double time, PajeTraceEvent *event)
   : PajeEntity (container, type, event)
 {
   _stime = time;
@@ -182,7 +182,7 @@ double PajeSingleTimedEntity::duration (void) const
 /**************************************************************
  * PajeDoubleTimedEntity
  */
-PajeDoubleTimedEntity::PajeDoubleTimedEntity (PajeContainer *container, PajeType *type, double time, PajeEvent *event)
+PajeDoubleTimedEntity::PajeDoubleTimedEntity (PajeContainer *container, PajeType *type, double time, PajeTraceEvent *event)
   : PajeSingleTimedEntity (container, type, time, event)
 {
   _etime = -1;
@@ -211,7 +211,7 @@ double PajeDoubleTimedEntity::duration (void) const
 /**************************************************************
  * PajeValueEntity
  */
-PajeValueEntity::PajeValueEntity (PajeContainer *container, PajeType *type, double time, PajeValue *value, PajeEvent *event)
+PajeValueEntity::PajeValueEntity (PajeContainer *container, PajeType *type, double time, PajeValue *value, PajeTraceEvent *event)
   : PajeDoubleTimedEntity (container, type, time, event)
 {
   _value = value;
@@ -225,7 +225,7 @@ PajeValue *PajeValueEntity::value (void) const
 /**************************************************************
  * PajeNamedEntity
  */
-PajeNamedEntity::PajeNamedEntity (PajeContainer *container, PajeType *type, double time, std::string name, PajeEvent *event)
+PajeNamedEntity::PajeNamedEntity (PajeContainer *container, PajeType *type, double time, std::string name, PajeTraceEvent *event)
   : PajeDoubleTimedEntity (container, type, time, event)
 {
   _name = name;
@@ -239,7 +239,7 @@ std::string PajeNamedEntity::name (void) const
 /**************************************************************
  * PajeUserEvent
  */
-PajeUserEvent::PajeUserEvent (PajeContainer *container, PajeType *type, double time, PajeValue *value, PajeEvent *event)
+PajeUserEvent::PajeUserEvent (PajeContainer *container, PajeType *type, double time, PajeValue *value, PajeTraceEvent *event)
   : PajeSingleTimedEntity (container, type, time, event)
 {
   this->_value = value;
@@ -269,13 +269,13 @@ PajeValue *PajeUserEvent::value (void) const
 /**************************************************************
  * PajeUserState
  */
-PajeUserState::PajeUserState (PajeContainer *container, PajeType *type, double startTime, PajeValue *value, PajeEvent *event)
+PajeUserState::PajeUserState (PajeContainer *container, PajeType *type, double startTime, PajeValue *value, PajeTraceEvent *event)
   : PajeValueEntity (container, type, startTime, value, event)
 {
   this->imbrication = 0;
 }
 
-PajeUserState::PajeUserState (PajeContainer *container, PajeType *type, double startTime, PajeValue *value, int imbric, PajeEvent *event)
+PajeUserState::PajeUserState (PajeContainer *container, PajeType *type, double startTime, PajeValue *value, int imbric, PajeTraceEvent *event)
   : PajeValueEntity (container, type, startTime, value, event)
 {
   this->imbrication = imbric;
@@ -308,7 +308,7 @@ int PajeUserState::imbricationLevel (void) const
 /**************************************************************
  * PajeUserVariable
  */
-PajeUserVariable::PajeUserVariable (PajeContainer *container, PajeType *type, double time, double value, PajeEvent *event)
+PajeUserVariable::PajeUserVariable (PajeContainer *container, PajeType *type, double time, double value, PajeTraceEvent *event)
   : PajeDoubleTimedEntity (container, type, time, event)
 {
   _value = value;
@@ -356,7 +356,7 @@ void PajeUserVariable::subtractDoubleValue (double value)
 /**************************************************************
  * PajeUserLink
  */
-PajeUserLink::PajeUserLink (PajeContainer *container, PajeType *type, double time, PajeValue *value, std::string key, PajeContainer *startContainer, PajeEvent *event)
+PajeUserLink::PajeUserLink (PajeContainer *container, PajeType *type, double time, PajeValue *value, std::string key, PajeContainer *startContainer, PajeTraceEvent *event)
   : PajeValueEntity (container, type, time, value, event)
 {
   this->key = key;

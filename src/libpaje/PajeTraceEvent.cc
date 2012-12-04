@@ -14,9 +14,9 @@
     You should have received a copy of the GNU Public License
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
-#include "PajeEvent.h"
+#include "PajeTraceEvent.h"
 
-PajeEvent::PajeEvent (PajeEventDefinition *def, paje_line *line)
+PajeTraceEvent::PajeTraceEvent (PajeEventDefinition *def, paje_line *line)
 {
   if (line->word_count != def->fieldCount){
     std::stringstream st;
@@ -33,12 +33,12 @@ PajeEvent::PajeEvent (PajeEventDefinition *def, paje_line *line)
   lineNumber = line->lineNumber;
 }
 
-PajeEventId PajeEvent::pajeEventId (void)
+PajeEventId PajeTraceEvent::pajeEventId (void)
 {
   return pajeEventDefinition->pajeEventId;
 }
 
-std::string PajeEvent::valueForFieldId (std::string name)
+std::string PajeTraceEvent::valueForFieldId (std::string name)
 {
   int index = pajeEventDefinition->indexForFieldId (name);
   if (index == -1){
@@ -48,12 +48,12 @@ std::string PajeEvent::valueForFieldId (std::string name)
   }
 }
 
-long long PajeEvent::getLineNumber (void) const
+long long PajeTraceEvent::getLineNumber (void) const
 {
   return lineNumber;
 }
 
-std::string PajeEvent::description (void) const
+std::string PajeTraceEvent::description (void) const
 {
   std::stringstream output;
   unsigned int i;
@@ -67,7 +67,7 @@ std::string PajeEvent::description (void) const
   return output.str();
 }
 
-std::ostream &operator<< (std::ostream &output, const PajeEvent &event)
+std::ostream &operator<< (std::ostream &output, const PajeTraceEvent &event)
 {
   output << event.description();
   return output;
