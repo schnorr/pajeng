@@ -67,7 +67,7 @@ public:
   void resetState (double time, PajeType *type, PajeEvent *event);
 
 public:
-  void recursiveDestroy (double time, PajeEvent *event); //not a PajeSimulator event, EOF found
+  void recursiveDestroy (double time, PajeTraceEvent *event); //not a PajeSimulator event, EOF found
 
   //queries
   std::vector<PajeEntity*> enumeratorOfEntitiesTyped (double start, double end, PajeType *type);

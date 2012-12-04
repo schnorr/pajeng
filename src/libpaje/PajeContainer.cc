@@ -17,7 +17,7 @@
 #include "PajeContainer.h"
 #include "PajeException.h"
 
-PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeEvent *event)
+PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeTraceEvent *event)
   : PajeNamedEntity (parent, type, time, name, event)
 {
   this->alias = alias;
@@ -110,7 +110,7 @@ bool PajeContainer::checkPendingLinks (void)
   return true;
 }
 
-void PajeContainer::destroy (double time, PajeEvent *event)
+void PajeContainer::destroy (double time, PajeTraceEvent *event)
 {
   if (destroyed){
     std::stringstream line;
@@ -404,7 +404,7 @@ std::ostream &operator<< (std::ostream &output, const PajeContainer &container)
   return output;
 }
 
-void PajeContainer::recursiveDestroy (double time, PajeEvent *event)
+void PajeContainer::recursiveDestroy (double time, PajeTraceEvent *event)
 {
   if (!destroyed){
     this->destroy (time, event);
