@@ -48,7 +48,7 @@ PajeDecodeException::PajeDecodeException (std::string message)
 
 const std::string PajeDecodeException::reason (void) const throw ()
 {
-  return std::string(exceptionName + ": " + message + "\nThis trace file does not follow the Paje file format description. Sorry.");
+  return std::string(exceptionName + ": " + message);
 }
 
 PajeContainerException::PajeContainerException (std::string message) : PajeDecodeException (message)
