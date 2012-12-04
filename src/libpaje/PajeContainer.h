@@ -30,12 +30,12 @@ class PajeEvent;
 
 class PajeContainer : public PajeNamedEntity {
 private:
+  double stopSimulationAtTime;
   void (PajeContainer::*invocation[PajeEventIdCount])(PajeEvent *);
+  bool _destroyed;
 
 public:
-  std::string alias;
-  bool destroyed;
-public:
+  std::string _alias;
   std::map<std::string,PajeContainer*> children;
   int depth;
 
@@ -47,8 +47,12 @@ private:
   //keeps all simulated entities (variables, links, states and events)
   std::map<PajeType*,std::vector<PajeEntity*> > entities;
 
+private:
+  void init (std::string alias, PajeContainer *parent);
+
 public:
   PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeTraceEvent *event);
+  PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeTraceEvent *event, double stopat);
   int numberOfEntities (void); //recursive
   std::string description (void) const;
   std::string identifier (void);
@@ -61,8 +65,8 @@ public:
   void demuxer (PajeEvent *event);
 
   //Simulator events (not treated by demuxer yet)
-  PajeContainer *pajeCreateContainer (double time, PajeType *type, PajeTraceEvent *event);
-  void pajeDestroyContainer (double time, PajeTraceEvent *event);
+  PajeContainer *pajeCreateContainer (double time, PajeType *type, PajeTraceEvent *event, double stopat);
+  void pajeDestroyContainer (double time, PajeEvent *event);
 private:
   //Simulator events
   void pajeNewEvent (PajeEvent *event);
@@ -75,9 +79,13 @@ private:
   void pajeSubVariable (PajeEvent *event);
   void pajeStartLink (PajeEvent *event);
   void pajeEndLink (PajeEvent *event);
+  void pajeDestroyContainer (PajeEvent *event);
+
+private:
+  void destroy (double time);
 
 public:
-  void recursiveDestroy (double time, PajeTraceEvent *event); //not a PajeSimulator event, EOF found
+  void recursiveDestroy (double time); //not a PajeSimulator event, EOF found
 
   //queries
   std::vector<PajeEntity*> enumeratorOfEntitiesTyped (double start, double end, PajeType *type);

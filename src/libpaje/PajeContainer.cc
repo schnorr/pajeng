@@ -22,12 +22,25 @@
 PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeTraceEvent *event)
   : PajeNamedEntity (parent, type, time, name, event)
 {
-  this->alias = alias;
-  this->destroyed = false;
+  stopSimulationAtTime = -1;
+  init (alias, parent);
+}
+
+PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeTraceEvent *event, double stopat)
+  : PajeNamedEntity (parent, type, time, name, event)
+{
+  stopSimulationAtTime = stopat;
+  init (alias, parent);
+}
+
+void PajeContainer::init (std::string alias, PajeContainer *parent)
+{
+  _alias = alias;
+  _destroyed = false;
   if (parent){
-    this->depth = parent->depth + 1;
+    depth = parent->depth + 1;
   }else{
-    this->depth = 0;
+    depth = 0;
   }
 
   invocation[PajeDefineContainerTypeEventId] = NULL;
@@ -37,7 +50,7 @@ PajeContainer::PajeContainer (double time, std::string name, std::string alias, 
   invocation[PajeDefineVariableTypeEventId] = NULL;
   invocation[PajeDefineEntityValueEventId] = NULL;
   invocation[PajeCreateContainerEventId] = NULL;
-  invocation[PajeDestroyContainerEventId] = NULL;
+  invocation[PajeDestroyContainerEventId] = &PajeContainer::pajeDestroyContainer;
   invocation[PajeNewEventEventId] = &PajeContainer::pajeNewEvent;
   invocation[PajeSetStateEventId] = &PajeContainer::pajeSetState;
   invocation[PajePushStateEventId] = &PajeContainer::pajePushState;
@@ -117,7 +130,7 @@ bool PajeContainer::isContainer (void) const
 
 std::string PajeContainer::identifier ()
 {
-  return alias.empty() ? name() : alias;
+  return _alias.empty() ? name() : _alias;
 }
 
 bool PajeContainer::checkPendingLinks (void)
@@ -133,6 +146,20 @@ bool PajeContainer::checkPendingLinks (void)
 
 void PajeContainer::demuxer (PajeEvent *event)
 {
+  //check if I'm stopped
+  if (_destroyed){
+    return;
+  }
+
+  double lastKnownTime = event->time();
+  //stop the simulation before the end
+  if (stopSimulationAtTime != -1){
+    if (lastKnownTime > stopSimulationAtTime){
+      pajeDestroyContainer (stopSimulationAtTime, event);
+      return;
+    }
+  }
+
   //change the simulated behavior according to the event
   PajeEventId eventId = event->traceEvent()->pajeEventId();
   if (eventId < PajeEventIdCount){
@@ -144,6 +171,9 @@ void PajeContainer::demuxer (PajeEvent *event)
   }else{
     throw PajeSimulationException ("Unknow event id.");
   }
+
+  //update container endtime
+  setEndTime (event->time());
 }
 
 void PajeContainer::pajeNewEvent (PajeEvent *event)
@@ -262,9 +292,6 @@ void PajeContainer::pajeSetVariable (PajeEvent *event)
   //create new
   PajeUserVariable *val = new PajeUserVariable (this, type, time, value, traceEvent);
   entities[type].push_back(val);
-
-  //update container endtime
-  setEndTime (time);
 }
 
 void PajeContainer::pajeAddVariable (PajeEvent *event)
@@ -299,9 +326,6 @@ void PajeContainer::pajeAddVariable (PajeEvent *event)
   //create new
   PajeUserVariable *val = new PajeUserVariable (this, type, time, lastValue + value, traceEvent);
   entities[type].push_back(val);
-
-  //update container endtime
-  setEndTime (time);
 }
 
 void PajeContainer::pajeSubVariable (PajeEvent *event)
@@ -337,9 +361,6 @@ void PajeContainer::pajeSubVariable (PajeEvent *event)
   //create new
   PajeUserVariable *val = new PajeUserVariable (this, type, time, lastValue - value, traceEvent);
   entities[type].push_back(val);
-
-  //update container endtime
-  setEndTime (time);
 }
 
 void PajeContainer::pajeStartLink (PajeEvent *event)
@@ -385,7 +406,6 @@ void PajeContainer::pajeStartLink (PajeEvent *event)
     pendingLinks[type].erase(key);
     linksUsedKeys[type].insert(key);
   }
-
 }
 
 void PajeContainer::pajeEndLink (PajeEvent *event)
@@ -436,24 +456,22 @@ void PajeContainer::pajeEndLink (PajeEvent *event)
   }
 }
 
-
-
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container)
 {
   output << "(Container, name: "
          << container.name()
-         << ", alias: " << container.alias << ")";
+         << ", alias: " << container._alias << ")";
   return output;
 }
 
-void PajeContainer::recursiveDestroy (double time, PajeTraceEvent *event)
+void PajeContainer::recursiveDestroy (double time)
 {
-  if (!destroyed){
-    this->pajeDestroyContainer (time, event);
+  if (!_destroyed){
+    destroy (time);
   }
   std::map<std::string,PajeContainer*>::iterator it;
   for (it = children.begin(); it != children.end(); it++){
-    ((*it).second)->recursiveDestroy (time, event);
+    ((*it).second)->recursiveDestroy (time);
   }
 }
 
@@ -626,10 +644,11 @@ bool PajeContainer::checkTimeOrder (double time, PajeType *type, PajeTraceEvent 
   return true;
 }
 
-PajeContainer *PajeContainer::pajeCreateContainer (double time, PajeType *type, PajeTraceEvent *event)
+PajeContainer *PajeContainer::pajeCreateContainer (double time, PajeType *type, PajeTraceEvent *event, double stopat)
 {
   std::string name = event->valueForFieldId (std::string("Name"));
   std::string alias = event->valueForFieldId (std::string("Alias"));
+
   PajeContainerType *containerType = dynamic_cast<PajeContainerType*>(type);
   if (!containerType){
     std::stringstream eventdesc;
@@ -637,25 +656,35 @@ PajeContainer *PajeContainer::pajeCreateContainer (double time, PajeType *type, 
     throw PajeSimulationException ("Type could not be dynamicaly casted to container type "+eventdesc.str());
   }
 
-  PajeContainer *newContainer = new PajeContainer (time, name, alias, this, containerType, event);
+  PajeContainer *newContainer = new PajeContainer (time, name, alias, this, containerType, event, stopat);
   children[newContainer->identifier()] = newContainer;
   return newContainer;
 }
 
-
-
-void PajeContainer::pajeDestroyContainer (double time, PajeTraceEvent *event)
+void PajeContainer::pajeDestroyContainer (double time, PajeEvent *event)
 {
-  if (destroyed){
+  PajeTraceEvent *traceEvent = event->traceEvent();
+  if (_destroyed){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     std::stringstream desc;
     desc << *this;
     throw PajeContainerException ("Container '"+desc.str()+"' already destroyed in "+line.str());
   }
+  destroy (time);
+}
+
+
+void PajeContainer::pajeDestroyContainer (PajeEvent *event)
+{
+  pajeDestroyContainer (event->time(), event);
+}
+
+void PajeContainer::destroy (double time)
+{
 
   //mark as destroyed, update endtime
-  destroyed = true;
+  _destroyed = true;
   setEndTime (time);
 
   //finish all entities
