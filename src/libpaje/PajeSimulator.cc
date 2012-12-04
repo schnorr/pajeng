@@ -493,7 +493,9 @@ void PajeSimulator::pajeNewEvent (PajeTraceEvent *traceEvent)
     val = type->addValue (value, value, NULL);
   }
 
-  container->newEvent (lastKnownTime, type, val, event);
+  PajeEvent *event = new PajeNewEventEvent (traceEvent, container, type, val);
+  container->demuxer (event);
+  delete event;
 }
 
 void PajeSimulator::pajeSetState (PajeTraceEvent *traceEvent)
@@ -547,7 +549,9 @@ void PajeSimulator::pajeSetState (PajeTraceEvent *traceEvent)
     val = type->addValue (value, value, NULL);
   }
 
-  container->setState (lastKnownTime, type, val, event);
+  PajeEvent *event = new PajeSetStateEvent (traceEvent, container, type, val);
+  container->demuxer (event);
+  delete event;
 }
 
 void PajeSimulator::pajePushState (PajeTraceEvent *traceEvent)
@@ -601,7 +605,9 @@ void PajeSimulator::pajePushState (PajeTraceEvent *traceEvent)
     val = type->addValue (value, value, NULL);
   }
 
-  container->pushState (lastKnownTime, type, val, event);
+  PajeEvent *event = new PajePushStateEvent (traceEvent, container, type, val);
+  container->demuxer (event);
+  delete event;
 }
 
 void PajeSimulator::pajePopState (PajeTraceEvent *traceEvent)
@@ -646,7 +652,9 @@ void PajeSimulator::pajePopState (PajeTraceEvent *traceEvent)
     throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
-  container->popState (lastKnownTime, type, event);
+  PajeEvent *event = new PajePopStateEvent (traceEvent, container, type);
+  container->demuxer (event);
+  delete event;
 }
 
 
@@ -692,7 +700,9 @@ void PajeSimulator::pajeResetState (PajeTraceEvent *traceEvent)
     throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
-  container->resetState (lastKnownTime, type, event);
+  PajeEvent *event = new PajeResetStateEvent (traceEvent, container, type);
+  container->demuxer (event);
+  delete event;
 }
 
 void PajeSimulator::pajeSetVariable (PajeTraceEvent *traceEvent)
@@ -739,7 +749,10 @@ void PajeSimulator::pajeSetVariable (PajeTraceEvent *traceEvent)
   }
 
   float v = strtof (value.c_str(), NULL);
-  container->setVariable (lastKnownTime, type, v, event);
+
+  PajeEvent *event = new PajeSetVariableEvent (traceEvent, container, type, v);
+  container->demuxer (event);
+  delete event;
 }
 
 void PajeSimulator::pajeAddVariable (PajeTraceEvent *traceEvent)
@@ -786,7 +799,9 @@ void PajeSimulator::pajeAddVariable (PajeTraceEvent *traceEvent)
   }
 
   float v = strtof (value.c_str(), NULL);
-  container->addVariable (lastKnownTime, type, v, event);
+  PajeEvent *event = new PajeAddVariableEvent (traceEvent, container, type, v);
+  container->demuxer (event);
+  delete event;
 }
 
 void PajeSimulator::pajeSubVariable (PajeTraceEvent *traceEvent)
@@ -833,7 +848,10 @@ void PajeSimulator::pajeSubVariable (PajeTraceEvent *traceEvent)
   }
 
   float v = strtof (value.c_str(), NULL);
-  container->subVariable (lastKnownTime, type, v, event);
+
+  PajeEvent *event = new PajeSubVariableEvent (traceEvent, container, type, v);
+  container->demuxer (event);
+  delete event;
 }
 
 void PajeSimulator::pajeStartLink (PajeTraceEvent *traceEvent)
@@ -909,8 +927,9 @@ void PajeSimulator::pajeStartLink (PajeTraceEvent *traceEvent)
     val = type->addValue (value, value, NULL);
   }
 
-  float v = strtof (value.c_str(), NULL);
-  container->startLink (lastKnownTime, type, startcontainer, val, key, event);
+  PajeEvent *event = new PajeStartLinkEvent (traceEvent, container, type, val, startcontainer, key);
+  container->demuxer (event);
+  delete event;
 }
 
 void PajeSimulator::pajeEndLink (PajeTraceEvent *traceEvent)
@@ -986,6 +1005,7 @@ void PajeSimulator::pajeEndLink (PajeTraceEvent *traceEvent)
     val = type->addValue (value, value, NULL);
   }
 
-  float v = strtof (value.c_str(), NULL);
-  container->endLink (lastKnownTime, type, endcontainer, val, key, event);
+  PajeEvent *event = new PajeEndLinkEvent (traceEvent, container, type, val, endcontainer, key);
+  container->demuxer (event);
+  delete event;
 }
