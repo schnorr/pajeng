@@ -61,6 +61,7 @@ public:
   PajeSimulator(double stopat);
   ~PajeSimulator();
   void report (void);
+  bool keepSimulating (void);
   
   void inputEntity (PajeObject *data);
   void startReading (void);

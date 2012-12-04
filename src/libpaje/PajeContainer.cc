@@ -99,6 +99,16 @@ bool PajeContainer::isAncestorOf (PajeContainer *c)
   return false;
 }
 
+bool PajeContainer::keepSimulating (void)
+{
+  std::map<std::string,PajeContainer*>::iterator it;
+  for (it = children.begin(); it != children.end(); it++){
+    PajeContainer *child = ((*it).second);
+    if (!child->keepSimulating()) return false;
+  }
+  return true;
+}
+
 std::string PajeContainer::description (void) const
 {
   std::stringstream description;

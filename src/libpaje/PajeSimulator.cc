@@ -90,7 +90,16 @@ void PajeSimulator::report (void)
   }
 }
 
-void PajeSimulator::setLastKnownTime (PajeEvent *event)
+bool PajeSimulator::keepSimulating (void)
+{
+  if (stopSimulationAtTime == -1){
+    return true;
+  }else{
+    return root->keepSimulating ();
+  }
+}
+
+void PajeSimulator::setLastKnownTime (PajeTraceEvent *event)
 {
   std::string time = event->valueForFieldId (std::string("Time"));
   if (time.length()){

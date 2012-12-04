@@ -60,6 +60,7 @@ public:
   PajeContainer *getRoot (void);
   std::vector<PajeContainer*> getChildren (void);
   bool isAncestorOf (PajeContainer *c);
+  bool keepSimulating (void);
 
   //entry method
   void demuxer (PajeEvent *event);
