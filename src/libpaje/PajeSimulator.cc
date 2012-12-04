@@ -21,6 +21,18 @@
 
 PajeSimulator::PajeSimulator ()
 {
+  stopSimulationAtTime = -1;
+  init ();
+}
+
+PajeSimulator::PajeSimulator (double stopat)
+{
+  stopSimulationAtTime = stopat;
+  init ();
+}
+
+void PajeSimulator::init (void)
+{
   invocation[PajeDefineContainerTypeEventId] = &PajeSimulator::pajeDefineContainerType;
   invocation[PajeDefineLinkTypeEventId] = &PajeSimulator::pajeDefineLinkType;
   invocation[PajeDefineEventTypeEventId] = &PajeSimulator::pajeDefineEventType;
@@ -141,7 +153,7 @@ void PajeSimulator::startReading (void)
 void PajeSimulator::finishedReading (void)
 {
   //file has ended, mark all containers as destroyed
-  root->recursiveDestroy (lastKnownTime, NULL);
+  root->recursiveDestroy (lastKnownTime);
   hierarchyChanged ();
   timeLimitsChanged ();
   setSelectionStartEndTime (startTime(), endTime());
@@ -398,7 +410,7 @@ void PajeSimulator::pajeCreateContainer (PajeTraceEvent *traceEvent)
   }
 
   //everything seems ok, create the container
-  PajeContainer *newContainer = container->pajeCreateContainer (lastKnownTime, containerType, traceEvent);
+  PajeContainer *newContainer = container->pajeCreateContainer (lastKnownTime, containerType, traceEvent, stopSimulationAtTime);
   if (newContainer){
     contMap[newContainer->identifier()] = newContainer;
     contNamesMap[newContainer->name()] = newContainer;
@@ -445,7 +457,9 @@ void PajeSimulator::pajeDestroyContainer (PajeTraceEvent *traceEvent)
   }
 
   //mark container as destroyed
-  container->pajeDestroyContainer (lastKnownTime, traceEvent);
+  PajeEvent *event = new PajeDestroyContainerEvent (traceEvent, container, containerType);
+  container->demuxer (event);
+  delete event;
 }
 
 void PajeSimulator::pajeNewEvent (PajeTraceEvent *traceEvent)

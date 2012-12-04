@@ -43,6 +43,9 @@ private:
   std::map<std::string,PajeContainer*> contNamesMap; //for names
 
   double lastKnownTime;
+  double stopSimulationAtTime;
+
+  void init (void);
 
 private:
   //for time-slice selection (used by time aggregation)
@@ -54,6 +57,7 @@ private:
 
 public:
   PajeSimulator();
+  PajeSimulator(double stopat);
   ~PajeSimulator();
   void report (void);
   
