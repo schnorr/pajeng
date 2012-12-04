@@ -22,11 +22,16 @@
 #include <string>
 #include "PajeType.h"
 #include "PajeTraceEvent.h"
+#include "PajeEvent.h"
 #include "PajeEntity.h"
 
 class PajeContainer;
+class PajeEvent;
 
 class PajeContainer : public PajeNamedEntity {
+private:
+  void (PajeContainer::*invocation[PajeEventIdCount])(PajeEvent *);
+
 public:
   std::string alias;
   bool destroyed;
@@ -43,28 +48,33 @@ private:
   std::map<PajeType*,std::vector<PajeEntity*> > entities;
 
 public:
-  PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeEvent *event);
+  PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeTraceEvent *event);
   int numberOfEntities (void); //recursive
   std::string description (void) const;
+  std::string identifier (void);
   bool isContainer (void) const;
   PajeContainer *getRoot (void);
   std::vector<PajeContainer*> getChildren (void);
   bool isAncestorOf (PajeContainer *c);
 
-  //PajeSimulator events
-  PajeContainer *createContainer (double time, std::string name, std::string alias, PajeContainerType *type, PajeEvent *event);
-  std::string identifier (void);
-  void destroy (double time, PajeEvent *event);
-  void setVariable (double time, PajeType *type, double value, PajeEvent *event);
-  void addVariable (double time, PajeType *type, double value, PajeEvent *event);
-  void subVariable (double time, PajeType *type, double value, PajeEvent *event);
-  void startLink (double time, PajeType *type, PajeContainer *startContainer, PajeValue *value, std::string key, PajeEvent *event);
-  void endLink (double time, PajeType *type, PajeContainer *endContainer, PajeValue *value, std::string key, PajeEvent *event);
-  void newEvent (double time, PajeType *type, PajeValue *value, PajeEvent *event);
-  void setState (double time, PajeType *type, PajeValue *value, PajeEvent *event);
-  void pushState (double time, PajeType *type, PajeValue *value, PajeEvent *event);
-  void popState (double time, PajeType *type, PajeEvent *event);
-  void resetState (double time, PajeType *type, PajeEvent *event);
+  //entry method
+  PajeContainer *demuxer (PajeEvent *event);
+
+  //Simulator events (not treated by demuxer yet)
+  PajeContainer *pajeCreateContainer (double time, PajeType *type, PajeTraceEvent *event);
+  void pajeDestroyContainer (double time, PajeTraceEvent *event);
+private:
+  //Simulator events
+  void pajeNewEvent (PajeEvent *event);
+  void pajeSetState (PajeEvent *event);
+  void pajePushState (PajeEvent *event);
+  void pajePopState (PajeEvent *event);
+  void pajeResetState (PajeEvent *event);
+  void pajeSetVariable (PajeEvent *event);
+  void pajeAddVariable (PajeEvent *event);
+  void pajeSubVariable (PajeEvent *event);
+  void pajeStartLink (PajeEvent *event);
+  void pajeEndLink (PajeEvent *event);
 
 public:
   void recursiveDestroy (double time, PajeTraceEvent *event); //not a PajeSimulator event, EOF found
@@ -82,7 +92,8 @@ private:
                             PajeAggregatedDict b);
   PajeAggregatedDict add (PajeAggregatedDict a,
                           PajeAggregatedDict b);
-  bool checkTimeOrder (double time, PajeType *type, PajeEvent *event);
+  bool checkTimeOrder (PajeEvent *event);
+  bool checkTimeOrder (double time, PajeType *type, PajeTraceEvent *traceEvent);
   bool checkPendingLinks (void);
 
 
