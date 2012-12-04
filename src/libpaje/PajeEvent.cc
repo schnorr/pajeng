@@ -191,3 +191,13 @@ PajeContainer *PajeEndLinkEvent::endContainer (void)
 {
   return _linkedContainer;
 }
+
+PajeDestroyContainerEvent::PajeDestroyContainerEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type)
+  : PajeEvent (event, container, type)
+{
+}
+
+std::string PajeDestroyContainerEvent::kind (void)
+{
+  return std::string ("Container");
+}

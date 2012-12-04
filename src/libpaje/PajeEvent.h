@@ -155,6 +155,13 @@ public:
   PajeContainer *endContainer (void);
 };
 
+class PajeDestroyContainerEvent : public PajeEvent
+{
+public:
+  PajeDestroyContainerEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type);
+  std::string kind (void);
+};
+
 #include "PajeContainer.h"
 #include "PajeType.h"
 #include "PajeValue.h"
