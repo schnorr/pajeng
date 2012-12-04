@@ -87,7 +87,7 @@ void PajeSimulator::setLastKnownTime (PajeEvent *event)
   }
 }
 
-PajeColor *PajeSimulator::getColor (std::string color, PajeEvent *event)
+PajeColor *PajeSimulator::getColor (std::string color, PajeTraceEvent *event)
 {
   PajeColor *ret = NULL;
   if (!color.empty()){
@@ -122,7 +122,7 @@ PajeSimulator::~PajeSimulator ()
 
 void PajeSimulator::inputEntity (PajeObject *data)
 {
-  PajeEvent *event = (PajeEvent*)data;
+  PajeTraceEvent *event = (PajeTraceEvent*)data;
   setLastKnownTime (event);
   PajeEventId eventId = event->pajeEventId();
   if (eventId < PajeEventIdCount){
@@ -147,7 +147,7 @@ void PajeSimulator::finishedReading (void)
   setSelectionStartEndTime (startTime(), endTime());
 }
 
-void PajeSimulator::pajeDefineContainerType (PajeEvent *event)
+void PajeSimulator::pajeDefineContainerType (PajeTraceEvent *event)
 {
   std::string name = event->valueForFieldId (std::string("Name"));
   std::string type = event->valueForFieldId (std::string("Type"));
@@ -173,7 +173,7 @@ void PajeSimulator::pajeDefineContainerType (PajeEvent *event)
   typeNamesMap[newType->name()] = newType;
 }
 
-void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
+void PajeSimulator::pajeDefineLinkType (PajeTraceEvent *event)
 {
   std::string name = event->valueForFieldId (std::string("Name"));
   std::string type = event->valueForFieldId (std::string("Type"));
@@ -218,7 +218,7 @@ void PajeSimulator::pajeDefineLinkType (PajeEvent *event)
   typeNamesMap[newType->name()] = newType;
 }
 
-void PajeSimulator::pajeDefineEventType (PajeEvent *event)
+void PajeSimulator::pajeDefineEventType (PajeTraceEvent *event)
 {
   std::string name = event->valueForFieldId (std::string("Name"));
   std::string type = event->valueForFieldId (std::string("Type"));
@@ -244,7 +244,7 @@ void PajeSimulator::pajeDefineEventType (PajeEvent *event)
   typeNamesMap[newType->name()] = newType;
 }
 
-void PajeSimulator::pajeDefineStateType (PajeEvent *event)
+void PajeSimulator::pajeDefineStateType (PajeTraceEvent *event)
 {
   std::string name = event->valueForFieldId (std::string("Name"));
   std::string type = event->valueForFieldId (std::string("Type"));
@@ -270,7 +270,7 @@ void PajeSimulator::pajeDefineStateType (PajeEvent *event)
   typeNamesMap[newType->name()] = newType;
 }
 
-void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
+void PajeSimulator::pajeDefineVariableType (PajeTraceEvent *event)
 {
   std::string name = event->valueForFieldId (std::string("Name"));
   std::string type = event->valueForFieldId (std::string("Type"));
@@ -301,7 +301,7 @@ void PajeSimulator::pajeDefineVariableType (PajeEvent *event)
   typeNamesMap[newType->name()] = newType;
 }
 
-void PajeSimulator::pajeDefineEntityValue (PajeEvent *event)
+void PajeSimulator::pajeDefineEntityValue (PajeTraceEvent *event)
 {
   std::string name = event->valueForFieldId (std::string("Name"));
   std::string typestr = event->valueForFieldId (std::string("Type"));
@@ -346,26 +346,26 @@ void PajeSimulator::pajeDefineEntityValue (PajeEvent *event)
   type->addValue (alias, name, pajeColor);
 }
 
-void PajeSimulator::pajeCreateContainer (PajeEvent *event)
+void PajeSimulator::pajeCreateContainer (PajeTraceEvent *traceEvent)
 {
-  std::string time = event->valueForFieldId (std::string("Time"));
-  std::string typestr = event->valueForFieldId (std::string("Type"));
-  std::string containerid = event->valueForFieldId (std::string("Container"));
-  std::string name = event->valueForFieldId (std::string("Name"));
-  std::string alias = event->valueForFieldId (std::string("Alias"));
+  std::string time = traceEvent->valueForFieldId (std::string("Time"));
+  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
+  std::string containerid = traceEvent->valueForFieldId (std::string("Container"));
+  std::string name = traceEvent->valueForFieldId (std::string("Name"));
+  std::string alias = traceEvent->valueForFieldId (std::string("Alias"));
 
   //search the container type for the new container
   PajeType *type = typeMap[typestr];
   if (!type){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeTypeException ("Unknown container type '"+typestr+"' in "+line.str());
   }
 
   PajeContainerType *containerType = dynamic_cast<PajeContainerType*>(type);
   if (!containerType){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeTypeException ("Not a container type '"+typestr+"' in "+line.str());
   }
 
@@ -373,14 +373,14 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
   PajeContainer *container = contMap[containerid];
   if (!container){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeContainerException ("Unknown container '"+containerid+"' in "+line.str());
   }
 
   //verify if the container type is correctly informed
   if (containerType->parent() != container->type()){
     std::stringstream eventdesc;
-    eventdesc << *event;
+    eventdesc << *traceEvent;
     std::stringstream ctype1;
     ctype1 << *containerType;
     std::stringstream ctype2;
@@ -393,7 +393,7 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
   PajeContainer *cont = contMap[identifier];
   if (cont){
     std::stringstream eventdesc;
-    eventdesc << *event;
+    eventdesc << *traceEvent;
     throw PajeContainerException ("(Container, name: '"+name+"' alias: '"+alias+"') already exists in "+eventdesc.str());
   }
 
@@ -403,17 +403,17 @@ void PajeSimulator::pajeCreateContainer (PajeEvent *event)
   contNamesMap[newContainer->name()] = newContainer;
 }
 
-void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
+void PajeSimulator::pajeDestroyContainer (PajeTraceEvent *traceEvent)
 {
-  std::string time = event->valueForFieldId (std::string("Time"));
-  std::string type = event->valueForFieldId (std::string("Type"));
-  std::string name = event->valueForFieldId (std::string("Name"));
+  std::string time = traceEvent->valueForFieldId (std::string("Time"));
+  std::string type = traceEvent->valueForFieldId (std::string("Type"));
+  std::string name = traceEvent->valueForFieldId (std::string("Name"));
 
   //search the container type for the new container
   PajeType *containerType = typeMap[type];
   if (!containerType){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeTypeException ("Unknown container type '"+type+"' in "+line.str());
   }
 
@@ -421,14 +421,14 @@ void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
   PajeContainer *container = contMap[name];
   if (!container){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeContainerException ("Unknown container '"+name+"' in "+line.str());
   }
 
   //checks
   if (container->type() != containerType){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     std::stringstream cont1;
     cont1 << *container;
     std::stringstream cont2;
@@ -439,21 +439,21 @@ void PajeSimulator::pajeDestroyContainer (PajeEvent *event)
   }
 
   //mark container as destroyed
-  container->destroy (lastKnownTime, event);
+  container->destroy (lastKnownTime, traceEvent);
 }
 
-void PajeSimulator::pajeNewEvent (PajeEvent *event)
+void PajeSimulator::pajeNewEvent (PajeTraceEvent *traceEvent)
 {
-  std::string time = event->valueForFieldId (std::string("Time"));
-  std::string typestr = event->valueForFieldId (std::string("Type"));
-  std::string containerstr = event->valueForFieldId (std::string("Container"));
-  std::string value = event->valueForFieldId (std::string("Value"));
+  std::string time = traceEvent->valueForFieldId (std::string("Time"));
+  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
+  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
+  std::string value = traceEvent->valueForFieldId (std::string("Value"));
 
   //search the container
   PajeContainer *container = contMap[containerstr];
   if (!container){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
@@ -461,14 +461,14 @@ void PajeSimulator::pajeNewEvent (PajeEvent *event)
   PajeType *type = typeMap[typestr];
   if (!type){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a event type
   if (!dynamic_cast<PajeEventType*>(type)){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     std::stringstream desc;
     desc << *type;
     throw PajeTypeException ("Type '"+desc.str()+"' is not a event type in "+line.str());
@@ -477,7 +477,7 @@ void PajeSimulator::pajeNewEvent (PajeEvent *event)
   //verify if the type is child of container type
   if (type->parent() != container->type()){
     std::stringstream eventdesc;
-    eventdesc << *event;
+    eventdesc << *traceEvent;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
@@ -496,18 +496,18 @@ void PajeSimulator::pajeNewEvent (PajeEvent *event)
   container->newEvent (lastKnownTime, type, val, event);
 }
 
-void PajeSimulator::pajeSetState (PajeEvent *event)
+void PajeSimulator::pajeSetState (PajeTraceEvent *traceEvent)
 {
-  std::string time = event->valueForFieldId (std::string("Time"));
-  std::string typestr = event->valueForFieldId (std::string("Type"));
-  std::string containerstr = event->valueForFieldId (std::string("Container"));
-  std::string value = event->valueForFieldId (std::string("Value"));
+  std::string time = traceEvent->valueForFieldId (std::string("Time"));
+  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
+  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
+  std::string value = traceEvent->valueForFieldId (std::string("Value"));
 
   //search the container
   PajeContainer *container = contMap[containerstr];
   if (!container){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
@@ -515,14 +515,14 @@ void PajeSimulator::pajeSetState (PajeEvent *event)
   PajeType *type = typeMap[typestr];
   if (!type){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a state type
   if (!dynamic_cast<PajeStateType*>(type)){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     std::stringstream desc;
     desc << *type;
     throw PajeTypeException ("Type '"+desc.str()+"' is not a state type in "+line.str());
@@ -531,7 +531,7 @@ void PajeSimulator::pajeSetState (PajeEvent *event)
   //verify if the type is child of container type
   if (type->parent() != container->type()){
     std::stringstream eventdesc;
-    eventdesc << *event;
+    eventdesc << *traceEvent;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
@@ -550,18 +550,18 @@ void PajeSimulator::pajeSetState (PajeEvent *event)
   container->setState (lastKnownTime, type, val, event);
 }
 
-void PajeSimulator::pajePushState (PajeEvent *event)
+void PajeSimulator::pajePushState (PajeTraceEvent *traceEvent)
 {
-  std::string time = event->valueForFieldId (std::string("Time"));
-  std::string typestr = event->valueForFieldId (std::string("Type"));
-  std::string containerstr = event->valueForFieldId (std::string("Container"));
-  std::string value = event->valueForFieldId (std::string("Value"));
+  std::string time = traceEvent->valueForFieldId (std::string("Time"));
+  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
+  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
+  std::string value = traceEvent->valueForFieldId (std::string("Value"));
 
   //search the container
   PajeContainer *container = contMap[containerstr];
   if (!container){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
@@ -569,14 +569,14 @@ void PajeSimulator::pajePushState (PajeEvent *event)
   PajeType *type = typeMap[typestr];
   if (!type){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a state type
   if (!dynamic_cast<PajeStateType*>(type)){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     std::stringstream desc;
     desc << *type;
     throw PajeTypeException ("Type '"+desc.str()+"' is not a state type in "+line.str());
@@ -585,7 +585,7 @@ void PajeSimulator::pajePushState (PajeEvent *event)
   //verify if the type is child of container type
   if (type->parent() != container->type()){
     std::stringstream eventdesc;
-    eventdesc << *event;
+    eventdesc << *traceEvent;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
@@ -604,17 +604,17 @@ void PajeSimulator::pajePushState (PajeEvent *event)
   container->pushState (lastKnownTime, type, val, event);
 }
 
-void PajeSimulator::pajePopState (PajeEvent *event)
+void PajeSimulator::pajePopState (PajeTraceEvent *traceEvent)
 {
-  std::string time = event->valueForFieldId (std::string("Time"));
-  std::string typestr = event->valueForFieldId (std::string("Type"));
-  std::string containerstr = event->valueForFieldId (std::string("Container"));
+  std::string time = traceEvent->valueForFieldId (std::string("Time"));
+  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
+  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
 
   //search the container
   PajeContainer *container = contMap[containerstr];
   if (!container){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
@@ -622,14 +622,14 @@ void PajeSimulator::pajePopState (PajeEvent *event)
   PajeType *type = typeMap[typestr];
   if (!type){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a state type
   if (!dynamic_cast<PajeStateType*>(type)){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     std::stringstream desc;
     desc << *type;
     throw PajeTypeException ("Type '"+desc.str()+"' is not a state type in "+line.str());
@@ -638,7 +638,7 @@ void PajeSimulator::pajePopState (PajeEvent *event)
   //verify if the type is child of container type
   if (type->parent() != container->type()){
     std::stringstream eventdesc;
-    eventdesc << *event;
+    eventdesc << *traceEvent;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
@@ -650,17 +650,17 @@ void PajeSimulator::pajePopState (PajeEvent *event)
 }
 
 
-void PajeSimulator::pajeResetState (PajeEvent *event)
+void PajeSimulator::pajeResetState (PajeTraceEvent *traceEvent)
 {
-  std::string time = event->valueForFieldId (std::string("Time"));
-  std::string typestr = event->valueForFieldId (std::string("Type"));
-  std::string containerstr = event->valueForFieldId (std::string("Container"));
+  std::string time = traceEvent->valueForFieldId (std::string("Time"));
+  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
+  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
 
   //search the container
   PajeContainer *container = contMap[containerstr];
   if (!container){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
@@ -668,14 +668,14 @@ void PajeSimulator::pajeResetState (PajeEvent *event)
   PajeType *type = typeMap[typestr];
   if (!type){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a state type
   if (!dynamic_cast<PajeStateType*>(type)){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     std::stringstream desc;
     desc << *type;
     throw PajeTypeException ("Type '"+desc.str()+"' is not a state type in "+line.str());
@@ -684,7 +684,7 @@ void PajeSimulator::pajeResetState (PajeEvent *event)
   //verify if the type is child of container type
   if (type->parent() != container->type()){
     std::stringstream eventdesc;
-    eventdesc << *event;
+    eventdesc << *traceEvent;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
@@ -695,18 +695,18 @@ void PajeSimulator::pajeResetState (PajeEvent *event)
   container->resetState (lastKnownTime, type, event);
 }
 
-void PajeSimulator::pajeSetVariable (PajeEvent *event)
+void PajeSimulator::pajeSetVariable (PajeTraceEvent *traceEvent)
 {
-  std::string time = event->valueForFieldId (std::string("Time"));
-  std::string typestr = event->valueForFieldId (std::string("Type"));
-  std::string containerstr = event->valueForFieldId (std::string("Container"));
-  std::string value = event->valueForFieldId (std::string("Value"));
+  std::string time = traceEvent->valueForFieldId (std::string("Time"));
+  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
+  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
+  std::string value = traceEvent->valueForFieldId (std::string("Value"));
 
   //search the container
   PajeContainer *container = contMap[containerstr];
   if (!container){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
@@ -714,14 +714,14 @@ void PajeSimulator::pajeSetVariable (PajeEvent *event)
   PajeType *type = typeMap[typestr];
   if (!type){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a variable type
   if (!dynamic_cast<PajeVariableType*>(type)){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     std::stringstream desc;
     desc << *type;
     throw PajeTypeException ("Type '"+desc.str()+"' is not a variable type in "+line.str());
@@ -730,7 +730,7 @@ void PajeSimulator::pajeSetVariable (PajeEvent *event)
   //verify if the type is child of container type
   if (type->parent() != container->type()){
     std::stringstream eventdesc;
-    eventdesc << *event;
+    eventdesc << *traceEvent;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
@@ -742,18 +742,18 @@ void PajeSimulator::pajeSetVariable (PajeEvent *event)
   container->setVariable (lastKnownTime, type, v, event);
 }
 
-void PajeSimulator::pajeAddVariable (PajeEvent *event)
+void PajeSimulator::pajeAddVariable (PajeTraceEvent *traceEvent)
 {
-  std::string time = event->valueForFieldId (std::string("Time"));
-  std::string typestr = event->valueForFieldId (std::string("Type"));
-  std::string containerstr = event->valueForFieldId (std::string("Container"));
-  std::string value = event->valueForFieldId (std::string("Value"));
+  std::string time = traceEvent->valueForFieldId (std::string("Time"));
+  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
+  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
+  std::string value = traceEvent->valueForFieldId (std::string("Value"));
 
   //search the container
   PajeContainer *container = contMap[containerstr];
   if (!container){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
@@ -761,14 +761,14 @@ void PajeSimulator::pajeAddVariable (PajeEvent *event)
   PajeType *type = typeMap[typestr];
   if (!type){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a variable type
   if (!dynamic_cast<PajeVariableType*>(type)){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     std::stringstream desc;
     desc << *type;
     throw PajeTypeException ("Type '"+desc.str()+"' is not a variable type in "+line.str());
@@ -777,7 +777,7 @@ void PajeSimulator::pajeAddVariable (PajeEvent *event)
   //verify if the type is child of container type
   if (type->parent() != container->type()){
     std::stringstream eventdesc;
-    eventdesc << *event;
+    eventdesc << *traceEvent;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
@@ -789,18 +789,18 @@ void PajeSimulator::pajeAddVariable (PajeEvent *event)
   container->addVariable (lastKnownTime, type, v, event);
 }
 
-void PajeSimulator::pajeSubVariable (PajeEvent *event)
+void PajeSimulator::pajeSubVariable (PajeTraceEvent *traceEvent)
 {
-  std::string time = event->valueForFieldId (std::string("Time"));
-  std::string typestr = event->valueForFieldId (std::string("Type"));
-  std::string containerstr = event->valueForFieldId (std::string("Container"));
-  std::string value = event->valueForFieldId (std::string("Value"));
+  std::string time = traceEvent->valueForFieldId (std::string("Time"));
+  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
+  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
+  std::string value = traceEvent->valueForFieldId (std::string("Value"));
 
   //search the container
   PajeContainer *container = contMap[containerstr];
   if (!container){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
@@ -808,14 +808,14 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
   PajeType *type = typeMap[typestr];
   if (!type){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //verify if the type is a variable type
   if (!dynamic_cast<PajeVariableType*>(type)){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     std::stringstream desc;
     desc << *type;
     throw PajeTypeException ("Type '"+desc.str()+"' is not a variable type in "+line.str());
@@ -824,7 +824,7 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
   //verify if the type is child of container type
   if (type->parent() != container->type()){
     std::stringstream eventdesc;
-    eventdesc << *event;
+    eventdesc << *traceEvent;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
@@ -836,20 +836,20 @@ void PajeSimulator::pajeSubVariable (PajeEvent *event)
   container->subVariable (lastKnownTime, type, v, event);
 }
 
-void PajeSimulator::pajeStartLink (PajeEvent *event)
+void PajeSimulator::pajeStartLink (PajeTraceEvent *traceEvent)
 {
-  std::string time = event->valueForFieldId (std::string("Time"));
-  std::string typestr = event->valueForFieldId (std::string("Type"));
-  std::string containerstr = event->valueForFieldId (std::string("Container"));
-  std::string startcontainerstr = event->valueForFieldId (std::string("StartContainer"));
-  std::string value = event->valueForFieldId (std::string("Value"));
-  std::string key = event->valueForFieldId (std::string("Key"));
+  std::string time = traceEvent->valueForFieldId (std::string("Time"));
+  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
+  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
+  std::string startcontainerstr = traceEvent->valueForFieldId (std::string("StartContainer"));
+  std::string value = traceEvent->valueForFieldId (std::string("Value"));
+  std::string key = traceEvent->valueForFieldId (std::string("Key"));
 
   //search the container
   PajeContainer *container = contMap[containerstr];
   if (!container){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
@@ -857,7 +857,7 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
   PajeContainer *startcontainer = contMap[startcontainerstr];
   if (!startcontainer){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeContainerException ("Unknown start container '"+startcontainerstr+"' in "+line.str());
   }
 
@@ -865,7 +865,7 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
   PajeType *type = typeMap[typestr];
   if (!type){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
@@ -873,7 +873,7 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
   PajeLinkType *linktype = dynamic_cast<PajeLinkType*>(type);
   if (!linktype){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     std::stringstream desc;
     desc << *type;
     throw PajeTypeException ("Type '"+desc.str()+"' is not a link type in "+line.str());
@@ -882,7 +882,7 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
   //verify if the type is child of container type
   if (type->parent() != container->type()){
     std::stringstream eventdesc;
-    eventdesc << *event;
+    eventdesc << *traceEvent;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
@@ -893,7 +893,7 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
   //verify if the type of start container is the type expected for the start of this link
   if (linktype->starttype != startcontainer->type()){
     std::stringstream eventdesc;
-    eventdesc << *event;
+    eventdesc << *traceEvent;
     std::stringstream ctype1;
     ctype1 << *startcontainer->type();
     std::stringstream ctype2;
@@ -913,20 +913,20 @@ void PajeSimulator::pajeStartLink (PajeEvent *event)
   container->startLink (lastKnownTime, type, startcontainer, val, key, event);
 }
 
-void PajeSimulator::pajeEndLink (PajeEvent *event)
+void PajeSimulator::pajeEndLink (PajeTraceEvent *traceEvent)
 {
-  std::string time = event->valueForFieldId (std::string("Time"));
-  std::string typestr = event->valueForFieldId (std::string("Type"));
-  std::string containerstr = event->valueForFieldId (std::string("Container"));
-  std::string endcontainerstr = event->valueForFieldId (std::string("EndContainer"));
-  std::string value = event->valueForFieldId (std::string("Value"));
-  std::string key = event->valueForFieldId (std::string("Key"));
+  std::string time = traceEvent->valueForFieldId (std::string("Time"));
+  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
+  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
+  std::string endcontainerstr = traceEvent->valueForFieldId (std::string("EndContainer"));
+  std::string value = traceEvent->valueForFieldId (std::string("Value"));
+  std::string key = traceEvent->valueForFieldId (std::string("Key"));
 
   //search the container
   PajeContainer *container = contMap[containerstr];
   if (!container){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeContainerException ("Unknown container '"+containerstr+"' in "+line.str());
   }
 
@@ -934,7 +934,7 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
   PajeContainer *endcontainer = contMap[endcontainerstr];
   if (!endcontainer){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeContainerException ("Unknown end container '"+endcontainerstr+"' in "+line.str());
   }
 
@@ -942,7 +942,7 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
   PajeType *type = typeMap[typestr];
   if (!type){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
@@ -950,7 +950,7 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
   PajeLinkType *linktype = dynamic_cast<PajeLinkType*>(type);
   if (!linktype){
     std::stringstream line;
-    line << *event;
+    line << *traceEvent;
     std::stringstream desc;
     desc << *type;
     throw PajeTypeException ("Type '"+desc.str()+"' is not a link type in "+line.str());
@@ -959,7 +959,7 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
   //verify if the type is child of container type
   if (type->parent() != container->type()){
     std::stringstream eventdesc;
-    eventdesc << *event;
+    eventdesc << *traceEvent;
     std::stringstream ctype1;
     ctype1 << *type;
     std::stringstream ctype2;
@@ -970,7 +970,7 @@ void PajeSimulator::pajeEndLink (PajeEvent *event)
   //verify if the type of end container is the type expected for the end of this link
   if (linktype->endtype != endcontainer->type()){
     std::stringstream eventdesc;
-    eventdesc << *event;
+    eventdesc << *traceEvent;
     std::stringstream ctype1;
     ctype1 << *endcontainer->type();
     std::stringstream ctype2;
