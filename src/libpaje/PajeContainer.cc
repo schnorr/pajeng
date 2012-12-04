@@ -131,7 +131,7 @@ bool PajeContainer::checkPendingLinks (void)
   return true;
 }
 
-PajeContainer *PajeContainer::demuxer (PajeEvent *event)
+void PajeContainer::demuxer (PajeEvent *event)
 {
   //change the simulated behavior according to the event
   PajeEventId eventId = event->traceEvent()->pajeEventId();

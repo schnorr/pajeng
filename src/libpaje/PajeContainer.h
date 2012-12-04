@@ -58,7 +58,7 @@ public:
   bool isAncestorOf (PajeContainer *c);
 
   //entry method
-  PajeContainer *demuxer (PajeEvent *event);
+  void demuxer (PajeEvent *event);
 
   //Simulator events (not treated by demuxer yet)
   PajeContainer *pajeCreateContainer (double time, PajeType *type, PajeTraceEvent *event);
