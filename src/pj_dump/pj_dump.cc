@@ -31,12 +31,13 @@ static char args_doc[] = "[FILE]";
 static struct argp_option options[] = {
   {"start", 's', "START", 0, "Dump starts at timestamp START (instead of 0)"},
   {"end", 'e', "END", 0, "Dump ends at timestamp END (instead of EOF)"},
+  {"stop-at", 'a', "TIME", 0, "Stop the trace simulation at TIME"},
   { 0 }
 };
 
 struct arguments {
   char *input[VALIDATE_INPUT_SIZE];
-  double start, end;
+  double start, end, stopat;
   int input_size;
 };
 
@@ -46,6 +47,7 @@ static int parse_options (int key, char *arg, struct argp_state *state)
   switch (key){
   case 's': arguments->start = atof(arg); break;
   case 'e': arguments->end = atof(arg); break;
+  case 'a': arguments->stopat = atof(arg); break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
       /* Too many arguments. */
@@ -116,7 +118,7 @@ int main (int argc, char **argv)
 {
   struct arguments arguments;
   bzero (&arguments, sizeof(struct arguments));
-  arguments.start = arguments.end = -1;
+  arguments.start = arguments.end = arguments.stopat = -1;
   if (argp_parse (&argp, argc, argv, 0, 0, &arguments) == ARGP_KEY_ERROR){
     fprintf(stderr, "%s, error during the parsing of parameters\n", argv[0]);
     return 1;
@@ -135,7 +137,7 @@ int main (int argc, char **argv)
   }
 
   PajeEventDecoder *decoder = new PajeEventDecoder ();
-  PajeSimulator *simulator = new PajeSimulator ();
+  PajeSimulator *simulator = new PajeSimulator (arguments.stopat);
 
   reader->setOutputComponent (decoder);
   decoder->setInputComponent (reader);
@@ -144,7 +146,7 @@ int main (int argc, char **argv)
 
   try {
     reader->startReading ();
-    while (reader->hasMoreData()){
+    while (reader->hasMoreData() && simulator->keepSimulating()){
       reader->readNextChunk ();
     }
     reader->finishedReading ();
