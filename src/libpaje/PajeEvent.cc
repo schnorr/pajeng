@@ -15,15 +15,23 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeEvent.h"
+#include "PajeException.h"
 
 PajeEvent::PajeEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type)
 {
   _event = event;
   _container = container;
   _type = type;
+
+  //extracing time
+  std::string t = _event->valueForFieldId (std::string("Time"));
+  if (t.length() == 0){
+    PajeSimulationException ("Can't get time from trace event.");
+  }
+  _time = atof(t.c_str());
 }
 
-PajeTraceEvent *PajeEvent::event (void)
+PajeTraceEvent *PajeEvent::traceEvent (void)
 {
   return _event;
 }
@@ -38,6 +46,36 @@ PajeType *PajeEvent::type (void)
   return _type;
 }
 
+double PajeEvent::time (void)
+{
+  return _time;
+}
+
+PajeValue *PajeEvent::value (void)
+{
+  return NULL;
+}
+
+double PajeEvent::doubleValue (void)
+{
+  return 0;
+}
+
+PajeContainer *PajeEvent::startContainer (void)
+{
+  return NULL;
+}
+
+PajeContainer *PajeEvent::endContainer (void)
+{
+  return NULL;
+}
+
+std::string PajeEvent::key (void)
+{
+  return std::string();
+}
+
 PajeCategorizedEvent::PajeCategorizedEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, PajeValue *value)
   : PajeEvent (event, container, type)
 {
@@ -47,6 +85,11 @@ PajeCategorizedEvent::PajeCategorizedEvent (PajeTraceEvent *event, PajeContainer
 PajeValue *PajeCategorizedEvent::value (void)
 {
   return _value;
+}
+
+std::string PajeCategorizedEvent::kind (void)
+{
+  return std::string ("Categorized");
 }
 
 PajeStateEvent::PajeStateEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, PajeValue *value)
@@ -65,6 +108,11 @@ PajeVariableEvent::PajeVariableEvent (PajeTraceEvent *event, PajeContainer *cont
   _doubleValue = value;
 }
 
+std::string PajeVariableEvent::kind (void)
+{
+  return std::string ("Variable");
+}
+
 double PajeVariableEvent::doubleValue (void)
 {
   return _doubleValue;
@@ -75,4 +123,71 @@ PajeLinkEvent::PajeLinkEvent (PajeTraceEvent *event, PajeContainer *container, P
 {
   _linkedContainer = linkedContainer;
   _key = key;
+}
+
+std::string PajeLinkEvent::key (void)
+{
+  return _key;
+}
+
+/* Simulator Events */
+
+PajeNewEventEvent::PajeNewEventEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, PajeValue *value)
+  : PajeEventEvent (event, container, type, value)
+{
+}
+
+PajeSetStateEvent::PajeSetStateEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, PajeValue *value)
+  : PajeStateEvent (event, container, type, value)
+{
+}
+
+PajePushStateEvent::PajePushStateEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, PajeValue *value)
+  : PajeStateEvent (event, container, type, value)
+{
+}
+
+PajePopStateEvent::PajePopStateEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type)
+  : PajeStateEvent (event, container, type, NULL)
+{
+}
+
+PajeResetStateEvent::PajeResetStateEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type)
+  : PajeStateEvent (event, container, type, NULL)
+{
+}
+
+PajeSetVariableEvent::PajeSetVariableEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, double value)
+  : PajeVariableEvent (event, container, type, value)
+{
+}
+
+PajeAddVariableEvent::PajeAddVariableEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, double value)
+  : PajeVariableEvent (event, container, type, value)
+{
+}
+
+PajeSubVariableEvent::PajeSubVariableEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, double value)
+  : PajeVariableEvent (event, container, type, value)
+{
+}
+
+PajeStartLinkEvent::PajeStartLinkEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, PajeValue *value, PajeContainer *linkedContainer, std::string key)
+  : PajeLinkEvent (event, container, type, value, linkedContainer, key)
+{
+}
+
+PajeContainer *PajeStartLinkEvent::startContainer (void)
+{
+  return _linkedContainer;
+}
+
+PajeEndLinkEvent::PajeEndLinkEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, PajeValue *value, PajeContainer *linkedContainer, std::string key)
+  : PajeLinkEvent (event, container, type, value, linkedContainer, key)
+{
+}
+
+PajeContainer *PajeEndLinkEvent::endContainer (void)
+{
+  return _linkedContainer;
 }
