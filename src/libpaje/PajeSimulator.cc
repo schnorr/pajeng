@@ -398,9 +398,15 @@ void PajeSimulator::pajeCreateContainer (PajeTraceEvent *traceEvent)
   }
 
   //everything seems ok, create the container
-  PajeContainer *newContainer = container->createContainer (lastKnownTime, name, alias, containerType, event);
-  contMap[newContainer->identifier()] = newContainer;
-  contNamesMap[newContainer->name()] = newContainer;
+  PajeContainer *newContainer = container->pajeCreateContainer (lastKnownTime, containerType, traceEvent);
+  if (newContainer){
+    contMap[newContainer->identifier()] = newContainer;
+    contNamesMap[newContainer->name()] = newContainer;
+  }else{
+    std::stringstream eventdesc;
+    eventdesc << *traceEvent;
+    throw PajeContainerException ("(Container, name: '"+name+"' alias: '"+alias+"') could not be created in "+eventdesc.str());
+  }
 }
 
 void PajeSimulator::pajeDestroyContainer (PajeTraceEvent *traceEvent)
@@ -439,7 +445,7 @@ void PajeSimulator::pajeDestroyContainer (PajeTraceEvent *traceEvent)
   }
 
   //mark container as destroyed
-  container->destroy (lastKnownTime, traceEvent);
+  container->pajeDestroyContainer (lastKnownTime, traceEvent);
 }
 
 void PajeSimulator::pajeNewEvent (PajeTraceEvent *traceEvent)
