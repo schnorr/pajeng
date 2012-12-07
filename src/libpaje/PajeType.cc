@@ -15,6 +15,7 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeType.h"
+#include "PajeException.h"
 
 PajeType::PajeType (std::string name, std::string alias, PajeType *parent)
 {
@@ -217,31 +218,31 @@ PajeType *PajeLinkType::endType (void)
 
 PajeType *PajeType::addContainerType (std::string name, std::string alias)
 {
-  throw "should be implemented in subclass";
+  throw PajeTypeException ("should not be called in this type");
   return NULL;
 }
 
 PajeType *PajeType::addVariableType (std::string name, std::string alias, PajeColor *color)
 {
-  throw "should be implemented in subclass";
+  throw PajeTypeException ("should not be called in this type");
   return NULL;
 }
 
 PajeType *PajeType::addStateType (std::string name, std::string alias)
 {
-  throw "should be implemented in subclass";
+  throw PajeTypeException ("should not be called in this type");
   return NULL;
 }
 
 PajeType *PajeType::addEventType (std::string name, std::string alias)
 {
-  throw "should be implemented in subclass";
+  throw PajeTypeException ("should not be called in this type");
   return NULL;
 }
 
 PajeType *PajeType::addLinkType (std::string name, std::string alias, PajeType *starttype, PajeType *endtype)
 {
-  throw "should be implemented in subclass";
+  throw PajeTypeException ("should not be called in this type");
   return NULL;
 }
 
