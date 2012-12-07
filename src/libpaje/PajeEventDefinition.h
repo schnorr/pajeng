@@ -64,14 +64,14 @@ std::map<PajeEventId,std::string> initPajeEventIDToNames (void);
 class PajeEventDefinition {
 public:
   PajeEventId pajeEventId; //The known PajeEventId
-  std::string number; //Unique identifier
+  int number; //unique identifier
   int fieldCount;
   std::list<std::string> fields;
   std::list<std::string> types;
   std::vector<std::string> extraFieldNames;
 
 public:
-  PajeEventDefinition (PajeEventId pajeEventId, std::string number, paje_line *line);
+  PajeEventDefinition (PajeEventId pajeEventId, int number, paje_line *line);
   ~PajeEventDefinition (void);
   void addField (std::string name, std::string type, paje_line *line);
 

@@ -14,6 +14,7 @@
     You should have received a copy of the GNU Public License
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
+#include <boost/lexical_cast.hpp>
 #include "PajeEventDefinition.h"
 #include "PajeException.h"
 
@@ -278,7 +279,7 @@ std::map<PajeEventId,std::set<std::string> > initOptionalFields ()
 static std::map<PajeEventId,std::set<std::string> > pajeObligatoryFields = initObligatoryFields ();
 static std::map<PajeEventId,std::set<std::string> > pajeOptionalFields = initOptionalFields ();
 
-PajeEventDefinition::PajeEventDefinition (PajeEventId pajeEventId, std::string number, paje_line *line)
+PajeEventDefinition::PajeEventDefinition (PajeEventId pajeEventId, int number, paje_line *line)
 {
   this->pajeEventId = pajeEventId;
   this->number = number;
@@ -334,7 +335,7 @@ void PajeEventDefinition::addField (std::string name, std::string type, paje_lin
   it_obligatory = pajeObligatoryFields.find (pajeEventId);
   it_optional = pajeOptionalFields.find (pajeEventId);
   if (it_obligatory == pajeObligatoryFields.end()){
-    throw PajeDecodeException ("Couldn't find the obligatory fields for event id '"+number+"' when adding field named '"+name+"' in line "+lreport);
+    throw PajeDecodeException ("Couldn't find the obligatory fields for event id '"+boost::lexical_cast<std::string>(number)+"' when adding field named '"+name+"' in line "+lreport);
   }
   std::set<std::string> obligatory = it_obligatory->second;
   std::set<std::string> optional = it_optional->second;
