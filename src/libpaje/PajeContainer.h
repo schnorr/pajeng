@@ -51,8 +51,8 @@ private:
   void init (std::string alias, PajeContainer *parent);
 
 public:
-  PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeTraceEvent *event);
-  PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeTraceEvent *event, double stopat);
+  PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeType *type, PajeTraceEvent *event);
+  PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeType *type, PajeTraceEvent *event, double stopat);
   int numberOfEntities (void); //recursive
   std::string description (void) const;
   std::string identifier (void);
@@ -91,8 +91,8 @@ public:
   //queries
   std::vector<PajeEntity*> enumeratorOfEntitiesTyped (double start, double end, PajeType *type);
   PajeAggregatedDict timeIntegrationOfTypeInContainer (double start, double end, PajeType *type);
-  PajeAggregatedDict timeIntegrationOfStateTypeInContainer (double start, double end, PajeStateType *type);
-  PajeAggregatedDict timeIntegrationOfVariableTypeInContainer (double start, double end, PajeVariableType *type);
+  PajeAggregatedDict timeIntegrationOfStateTypeInContainer (double start, double end, PajeType *type);
+  PajeAggregatedDict timeIntegrationOfVariableTypeInContainer (double start, double end, PajeType *type);
   PajeAggregatedDict integrationOfContainer (double start, double end);
   PajeAggregatedDict spatialIntegrationOfContainer (double start, double end);
 

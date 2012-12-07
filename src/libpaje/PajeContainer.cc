@@ -19,14 +19,14 @@
 
 #define CALL_MEMBER_PAJE_CONTAINER(object,ptr) ((object).*(ptr))
 
-PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeTraceEvent *event)
+PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeType *type, PajeTraceEvent *event)
   : PajeNamedEntity (parent, type, time, name, event)
 {
   stopSimulationAtTime = -1;
   init (alias, parent);
 }
 
-PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeContainerType *type, PajeTraceEvent *event, double stopat)
+PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeType *type, PajeTraceEvent *event, double stopat)
   : PajeNamedEntity (parent, type, time, name, event)
 {
   stopSimulationAtTime = stopat;
@@ -514,19 +514,17 @@ PajeAggregatedDict PajeContainer::timeIntegrationOfTypeInContainer (double start
 {
   PajeAggregatedDict ret;
   if (entities[type].size() == 0) return ret;
-  if (dynamic_cast<PajeLinkType*>(type)) return ret;
+  if (type->nature() == PAJE_LinkType) return ret;
 
-  PajeStateType *stype = dynamic_cast<PajeStateType*>(type);
-  PajeVariableType *vtype = dynamic_cast<PajeVariableType*>(type);
-  if (stype){
-    ret = timeIntegrationOfStateTypeInContainer (start, end, stype);
-  }else if (vtype){
-//    ret = timeIntegrationOfVariableTypeInContainer (start, end, vtype);
+  if (type->nature() == PAJE_StateType){
+    ret = timeIntegrationOfStateTypeInContainer (start, end, type);
+  }else if (type->nature() == PAJE_VariableType){
+//    ret = timeIntegrationOfVariableTypeInContainer (start, end, type);
   }
   return ret;
 }
 
-PajeAggregatedDict PajeContainer::timeIntegrationOfStateTypeInContainer (double start, double end, PajeStateType *type)
+PajeAggregatedDict PajeContainer::timeIntegrationOfStateTypeInContainer (double start, double end, PajeType *type)
 {
   PajeAggregatedDict ret;
   std::vector<PajeEntity*> slice = enumeratorOfEntitiesTyped (start, end, type);
@@ -553,7 +551,7 @@ PajeAggregatedDict PajeContainer::timeIntegrationOfStateTypeInContainer (double 
   return ret;
 }
 
-PajeAggregatedDict PajeContainer::timeIntegrationOfVariableTypeInContainer (double start, double end, PajeVariableType *type)
+PajeAggregatedDict PajeContainer::timeIntegrationOfVariableTypeInContainer (double start, double end, PajeType *type)
 {
   PajeAggregatedDict ret;
 
@@ -611,8 +609,7 @@ PajeAggregatedDict PajeContainer::integrationOfContainer (double start, double e
   if (start == -1 || end == -1) return ret;
   std::map<std::string,PajeType*>::iterator it;
   PajeAggregatedDict partial;
-  PajeContainerType *contType = dynamic_cast<PajeContainerType*>(type());
-  for (it = contType->children.begin(); it != contType->children.end(); it++){
+  for (it = type()->children().begin(); it != type()->children().end(); it++){
     partial = timeIntegrationOfTypeInContainer (start, end, (*it).second);
     ret = merge (ret, partial);
   }
@@ -665,14 +662,13 @@ PajeContainer *PajeContainer::pajeCreateContainer (double time, PajeType *type, 
   std::string name = event->valueForFieldId (std::string("Name"));
   std::string alias = event->valueForFieldId (std::string("Alias"));
 
-  PajeContainerType *containerType = dynamic_cast<PajeContainerType*>(type);
-  if (!containerType){
+  if (type->nature() != PAJE_ContainerType){
     std::stringstream eventdesc;
     eventdesc << *event;
-    throw PajeSimulationException ("Type could not be dynamicaly casted to container type "+eventdesc.str());
+    throw PajeSimulationException ("Trying to create a container of a type that is not a container type in "+eventdesc.str());
   }
 
-  PajeContainer *newContainer = new PajeContainer (time, name, alias, this, containerType, event, stopat);
+  PajeContainer *newContainer = new PajeContainer (time, name, alias, this, type, event, stopat);
   children[newContainer->identifier()] = newContainer;
   return newContainer;
 }
