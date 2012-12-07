@@ -53,6 +53,9 @@ std::vector<PajeContainer*> PajeSimulator::enumeratorOfContainersInContainer (Pa
 
 std::vector<PajeContainer*> PajeSimulator::enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container)
 {
+  if (type->nature() != PAJE_ContainerType){
+    throw PajeProtocolException ("Type is not a container type");
+  }
   std::vector<PajeContainer*> ret;
   std::map<std::string,PajeContainer*>::iterator it;
   for (it = container->children.begin(); it != container->children.end(); it++){
@@ -65,6 +68,9 @@ std::vector<PajeContainer*> PajeSimulator::enumeratorOfContainersTypedInContaine
 
 std::vector<PajeEntity*> PajeSimulator::enumeratorOfEntitiesTypedInContainer (PajeType *type, PajeContainer *container, double start, double end)
 {
+  if (type->nature() == PAJE_ContainerType){
+    throw PajeProtocolException ("Type is not an entity type");
+  }
   std::vector<PajeEntity*> empty;
   if (container) return container->enumeratorOfEntitiesTyped (start, end, type);
   else return empty;
