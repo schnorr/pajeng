@@ -66,6 +66,7 @@ public:
   virtual PajeType *addStateType (std::string name, std::string alias);
   virtual PajeType *addEventType (std::string name, std::string alias);
   virtual PajeType *addLinkType (std::string name, std::string alias, PajeType *starttype, PajeType *endtype);
+  virtual std::map<std::string,PajeType*> children (void);
 };
 
 class PajeCategorizedType : public PajeType {
@@ -119,10 +120,10 @@ public:
 };
 
 class PajeContainerType : public PajeType {
+private:
+  std::map<std::string,PajeType*> _children;
 
 public:
-  std::map<std::string,PajeType*> children;
-
   PajeContainerType (std::string name, std::string alias, PajeType *parent);
   ~PajeContainerType (void);
   PajeType *getRootType (void);
@@ -132,6 +133,7 @@ public:
   PajeType *addStateType (std::string name, std::string alias);
   PajeType *addEventType (std::string name, std::string alias);
   PajeType *addLinkType (std::string name, std::string alias, PajeType *starttype, PajeType *endtype);
+  std::map<std::string,PajeType*> children (void);
   PajeDrawingType drawingType (void);
   PajeTypeNature nature (void);
 };

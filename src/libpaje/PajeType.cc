@@ -246,6 +246,12 @@ PajeType *PajeType::addLinkType (std::string name, std::string alias, PajeType *
   return NULL;
 }
 
+std::map<std::string,PajeType*> PajeType::children (void)
+{
+  throw PajeTypeException ("should not be called in this type");
+  return std::map<std::string,PajeType*>();
+}
+
 PajeContainerType::PajeContainerType (std::string name, std::string alias, PajeType *parent)
   : PajeType (name, alias, parent)
 {
@@ -253,7 +259,7 @@ PajeContainerType::PajeContainerType (std::string name, std::string alias, PajeT
 
 PajeContainerType::~PajeContainerType (void)
 {
-  children.clear();
+  _children.clear();
 }
 
 PajeType *PajeContainerType::getRootType (void)
@@ -272,36 +278,41 @@ PajeType *PajeContainerType::getRootType (void)
 PajeType *PajeContainerType::addContainerType (std::string name, std::string alias)
 {
   PajeContainerType *newType = new PajeContainerType (name, alias, this);
-  children[newType->identifier()] = newType;
+  _children[newType->identifier()] = newType;
   return newType;
 }
 
 PajeType *PajeContainerType::addVariableType (std::string name, std::string alias, PajeColor *color)
 {
   PajeVariableType *newType = new PajeVariableType (name, alias, this, color);
-  children[newType->identifier()] = newType;
+  _children[newType->identifier()] = newType;
   return newType;
 }
 
 PajeType *PajeContainerType::addStateType (std::string name, std::string alias)
 {
   PajeStateType *newType = new PajeStateType (name, alias, this);
-  children[newType->identifier()] = newType;
+  _children[newType->identifier()] = newType;
   return newType;
 }
 
 PajeType *PajeContainerType::addEventType (std::string name, std::string alias)
 {
   PajeEventType *newType = new PajeEventType (name, alias, this);
-  children[newType->identifier()] = newType;
+  _children[newType->identifier()] = newType;
   return newType;
 }
 
 PajeType *PajeContainerType::addLinkType (std::string name, std::string alias, PajeType *starttype, PajeType *endtype)
 {
   PajeLinkType *newType = new PajeLinkType (name, alias, starttype, endtype, this);
-  children[newType->identifier()] = newType;
+  _children[newType->identifier()] = newType;
   return newType;
+}
+
+std::map<std::string,PajeType*> PajeContainerType::children (void)
+{
+  return _children;
 }
 
 PajeDrawingType PajeContainerType::drawingType (void)
