@@ -188,17 +188,18 @@ PajeTraceEvent *PajeEventDecoder::scanEventLine (paje_line *line)
 {
   char *eventId = NULL;
   PajeEventDefinition *eventDefinition = NULL;
-  std::stringstream st;
-  st << *line;
-  std::string lreport = st.str();
 
   eventId = line->word[0];
   if (*eventId == '%') {
-    throw PajeDecodeException ("Line should not start with a '%%' in "+lreport);
+    std::stringstream st;
+    st << *line;
+    throw PajeDecodeException ("Line should not start with a '%%' in "+st.str());
   }
   eventDefinition = eventDefinitions[eventId];
   if (eventDefinition == NULL) {
-    throw PajeDecodeException ("Event with id '"+std::string(eventId)+"' has not been defined in "+lreport);
+    std::stringstream st;
+    st << *line;
+    throw PajeDecodeException ("Event with id '"+std::string(eventId)+"' has not been defined in "+st.str());
   }
   return new PajeTraceEvent (eventDefinition, line);
 }
