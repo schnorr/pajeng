@@ -472,9 +472,8 @@ void PajeSimulator::pajeDestroyContainer (PajeTraceEvent *traceEvent)
   }
 
   //mark container as destroyed
-  PajeEvent *event = new PajeDestroyContainerEvent (traceEvent, container, containerType);
-  container->demuxer (event);
-  delete event;
+  PajeDestroyContainerEvent event (traceEvent, container, containerType);
+  container->demuxer (&event);
 }
 
 void PajeSimulator::pajeNewEvent (PajeTraceEvent *traceEvent)
@@ -528,9 +527,8 @@ void PajeSimulator::pajeNewEvent (PajeTraceEvent *traceEvent)
     val = type->addValue (value, value, NULL);
   }
 
-  PajeEvent *event = new PajeNewEventEvent (traceEvent, container, type, val);
-  container->demuxer (event);
-  delete event;
+  PajeNewEventEvent event (traceEvent, container, type, val);
+  container->demuxer (&event);
 }
 
 void PajeSimulator::pajeSetState (PajeTraceEvent *traceEvent)
@@ -584,9 +582,8 @@ void PajeSimulator::pajeSetState (PajeTraceEvent *traceEvent)
     val = type->addValue (value, value, NULL);
   }
 
-  PajeEvent *event = new PajeSetStateEvent (traceEvent, container, type, val);
-  container->demuxer (event);
-  delete event;
+  PajeSetStateEvent event (traceEvent, container, type, val);
+  container->demuxer (&event);
 }
 
 void PajeSimulator::pajePushState (PajeTraceEvent *traceEvent)
@@ -640,9 +637,8 @@ void PajeSimulator::pajePushState (PajeTraceEvent *traceEvent)
     val = type->addValue (value, value, NULL);
   }
 
-  PajeEvent *event = new PajePushStateEvent (traceEvent, container, type, val);
-  container->demuxer (event);
-  delete event;
+  PajePushStateEvent event (traceEvent, container, type, val);
+  container->demuxer (&event);
 }
 
 void PajeSimulator::pajePopState (PajeTraceEvent *traceEvent)
@@ -687,9 +683,8 @@ void PajeSimulator::pajePopState (PajeTraceEvent *traceEvent)
     throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
-  PajeEvent *event = new PajePopStateEvent (traceEvent, container, type);
-  container->demuxer (event);
-  delete event;
+  PajePopStateEvent event (traceEvent, container, type);
+  container->demuxer (&event);
 }
 
 
@@ -735,9 +730,8 @@ void PajeSimulator::pajeResetState (PajeTraceEvent *traceEvent)
     throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
-  PajeEvent *event = new PajeResetStateEvent (traceEvent, container, type);
-  container->demuxer (event);
-  delete event;
+  PajeResetStateEvent event (traceEvent, container, type);
+  container->demuxer (&event);
 }
 
 void PajeSimulator::pajeSetVariable (PajeTraceEvent *traceEvent)
@@ -785,9 +779,8 @@ void PajeSimulator::pajeSetVariable (PajeTraceEvent *traceEvent)
 
   float v = strtof (value.c_str(), NULL);
 
-  PajeEvent *event = new PajeSetVariableEvent (traceEvent, container, type, v);
-  container->demuxer (event);
-  delete event;
+  PajeSetVariableEvent event (traceEvent, container, type, v);
+  container->demuxer (&event);
 }
 
 void PajeSimulator::pajeAddVariable (PajeTraceEvent *traceEvent)
@@ -834,9 +827,8 @@ void PajeSimulator::pajeAddVariable (PajeTraceEvent *traceEvent)
   }
 
   float v = strtof (value.c_str(), NULL);
-  PajeEvent *event = new PajeAddVariableEvent (traceEvent, container, type, v);
-  container->demuxer (event);
-  delete event;
+  PajeAddVariableEvent event (traceEvent, container, type, v);
+  container->demuxer (&event);
 }
 
 void PajeSimulator::pajeSubVariable (PajeTraceEvent *traceEvent)
@@ -884,9 +876,8 @@ void PajeSimulator::pajeSubVariable (PajeTraceEvent *traceEvent)
 
   float v = strtof (value.c_str(), NULL);
 
-  PajeEvent *event = new PajeSubVariableEvent (traceEvent, container, type, v);
-  container->demuxer (event);
-  delete event;
+  PajeSubVariableEvent event (traceEvent, container, type, v);
+  container->demuxer (&event);
 }
 
 void PajeSimulator::pajeStartLink (PajeTraceEvent *traceEvent)
@@ -962,9 +953,8 @@ void PajeSimulator::pajeStartLink (PajeTraceEvent *traceEvent)
     val = type->addValue (value, value, NULL);
   }
 
-  PajeEvent *event = new PajeStartLinkEvent (traceEvent, container, type, val, startcontainer, key);
-  container->demuxer (event);
-  delete event;
+  PajeStartLinkEvent event (traceEvent, container, type, val, startcontainer, key);
+  container->demuxer (&event);
 }
 
 void PajeSimulator::pajeEndLink (PajeTraceEvent *traceEvent)
@@ -1040,7 +1030,6 @@ void PajeSimulator::pajeEndLink (PajeTraceEvent *traceEvent)
     val = type->addValue (value, value, NULL);
   }
 
-  PajeEvent *event = new PajeEndLinkEvent (traceEvent, container, type, val, endcontainer, key);
-  container->demuxer (event);
-  delete event;
+  PajeEndLinkEvent event (traceEvent, container, type, val, endcontainer, key);
+  container->demuxer (&event);
 }
