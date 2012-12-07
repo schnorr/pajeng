@@ -84,6 +84,16 @@ PajeColor *PajeType::color (void)
   throw "should be implemented in subclass";
 }
 
+PajeType *PajeType::startType (void)
+{
+  return NULL;
+}
+
+PajeType *PajeType::endType (void)
+{
+  return NULL;
+}
+
 PajeCategorizedType::PajeCategorizedType (std::string name, std::string alias, PajeType *parent)
   : PajeType(name,alias,parent)
 {
@@ -146,9 +156,9 @@ PajeDrawingType PajeVariableType::drawingType (void)
   return PajeVariableDrawingType;
 }
 
-std::string PajeVariableType::nature (void)
+PajeTypeNature PajeVariableType::nature (void)
 {
-  return std::string("Variable");
+  return PAJE_VariableType;
 }
 
 PajeStateType::PajeStateType  (std::string name, std::string alias, PajeType *parent):PajeCategorizedType(name,alias,parent)
@@ -160,9 +170,9 @@ PajeDrawingType PajeStateType::drawingType (void)
   return PajeStateDrawingType;
 }
 
-std::string PajeStateType::nature (void)
+PajeTypeNature PajeStateType::nature (void)
 {
-  return std::string("State");
+  return PAJE_StateType;
 }
 
 PajeEventType::PajeEventType  (std::string name, std::string alias, PajeType *parent):PajeCategorizedType(name,alias,parent)
@@ -174,9 +184,9 @@ PajeDrawingType PajeEventType::drawingType (void)
   return PajeEventDrawingType;
 }
 
-std::string PajeEventType::nature (void)
+PajeTypeNature PajeEventType::nature (void)
 {
-  return std::string("Event");
+  return PAJE_EventType;
 }
 
 PajeLinkType::PajeLinkType (std::string name, std::string alias, PajeType *start, PajeType *end, PajeType *parent):PajeCategorizedType(name,alias,parent)
@@ -190,9 +200,49 @@ PajeDrawingType PajeLinkType::drawingType (void)
   return PajeLinkDrawingType;
 }
 
-std::string PajeLinkType::nature (void)
+PajeTypeNature PajeLinkType::nature (void)
 {
-  return std::string("Link");
+  return PAJE_LinkType;
+}
+
+PajeType *PajeLinkType::startType (void)
+{
+  return starttype;
+}
+
+PajeType *PajeLinkType::endType (void)
+{
+  return endtype;
+}
+
+PajeType *PajeType::addContainerType (std::string name, std::string alias)
+{
+  throw "should be implemented in subclass";
+  return NULL;
+}
+
+PajeType *PajeType::addVariableType (std::string name, std::string alias, PajeColor *color)
+{
+  throw "should be implemented in subclass";
+  return NULL;
+}
+
+PajeType *PajeType::addStateType (std::string name, std::string alias)
+{
+  throw "should be implemented in subclass";
+  return NULL;
+}
+
+PajeType *PajeType::addEventType (std::string name, std::string alias)
+{
+  throw "should be implemented in subclass";
+  return NULL;
+}
+
+PajeType *PajeType::addLinkType (std::string name, std::string alias, PajeType *starttype, PajeType *endtype)
+{
+  throw "should be implemented in subclass";
+  return NULL;
 }
 
 PajeContainerType::PajeContainerType (std::string name, std::string alias, PajeType *parent)
@@ -218,35 +268,35 @@ PajeType *PajeContainerType::getRootType (void)
   return root;
 }
 
-PajeContainerType *PajeContainerType::addContainerType (std::string name, std::string alias)
+PajeType *PajeContainerType::addContainerType (std::string name, std::string alias)
 {
   PajeContainerType *newType = new PajeContainerType (name, alias, this);
   children[newType->identifier()] = newType;
   return newType;
 }
 
-PajeVariableType *PajeContainerType::addVariableType (std::string name, std::string alias, PajeColor *color)
+PajeType *PajeContainerType::addVariableType (std::string name, std::string alias, PajeColor *color)
 {
   PajeVariableType *newType = new PajeVariableType (name, alias, this, color);
   children[newType->identifier()] = newType;
   return newType;
 }
 
-PajeStateType *PajeContainerType::addStateType (std::string name, std::string alias)
+PajeType *PajeContainerType::addStateType (std::string name, std::string alias)
 {
   PajeStateType *newType = new PajeStateType (name, alias, this);
   children[newType->identifier()] = newType;
   return newType;
 }
 
-PajeEventType *PajeContainerType::addEventType (std::string name, std::string alias)
+PajeType *PajeContainerType::addEventType (std::string name, std::string alias)
 {
   PajeEventType *newType = new PajeEventType (name, alias, this);
   children[newType->identifier()] = newType;
   return newType;
 }
 
-PajeLinkType *PajeContainerType::addLinkType (std::string name, std::string alias, PajeType *starttype, PajeType *endtype)
+PajeType *PajeContainerType::addLinkType (std::string name, std::string alias, PajeType *starttype, PajeType *endtype)
 {
   PajeLinkType *newType = new PajeLinkType (name, alias, starttype, endtype, this);
   children[newType->identifier()] = newType;
@@ -258,9 +308,9 @@ PajeDrawingType PajeContainerType::drawingType (void)
   return PajeContainerDrawingType;
 }
 
-std::string PajeContainerType::nature (void)
+PajeTypeNature PajeContainerType::nature (void)
 {
-  return std::string("Container");
+  return PAJE_ContainerType;
 }
 
 std::ostream &operator<< (std::ostream &output, const PajeType &type)
