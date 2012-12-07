@@ -31,12 +31,11 @@ PajeType *PajeSimulator::rootEntityType (void)
 std::vector<PajeType*> PajeSimulator::containedTypesForContainerType (PajeType *type)
 {
   std::vector<PajeType *> ret;
-  PajeContainerType *contType = dynamic_cast<PajeContainerType*>(type);
-  if (!contType){
+  if (type->nature() != PAJE_ContainerType){
     throw PajeProtocolException ("Type is not a container type");
   }
   std::map<std::string,PajeType*>::iterator it;
-  for (it = contType->children.begin(); it != contType->children.end(); it++){
+  for (it = type->children().begin(); it != type->children().end(); it++){
     ret.push_back ((*it).second);
   }
   return ret;
@@ -73,16 +72,12 @@ std::vector<PajeEntity*> PajeSimulator::enumeratorOfEntitiesTypedInContainer (Pa
 
 bool PajeSimulator::isContainerType (PajeType *type)
 {
-  PajeContainerType *contType = dynamic_cast<PajeContainerType*>(type);
-  if (contType) return true;
-  else return false;
+  return type->nature() == PAJE_ContainerType;
 }
 
 bool PajeSimulator::isVariableType (PajeType *type)
 {
-  PajeVariableType *varType = dynamic_cast<PajeVariableType*>(type);
-  if (varType) return true;
-  else return false;
+  return type->nature() == PAJE_VariableType;
 }
 
 double PajeSimulator::startTime (void)
