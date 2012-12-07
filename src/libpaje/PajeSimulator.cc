@@ -195,7 +195,7 @@ void PajeSimulator::pajeDefineContainerType (PajeTraceEvent *event)
     line << *event;
     throw PajeTypeException ("Container type '"+identifier+"' in "+line.str()+" already defined.");
   }
-  newType = dynamic_cast<PajeContainerType*>(containerType)->addContainerType (name, alias);
+  newType = containerType->addContainerType (name, alias);
   typeMap[newType->identifier()] = newType;
   typeNamesMap[newType->name()] = newType;
 }
@@ -240,7 +240,7 @@ void PajeSimulator::pajeDefineLinkType (PajeTraceEvent *event)
     line << *event;
     throw PajeTypeException ("Link type '"+identifier+"' in "+line.str()+" already defined");
   }
-  newType = dynamic_cast<PajeContainerType*>(containerType)->addLinkType (name, alias, startcontainertype, endcontainertype);
+  newType = containerType->addLinkType (name, alias, startcontainertype, endcontainertype);
   typeMap[newType->identifier()] = newType;
   typeNamesMap[newType->name()] = newType;
 }
@@ -266,7 +266,7 @@ void PajeSimulator::pajeDefineEventType (PajeTraceEvent *event)
     line << *event;
     throw PajeTypeException ("Event type '"+identifier+"' in "+line.str()+" already defined");
   }
-  newType = dynamic_cast<PajeContainerType*>(containerType)->addEventType (name, alias);
+  newType = containerType->addEventType (name, alias);
   typeMap[newType->identifier()] = newType;
   typeNamesMap[newType->name()] = newType;
 }
@@ -292,7 +292,7 @@ void PajeSimulator::pajeDefineStateType (PajeTraceEvent *event)
     line << *event;
     throw PajeTypeException ("State type '"+identifier+"' in "+line.str()+" already defined");
   }
-  newType = dynamic_cast<PajeContainerType*>(containerType)->addStateType (name, alias);
+  newType = containerType->addStateType (name, alias);
   typeMap[newType->identifier()] = newType;
   typeNamesMap[newType->name()] = newType;
 }
@@ -323,7 +323,7 @@ void PajeSimulator::pajeDefineVariableType (PajeTraceEvent *event)
   //validate the color, if provided
   PajeColor *pajeColor = getColor (color, event);
 
-  newType = dynamic_cast<PajeContainerType*>(containerType)->addVariableType (name, alias, pajeColor);
+  newType = containerType->addVariableType (name, alias, pajeColor);
   typeMap[newType->identifier()] = newType;
   typeNamesMap[newType->name()] = newType;
 }
@@ -389,8 +389,7 @@ void PajeSimulator::pajeCreateContainer (PajeTraceEvent *traceEvent)
     throw PajeTypeException ("Unknown container type '"+typestr+"' in "+line.str());
   }
 
-  PajeContainerType *containerType = dynamic_cast<PajeContainerType*>(type);
-  if (!containerType){
+  if (type->nature() != PAJE_ContainerType){
     std::stringstream line;
     line << *traceEvent;
     throw PajeTypeException ("Not a container type '"+typestr+"' in "+line.str());
@@ -405,11 +404,11 @@ void PajeSimulator::pajeCreateContainer (PajeTraceEvent *traceEvent)
   }
 
   //verify if the container type is correctly informed
-  if (containerType->parent() != container->type()){
+  if (type->parent() != container->type()){
     std::stringstream eventdesc;
     eventdesc << *traceEvent;
     std::stringstream ctype1;
-    ctype1 << *containerType;
+    ctype1 << *type;
     std::stringstream ctype2;
     ctype2 << *container->type();
     throw PajeTypeException ("Container type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
@@ -425,7 +424,7 @@ void PajeSimulator::pajeCreateContainer (PajeTraceEvent *traceEvent)
   }
 
   //everything seems ok, create the container
-  PajeContainer *newContainer = container->pajeCreateContainer (lastKnownTime, containerType, traceEvent, stopSimulationAtTime);
+  PajeContainer *newContainer = container->pajeCreateContainer (lastKnownTime, type, traceEvent, stopSimulationAtTime);
   if (newContainer){
     contMap[newContainer->identifier()] = newContainer;
     contNamesMap[newContainer->name()] = newContainer;
@@ -500,7 +499,7 @@ void PajeSimulator::pajeNewEvent (PajeTraceEvent *traceEvent)
   }
 
   //verify if the type is a event type
-  if (!dynamic_cast<PajeEventType*>(type)){
+  if (type->nature() != PAJE_EventType){
     std::stringstream line;
     line << *traceEvent;
     std::stringstream desc;
@@ -555,7 +554,7 @@ void PajeSimulator::pajeSetState (PajeTraceEvent *traceEvent)
   }
 
   //verify if the type is a state type
-  if (!dynamic_cast<PajeStateType*>(type)){
+  if (type->nature() != PAJE_StateType){
     std::stringstream line;
     line << *traceEvent;
     std::stringstream desc;
@@ -610,7 +609,7 @@ void PajeSimulator::pajePushState (PajeTraceEvent *traceEvent)
   }
 
   //verify if the type is a state type
-  if (!dynamic_cast<PajeStateType*>(type)){
+  if (type->nature() != PAJE_StateType){
     std::stringstream line;
     line << *traceEvent;
     std::stringstream desc;
@@ -664,7 +663,7 @@ void PajeSimulator::pajePopState (PajeTraceEvent *traceEvent)
   }
 
   //verify if the type is a state type
-  if (!dynamic_cast<PajeStateType*>(type)){
+  if (type->nature() != PAJE_StateType){
     std::stringstream line;
     line << *traceEvent;
     std::stringstream desc;
@@ -711,7 +710,7 @@ void PajeSimulator::pajeResetState (PajeTraceEvent *traceEvent)
   }
 
   //verify if the type is a state type
-  if (!dynamic_cast<PajeStateType*>(type)){
+  if (type->nature() != PAJE_StateType){
     std::stringstream line;
     line << *traceEvent;
     std::stringstream desc;
@@ -758,7 +757,7 @@ void PajeSimulator::pajeSetVariable (PajeTraceEvent *traceEvent)
   }
 
   //verify if the type is a variable type
-  if (!dynamic_cast<PajeVariableType*>(type)){
+  if (type->nature() != PAJE_VariableType){
     std::stringstream line;
     line << *traceEvent;
     std::stringstream desc;
@@ -807,7 +806,7 @@ void PajeSimulator::pajeAddVariable (PajeTraceEvent *traceEvent)
   }
 
   //verify if the type is a variable type
-  if (!dynamic_cast<PajeVariableType*>(type)){
+  if (type->nature() != PAJE_VariableType){
     std::stringstream line;
     line << *traceEvent;
     std::stringstream desc;
@@ -855,7 +854,7 @@ void PajeSimulator::pajeSubVariable (PajeTraceEvent *traceEvent)
   }
 
   //verify if the type is a variable type
-  if (!dynamic_cast<PajeVariableType*>(type)){
+  if (type->nature() != PAJE_VariableType){
     std::stringstream line;
     line << *traceEvent;
     std::stringstream desc;
@@ -914,8 +913,7 @@ void PajeSimulator::pajeStartLink (PajeTraceEvent *traceEvent)
   }
 
   //verify if the type is a link type
-  PajeLinkType *linktype = dynamic_cast<PajeLinkType*>(type);
-  if (!linktype){
+  if (type->nature() != PAJE_LinkType){
     std::stringstream line;
     line << *traceEvent;
     std::stringstream desc;
@@ -935,7 +933,7 @@ void PajeSimulator::pajeStartLink (PajeTraceEvent *traceEvent)
   }
 
   //verify if the type of start container is the type expected for the start of this link
-  if (linktype->starttype != startcontainer->type()){
+  if (type->startType() != startcontainer->type()){
     std::stringstream eventdesc;
     eventdesc << *traceEvent;
     std::stringstream ctype1;
@@ -991,8 +989,7 @@ void PajeSimulator::pajeEndLink (PajeTraceEvent *traceEvent)
   }
 
   //verify if the type is a link type
-  PajeLinkType *linktype = dynamic_cast<PajeLinkType*>(type);
-  if (!linktype){
+  if (type->nature() != PAJE_LinkType){
     std::stringstream line;
     line << *traceEvent;
     std::stringstream desc;
@@ -1012,7 +1009,7 @@ void PajeSimulator::pajeEndLink (PajeTraceEvent *traceEvent)
   }
 
   //verify if the type of end container is the type expected for the end of this link
-  if (linktype->endtype != endcontainer->type()){
+  if (type->endType() != endcontainer->type()){
     std::stringstream eventdesc;
     eventdesc << *traceEvent;
     std::stringstream ctype1;
