@@ -98,6 +98,7 @@ public:
   void addField (std::string name, std::string type, paje_line *line);
 
   int indexForField (PajeField field);
+  int indexForField (std::string fieldName);
   bool isValid (void);
   void showObligatoryFields (void);
   std::vector<std::string> extraFields (void);

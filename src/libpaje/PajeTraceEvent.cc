@@ -48,6 +48,16 @@ std::string PajeTraceEvent::valueForField (PajeField field)
   }
 }
 
+std::string PajeTraceEvent::valueForField (std::string fieldName)
+{
+  int index = pajeEventDefinition->indexForField (fieldName);
+  if (index == -1){
+    return std::string("");
+  }else{
+    return std::string(valueLine->word[index]);
+  }
+}
+
 long long PajeTraceEvent::getLineNumber (void) const
 {
   return lineNumber;

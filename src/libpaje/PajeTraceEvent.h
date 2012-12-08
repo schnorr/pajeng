@@ -39,6 +39,7 @@ public:
   PajeTraceEvent (PajeEventDefinition *def, paje_line *line);
   PajeEventId pajeEventId (void);
   std::string valueForField (PajeField field);
+  std::string valueForField (std::string fieldName);
   long long getLineNumber (void) const;
   std::string description (void) const;
 };
