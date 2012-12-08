@@ -101,7 +101,7 @@ bool PajeSimulator::keepSimulating (void)
 
 void PajeSimulator::setLastKnownTime (PajeTraceEvent *event)
 {
-  std::string time = event->valueForFieldId (std::string("Time"));
+  std::string time = event->valueForField (PAJE_Time);
   if (time.length()){
     double evttime = atof(time.c_str());
     lastKnownTime = evttime;
@@ -176,9 +176,9 @@ void PajeSimulator::finishedReading (void)
 
 void PajeSimulator::pajeDefineContainerType (PajeTraceEvent *event)
 {
-  std::string name = event->valueForFieldId (std::string("Name"));
-  std::string type = event->valueForFieldId (std::string("Type"));
-  std::string alias = event->valueForFieldId (std::string("Alias"));
+  std::string name = event->valueForField (PAJE_Name);
+  std::string type = event->valueForField (PAJE_Type);
+  std::string alias = event->valueForField (PAJE_Alias);
 
   //search for parent type
   PajeType *containerType = typeMap[type];
@@ -202,11 +202,11 @@ void PajeSimulator::pajeDefineContainerType (PajeTraceEvent *event)
 
 void PajeSimulator::pajeDefineLinkType (PajeTraceEvent *event)
 {
-  std::string name = event->valueForFieldId (std::string("Name"));
-  std::string type = event->valueForFieldId (std::string("Type"));
-  std::string starttype = event->valueForFieldId (std::string("StartContainerType"));
-  std::string endtype = event->valueForFieldId (std::string("EndContainerType"));
-  std::string alias = event->valueForFieldId (std::string("Alias"));
+  std::string name = event->valueForField (PAJE_Name);
+  std::string type = event->valueForField (PAJE_Type);
+  std::string starttype = event->valueForField (PAJE_StartContainerType);
+  std::string endtype = event->valueForField (PAJE_EndContainerType);
+  std::string alias = event->valueForField (PAJE_Alias);
 
   //search for parent type
   PajeType *containerType = typeMap[type];
@@ -247,9 +247,9 @@ void PajeSimulator::pajeDefineLinkType (PajeTraceEvent *event)
 
 void PajeSimulator::pajeDefineEventType (PajeTraceEvent *event)
 {
-  std::string name = event->valueForFieldId (std::string("Name"));
-  std::string type = event->valueForFieldId (std::string("Type"));
-  std::string alias = event->valueForFieldId (std::string("Alias"));
+  std::string name = event->valueForField (PAJE_Name);
+  std::string type = event->valueForField (PAJE_Type);
+  std::string alias = event->valueForField (PAJE_Alias);
 
   //search for parent type
   PajeType *containerType = typeMap[type];
@@ -273,9 +273,9 @@ void PajeSimulator::pajeDefineEventType (PajeTraceEvent *event)
 
 void PajeSimulator::pajeDefineStateType (PajeTraceEvent *event)
 {
-  std::string name = event->valueForFieldId (std::string("Name"));
-  std::string type = event->valueForFieldId (std::string("Type"));
-  std::string alias = event->valueForFieldId (std::string("Alias"));
+  std::string name = event->valueForField (PAJE_Name);
+  std::string type = event->valueForField (PAJE_Type);
+  std::string alias = event->valueForField (PAJE_Alias);
 
   //search for parent type
   PajeType *containerType = typeMap[type];
@@ -299,10 +299,10 @@ void PajeSimulator::pajeDefineStateType (PajeTraceEvent *event)
 
 void PajeSimulator::pajeDefineVariableType (PajeTraceEvent *event)
 {
-  std::string name = event->valueForFieldId (std::string("Name"));
-  std::string type = event->valueForFieldId (std::string("Type"));
-  std::string alias = event->valueForFieldId (std::string("Alias"));
-  std::string color = event->valueForFieldId (std::string("Color"));
+  std::string name = event->valueForField (PAJE_Name);
+  std::string type = event->valueForField (PAJE_Type);
+  std::string alias = event->valueForField (PAJE_Alias);
+  std::string color = event->valueForField (PAJE_Color);
 
   //search for parent type
   PajeType *containerType = typeMap[type];
@@ -330,10 +330,10 @@ void PajeSimulator::pajeDefineVariableType (PajeTraceEvent *event)
 
 void PajeSimulator::pajeDefineEntityValue (PajeTraceEvent *event)
 {
-  std::string name = event->valueForFieldId (std::string("Name"));
-  std::string typestr = event->valueForFieldId (std::string("Type"));
-  std::string color = event->valueForFieldId (std::string("Color"));
-  std::string alias = event->valueForFieldId (std::string("Alias"));
+  std::string name = event->valueForField (PAJE_Name);
+  std::string typestr = event->valueForField (PAJE_Type);
+  std::string color = event->valueForField (PAJE_Color);
+  std::string alias = event->valueForField (PAJE_Alias);
 
   //search for type
   PajeType *type = typeMap[typestr];
@@ -375,11 +375,11 @@ void PajeSimulator::pajeDefineEntityValue (PajeTraceEvent *event)
 
 void PajeSimulator::pajeCreateContainer (PajeTraceEvent *traceEvent)
 {
-  std::string time = traceEvent->valueForFieldId (std::string("Time"));
-  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
-  std::string containerid = traceEvent->valueForFieldId (std::string("Container"));
-  std::string name = traceEvent->valueForFieldId (std::string("Name"));
-  std::string alias = traceEvent->valueForFieldId (std::string("Alias"));
+  std::string time = traceEvent->valueForField (PAJE_Time);
+  std::string typestr = traceEvent->valueForField (PAJE_Type);
+  std::string containerid = traceEvent->valueForField (PAJE_Container);
+  std::string name = traceEvent->valueForField (PAJE_Name);
+  std::string alias = traceEvent->valueForField (PAJE_Alias);
 
   //search the container type for the new container
   PajeType *type = typeMap[typestr];
@@ -437,9 +437,9 @@ void PajeSimulator::pajeCreateContainer (PajeTraceEvent *traceEvent)
 
 void PajeSimulator::pajeDestroyContainer (PajeTraceEvent *traceEvent)
 {
-  std::string time = traceEvent->valueForFieldId (std::string("Time"));
-  std::string type = traceEvent->valueForFieldId (std::string("Type"));
-  std::string name = traceEvent->valueForFieldId (std::string("Name"));
+  std::string time = traceEvent->valueForField (PAJE_Time);
+  std::string type = traceEvent->valueForField (PAJE_Type);
+  std::string name = traceEvent->valueForField (PAJE_Name);
 
   //search the container type for the new container
   PajeType *containerType = typeMap[type];
@@ -477,10 +477,10 @@ void PajeSimulator::pajeDestroyContainer (PajeTraceEvent *traceEvent)
 
 void PajeSimulator::pajeNewEvent (PajeTraceEvent *traceEvent)
 {
-  std::string time = traceEvent->valueForFieldId (std::string("Time"));
-  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
-  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
-  std::string value = traceEvent->valueForFieldId (std::string("Value"));
+  std::string time = traceEvent->valueForField (PAJE_Time);
+  std::string typestr = traceEvent->valueForField (PAJE_Type);
+  std::string containerstr = traceEvent->valueForField (PAJE_Container);
+  std::string value = traceEvent->valueForField (PAJE_Value);
 
   //search the container
   PajeContainer *container = contMap[containerstr];
@@ -532,10 +532,10 @@ void PajeSimulator::pajeNewEvent (PajeTraceEvent *traceEvent)
 
 void PajeSimulator::pajeSetState (PajeTraceEvent *traceEvent)
 {
-  std::string time = traceEvent->valueForFieldId (std::string("Time"));
-  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
-  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
-  std::string value = traceEvent->valueForFieldId (std::string("Value"));
+  std::string time = traceEvent->valueForField (PAJE_Time);
+  std::string typestr = traceEvent->valueForField (PAJE_Type);
+  std::string containerstr = traceEvent->valueForField (PAJE_Container);
+  std::string value = traceEvent->valueForField (PAJE_Value);
 
   //search the container
   PajeContainer *container = contMap[containerstr];
@@ -587,10 +587,10 @@ void PajeSimulator::pajeSetState (PajeTraceEvent *traceEvent)
 
 void PajeSimulator::pajePushState (PajeTraceEvent *traceEvent)
 {
-  std::string time = traceEvent->valueForFieldId (std::string("Time"));
-  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
-  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
-  std::string value = traceEvent->valueForFieldId (std::string("Value"));
+  std::string time = traceEvent->valueForField (PAJE_Time);
+  std::string typestr = traceEvent->valueForField (PAJE_Type);
+  std::string containerstr = traceEvent->valueForField (PAJE_Container);
+  std::string value = traceEvent->valueForField (PAJE_Value);
 
   //search the container
   PajeContainer *container = contMap[containerstr];
@@ -642,9 +642,9 @@ void PajeSimulator::pajePushState (PajeTraceEvent *traceEvent)
 
 void PajeSimulator::pajePopState (PajeTraceEvent *traceEvent)
 {
-  std::string time = traceEvent->valueForFieldId (std::string("Time"));
-  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
-  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
+  std::string time = traceEvent->valueForField (PAJE_Time);
+  std::string typestr = traceEvent->valueForField (PAJE_Type);
+  std::string containerstr = traceEvent->valueForField (PAJE_Container);
 
   //search the container
   PajeContainer *container = contMap[containerstr];
@@ -689,9 +689,9 @@ void PajeSimulator::pajePopState (PajeTraceEvent *traceEvent)
 
 void PajeSimulator::pajeResetState (PajeTraceEvent *traceEvent)
 {
-  std::string time = traceEvent->valueForFieldId (std::string("Time"));
-  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
-  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
+  std::string time = traceEvent->valueForField (PAJE_Time);
+  std::string typestr = traceEvent->valueForField (PAJE_Type);
+  std::string containerstr = traceEvent->valueForField (PAJE_Container);
 
   //search the container
   PajeContainer *container = contMap[containerstr];
@@ -735,10 +735,10 @@ void PajeSimulator::pajeResetState (PajeTraceEvent *traceEvent)
 
 void PajeSimulator::pajeSetVariable (PajeTraceEvent *traceEvent)
 {
-  std::string time = traceEvent->valueForFieldId (std::string("Time"));
-  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
-  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
-  std::string value = traceEvent->valueForFieldId (std::string("Value"));
+  std::string time = traceEvent->valueForField (PAJE_Time);
+  std::string typestr = traceEvent->valueForField (PAJE_Type);
+  std::string containerstr = traceEvent->valueForField (PAJE_Container);
+  std::string value = traceEvent->valueForField (PAJE_Value);
 
   //search the container
   PajeContainer *container = contMap[containerstr];
@@ -784,10 +784,10 @@ void PajeSimulator::pajeSetVariable (PajeTraceEvent *traceEvent)
 
 void PajeSimulator::pajeAddVariable (PajeTraceEvent *traceEvent)
 {
-  std::string time = traceEvent->valueForFieldId (std::string("Time"));
-  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
-  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
-  std::string value = traceEvent->valueForFieldId (std::string("Value"));
+  std::string time = traceEvent->valueForField (PAJE_Time);
+  std::string typestr = traceEvent->valueForField (PAJE_Type);
+  std::string containerstr = traceEvent->valueForField (PAJE_Container);
+  std::string value = traceEvent->valueForField (PAJE_Value);
 
   //search the container
   PajeContainer *container = contMap[containerstr];
@@ -832,10 +832,10 @@ void PajeSimulator::pajeAddVariable (PajeTraceEvent *traceEvent)
 
 void PajeSimulator::pajeSubVariable (PajeTraceEvent *traceEvent)
 {
-  std::string time = traceEvent->valueForFieldId (std::string("Time"));
-  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
-  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
-  std::string value = traceEvent->valueForFieldId (std::string("Value"));
+  std::string time = traceEvent->valueForField (PAJE_Time);
+  std::string typestr = traceEvent->valueForField (PAJE_Type);
+  std::string containerstr = traceEvent->valueForField (PAJE_Container);
+  std::string value = traceEvent->valueForField (PAJE_Value);
 
   //search the container
   PajeContainer *container = contMap[containerstr];
@@ -881,12 +881,12 @@ void PajeSimulator::pajeSubVariable (PajeTraceEvent *traceEvent)
 
 void PajeSimulator::pajeStartLink (PajeTraceEvent *traceEvent)
 {
-  std::string time = traceEvent->valueForFieldId (std::string("Time"));
-  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
-  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
-  std::string startcontainerstr = traceEvent->valueForFieldId (std::string("StartContainer"));
-  std::string value = traceEvent->valueForFieldId (std::string("Value"));
-  std::string key = traceEvent->valueForFieldId (std::string("Key"));
+  std::string time = traceEvent->valueForField (PAJE_Time);
+  std::string typestr = traceEvent->valueForField (PAJE_Type);
+  std::string containerstr = traceEvent->valueForField (PAJE_Container);
+  std::string startcontainerstr = traceEvent->valueForField (PAJE_StartContainer);
+  std::string value = traceEvent->valueForField (PAJE_Value);
+  std::string key = traceEvent->valueForField (PAJE_Key);
 
   //search the container
   PajeContainer *container = contMap[containerstr];
@@ -957,12 +957,12 @@ void PajeSimulator::pajeStartLink (PajeTraceEvent *traceEvent)
 
 void PajeSimulator::pajeEndLink (PajeTraceEvent *traceEvent)
 {
-  std::string time = traceEvent->valueForFieldId (std::string("Time"));
-  std::string typestr = traceEvent->valueForFieldId (std::string("Type"));
-  std::string containerstr = traceEvent->valueForFieldId (std::string("Container"));
-  std::string endcontainerstr = traceEvent->valueForFieldId (std::string("EndContainer"));
-  std::string value = traceEvent->valueForFieldId (std::string("Value"));
-  std::string key = traceEvent->valueForFieldId (std::string("Key"));
+  std::string time = traceEvent->valueForField (PAJE_Time);
+  std::string typestr = traceEvent->valueForField (PAJE_Type);
+  std::string containerstr = traceEvent->valueForField (PAJE_Container);
+  std::string endcontainerstr = traceEvent->valueForField (PAJE_EndContainer);
+  std::string value = traceEvent->valueForField (PAJE_Value);
+  std::string key = traceEvent->valueForField (PAJE_Key);
 
   //search the container
   PajeContainer *container = contMap[containerstr];

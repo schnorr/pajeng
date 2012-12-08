@@ -38,9 +38,9 @@ PajeEventId PajeTraceEvent::pajeEventId (void)
   return pajeEventDefinition->pajeEventId;
 }
 
-std::string PajeTraceEvent::valueForFieldId (std::string name)
+std::string PajeTraceEvent::valueForField (PajeField field)
 {
-  int index = pajeEventDefinition->indexForFieldId (name);
+  int index = pajeEventDefinition->indexForField (field);
   if (index == -1){
     return std::string("");
   }else{

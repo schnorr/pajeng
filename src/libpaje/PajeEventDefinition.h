@@ -58,15 +58,37 @@ typedef enum {
     PajeUnknownEventId,
 } PajeEventId;
 
+typedef enum {
+  PAJE_Event,
+  PAJE_Time,
+  PAJE_Name,
+  PAJE_Type,
+  PAJE_Container,
+  PAJE_StartContainerType,
+  PAJE_EndContainerType,
+  PAJE_StartContainer,
+  PAJE_EndContainer,
+  PAJE_Value,
+  PAJE_Key,
+  PAJE_Alias,
+  PAJE_Color,
+  PAJE_Line,
+  PAJE_File,
+  PAJE_Extra
+} PajeField;
+
 std::map<std::string,PajeEventId> initPajeEventNamesToID (void);
 std::map<PajeEventId,std::string> initPajeEventIDToNames (void);
+std::map<std::string,PajeField> initPajeFieldNamesToID (void);
+std::map<PajeField,std::string> initPajeFieldIDToNames (void);
 
 class PajeEventDefinition {
 public:
   PajeEventId pajeEventId; //The known PajeEventId
   int number; //unique identifier
   int fieldCount;
-  std::list<std::string> fields;
+  std::list<PajeField> fields;
+  std::list<std::string> names;
   std::list<std::string> types;
   std::vector<std::string> extraFieldNames;
 
@@ -75,10 +97,13 @@ public:
   ~PajeEventDefinition (void);
   void addField (std::string name, std::string type, paje_line *line);
 
-  int indexForFieldId (std::string name);
+  int indexForField (PajeField field);
   bool isValid (void);
   void showObligatoryFields (void);
   std::vector<std::string> extraFields (void);
+
+private:
+  bool knownFieldNamed (std::string name);
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeEventDefinition &eventDef);

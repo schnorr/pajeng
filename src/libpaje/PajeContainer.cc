@@ -659,8 +659,8 @@ bool PajeContainer::checkTimeOrder (double time, PajeType *type, PajeTraceEvent 
 
 PajeContainer *PajeContainer::pajeCreateContainer (double time, PajeType *type, PajeTraceEvent *event, double stopat)
 {
-  std::string name = event->valueForFieldId (std::string("Name"));
-  std::string alias = event->valueForFieldId (std::string("Alias"));
+  std::string name = event->valueForField (PAJE_Name);
+  std::string alias = event->valueForField (PAJE_Alias);
 
   if (type->nature() != PAJE_ContainerType){
     std::stringstream eventdesc;

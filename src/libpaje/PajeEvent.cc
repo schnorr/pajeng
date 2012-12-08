@@ -24,7 +24,7 @@ PajeEvent::PajeEvent (PajeTraceEvent *event, PajeContainer *container, PajeType 
   _type = type;
 
   //extracing time
-  std::string t = _event->valueForFieldId (std::string("Time"));
+  std::string t = _event->valueForField (PAJE_Time);
   if (t.length() == 0){
     PajeSimulationException ("Can't get time from trace event.");
   }
