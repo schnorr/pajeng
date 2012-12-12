@@ -34,8 +34,11 @@ std::vector<PajeType*> PajeSimulator::containedTypesForContainerType (PajeType *
   if (type->nature() != PAJE_ContainerType){
     throw PajeProtocolException ("Type is not a container type");
   }
+
+  std::map<std::string,PajeType*> c = type->children();
   std::map<std::string,PajeType*>::iterator it;
-  for (it = type->children().begin(); it != type->children().end(); it++){
+  for (it = c.begin(); it != c.end(); it++){
+    PajeType *t = (*it).second;
     ret.push_back ((*it).second);
   }
   return ret;
