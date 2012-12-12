@@ -255,6 +255,7 @@ std::map<std::string,PajeType*> PajeType::children (void)
 PajeContainerType::PajeContainerType (std::string name, std::string alias, PajeType *parent)
   : PajeType (name, alias, parent)
 {
+  _children = std::map<std::string,PajeType*>();
 }
 
 PajeContainerType::~PajeContainerType (void)
