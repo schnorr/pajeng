@@ -28,11 +28,21 @@ static PajeEventId getPajeEventId (std::string eventName)
   }
 }
 
-PajeEventDecoder::PajeEventDecoder ()
+void PajeEventDecoder::init (bool strictHeader)
 {
   defStatus = OUT_DEF;
   currentLineNumber = 0;
+  this->strictHeader = strictHeader;
+}
 
+PajeEventDecoder::PajeEventDecoder ()
+{
+  init (0);
+}
+
+PajeEventDecoder::PajeEventDecoder (bool strictHeader)
+{
+  init (strictHeader);
 }
 
 PajeEventDecoder::~PajeEventDecoder ()
@@ -141,7 +151,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
       throw PajeDecodeException ("Unknown event name '"+std::string(eventName)+"' in "+lreport);
     }
 
-    eventBeingDefined = new PajeEventDefinition (pajeEventId, atoi(eventId), line);
+    eventBeingDefined = new PajeEventDefinition (pajeEventId, atoi(eventId), line, strictHeader);
     eventDefinitions[eventId] = eventBeingDefined;
     defStatus = IN_DEF;
   }

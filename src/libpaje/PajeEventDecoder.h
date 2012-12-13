@@ -38,9 +38,12 @@ private:
   void scanDefinitionLine (paje_line *line);
   PajeTraceEvent *scanEventLine (paje_line *line);
   long long currentLineNumber;
+  bool strictHeader;
+  void init (bool strictHeader);
 
 public:
   PajeEventDecoder (void);
+  PajeEventDecoder (bool strictHeader);
   ~PajeEventDecoder (void);
 
   void inputEntity (PajeObject *data);

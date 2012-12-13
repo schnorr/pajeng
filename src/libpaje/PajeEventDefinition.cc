@@ -66,7 +66,7 @@ std::map<PajeEventId,std::string> initPajeEventIDToNames ()
   return ret;
 }
 
-std::map<std::string,PajeField> initPajeFieldNamesToID (void)
+std::map<std::string,PajeField> initPajeFieldNamesToID (bool strict)
 {
   std::map<std::string,PajeField> ret;
   ret["Event"] = PAJE_Event;
@@ -84,12 +84,22 @@ std::map<std::string,PajeField> initPajeFieldNamesToID (void)
   ret["Color"] = PAJE_Color;
   ret["Line"] = PAJE_Line;
   ret["File"] = PAJE_File;
+
+  //old field names
+  if (!strict){
+    ret["ContainerType"] = PAJE_Type;
+    ret["EntityType"] = PAJE_Type;
+    ret["SourceContainerType"] = PAJE_StartContainerType;
+    ret["DestContainerType"] = PAJE_EndContainerType;
+    ret["SourceContainer"] = PAJE_StartContainer;
+    ret["DestContainer"] = PAJE_EndContainer;
+  }
   return ret;
 }
 
-std::map<PajeField,std::string> initPajeFieldIDToNames (void)
+std::map<PajeField,std::string> initPajeFieldIDToNames (bool strict)
 {
-  std::map<std::string,PajeField> input = initPajeFieldNamesToID();
+  std::map<std::string,PajeField> input = initPajeFieldNamesToID(strict);
   std::map<PajeField,std::string> ret;
   std::map<std::string,PajeField>::iterator it;
   for (it = input.begin(); it != input.end(); it++){
@@ -292,11 +302,12 @@ std::map<PajeEventId,std::set<PajeField> > initOptionalFields ()
 static std::map<PajeEventId,std::set<PajeField> > pajeObligatoryFields = initObligatoryFields ();
 static std::map<PajeEventId,std::set<PajeField> > pajeOptionalFields = initOptionalFields ();
 
-PajeEventDefinition::PajeEventDefinition (PajeEventId pajeEventId, int number, paje_line *line)
+PajeEventDefinition::PajeEventDefinition (PajeEventId pajeEventId, int number, paje_line *line, bool strictHeader)
 {
   this->pajeEventId = pajeEventId;
   this->number = number;
   fieldCount = 0;
+  strictDefinition = strictHeader;
 
   //the first field is always the event identification
   PajeEventDefinition::addField ("Event", "int", line);
@@ -335,7 +346,7 @@ void PajeEventDefinition::addField (std::string name, std::string type, paje_lin
     newField = PAJE_Extra;
   }else{
     //check if the new field is already defined
-    newField = initPajeFieldNamesToID()[name];
+    newField = initPajeFieldNamesToID(strictDefinition)[name];
     std::set<PajeField> fieldSet (fields.begin(), fields.end());
     std::set<PajeField>::iterator present = fieldSet.find(newField);
     if (present != fieldSet.end()){
@@ -408,7 +419,7 @@ bool PajeEventDefinition::isValid (void)
 void PajeEventDefinition::showObligatoryFields (void)
 {
   std::map<PajeEventId,std::string> eventNames = initPajeEventIDToNames();
-  std::map<PajeField,std::string> fieldNames = initPajeFieldIDToNames();
+  std::map<PajeField,std::string> fieldNames = initPajeFieldIDToNames(strictDefinition);
   std::cout << "Obligatory fields expected for a " << eventNames[pajeEventId]
             << " event definition:" << std::endl;
   std::set<PajeField>::iterator iter;
@@ -427,7 +438,7 @@ std::vector<std::string> PajeEventDefinition::extraFields (void)
 
 bool PajeEventDefinition::knownFieldNamed (std::string name)
 {
-  std::map<std::string,PajeField> knownFields = initPajeFieldNamesToID();
+  std::map<std::string,PajeField> knownFields = initPajeFieldNamesToID(strictDefinition);
   std::map<std::string,PajeField>::iterator found = knownFields.find (name);
   if (found == knownFields.end()){
     return false;

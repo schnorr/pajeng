@@ -83,6 +83,9 @@ std::map<std::string,PajeField> initPajeFieldNamesToID (void);
 std::map<PajeField,std::string> initPajeFieldIDToNames (void);
 
 class PajeEventDefinition {
+private:
+  bool strictDefinition;
+
 public:
   PajeEventId pajeEventId; //The known PajeEventId
   int number; //unique identifier
@@ -93,7 +96,7 @@ public:
   std::vector<std::string> extraFieldNames;
 
 public:
-  PajeEventDefinition (PajeEventId pajeEventId, int number, paje_line *line);
+  PajeEventDefinition (PajeEventId pajeEventId, int number, paje_line *line, bool strictHeader);
   ~PajeEventDefinition (void);
   void addField (std::string name, std::string type, paje_line *line);
 

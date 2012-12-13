@@ -28,11 +28,13 @@ static char doc[] = "Checks if FILE, or standard input, strictly follows the Paj
 static char args_doc[] = "[FILE]";
 
 static struct argp_option options[] = {
+  {"no-strict", 'n', 0, OPTION_ARG_OPTIONAL, "Support old field names in event definitions"},
   { 0 }
 };
 
 struct arguments {
   char *input[VALIDATE_INPUT_SIZE];
+  int noStrict;
   int input_size;
 };
 
@@ -40,6 +42,7 @@ static int parse_options (int key, char *arg, struct argp_state *state)
 {
   struct arguments *arguments = (struct arguments*)(state->input);
   switch (key){
+  case 'n': arguments->noStrict = 1; break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
       /* Too many arguments. */
@@ -82,7 +85,7 @@ int main (int argc, char **argv)
     reader = new PajeFileReader ();
   }
 
-  PajeEventDecoder *decoder = new PajeEventDecoder ();
+  PajeEventDecoder *decoder = new PajeEventDecoder (!arguments.noStrict);
   PajeSimulator *simulator = new PajeSimulator ();
 
   reader->setOutputComponent (decoder);
