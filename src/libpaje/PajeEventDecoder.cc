@@ -33,8 +33,6 @@ PajeEventDecoder::PajeEventDecoder ()
   defStatus = OUT_DEF;
   currentLineNumber = 0;
 
-  //TODO FIXME
-  //chunkInfo ...
 }
 
 PajeEventDecoder::~PajeEventDecoder ()
