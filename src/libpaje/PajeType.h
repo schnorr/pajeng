@@ -51,6 +51,7 @@ public:
   int depth (void) const;
   PajeType *parent (void) const;
   std::string identifier (void) const;
+  std::string kind (void) const;
   virtual bool isCategorizedType (void) const;
   virtual PajeValue *addValue (std::string alias, std::string value, PajeColor *color);
   virtual PajeValue *valueForIdentifier (std::string identifier);

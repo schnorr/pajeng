@@ -54,6 +54,18 @@ std::string PajeType::identifier (void) const
   return _alias.empty() ? _name : _alias;
 }
 
+std::string PajeType::kind (void) const
+{
+  switch (nature()){
+  case PAJE_ContainerType: return std::string ("Container"); break;
+  case PAJE_VariableType: return std::string ("Variable"); break;
+  case PAJE_StateType: return std::string ("State"); break;
+  case PAJE_EventType: return std::string ("Event"); break;
+  case PAJE_LinkType: return std::string ("Link"); break;
+  default: return std::string ("Unknown"); break;
+  }
+}
+
 bool PajeType::isCategorizedType (void) const
 {
   return false;
