@@ -157,7 +157,7 @@ PajeDrawingType PajeVariableType::drawingType (void)
   return PajeVariableDrawingType;
 }
 
-PajeTypeNature PajeVariableType::nature (void)
+PajeTypeNature PajeVariableType::nature (void) const
 {
   return PAJE_VariableType;
 }
@@ -171,7 +171,7 @@ PajeDrawingType PajeStateType::drawingType (void)
   return PajeStateDrawingType;
 }
 
-PajeTypeNature PajeStateType::nature (void)
+PajeTypeNature PajeStateType::nature (void) const
 {
   return PAJE_StateType;
 }
@@ -185,7 +185,7 @@ PajeDrawingType PajeEventType::drawingType (void)
   return PajeEventDrawingType;
 }
 
-PajeTypeNature PajeEventType::nature (void)
+PajeTypeNature PajeEventType::nature (void) const
 {
   return PAJE_EventType;
 }
@@ -201,7 +201,7 @@ PajeDrawingType PajeLinkType::drawingType (void)
   return PajeLinkDrawingType;
 }
 
-PajeTypeNature PajeLinkType::nature (void)
+PajeTypeNature PajeLinkType::nature (void) const
 {
   return PAJE_LinkType;
 }
@@ -321,7 +321,7 @@ PajeDrawingType PajeContainerType::drawingType (void)
   return PajeContainerDrawingType;
 }
 
-PajeTypeNature PajeContainerType::nature (void)
+PajeTypeNature PajeContainerType::nature (void) const
 {
   return PAJE_ContainerType;
 }
