@@ -377,7 +377,7 @@ PajeColor *PajeAggregatedType::color (void) const
   if (aggregatedType->isCategorizedType()){
     return aggregatedType->colorForIdentifier (aggregatedValue->identifier());
   }else{
-    return aggregatedValue->color();
+    return aggregatedType->color();
   }
 }
 
