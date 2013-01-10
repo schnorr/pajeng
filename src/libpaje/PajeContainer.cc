@@ -609,7 +609,9 @@ PajeAggregatedDict PajeContainer::integrationOfContainer (double start, double e
   if (start == -1 || end == -1) return ret;
   std::map<std::string,PajeType*>::iterator it;
   PajeAggregatedDict partial;
-  for (it = type()->children().begin(); it != type()->children().end(); it++){
+  std::map<std::string,PajeType*> c = type()->children();
+  for (it = c.begin(); it != c.end(); it++){
+    PajeType *ctype = (*it).second;
     partial = timeIntegrationOfTypeInContainer (start, end, (*it).second);
     ret = merge (ret, partial);
   }
