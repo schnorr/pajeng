@@ -370,6 +370,7 @@ PajeAggregatedType::PajeAggregatedType (PajeType *type, PajeValue *value)
 PajeAggregatedType::PajeAggregatedType (PajeType *type)
 {
   this->aggregatedType = type;
+  this->aggregatedValue = NULL;
 }
 
 PajeColor *PajeAggregatedType::color (void) const
