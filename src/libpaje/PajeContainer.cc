@@ -519,7 +519,7 @@ PajeAggregatedDict PajeContainer::timeIntegrationOfTypeInContainer (double start
   if (type->nature() == PAJE_StateType){
     ret = timeIntegrationOfStateTypeInContainer (start, end, type);
   }else if (type->nature() == PAJE_VariableType){
-//    ret = timeIntegrationOfVariableTypeInContainer (start, end, type);
+    ret = timeIntegrationOfVariableTypeInContainer (start, end, type);
   }
   return ret;
 }
