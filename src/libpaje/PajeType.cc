@@ -174,6 +174,11 @@ PajeTypeNature PajeVariableType::nature (void) const
   return PAJE_VariableType;
 }
 
+PajeColor *PajeVariableType::color (void)
+{
+  return _color;
+}
+
 PajeStateType::PajeStateType  (std::string name, std::string alias, PajeType *parent):PajeCategorizedType(name,alias,parent)
 {
 }

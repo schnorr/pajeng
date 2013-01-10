@@ -91,6 +91,7 @@ public:
   PajeVariableType (std::string name, std::string alias, PajeType *parent, PajeColor *color);
   PajeDrawingType drawingType (void);
   PajeTypeNature nature (void) const;
+  PajeColor *color (void);
 };
 
 class PajeStateType : public PajeCategorizedType {
