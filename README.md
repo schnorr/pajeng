@@ -16,9 +16,9 @@ french [INFRA-SONGS ANR project](http://infra-songs.gforge.inria.fr/).
 
 ### Two-line installation
 
-     sudo apt-get install git cmake build-essential libqt4-dev libboost-dev freeglut3-dev
+     sudo apt-get install git cmake build-essential libqt4-dev libboost-dev freeglut3-dev ;
      git clone git://github.com/schnorr/pajeng.git ; mkdir -p pajeng/b ; cd pajeng/b ; cmake .. ; make install
 
-### Installation and everything else
+### Detailed Installation and everything else
 
 [Check the PajeNG's wiki](https://github.com/schnorr/pajeng/wiki/).
