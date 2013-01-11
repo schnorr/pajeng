@@ -8,8 +8,8 @@ tool](http://paje.sf.net) for the analysis of execution traces (in the
 Format](http://paje.sourceforge.net/download/publication/lang-paje.pdf))
 through trace visualization (space/time view).  The tool is released
 under the [GNU General Public Licence
-3](http://www.gnu.org/licenses/gpl.html). PajeNG comprises a library
-(__libpaje__), the space-time visualization tool (__pajeng__) and a set of
+3](http://www.gnu.org/licenses/gpl.html). PajeNG comprises a library --
+__libpaje__, the space-time visualization tool -- __pajeng__ and a set of
 auxilirary tools to manage Paje trace files (such as __pj_dump__ and
 __pj_validate__).
 
