@@ -14,6 +14,11 @@ and a set of auxiliary tools to manage Paje trace files (such as
 __pj_dump__ and __pj_validate__). It is developed as part of the
 french [INFRA-SONGS ANR project](http://infra-songs.gforge.inria.fr/).
 
+### Two-line installation
+
+     sudo apt-get install git cmake build-essential libqt4-dev libboost-dev freeglut3-dev
+     git clone git://github.com/schnorr/pajeng.git ; mkdir -p pajeng/b ; cd pajeng/b ; cmake .. ; make install
+
 ### Installation and everything else
 
 [Check the PajeNG's wiki](https://github.com/schnorr/pajeng/wiki/).
