@@ -248,7 +248,7 @@ PajeUserEvent::PajeUserEvent (PajeContainer *container, PajeType *type, double t
 std::string PajeUserEvent::description (void) const
 {
   std::stringstream description;
-  description << type()->nature() << ", "
+  description << type()->kind() << ", "
               << container()->name() << ", "
               << type()->name() << ", "
               << startTime() << ", "
@@ -284,7 +284,7 @@ PajeUserState::PajeUserState (PajeContainer *container, PajeType *type, double s
 std::string PajeUserState::description (void) const
 {
   std::stringstream description;
-  description << type()->nature() << ", "
+  description << type()->kind() << ", "
               << container()->name() << ", "
               << type()->name() << ", "
               << startTime() << ", "
@@ -318,7 +318,7 @@ std::string PajeUserVariable::description (void) const
 {
 
   std::stringstream description;
-  description << type()->nature() << ", "
+  description << type()->kind() << ", "
               << container()->name() << ", "
               << type()->name() << ", "
               << startTime() << ", "
@@ -367,7 +367,7 @@ PajeUserLink::PajeUserLink (PajeContainer *container, PajeType *type, double tim
 std::string PajeUserLink::description (void) const
 {
   std::stringstream description;
-  description << type()->nature() << ", "
+  description << type()->kind() << ", "
               << container()->name() << ", "
               << type()->name() << ", "
               << startTime() << ", "
