@@ -129,7 +129,7 @@ IF(PAJE_UTILS_LIBRARY)
     # bump when ABI is broken (symbols removed or parameters changed)
     SOVERSION 1)
   # bump when the API change (new functions in the header file)
-  SET(LIBPAJE_APIVERSION 1)
+  SET(LIBPAJEUTILS_APIVERSION 1)
   INSTALL(TARGETS paje_utils_library DESTINATION lib)
   INSTALL(FILES ${UTILS_HEADERS} DESTINATION include)
 
