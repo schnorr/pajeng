@@ -18,7 +18,7 @@
 #define __PAJE_EXCEPTION_H__
 #include <iostream>
 #include <exception>
-#include <PajeObject.h>
+#include "PajeObject.h"
 
 class PajeException : public PajeObject
 {
