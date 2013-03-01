@@ -19,6 +19,8 @@
 #include <boost/foreach.hpp>
 #include <boost/tokenizer.hpp>
 
+int ignoreIncompleteLinks = 0;
+
 PajeSimulator::PajeSimulator ()
 {
   stopSimulationAtTime = -1;
@@ -28,6 +30,13 @@ PajeSimulator::PajeSimulator ()
 PajeSimulator::PajeSimulator (double stopat)
 {
   stopSimulationAtTime = stopat;
+  init ();
+}
+
+PajeSimulator::PajeSimulator (double stopat, int ignore)
+{
+  stopSimulationAtTime = stopat;
+  ignoreIncompleteLinks = ignore;
   init ();
 }
 

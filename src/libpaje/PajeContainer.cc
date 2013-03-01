@@ -17,6 +17,8 @@
 #include "PajeContainer.h"
 #include "PajeException.h"
 
+extern int ignoreIncompleteLinks;
+
 #define CALL_MEMBER_PAJE_CONTAINER(object,ptr) ((object).*(ptr))
 
 PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeType *type, PajeTraceEvent *event)
@@ -728,8 +730,10 @@ void PajeContainer::destroy (double time)
   }
 
   //check pendingLinks
-  if (!checkPendingLinks()){
-    throw PajeLinkException ("Incomplete links at the end of container with name '"+name()+"'");
+  if (!ignoreIncompleteLinks){
+    if (!checkPendingLinks()){
+      throw PajeLinkException ("Incomplete links at the end of container with name '"+name()+"'");
+    }
   }
 
   //check stackStates, finish all stacked states, clear stacks

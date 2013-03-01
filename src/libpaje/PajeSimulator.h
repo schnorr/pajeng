@@ -59,6 +59,7 @@ private:
 public:
   PajeSimulator();
   PajeSimulator(double stopat);
+  PajeSimulator(double stopat, int ignoreIncompleteLinks);
   ~PajeSimulator();
   void report (void);
   bool keepSimulating (void);
