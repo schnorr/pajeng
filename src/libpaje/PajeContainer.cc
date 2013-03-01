@@ -151,9 +151,24 @@ std::string PajeContainer::identifier ()
 
 bool PajeContainer::checkPendingLinks (void)
 {
+  std::vector<PajeUserLink*> invalidLinks;
+
   std::map<PajeType*,std::map<std::string,PajeUserLink*> >::iterator it;
   for (it = pendingLinks.begin(); it != pendingLinks.end(); it++){
-    if (((*it).second).size()){
+    std::map<std::string,PajeUserLink*> x = ((*it).second);
+    if (x.size() == 0) continue;
+
+    std::map<std::string,PajeUserLink*>::iterator it2;
+    for (it2 = x.begin(); it2 != x.end(); it2++){
+      invalidLinks.push_back ((*it2).second);
+    }
+    if (x.size()){
+      //report
+      std::cout << "List of incomplete links in container '" << name() << "':" << std::endl;
+      std::vector<PajeUserLink*>::iterator it;
+      for (it = invalidLinks.begin(); it != invalidLinks.end(); it++){
+        std::cout << (*it)->description() << std::endl;
+      }
       return false;
     }
   }
