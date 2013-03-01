@@ -26,7 +26,7 @@ void PajeException::report (void)
 void PajeException::reportAndExit (void)
 {
   report ();
-  abort();
+  exit(1);
 }
 
 PajeFileReadException::PajeFileReadException (std::string filename)
