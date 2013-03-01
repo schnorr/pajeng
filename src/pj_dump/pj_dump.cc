@@ -33,6 +33,7 @@ static struct argp_option options[] = {
   {"end", 'e', "END", 0, "Dump ends at timestamp END (instead of EOF)"},
   {"stop-at", 'a', "TIME", 0, "Stop the trace simulation at TIME"},
   {"no-strict", 'n', 0, OPTION_ARG_OPTIONAL, "Support old field names in event definitions"},
+  {"ignore-incomplete-links", 'z', 0, OPTION_ARG_OPTIONAL, "Ignore incomplete links (not recommended)"},
   { 0 }
 };
 
@@ -41,6 +42,7 @@ struct arguments {
   double start, end, stopat;
   int noStrict;
   int input_size;
+  int ignoreIncompleteLinks;
 };
 
 static int parse_options (int key, char *arg, struct argp_state *state)
@@ -51,6 +53,7 @@ static int parse_options (int key, char *arg, struct argp_state *state)
   case 'e': arguments->end = atof(arg); break;
   case 'a': arguments->stopat = atof(arg); break;
   case 'n': arguments->noStrict = 1; break;
+  case 'z': arguments->ignoreIncompleteLinks = 1; break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
       /* Too many arguments. */
@@ -140,7 +143,7 @@ int main (int argc, char **argv)
   }
 
   PajeEventDecoder *decoder = new PajeEventDecoder (!arguments.noStrict);
-  PajeSimulator *simulator = new PajeSimulator (arguments.stopat);
+  PajeSimulator *simulator = new PajeSimulator (arguments.stopat, arguments.ignoreIncompleteLinks);
 
   reader->setOutputComponent (decoder);
   decoder->setInputComponent (reader);
