@@ -124,9 +124,9 @@ std::string PajeContainer::description (void) const
   }else{
     containername = std::string("0");
   }
-  description << type()->kind() << ", "
+  description << (type()? type()->kind() : "NULL") << ", "
               << containername << ", "
-              << type()->name() << ", "
+              << (type()? type()->name() : "NULL") << ", "
               << startTime() << ", "
               << endTime() << ", "
               << endTime() - startTime() << ", "

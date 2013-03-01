@@ -252,11 +252,11 @@ PajeUserEvent::PajeUserEvent (PajeContainer *container, PajeType *type, double t
 std::string PajeUserEvent::description (void) const
 {
   std::stringstream description;
-  description << type()->kind() << ", "
-              << container()->name() << ", "
-              << type()->name() << ", "
+  description << (type()? type()->kind() : "NULL") << ", "
+              << (container()? container()->name() : "NULL") << ", "
+              << (type()? type()->name() : "NULL") << ", "
               << startTime() << ", "
-              << value()->name();
+              << (value()? value()->name() : "NULL");
   std::string extra = extraDescription();
   if (!extra.empty()){
     description << ", "
@@ -288,14 +288,14 @@ PajeUserState::PajeUserState (PajeContainer *container, PajeType *type, double s
 std::string PajeUserState::description (void) const
 {
   std::stringstream description;
-  description << type()->kind() << ", "
-              << container()->name() << ", "
-              << type()->name() << ", "
+  description << (type()? type()->kind() : "NULL") << ", "
+              << (container()? container()->name() : "NULL") << ", "
+              << (type()? type()->name() : "NULL") << ", "
               << startTime() << ", "
               << endTime() << ", "
               << endTime() - startTime() << ", "
               << imbrication << ", "
-              << value()->name();
+              << (value()? value()->name() : "NULL");
   std::string extra = extraDescription();
   if (!extra.empty()){
     description << ", "
@@ -322,9 +322,9 @@ std::string PajeUserVariable::description (void) const
 {
 
   std::stringstream description;
-  description << type()->kind() << ", "
-              << container()->name() << ", "
-              << type()->name() << ", "
+  description << (type()? type()->kind() : "NULL") << ", "
+              << (container()? container()->name() : "NULL") << ", "
+              << (type()? type()->name() : "NULL") << ", "
               << startTime() << ", "
               << endTime() << ", "
               << endTime() - startTime() << ", "
@@ -371,15 +371,15 @@ PajeUserLink::PajeUserLink (PajeContainer *container, PajeType *type, double tim
 std::string PajeUserLink::description (void) const
 {
   std::stringstream description;
-  description << type()->kind() << ", "
-              << container()->name() << ", "
-              << type()->name() << ", "
+  description << (type()? type()->kind() : "NULL") << ", "
+              << (container()? container()->name() : "NULL") << ", "
+              << (type()? type()->name() : "NULL") << ", "
               << startTime() << ", "
               << endTime() << ", "
-              << endTime() - startTime() << ", "
-              << value()->name() << ", "
-              << startContainer()->name() << ", "
-              << endContainer()->name();
+              << duration() << ", "
+              << (value()? value()->name() : "NULL") << ", "
+              << (startContainer()? startContainer()->name() : "NULL") << ", "
+              << (endContainer()? endContainer()->name() : "NULL");
   std::string extra = extraDescription();
   if (!extra.empty()){
     description << ", "
