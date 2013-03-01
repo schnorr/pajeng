@@ -293,7 +293,7 @@ std::string PajeUserState::description (void) const
               << (type()? type()->name() : "NULL") << ", "
               << startTime() << ", "
               << endTime() << ", "
-              << endTime() - startTime() << ", "
+              << duration() << ", "
               << imbrication << ", "
               << (value()? value()->name() : "NULL");
   std::string extra = extraDescription();
@@ -327,7 +327,7 @@ std::string PajeUserVariable::description (void) const
               << (type()? type()->name() : "NULL") << ", "
               << startTime() << ", "
               << endTime() << ", "
-              << endTime() - startTime() << ", "
+              << duration() << ", "
               << doubleValue();
   std::string extra = extraDescription();
   if (!extra.empty()){
