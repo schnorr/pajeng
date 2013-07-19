@@ -15,6 +15,7 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeSimulator.h"
+#include "PajeException.h"
 #include <boost/foreach.hpp>
 
 PajeContainer *PajeSimulator::rootInstance (void)
@@ -30,12 +31,14 @@ PajeType *PajeSimulator::rootEntityType (void)
 std::vector<PajeType*> PajeSimulator::containedTypesForContainerType (PajeType *type)
 {
   std::vector<PajeType *> ret;
-  PajeContainerType *contType = dynamic_cast<PajeContainerType*>(type);
-  if (!contType){
-    throw "Type is not a container type";
+  if (type->nature() != PAJE_ContainerType){
+    throw PajeProtocolException ("Type is not a container type");
   }
+
+  std::map<std::string,PajeType*> c = type->children();
   std::map<std::string,PajeType*>::iterator it;
-  for (it = contType->children.begin(); it != contType->children.end(); it++){
+  for (it = c.begin(); it != c.end(); it++){
+    PajeType *t = (*it).second;
     ret.push_back ((*it).second);
   }
   return ret;
@@ -53,6 +56,9 @@ std::vector<PajeContainer*> PajeSimulator::enumeratorOfContainersInContainer (Pa
 
 std::vector<PajeContainer*> PajeSimulator::enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container)
 {
+  if (type->nature() != PAJE_ContainerType){
+    throw PajeProtocolException ("Type is not a container type");
+  }
   std::vector<PajeContainer*> ret;
   std::map<std::string,PajeContainer*>::iterator it;
   for (it = container->children.begin(); it != container->children.end(); it++){
@@ -65,6 +71,9 @@ std::vector<PajeContainer*> PajeSimulator::enumeratorOfContainersTypedInContaine
 
 std::vector<PajeEntity*> PajeSimulator::enumeratorOfEntitiesTypedInContainer (PajeType *type, PajeContainer *container, double start, double end)
 {
+  if (type->nature() == PAJE_ContainerType){
+    throw PajeProtocolException ("Type is not an entity type");
+  }
   std::vector<PajeEntity*> empty;
   if (container) return container->enumeratorOfEntitiesTyped (start, end, type);
   else return empty;
@@ -72,16 +81,12 @@ std::vector<PajeEntity*> PajeSimulator::enumeratorOfEntitiesTypedInContainer (Pa
 
 bool PajeSimulator::isContainerType (PajeType *type)
 {
-  PajeContainerType *contType = dynamic_cast<PajeContainerType*>(type);
-  if (contType) return true;
-  else return false;
+  return type->nature() == PAJE_ContainerType;
 }
 
 bool PajeSimulator::isVariableType (PajeType *type)
 {
-  PajeVariableType *varType = dynamic_cast<PajeVariableType*>(type);
-  if (varType) return true;
-  else return false;
+  return type->nature() == PAJE_VariableType;
 }
 
 double PajeSimulator::startTime (void)

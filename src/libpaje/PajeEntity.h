@@ -18,7 +18,7 @@
 #define __PAJE_ENTITY_H
 #include "PajeObject.h"
 #include "PajeType.h"
-#include "PajeEvent.h"
+#include "PajeTraceEvent.h"
 
 class PajeContainer;
 
@@ -28,7 +28,7 @@ class PajeContainer;
 class PajeVirtualEntity : public PajeObject
 {
 public:
-  virtual void addPajeEvent (PajeEvent *event) = 0; //for Paje[Start|End]Link
+  virtual void addPajeTraceEvent (PajeTraceEvent *event) = 0; //for Paje[Start|End]Link
   virtual PajeContainer *container (void) const = 0;
   virtual PajeType *type (void) const = 0;
   virtual std::string name (void) const = 0;
@@ -69,8 +69,8 @@ private:
   std::map<std::string,std::string> extraFields;
 
 public:
-  PajeEntity (PajeContainer *container, PajeType *type, PajeEvent *event);
-  void addPajeEvent (PajeEvent *event);
+  PajeEntity (PajeContainer *container, PajeType *type, PajeTraceEvent *event);
+  void addPajeTraceEvent (PajeTraceEvent *event);
   PajeContainer *container (void) const;
   PajeType *type (void) const;
   std::string name (void) const;
@@ -105,7 +105,7 @@ private:
   double _stime;
 
 public:
-  PajeSingleTimedEntity (PajeContainer *container, PajeType *type, double time, PajeEvent *event);
+  PajeSingleTimedEntity (PajeContainer *container, PajeType *type, double time, PajeTraceEvent *event);
   double time (void) const;
   double startTime (void) const;
   double firstTime (void) const;
@@ -125,7 +125,7 @@ private:
   double _etime;
 
 public:
-  PajeDoubleTimedEntity (PajeContainer *container, PajeType *type, double time, PajeEvent *event);
+  PajeDoubleTimedEntity (PajeContainer *container, PajeType *type, double time, PajeTraceEvent *event);
   double endTime (void) const;
   double lastTime (void) const;
   void setEndTime (double endTime);
@@ -141,7 +141,7 @@ private:
   PajeValue *_value;
 
 public:
-  PajeValueEntity (PajeContainer *container, PajeType *type, double time, PajeValue *value, PajeEvent *event);
+  PajeValueEntity (PajeContainer *container, PajeType *type, double time, PajeValue *value, PajeTraceEvent *event);
   PajeValue *value (void) const;
 };
 
@@ -154,7 +154,7 @@ private:
   std::string _name;
 
 public:
-  PajeNamedEntity (PajeContainer *container, PajeType *type, double time, std::string name, PajeEvent *event);
+  PajeNamedEntity (PajeContainer *container, PajeType *type, double time, std::string name, PajeTraceEvent *event);
   std::string name (void) const;
 };
 
@@ -167,7 +167,7 @@ private:
   PajeValue *_value;
 
 public:
-  PajeUserEvent (PajeContainer *container, PajeType *type, double time, PajeValue *value, PajeEvent *event);
+  PajeUserEvent (PajeContainer *container, PajeType *type, double time, PajeValue *value, PajeTraceEvent *event);
   PajeValue *value (void) const;
   std::string description (void) const;
 };
@@ -181,8 +181,8 @@ private:
   double imbrication;
 
 public:
-  PajeUserState (PajeContainer *container, PajeType *type, double time, PajeValue *value, PajeEvent *event);
-  PajeUserState (PajeContainer *container, PajeType *type, double time, PajeValue *value, int imbrication, PajeEvent *event);
+  PajeUserState (PajeContainer *container, PajeType *type, double time, PajeValue *value, PajeTraceEvent *event);
+  PajeUserState (PajeContainer *container, PajeType *type, double time, PajeValue *value, int imbrication, PajeTraceEvent *event);
   std::string description (void) const;
   int imbricationLevel (void) const;
 };
@@ -196,7 +196,7 @@ private:
   double _value;
 
 public:
-  PajeUserVariable (PajeContainer *container, PajeType *type, double time, double value, PajeEvent *event);
+  PajeUserVariable (PajeContainer *container, PajeType *type, double time, double value, PajeTraceEvent *event);
   std::string description (void) const;
 
   void setDoubleValue (double value);
@@ -216,7 +216,7 @@ private:
   PajeContainer *endCont;
 
 public:
-  PajeUserLink (PajeContainer *container, PajeType *type, double time, PajeValue *value, std::string key, PajeContainer *startContainer, PajeEvent *event);
+  PajeUserLink (PajeContainer *container, PajeType *type, double time, PajeValue *value, std::string key, PajeContainer *startContainer, PajeTraceEvent *event);
   std::string description (void) const;
 
   void setStartContainer (PajeContainer *startContainer);

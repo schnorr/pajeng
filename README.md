@@ -7,12 +7,18 @@ tool](http://paje.sf.net) for the analysis of execution traces (in the
 [Paje File
 Format](http://paje.sourceforge.net/download/publication/lang-paje.pdf))
 through trace visualization (space/time view).  The tool is released
-under the [GNU General Public Licence
-3](http://www.gnu.org/licenses/gpl.html). PajeNG comprises a library
-(__libpaje__), the space-time visualization tool (__pajeng__) and a set of
-auxilirary tools to manage Paje trace files (such as __pj_dump__ and
-__pj_validate__).
+under the [GNU General Public License
+3](http://www.gnu.org/licenses/gpl.html). PajeNG comprises the
+__libpaje__ library, the space-time visualization tool in __pajeng__
+and a set of auxiliary tools to manage Paje trace files (such as
+__pj_dump__ and __pj_validate__). It is developed as part of the
+french [INFRA-SONGS ANR project](http://infra-songs.gforge.inria.fr/).
 
-### Installation and everything else
+### Two-line Installation
+
+     sudo apt-get install git cmake build-essential libqt4-dev libboost-dev freeglut3-dev ;
+     git clone git://github.com/schnorr/pajeng.git ; mkdir -p pajeng/b ; cd pajeng/b ; cmake .. ; make install
+
+### Detailed Installation and everything else
 
 [Check the PajeNG's wiki](https://github.com/schnorr/pajeng/wiki/).

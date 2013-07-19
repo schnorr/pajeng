@@ -19,6 +19,7 @@
 #include <iostream>
 #include <exception>
 #include "PajeFileReader.h"
+#include "PajeException.h"
 #include "PajeEventDecoder.h"
 #include "PajeSimulator.h"
 #include <argp.h>
@@ -28,15 +29,20 @@ static char doc[] = "Dumps FILE, or standard input, in a CSV-like textual format
 static char args_doc[] = "[FILE]";
 
 static struct argp_option options[] = {
-  {"start", 's', "START", 0, "Use this timestamp instead of 0 timestamp"},
-  {"end", 'e', "END", 0, "Use this timestamp instead of EOF timestamp"},
+  {"start", 's', "START", 0, "Dump starts at timestamp START (instead of 0)"},
+  {"end", 'e', "END", 0, "Dump ends at timestamp END (instead of EOF)"},
+  {"stop-at", 'a', "TIME", 0, "Stop the trace simulation at TIME"},
+  {"no-strict", 'n', 0, OPTION_ARG_OPTIONAL, "Support old field names in event definitions"},
+  {"ignore-incomplete-links", 'z', 0, OPTION_ARG_OPTIONAL, "Ignore incomplete links (not recommended)"},
   { 0 }
 };
 
 struct arguments {
   char *input[VALIDATE_INPUT_SIZE];
-  double start, end;
+  double start, end, stopat;
+  int noStrict;
   int input_size;
+  int ignoreIncompleteLinks;
 };
 
 static int parse_options (int key, char *arg, struct argp_state *state)
@@ -45,6 +51,9 @@ static int parse_options (int key, char *arg, struct argp_state *state)
   switch (key){
   case 's': arguments->start = atof(arg); break;
   case 'e': arguments->end = atof(arg); break;
+  case 'a': arguments->stopat = atof(arg); break;
+  case 'n': arguments->noStrict = 1; break;
+  case 'z': arguments->ignoreIncompleteLinks = 1; break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
       /* Too many arguments. */
@@ -65,14 +74,6 @@ static int parse_options (int key, char *arg, struct argp_state *state)
 }
 
 static struct argp argp = { options, parse_options, args_doc, doc };
-
-bool is_readable (const std::string & filename)
-{
-  std::ifstream file(filename.c_str());
-  bool ret = !file.fail();
-  file.close();
-  return ret;
-}
 
 void dump (double start, double end, PajeSimulator *simulator)
 {
@@ -123,7 +124,7 @@ int main (int argc, char **argv)
 {
   struct arguments arguments;
   bzero (&arguments, sizeof(struct arguments));
-  arguments.start = arguments.end = -1;
+  arguments.start = arguments.end = arguments.stopat = -1;
   if (argp_parse (&argp, argc, argv, 0, 0, &arguments) == ARGP_KEY_ERROR){
     fprintf(stderr, "%s, error during the parsing of parameters\n", argv[0]);
     return 1;
@@ -132,18 +133,17 @@ int main (int argc, char **argv)
   PajeFileReader *reader;
 
   if (arguments.input_size != 0){
-    if (!is_readable(std::string(arguments.input[0]))){
-      std::cerr << "trace file \"" << arguments.input[0] << "\" not found" << std::endl;
-      return 1;
-    }else{
+    try {
       reader = new PajeFileReader (std::string(arguments.input[0]));
+    }catch (PajeException& e){
+      e.reportAndExit ();
     }
   }else{
     reader = new PajeFileReader ();
   }
 
-  PajeEventDecoder *decoder = new PajeEventDecoder ();
-  PajeSimulator *simulator = new PajeSimulator ();
+  PajeEventDecoder *decoder = new PajeEventDecoder (!arguments.noStrict);
+  PajeSimulator *simulator = new PajeSimulator (arguments.stopat, arguments.ignoreIncompleteLinks);
 
   reader->setOutputComponent (decoder);
   decoder->setInputComponent (reader);
@@ -152,14 +152,12 @@ int main (int argc, char **argv)
 
   try {
     reader->startReading ();
-    while (reader->hasMoreData()){
+    while (reader->hasMoreData() && simulator->keepSimulating()){
       reader->readNextChunk ();
     }
     reader->finishedReading ();
-  }catch (std::string exception){
-    std::cout << "Exception: " << exception << std::endl;
-    std::cout << "This trace file does not follow the Paje file format description. Sorry." << std::endl;
-    return 1;
+  }catch (PajeException& e){
+    e.reportAndExit();
   }
 
   dump (arguments.start, arguments.end, simulator);

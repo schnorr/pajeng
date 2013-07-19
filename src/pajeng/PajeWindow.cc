@@ -21,14 +21,11 @@ PajeWindow *PajeWindow::instance = NULL;
 PajeWindow::PajeWindow()
 {
   spacetimeFrame = new PajeSpaceTimeFrame ();
-  treemapFrame = new PajeTreemapFrame ();
-  treemapFrame->hide();
 
   QSplitter *split = new QSplitter;
   split->setChildrenCollapsible (false);
   split->setOrientation (Qt::Horizontal);
   split->addWidget (spacetimeFrame);
-  split->addWidget (treemapFrame);
 
   setCentralWidget (split);
 
@@ -43,17 +40,6 @@ PajeWindow::PajeWindow()
 void PajeWindow::closeEvent(QCloseEvent *event)
 {
   event->accept();
-}
-
-void PajeWindow::treemap()
-{
-  if (treemapFrame->isHidden()){
-    app->connectTreemap ();
-    treemapFrame->show();
-  }else{
-    app->disconnectTreemap ();
-    treemapFrame->hide();
-  }
 }
 
 void PajeWindow::spacetime()
@@ -80,10 +66,6 @@ void PajeWindow::createActions()
   exitAct->setStatusTip(tr("Exit the application"));
   connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
-  treemapAct = new QAction(tr("&Treemap View"), this);
-  treemapAct->setStatusTip(tr("Enable or disable the treemap view"));
-  connect(treemapAct, SIGNAL(triggered()), this, SLOT(treemap()));
-
   spacetimeAct = new QAction(tr("&Space/Time View"), this);
   spacetimeAct->setStatusTip(tr("Enable or disable the Space/Time view"));
   connect(spacetimeAct, SIGNAL(triggered()), this, SLOT(spacetime()));
@@ -104,7 +86,6 @@ void PajeWindow::createMenus()
 
   viewMenu = menuBar()->addMenu(tr("&View"));
   viewMenu->addAction (spacetimeAct);
-  viewMenu->addAction (treemapAct);
 
   menuBar()->addSeparator();
 

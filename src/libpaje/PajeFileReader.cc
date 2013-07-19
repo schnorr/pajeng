@@ -15,6 +15,7 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeFileReader.h"
+#include "PajeException.h"
 #include <sys/time.h>
 
 PajeFileReader::PajeFileReader (std::string f)
@@ -25,7 +26,7 @@ PajeFileReader::PajeFileReader (std::string f)
   filename = f;
   file.open (filename.c_str());
   if (file.fail()){
-    throw "Error loading file: "+f;
+    throw PajeFileReadException (f);
   }
   file.seekg (0, std::ios::end);
   length = file.tellg ();

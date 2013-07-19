@@ -20,6 +20,7 @@
 #include "PajeFileReader.h"
 #include "PajeEventDecoder.h"
 #include "PajeSimulator.h"
+#include "PajeException.h"
 #include <argp.h>
 
 #define VALIDATE_INPUT_SIZE 2
@@ -27,11 +28,13 @@ static char doc[] = "Checks if FILE, or standard input, strictly follows the Paj
 static char args_doc[] = "[FILE]";
 
 static struct argp_option options[] = {
+  {"no-strict", 'n', 0, OPTION_ARG_OPTIONAL, "Support old field names in event definitions"},
   { 0 }
 };
 
 struct arguments {
   char *input[VALIDATE_INPUT_SIZE];
+  int noStrict;
   int input_size;
 };
 
@@ -39,6 +42,7 @@ static int parse_options (int key, char *arg, struct argp_state *state)
 {
   struct arguments *arguments = (struct arguments*)(state->input);
   switch (key){
+  case 'n': arguments->noStrict = 1; break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
       /* Too many arguments. */
@@ -60,14 +64,6 @@ static int parse_options (int key, char *arg, struct argp_state *state)
 
 static struct argp argp = { options, parse_options, args_doc, doc };
 
-bool is_readable (const std::string & filename)
-{
-  std::ifstream file(filename.c_str());
-  bool ret = !file.fail();
-  file.close();
-  return ret;
-}
-
 int main (int argc, char **argv)
 {
   struct arguments arguments;
@@ -80,17 +76,16 @@ int main (int argc, char **argv)
   PajeFileReader *reader;
 
   if (arguments.input_size != 0){
-    if (!is_readable(std::string(arguments.input[0]))){
-      std::cerr << "trace file \"" << arguments.input[0] << "\" not found" << std::endl;
-      return 1;
-    }else{
+    try {
       reader = new PajeFileReader (std::string(arguments.input[0]));
+    }catch (PajeException& e){
+      e.reportAndExit ();
     }
   }else{
     reader = new PajeFileReader ();
   }
 
-  PajeEventDecoder *decoder = new PajeEventDecoder ();
+  PajeEventDecoder *decoder = new PajeEventDecoder (!arguments.noStrict);
   PajeSimulator *simulator = new PajeSimulator ();
 
   reader->setOutputComponent (decoder);
@@ -104,10 +99,8 @@ int main (int argc, char **argv)
       reader->readNextChunk();
     }
     reader->finishedReading();
-  }catch (std::string exception){
-    std::cout << "Exception: " << exception << std::endl;
-    std::cout << "This trace file does not follow the Paje file format description. Sorry." << std::endl;
-    return 1;
+  }catch (PajeException& e){
+    e.reportAndExit();
   }
 
   simulator->report();

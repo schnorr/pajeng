@@ -63,16 +63,6 @@ void PajeApplication::disconnectComponents (PajeComponent *c1, PajeComponent *c2
   c2->disconnectFromInput ();
 }
 
-void PajeApplication::disconnectTreemap (void)
-{
-  disconnectComponents (simulator, pajeWindow->treemapFrame->view());
-}
-
-void PajeApplication::connectTreemap (void)
-{
-  connectComponents (simulator, pajeWindow->treemapFrame->view());
-}
-
 void PajeApplication::disconnectSpacetime (void)
 {
   disconnectComponents (simulator, pajeWindow->spacetimeFrame->view());

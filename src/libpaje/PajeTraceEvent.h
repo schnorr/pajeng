@@ -14,38 +14,37 @@
     You should have received a copy of the GNU Public License
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __PAJEEVENTDECODER_H__
-#define __PAJEEVENTDECODER_H__
+#ifndef __PAJETRACEEVENT_H__
+#define __PAJETRACEEVENT_H__
 #include <map>
 #include <string>
 #include <iostream>
-#include <fstream>
 #include <sstream>
+#include <fstream>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "PajeComponent.h"
 #include "PajeEventDefinition.h"
-#include "PajeTraceEvent.h"
+#include "PajeObject.h"
 
-class PajeEventDecoder : public PajeComponent {
+class PajeTraceEvent : public PajeObject {
+public:
+  paje_line *valueLine;
+  PajeEventDefinition *pajeEventDefinition;
+
 private:
-  enum { OUT_DEF, IN_DEF } defStatus;
-  PajeEventDefinition *eventBeingDefined;
-  std::map<std::string,PajeEventDefinition*> eventDefinitions;
-
-  char *break_line (char *s, paje_line *line);
-  void scanDefinitionLine (paje_line *line);
-  PajeTraceEvent *scanEventLine (paje_line *line);
-  long long currentLineNumber;
-  bool strictHeader;
-  void init (bool strictHeader);
+  long long lineNumber;
 
 public:
-  PajeEventDecoder (void);
-  PajeEventDecoder (bool strictHeader);
-  ~PajeEventDecoder (void);
-
-  void inputEntity (PajeObject *data);
+  PajeTraceEvent (PajeEventDefinition *def, paje_line *line);
+  PajeEventId pajeEventId (void);
+  std::string valueForField (PajeField field);
+  std::string valueForField (std::string fieldName);
+  long long getLineNumber (void) const;
+  std::string description (void) const;
 };
+
+std::ostream &operator<< (std::ostream &output, const PajeTraceEvent &event);
+
 #endif
+

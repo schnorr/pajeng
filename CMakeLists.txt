@@ -20,25 +20,20 @@ SET(PAJE_HEADERS
   src/pajeng/PajeApplication.h
   src/pajeng/PajeWindow.h
   src/pajeng/PajeSpaceTimeFrame.h
-  src/pajeng/PajeSpaceTimeView.h
-  src/pajeng/PajeTreemapFrame.h
-  src/pajeng/PajeTreemapView.h)
+  src/pajeng/PajeSpaceTimeView.h)
 SET(PAJE_SOURCES
   src/pajeng/main.cc
   src/pajeng/PajeApplication.cc
   src/pajeng/PajeWindow.cc
   src/pajeng/PajeSpaceTimeFrame.cc
   src/pajeng/PajeSpaceTimeView.cc
-  src/pajeng/PajeTreemapFrame.cc
-  src/pajeng/PajeTreemapView.cc
-  src/pajeng/PajeTreemap.cc
   src/pajeng/STEntityTypeLayout.cc
-  src/pajeng/PajeGraphicsItem.cc
-  src/pajeng/PajeTreemapItem.cc)
+  src/pajeng/PajeGraphicsItem.cc)
 
 # The Paje Library (libpaje)
 SET(LIBPAJE_HEADERS
   src/libpaje/PajeColor.h
+  src/libpaje/PajeException.h
   src/libpaje/PajeProtocols.h
   src/libpaje/PajeComponent.h
   src/libpaje/PajeContainer.h
@@ -46,6 +41,7 @@ SET(LIBPAJE_HEADERS
   src/libpaje/PajeEntity.h
   src/libpaje/PajeEventDecoder.h
   src/libpaje/PajeEventDefinition.h
+  src/libpaje/PajeTraceEvent.h
   src/libpaje/PajeEvent.h
   src/libpaje/PajeFileReader.h
   src/libpaje/PajeObject.h
@@ -55,6 +51,7 @@ SET(LIBPAJE_HEADERS
   src/libpaje/PajeEntropy.h)
 SET(LIBPAJE_SOURCES
   src/libpaje/PajeEventDefinition.cc
+  src/libpaje/PajeTraceEvent.cc
   src/libpaje/PajeEvent.cc
   src/libpaje/PajeData.cc
   src/libpaje/PajeFileReader.cc
@@ -70,7 +67,9 @@ SET(LIBPAJE_SOURCES
   src/libpaje/PajeContainer.cc
   src/libpaje/PajeColor.cc
   src/libpaje/PajeEntity.cc
-  src/libpaje/PajeEntropy.cc)
+  src/libpaje/PajeEntropy.cc
+  src/libpaje/PajeException.cc
+)
 
 # The Paje Utils Library (libpajeutils)
 SET(UTILS_HEADERS
@@ -133,7 +132,7 @@ IF(PAJE_UTILS_LIBRARY)
     # bump when ABI is broken (symbols removed or parameters changed)
     SOVERSION 1)
   # bump when the API change (new functions in the header file)
-  SET(LIBPAJE_APIVERSION 1)
+  SET(LIBPAJEUTILS_APIVERSION 1)
   INSTALL(TARGETS paje_utils_library DESTINATION lib)
   INSTALL(FILES ${UTILS_HEADERS} DESTINATION include)
 
