@@ -15,6 +15,8 @@
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 PROJECT(pajeng)
 
+set(LIB_INSTALL_DIR lib${LIB_SUFFIX} CACHE PATH "Directory where libraries are installed (relative to CMAKE_INSTALL_PREFIX).")
+
 # The PajeNG (Qt4 version)
 SET(PAJE_HEADERS
   src/pajeng/PajeApplication.h
@@ -100,12 +102,12 @@ IF(PAJE_LIBRARY)
     SOVERSION 1)
   # bump when the API change (new functions in the header file)
   SET(LIBPAJE_APIVERSION 1)
-  INSTALL(TARGETS paje_library DESTINATION lib)
+  INSTALL(TARGETS paje_library DESTINATION ${LIB_INSTALL_DIR})
   INSTALL(FILES ${LIBPAJE_HEADERS} DESTINATION include)
 
   #pkgconfig
   CONFIGURE_FILE (src/libpaje/libpaje.pc.cmake libpaje.pc @ONLY)
-  INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/libpaje.pc DESTINATION lib/pkgconfig)
+  INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/libpaje.pc DESTINATION ${LIB_INSTALL_DIR}/pkgconfig)
 ENDIF(PAJE_LIBRARY)
 
 #
@@ -133,12 +135,12 @@ IF(PAJE_UTILS_LIBRARY)
     SOVERSION 1)
   # bump when the API change (new functions in the header file)
   SET(LIBPAJEUTILS_APIVERSION 1)
-  INSTALL(TARGETS paje_utils_library DESTINATION lib)
+  INSTALL(TARGETS paje_utils_library DESTINATION ${LIB_INSTALL_DIR})
   INSTALL(FILES ${UTILS_HEADERS} DESTINATION include)
 
   #pkgconfig
   CONFIGURE_FILE (src/utils/libpajeutils.pc.cmake libpajeutils.pc @ONLY)
-  INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/libpajeutils.pc DESTINATION lib/pkgconfig)
+  INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/libpajeutils.pc DESTINATION ${LIB_INSTALL_DIR}/pkgconfig)
 ENDIF(PAJE_UTILS_LIBRARY)
 
 #
