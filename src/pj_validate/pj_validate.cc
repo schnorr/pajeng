@@ -14,6 +14,7 @@
     You should have received a copy of the GNU Public License
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
+#include <sys/time.h>
 #include <string>
 #include <iostream>
 #include <exception>
@@ -30,6 +31,7 @@ static char args_doc[] = "[FILE]";
 static struct argp_option options[] = {
   {"no-strict", 'n', 0, OPTION_ARG_OPTIONAL, "Support old field names in event definitions"},
   {"quiet", 'q', 0, OPTION_ARG_OPTIONAL, "Be quiet"},
+  {"time", 't', 0, OPTION_ARG_OPTIONAL, "Print number of seconds to simulate input"},
   { 0 }
 };
 
@@ -38,6 +40,7 @@ struct arguments {
   int noStrict;
   int input_size;
   int quiet;
+  int time;
 };
 
 static int parse_options (int key, char *arg, struct argp_state *state)
@@ -45,6 +48,7 @@ static int parse_options (int key, char *arg, struct argp_state *state)
   struct arguments *arguments = (struct arguments*)(state->input);
   switch (key){
   case 'n': arguments->noStrict = 1; break;
+  case 't': arguments->time = 1; break;
   case 'q': arguments->quiet = 1; break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
@@ -66,6 +70,13 @@ static int parse_options (int key, char *arg, struct argp_state *state)
 }
 
 static struct argp argp = { options, parse_options, args_doc, doc };
+
+static double gettime (void)
+{
+  struct timeval tr;
+  gettimeofday(&tr, NULL);
+  return (double)tr.tv_sec+(double)tr.tv_usec/1000000;
+}
 
 int main (int argc, char **argv)
 {
@@ -96,6 +107,10 @@ int main (int argc, char **argv)
   decoder->setOutputComponent (simulator);
   simulator->setInputComponent (decoder);
 
+  double t1, t2;
+  if (arguments.time){
+    t1 = gettime();
+  }
   try {
     reader->startReading();
     while (reader->hasMoreData()){
@@ -104,6 +119,10 @@ int main (int argc, char **argv)
     reader->finishedReading();
   }catch (PajeException& e){
     e.reportAndExit();
+  }
+  if (arguments.time){
+    t2 = gettime();
+    printf ("%f\n", t2-t1);
   }
 
   if (!arguments.quiet){
