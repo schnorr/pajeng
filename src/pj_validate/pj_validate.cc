@@ -29,6 +29,7 @@ static char args_doc[] = "[FILE]";
 
 static struct argp_option options[] = {
   {"no-strict", 'n', 0, OPTION_ARG_OPTIONAL, "Support old field names in event definitions"},
+  {"quiet", 'q', 0, OPTION_ARG_OPTIONAL, "Be quiet"},
   { 0 }
 };
 
@@ -36,6 +37,7 @@ struct arguments {
   char *input[VALIDATE_INPUT_SIZE];
   int noStrict;
   int input_size;
+  int quiet;
 };
 
 static int parse_options (int key, char *arg, struct argp_state *state)
@@ -43,6 +45,7 @@ static int parse_options (int key, char *arg, struct argp_state *state)
   struct arguments *arguments = (struct arguments*)(state->input);
   switch (key){
   case 'n': arguments->noStrict = 1; break;
+  case 'q': arguments->quiet = 1; break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
       /* Too many arguments. */
@@ -103,7 +106,9 @@ int main (int argc, char **argv)
     e.reportAndExit();
   }
 
-  simulator->report();
+  if (!arguments.quiet){
+    simulator->report();
+  }
 
   delete reader;
   delete decoder;
