@@ -34,6 +34,7 @@ static struct argp_option options[] = {
   {"stop-at", 'a', "TIME", 0, "Stop the trace simulation at TIME"},
   {"no-strict", 'n', 0, OPTION_ARG_OPTIONAL, "Support old field names in event definitions"},
   {"ignore-incomplete-links", 'z', 0, OPTION_ARG_OPTIONAL, "Ignore incomplete links (not recommended)"},
+  {"quiet", 'q', 0, OPTION_ARG_OPTIONAL, "Do not dump, only simulate"},
   { 0 }
 };
 
@@ -43,6 +44,7 @@ struct arguments {
   int noStrict;
   int input_size;
   int ignoreIncompleteLinks;
+  int quiet;
 };
 
 static int parse_options (int key, char *arg, struct argp_state *state)
@@ -54,6 +56,7 @@ static int parse_options (int key, char *arg, struct argp_state *state)
   case 'a': arguments->stopat = atof(arg); break;
   case 'n': arguments->noStrict = 1; break;
   case 'z': arguments->ignoreIncompleteLinks = 1; break;
+  case 'q': arguments->quiet = 1; break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
       /* Too many arguments. */
@@ -160,7 +163,9 @@ int main (int argc, char **argv)
     e.reportAndExit();
   }
 
-  dump (arguments.start, arguments.end, simulator);
+  if (!arguments.quiet){
+    dump (arguments.start, arguments.end, simulator);
+  }
 
   delete reader;
   delete decoder;
