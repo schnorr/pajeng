@@ -130,6 +130,7 @@ if(PAJE_FLEXBISON)
 #    src/fb/PajeFlexReader.cc
     )
   TARGET_LINK_LIBRARIES(pjflex ${FLEX_LIBRARIES})
+  TARGET_LINK_LIBRARIES(pjflex paje_library)
 endif(PAJE_FLEXBISON)
 
 #
