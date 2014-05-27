@@ -32,9 +32,6 @@ public:
   paje_line *valueLine;
   PajeEventDefinition *pajeEventDefinition;
 
-private:
-  long long lineNumber;
-
 public:
   PajeTraceEvent (PajeEventDefinition *def, paje_line *line);
   PajeEventId pajeEventId (void);

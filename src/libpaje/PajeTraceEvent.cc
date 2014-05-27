@@ -30,7 +30,6 @@ PajeTraceEvent::PajeTraceEvent (PajeEventDefinition *def, paje_line *line)
   }
   valueLine = line;
   pajeEventDefinition = def;
-  lineNumber = line->lineNumber;
 }
 
 PajeEventId PajeTraceEvent::pajeEventId (void)
@@ -60,7 +59,7 @@ std::string PajeTraceEvent::valueForField (std::string fieldName)
 
 long long PajeTraceEvent::getLineNumber (void) const
 {
-  return lineNumber;
+  return valueLine->lineNumber;
 }
 
 std::string PajeTraceEvent::description (void) const
