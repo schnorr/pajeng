@@ -16,8 +16,6 @@
 
   PajeEventDef *def;
 
-  std::map<int,PajeEventDef*> defs;
-
   PajeEventDef **defsv;
 
 std::ostream &operator<< (std::ostream &output, const PajeEventDef &eventDef)
@@ -119,7 +117,6 @@ declaration: TK_EVENT_DEF_BEGIN event_name event_id optional_break
                std::cout << *def << std::endl;
                defsv = (PajeEventDef**)realloc (defsv, (def->number+1)*sizeof(PajeEventDef*));
                defsv[def->number] = def;
-               /* defs[def->number] = def;  add(def); */
                def = NULL;
              };
 event_name:
