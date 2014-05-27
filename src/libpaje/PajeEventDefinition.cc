@@ -306,7 +306,6 @@ PajeEventDefinition::PajeEventDefinition (PajeEventId pajeEventId, int number, p
 {
   this->pajeEventId = pajeEventId;
   this->number = number;
-  fieldCount = 0;
   strictDefinition = strictHeader;
 
   //the first field is always the event identification
@@ -358,7 +357,6 @@ void PajeEventDefinition::addField (std::string name, std::string type, paje_lin
   fields.push_back (newField);
   names.push_back (name);
   types.push_back (type);
-  fieldCount++;
   return;
 }
 
@@ -414,6 +412,11 @@ bool PajeEventDefinition::isValid (void)
     }
   }
   return true;
+}
+
+int PajeEventDefinition::fieldCount (void)
+{
+  return fields.size();
 }
 
 void PajeEventDefinition::showObligatoryFields (void)

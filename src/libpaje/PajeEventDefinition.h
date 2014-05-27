@@ -89,7 +89,6 @@ private:
 public:
   PajeEventId pajeEventId; //The known PajeEventId
   int number; //unique identifier
-  int fieldCount;
   std::list<PajeField> fields;
   std::list<std::string> names;
   std::list<std::string> types;
@@ -103,6 +102,7 @@ public:
   int indexForField (PajeField field);
   int indexForField (std::string fieldName);
   bool isValid (void);
+  int fieldCount (void); //return number of fields
   void showObligatoryFields (void);
   std::vector<std::string> extraFields (void);
 

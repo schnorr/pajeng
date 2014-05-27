@@ -18,13 +18,13 @@
 
 PajeTraceEvent::PajeTraceEvent (PajeEventDefinition *def, paje_line *line)
 {
-  if (line->word_count != def->fieldCount){
+  if (line->word_count != def->fieldCount()){
     std::stringstream st;
     st << *line;
     std::string lreport = st.str();
     std::cout << *def << std::endl;
     std::cout << "Line field count: " << line->word_count << std::endl;
-    std::cout << "Definition field count: " << def->fieldCount << std::endl;
+    std::cout << "Definition field count: " << def->fieldCount() << std::endl;
     std::cout << "Field count does not match definition for line "+lreport << std::endl;
     exit(1);
   }
