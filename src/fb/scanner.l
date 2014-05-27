@@ -38,6 +38,7 @@ File                      return TK_EVENT_DEF_FILE;
 "float"                   return TK_EVENT_DEF_FIELD_TYPE_FLOAT;
 "double"                  return TK_EVENT_DEF_FIELD_TYPE_DOUBLE;
 "int"                     return TK_EVENT_DEF_FIELD_TYPE_INT;
+"hex"                     return TK_EVENT_DEF_FIELD_TYPE_HEX;
 "date"                    return TK_EVENT_DEF_FIELD_TYPE_DATE;
 "color"                   return TK_EVENT_DEF_FIELD_TYPE_COLOR;
  
