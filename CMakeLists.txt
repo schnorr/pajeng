@@ -87,6 +87,7 @@ SET(PAJEDUMP_SOURCES src/pj_dump/pj_dump.cc)
 OPTION(PAJENG         "The PajeNG visualization tool (Qt4 version)" ON)
 OPTION(PAJE_UTILS_LIBRARY "The Paje Utils library with QT-dependent components" ON)
 OPTION(PAJE_LIBRARY "The Paje library with all the basic components" ON)
+OPTION(PAJE_FLEXBISON "The PajeFlexReader" OFF)
 OPTION(PJ_DUMP    "Compile pj_dump (program to dump the contents of a trace" ON)
 OPTION(PJ_VALIDATE "Compile pj_validate (program to validate a trace" ON)
 
@@ -110,6 +111,26 @@ IF(PAJE_LIBRARY)
   CONFIGURE_FILE (src/libpaje/libpaje.pc.cmake libpaje.pc @ONLY)
   INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/libpaje.pc DESTINATION ${LIB_INSTALL_DIR}/pkgconfig)
 ENDIF(PAJE_LIBRARY)
+
+#
+# The Paje File Reader based on flex/bison
+#
+if(PAJE_FLEXBISON)
+  FIND_PACKAGE(FLEX REQUIRED)
+  FIND_PACKAGE(BISON REQUIRED)
+  FLEX_TARGET(scanner src/fb/scanner.l ${CMAKE_CURRENT_BINARY_DIR}/lexer.cc COMPILE_FLAGS "-f")
+  BISON_TARGET(parser src/fb/parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.cc VERBOSE parser.output)
+  INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+  INCLUDE_DIRECTORIES(${pajeng_SOURCE_DIR}/src/)
+  INCLUDE_DIRECTORIES(${pajeng_SOURCE_DIR}/src/fb/)
+  ADD_EXECUTABLE(pjflex
+    ${FLEX_scanner_OUTPUTS}
+    ${BISON_parser_OUTPUTS}
+    src/fb/main.cc
+#    src/fb/PajeFlexReader.cc
+    )
+  TARGET_LINK_LIBRARIES(pjflex ${FLEX_LIBRARIES})
+endif(PAJE_FLEXBISON)
 
 #
 # The Paje Utils Library (libpajeutils)
