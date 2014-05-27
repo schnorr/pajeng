@@ -351,7 +351,7 @@ void PajeEventDefinition::addField (std::string name, std::string type, paje_lin
     if (present != fieldSet.end()){
       std::stringstream st;
       st << line->lineNumber;
-      throw PajeDecodeException ("The field '"+name+"' with type '"+type+"' is already defined when treating line "+lreport);    
+      throw PajeDecodeException ("The field '"+name+"' with type '"+type+"' is already defined when treating line "+lreport);
     }
   }
   fields.push_back (newField);
