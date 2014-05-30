@@ -371,11 +371,11 @@ int PajeEventDefinition::indexForField (PajeField field)
   else return i;
 }
 
-int PajeEventDefinition::indexForField (std::string fieldName)
+int PajeEventDefinition::indexForExtraFieldNamed (std::string fieldName)
 {
   int i;
-  std::list<std::string>::iterator it;
-  for (i = 0, it = names.begin(); it != names.end(); i++, it++){
+  std::vector<std::string>::iterator it;
+  for (i = 0, it = userDefinedFieldNames.begin(); it != userDefinedFieldNames.end(); i++, it++){
     if (fieldName == *it) return i;
   }
   if (i == fields.size()) return -1;

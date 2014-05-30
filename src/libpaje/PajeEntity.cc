@@ -34,7 +34,7 @@ void PajeEntity::addPajeTraceEvent (PajeTraceEvent *event)
   std::vector<std::string>::iterator it;
   for (it = extra.begin(); it != extra.end(); it++){
     std::string fieldName = *it;
-    std::string value = event->valueForField (fieldName);
+    std::string value = event->valueForExtraField (fieldName);
 
     //check if fieldName already exists
     if (extraFields.count(fieldName)){

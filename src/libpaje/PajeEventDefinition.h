@@ -92,7 +92,7 @@ public:
   std::list<PajeField> fields;
   std::list<std::string> names;
   std::list<std::string> types;
-  std::vector<std::string> extraFieldNames;
+  std::vector<std::string> userDefinedFieldNames;
 
 public:
   PajeEventDefinition (PajeEventId pajeEventId, int number, paje_line *line, bool strictHeader);
@@ -100,7 +100,7 @@ public:
   void addField (std::string name, std::string type, paje_line *line);
 
   int indexForField (PajeField field);
-  int indexForField (std::string fieldName);
+  int indexForExtraFieldNamed (std::string fieldName);
   bool isValid (void);
   int fieldCount (void); //return number of fields
   void showObligatoryFields (void);

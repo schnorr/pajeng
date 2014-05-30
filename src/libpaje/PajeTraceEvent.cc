@@ -47,9 +47,9 @@ std::string PajeTraceEvent::valueForField (PajeField field)
   }
 }
 
-std::string PajeTraceEvent::valueForField (std::string fieldName)
+std::string PajeTraceEvent::valueForExtraField (std::string fieldName)
 {
-  int index = pajeEventDefinition->indexForField (fieldName);
+  int index = pajeEventDefinition->indexForExtraFieldNamed (fieldName);
   if (index == -1){
     return std::string("");
   }else{
