@@ -46,6 +46,11 @@ PajeDecodeException::PajeDecodeException (std::string message)
   exceptionName = std::string ("PajeDecodeException");
 }
 
+PajeDecodeException::PajeDecodeException ()
+{
+  exceptionName = std::string ("PajeDecodeException");
+}
+
 const std::string PajeDecodeException::reason (void) const throw ()
 {
   return std::string(exceptionName + ": " + message);
@@ -84,4 +89,14 @@ PajeSimulationException::PajeSimulationException (std::string message) : PajeDec
 PajeProtocolException::PajeProtocolException (std::string message) : PajeDecodeException (message)
 {
   exceptionName = std::string ("PajeProtocolException");
+}
+
+PajeDefinitionsException::PajeDefinitionsException (std::string message) : PajeDecodeException (message)
+{
+  exceptionName = std::string ("PajeDefinitionsException");
+}
+
+PajeDefinitionsException::PajeDefinitionsException ()
+{
+  exceptionName = std::string ("PajeDefinitionsException");
 }

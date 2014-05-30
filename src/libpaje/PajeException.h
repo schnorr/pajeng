@@ -48,6 +48,7 @@ protected:
 
 public:
   PajeDecodeException (std::string message);
+  PajeDecodeException ();
   const std::string reason () const throw ();
 };
 
@@ -93,5 +94,11 @@ public:
   PajeProtocolException (std::string message);
 };
 
+class PajeDefinitionsException : public PajeDecodeException
+{
+ public:
+  PajeDefinitionsException (std::string message);
+  PajeDefinitionsException ();
+};
 
 #endif
