@@ -34,7 +34,7 @@ PajeTraceEvent::PajeTraceEvent (PajeEventDefinition *def, paje_line *line)
 
 PajeEventId PajeTraceEvent::pajeEventId (void)
 {
-  return pajeEventDefinition->pajeEventId;
+  return pajeEventDefinition->pajeEventIdentifier;
 }
 
 std::string PajeTraceEvent::valueForField (PajeField field)

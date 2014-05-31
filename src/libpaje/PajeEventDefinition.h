@@ -27,6 +27,7 @@
 #include <string.h>
 #include <list>
 #include <vector>
+#include "PajeDefinitions.h"
 
 #define PAJE_MAX_FIELDS 20
 typedef struct {
@@ -35,69 +36,21 @@ typedef struct {
     long long lineNumber;
 } paje_line;
 
-typedef enum {
-    PajeDefineContainerTypeEventId,
-    PajeDefineEventTypeEventId,
-    PajeDefineStateTypeEventId,
-    PajeDefineVariableTypeEventId,
-    PajeDefineLinkTypeEventId,
-    PajeDefineEntityValueEventId,
-    PajeCreateContainerEventId,
-    PajeDestroyContainerEventId,
-    PajeNewEventEventId,
-    PajeSetStateEventId,
-    PajePushStateEventId,
-    PajePopStateEventId,
-    PajeResetStateEventId,
-    PajeSetVariableEventId,
-    PajeAddVariableEventId,
-    PajeSubVariableEventId,
-    PajeStartLinkEventId,
-    PajeEndLinkEventId,
-    PajeEventIdCount,
-    PajeUnknownEventId,
-} PajeEventId;
-
-typedef enum {
-  PAJE_Event,
-  PAJE_Time,
-  PAJE_Name,
-  PAJE_Type,
-  PAJE_Container,
-  PAJE_StartContainerType,
-  PAJE_EndContainerType,
-  PAJE_StartContainer,
-  PAJE_EndContainer,
-  PAJE_Value,
-  PAJE_Key,
-  PAJE_Alias,
-  PAJE_Color,
-  PAJE_Line,
-  PAJE_File,
-  PAJE_Extra
-} PajeField;
-
-std::map<std::string,PajeEventId> initPajeEventNamesToID (void);
-std::map<PajeEventId,std::string> initPajeEventIDToNames (void);
-std::map<std::string,PajeField> initPajeFieldNamesToID (void);
-std::map<PajeField,std::string> initPajeFieldIDToNames (void);
-
 class PajeEventDefinition {
 private:
   bool strictDefinition;
-
-public:
-  PajeEventId pajeEventId; //The known PajeEventId
-  int number; //unique identifier
+ public:  PajeEventId pajeEventIdentifier;
+ private:
+  int uniqueIdentifier;
   std::list<PajeField> fields;
-  std::list<std::string> names;
-  std::list<std::string> types;
+  //  std::list<PajeFieldType> types;
   std::vector<std::string> userDefinedFieldNames;
 
 public:
-  PajeEventDefinition (PajeEventId pajeEventId, int number, paje_line *line, bool strictHeader);
+  PajeEventDefinition (PajeEventId id, int unique, bool strict, int line);
   ~PajeEventDefinition (void);
-  void addField (std::string name, std::string type, paje_line *line);
+  void addField (PajeField field, PajeFieldType type, int line);
+  void addField (PajeField field, PajeFieldType type, int line, std::string userDefinedFieldName);
 
   int indexForField (PajeField field);
   int indexForExtraFieldNamed (std::string fieldName);
@@ -108,6 +61,13 @@ public:
 
 private:
   bool knownFieldNamed (std::string name);
+
+ public:
+  bool strict () { return strictDefinition; }
+  static void teste ();
+
+ private:
+  PajeDefinitions defs;
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeEventDefinition &eventDef);

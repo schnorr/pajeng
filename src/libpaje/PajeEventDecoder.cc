@@ -17,17 +17,6 @@
 #include "PajeEventDecoder.h"
 #include "PajeException.h"
 
-static std::map<std::string,PajeEventId> knownPajeEvents = initPajeEventNamesToID ();
-static PajeEventId getPajeEventId (std::string eventName)
-{
-  std::map<std::string,PajeEventId>::iterator it;
-  if ((it = knownPajeEvents.find (eventName)) != knownPajeEvents.end()){
-    return it->second;
-  }else{
-    return PajeUnknownEventId;
-  }
-}
-
 void PajeEventDecoder::init (bool strictHeader)
 {
   defStatus = OUT_DEF;
@@ -146,7 +135,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
     }
 
     //check if we know the event name found in the trace file
-    PajeEventId pajeEventId = getPajeEventId (eventName);
+    PajeEventId pajeEventId = defs.idFromEventName (eventName);
     if (pajeEventId == PajeUnknownEventId) {
       throw PajeDecodeException ("Unknown event name '"+std::string(eventName)+"' in "+lreport);
     }
@@ -177,14 +166,25 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
     }
 
     if (n >= line->word_count) {
-      std::map<PajeEventId,std::string> eventNames = initPajeEventIDToNames();
-      std::string name = eventNames[eventBeingDefined->pajeEventId];
-
+      std::string name = defs.eventNameFromID (eventBeingDefined->pajeEventIdentifier);
       throw PajeDecodeException ("Incomplete line, missing field type for " + name + " with id " + " in "+lreport);
     }
 
     fieldType = line->word[n++];
-    eventBeingDefined->addField (fieldName, fieldType, line);
+
+    //convert fieldName to field
+    //convert fieldType to type
+    PajeField f = defs.idFromFieldName(fieldName);
+    PajeFieldType t = defs.idFromFieldTypeName(fieldType);
+
+    if (f == PAJE_Unknown_Field) {
+      //consider this unknown field as a user-defined field
+      eventBeingDefined->addField (PAJE_Extra, t, line->lineNumber, fieldName);
+    }else{
+      eventBeingDefined->addField (f, t, line->lineNumber);
+    }
+
+    
   }
   break;
   default:

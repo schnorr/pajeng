@@ -27,6 +27,7 @@
 #include "PajeComponent.h"
 #include "PajeEventDefinition.h"
 #include "PajeTraceEvent.h"
+#include "PajeDefinitions.h"
 
 class PajeEventDecoder : public PajeComponent {
 private:
@@ -40,6 +41,7 @@ private:
   long long currentLineNumber;
   bool strictHeader;
   void init (bool strictHeader);
+  PajeDefinitions defs;
 
 public:
   PajeEventDecoder (void);
