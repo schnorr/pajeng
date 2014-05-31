@@ -50,7 +50,8 @@ SET(LIBPAJE_HEADERS
   src/libpaje/PajeObject.h
   src/libpaje/PajeSimulator.h
   src/libpaje/PajeType.h
-  src/libpaje/PajeValue.h)
+  src/libpaje/PajeValue.h
+  src/libpaje/PajeDefinitions.h)
 SET(LIBPAJE_SOURCES
   src/libpaje/PajeEventDefinition.cc
   src/libpaje/PajeTraceEvent.cc
@@ -69,6 +70,7 @@ SET(LIBPAJE_SOURCES
   src/libpaje/PajeContainer.cc
   src/libpaje/PajeColor.cc
   src/libpaje/PajeException.cc
+  src/libpaje/PajeDefinitions.cc
 )
 
 # The Paje Utils Library (libpajeutils)
