@@ -21,7 +21,7 @@ extern "C"
   int yyparse ();
   extern char *yytext;
   extern int yychar;
-  extern PajeEventDef **defsv;
+  extern PajeEventDefinition **defsv;
 }
 
 int main (int argc, char **argv)
@@ -38,7 +38,7 @@ int main (int argc, char **argv)
   int token = yychar;
   do{
     if (token == TK_INT){
-      PajeEventDef *def = defsv[atoi(yytext)];
+      PajeEventDefinition *def = defsv[atoi(yytext)];
 
       //the line to be read
       paje_line line;
