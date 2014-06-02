@@ -37,6 +37,8 @@ PajeContainer::PajeContainer (double time, std::string name, std::string alias, 
 
 void PajeContainer::init (std::string alias, PajeContainer *parent)
 {
+  ThreadQueue *workerQueue = new ThreadQueue(); 
+  workerQueue->setQueue();  
   _alias = alias;
   _destroyed = false;
   if (parent){

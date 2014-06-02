@@ -18,6 +18,8 @@ SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 set(LIB_INSTALL_DIR lib${LIB_SUFFIX} CACHE PATH "Directory where libraries are installed (relative to CMAKE_INSTALL_PREFIX).")
 
+SET(CMAKE_CXX_FLAGS "-pthread -std=gnu++11")
+
 # The PajeNG (Qt4 version)
 SET(PAJE_HEADERS
   src/pajeng/PajeApplication.h
@@ -51,7 +53,8 @@ SET(LIBPAJE_HEADERS
   src/libpaje/PajeSimulator.h
   src/libpaje/PajeType.h
   src/libpaje/PajeValue.h
-  src/libpaje/PajeDefinitions.h)
+  src/libpaje/PajeDefinitions.h
+  src/libpaje/ThreadQueue.h)
 SET(LIBPAJE_SOURCES
   src/libpaje/PajeEventDefinition.cc
   src/libpaje/PajeTraceEvent.cc
@@ -71,6 +74,7 @@ SET(LIBPAJE_SOURCES
   src/libpaje/PajeColor.cc
   src/libpaje/PajeException.cc
   src/libpaje/PajeDefinitions.cc
+  src/libpaje/ThreadQueue.cc
 )
 
 # The Paje Utils Library (libpajeutils)
