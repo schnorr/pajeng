@@ -64,7 +64,6 @@ private:
 
  public:
   bool strict () { return strictDefinition; }
-  static void teste ();
 
  private:
   PajeDefinitions defs;

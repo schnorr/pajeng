@@ -186,8 +186,3 @@ std::ostream &operator<< (std::ostream &output, const paje_line &line)
   output << "')";
   return output;
 }
-
-void PajeEventDefinition::teste ()
-{
-  //
-}
