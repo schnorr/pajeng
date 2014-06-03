@@ -152,26 +152,33 @@ bool PajeEventDefinition::knownFieldNamed (std::string name)
 
 std::ostream &operator<< (std::ostream &output, const PajeEventDefinition &eventDef)
 {
-  // PajeEventDefinition def = (PajeEventDefinition)eventDef;
-  // std::map<PajeEventId,std::string> eventNames = pajeEventIDToNames();
-  // std::map<PajeField,std::string> fieldNames = pajeFieldIDToNames(def.strictDefinition);
+  PajeDefinitions defs;
+  PajeEventDefinition def = (PajeEventDefinition)eventDef;
  
-  // output << "  %EventDef " << eventNames[def.pajeEventIdentifier] << " " << def.uniqueIdentifier << std::endl;
-  // std::list<std::string>::iterator itf = def.fields.begin();
-  // std::list<std::string>::iterator itt = def.types.begin();
+  output << "This is the event definition of the problematic event:" << std::endl;
+  output << "  %EventDef " << defs.eventNameFromID(def.pajeEventIdentifier) << " " << def.uniqueIdentifier << std::endl;
+  std::list<PajeField>::iterator itf = def.fields.begin();
+  std::list<PajeFieldType>::iterator itt = def.types.begin();
 
-  // //don't print the first field (it is the event type)
-  // itf++;
-  // itt++;
+  //don't print the first field (it is the event type)
+  itf++;
+  itt++;
 
-  // //print
-  // while (itf != def.fields.end()){
-  //   output << "  %    " << *itf << " " << *itt << std::endl;
-  //   itf++;
-  //   itt++;
-  // }
-  // output << "  %EndEventDef";
-  // return output;
+  //print
+  int extraIndex = 0;
+  while (itf != def.fields.end()){
+    if (*itf != PAJE_Extra){
+      output << "  %    " << defs.fieldNameFromID(*itf) << " ";
+    }else{
+      output << "  %    " << def.userDefinedFieldNames.at(extraIndex++) << " ";;
+    }
+    output <<  defs.fieldTypeNameFromID(*itt) << std::endl;
+
+    itf++;
+    itt++;
+  }
+  output << "  %EndEventDef";
+  return output;
 }
 
 std::ostream &operator<< (std::ostream &output, const paje_line &line)
