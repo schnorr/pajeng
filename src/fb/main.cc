@@ -51,7 +51,7 @@ int main (int argc, char **argv)
       //read the fields until TK_BREAK
       line.word_count = 0;
       do {
-        line.word[line.word_count++] = yytext;
+        line.word[line.word_count++] = strdup(yytext);
 	token = yylex();
       } while (token != TK_BREAK);
 
@@ -59,6 +59,12 @@ int main (int argc, char **argv)
       if (def->fields.size() != line.word_count){
         printf ("number of fields of event %s at line %d doesn't match. expected: %d, found: %d\n",
                 line.word[0], line.lineNumber, def->fields.size(), line.word_count);
+      //clean-up paje_line
+      {
+	int i;
+	for (i = 0; i < line.word_count; i++){
+	  free (line.word[i]);
+	}
       }
       //printf ("%d %d %p\n", line.lineNumber, line.word_count, &line);
 
