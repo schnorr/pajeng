@@ -96,7 +96,6 @@ declaration: TK_EVENT_DEF_BEGIN event_name event_id optional_break
              }
              fields TK_EVENT_DEF_END optional_break
              {
-               std::cout << *def << std::endl;
                defsv = (PajeEventDefinition**)realloc (defsv, (def->number+1)*sizeof(PajeEventDefinition*));
                defsv[def->number] = def;
                def = NULL;
