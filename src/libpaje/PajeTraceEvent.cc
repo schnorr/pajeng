@@ -67,6 +67,7 @@ std::string PajeTraceEvent::description (void) const
   std::stringstream output;
   unsigned int i;
   output << "(Line: " << valueLine->lineNumber;
+  output << ", Fields: '" << valueLine->word_count;
   output << ", Contents: '";
   for (i = 0; i < valueLine->word_count; i++){
     output << std::string(valueLine->word[i]);
