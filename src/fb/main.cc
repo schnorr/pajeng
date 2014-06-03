@@ -66,7 +66,6 @@ int main (int argc, char **argv)
 	  free (line.word[i]);
 	}
       }
-      //printf ("%d %d %p\n", line.lineNumber, line.word_count, &line);
 
       counter++;
     }else{
