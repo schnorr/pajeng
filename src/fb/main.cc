@@ -7,6 +7,7 @@
 #include <search.h>
 
 #include "PajeEventDefinition.h"
+#include "PajeException.h"
 #include "parser.hh"
 #include "main.h"
 
@@ -28,6 +29,7 @@ int main (int argc, char **argv)
 {
   long long counter = 0;
 
+  try{
   /* read the header */
   int resultado = yyparse();
   if (resultado != 4){
@@ -77,6 +79,8 @@ int main (int argc, char **argv)
     return 0;
   }
   return resultado;
-
+  }catch (PajeException &e){
+    e.reportAndExit();
+  }
 }
 
