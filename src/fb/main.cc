@@ -7,6 +7,7 @@
 #include <search.h>
 
 #include "PajeEventDefinition.h"
+#include "PajeTraceEvent.h"
 #include "PajeException.h"
 #include "parser.hh"
 #include "main.h"
@@ -55,10 +56,9 @@ int main (int argc, char **argv)
 	token = yylex();
       } while (token != TK_BREAK);
 
-      //verify number of fields (expected and real)
-      if (def->fields.size() != line.word_count){
-        printf ("number of fields of event %s at line %d doesn't match. expected: %d, found: %d\n",
-                line.word[0], line.lineNumber, def->fields.size(), line.word_count);
+      PajeTraceEvent *event = new PajeTraceEvent (def, &line);
+      delete event;
+
       //clean-up paje_line
       {
 	int i;
