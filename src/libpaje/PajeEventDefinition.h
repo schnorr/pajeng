@@ -43,7 +43,7 @@ private:
   int uniqueIdentifier;
  private:
   std::list<PajeField> fields;
-  //  std::list<PajeFieldType> types;
+  std::list<PajeFieldType> types;
   std::vector<std::string> userDefinedFieldNames;
 
 public:

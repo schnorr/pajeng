@@ -48,7 +48,7 @@ void PajeEventDefinition::addField (PajeField field, PajeFieldType type, int lin
   }
 
   fields.push_back (field);
-  //  types.push_back (type);
+  types.push_back (type);
 }
 
 void PajeEventDefinition::addField (PajeField field, PajeFieldType type, int line, std::string userDefinedFieldName)
