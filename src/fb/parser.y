@@ -89,15 +89,12 @@ paje: declarations { return 4; };
 declarations: declaration declarations | ;
 declaration: TK_EVENT_DEF_BEGIN event_name event_id optional_break
              {
-               def = new PajeEventDefinition();
-               def->pajeEventId = $2;
-               def->number = $3;
-               def->fields.push_back(PAJE_Event);
+               def = new PajeEventDefinition($2, $3, false, yylineno);
              }
              fields TK_EVENT_DEF_END optional_break
              {
-               defsv = (PajeEventDefinition**)realloc (defsv, (def->number+1)*sizeof(PajeEventDefinition*));
-               defsv[def->number] = def;
+               defsv = (PajeEventDefinition**)realloc (defsv, (def->uniqueIdentifier+1)*sizeof(PajeEventDefinition*));
+               defsv[def->uniqueIdentifier] = def;
                def = NULL;
              };
 event_name:
