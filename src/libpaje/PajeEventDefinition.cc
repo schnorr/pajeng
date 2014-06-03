@@ -178,6 +178,7 @@ std::ostream &operator<< (std::ostream &output, const paje_line &line)
 {
   int i;
   output << "(Line: " << line.lineNumber;
+  output << ", Fields: " << line.word_count;
   output << ", Contents: '";
   for (i = 0; i < line.word_count; i++){
     output << std::string(line.word[i]);
