@@ -35,6 +35,7 @@ static struct argp_option options[] = {
   {"no-strict", 'n', 0, OPTION_ARG_OPTIONAL, "Support old field names in event definitions"},
   {"ignore-incomplete-links", 'z', 0, OPTION_ARG_OPTIONAL, "Ignore incomplete links (not recommended)"},
   {"quiet", 'q', 0, OPTION_ARG_OPTIONAL, "Do not dump, only simulate"},
+  {"flex", 'f', 0, OPTION_ARG_OPTIONAL, "Use flex-based file reader"},
   { 0 }
 };
 
@@ -45,6 +46,7 @@ struct arguments {
   int input_size;
   int ignoreIncompleteLinks;
   int quiet;
+  int flex;
 };
 
 static int parse_options (int key, char *arg, struct argp_state *state)
@@ -57,6 +59,7 @@ static int parse_options (int key, char *arg, struct argp_state *state)
   case 'n': arguments->noStrict = 1; break;
   case 'z': arguments->ignoreIncompleteLinks = 1; break;
   case 'q': arguments->quiet = 1; break;
+  case 'f': arguments->flex = 1; break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
       /* Too many arguments. */
