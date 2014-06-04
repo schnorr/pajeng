@@ -89,7 +89,7 @@ SET(PAJEDUMP_SOURCES src/pj_dump/pj_dump.cc)
 OPTION(PAJENG         "The PajeNG visualization tool (Qt4 version)" ON)
 OPTION(PAJE_UTILS_LIBRARY "The Paje Utils library with QT-dependent components" ON)
 OPTION(PAJE_LIBRARY "The Paje library with all the basic components" ON)
-OPTION(PAJE_FLEXBISON "The PajeFlexReader" OFF)
+OPTION(PAJE_FLEXBISON "The PajeFlexReader" ON)
 OPTION(PJ_DUMP    "Compile pj_dump (program to dump the contents of a trace" ON)
 OPTION(PJ_VALIDATE "Compile pj_validate (program to validate a trace" ON)
 
