@@ -18,6 +18,9 @@
 #include <string>
 #include <iostream>
 #include <exception>
+#include "PajeFlexReader.h"
+#include "PajeFlexDecoder.h"
+
 #include "PajeFileReader.h"
 #include "PajeException.h"
 #include "PajeEventDecoder.h"
@@ -136,26 +139,43 @@ int main (int argc, char **argv)
     return 1;
   }
 
-  PajeFileReader *reader;
+  PajeComponent *reader;
+  PajeEventDecoder *decoder;
+  PajeSimulator *simulator;
 
-  if (arguments.input_size != 0){
-    try {
-      reader = new PajeFileReader (std::string(arguments.input[0]));
-    }catch (PajeException& e){
-      e.reportAndExit ();
+  try {
+    //alloc reader
+    if (arguments.flex){
+      reader = new PajeFlexReader();
+    }else{
+      if (arguments.input_size == 0){
+	reader = new PajeFileReader();
+      }else{
+	reader = new PajeFileReader (std::string(arguments.input[0]));
+      }
     }
-  }else{
-    reader = new PajeFileReader ();
+
+    //alloc decoder and simulator
+    if (!arguments.flex){
+      decoder = new PajeEventDecoder(!arguments.noStrict);
+    }
+    simulator = new PajeSimulator (arguments.stopat, arguments.ignoreIncompleteLinks);
+
+    //connect components
+    if (arguments.flex){
+      reader->setOutputComponent (simulator);
+      simulator->setInputComponent (reader);
+    }else{
+      reader->setOutputComponent (decoder);
+      decoder->setInputComponent (reader);
+      decoder->setOutputComponent (simulator);
+      simulator->setInputComponent (decoder);
+    }
+  }catch (PajeException& e){
+    e.reportAndExit ();
   }
 
-  PajeEventDecoder *decoder = new PajeEventDecoder (!arguments.noStrict);
-  PajeSimulator *simulator = new PajeSimulator (arguments.stopat, arguments.ignoreIncompleteLinks);
-
-  reader->setOutputComponent (decoder);
-  decoder->setInputComponent (reader);
-  decoder->setOutputComponent (simulator);
-  simulator->setInputComponent (decoder);
-
+  //read and simulate
   try {
     reader->startReading ();
     while (reader->hasMoreData() && simulator->keepSimulating()){
@@ -171,7 +191,9 @@ int main (int argc, char **argv)
   }
 
   delete reader;
-  delete decoder;
+  if (!arguments.flex){
+    delete decoder;
+  }
   delete simulator;
   return 0;
 }
