@@ -76,4 +76,6 @@ PajeNewEvent              return TK_PAJE_NEW_EVENT;
 
 {LETTER}+               return TK_STRING;
 
+<<EOF>> return TK_END;
+
 %%

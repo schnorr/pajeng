@@ -72,6 +72,7 @@
 %token TK_STRING
 %token TK_BREAK
 %token TOKEN_ERRO
+%token TK_END
 
 %type<eventId> event_name;
 %type<fieldId> field_name;

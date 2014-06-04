@@ -16,10 +16,6 @@ extern "C"
 {
   extern int yylineno;
   int yylex(void);
-  void yyerror (char const *mensagem)
-  {
-    fprintf (stderr, "%s on line %d\n", mensagem, yylineno);
-  }
   int yyparse ();
   extern char *yytext;
   extern int yychar;
@@ -70,9 +66,8 @@ int main (int argc, char **argv)
       counter++;
     }else{
       printf ("token <%d> at %d (%s)\n", token, yylineno, yytext);
-      exit(1);
     }
-  } while ((token = yylex()) && token != TOKEN_ERRO);
+  } while ((token = yylex()) && token != TK_END);
 
   /* print number of events */
   printf ("%lld events and %lld lines\n", counter, yylineno);

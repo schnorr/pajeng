@@ -131,6 +131,8 @@ if(PAJE_FLEXBISON)
     src/fb/PajeFlexReader.cc
     src/fb/PajeFlexDecoder.cc
     )
+  ADD_EXECUTABLE(pjflex src/fb/main.cc)
+  TARGET_LINK_LIBRARIES(pjflex pjflex_library)
   TARGET_LINK_LIBRARIES(pjflex paje_library)
   TARGET_LINK_LIBRARIES(pjflex_library ${FLEX_LIBRARIES})
   TARGET_LINK_LIBRARIES(pjflex_library paje_library)
