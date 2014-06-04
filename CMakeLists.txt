@@ -120,19 +120,20 @@ ENDIF(PAJE_LIBRARY)
 if(PAJE_FLEXBISON)
   FIND_PACKAGE(FLEX REQUIRED)
   FIND_PACKAGE(BISON REQUIRED)
-  FLEX_TARGET(scanner src/fb/scanner.l ${CMAKE_CURRENT_BINARY_DIR}/lexer.cc COMPILE_FLAGS "-f")
+  FLEX_TARGET(scanner src/fb/scanner.l ${CMAKE_CURRENT_BINARY_DIR}/lexer.cc COMPILE_FLAGS "-F")
   BISON_TARGET(parser src/fb/parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.cc VERBOSE parser.output)
   INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
   INCLUDE_DIRECTORIES(${pajeng_SOURCE_DIR}/src/)
   INCLUDE_DIRECTORIES(${pajeng_SOURCE_DIR}/src/fb/)
-  ADD_EXECUTABLE(pjflex
+  ADD_LIBRARY(pjflex_library
     ${FLEX_scanner_OUTPUTS}
     ${BISON_parser_OUTPUTS}
-    src/fb/main.cc
-#    src/fb/PajeFlexReader.cc
+    src/fb/PajeFlexReader.cc
+    src/fb/PajeFlexDecoder.cc
     )
-  TARGET_LINK_LIBRARIES(pjflex ${FLEX_LIBRARIES})
   TARGET_LINK_LIBRARIES(pjflex paje_library)
+  TARGET_LINK_LIBRARIES(pjflex_library ${FLEX_LIBRARIES})
+  TARGET_LINK_LIBRARIES(pjflex_library paje_library)
 endif(PAJE_FLEXBISON)
 
 #
@@ -189,6 +190,7 @@ IF(PJ_DUMP)
   ADD_EXECUTABLE(pj_dump ${PAJEDUMP_SOURCES})
   INCLUDE_DIRECTORIES (pj_dump ${PROJECT_SOURCE_DIR}/src/libpaje/)
   TARGET_LINK_LIBRARIES(pj_dump paje_library)
+  TARGET_LINK_LIBRARIES(pj_dump pjflex_library)
   INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/pj_dump DESTINATION bin)
 ENDIF(PJ_DUMP)
 
