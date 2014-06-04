@@ -42,6 +42,8 @@ public:
   void virtual inputEntity (PajeObject *data);
   void virtual outputEntity (PajeObject *data);
   void virtual startReading (void);
+  bool virtual hasMoreData (void);
+  void virtual readNextChunk (void);
   void virtual finishedReading (void);
 
   //notifications

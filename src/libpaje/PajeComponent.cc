@@ -71,6 +71,15 @@ void PajeComponent::startReading (void)
   }
 }
 
+bool PajeComponent::hasMoreData (void)
+{
+  return true;
+}
+
+void PajeComponent::readNextChunk (void)
+{
+}
+
 void PajeComponent::finishedReading (void)
 {
   if (outputComponent.size()){
