@@ -24,7 +24,7 @@ PajeDefinitions::PajeDefinitions (bool strict)
 
 PajeDefinitions::PajeDefinitions ()
 {
-  initialize (false);
+  initialize (true);
 }
 
 void PajeDefinitions::initialize (bool strict)
