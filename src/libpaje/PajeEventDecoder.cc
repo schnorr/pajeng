@@ -140,7 +140,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
       throw PajeDecodeException ("Unknown event name '"+std::string(eventName)+"' in "+lreport);
     }
 
-    eventBeingDefined = new PajeEventDefinition (pajeEventId, atoi(eventId), line, strictHeader);
+    eventBeingDefined = new PajeEventDefinition (pajeEventId, atoi(eventId), strictHeader, line->lineNumber);
     eventDefinitions[eventId] = eventBeingDefined;
     defStatus = IN_DEF;
   }
