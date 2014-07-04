@@ -157,7 +157,7 @@ int main (int argc, char **argv)
 
     //alloc decoder and simulator
     if (!arguments.flex){
-      decoder = new PajeEventDecoder(!arguments.noStrict);
+      decoder = new PajeEventDecoder(arguments.noStrict? false : true);
     }
     simulator = new PajeSimulator (arguments.stopat, arguments.ignoreIncompleteLinks);
 
