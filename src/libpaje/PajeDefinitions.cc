@@ -22,11 +22,6 @@ PajeDefinitions::PajeDefinitions (bool strict)
   initialize (strict);
 }
 
-PajeDefinitions::PajeDefinitions ()
-{
-  initialize (true);
-}
-
 void PajeDefinitions::initialize (bool strict)
 {
   //map from event names to internal reference

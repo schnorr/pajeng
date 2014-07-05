@@ -91,7 +91,6 @@ class PajeDefinitions {
   std::map<PajeEventId,std::set<PajeField> > optionalFields;
 
  public:
-  PajeDefinitions ();
   PajeDefinitions (bool strict);
 
   std::string eventNameFromID (PajeEventId event);
