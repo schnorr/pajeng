@@ -17,21 +17,11 @@
 #include "PajeEventDecoder.h"
 #include "PajeException.h"
 
-void PajeEventDecoder::init (bool strictHeader)
+PajeEventDecoder::PajeEventDecoder (PajeDefinitions *definitions)
 {
   defStatus = OUT_DEF;
   currentLineNumber = 0;
-  this->strictHeader = strictHeader;
-}
-
-PajeEventDecoder::PajeEventDecoder ()
-{
-  init (0);
-}
-
-PajeEventDecoder::PajeEventDecoder (bool strictHeader)
-{
-  init (strictHeader);
+  defs = definitions;
 }
 
 PajeEventDecoder::~PajeEventDecoder ()
@@ -135,12 +125,12 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
     }
 
     //check if we know the event name found in the trace file
-    PajeEventId pajeEventId = defs.idFromEventName (eventName);
+    PajeEventId pajeEventId = defs->idFromEventName (eventName);
     if (pajeEventId == PajeUnknownEventId) {
       throw PajeDecodeException ("Unknown event name '"+std::string(eventName)+"' in "+lreport);
     }
 
-    eventBeingDefined = new PajeEventDefinition (pajeEventId, atoi(eventId), strictHeader, line->lineNumber);
+    eventBeingDefined = new PajeEventDefinition (pajeEventId, atoi(eventId), line->lineNumber, defs);
     eventDefinitions[eventId] = eventBeingDefined;
     defStatus = IN_DEF;
   }
@@ -166,7 +156,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
     }
 
     if (n >= line->word_count) {
-      std::string name = defs.eventNameFromID (eventBeingDefined->pajeEventIdentifier);
+      std::string name = defs->eventNameFromID (eventBeingDefined->pajeEventIdentifier);
       throw PajeDecodeException ("Incomplete line, missing field type for " + name + " with id " + " in "+lreport);
     }
 
@@ -174,8 +164,8 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
 
     //convert fieldName to field
     //convert fieldType to type
-    PajeField f = defs.idFromFieldName(fieldName);
-    PajeFieldType t = defs.idFromFieldTypeName(fieldType);
+    PajeField f = defs->idFromFieldName(fieldName);
+    PajeFieldType t = defs->idFromFieldTypeName(fieldType);
 
     if (f == PAJE_Unknown_Field) {
       //consider this unknown field as a user-defined field
