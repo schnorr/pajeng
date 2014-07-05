@@ -17,6 +17,7 @@
 #ifndef __PAJEFLEXREADER_H__
 #define __PAJEFLEXREADER_H__
 #include "PajeComponent.h"
+#include "main.h"
 
 extern "C"
 {
@@ -34,8 +35,9 @@ class PajeFlexReader : public PajeComponent {
  private:
   long long counter;
   bool hasData;
+  PajeDefinitions *defs;
  public:
-  PajeFlexReader();
+  PajeFlexReader(PajeDefinitions *definitions);
   ~PajeFlexReader();
 
   bool hasMoreData();

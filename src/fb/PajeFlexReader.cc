@@ -23,8 +23,9 @@ void yyerror (char const *mensagem)
   fprintf (stderr, "%s on line %d\n", mensagem, yylineno);
 }
 
-PajeFlexReader::PajeFlexReader()
+PajeFlexReader::PajeFlexReader(PajeDefinitions *definitions)
 {
+  defs = globalDefinitions = definitions;
   int resultado = yyparse();
   if (resultado != 4){
     throw PajeDecodeException("Can't parse the header");
