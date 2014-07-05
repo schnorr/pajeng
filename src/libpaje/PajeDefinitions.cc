@@ -51,28 +51,53 @@ void PajeDefinitions::initialize (bool strict)
   eventNames.insert (event_names_dictionary_t::relation ("PajeEndLink", PajeEndLinkEventId));
 
   //map from field names to internal reference
-  fieldNames.insert (field_names_dictionary_t::relation ("Event", PAJE_Event));
-  fieldNames.insert (field_names_dictionary_t::relation ("Time", PAJE_Time));
-  fieldNames.insert (field_names_dictionary_t::relation ("Name", PAJE_Name));
-  fieldNames.insert (field_names_dictionary_t::relation ("Type", PAJE_Type));
-  fieldNames.insert (field_names_dictionary_t::relation ("Container", PAJE_Container));
-  fieldNames.insert (field_names_dictionary_t::relation ("StartContainerType", PAJE_StartContainerType));
-  fieldNames.insert (field_names_dictionary_t::relation ("EndContainerType", PAJE_EndContainerType));
-  fieldNames.insert (field_names_dictionary_t::relation ("StartContainer", PAJE_StartContainer));
-  fieldNames.insert (field_names_dictionary_t::relation ("EndContainer", PAJE_EndContainer));
-  fieldNames.insert (field_names_dictionary_t::relation ("Value", PAJE_Value));
-  fieldNames.insert (field_names_dictionary_t::relation ("Key", PAJE_Key));
-  fieldNames.insert (field_names_dictionary_t::relation ("Alias", PAJE_Alias));
-  fieldNames.insert (field_names_dictionary_t::relation ("Color", PAJE_Color));
-  fieldNames.insert (field_names_dictionary_t::relation ("Line", PAJE_Line));
-  fieldNames.insert (field_names_dictionary_t::relation ("File", PAJE_File));
-  if (!strict){ //old field names (don't use them)
-    fieldNames.insert (field_names_dictionary_t::relation ("ContainerType", PAJE_Type));
-    fieldNames.insert (field_names_dictionary_t::relation ("EntityType", PAJE_Type));
-    fieldNames.insert (field_names_dictionary_t::relation ("SourceContainerType", PAJE_StartContainerType));
-    fieldNames.insert (field_names_dictionary_t::relation ("DestContainerType", PAJE_EndContainerType));
-    fieldNames.insert (field_names_dictionary_t::relation ("SourceContainer", PAJE_StartContainer));
-    fieldNames.insert (field_names_dictionary_t::relation ("DestContainer", PAJE_EndContainer));
+  fieldNameToID.insert (std::pair<std::string,PajeField>("Event", PAJE_Event));
+  fieldNameToID.insert (std::pair<std::string,PajeField>("Time", PAJE_Time));
+  fieldNameToID.insert (std::pair<std::string,PajeField>("Name", PAJE_Name));
+  fieldNameToID.insert (std::pair<std::string,PajeField>("Type", PAJE_Type));
+  fieldNameToID.insert (std::pair<std::string,PajeField>("Container", PAJE_Container));
+  fieldNameToID.insert (std::pair<std::string,PajeField>("StartContainerType", PAJE_StartContainerType));
+  fieldNameToID.insert (std::pair<std::string,PajeField>("EndContainerType", PAJE_EndContainerType));
+  fieldNameToID.insert (std::pair<std::string,PajeField>("StartContainer", PAJE_StartContainer));
+  fieldNameToID.insert (std::pair<std::string,PajeField>("EndContainer", PAJE_EndContainer));
+  fieldNameToID.insert (std::pair<std::string,PajeField>("Value", PAJE_Value));
+  fieldNameToID.insert (std::pair<std::string,PajeField>("Key", PAJE_Key));
+  fieldNameToID.insert (std::pair<std::string,PajeField>("Alias", PAJE_Alias));
+  fieldNameToID.insert (std::pair<std::string,PajeField>("Color", PAJE_Color));
+  fieldNameToID.insert (std::pair<std::string,PajeField>("Line", PAJE_Line));
+  fieldNameToID.insert (std::pair<std::string,PajeField>("File", PAJE_File));
+  if (strict == false){ //old field names (don't use them)
+    fieldNameToID.insert (std::pair<std::string,PajeField>("ContainerType", PAJE_Type));
+    fieldNameToID.insert (std::pair<std::string,PajeField>("EntityType", PAJE_Type));
+    fieldNameToID.insert (std::pair<std::string,PajeField>("SourceContainerType", PAJE_StartContainerType));
+    fieldNameToID.insert (std::pair<std::string,PajeField>("DestContainerType", PAJE_EndContainerType));
+    fieldNameToID.insert (std::pair<std::string,PajeField>("SourceContainer", PAJE_StartContainer));
+    fieldNameToID.insert (std::pair<std::string,PajeField>("DestContainer", PAJE_EndContainer));
+  }
+
+  //map from internal reference to field names
+  idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Event             ,"Event"              ));
+  idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Time              ,"Time"               ));
+  idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Name              ,"Name"               ));
+  idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Type              ,"Type"               ));
+  idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Container         ,"Container"          ));
+  idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_StartContainerType,"StartContainerType" ));
+  idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_EndContainerType  ,"EndContainerType"   ));
+  idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_StartContainer    ,"StartContainer"     ));
+  idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_EndContainer      ,"EndContainer"       ));
+  idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Value             ,"Value"              ));
+  idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Key               ,"Key"                ));
+  idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Alias             ,"Alias"              ));
+  idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Color             ,"Color"              ));
+  idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Line              ,"Line"               ));
+  idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_File              ,"File"               ));
+  if (strict == false){ //old field names (don't use them)
+    idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Type              ,"ContainerType"       ));
+    idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Type              ,"EntityType"          ));
+    idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_StartContainerType,"SourceContainerType" ));
+    idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_EndContainerType  ,"DestContainerType"   ));
+    idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_StartContainer    ,"SourceContainer"     ));
+    idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_EndContainer      ,"DestContainer"       ));
   }
 
   //map from type names to internal reference
@@ -277,8 +302,8 @@ std::string PajeDefinitions::fieldNameFromID (PajeField field)
   if (field == PAJE_Extra || field == PAJE_Unknown_Field){
     throw PajeDefinitionsException ();
   }
-  field_names_dictionary_t::right_map::const_iterator found;
-  found = fieldNames.right.find (field);
+  id_to_field_name_t::iterator found;
+  found = idToFieldName.find (field);
   return found->second;
 }
 
@@ -304,9 +329,9 @@ PajeEventId PajeDefinitions::idFromEventName (std::string event)
 
 PajeField PajeDefinitions::idFromFieldName (std::string field)
 {
-  field_names_dictionary_t::left_map::const_iterator found;
-  found = fieldNames.left.find (field);
-  if (found == fieldNames.left.end()){
+  field_name_to_id_t::iterator found;
+  found = fieldNameToID.find (field);
+  if (found == fieldNameToID.end()){
     return PAJE_Unknown_Field;
   }
   return found->second;
