@@ -18,9 +18,9 @@
 #include "PajeEventDefinition.h"
 #include "PajeException.h"
 
-PajeEventDefinition::PajeEventDefinition (PajeEventId id, int unique, bool strict, int line)
+PajeEventDefinition::PajeEventDefinition (PajeEventId id, int unique, int line, PajeDefinitions *definitions)
 {
-  strictDefinition = strict;
+  defs = definitions;
   pajeEventIdentifier = id;
   uniqueIdentifier = unique;
   //the first field is always the event identification
@@ -36,15 +36,15 @@ void PajeEventDefinition::addField (PajeField field, PajeFieldType type, int lin
   std::stringstream st;
   st << line;
 
-  if (!defs.validFieldType(type)){
-    throw PajeDecodeException ("The type used in the field '" + defs.fieldNameFromID(field) + "' is not recognized in line " + st.str());
+  if (!defs->validFieldType(type)){
+    throw PajeDecodeException ("The type used in the field '" + defs->fieldNameFromID(field) + "' is not recognized in line " + st.str());
   }
 
   //check if field is already defined
   std::set<PajeField> fieldSet (fields.begin(), fields.end());
   std::set<PajeField>::iterator present = fieldSet.find(field);
   if (present != fieldSet.end() && field != PAJE_Extra){
-    throw PajeDecodeException ("The field '" + defs.fieldNameFromID(field) + "' with type '" + defs.fieldTypeNameFromID(type)+"' is already defined when treating line "+st.str());
+    throw PajeDecodeException ("The field '" + defs->fieldNameFromID(field) + "' with type '" + defs->fieldTypeNameFromID(type)+"' is already defined when treating line "+st.str());
   }
 
   fields.push_back (field);
@@ -78,7 +78,7 @@ int PajeEventDefinition::indexForExtraFieldNamed (std::string fieldName)
     if (fieldName == *it) return i;
   }
   if (i == fields.size()){
-    throw PajeDecodeException ("The user-defined field '"+fieldName+"' was not found in event "+ defs.eventNameFromID(pajeEventIdentifier));
+    throw PajeDecodeException ("The user-defined field '"+fieldName+"' was not found in event "+ defs->eventNameFromID(pajeEventIdentifier));
   }
 
   //we are now looking for the i-th field in the fields (the attribute) list
@@ -87,15 +87,15 @@ int PajeEventDefinition::indexForExtraFieldNamed (std::string fieldName)
   for (j = 0, field_iterator = fields.begin(); field_iterator != fields.end(); j++, field_iterator++){
     if (*field_iterator == PAJE_Extra && j == i){ return j; }
   }
-  throw PajeDecodeException ("The user-defined field '"+fieldName+"' was found, but there is no correspondence in the fields vector of event "+ defs.eventNameFromID(pajeEventIdentifier));
+  throw PajeDecodeException ("The user-defined field '"+fieldName+"' was found, but there is no correspondence in the fields vector of event "+ defs->eventNameFromID(pajeEventIdentifier));
 }
 
 bool PajeEventDefinition::isValid (void)
 {
   //get the obligatory fields for my pajeEventIdentifier
   std::map<PajeEventId,std::set<PajeField> >::iterator itmap;
-  itmap = defs.obligatoryFields.find (pajeEventIdentifier);
-  if (itmap == defs.obligatoryFields.end()){
+  itmap = defs->obligatoryFields.find (pajeEventIdentifier);
+  if (itmap == defs->obligatoryFields.end()){
     return false;
   }
 
@@ -129,12 +129,12 @@ int PajeEventDefinition::fieldCount (void)
 
 void PajeEventDefinition::showObligatoryFields (void)
 {
-  std::cout << "Obligatory fields expected for a " << defs.eventNameFromID(pajeEventIdentifier)
+  std::cout << "Obligatory fields expected for a " << defs->eventNameFromID(pajeEventIdentifier)
             << " event definition:" << std::endl;
   std::set<PajeField>::iterator iter;
-  iter = defs.obligatoryFields[pajeEventIdentifier].begin();
-  while (iter != defs.obligatoryFields[pajeEventIdentifier].end()){
-    std::cout << defs.fieldNameFromID(*iter) << " ";
+  iter = defs->obligatoryFields[pajeEventIdentifier].begin();
+  while (iter != defs->obligatoryFields[pajeEventIdentifier].end()){
+    std::cout << defs->fieldNameFromID(*iter) << " ";
     iter++;
   }
   std::cout << std::endl;
@@ -147,16 +147,15 @@ std::vector<std::string> PajeEventDefinition::extraFields (void)
 
 bool PajeEventDefinition::knownFieldNamed (std::string name)
 {
-  return defs.validField (defs.idFromFieldName (name));
+  return defs->validField (defs->idFromFieldName (name));
 }
 
 std::ostream &operator<< (std::ostream &output, const PajeEventDefinition &eventDef)
 {
-  PajeDefinitions defs;
   PajeEventDefinition def = (PajeEventDefinition)eventDef;
  
   output << "This is the event definition of the problematic event:" << std::endl;
-  output << "  %EventDef " << defs.eventNameFromID(def.pajeEventIdentifier) << " " << def.uniqueIdentifier << std::endl;
+  output << "  %EventDef " << def.defs->eventNameFromID(def.pajeEventIdentifier) << " " << def.uniqueIdentifier << std::endl;
   std::list<PajeField>::iterator itf = def.fields.begin();
   std::list<PajeFieldType>::iterator itt = def.types.begin();
 
@@ -168,11 +167,11 @@ std::ostream &operator<< (std::ostream &output, const PajeEventDefinition &event
   int extraIndex = 0;
   while (itf != def.fields.end()){
     if (*itf != PAJE_Extra){
-      output << "  %    " << defs.fieldNameFromID(*itf) << " ";
+      output << "  %    " << def.defs->fieldNameFromID(*itf) << " ";
     }else{
       output << "  %    " << def.userDefinedFieldNames.at(extraIndex++) << " ";;
     }
-    output <<  defs.fieldTypeNameFromID(*itt) << std::endl;
+    output <<  def.defs->fieldTypeNameFromID(*itt) << std::endl;
 
     itf++;
     itt++;

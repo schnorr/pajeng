@@ -37,17 +37,16 @@ typedef struct {
 } paje_line;
 
 class PajeEventDefinition {
-private:
-  bool strictDefinition;
  public:  PajeEventId pajeEventIdentifier;
   int uniqueIdentifier;
+  PajeDefinitions *defs;
 
   std::list<PajeField> fields;
   std::list<PajeFieldType> types;
   std::vector<std::string> userDefinedFieldNames;
 
 public:
-  PajeEventDefinition (PajeEventId id, int unique, bool strict, int line);
+  PajeEventDefinition (PajeEventId id, int unique, int line, PajeDefinitions *definitions);
   ~PajeEventDefinition (void);
   void addField (PajeField field, PajeFieldType type, int line);
   void addField (PajeField field, PajeFieldType type, int line, std::string userDefinedFieldName);
@@ -61,12 +60,6 @@ public:
 
 private:
   bool knownFieldNamed (std::string name);
-
- public:
-  bool strict () { return strictDefinition; }
-
- private:
-  PajeDefinitions defs;
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeEventDefinition &eventDef);
