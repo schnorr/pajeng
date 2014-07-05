@@ -4,6 +4,7 @@
 #include "main.h"
 
   PajeEventDefinition *eventBeingDefined;
+  PajeDefinitions *globalDefinitions;
 
   extern "C"
   {
@@ -90,7 +91,7 @@ paje: declarations { return 4; };
 declarations: declaration declarations | ;
 declaration: TK_EVENT_DEF_BEGIN event_name event_id optional_break
              {
-               def = new PajeEventDefinition($2, $3, false, yylineno);
+               def = new PajeEventDefinition($2, $3, yylineno, globalDefinitions);
              }
              fields TK_EVENT_DEF_END optional_break
              {

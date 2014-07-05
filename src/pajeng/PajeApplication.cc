@@ -35,7 +35,8 @@ void PajeApplication::init (void)
   }else{
     reader = new PajeFileReader (filename.toStdString());
   }
-  decoder = new PajeEventDecoder ();
+
+  decoder = new PajeEventDecoder (new PajeDefinitions (true));
   simulator = new PajeSimulator ();
 
   connectComponents (reader, decoder);

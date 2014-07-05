@@ -99,7 +99,10 @@ int main (int argc, char **argv)
     reader = new PajeFileReader ();
   }
 
-  PajeEventDecoder *decoder = new PajeEventDecoder (!arguments.noStrict);
+  //the global PajeDefinitions object
+  PajeDefinitions *definitions = new PajeDefinitions (arguments.noStrict ? false : true); 
+
+  PajeEventDecoder *decoder = new PajeEventDecoder (definitions);
   PajeSimulator *simulator = new PajeSimulator ();
 
   reader->setOutputComponent (decoder);

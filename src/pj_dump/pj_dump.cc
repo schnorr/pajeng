@@ -143,10 +143,13 @@ int main (int argc, char **argv)
   PajeEventDecoder *decoder;
   PajeSimulator *simulator;
 
+  //the global PajeDefinitions object
+  PajeDefinitions *definitions = new PajeDefinitions (arguments.noStrict ? false : true); 
+
   try {
     //alloc reader
     if (arguments.flex){
-      reader = new PajeFlexReader();
+      reader = new PajeFlexReader(definitions);
     }else{
       if (arguments.input_size == 0){
 	reader = new PajeFileReader();
@@ -157,7 +160,7 @@ int main (int argc, char **argv)
 
     //alloc decoder and simulator
     if (!arguments.flex){
-      decoder = new PajeEventDecoder(arguments.noStrict? false : true);
+      decoder = new PajeEventDecoder(definitions);
     }
     simulator = new PajeSimulator (arguments.stopat, arguments.ignoreIncompleteLinks);
 
