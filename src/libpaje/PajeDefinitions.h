@@ -75,7 +75,7 @@ typedef enum {
 } PajeFieldType;
 
 typedef boost::bimap<std::string,PajeEventId> event_names_dictionary_t;
-typedef boost::bimap<std::string,PajeField> field_names_dictionary_t;
+typedef boost::bimap<std::string,PajeFieldType> field_names_type_dictionary_t;
 typedef std::map<std::string,PajeField> field_name_to_id_t;
 typedef std::map<PajeField,std::string> id_to_field_name_t;
 
