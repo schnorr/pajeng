@@ -111,11 +111,14 @@ int PajeEntity::imbricationLevel (void) const
   return 0;
 }
 
-std::string PajeEntity::extraDescription (void) const
+std::string PajeEntity::extraDescription (bool printComma) const
 {
   if (extraFields.size() == 0) return std::string("");
 
   std::stringstream description;
+  if (printComma){
+    description << ", ";
+  }
   std::map<std::string,std::string>::const_iterator it;
   for (it = extraFields.begin(); it != extraFields.end(); it++){
     description << (*it).second;

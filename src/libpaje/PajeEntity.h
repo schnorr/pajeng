@@ -53,9 +53,7 @@ public:
   virtual double lastTime (void) const = 0;
   virtual double duration (void) const = 0;
   virtual std::string description (void) const = 0;
-
-protected:
-  virtual std::string extraDescription (void) const = 0;
+  virtual std::string extraDescription (bool printComma) const = 0;
 };
 
 /*
@@ -92,7 +90,7 @@ public:
     }
   };
 
-  std::string extraDescription (void) const; //should always be called after description
+  std::string extraDescription (bool printComma) const; //should always be called after description
 };
 
 /*
