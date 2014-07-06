@@ -34,6 +34,13 @@ Key                       return TK_EVENT_DEF_KEY;
 Line                      return TK_EVENT_DEF_LINE;
 File                      return TK_EVENT_DEF_FILE;
 
+ContainerType             return TK_EVENT_DEF_TYPE;
+EntityType                return TK_EVENT_DEF_TYPE;
+SourceContainerType       return TK_EVENT_DEF_START_CONTAINER_TYPE;
+DestContainerType         return TK_EVENT_DEF_END_CONTAINER_TYPE;
+SourceContainer           return TK_EVENT_DEF_START_CONTAINER;
+DestContainer             return TK_EVENT_DEF_END_CONTAINER;
+
 "string"                  return TK_EVENT_DEF_FIELD_TYPE_STRING;
 "float"                   return TK_EVENT_DEF_FIELD_TYPE_FLOAT;
 "double"                  return TK_EVENT_DEF_FIELD_TYPE_DOUBLE;
