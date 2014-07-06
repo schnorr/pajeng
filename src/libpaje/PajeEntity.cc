@@ -118,14 +118,14 @@ std::string PajeEntity::extraDescription (void) const
   std::stringstream description;
   std::map<std::string,std::string>::const_iterator it;
   for (it = extraFields.begin(); it != extraFields.end(); it++){
-  //   description << (*it).second;
+    description << (*it).second;
 
-  //   //look forward to see if we ouput a comma
-  //   it++;
-  //   if (it != extraFields.end()){
-  //     description << ", ";
-  //   }
-  //   it--;
+    //look forward to see if we ouput a comma
+    it++;
+    if (it != extraFields.end()){
+      description << ", ";
+    }
+    it--;
   }
   return description.str();
 }
