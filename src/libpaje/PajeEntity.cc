@@ -257,11 +257,6 @@ std::string PajeUserEvent::description (void) const
               << (type()? type()->name() : "NULL") << ", "
               << startTime() << ", "
               << (value()? value()->name() : "NULL");
-  std::string extra = extraDescription();
-  if (!extra.empty()){
-    description << ", "
-                << extra;
-  }
   return description.str();
 }
 
@@ -296,11 +291,6 @@ std::string PajeUserState::description (void) const
               << duration() << ", "
               << imbrication << ", "
               << (value()? value()->name() : "NULL");
-  std::string extra = extraDescription();
-  if (!extra.empty()){
-    description << ", "
-                << extra;
-  }
   return description.str();
 }
 
@@ -329,11 +319,6 @@ std::string PajeUserVariable::description (void) const
               << endTime() << ", "
               << duration() << ", "
               << doubleValue();
-  std::string extra = extraDescription();
-  if (!extra.empty()){
-    description << ", "
-                << extra;
-  }
   return description.str();
 }
 
@@ -380,11 +365,6 @@ std::string PajeUserLink::description (void) const
               << (value()? value()->name() : "NULL") << ", "
               << (startContainer()? startContainer()->name() : "NULL") << ", "
               << (endContainer()? endContainer()->name() : "NULL");
-  std::string extra = extraDescription();
-  if (!extra.empty()){
-    description << ", "
-                << extra;
-  }
   return description.str();
 }
 
