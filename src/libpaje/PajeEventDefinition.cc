@@ -75,17 +75,20 @@ int PajeEventDefinition::indexForExtraFieldNamed (std::string fieldName)
   int i;
   std::vector<std::string>::iterator it;
   for (i = 0, it = userDefinedFieldNames.begin(); it != userDefinedFieldNames.end(); i++, it++){
-    if (fieldName == *it) return i;
+    if (fieldName == *it) break;
   }
   if (i == fields.size()){
     throw PajeDecodeException ("The user-defined field '"+fieldName+"' was not found in event "+ defs->eventNameFromID(pajeEventIdentifier));
   }
 
-  //we are now looking for the i-th field in the fields (the attribute) list
-  int j;
+  //we are now looking for the i-th PAJE_Extra field in the fields (the attribute) list
+  int j = 0, k;
   std::list<PajeField>::iterator field_iterator;
-  for (j = 0, field_iterator = fields.begin(); field_iterator != fields.end(); j++, field_iterator++){
-    if (*field_iterator == PAJE_Extra && j == i){ return j; }
+  for (k = 0, field_iterator = fields.begin(); field_iterator != fields.end(); field_iterator++, k++){
+    if (*field_iterator == PAJE_Extra){
+      if (j == i) return k;
+      j++;
+    }
   }
   throw PajeDecodeException ("The user-defined field '"+fieldName+"' was found, but there is no correspondence in the fields vector of event "+ defs->eventNameFromID(pajeEventIdentifier));
 }
