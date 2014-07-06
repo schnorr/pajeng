@@ -33,15 +33,20 @@ extern "C"
 
 class PajeFlexReader : public PajeComponent {
  private:
+  std::string filename;
   long long counter;
   bool hasData;
   PajeDefinitions *defs;
  public:
+  PajeFlexReader(std::string f, PajeDefinitions *definitions);
   PajeFlexReader(PajeDefinitions *definitions);
   ~PajeFlexReader();
 
   bool hasMoreData();
   void readNextChunk();
+
+ private:
+  void initialize (PajeDefinitions *definitions);
 };
 
 #endif

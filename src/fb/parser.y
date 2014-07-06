@@ -8,6 +8,7 @@
 
   extern "C"
   {
+    extern FILE *yyin;
     extern int yylineno;
     int yylex(void);
     void yyerror (char const *mensagem);
