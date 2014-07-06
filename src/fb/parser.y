@@ -23,8 +23,13 @@
 %union {
   PajeEventId eventId;
   PajeField fieldId;
+  struct Field_Name_Info {
+    PajeField fieldId;
+    char *fieldName;
+  } field_data;
   PajeFieldType fieldType;
   int eventCode;
+  char *str;
 }
 
 %token TK_EVENT_DEF_BEGIN
@@ -71,13 +76,13 @@
 %token TK_PAJE_NEW_EVENT
 %token TK_FLOAT
 %token<eventCode> TK_INT
-%token TK_STRING
+%token<str>TK_STRING
 %token TK_BREAK
 %token TOKEN_ERRO
 %token TK_END
 
 %type<eventId> event_name;
-%type<fieldId> field_name;
+%type<field_data> field_name;
 %type<fieldType> field_type;
 %type<eventCode> event_id;
 
@@ -121,23 +126,30 @@ event_name:
 	TK_PAJE_NEW_EVENT { $$ = PajeNewEventEventId;};
 event_id: TK_INT { $$ = $1; };
 fields: field fields | ;
-field: TK_EVENT_DEF field_name field_type { def->addField($2, $3, yylineno); } optional_break;
+field: TK_EVENT_DEF field_name field_type {
+              if ($2.fieldId == PAJE_Extra){
+		def->addField($2.fieldId, $3, yylineno, std::string($2.fieldName));
+		free($2.fieldName);
+              }else{
+		def->addField($2.fieldId, $3, yylineno);
+	      }
+	} optional_break;
 field_name:
-        TK_EVENT_DEF_ALIAS { $$ = PAJE_Alias; } |
-	TK_EVENT_DEF_TYPE { $$ = PAJE_Type; } |
-	TK_EVENT_DEF_NAME { $$ = PAJE_Name; } |
-	TK_EVENT_DEF_COLOR { $$ = PAJE_Color; } |
-	TK_EVENT_DEF_START_CONTAINER_TYPE { $$ = PAJE_StartContainerType; } |
-	TK_EVENT_DEF_END_CONTAINER_TYPE { $$ = PAJE_EndContainerType; } |
-	TK_EVENT_DEF_CONTAINER { $$ = PAJE_Container; } |
-	TK_EVENT_DEF_TIME { $$ = PAJE_Time; } |
-	TK_EVENT_DEF_START_CONTAINER { $$ = PAJE_StartContainer; } |
-	TK_EVENT_DEF_END_CONTAINER { $$ = PAJE_EndContainer; } |
-	TK_EVENT_DEF_VALUE { $$ = PAJE_Value; } |
-	TK_EVENT_DEF_KEY { $$ = PAJE_Key; } |
-        TK_EVENT_DEF_LINE { $$ = PAJE_Line; } |
-        TK_EVENT_DEF_FILE { $$ = PAJE_File; } |
-	TK_STRING { $$ = PAJE_Extra; };
+        TK_EVENT_DEF_ALIAS { $$.fieldId = PAJE_Alias; } |
+	TK_EVENT_DEF_TYPE { $$.fieldId = PAJE_Type; } |
+	TK_EVENT_DEF_NAME { $$.fieldId = PAJE_Name; } |
+	TK_EVENT_DEF_COLOR { $$.fieldId = PAJE_Color; } |
+	TK_EVENT_DEF_START_CONTAINER_TYPE { $$.fieldId = PAJE_StartContainerType; } |
+	TK_EVENT_DEF_END_CONTAINER_TYPE { $$.fieldId = PAJE_EndContainerType; } |
+	TK_EVENT_DEF_CONTAINER { $$.fieldId = PAJE_Container; } |
+	TK_EVENT_DEF_TIME { $$.fieldId = PAJE_Time; } |
+	TK_EVENT_DEF_START_CONTAINER { $$.fieldId = PAJE_StartContainer; } |
+	TK_EVENT_DEF_END_CONTAINER { $$.fieldId = PAJE_EndContainer; } |
+	TK_EVENT_DEF_VALUE { $$.fieldId = PAJE_Value; } |
+	TK_EVENT_DEF_KEY { $$.fieldId = PAJE_Key; } |
+        TK_EVENT_DEF_LINE { $$.fieldId = PAJE_Line; } |
+        TK_EVENT_DEF_FILE { $$.fieldId = PAJE_File; } |
+	TK_STRING { $$.fieldId = PAJE_Extra; $$.fieldName = $1; };
 field_type:
 TK_EVENT_DEF_FIELD_TYPE_STRING { $$ = PAJE_string; } |
 TK_EVENT_DEF_FIELD_TYPE_FLOAT { $$ = PAJE_float; } |

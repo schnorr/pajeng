@@ -76,12 +76,12 @@ PajeNewEvent              return TK_PAJE_NEW_EVENT;
 {DIGIT}+"."{DIGIT}+                   return TK_FLOAT;
 {DIGIT}+                              { yylval.eventCode = atoi(yytext); return TK_INT; }
 
-\"[^"]*\"                             return TK_STRING;
+\"[^"]*\"                             { yylval.str = yytext; return TK_STRING; }
 
 "#".*\n
 {SPACE}+ 
 
-{LETTER}+               return TK_STRING;
+{LETTER}+               { yylval.str = strdup(yytext); return TK_STRING; }
 
 <<EOF>> return TK_END;
 
