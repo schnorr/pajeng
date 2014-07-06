@@ -92,8 +92,7 @@ public:
     }
   };
 
-protected:
-  std::string extraDescription (void) const;
+  std::string extraDescription (void) const; //should always be called after description
 };
 
 /*
