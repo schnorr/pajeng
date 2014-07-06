@@ -39,6 +39,7 @@ static struct argp_option options[] = {
   {"ignore-incomplete-links", 'z', 0, OPTION_ARG_OPTIONAL, "Ignore incomplete links (not recommended)"},
   {"quiet", 'q', 0, OPTION_ARG_OPTIONAL, "Do not dump, only simulate"},
   {"flex", 'f', 0, OPTION_ARG_OPTIONAL, "Use flex-based file reader"},
+  {"user-defined", 'u', 0, OPTION_ARG_OPTIONAL, "Dump user-defined fields"},
   { 0 }
 };
 
@@ -50,6 +51,7 @@ struct arguments {
   int ignoreIncompleteLinks;
   int quiet;
   int flex;
+  int userDefined;
 };
 
 static int parse_options (int key, char *arg, struct argp_state *state)
@@ -63,6 +65,7 @@ static int parse_options (int key, char *arg, struct argp_state *state)
   case 'z': arguments->ignoreIncompleteLinks = 1; break;
   case 'q': arguments->quiet = 1; break;
   case 'f': arguments->flex = 1; break;
+  case 'u': arguments->userDefined = 1; break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
       /* Too many arguments. */
@@ -84,8 +87,10 @@ static int parse_options (int key, char *arg, struct argp_state *state)
 
 static struct argp argp = { options, parse_options, args_doc, doc };
 
-void dump (double start, double end, PajeSimulator *simulator)
+void dump (struct arguments *arguments, PajeSimulator *simulator)
 {
+  double start = arguments->start;
+  double end = arguments->end;
   if (start == -1) start = simulator->startTime();
   if (end == -1) end = simulator->endTime();
 
@@ -97,7 +102,11 @@ void dump (double start, double end, PajeSimulator *simulator)
     stack.pop_back ();
 
     //output container description
-    std::cout << container->description() << std::endl;
+    std::cout << container->description();
+    if (arguments->userDefined){
+      std::cout << container->extraDescription(true);
+    }
+    std::cout << std::endl;
 
     std::vector<PajeType*> containedTypes;
     std::vector<PajeType*>::iterator it;
@@ -122,7 +131,11 @@ void dump (double start, double end, PajeSimulator *simulator)
           PajeEntity *entity = *it;
 
           //output entity description
-          std::cout << entity->description() << std::endl;
+          std::cout << entity->description();
+	  if (arguments->userDefined){
+	    std::cout << entity->extraDescription(true);
+	  }
+	  std::cout << std::endl;
         }
       }
     }
@@ -190,7 +203,7 @@ int main (int argc, char **argv)
   }
 
   if (!arguments.quiet){
-    dump (arguments.start, arguments.end, simulator);
+    dump (&arguments, simulator);
   }
 
   delete reader;
