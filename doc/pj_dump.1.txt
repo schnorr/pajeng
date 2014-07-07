@@ -71,6 +71,9 @@ OPTIONS
 *-z, --ignore-incomplete-links*::
     Ignore incomplete links without warnings.
 
+*-u, --user-defined*::
+    Dump user-defined fields. See USER-DEFINED FIELDS section below.
+
 *-?, --help*::
     Show all the available options.
 
@@ -218,6 +221,36 @@ Paje Simulator to ignore incomplete links. All the trace file will be
 dumped and all errors concerning incomplete links will be silently
 ignored. Use with caution.
 
+USER-DEFINED FIELDS
+-------------------
+
+User-defined fields is a feature of the Paje trace file format to add
+additional information in the trace that does not belong to the
+traditional fields of each event definition. An event definition with
+four user-defined fields (Size, Params, Footprint and Tag) looks like
+this:
+
+    %EventDef PajeSetState 20
+    %  Time      date
+    %  Container string
+    %  Type      string
+    %  Value     string
+    %  Size      string
+    %  Params    string
+    %  Footprint string
+    %  Tag       string
+    %EndEventDef
+
+The dump of user-defined fields are disable by default in pj_dump. The
+user can activate them by passing *-u* (or *--user-defined*) as
+argument. When doing so, the CSV-like output of pj_dump will be
+altered from the definition above (see OUTPUT DESCRIPTION). Besides
+dumping the default fields for each entity and container of the trace,
+the CSV will have additional fields that correspond to user-defined
+fields. The order in which they appear in the output obeys the order
+of the corresponding event definition. So a *State* defined with the
+event definition 20 above will have four additional fields in the
+CSV-like output.
 
 RESOURCES
 ---------
