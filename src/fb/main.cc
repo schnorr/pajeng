@@ -9,7 +9,9 @@
 #include "PajeEventDefinition.h"
 #include "PajeTraceEvent.h"
 #include "PajeException.h"
+extern "C"{
 #include "parser.hh"
+}
 #include "main.h"
 
 extern "C"
