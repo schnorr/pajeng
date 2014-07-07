@@ -24,6 +24,7 @@
 #include "PajeTraceEvent.h"
 #include "PajeEvent.h"
 #include "PajeEntity.h"
+#include "ThreadQueue.h"
 
 class PajeContainer;
 class PajeEvent;
@@ -38,6 +39,7 @@ public:
   std::string _alias;
   std::map<std::string,PajeContainer*> children;
   int depth;
+  ThreadQueue workerQueue;
 
 private:
   std::map<PajeType*,std::set<std::string> > linksUsedKeys; //all used keys for this container
