@@ -13,17 +13,29 @@
 # You should have received a copy of the GNU Public License
 # along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
-PROJECT(pajeng)
 
-SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-set(LIB_INSTALL_DIR lib${LIB_SUFFIX} CACHE PATH "Directory where libraries are installed (relative to CMAKE_INSTALL_PREFIX).")
+# The Paje Library (libpaje) 
+IF(PAJE_LIBRARY)
+  include (${CMAKE_HOME_DIRECTORY}/src/libpaje/)
+ENDIF(PAJE_LIBRARY)
 
-# the cmake options
-OPTION(PAJENG         "The PajeNG visualization tool (Qt4 version)" ON)
-OPTION(PAJE_UTILS_LIBRARY "The Paje Utils library with QT-dependent components" ON)
-OPTION(PAJE_LIBRARY "The Paje library with all the basic components" ON)
-OPTION(PAJE_FLEXBISON "The PajeFlexReader" ON)
-OPTION(PAJE_TOOLS     "Compile auxiliary tools (pj_dump, etc)" ON)
+# The Paje File Reader based on flex/bison
+if(PAJE_FLEXBISON)
+  include (${CMAKE_HOME_DIRECTORY}/src/fb/)
+endif(PAJE_FLEXBISON)
 
-add_subdirectory(src)
-add_subdirectory(doc)
+# Paje tools
+IF(PAJE_TOOLS)
+  include (${CMAKE_HOME_DIRECTORY}/src/tools)
+ENDIF(PAJE_TOOLS)
+
+# The PajeNG
+IF(PAJENG)
+  include (${CMAKE_HOME_DIRECTORY}/src/pajeng)
+ENDIF(PAJENG)
+
+# The Paje Utils Library (libpajeutils)
+IF(PAJE_UTILS_LIBRARY)
+  include (${CMAKE_HOME_DIRECTORY}/src/utils)
+ENDIF(PAJE_UTILS_LIBRARY)
+
