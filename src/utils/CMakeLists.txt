@@ -15,10 +15,8 @@
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 
 # The Paje Utils Library (libpajeutils)
-SET(UTILS_HEADERS
-  src/utils/PajeThreadReader.h)
-SET(UTILS_SOURCES
-  src/utils/PajeThreadReader.cc)
+SET(UTILS_HEADERS PajeThreadReader.h)
+SET(UTILS_SOURCES PajeThreadReader.cc)
 
 FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtOpenGl)
 FIND_PACKAGE(GLUT REQUIRED)
@@ -32,7 +30,7 @@ LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 ADD_LIBRARY(paje_utils_library SHARED ${UTILS_SOURCES} ${UTILS_HEADERS_MOC})
 TARGET_LINK_LIBRARIES(paje_utils_library ${QT_LIBRARIES})
 TARGET_LINK_LIBRARIES(paje_utils_library ${GLUT_glut_LIBRARY})
-TARGET_LINK_LIBRARIES(paje_utils_library paje)
+TARGET_LINK_LIBRARIES(paje_utils_library paje_library)
 
 SET_TARGET_PROPERTIES(paje_utils_library PROPERTIES OUTPUT_NAME pajeutils)
 SET_TARGET_PROPERTIES(paje_utils_library PROPERTIES
@@ -46,6 +44,6 @@ INSTALL(TARGETS paje_utils_library DESTINATION ${LIB_INSTALL_DIR})
 INSTALL(FILES ${UTILS_HEADERS} DESTINATION include)
 
 #pkgconfig
-CONFIGURE_FILE (src/utils/libpajeutils.pc.cmake libpajeutils.pc @ONLY)
+CONFIGURE_FILE (libpajeutils.pc.cmake libpajeutils.pc @ONLY)
 INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/libpajeutils.pc DESTINATION ${LIB_INSTALL_DIR}/pkgconfig)
 

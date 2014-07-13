@@ -16,42 +16,42 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 
 # The Paje Library (libpaje)
 SET(LIBPAJE_HEADERS
-  src/libpaje/PajeColor.h
-  src/libpaje/PajeException.h
-  src/libpaje/PajeProtocols.h
-  src/libpaje/PajeComponent.h
-  src/libpaje/PajeContainer.h
-  src/libpaje/PajeData.h
-  src/libpaje/PajeEntity.h
-  src/libpaje/PajeEventDecoder.h
-  src/libpaje/PajeEventDefinition.h
-  src/libpaje/PajeTraceEvent.h
-  src/libpaje/PajeEvent.h
-  src/libpaje/PajeFileReader.h
-  src/libpaje/PajeObject.h
-  src/libpaje/PajeSimulator.h
-  src/libpaje/PajeType.h
-  src/libpaje/PajeValue.h
-  src/libpaje/PajeDefinitions.h)
+  PajeColor.h
+  PajeException.h
+  PajeProtocols.h
+  PajeComponent.h
+  PajeContainer.h
+  PajeData.h
+  PajeEntity.h
+  PajeEventDecoder.h
+  PajeEventDefinition.h
+  PajeTraceEvent.h
+  PajeEvent.h
+  PajeFileReader.h
+  PajeObject.h
+  PajeSimulator.h
+  PajeType.h
+  PajeValue.h
+  PajeDefinitions.h)
 SET(LIBPAJE_SOURCES
-  src/libpaje/PajeEventDefinition.cc
-  src/libpaje/PajeTraceEvent.cc
-  src/libpaje/PajeEvent.cc
-  src/libpaje/PajeData.cc
-  src/libpaje/PajeFileReader.cc
-  src/libpaje/PajeObject.cc
-  src/libpaje/PajeEventDecoder.cc
-  src/libpaje/PajeSimulator.cc
-  src/libpaje/PajeSimulator+Queries.cc
-  src/libpaje/PajeSimulator+Commands.cc
-  src/libpaje/PajeComponent.cc
-  src/libpaje/PajeType.cc
-  src/libpaje/PajeValue.cc
-  src/libpaje/PajeEntity.cc
-  src/libpaje/PajeContainer.cc
-  src/libpaje/PajeColor.cc
-  src/libpaje/PajeException.cc
-  src/libpaje/PajeDefinitions.cc
+  PajeEventDefinition.cc
+  PajeTraceEvent.cc
+  PajeEvent.cc
+  PajeData.cc
+  PajeFileReader.cc
+  PajeObject.cc
+  PajeEventDecoder.cc
+  PajeSimulator.cc
+  PajeSimulator+Queries.cc
+  PajeSimulator+Commands.cc
+  PajeComponent.cc
+  PajeType.cc
+  PajeValue.cc
+  PajeEntity.cc
+  PajeContainer.cc
+  PajeColor.cc
+  PajeException.cc
+  PajeDefinitions.cc
 )
 
 FIND_PACKAGE(Boost REQUIRED)
@@ -69,5 +69,5 @@ INSTALL(TARGETS paje_library DESTINATION ${LIB_INSTALL_DIR})
 INSTALL(FILES ${LIBPAJE_HEADERS} DESTINATION include)
 
 #pkgconfig
-CONFIGURE_FILE (src/libpaje/libpaje.pc.cmake libpaje.pc @ONLY)
+CONFIGURE_FILE (libpaje.pc.cmake libpaje.pc @ONLY)
 INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/libpaje.pc DESTINATION ${LIB_INSTALL_DIR}/pkgconfig)

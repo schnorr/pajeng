@@ -16,18 +16,18 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 
 # The PajeNG (Qt4 version)
 SET(PAJE_HEADERS
-  src/pajeng/PajeApplication.h
-  src/pajeng/PajeWindow.h
-  src/pajeng/PajeSpaceTimeFrame.h
-  src/pajeng/PajeSpaceTimeView.h)
+  PajeApplication.h
+  PajeWindow.h
+  PajeSpaceTimeFrame.h
+  PajeSpaceTimeView.h)
 SET(PAJE_SOURCES
-  src/pajeng/main.cc
-  src/pajeng/PajeApplication.cc
-  src/pajeng/PajeWindow.cc
-  src/pajeng/PajeSpaceTimeFrame.cc
-  src/pajeng/PajeSpaceTimeView.cc
-  src/pajeng/STEntityTypeLayout.cc
-  src/pajeng/PajeGraphicsItem.cc)
+  main.cc
+  PajeApplication.cc
+  PajeWindow.cc
+  PajeSpaceTimeFrame.cc
+  PajeSpaceTimeView.cc
+  STEntityTypeLayout.cc
+  PajeGraphicsItem.cc)
 
 IF(NOT PAJE_LIBRARY)
   MESSAGE(FATAL_ERROR "You must enable PAJE_LIBRARY to compile pajeng")

@@ -23,7 +23,7 @@ IF(NOT PAJE_FLEXBISON)
 ENDIF(NOT PAJE_FLEXBISON)
 
 #pj_validade
-ADD_EXECUTABLE(pj_validate src/pj_validate/pj_validate.cc)
+ADD_EXECUTABLE(pj_validate pj_validate.cc)
 INCLUDE_DIRECTORIES (pj_validate ${PROJECT_SOURCE_DIR}/src/libpaje/)
 INCLUDE_DIRECTORIES(${pajeng_SOURCE_DIR}/src/fb/)
 TARGET_LINK_LIBRARIES(pj_validate paje_library)
@@ -31,7 +31,7 @@ TARGET_LINK_LIBRARIES(pj_validate pjflex_library)
 INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/pj_validate DESTINATION bin)
 
 #pj_dump
-ADD_EXECUTABLE(pj_dump src/pj_dump/pj_dump.cc)
+ADD_EXECUTABLE(pj_dump pj_dump.cc)
 INCLUDE_DIRECTORIES (pj_dump ${PROJECT_SOURCE_DIR}/src/libpaje/)
 INCLUDE_DIRECTORIES(${pajeng_SOURCE_DIR}/src/fb/)
 TARGET_LINK_LIBRARIES(pj_dump paje_library)

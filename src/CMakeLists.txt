@@ -16,26 +16,25 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 
 # The Paje Library (libpaje) 
 IF(PAJE_LIBRARY)
-  include (${CMAKE_HOME_DIRECTORY}/src/libpaje/)
+  add_subdirectory (${CMAKE_HOME_DIRECTORY}/src/libpaje/)
 ENDIF(PAJE_LIBRARY)
 
 # The Paje File Reader based on flex/bison
 if(PAJE_FLEXBISON)
-  include (${CMAKE_HOME_DIRECTORY}/src/fb/)
+  add_subdirectory (${CMAKE_HOME_DIRECTORY}/src/fb/)
 endif(PAJE_FLEXBISON)
 
 # Paje tools
 IF(PAJE_TOOLS)
-  include (${CMAKE_HOME_DIRECTORY}/src/tools)
+  add_subdirectory (${CMAKE_HOME_DIRECTORY}/src/tools)
 ENDIF(PAJE_TOOLS)
-
-# The PajeNG
-IF(PAJENG)
-  include (${CMAKE_HOME_DIRECTORY}/src/pajeng)
-ENDIF(PAJENG)
 
 # The Paje Utils Library (libpajeutils)
 IF(PAJE_UTILS_LIBRARY)
-  include (${CMAKE_HOME_DIRECTORY}/src/utils)
+  add_subdirectory (${CMAKE_HOME_DIRECTORY}/src/utils)
 ENDIF(PAJE_UTILS_LIBRARY)
 
+# The PajeNG
+IF(PAJENG)
+  add_subdirectory (${CMAKE_HOME_DIRECTORY}/src/pajeng)
+ENDIF(PAJENG)
