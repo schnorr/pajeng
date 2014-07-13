@@ -32,6 +32,7 @@ static struct argp_option options[] = {
   {"no-strict", 'n', 0, OPTION_ARG_OPTIONAL, "Support old field names in event definitions"},
   {"quiet", 'q', 0, OPTION_ARG_OPTIONAL, "Be quiet"},
   {"time", 't', 0, OPTION_ARG_OPTIONAL, "Print number of seconds to simulate input"},
+  {"flex", 'f', 0, OPTION_ARG_OPTIONAL, "Use flex-based file reader"},
   { 0 }
 };
 
@@ -41,6 +42,7 @@ struct arguments {
   int input_size;
   int quiet;
   int time;
+  int flex;
 };
 
 static int parse_options (int key, char *arg, struct argp_state *state)
@@ -50,6 +52,7 @@ static int parse_options (int key, char *arg, struct argp_state *state)
   case 'n': arguments->noStrict = 1; break;
   case 't': arguments->time = 1; break;
   case 'q': arguments->quiet = 1; break;
+  case 'f': arguments->flex = 1; break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
       /* Too many arguments. */
