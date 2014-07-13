@@ -19,6 +19,7 @@
 #include <iostream>
 #include <exception>
 #include "PajeFileReader.h"
+#include "PajeFlexReader.h"
 #include "PajeEventDecoder.h"
 #include "PajeSimulator.h"
 #include "PajeException.h"
@@ -90,29 +91,50 @@ int main (int argc, char **argv)
     return 1;
   }
 
-  PajeFileReader *reader;
-
-  if (arguments.input_size != 0){
-    try {
-      reader = new PajeFileReader (std::string(arguments.input[0]));
-    }catch (PajeException& e){
-      e.reportAndExit ();
-    }
-  }else{
-    reader = new PajeFileReader ();
-  }
+  PajeComponent *reader = NULL;
+  PajeEventDecoder *decoder = NULL;
+  PajeSimulator *simulator = NULL;
 
   //the global PajeDefinitions object
   PajeDefinitions *definitions = new PajeDefinitions (arguments.noStrict ? false : true); 
 
-  PajeEventDecoder *decoder = new PajeEventDecoder (definitions);
-  PajeSimulator *simulator = new PajeSimulator ();
+  try {
+    //alloc reader
+    if (arguments.flex){
+      if (arguments.input_size == 0){
+	reader = new PajeFlexReader(definitions);
+      }else{
+	reader = new PajeFlexReader(std::string(arguments.input[0]), definitions);
+      }
+    }else{
+      if (arguments.input_size == 0){
+	reader = new PajeFileReader();
+      }else{
+	reader = new PajeFileReader (std::string(arguments.input[0]));
+      }
+    }
 
-  reader->setOutputComponent (decoder);
-  decoder->setInputComponent (reader);
-  decoder->setOutputComponent (simulator);
-  simulator->setInputComponent (decoder);
+    //alloc decoder and simulator
+    if (!arguments.flex){
+      decoder = new PajeEventDecoder(definitions);
+    }
+    simulator = new PajeSimulator ();
 
+    //connect components
+    if (arguments.flex){
+      reader->setOutputComponent (simulator);
+      simulator->setInputComponent (reader);
+    }else{
+      reader->setOutputComponent (decoder);
+      decoder->setInputComponent (reader);
+      decoder->setOutputComponent (simulator);
+      simulator->setInputComponent (decoder);
+    }
+  }catch (PajeException& e){
+    e.reportAndExit ();
+  }
+
+  //read and simulate
   double t1, t2;
   if (arguments.time){
     t1 = gettime();
