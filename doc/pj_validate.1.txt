@@ -44,6 +44,15 @@ OPTIONS
 *-n, --no-strict*::
     Support old field names in event definitions.
 
+*-f, --flex*::
+    Use alternative file reader based on flex/bison (experimental).
+
+*-q, --quiet*::
+    Be quiet (no output on stdout).
+
+*-t, --time*::
+    Print number of seconds to simulate input
+
 *-?, --help*::
     Show all the available options.
 

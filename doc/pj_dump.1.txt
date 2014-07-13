@@ -74,6 +74,9 @@ OPTIONS
 *-u, --user-defined*::
     Dump user-defined fields. See USER-DEFINED FIELDS section below.
 
+*-f, --flex*::
+    Use alternative file reader based on flex/bison (experimental).
+
 *-?, --help*::
     Show all the available options.
 
