@@ -19,8 +19,6 @@
 #include <iostream>
 #include <exception>
 #include "PajeFlexReader.h"
-#include "PajeFlexDecoder.h"
-
 #include "PajeFileReader.h"
 #include "PajeException.h"
 #include "PajeEventDecoder.h"

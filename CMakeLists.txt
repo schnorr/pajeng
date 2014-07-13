@@ -129,7 +129,6 @@ if(PAJE_FLEXBISON)
     ${FLEX_scanner_OUTPUTS}
     ${BISON_parser_OUTPUTS}
     src/fb/PajeFlexReader.cc
-    src/fb/PajeFlexDecoder.cc
     )
   ADD_EXECUTABLE(pjflex src/fb/main.cc)
   TARGET_LINK_LIBRARIES(pjflex pjflex_library)
