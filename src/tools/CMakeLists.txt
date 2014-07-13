@@ -15,8 +15,12 @@
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 
 IF(NOT PAJE_LIBRARY)
-  MESSAGE(FATAL_ERROR "You must enable PAJE_LIBRARY to compile pj_validate")
+  MESSAGE(FATAL_ERROR "Enable PAJE_LIBRARY to compile paje tools")
 ENDIF(NOT PAJE_LIBRARY)
+
+IF(NOT PAJE_FLEXBISON)
+  MESSAGE(FATAL_ERROR "Enable PAJE_FLEXBISON to compile paje tools")
+ENDIF(NOT PAJE_FLEXBISON)
 
 #pj_validade
 ADD_EXECUTABLE(pj_validate src/pj_validate/pj_validate.cc)
