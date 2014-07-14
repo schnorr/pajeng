@@ -78,8 +78,6 @@
 %token<eventCode> TK_INT
 %token<str>TK_STRING
 %token TK_BREAK
-%token TOKEN_ERRO
-%token TK_END
 
 %type<eventId> event_name;
 %type<field_data> field_name;
@@ -89,10 +87,9 @@
 %error-verbose
 %right TK_INT
 
-
 %%
 
-paje: declarations { return 4; };
+paje: declarations events { return 4; };
 
 declarations: declaration declarations | ;
 declaration: TK_EVENT_DEF_BEGIN event_name event_id optional_break
@@ -159,4 +156,10 @@ TK_EVENT_DEF_FIELD_TYPE_HEX { $$ = PAJE_hex; } |
 TK_EVENT_DEF_FIELD_TYPE_DATE { $$ = PAJE_date; } |
 TK_EVENT_DEF_FIELD_TYPE_COLOR { $$ = PAJE_color; };
 optional_break: TK_BREAK | ;
+
+events: events event | ;
+event: TK_INT arguments TK_BREAK;
+arguments: arguments argument | ;
+argument: TK_STRING | TK_FLOAT | TK_INT;
+
 %%

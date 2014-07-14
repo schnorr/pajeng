@@ -83,6 +83,7 @@ PajeNewEvent              return TK_PAJE_NEW_EVENT;
 
 {LETTER}+               { yylval.str = strdup(yytext); return TK_STRING; }
 
-<<EOF>> return TK_END;
+
 
 %%
+//<<EOF>> return TK_END;

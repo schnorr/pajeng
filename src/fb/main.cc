@@ -28,61 +28,9 @@ int main (int argc, char **argv)
 {
   long long counter = 0;
 
-  try{
-  /* read the header */
-  int resultado = yyparse();
-  if (resultado != 4){
-    return 1;
-  }
+  //the global PajeDefinitions object
+  globalDefinitions = new PajeDefinitions (false);
 
-  /* read the events */
-  int token = yychar;
-  do{
-    if (token == TK_INT){
-      PajeEventDefinition *def = defsv[atoi(yytext)];
-
-      //the line to be read
-      paje_line line;
-
-      //the line number
-      line.lineNumber = yylineno;
-
-      //read the fields until TK_BREAK
-      line.word_count = 0;
-      do {
-        line.word[line.word_count++] = strdup(yytext);
-	token = yylex();
-      } while (token != TK_BREAK);
-
-      PajeTraceEvent *event = new PajeTraceEvent (def, &line);
-      delete event;
-
-      //clean-up paje_line
-      {
-	int i;
-	for (i = 0; i < line.word_count; i++){
-	  free (line.word[i]);
-	}
-      }
-
-      counter++;
-    }else{
-      printf ("token <%d> at %d (%s)\n", token, yylineno, yytext);
-    }
-  } while ((token = yylex()) && token != TK_END);
-
-  /* print number of events */
-  printf ("%lld events and %lld lines\n", counter, yylineno);
-
-  /* exit */
-  if (token == TOKEN_ERRO){
-    return 1;
-  }else{
-    return 0;
-  }
-  return resultado;
-  }catch (PajeException &e){
-    e.reportAndExit();
-  }
+  return yyparse();
 }
 
