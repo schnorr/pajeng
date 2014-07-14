@@ -170,7 +170,9 @@ TK_EVENT_DEF_FIELD_TYPE_DATE { $$ = PAJE_date; } |
 TK_EVENT_DEF_FIELD_TYPE_COLOR { $$ = PAJE_color; };
 
 events: events event | ;
-event:  { lineReset(); }  TK_INT  { lineAdd($2.str); } arguments TK_BREAK { lineSend (); };
+event: non_empty_event | empty_event;
+non_empty_event:  { lineReset(); }  TK_INT  { lineAdd($2.str); } arguments TK_BREAK { lineSend (); };
+empty_event: TK_BREAK; //empty event
 arguments: arguments argument { lineAdd($2.str); } | ;
 argument: TK_STRING { $$ = $1; } | TK_FLOAT { $$ = $1; } | TK_INT { $$ = $1; };
 
