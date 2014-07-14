@@ -187,7 +187,6 @@ void lineReset ()
 void lineAdd (char *str)
 {
   line.word[line.word_count++] = strdup(str);
-  //strcpy (line.word[line.word_count++], str);
 }
 
 void lineSend ()
