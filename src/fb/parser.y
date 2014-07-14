@@ -103,14 +103,14 @@
 
 %%
 
-paje: declarations events { return 4; };
+paje: declarations events { return 4;};
 
 declarations: declaration declarations | ;
-declaration: TK_EVENT_DEF_BEGIN event_name event_id optional_break
+declaration: TK_EVENT_DEF_BEGIN event_name event_id TK_BREAK
              {
                def = new PajeEventDefinition($2, $3, yylineno, globalDefinitions);
              }
-             fields TK_EVENT_DEF_END optional_break
+             fields TK_EVENT_DEF_END TK_BREAK
              {
                defsv = (PajeEventDefinition**)realloc (defsv, (def->uniqueIdentifier+1)*sizeof(PajeEventDefinition*));
                defsv[def->uniqueIdentifier] = def;
@@ -143,7 +143,7 @@ field: TK_EVENT_DEF field_name field_type {
               }else{
 		def->addField($2.fieldId, $3, yylineno);
 	      }
-	} optional_break;
+	} TK_BREAK;
 field_name:
         TK_EVENT_DEF_ALIAS { $$.fieldId = PAJE_Alias; } |
 	TK_EVENT_DEF_TYPE { $$.fieldId = PAJE_Type; } |
@@ -168,7 +168,6 @@ TK_EVENT_DEF_FIELD_TYPE_INT { $$ = PAJE_int; } |
 TK_EVENT_DEF_FIELD_TYPE_HEX { $$ = PAJE_hex; } |
 TK_EVENT_DEF_FIELD_TYPE_DATE { $$ = PAJE_date; } |
 TK_EVENT_DEF_FIELD_TYPE_COLOR { $$ = PAJE_color; };
-optional_break: TK_BREAK | ;
 
 events: events event | ;
 event:  { lineReset(); }  TK_INT  { lineAdd($2.str); } arguments TK_BREAK { lineSend (); };
