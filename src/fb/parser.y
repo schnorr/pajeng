@@ -13,11 +13,18 @@
     int yylex(void);
     void yyerror (char const *mensagem);
     int yyparse ();
+
+    void lineReset ();
+    void lineAdd (char *str);
+    void lineSend ();
   }
 
   PajeEventDefinition **defsv;
   PajeEventDefinition *def;
+  PajeFlexReader *flexReader;
 
+
+  paje_line line; //the current line being read
 %}
 
 %union {
@@ -29,7 +36,13 @@
   } field_data;
   PajeFieldType fieldType;
   int eventCode;
-  char *str;
+  struct Argument_Info {
+    union {
+      float floatValue;
+      int intValue;
+    };
+    char *str;
+  } argument_data;
 }
 
 %token TK_EVENT_DEF_BEGIN
@@ -74,15 +87,16 @@
 %token TK_PAJE_START_LINK
 %token TK_PAJE_END_LINK
 %token TK_PAJE_NEW_EVENT
-%token TK_FLOAT
-%token<eventCode> TK_INT
-%token<str>TK_STRING
+%token<argument_data> TK_FLOAT
+%token<argument_data> TK_INT
+%token<argument_data> TK_STRING
 %token TK_BREAK
 
 %type<eventId> event_name;
 %type<field_data> field_name;
 %type<fieldType> field_type;
 %type<eventCode> event_id;
+%type<argument_data> argument;
 
 %error-verbose
 %right TK_INT
@@ -121,12 +135,11 @@ event_name:
 	TK_PAJE_START_LINK { $$ = PajeStartLinkEventId;} |
 	TK_PAJE_END_LINK { $$ = PajeEndLinkEventId;} |
 	TK_PAJE_NEW_EVENT { $$ = PajeNewEventEventId;};
-event_id: TK_INT { $$ = $1; };
+event_id: TK_INT { $$ = $1.intValue; };
 fields: field fields | ;
 field: TK_EVENT_DEF field_name field_type {
               if ($2.fieldId == PAJE_Extra){
 		def->addField($2.fieldId, $3, yylineno, std::string($2.fieldName));
-		free($2.fieldName);
               }else{
 		def->addField($2.fieldId, $3, yylineno);
 	      }
@@ -146,7 +159,7 @@ field_name:
 	TK_EVENT_DEF_KEY { $$.fieldId = PAJE_Key; } |
         TK_EVENT_DEF_LINE { $$.fieldId = PAJE_Line; } |
         TK_EVENT_DEF_FILE { $$.fieldId = PAJE_File; } |
-	TK_STRING { $$.fieldId = PAJE_Extra; $$.fieldName = $1; };
+	TK_STRING { $$.fieldId = PAJE_Extra; $$.fieldName = $1.str; };
 field_type:
 TK_EVENT_DEF_FIELD_TYPE_STRING { $$ = PAJE_string; } |
 TK_EVENT_DEF_FIELD_TYPE_FLOAT { $$ = PAJE_float; } |
@@ -158,8 +171,28 @@ TK_EVENT_DEF_FIELD_TYPE_COLOR { $$ = PAJE_color; };
 optional_break: TK_BREAK | ;
 
 events: events event | ;
-event: TK_INT arguments TK_BREAK;
-arguments: arguments argument | ;
-argument: TK_STRING | TK_FLOAT | TK_INT;
+event:  { lineReset(); }  TK_INT  { lineAdd($2.str); } arguments TK_BREAK { lineSend (); };
+arguments: arguments argument { lineAdd($2.str); } | ;
+argument: TK_STRING { $$ = $1; } | TK_FLOAT { $$ = $1; } | TK_INT { $$ = $1; };
 
 %%
+
+void lineReset ()
+{
+  line.lineNumber = yylineno;
+  line.word_count = 0;
+}
+
+void lineAdd (char *str)
+{
+  line.word[line.word_count++] = strdup(str);
+  //strcpy (line.word[line.word_count++], str);
+}
+
+void lineSend ()
+{
+  int identifier = atoi(line.word[0]);
+  PajeTraceEvent *event = new PajeTraceEvent (defsv[identifier], &line);
+  flexReader->outputEntity (event);
+  delete event; 
+}

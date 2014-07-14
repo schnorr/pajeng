@@ -17,7 +17,6 @@
 #ifndef __PAJEFLEXREADER_H__
 #define __PAJEFLEXREADER_H__
 #include "PajeComponent.h"
-#include "main.h"
 
 extern "C"
 {
@@ -49,4 +48,5 @@ class PajeFlexReader : public PajeComponent {
   void initialize (PajeDefinitions *definitions);
 };
 
+#include "main.h"
 #endif

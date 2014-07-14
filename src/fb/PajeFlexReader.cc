@@ -43,6 +43,7 @@ PajeFlexReader::PajeFlexReader(PajeDefinitions *definitions)
 void PajeFlexReader::initialize (PajeDefinitions *definitions)
 {
   defs = globalDefinitions = definitions;
+  flexReader = this;
   hasData = true;
 }
 
