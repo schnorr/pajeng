@@ -46,7 +46,7 @@ struct arguments {
   int flex;
 };
 
-static int parse_options (int key, char *arg, struct argp_state *state)
+static error_t parse_options (int key, char *arg, struct argp_state *state)
 {
   struct arguments *arguments = (struct arguments*)(state->input);
   switch (key){
