@@ -99,26 +99,63 @@ public:
   //commands
   void setSelectionStartEndTime (double start, double end);
 
-  //queries
+  //
+  // Queries
+  // -----------------------------------------------------------------
+  // Messages sent by viewers or filters to the filter preceeding it.
+  // These messages ask for some information about the loaded trace.
+  //
+
+  // The entity at the root of the hierarchy
   PajeContainer *rootInstance (void);
+
+  // The type of the entity at the root of the hierarchy
   PajeType *rootEntityType (void);
+
+  // Array of types that are directly under given type in hierarchy
   std::vector<PajeType*> containedTypesForContainerType (PajeType *type);
+
+  // All containers contained by container
   std::vector<PajeContainer*> enumeratorOfContainersInContainer (PajeContainer *container);
+
+  // All containers of a given type contained by container. Container must be
+  // of a type ancestral of entityType in the hierarchy.
   std::vector<PajeContainer*> enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container);
+
+  // All entities of a given type that are in a container in a certain
+  // time interval.
   std::vector<PajeEntity*> enumeratorOfEntitiesTypedInContainer (PajeType *type, PajeContainer *container, double start, double end);
+
+  // Tells if type is a container type
   bool isContainerType (PajeType *type);
+
+  // Tells if type is a variable type
   bool isVariableType (PajeType *type);
+
+  // The time period of the trace
   double startTime (void);
   double endTime (void);
+
+  // The time selection
   double selectionStartTime (void);
   double selectionEndTime (void);
+
+  // The type of the entity with the given name
   PajeType *entityTypeWithName (std::string name);
+
+  // The container with the given name
   PajeContainer *containerWithName (std::string name);
+
+  // Color of given value of entity type
   PajeColor *colorForValueOfEntityType (PajeType *type, PajeValue *value);
+
+  // Color for all entities of given type (used for "variable" entity type).
   PajeColor *colorForEntityType (PajeType *type);
+
+  // All values an entity of given type can have.
   std::vector<PajeValue*> valuesForEntityType (PajeType *type);
-  
-  //spatial/time integration queries
+
+  // Spatial/time integration queries
   PajeAggregatedDict timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);
   PajeAggregatedDict integrationOfContainer (PajeContainer *container);
   PajeAggregatedDict spatialIntegrationOfContainer (PajeContainer *container);
