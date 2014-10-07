@@ -92,6 +92,7 @@ class PajeDefinitions {
 
  public:
   PajeDefinitions (bool strict);
+  ~PajeDefinitions ();
 
   std::string eventNameFromID (PajeEventId event);
   std::string fieldNameFromID (PajeField field);

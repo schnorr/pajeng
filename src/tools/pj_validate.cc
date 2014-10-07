@@ -160,5 +160,6 @@ int main (int argc, char **argv)
   delete reader;
   delete decoder;
   delete simulator;
+  delete definitions;
   return 0;
 }

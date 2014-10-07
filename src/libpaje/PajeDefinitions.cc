@@ -22,6 +22,19 @@ PajeDefinitions::PajeDefinitions (bool strict)
   initialize (strict);
 }
 
+PajeDefinitions::~PajeDefinitions ()
+{
+  //boost::bimap
+  eventNames.clear ();
+  fieldTypeNames.clear ();
+
+  //std::map
+  fieldNameToID.clear();
+  idToFieldName.clear ();
+  obligatoryFields.clear ();
+  optionalFields.clear ();
+}
+
 void PajeDefinitions::initialize (bool strict)
 {
   //map from event names to internal reference
