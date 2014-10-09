@@ -121,6 +121,16 @@ std::string PajeTraceEvent::description (void) const
   return output.str();
 }
 
+PajeEventDefinition *PajeTraceEvent::definition (void)
+{
+  return pajeEventDefinition;
+}
+
+void PajeTraceEvent::setDefinition (PajeEventDefinition *def)
+{
+  pajeEventDefinition = def;
+}
+
 std::ostream &operator<< (std::ostream &output, const PajeTraceEvent &event)
 {
   output << event.description();

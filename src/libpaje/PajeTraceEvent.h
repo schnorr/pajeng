@@ -45,6 +45,8 @@ public:
   std::string valueForExtraField (std::string fieldName);
   long long getLineNumber (void) const;
   std::string description (void) const;
+  PajeEventDefinition *definition (void);
+  void setDefinition (PajeEventDefinition *def);
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeTraceEvent &event);

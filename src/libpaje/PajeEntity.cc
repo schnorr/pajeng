@@ -29,7 +29,7 @@ void PajeEntity::addPajeTraceEvent (PajeTraceEvent *event)
 {
   if (!event) return;
 
-  PajeEventDefinition *def = event->pajeEventDefinition;
+  PajeEventDefinition *def = event->definition();
   std::vector<std::string> extra = def->extraFields();
   std::vector<std::string>::iterator it;
   for (it = extra.begin(); it != extra.end(); it++){
