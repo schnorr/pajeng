@@ -44,6 +44,11 @@ PajeTraceEvent::PajeTraceEvent (PajeEventDefinition *def, paje_line *line)
   this->check (line);
 }
 
+PajeTraceEvent::~PajeTraceEvent ()
+{
+  fields.clear();
+}
+
 PajeEventId PajeTraceEvent::pajeEventId (void)
 {
   return pajeEventDefinition->pajeEventIdentifier;

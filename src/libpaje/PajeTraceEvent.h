@@ -37,6 +37,7 @@ public:
   PajeTraceEvent ();
   PajeTraceEvent (int line);
   PajeTraceEvent (PajeEventDefinition *def, paje_line *line);
+  ~PajeTraceEvent ();
   PajeEventId pajeEventId (void);
   void addField (char *field);
   void clear (void);

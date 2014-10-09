@@ -35,6 +35,26 @@ PajeContainer::PajeContainer (double time, std::string name, std::string alias, 
   init (alias, parent);
 }
 
+PajeContainer::~PajeContainer ()
+{
+  std::map<std::string,PajeContainer*>::iterator i;
+  for (i = children.begin(); i != children.end(); i++){
+    delete ((*i).second);
+  }
+  children.clear();
+
+  std::map<PajeType*,std::vector<PajeEntity*> >::iterator j;
+  for (j = entities.begin(); j != entities.end(); j++){
+    std::vector<PajeEntity*> list = ((*j).second);
+    std::vector<PajeEntity*>::iterator entity;
+    for (entity = list.begin(); entity != list.end(); entity++){
+      delete *entity;
+    }
+    list.clear();
+  }
+  entities.clear();
+}
+
 void PajeContainer::init (std::string alias, PajeContainer *parent)
 {
   _alias = alias;

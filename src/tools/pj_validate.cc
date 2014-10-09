@@ -104,7 +104,8 @@ int main (int argc, char **argv)
       if (arguments.input_size == 0){
 	reader = new PajeFlexReader(definitions);
       }else{
-	reader = new PajeFlexReader(std::string(arguments.input[0]), definitions);
+	std::string filename = arguments.input[0];
+	reader = new PajeFlexReader(filename, definitions);
       }
     }else{
       if (arguments.input_size == 0){
