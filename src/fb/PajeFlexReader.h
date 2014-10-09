@@ -28,6 +28,8 @@ extern "C"
   extern int yyleng;
   extern int yychar;
   extern PajeEventDefinition **defsv;
+
+  extern PajeDefinitions *globalDefinitions;
 }
 
 class PajeFlexReader : public PajeComponent {
@@ -48,5 +50,9 @@ class PajeFlexReader : public PajeComponent {
   void initialize (PajeDefinitions *definitions);
 };
 
-#include "main.h"
+extern "C"
+{
+  extern PajeFlexReader *flexReader;
+}
+
 #endif

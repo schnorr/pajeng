@@ -17,7 +17,9 @@
 %{
 #include <stdio.h>
 #include <search.h>
-#include "main.h"
+#include "PajeEventDefinition.h"
+#include "PajeFlexReader.h"
+#include "PajeDefinitions.h"
 
   PajeEventDefinition *eventBeingDefined;
   PajeDefinitions *globalDefinitions;
