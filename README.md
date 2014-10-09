@@ -11,8 +11,10 @@ under the [GNU General Public License
 3](http://www.gnu.org/licenses/gpl.html). PajeNG comprises the
 __libpaje__ library, the space-time visualization tool in __pajeng__
 and a set of auxiliary tools to manage Paje trace files (such as
-__pj_dump__ and __pj_validate__). It is developed as part of the
-french [INFRA-SONGS ANR project](http://infra-songs.gforge.inria.fr/).
+__pj_dump__ and __pj_validate__). It was started as part of the french
+[INFRA-SONGS ANR
+project](http://infra-songs.gforge.inria.fr/). Development has
+continued at [INF/UFRGS](http://www.inf.ufrgs.br/en/).
 
 ### Two-line Installation
 
