@@ -13,19 +13,19 @@
     int yylex(void);
     void yyerror (char const *mensagem);
     int yyparse ();
-
-    void lineReset ();
-    void lineAdd (char *str);
-    void lineSend ();
   }
+
+  static void lineReset ();
+  static void lineDef (int identifier);
+  static void lineAdd (char *str);
+  static void lineSend ();
 
   PajeEventDefinition **defsv;
   int defsv_current_size;
   PajeEventDefinition *def;
   PajeFlexReader *flexReader;
 
-
-  paje_line line; //the current line being read
+  PajeTraceEvent *event; //the current paje trace event (a line) being read
 %}
 
 %union {
@@ -175,28 +175,32 @@ TK_EVENT_DEF_FIELD_TYPE_COLOR { $$ = PAJE_color; };
 
 events: events event | ;
 event: non_empty_event | empty_event;
-non_empty_event:  { lineReset(); }  TK_INT  { lineAdd($2.str); } arguments TK_BREAK { lineSend (); };
+non_empty_event:  { lineReset(); }  TK_INT  { lineDef ($2.intValue); lineAdd($2.str); } arguments TK_BREAK { lineSend (); };
 empty_event: TK_BREAK; //empty event
 arguments: arguments argument { lineAdd($2.str); } | ;
 argument: TK_STRING { $$ = $1; } | TK_FLOAT { $$ = $1; } | TK_INT { $$ = $1; };
 
 %%
 
-void lineReset ()
+static void lineReset ()
 {
-  line.lineNumber = yylineno;
-  line.word_count = 0;
+  event = new PajeTraceEvent (yylineno);
 }
 
-void lineAdd (char *str)
+static void lineDef (int identifier)
 {
-  line.word[line.word_count++] = strdup(str);
+  event->setDefinition (defsv[identifier]);
 }
 
-void lineSend ()
+static void lineAdd (char *str)
 {
-  int identifier = atoi(line.word[0]);
-  PajeTraceEvent *event = new PajeTraceEvent (defsv[identifier], &line);
+  event->addField (str);
+}
+
+static void lineSend ()
+{
+  if (!event->check (NULL)) exit(1);
   flexReader->outputEntity (event);
-  delete event; 
+  delete event;
+  event = NULL;
 }
