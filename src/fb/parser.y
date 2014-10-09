@@ -20,6 +20,7 @@
   }
 
   PajeEventDefinition **defsv;
+  int defsv_current_size;
   PajeEventDefinition *def;
   PajeFlexReader *flexReader;
 
@@ -112,7 +113,10 @@ declaration: TK_EVENT_DEF_BEGIN event_name event_id TK_BREAK
              }
              fields TK_EVENT_DEF_END TK_BREAK
              {
-               defsv = (PajeEventDefinition**)realloc (defsv, (def->uniqueIdentifier+1)*sizeof(PajeEventDefinition*));
+               if (def->uniqueIdentifier >= defsv_current_size){
+                 defsv_current_size = def->uniqueIdentifier + 1;
+                 defsv = (PajeEventDefinition**)realloc (defsv, (defsv_current_size)*sizeof(PajeEventDefinition*));
+               }
                defsv[def->uniqueIdentifier] = def;
                def = NULL;
              };
