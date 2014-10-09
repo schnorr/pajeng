@@ -26,9 +26,5 @@ ADD_LIBRARY(pjflex_library
   ${BISON_parser_OUTPUTS}
   PajeFlexReader.cc
   )
-ADD_EXECUTABLE(pjflex main.cc)
-SET_PROPERTY(TARGET pjflex PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-TARGET_LINK_LIBRARIES(pjflex pjflex_library)
-TARGET_LINK_LIBRARIES(pjflex paje_library)
 TARGET_LINK_LIBRARIES(pjflex_library ${FLEX_LIBRARIES})
 TARGET_LINK_LIBRARIES(pjflex_library paje_library)
