@@ -28,13 +28,19 @@
 #include "PajeObject.h"
 
 class PajeTraceEvent : public PajeObject {
-public:
-  paje_line *valueLine;
+ private:
+  int line;
   PajeEventDefinition *pajeEventDefinition;
+  std::vector<std::string> fields;
 
 public:
+  PajeTraceEvent ();
+  PajeTraceEvent (int line);
   PajeTraceEvent (PajeEventDefinition *def, paje_line *line);
   PajeEventId pajeEventId (void);
+  void addField (char *field);
+  void clear (void);
+  bool check (paje_line *line);
   std::string valueForField (PajeField field);
   std::string valueForExtraField (std::string fieldName);
   long long getLineNumber (void) const;

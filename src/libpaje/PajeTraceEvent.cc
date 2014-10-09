@@ -16,25 +16,69 @@
 */
 #include "PajeTraceEvent.h"
 
+PajeTraceEvent::PajeTraceEvent ()
+{
+  pajeEventDefinition = NULL;
+  this->line = -1;
+}
+
+PajeTraceEvent::PajeTraceEvent (int line)
+{
+  pajeEventDefinition = NULL;
+  this->line = line;
+}
+
+/*
+ * PajeTraceEvent (PajeEventDefinition *, paje_line *): if this
+ * constructor is used, the method addField shoult not be used, since
+ * the initialization extracts all the information from the paje_line.
+ */
 PajeTraceEvent::PajeTraceEvent (PajeEventDefinition *def, paje_line *line)
 {
-  if (line->word_count != def->fieldCount()){
-    std::stringstream st;
-    st << *line;
-    std::string lreport = st.str();
-    std::cout << *def << std::endl;
-    std::cout << "Line field count: " << line->word_count << std::endl;
-    std::cout << "Definition field count: " << def->fieldCount() << std::endl;
-    std::cout << "Field count does not match definition for line "+lreport << std::endl;
-    exit(1);
+  int i;
+  for (i = 0; i < line->word_count; i++){
+    addField (line->word[i]);
   }
-  valueLine = line;
   pajeEventDefinition = def;
+  this->line = line->lineNumber;
+  this->check (line);
 }
 
 PajeEventId PajeTraceEvent::pajeEventId (void)
 {
   return pajeEventDefinition->pajeEventIdentifier;
+}
+
+void PajeTraceEvent::addField (char *field)
+{
+  fields.push_back (std::string(field));
+}
+
+void PajeTraceEvent::clear (void)
+{
+  pajeEventDefinition = NULL;
+  fields.clear();
+}
+
+bool PajeTraceEvent::check (paje_line *line)
+{
+  if (!pajeEventDefinition) return false;
+  if (fields.size() != pajeEventDefinition->fieldCount()){
+    std::stringstream st;
+    if (line){
+      st << *line;
+    }else{
+      st << this->line;
+    }
+    std::string lreport = st.str();
+    std::cout << *pajeEventDefinition << std::endl;
+    std::cout << "Line field count: " << fields.size() << std::endl;
+    std::cout << "Definition field count: " << pajeEventDefinition->fieldCount() << std::endl;
+    std::cout << "Field count does not match definition for line "+lreport << std::endl;
+    return false;
+  }else{
+    return true;
+  }
 }
 
 std::string PajeTraceEvent::valueForField (PajeField field)
@@ -43,7 +87,7 @@ std::string PajeTraceEvent::valueForField (PajeField field)
   if (index == -1){
     return std::string("");
   }else{
-    return std::string(valueLine->word[index]);
+    return fields.at(index);
   }
 }
 
@@ -53,25 +97,25 @@ std::string PajeTraceEvent::valueForExtraField (std::string fieldName)
   if (index == -1){
     return std::string("");
   }else{
-    return std::string(valueLine->word[index]);
+    return fields.at(index);
   }
 }
 
 long long PajeTraceEvent::getLineNumber (void) const
 {
-  return valueLine->lineNumber;
+  return line;
 }
 
 std::string PajeTraceEvent::description (void) const
 {
   std::stringstream output;
   unsigned int i;
-  output << "(Line: " << valueLine->lineNumber;
-  output << ", Fields: '" << valueLine->word_count;
+  output << "(Line: " << line;
+  output << ", Fields: '" << fields.size();
   output << ", Contents: '";
-  for (i = 0; i < valueLine->word_count; i++){
-    output << std::string(valueLine->word[i]);
-    if (i+1 != valueLine->word_count) output << " ";
+  for (i = 0; i < fields.size(); i++){
+    output << fields.at(i);
+    if (i+1 != fields.size()) output << " ";
   }
   output << "')";
   return output.str();
