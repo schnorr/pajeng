@@ -29,6 +29,7 @@
 \newcommand{\StartContainer}{\PajeField{StartContainer}}
 \newcommand{\Key}{\PajeField{Key}}
 \newcommand{\Color}{\PajeField{Color}}
+\newcommand{\Filename}{\PajeField{Filename}}
 %deprecated
 \newcommand{\Shape}{\PajeField{Shape}}
 \newcommand{\Height}{\PajeField{Height}}
@@ -58,6 +59,7 @@
 \newcommand{\PajeSubVariable}{\PajeEvent{PajeSubVariable}}
 \newcommand{\PajeStartLink}{\PajeEvent{PajeStartLink}}
 \newcommand{\PajeEndLink}{\PajeEvent{PajeEndLink}}
+\newcommand{\PajeTraceFile}{\PajeEvent{PajeTraceFile}}
 
 \setlength{\parskip}{4pt}
 \setlength{\parindent}{0px}
@@ -132,7 +134,7 @@
 \begin{document}
 \begin{onehalfspace}
 {\Huge \Paje~-- trace file format} \\
-{\Large Version {\bf 1.2.5} - February 14th, 2013} \\
+{\Large Version {\bf 1.3} - October 15th, 2014} \\
 \rule{\linewidth}{2pt}
 \end{onehalfspace}
 
@@ -145,12 +147,22 @@ complying with the event definitions, to be used to build
 visualizations according to the type hierarchy. See
 Section~\ref{ChangeLog} for file revisions.
 
-{\bf Current maintainer:} \\
-Lucas M. Schnorr (UFRGS) -- schnorr@inf.ufrgs.br
-
-{\bf Original authors:} \\
-Benhur de Oliveira Stein (UFSM) -- benhur@inf.ufsm.br \\
-Jacques Chassin de Kergommeaux (INPG)
+\begin{description}
+\item[Current maintainer]  \
+  \begin{itemize*}
+  \item Lucas M. Schnorr (UFRGS, Brazil)
+  \end{itemize*}
+\item[Contributors] \
+  \begin{itemize*}
+  \item Benhur de Oliveira Stein (UFSM, Brazil)
+  \item Mathieu Faverge (INRIA Bordeaux, France)
+  \item François Trahay (Telecom SudParis, France)
+  \end{itemize*}
+\item[Previous contributors] \
+  \begin{itemize*}
+  \item Jacques Chassin de Kergommeaux (INPG, France)
+  \end{itemize*}
+\end{description}
 
 \vfill
 {\bf \Large{Contents}}
@@ -713,6 +725,7 @@ in a \Paje trace file.
 \Type          & string or integer & Container type of new container \\
 \Container     & string or integer & Parent of new container \\\hline
 \Alias         & string or integer & Alternative name of new container \\
+\Filename      & string            &  Filename with events of this container \\
 \hline
 \end{tabular}
 
@@ -724,6 +737,7 @@ An invalid use of this event happens on the following cases:
 \item \Type is not a child type of the container type of \Container
 \item \Container instance was not previously created
 \item \Alias instance identifier was already used in a previous container creation
+\item \Filename is provided but file does not exist
 \end{itemize*}
 
 Related type definition \Paje events:
@@ -1150,6 +1164,43 @@ Related type definition \Paje events:
 \item \PajeDefineLinkType (Section~\ref{s.PajeDefineLinkType})
 \end{itemize*}
 
+\subsection{Multiple traces}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeEndLink
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeTraceFile}
+\label{s.PajeTraceFile}
+The \PajeTraceFile event indicates that another trace file contains
+events that describe the behavior of the given container. This event
+must contain the fields \Container, \Type and \Filename. See
+Section~\ref{s.ParallelReading} for details on how to organize the
+events in multiple paje trace files.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeTraceFile}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Container     & string & Container  \\
+\Type          & string & Type of the given container \\
+\Filename      & string & Filename with events of this container \\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Container instance was not previously created
+\item \Type is not a child type of the container type of \Container
+\item \Filename does not exist
+\end{itemize*}
+
+Related type definition \Paje events:
+\begin{itemize*}
+\item \PajeDefineContainerType (Section~\ref{s.PajeDefineContainerType})
+\item \PajeCreateContainer (Section~\ref{s.PajeCreateContainer})
+\end{itemize*}
+
+
 \section{Technical details}
 \label{s.Technical}
 
@@ -1224,6 +1275,50 @@ as an \Alias or a \Name of a type or entity.
 %% visualizable entities of type ``Thread State'', by means of events
 %% that represent changes in state, contained either in ``Thread 1'' or
 %% ``Thread 2''.
+
+
+\subsection{Parallel reading of \Paje trace files}
+\label{s.ParallelReading}
+
+A trace of a single parallel application execution can be organized in
+multiple files. The choice of how many files are used to register a
+single application execution is up to the tracer that is registering
+the events. This section gives the guidelines on how this arbitrary
+number of trace files should be internally organized.  The general
+idea is that each trace file can be self-sufficient, containing the
+header information it needs and all the type hierarchy definitions it
+requires to the events be parsed and simulated correctly by the reader
+responsible for a trace file.
+
+\begin{description}
+\item[Multiple trace files support.] There are two ways to do it:
+  first, using the \PajeTraceFile event and second, using the
+  \Filename field of the \PajeCreateContainer. In the former, the main
+  trace file has multiple \PajeTraceFile events with information on
+  the \Filename stating on which file the events of a given container
+  are registered. In this case, the container should be created prior
+  to the appearance of the respective \PajeTraceFile. In the later,
+  the \Filename field of the \PajeCreateContainer event contains the
+  file name where the behavior of the given container is registered.
+
+\item[Header appearance.] The event definitions (all lines starting
+  with percentage) can appear in all the multiple trace files
+  belonging to the same execution. The rule is that if they are
+  present in a given trace file, the events in the second section
+  should obey the event definitions of the header. If they are
+  missing, the events of a given trace file should obey the header
+  definitions of the trace file that imported it (either with a
+  \PajeTraceFile or a \PajeCreateContainer event).
+
+\item[Type definitions.] Each trace file belonging to the same trace
+  set should have all the type definitions it requires to be correctly
+  parsed and simulated. For example, if a given type appears only in a
+  container, it could be defined only in the corresponding trace file
+  that has the behavior of such container. If it is a ``global'' type,
+  it should be defined only once in the main trace file that import
+  all other files of the trace set.
+
+\end{description}
 
 \section{Reference \Paje header}
 \label{s.PajeHeaders}
@@ -1343,11 +1438,23 @@ just by removing all lines containing the word ``Alias''.
 %       Type string
 %       Value string
 %EndEventDef
+%EventDef PajeTraceFile 18
+%       Container string
+%       Type string
+%       Filename string
+%EndEventDef
 \end{lstlisting}
 \end{multicols}
 
 \section{ChangeLog}
 \label{ChangeLog}
+
+\subsection*{Version 1.3 (October 15th, 2014)}
+\begin{itemize*}
+\item New event \PajeTraceFile to support parallel reading (see Section~\ref{s.PajeTraceFile})
+\item New optional field \Filename added to the \PajeCreateContainer event definition (Section~\ref{s.PajeCreateContainer})
+\item Section~\ref{s.ParallelReading} added with information on how the traces should be organized for parallel reading
+\end{itemize*}
 
 \subsection*{Version 1.2.5 (February 14th, 2013)}
 \begin{itemize*}
