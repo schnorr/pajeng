@@ -1,0 +1,1407 @@
+\documentclass[12pt]{article}
+\usepackage{epsfig}
+\usepackage{xspace}
+\usepackage{times}
+\usepackage[rubberchapters,clearempty,pagestyles]{titlesec}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{titletoc}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage[margin=2cm,left=3cm,top=3cm]{geometry}
+
+\newcommand{\Paje}{\textsc{Paj\'e}\xspace}
+\newcommand{\PajeField}[1]{\emph{#1}\xspace}
+\newcommand{\Time}{\PajeField{Time}}
+\newcommand{\Name}{\PajeField{Name}}
+\newcommand{\Type}{\PajeField{Type}}
+\newcommand{\Container}{\PajeField{Container}}
+\newcommand{\StartContainerType}{\PajeField{StartContainerType}}
+\newcommand{\EndContainerType}{\PajeField{EndContainerType}}
+\newcommand{\Value}{\PajeField{Value}}
+\newcommand{\Alias}{\PajeField{Alias}}
+\newcommand{\EndContainer}{\PajeField{EndContainer}}
+\newcommand{\StartContainer}{\PajeField{StartContainer}}
+\newcommand{\Key}{\PajeField{Key}}
+\newcommand{\Color}{\PajeField{Color}}
+%deprecated
+\newcommand{\Shape}{\PajeField{Shape}}
+\newcommand{\Height}{\PajeField{Height}}
+\newcommand{\Width}{\PajeField{Width}}
+\newcommand{\SourceContainer}{\PajeField{SourceContainer}}
+\newcommand{\DestContainer}{\PajeField{DestContainer}}
+\newcommand{\ContainerType}{\PajeField{ContainerType}}
+\newcommand{\SourceContainerType}{\PajeField{SourceContainerType}}
+\newcommand{\DestContainerType}{\PajeField{DestContainerType}}
+
+\newcommand{\PajeEvent}[1]{\textsf{#1}\xspace}
+\newcommand{\PajeDefineContainerType}{\PajeEvent{PajeDefineContainerType}}
+\newcommand{\PajeDefineStateType}{\PajeEvent{PajeDefineStateType}}
+\newcommand{\PajeDefineEventType}{\PajeEvent{PajeDefineEventType}}
+\newcommand{\PajeDefineVariableType}{\PajeEvent{PajeDefineVariableType}}
+\newcommand{\PajeDefineLinkType}{\PajeEvent{PajeDefineLinkType}}
+\newcommand{\PajeDefineEntityValue}{\PajeEvent{PajeDefineEntityValue}}
+\newcommand{\PajeCreateContainer}{\PajeEvent{PajeCreateContainer}}
+\newcommand{\PajeDestroyContainer}{\PajeEvent{PajeDestroyContainer}}
+\newcommand{\PajeSetState}{\PajeEvent{PajeSetState}}
+\newcommand{\PajePushState}{\PajeEvent{PajePushState}}
+\newcommand{\PajePopState}{\PajeEvent{PajePopState}}
+\newcommand{\PajeResetState}{\PajeEvent{PajeResetState}}
+\newcommand{\PajeNewEvent}{\PajeEvent{PajeNewEvent}}
+\newcommand{\PajeSetVariable}{\PajeEvent{PajeSetVariable}}
+\newcommand{\PajeAddVariable}{\PajeEvent{PajeAddVariable}}
+\newcommand{\PajeSubVariable}{\PajeEvent{PajeSubVariable}}
+\newcommand{\PajeStartLink}{\PajeEvent{PajeStartLink}}
+\newcommand{\PajeEndLink}{\PajeEvent{PajeEndLink}}
+
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0px}
+
+%limit table of contents to subsections
+\setcounter{tocdepth}{2}
+
+
+% itemize with minimal spacing
+\newenvironment{itemize*}%
+               {\vspace{-1em}
+                 \begin{itemize}%
+                   \setlength{\itemsep}{0pt}%
+                   \setlength{\parskip}{0pt}}%
+               {\end{itemize}}
+\newenvironment{description*}%
+               {\vspace{-1em}
+                 \begin{description}%
+                   \setlength{\itemsep}{0pt}%
+                   \setlength{\parskip}{0pt}}%
+               {\end{description}}
+
+% page style (for footer and header)
+\newpagestyle{paje}[\small\sffamily]
+  {\headrule
+    \sethead[\textsl{}][][]%
+            {\textsl{\footnotesize \Paje \hfill Trace File Format }}{}{}
+    \setfoot[][\usepage][]{}{-- \usepage~--}{}
+  }
+
+
+%Change the name of table of contents
+\renewcommand{\contentsname}{\vspace{-2cm}}
+
+%\contentsmargin{0px}
+%\dottedcontents{section}[1em]{\bf}{1em}{1pc}
+%\dottedcontents{subsection}[4em]{}{3.2em}{1pc}
+%\dottedcontents{subsubsection}[5em]{}{3.2em}{1pc}
+
+\titlecontents{section}
+              [15pt]
+              {\bf}
+              {\contentslabel{15pt}}
+              {}
+              {\hfill\contentspage}
+              [\vspace{-3pt}]
+\titlecontents{subsection}
+              [35pt]
+              {}
+              {\contentslabel{30pt}}
+              {}
+              {\titlerule*[3px]{.}\contentspage}
+              [\vspace{-3pt}]
+
+% section formatting
+\titleformat{\section}[block]
+{\normalfont\bfseries\sffamily}
+{\Large{\thesection}.}{.2em}{\large\bfseries}
+
+% subsection formatting
+\titleformat{\subsection}[block]
+{\normalfont\bfseries\sffamily}
+{\thesubsection.}{.5em}{\bfseries}
+
+% subsubsection formatting
+\titleformat{\subsubsection}[block]
+{\normalfont\bfseries\sffamily}
+{\thesubsubsection}{.5em}{\normalsize\bfseries\ding{242}~}
+
+\include{definitions} % definitions
+
+\begin{document}
+\begin{onehalfspace}
+{\Huge \Paje~-- trace file format} \\
+{\Large Version {\bf 1.2.5} - February 14th, 2013} \\
+\rule{\linewidth}{2pt}
+\end{onehalfspace}
+
+This report describes the \Paje trace file format, a self-defined,
+textual, and generic format to described the behavior of computer
+programs that are executed in parallel or distributed systems. A file
+in this format has three sections: event
+definition, type hierarchy declaration and timestamped events,
+complying with the event definitions, to be used to build
+visualizations according to the type hierarchy. See
+Section~\ref{ChangeLog} for file revisions.
+
+{\bf Current maintainer:} \\
+Lucas M. Schnorr (UFRGS) -- schnorr@inf.ufrgs.br
+
+{\bf Original authors:} \\
+Benhur de Oliveira Stein (UFSM) -- benhur@inf.ufsm.br \\
+Jacques Chassin de Kergommeaux (INPG)
+
+\vfill
+{\bf \Large{Contents}}
+\tableofcontents
+\vfill
+
+%{\bf ChangeLog} (see details in Section~\ref{ChangeLog}) \\
+More information about \Paje at \url{http://paje.sf.net}.
+
+\thispagestyle{empty}
+\newpage
+\pagestyle{paje}
+
+\section{Introduction and overview}
+\label{s.Introduction}
+
+This report describes the \Paje trace file format, a self-defined,
+textual, and generic format to described the behavior of computer
+programs that are executed in parallel or distributed systems. A file
+in this format includes three different kind of information: event
+definition, type hierarchy definition and a set of recorded events,
+complying with the format definition, to be used to build
+visualizations according to the type hierarchy.
+
+Before going into the details of the file format itself, it is
+necessary to understand the five concepts of objects that exist in the
+\Paje format. They are:
+
+\begin{description}
+\item [Container.] A container object can be any monitored entity, be
+  it hardware or software. It represents anything which behavior can
+  be described along time. A container can be a processor, an network
+  link, a process, or a thread. {\bf Note:} Container is the only
+  \Paje object that can hold other objects, including other
+  containers. It is the main component to define the {\bf type
+    hierarchy} necessary to \Paje trace files.  See
+  Section~\ref{s.PajeDefineContainerType} to define specific container
+  types.
+
+\item [State.] A state is anything that has a beginning and ending
+  timestamp. It is always associated to a container, and can be used
+  to describe periods of time where a given container stays at the
+  same state.  See Section~\ref{s.PajeDefineStateType} to define
+  specific state types.
+
+\item [Event.] An event is anything remarkable enough to be uniquely
+  identified in a trace file, having only one timestamp (when it
+  happened). It is always associated to a container.  See
+  Section~\ref{s.PajeDefineEventType} to define specific event types.
+
+\item [Variable.] A variable object represents the evolution of the
+  value of a variable along time. It is always associated to a
+  container and can be used to represent the numeric evolution of a
+  variable along time. See Section~\ref{s.PajeDefineVariableType} to
+  define specific variable types.
+
+\item [Link.] A link is used to represent a directed relation between
+  two containers, having a beginning and ending timestamps (which
+  represent the start and end of the relation). It is always
+  associated to a container. It can be used to represent
+  point-to-point or collective communications between processes.  See
+  Section~\ref{s.PajeDefineLinkType} to define specific link types.
+\end{description}
+
+These five concepts of objects in the \Paje data format must be
+organized as a {\bf type hierarchy} in a \Paje trace file. The
+\emph{containers} types are the nodes of the tree, while the other
+four types (state, event, variable, and link) are the leaves of the
+hierarchy. This hierarchy is specific to each trace file, although one
+can use always the same type hierarchy for traces that are of the same
+scenario with the same monitored objects. All MPI applications, for
+example, might share the same type hierarchy. The type hierarchy
+definition is often written in the beginning of a \Paje trace file, by
+defining the specific types and the child/parent relation among
+them. The Section~\ref{s.PajeEvents} details all the \Paje events that
+can be used to define types.
+
+After the type hierarchy definition, there is the list of timestamped
+events that together describe the behavior of the monitored entities.
+Section~\ref{s.PajeEvents} details all the \Paje events that can be
+used in this point to describe behavior.
+
+The text is organized as follows. Section~\ref{s.Specification}
+presents the \Paje trace file format
+specification. Section~\ref{s.PajeEvents} presents all the \Paje
+events: those used to declare new types and those to describe the
+behavior of monitored entities along time. Section~\ref{s.Technical}
+presents technical details about the \Paje file format, such as the
+notion of time, and use of aliases to reduce trace size.
+Section~\ref{s.PajeHeaders} lists the reference \Paje header that can
+be copied into your trace file. Section~\ref{ChangeLog} presents the
+change log of this file.
+
+\section{\Paje trace file format specification}
+\label{s.Specification}
+
+A trace file is composed of events.  An event can be seen as a table
+composed of named fields, as shown in figure~\ref{f:event:table}.  The
+first event in the figure can represent the sending of a message
+containing 320 bytes by process 5 to process 3, 3.233222
+seconds after the process started executing.  The second event shows
+that process 5 unblocked at time 5.123002, and that this happened
+while executing line 98 of file sync.c. 
+
+\begin{figure}[!htb]
+\begin{tabularx}{\textwidth}{XX}
+\begin{tabular}{|>{\bf}rll|}
+\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Field Value} \\\hline
+EventName     & string    & SendMessage \\
+Time          & timestamp & 3.233222    \\
+ProcessId     & integer   & 5           \\
+Receiver      & integer   & 3           \\
+Size          & integer   & 320         \\
+\hline
+\end{tabular}
+&
+\begin{tabular}{|>{\bf}rll|}
+\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Field Value} \\\hline
+EventName     & string    & UnblockProcess \\
+Time          & timestamp & 5.123002    \\
+ProcessId     & integer   & 5           \\
+FileName      & string    & sync.c      \\
+LineNumber    & integer   & 98          \\
+\hline
+\end{tabular}
+\end{tabularx}
+\caption{Examples of events}
+\label{f:event:table}
+\end{figure}
+
+Each event has some fields, each of them composed of a name, a type
+and a value. Generally, there are lots of similar events in a trace
+file (lots of ``SendMessage'' events, all with the same fields); a
+typical trace file contains thousands of events of tens of different
+types.  Usually, events of the same type have the same fields.  It is
+therefore wise, in order to reduce the trace file size, not to put the
+information that is common to many events in each of those events.
+The most common solution is to put only the type of each event and the
+values of its fields in the trace file. Information on what event
+types exist and the fields that constitute each of these event types
+being kept elsewhere.  In some trace file formats, this information is
+hardcoded in the trace generator and trace reader, making the trace
+structure hard to change in order to incorporate new types of events,
+new data in existing events or to remove unused or unknown data from
+those events.
+
+A \Paje trace file is self defined, meaning that the event definition
+information is put inside the trace file itself, much like the SDDF
+file format used by the Pablo visualization tool\footnote{See ``The
+  Pablo Self-Defining Data Format'', by Ruth A. Aydt (May 1994)}.  The
+file is constituted of two parts: the definition of the events at the
+beginning of the file followed by the events themselves.  The
+definition of events contains the name of each event type and the
+names and types of each field.  The second part of the trace file
+contains the events, with the values associated to each field, in the
+same order as in the definition.  The correspondence of an event with
+its definition is made by means of a number, that must be unique for
+each event description; this number appears in an event definition and
+at the beginning of each event contained in the trace file.
+
+\subsubsection*{First Part: Event Definition}
+
+The event definition part of a \Paje trace file follows the following format:
+
+\begin{itemize*}
+\item All the lines start with a `\%' character.
+\item Each event definition starts with a \%EventDef line and
+  terminates with a \%EndEventDef line.
+\item The \%EventDef line contains the name and the unique number of
+  an event type.  The number (an integer) will be used to identify the
+  event in the second part of the trace file. The choice of this
+  number is left to the user. The numbers given in event definitions
+  are thus \textbf{arbitrary}. The name of the event will be put in a
+  field called \PajeField{PajeEventName}. There cannot be another
+  field called so. The name is used to identify the type of an event.
+\item the fields of an event are defined between the \%EventDef and
+  the \%EndEventDef lines, one field per line, with the name
+  of the field followed by its type (see below for details on its types).
+\end{itemize*}
+
+The type of a field can be one of the following:
+
+\begin{description*}
+  \item [date:] for fields that represent dates. It's a double
+    precision floating-point number, usually meaning seconds since
+    program start (See Section~\ref{s.NotionOfTime} for a discussion
+    about the Notion of Time in \Paje)
+  \item [int:] for fields containing integer numeric values;
+  \item [double:] for fields containing floating-point values;
+  \item [hex:] for fields that represent addresses, in hexadecimal;
+  \item [string:] for strings of characters.
+  \item [color:] for fields that represent colors. A color is a sequence of
+                 three floating-point numbers between 0 and 1, inside double 
+                 quotes (").
+                 The three numbers are the values of red, green and blue
+                 components.
+\end{description*}
+
+The structure of the two events of figure~\ref{f:event:table} are
+shown below:
+
+\begin{verbatim}
+%EventDef SendMessage 21
+%   Time       date
+%   ProcessId  int
+%   Receiver   int
+%   Size       int
+%EndEventDef
+\end{verbatim}
+
+\begin{verbatim}
+%EventDef UnblockProcess 17
+%   Time       date
+%   ProcessId  int
+%   LineNumber int
+%   FileName   string
+%EndEventDef
+\end{verbatim}
+
+\subsubsection*{Second Part: Events}
+
+The second part of the trace file contains one event per line, whose
+fields are separated by spaces or tabs, the first field being the
+number that identifies the event type, followed by the other fields,
+in the same order that they appear in the definition of the event.
+Fields of type string must be inside double quotes (") if they contain
+space or tab characters, or if they are empty.
+
+For example, the two events of figure~\ref{f:event:table} are shown
+below:
+
+\begin{verbatim}
+21 3.233222 5 3 320
+17 5.123002 5 98 sync.c
+\end{verbatim}
+
+In \Paje, event numbers are used only as a means to find the
+definition of an event; they are discarded as soon as an event is
+read.  After being read, events are identified by their names.  Two
+different definitions can have the same name (and different numbers),
+making it possible to have, in the same trace file, two events of the
+same type containing different fields.  We may use this feature to
+optionally include the source file identification in some events. The
+``UnblockProcess'' event in the examples above could also be defined
+without the fields FileName and LineNumber, for use in places where
+this information is not known or not necessary.
+
+\section{\Paje events}
+\label{s.PajeEvents}
+
+\Paje includes a simulator module which builds the hierarchical data
+structure from the elementary event records of the trace files.  \Paje
+has no predefined containers or entities.  Before an entity can be
+created and visualized, a hierarchy of container and entity types must
+be defined, and containers must be instantiated. In this section all
+the \Paje events to define and create entities are detailed.
+
+\subsection{Types}
+\label{s.Types}
+
+New types can be defined at any moment of a \Paje trace file. The
+events used to define these types share the fact that they have no
+timestamp, and they are taken into account for the events that follow
+the definition. In other words, a \Paje trace file is invalid if a
+type is used before its definition.
+
+This Section describes how new types are defined in a \Paje trace file
+based on the five objects described in Section~\ref{s.Introduction}
+(containers, states, events, links and variables). For each 
+
+{\bf Note:} a figure is presented for each type definition, and they
+show the obligatory and optional fields. Obligatory fields are
+presented first. Optional fields can be safely omitted from a \Paje
+trace file, without prejudice to the type definition.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeDefineContainerType
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeDefineContainerType}
+\label{s.PajeDefineContainerType}
+The \PajeDefineContainerType event is used to define container
+types. It must contain the fields \Name and \Type.  It defines a new
+{\bf container} type called \Name, contained in a previously defined
+container type of \Type (or the number zero -- {\bf 0} -- indicating
+the root container type).
+
+Optionally this event can contain a field \Alias with an
+alias to identify this type. See Section~\ref{s.Alias} to correctly
+use alias in a \Paje trace file.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeDefineContainerType}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Name          & string or integer & Name of new container type\\
+\Type          & string or integer & Parent container type\\\hline
+\Alias         & string or integer & Alternative name of new container type\\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Name was already used in a previous definition
+\item \Type is not a container type, or was not previously defined
+\item \Alias was already used in a previous definition
+\end{itemize*}
+
+Related timestamped \Paje events:
+\begin{itemize*}
+\item \PajeCreateContainer (Section~\ref{s.PajeCreateContainer})
+\item \PajeDestroyContainer (Section~\ref{s.PajeDestroyContainer})
+\end{itemize*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeDefineStateType
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeDefineStateType}
+\label{s.PajeDefineStateType}
+The \PajeDefineStateType event is used to define new state types. It
+must contain the fields \Name and \Type. It defines a new {\bf state}
+entity type called \Name, contained in a previously defined container
+type of \Type.
+
+Optionally this event can contain a field \Alias with an alias to
+identify this type. See Section~\ref{s.Alias} to correctly use alias
+in a \Paje trace file.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeDefineStateType}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Name          & string or integer & Name of the new state type \\
+\Type          & string or integer & Parent container type\\\hline
+\Alias         & string or integer & Alternative name of new state type \\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Name was already used in a previous definition
+\item \Type is not a container type, or was not previously defined
+\item \Alias was already used in a previous definition
+\end{itemize*}
+
+Related timestamped \Paje events:
+\begin{itemize*}
+\item \PajeSetState (Section~\ref{s.PajeSetState})
+\item \PajePushState (Section~\ref{s.PajePushState})
+\item \PajePopState (Section~\ref{s.PajePopState})
+\item \PajeResetState (Section~\ref{s.PajeResetState})
+\end{itemize*}
+
+Related \Paje events:
+\begin{itemize*}
+\item \PajeDefineContainerType (Section~\ref{s.PajeDefineContainerType})
+\item \PajeDefineEntityValue (Section~\ref{s.PajeDefineEntityValue})
+\end{itemize*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeDefineEventType
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeDefineEventType}
+\label{s.PajeDefineEventType}
+The \PajeDefineEventType event is used to define new event types. This
+event must contain the fields \Name and \Type.  It defines a new {\bf
+  event} entity type called \Name, contained in a previously defined
+container type of \Type.
+
+Optionally this event can contain a field \Alias with an alias to
+identify this type. See Section~\ref{s.Alias} to correctly use alias
+in a \Paje trace file.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeDefineEventType}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Name          & string or integer & Name of new event type \\
+\Type          & string or integer & Parent container type\\\hline
+\Alias         & string or integer & Alternative name of new event type \\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Name was already used in a previous definition
+\item \Type is not a container type, or was not previously defined
+\item \Alias was already used in a previous definition
+\end{itemize*}
+
+Related timestamped \Paje events:
+\begin{itemize*}
+\item \PajeNewEvent (Section~\ref{s.PajeNewEvent})
+\end{itemize*}
+
+Related \Paje events:
+\begin{itemize*}
+\item \PajeDefineContainerType (Section~\ref{s.PajeDefineContainerType})
+\item \PajeDefineEntityValue (Section~\ref{s.PajeDefineEntityValue})
+\end{itemize*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeDefineVariableType
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeDefineVariableType}
+\label{s.PajeDefineVariableType}
+The \PajeDefineVariableType event is used to define new variable
+types. This event must contain the fields \Name, \Type, and \Color.
+It defines a new {\bf variable} entity type called \Name, contained in a
+previously defined container type of \Type, with the color \Color.
+
+Optionally this event can contain a field \Alias with an alias to
+identify this type. See Section~\ref{s.Alias} to correctly use alias
+in a \Paje trace file.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeDefineVariableType}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Name          & string or integer & Name of new variable type \\
+\Type          & string or integer & Parent container type\\
+\Color         & color             & The color of the new variable\\\hline
+\Alias         & string or integer & Alternative name of new variable type \\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Name was already used in a previous definition
+\item \Type is not a container type, or was not previously defined
+\item \Alias was already used in a previous definition
+\end{itemize*}
+
+Related timestamped \Paje events:
+\begin{itemize*}
+\item \PajeSetVariable (Section~\ref{s.PajeSetVariable})
+\item \PajeAddVariable (Section~\ref{s.PajeAddVariable})
+\item \PajeSubVariable (Section~\ref{s.PajeSubVariable})
+\end{itemize*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeDefineLinkType
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeDefineLinkType}
+\label{s.PajeDefineLinkType}
+The \PajeDefineLinkType event is used to define new variable
+types. This event must contain the fields \Name and \Type,
+\StartContainerType, and \EndContainerType. It defines a new {\bf
+  link} entity type called \Name, contained in a previously defined
+container type of \Type, that connects the previously defined
+container type \StartContainerType the previously defined container
+type \EndContainerType. Additionally, the container type provided in
+\Type must be a common ancestral of containers types provided in
+\StartContainerType and \EndContainerType.
+
+Optionally this event can contain a field \Alias with an alias to
+identify this type. See Section~\ref{s.Alias} to correctly use alias
+in a \Paje trace file.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeDefineLinkType}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Name                & string or integer & Name of new link type \\
+\Type                & string or integer & Common ancestral container type \\
+\StartContainerType  & string or integer & Container type of the starting container\\
+\EndContainerType    & string or integer & Container type of the ending container\\\hline
+\Alias               & string or integer & Alternative name of new link type \\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Name was already used in a previous definition
+\item \Type is not a container type, or was not previously defined
+\item \Type is not a common ancestral of \StartContainerType and \EndContainerType
+\item \StartContainerType is not a container type, or was not previously defined
+\item \EndContainerType is not a container type, or was not previously defined
+\item \Alias was already used in a previous definition
+\end{itemize*}
+
+Related timestamped \Paje events:
+\begin{itemize*}
+\item \PajeStartLink (Section~\ref{s.PajeStartLink})
+\item \PajeEndLink (Section~\ref{s.PajeEndLink})
+\end{itemize*}
+
+Related \Paje events:
+\begin{itemize*}
+\item \PajeDefineContainerType (Section~\ref{s.PajeDefineContainerType})
+\item \PajeDefineEntityValue (Section~\ref{s.PajeDefineEntityValue})
+\end{itemize*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeDefineEntityValue
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeDefineEntityValue}
+\label{s.PajeDefineEntityValue}
+The \PajeDefineEntityValue event is used to define the possible values
+of an entity type. The entity types whose values can be defined are
+the states, links, and events. The advantage of using this event is
+that colors can be hard-coded in the trace, but this event is
+completely optional. It defines a new value called \Name for the
+previously defined type specified in \Type. The color of this new
+value is defined in the \Color field.
+
+Optionally this event can contain a field \Alias with an alias to
+identify this type. See Section~\ref{s.Alias} to correctly use alias
+in a \Paje trace file.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeDefineEntityValue}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Type                & string or integer & A state, event, or link type \\
+\Name                & string or integer & Name of the new value \\
+\Color               & color             & Color of the value \\\hline
+\Alias               & string or integer & Alternative name of the new value \\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Name was already used in a previous definition
+\item \Type is not a state, event, or link type, or was not previously defined
+\item \Color is not a valid color
+\item \Alias was already used in a previous definition
+\end{itemize*}
+
+Related \Paje events:
+\begin{itemize*}
+\item \PajeDefineStateType (Section~\ref{s.PajeDefineStateType})
+\item \PajeDefineEventType (Section~\ref{s.PajeDefineEventType})
+\item \PajeDefineLinkType (Section~\ref{s.PajeDefineLinkType})
+\end{itemize*}
+
+\subsection{Containers}
+Instances of containers are created using the \PajeCreateContainer
+event, and destroyed using the \PajeDestroyContainer event. If
+instances of containers are not destroyed, they must exist until the
+end of the trace file. These two events are detailed below.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeCreateContainer
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeCreateContainer}
+\label{s.PajeCreateContainer}
+The \PajeCreateContainer event creates a container instance in a given
+timestamp. This event must contain the fields \Time, \Name, \Type, and
+\Container. It creates, at timestamp \Time, a container instance
+uniquely identified by \Name of the container type \Type. This new
+container instance is a new child of the previously created container
+instance identified by \Container (the parent container instance).
+
+Optionally this event can contain a field \Alias with an alias to
+identify this type. See Section~\ref{s.Alias} to correctly use alias
+in a \Paje trace file.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeCreateContainer}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Time          & date              & Time of creation of container \\
+\Name          & string or integer & Name of new container \\
+\Type          & string or integer & Container type of new container \\
+\Container     & string or integer & Parent of new container \\\hline
+\Alias         & string or integer & Alternative name of new container \\
+\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Time is not present, or is not a timestamp (see Section~\ref{s.NotionOfTime} for time considerations)
+\item \Name instance identifier was already used in a previous container creation
+\item \Type is not a container type, or was not previously defined
+\item \Type is not a child type of the container type of \Container
+\item \Container instance was not previously created
+\item \Alias instance identifier was already used in a previous container creation
+\end{itemize*}
+
+Related type definition \Paje events:
+\begin{itemize*}
+\item \PajeDefineContainerType (Section~\ref{s.PajeDefineContainerType})
+\end{itemize*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeDestroyContainer
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeDestroyContainer}
+\label{s.PajeDestroyContainer}
+The \PajeDestroyContainer event destroys a container instance in a
+given timestamp. This event must contain the fields \Time, \Name,
+\Type. It destroys, at timestamp \Time, a container instance uniquely
+identified by \Name of the container type \Type.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeDestroyContainer}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\
+\hline
+\Time          & date              & Time of destruction of container \\
+\Name          & string or integer & Name of container \\
+\Type          & string or integer & Type of container \\
+\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Time is not present, or is not a timestamp (see Section~\ref{s.NotionOfTime} for time considerations)
+\item \Name instance identifier does not exist (see Section~\ref{s.Alias} if alias are used in the trace file)
+\item \Type is not a container type, or was not previously defined
+\item \Type is not the container type of the container instance identified by \Name
+\end{itemize*}
+
+Related type definition \Paje events:
+\begin{itemize*}
+\item \PajeDefineContainerType (Section~\ref{s.PajeDefineContainerType})
+\end{itemize*}
+
+\subsection{States}
+The \PajeSetState updates a state of a container instance to a new
+value (and erase any previously saved values). The \PajePushState
+pushes a new value of a state of a container instance, saving the old
+state. The \PajePopState pops the previously saved value of a state of
+a container instance. The \PajeResetState resets the stacked values of a 
+state of a container instance, without pushing a new value to it.
+These three events are detailed below.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeSetState
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeSetState}
+\label{s.PajeSetState}
+The \PajeSetState event is used to update the value of a state of a
+container instance. This event must contain the fields \Time, \Type,
+\Container and \Value. It changes the state type \Type to the value
+\Value of the container identified by \Container at time \Time.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeSetState}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Time          & date              & Time the state changed \\
+\Type          & string or integer & State type \\
+\Container     & string or integer & Container whose state changed \\
+\Value         & string or integer & Value of new state of container \\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Time is not present, or is not a timestamp (see Section~\ref{s.NotionOfTime} for time considerations)
+\item \Type is not a state type, or it was not previously defined
+\item \Type is not a child type of the container type of \Container
+\item \Container instance was not previously created
+\end{itemize*}
+
+Related type definition \Paje events:
+\begin{itemize*}
+\item \PajeDefineStateType (Section~\ref{s.PajeDefineStateType})
+\end{itemize*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajePushState
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajePushState}
+\label{s.PajePushState}
+The \PajePushState event is used to push the value of a state of a
+container instance, saving the existing value of the same state. This
+event must contain the fields \Time, \Type, \Container and \Value. It
+pushes the value \Value of state type \Type in the container
+identified by \Container at time \Time. 
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajePushState}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Time          & date              & Time the state changed \\
+\Type          & string or integer & State type \\
+\Container     & string or integer & Container whose state changed \\
+\Value         & string or integer & Value of new state of container \\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Time is not present, or is not a timestamp (see Section~\ref{s.NotionOfTime} for time considerations)
+\item \Type is not a state type, or it was not previously defined
+\item \Type is not a child type of the container type of \Container
+\item \Container instance was not previously created
+\item There is no existing value to be saved (see note below)
+\end{itemize*}
+
+Related type definition \Paje events:
+\begin{itemize*}
+\item \PajeDefineStateType (Section~\ref{s.PajeDefineStateType})
+\end{itemize*}
+
+{\bf Note:} Considering a state \Type in a \Container, when a
+\PajePushState is read from the trace file, it is expected that a
+previous \PajeSetState was already read for the same state type and
+container.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajePopState
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajePopState}
+\label{s.PajePopState}
+The \PajePopState event is used to pop the previously saved value
+(with \PajePushState) of a state of a container instance. This event
+must contain the fields \Time, \Type, and \Container. It pops the
+state type \Type in the container identified by \Container at time
+\Time.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajePopState}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Time          & date              & Time the state changed \\
+\Type          & string or integer & State type \\
+\Container     & string or integer & Container whose state changed \\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Time is not present, or is not a timestamp (see Section~\ref{s.NotionOfTime} for time considerations)
+\item \Type is not a state type, or it was not previously defined
+\item \Type is not a child type of the container type of \Container
+\item \Container instance was not previously created
+\item There is no saved value to pop (see note below)
+\end{itemize*}
+
+Related type definition \Paje events:
+\begin{itemize*}
+\item \PajeDefineStateType (Section~\ref{s.PajeDefineStateType})
+\end{itemize*}
+
+{\bf Note:} Considering a state \Type in a \Container, when a
+\PajePopState is read from the trace file, it is expected that a
+previous \PajePushState was already read for the same state type and
+container.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeResetState
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeResetState}
+\label{s.PajeResetState}
+The \PajeResetState event is used to clear all previously saved values
+(with \PajePushState or with \PajeSetState) of a state of a container
+instance. This event must contain the fields \Time, \Type, and
+\Container. It clears the state type \Type in the container identified
+by \Container at time \Time. If there was no stacked values for the state,
+this event does nothing.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeResetState}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Time          & date              & Time the state changed \\
+\Type          & string or integer & State type \\
+\Container     & string or integer & Container to be considered \\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Time is not present, or is not a timestamp (see Section~\ref{s.NotionOfTime} for time considerations)
+\item \Type is not a state type, or it was not previously defined
+\item \Type is not a child type of the container type of \Container
+\item \Container instance was not previously created
+\end{itemize*}
+
+Related type definition \Paje events:
+\begin{itemize*}
+\item \PajeDefineStateType (Section~\ref{s.PajeDefineStateType})
+\end{itemize*}
+
+\subsection{Events}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeNewEvent
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeNewEvent}
+\label{s.PajeNewEvent}
+The \PajeNewEvent event instantiates a remarkable event with a unique
+timestamp. This event must contain the fields \Time, \Type,
+\Container, and \Value.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeNewEvent}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Time          & date              & Time the event happened \\
+\Type          & string or integer & Type of event \\
+\Container     & string or integer & Container that produced event \\
+\Value         & string or integer & Value of new event \\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Time is not present, or is not a timestamp (see Section~\ref{s.NotionOfTime} for time considerations)
+\item \Type is not a event type, or it was not previously defined
+\item \Type is not a child type of the container type of \Container
+\item \Container instance was not previously created
+\end{itemize*}
+
+Related type definition \Paje events:
+\begin{itemize*}
+\item \PajeDefineEventType (Section~\ref{s.PajeDefineEventType})
+\end{itemize*}
+
+\subsection{Variables}
+The \PajeSetVariable changes the value of a variable of a container
+instance to a new value. The \PajeAddVariable adds the value provided
+to the current value, while \PajeSubVariable subtracts the value
+provided from the current value.  These three events are detailed
+below.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeSetVariable
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeSetVariable}
+\label{s.PajeSetVariable}
+The \PajeSetVariable event sets the value of a variable type of a
+container instance to a new value. This event must contain the fields
+\Time, \Type, \Container, and \Value.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeSetVariable}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Time          & date              & Time the variable changed value\\
+\Type          & string or integer & Type of variable \\
+\Container     & string or integer & Container whose value changed \\
+\Value         & double            & New value of variable \\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Time is not present, or is not a timestamp (see Section~\ref{s.NotionOfTime} for time considerations)
+\item \Type is not a variable type, or it was not previously defined
+\item \Type is not a child type of the container type of \Container
+\item \Container instance was not previously created
+\item \Value is not a double
+\end{itemize*}
+
+Related type definition \Paje events:
+\begin{itemize*}
+\item \PajeDefineVariableType (Section~\ref{s.PajeDefineVariableType})
+\end{itemize*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeAddVariable
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeAddVariable}
+\label{s.PajeAddVariable}
+The \PajeAddVariable event adds a value to the existing value of a
+variable type of a container instance. This event must contain the
+fields \Time, \Type, \Container, and \Value.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeAddVariable}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Time          & date              & Time the variable changed value\\
+\Type          & string or integer & Type of variable \\
+\Container     & string or integer & Container whose value changed \\
+\Value         & double            & Value to be added to variable \\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Time is not present, or is not a timestamp (see Section~\ref{s.NotionOfTime} for time considerations)
+\item \Type is not a variable type, or it was not previously defined
+\item \Type is not a child type of the container type of \Container
+\item \Container instance was not previously created
+\item \Value is not a double
+\item There is no previous defined value for the variable (see note below)
+\end{itemize*}
+
+Related type definition \Paje events:
+\begin{itemize*}
+\item \PajeDefineVariableType (Section~\ref{s.PajeDefineVariableType})
+\end{itemize*}
+
+{\bf Note:} Considering a variable \Type in a \Container, when a
+\PajeAddVariable is read from the trace file, it is expected that a
+previous \PajeSetVariable was already read for the same variable type
+and container.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeSubVariable
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeSubVariable}
+\label{s.PajeSubVariable}
+The \PajeSubVariable event subtracts a value from the existing value
+of a variable type of a container instance. This event must contain
+the fields \Time, \Type, \Container, and \Value.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeSubVariable}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Time          & date              & Time the variable changed value\\
+\Type          & string or integer & Type of variable \\
+\Container     & string or integer & Container whose value changed \\
+\Value         & double            & Value to be subtracted from variable \\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Time is not present, or is not a timestamp (see Section~\ref{s.NotionOfTime} for time considerations)
+\item \Type is not a variable type, or it was not previously defined
+\item \Type is not a child type of the container type of \Container
+\item \Container instance was not previously created
+\item \Value is not a double
+\item There is no previous defined value for the variable (see note below)
+\end{itemize*}
+
+Related type definition \Paje events:
+\begin{itemize*}
+\item \PajeDefineVariableType (Section~\ref{s.PajeDefineVariableType})
+\end{itemize*}
+
+{\bf Note:} Considering a variable \Type in a \Container, when a
+\PajeSubVariable is read from the trace file, it is expected that a
+previous \PajeSetVariable was already read for the same variable type
+and container.
+
+\subsection{Links}
+A \Paje link is defined by two events: a \PajeStartLink and a
+\PajeEndLink. These two events are matched and considered to form a
+link when their respective \Container, \Value and \Key fields, which
+should always be the same.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeStartLink
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeStartLink}
+\label{s.PajeStartLink}
+The \PajeStartLink event indicates the beginning of a link between two
+containers. This event must contain the fields \Time, \Type,
+\Container, \StartContainer, \Value and \Key.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeStartLink}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Time           & date              & Time the link started\\
+\Type           & string or integer & Type of link \\
+\Container      & string or integer & Container that has the link \\
+\StartContainer & string or integer & Container where link started \\
+\Value          & string or integer & Value of link \\
+\Key            & string or integer & Used to match to link end \\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Time is not present, or is not a timestamp (see Section~\ref{s.NotionOfTime} for time considerations)
+\item \Type is not a link type, or it was not previously defined
+\item \Type is not a child type of the container type of \Container
+\item \Container instance was not previously created
+\item \StartContainer instance was not previously created
+\item \Key was already used by another \PajeStartLink
+\end{itemize*}
+
+Related type definition \Paje events:
+\begin{itemize*}
+\item \PajeDefineLinkType (Section~\ref{s.PajeDefineLinkType})
+\end{itemize*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PajeEndLink
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{PajeEndLink}
+\label{s.PajeEndLink}
+The \PajeEndLink event indicates the ending of a link between two
+containers. This event must contain the fields \Time, \Type,
+\Container, \EndContainer, \Value and \Key.
+
+\begin{tabular}{|LLL|}
+\hline
+\multicolumn{3}{|T|}{\textbf{\PajeEndLink}}\\\hline
+\textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
+\Time          & date              & Time the link started\\
+\Type          & string or integer & Type of link \\
+\Container     & string or integer & Container that has the link \\
+\EndContainer  & string or integer & Container where link ended \\
+\Value         & string or integer & Value of link \\
+\Key           & string or integer & Used to match to link start \\\hline
+\end{tabular}
+
+An invalid use of this event happens on the following cases:
+\begin{itemize*}
+\item \Time is not present, or is not a timestamp (see Section~\ref{s.NotionOfTime} for time considerations)
+\item \Type is not a link type, or it was not previously defined
+\item \Type is not a child type of the container type of \Container
+\item \Container instance was not previously created
+\item \EndContainer instance was not previously created
+\item \Key was already used by another \PajeEndLink
+\end{itemize*}
+
+Related type definition \Paje events:
+\begin{itemize*}
+\item \PajeDefineLinkType (Section~\ref{s.PajeDefineLinkType})
+\end{itemize*}
+
+\section{Technical details}
+\label{s.Technical}
+
+\subsection{Comments and blank lines}
+
+All lines starting by a {\bf \#} are ignored the same way blank lines
+are. They can be anywhere in the trace file. Within the same line,
+everything after a {\bf \#} is also ignored.
+
+\subsection{Notion of time}
+\label{s.NotionOfTime}
+
+The notion of time accepted by \Paje is assumed to be in {\bf seconds}
+since program start. So, the first timestamped event of a trace file
+should have a time that equals to zero (or is close to zero). The
+resolution of timestamps, in micro or nanoseconds, is left to the user
+and handled by \Paje. The resolution is separated from the number of
+seconds by a point.  Here are some examples of timestamps accepted by
+\Paje:
+
+\begin{verbatim}
+0.0
+10.45
+12.345676
+23.542831209
+\end{verbatim}
+
+Although the \Paje file format assumes timestamps in seconds, the user
+is free to use another notion of time, such as logical
+clocks. Analysis tools that read \Paje trace files must be configured
+to accordingly.
+
+
+\subsection{Using aliases}
+\label{s.Alias}
+The field \Alias is an optional argument in \Paje events that can be
+used to decrease the size of trace files. When they are used, all
+references to types (through \Type, \StartContainerType, and
+\EndContainerType fields) and containers (through \Container,
+\StartContainer, and \EndContainer fields) have to be done through the
+value of their \Alias (the value provided when the type was defined or
+the container created), and not through the \Name of types and
+containers.
+
+The use of aliases also enables for the definition of more than one
+container with the same name, by using one different alias for each
+container.
+
+\subsection{String delimitation}
+Fields of type string must be inside double quotes (") if they contain
+space or tab characters, or if they are empty. Single quotes (') are
+not used.
+
+\subsection{Reserved words}
+The only reserved word in the \Paje file format is the 0 (zero). It is
+the root representation of types and entities. It should not be used
+as an \Alias or a \Name of a type or entity.
+
+%% \section{Examples of \Paje trace files}
+%% \label{s.Examples}
+
+%% For example, to visualize the states of threads in a program, one must
+%% first define the container types ``Program'' and ``Thread'' and the
+%% entity type ``Thread State''.  One must also define the possible
+%% values that the entities of type ``Thread State'' can assume (for
+%% example, ``Executing'' and ``Blocked'').  Then, one must instantiate
+%% the program creating a container of type ``Program'' (called ``Thread
+%% Testing Program'', for example).  The threads of the program also have
+%% to be instantiated; they are containers of type ``Thread'', called for
+%% example ``Thread 1'' and ``Thread 2'', and contained in container
+%% ``Thread Testing Program''.  Only then one is able to create
+%% visualizable entities of type ``Thread State'', by means of events
+%% that represent changes in state, contained either in ``Thread 1'' or
+%% ``Thread 2''.
+
+\section{Reference \Paje header}
+\label{s.PajeHeaders}
+
+This is the reference of \Paje header, with the \Alias field. Since
+the \Alias field is optional, you can obtain a \Paje header without it
+just by removing all lines containing the word ``Alias''.
+
+\begin{multicols}{2}
+\begin{lstlisting}[basicstyle=\footnotesize,label=header2]
+%EventDef PajeDefineContainerType 0
+%       Alias string
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineVariableType 1
+%       Alias string
+%       Type string
+%       Name string
+%       Color color
+%EndEventDef
+%EventDef PajeDefineStateType 2
+%       Alias string
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineEventType 3
+%       Alias string
+%       Type string
+%       Name string
+%       Color color
+%EndEventDef
+%EventDef PajeDefineLinkType 4
+%       Alias string
+%       Type string
+%       StartContainerType string
+%       EndContainerType string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineEntityValue 5
+%       Alias string
+%       Type string
+%       Name string
+%       Color color
+%EndEventDef
+%EventDef PajeCreateContainer 6
+%       Time date
+%       Alias string
+%       Container string
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeDestroyContainer 7
+%       Time date
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeSetVariable 8
+%       Time date
+%       Container string
+%       Type string
+%       Value double
+%EndEventDef
+%EventDef PajeAddVariable 9
+%       Time date
+%       Container string
+%       Type string
+%       Value double
+%EndEventDef
+%EventDef PajeSubVariable 10
+%       Time date
+%       Container string
+%       Type string
+%       Value double
+%EndEventDef
+%EventDef PajeSetState 11
+%       Time date
+%       Container string
+%       Type string
+%       Value string
+%EndEventDef
+%EventDef PajePushState 12
+%       Time date
+%       Container string
+%       Type string
+%       Value string
+%EndEventDef
+%EventDef PajePopState 13
+%       Time date
+%       Container string
+%       Type string
+%EndEventDef
+%EventDef PajeResetState 14
+%       Time date
+%       Container string
+%       Type string
+%EndEventDef
+%EventDef PajeStartLink 15
+%       Time date
+%       Container string
+%       Type string
+%       StartContainer string
+%       Value string
+%       Key string
+%EndEventDef
+%EventDef PajeEndLink 16
+%       Time date
+%       Container string
+%       Type string
+%       EndContainer string
+%       Value string
+%       Key string
+%EndEventDef
+%EventDef PajeNewEvent 17
+%       Time date
+%       Container string
+%       Type string
+%       Value string
+%EndEventDef
+\end{lstlisting}
+\end{multicols}
+
+\section{ChangeLog}
+\label{ChangeLog}
+
+\subsection*{Version 1.2.5 (February 14th, 2013)}
+\begin{itemize*}
+\item Fix text in Section~\ref{s.Specification}
+\item Update e-mail and affiliation of current maintainer
+\end{itemize*}
+
+\subsection*{Version 1.2.4 (December 7th, 2012)}
+\begin{itemize*}
+\item Adding a section to describe the reserved words in \Paje
+\item Change field order in recommended headers (for \PajeSetVariable,
+  \PajeAddVariable, \PajeSubVariable and \PajeCreateContainer)
+\item Removing \Paje header recommendation without \Alias
+\end{itemize*}
+
+\subsection*{Version 1.2.3 (September 12th, 2012)}
+\begin{itemize*}
+\item Fix typographical error in the reference header file with \Alias
+\end{itemize*}
+
+\subsection*{Version 1.2.2 (June 7th, 2012)}
+\begin{itemize*}
+\item New event \PajeResetState added
+\end{itemize*}
+
+\subsection*{Version 1.2.1 (April 30th, 2012)}
+\begin{itemize*}
+\item Description for \PajeDefineEntityValue event added
+\item The \PajeDefineVariableType event has a \Color field, fixed.
+\item Rename deprecated \PajeField{EntityType} field to \Type
+\end{itemize*}
+
+\subsection*{Version 1.2 (March 14th, 2012)}
+\begin{itemize*}
+\item Update to the latest format (as accepted by the \Paje
+  visualization tool)
+  \begin{itemize}
+    \item the field \SourceContainer is deprecated, replaced by \StartContainer
+    \item the field \DestContainer is deprecated, replaced by \EndContainer
+    \item the field \ContainerType is deprecated, replaced by \Type
+    \item the field \SourceContainerType is deprecated, replaced by \StartContainerType
+    \item the field \DestContainerType is deprecated, replaced by \EndContainerType
+    \item the fields \Shape, \Height and \Width (previously deprecated) are removed
+  \end{itemize}
+\end{itemize*}
+
+
+\subsection*{Version 1.1 (February 24th, 2010)}
+\begin{itemize*}
+\item No longer accept interchangeable \Name and \Alias reference for types and containers
+\end{itemize*}
+
+\subsection*{Version 1.0 (March 22nd, 2003)}
+\begin{itemize*}
+\item Original proposal of the \Paje file format
+\end{itemize*}
+\end{document}

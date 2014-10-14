@@ -1,0 +1,75 @@
+
+\usepackage{amsmath}
+\usepackage{pifont} % use of dingbats
+\usepackage{array} % extension to the tabular env.
+\usepackage{color} % for adding colors to things
+\usepackage{colortbl} % for adding colors to tables
+
+\newenvironment{captiontext}{\begin{quote} \footnotesize}{\end{quote}}
+\newcommand{\ath}{\textsc{Atha\-pas\-can}\xspace}
+\newcommand{\comment}[1]{}
+\newlength{\figurewidth}\setlength{\figurewidth}{\textwidth}
+%\addtolength{\figurewidth}{-\fboxsep}
+%\addtolength{\figurewidth}{-\fboxsep}
+\newsavebox{\figurebox}
+\newcommand{\makefigure}[4]{%
+   \begin{figure}[bt]\centering%
+   \sbox{\figurebox}{#2}%
+   \ifdim \wd\figurebox >\figurewidth%
+      \resizebox{\figurewidth}{!}{\usebox{\figurebox}}%
+   \else%
+      \makebox[\figurewidth]{\usebox{\figurebox}}%
+   \fi%
+\vspace*{-3mm}
+   \caption[#3]{\parbox[t]{11cm}{#3\newline\raggedright\protect\scriptsize #4}}%
+\vspace*{2mm}
+   \label{#1}%
+   \end{figure}%
+}
+%% Tables
+%
+% Usage:
+% \maketable{label}{figure command}{main caption}{secondary caption}
+%
+% there is a new column type for titles, T, to be used in \multicolumns,
+% to put titles in reverse color, bold, sans serif, left aligned.
+% there are also types R, L and C; they are like r, l, c but sans serif
+%
+\newlength{\tablewidth}\setlength{\tablewidth}{\textwidth}
+\newcommand{\maketable}[4]{%
+   \begin{table}[bt]\centering%
+   \caption[#3]{#3\newline\footnotesize #4}\label{#1}%
+   \sbox{\figurebox}{#2}%
+   \ifdim \wd\figurebox >\tablewidth
+      \resizebox{\tablewidth}{!}{\usebox{\figurebox}}%
+   \else%
+      \usebox{\figurebox}%
+   \fi%
+   \end{table}%
+}
+\newcolumntype{T}{>{\sffamily\bfseries\color{white}\columncolor[gray]{.2}}l}
+\newcolumntype{R}{>{\sffamily}r}
+\newcolumntype{L}{>{\sffamily}l}
+\newcolumntype{C}{>{\sffamily}c}
+
+\newcommand{\codefigurestart}{
+  \begin{figure}[hbt]
+    \begin{tabular}{|l|}
+      \hline
+      \begin{minipage}{\codewidth}
+        \medskip\small
+}
+
+\newcommand{\codefigureend}[3]{
+        \medskip
+      \end{minipage}
+      \\\hline
+    \end{tabular}
+%    \caption[#2]{#2\newline\footnotesize #3}%
+    \caption[#2]{\parbox[t]{11cm}{#2\newline\raggedright\protect\scriptsize #3}}%
+    \label{#1}%
+  \end{figure}
+}
+\newlength{\codewidth}\setlength{\codewidth}{\figurewidth}
+\addtolength{\codewidth}{-\fboxsep}
+\addtolength{\codewidth}{-\fboxsep}

@@ -23,3 +23,5 @@ foreach (_INPUT pj_validate.1.txt pj_dump.1.txt)
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${_OUTPUT} DESTINATION ${CMAKE_INSTALL_PREFIX}/man/man1)
 
 endforeach(_INPUT)
+
+add_subdirectory (${CMAKE_HOME_DIRECTORY}/doc/lang-paje/)
