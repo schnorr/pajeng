@@ -237,8 +237,11 @@ scenario with the same monitored objects. All MPI applications, for
 example, might share the same type hierarchy. The type hierarchy
 definition is often written in the beginning of a \Paje trace file, by
 defining the specific types and the child/parent relation among
-them. The Section~\ref{s.PajeEvents} details all the \Paje events that
-can be used to define types.
+them. The Section~\ref{s.ParallelReading} presents the details on how
+to define the type hierarchy in the presence of multiple trace files
+that belong to the same program execution.  The
+Section~\ref{s.PajeEvents} details all the \Paje events that can be
+used to define types.
 
 After the type hierarchy definition, there is the list of timestamped
 events that together describe the behavior of the monitored entities.
