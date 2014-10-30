@@ -21,10 +21,25 @@ BISON_TARGET(parser parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.cc VERBOSE parse
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 INCLUDE_DIRECTORIES(${CMAKE_HOME_DIRECTORY}/src/libpaje)
 INCLUDE_DIRECTORIES(${CMAKE_HOME_DIRECTORY}/src/fb/)
-ADD_LIBRARY(pjflex_library
-  ${FLEX_scanner_OUTPUTS}
-  ${BISON_parser_OUTPUTS}
-  PajeFlexReader.cc
-  )
-TARGET_LINK_LIBRARIES(pjflex_library ${FLEX_LIBRARIES})
-TARGET_LINK_LIBRARIES(pjflex_library paje_library)
+
+IF(STATIC_LINKING)
+  #static
+  ADD_LIBRARY(pjflex_library_static STATIC
+    ${FLEX_scanner_OUTPUTS}
+    ${BISON_parser_OUTPUTS}
+    PajeFlexReader.cc
+    )
+  SET_TARGET_PROPERTIES(pjflex_library_static PROPERTIES OUTPUT_NAME pjflex)
+  TARGET_LINK_LIBRARIES(pjflex_library_static ${FLEX_LIBRARIES})
+ELSE(STATIC_LINKING)
+  #shared
+  ADD_LIBRARY(pjflex_library SHARED
+    ${FLEX_scanner_OUTPUTS}
+    ${BISON_parser_OUTPUTS}
+    PajeFlexReader.cc
+    )
+  SET_TARGET_PROPERTIES(pjflex_library PROPERTIES OUTPUT_NAME pjflex)
+  TARGET_LINK_LIBRARIES(pjflex_library ${FLEX_LIBRARIES})
+  TARGET_LINK_LIBRARIES(pjflex_library paje_library)
+ENDIF(STATIC_LINKING)
+
