@@ -85,7 +85,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
 
 static struct argp argp = { options, parse_options, args_doc, doc };
 
-void dump (struct arguments *arguments, PajeSimulator *simulator)
+void dump (struct arguments *arguments, PajeComponent *simulator)
 {
   double start = arguments->start;
   double end = arguments->end;
