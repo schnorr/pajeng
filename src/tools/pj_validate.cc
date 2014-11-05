@@ -18,11 +18,7 @@
 #include <string>
 #include <iostream>
 #include <exception>
-#include "PajeFileReader.h"
-#include "PajeFlexReader.h"
-#include "PajeEventDecoder.h"
-#include "PajeSimulator.h"
-#include "PajeException.h"
+#include "PajeUnity.h"
 #include <argp.h>
 
 #define VALIDATE_INPUT_SIZE 2
@@ -91,78 +87,20 @@ int main (int argc, char **argv)
     return 1;
   }
 
-  PajeComponent *reader = NULL;
-  PajeEventDecoder *decoder = NULL;
-  PajeSimulator *simulator = NULL;
+  PajeUnity *unity = new PajeUnity (arguments.flex,
+				    arguments.noStrict,
+				    std::string(arguments.input[0]),
+				      -1,
+				      0);
 
-  //the global PajeDefinitions object
-  PajeDefinitions *definitions = new PajeDefinitions (arguments.noStrict ? false : true); 
-
-  try {
-    //alloc reader
-    if (arguments.flex){
-      if (arguments.input_size == 0){
-	reader = new PajeFlexReader(definitions);
-      }else{
-	std::string filename = arguments.input[0];
-	reader = new PajeFlexReader(filename, definitions);
-      }
-    }else{
-      if (arguments.input_size == 0){
-	reader = new PajeFileReader();
-      }else{
-	reader = new PajeFileReader (std::string(arguments.input[0]));
-      }
-    }
-
-    //alloc decoder and simulator
-    if (!arguments.flex){
-      decoder = new PajeEventDecoder(definitions);
-    }
-    simulator = new PajeSimulator ();
-
-    //connect components
-    if (arguments.flex){
-      reader->setOutputComponent (simulator);
-      simulator->setInputComponent (reader);
-    }else{
-      reader->setOutputComponent (decoder);
-      decoder->setInputComponent (reader);
-      decoder->setOutputComponent (simulator);
-      simulator->setInputComponent (decoder);
-    }
-  }catch (PajeException& e){
-    e.reportAndExit ();
-  }
-
-  //read and simulate
-  double t1, t2;
   if (arguments.time){
-    t1 = gettime();
-  }
-  try {
-    reader->startReading();
-    while (reader->hasMoreData()){
-      reader->readNextChunk();
-    }
-    reader->finishedReading();
-  }catch (PajeException& e){
-    e.reportAndExit();
-  }
-  if (arguments.time){
-    t2 = gettime();
-    printf ("%f\n", t2-t1);
+    printf ("%f\n", unity->getTime());
   }
 
   if (!arguments.quiet){
-    simulator->report();
+    unity->report();
   }
 
-  delete reader;
-  if (!arguments.flex){
-    delete decoder;
-  }
-  delete simulator;
-  delete definitions;
+  delete unity;
   return 0;
 }
