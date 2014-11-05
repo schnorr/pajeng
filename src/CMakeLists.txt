@@ -19,11 +19,6 @@ IF(PAJE_LIBRARY)
   add_subdirectory (${CMAKE_HOME_DIRECTORY}/src/libpaje/)
 ENDIF(PAJE_LIBRARY)
 
-# The Paje File Reader based on flex/bison
-if(PAJE_FLEXBISON)
-  add_subdirectory (${CMAKE_HOME_DIRECTORY}/src/fb/)
-endif(PAJE_FLEXBISON)
-
 # Paje tools
 IF(PAJE_TOOLS)
   add_subdirectory (${CMAKE_HOME_DIRECTORY}/src/tools)

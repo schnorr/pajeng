@@ -14,6 +14,11 @@
 # along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 
+FIND_PACKAGE(FLEX REQUIRED)
+FIND_PACKAGE(BISON REQUIRED)
+FLEX_TARGET(scanner scanner.l ${CMAKE_CURRENT_BINARY_DIR}/lexer.cc COMPILE_FLAGS "-F")
+BISON_TARGET(parser parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.cc VERBOSE parser.output)
+
 # The Paje Library (libpaje)
 SET(LIBPAJE_HEADERS
   PajeColor.h
@@ -32,7 +37,9 @@ SET(LIBPAJE_HEADERS
   PajeSimulator.h
   PajeType.h
   PajeValue.h
-  PajeDefinitions.h)
+  PajeDefinitions.h
+  PajeFlexReader.h
+)
 SET(LIBPAJE_SOURCES
   PajeEventDefinition.cc
   PajeTraceEvent.cc
@@ -52,6 +59,9 @@ SET(LIBPAJE_SOURCES
   PajeColor.cc
   PajeException.cc
   PajeDefinitions.cc
+  ${FLEX_scanner_OUTPUTS}
+  ${BISON_parser_OUTPUTS}
+  PajeFlexReader.cc
 )
 
 FIND_PACKAGE(Boost REQUIRED)
@@ -63,7 +73,10 @@ IF(STATIC_LINKING)
 ELSE(STATIC_LINKING)
   # shared library
   ADD_LIBRARY(paje_library SHARED ${LIBPAJE_SOURCES})
+  INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+  INCLUDE_DIRECTORIES(${CMAKE_HOME_DIRECTORY}/src/libpaje)
   INCLUDE_DIRECTORIES(paje_library ${Boost_INCLUDE_DIR})
+  TARGET_LINK_LIBRARIES(paje_library ${FLEX_LIBRARIES})
   SET_TARGET_PROPERTIES(paje_library PROPERTIES OUTPUT_NAME paje)
   SET_TARGET_PROPERTIES(paje_library PROPERTIES
     # bump when new function are added in the library
