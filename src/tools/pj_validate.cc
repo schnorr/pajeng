@@ -159,7 +159,9 @@ int main (int argc, char **argv)
   }
 
   delete reader;
-  delete decoder;
+  if (!arguments.flex){
+    delete decoder;
+  }
   delete simulator;
   delete definitions;
   return 0;
