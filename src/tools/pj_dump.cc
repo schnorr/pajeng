@@ -18,11 +18,7 @@
 #include <string>
 #include <iostream>
 #include <exception>
-#include "PajeFlexReader.h"
-#include "PajeFileReader.h"
-#include "PajeException.h"
-#include "PajeEventDecoder.h"
-#include "PajeSimulator.h"
+#include "PajeUnity.h"
 #include <argp.h>
 
 #define VALIDATE_INPUT_SIZE 2
@@ -150,69 +146,16 @@ int main (int argc, char **argv)
     return 1;
   }
 
-  PajeComponent *reader;
-  PajeEventDecoder *decoder;
-  PajeSimulator *simulator;
-
-  //the global PajeDefinitions object
-  PajeDefinitions *definitions = new PajeDefinitions (arguments.noStrict ? false : true); 
-
-  try {
-    //alloc reader
-    if (arguments.flex){
-      if (arguments.input_size == 0){
-	reader = new PajeFlexReader(definitions);
-      }else{
-	reader = new PajeFlexReader(std::string(arguments.input[0]), definitions);
-      }
-    }else{
-      if (arguments.input_size == 0){
-	reader = new PajeFileReader();
-      }else{
-	reader = new PajeFileReader (std::string(arguments.input[0]));
-      }
-    }
-
-    //alloc decoder and simulator
-    if (!arguments.flex){
-      decoder = new PajeEventDecoder(definitions);
-    }
-    simulator = new PajeSimulator (arguments.stopat, arguments.ignoreIncompleteLinks);
-
-    //connect components
-    if (arguments.flex){
-      reader->setOutputComponent (simulator);
-      simulator->setInputComponent (reader);
-    }else{
-      reader->setOutputComponent (decoder);
-      decoder->setInputComponent (reader);
-      decoder->setOutputComponent (simulator);
-      simulator->setInputComponent (decoder);
-    }
-  }catch (PajeException& e){
-    e.reportAndExit ();
-  }
-
-  //read and simulate
-  try {
-    reader->startReading ();
-    while (reader->hasMoreData() && simulator->keepSimulating()){
-      reader->readNextChunk ();
-    }
-    reader->finishedReading ();
-  }catch (PajeException& e){
-    e.reportAndExit();
-  }
+  PajeUnity *unity = new PajeUnity (arguments.flex,
+				    arguments.noStrict,
+				    std::string(arguments.input[0]),
+				    arguments.stopat,
+				    arguments.ignoreIncompleteLinks);
 
   if (!arguments.quiet){
-    dump (&arguments, simulator);
+    dump (&arguments, unity);
   }
 
-  delete reader;
-  if (!arguments.flex){
-    delete decoder;
-  }
-  delete simulator;
-  delete definitions;
+  delete unity;
   return 0;
 }
