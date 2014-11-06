@@ -46,3 +46,27 @@ ELSE(STATIC_LINKING)
 ENDIF(STATIC_LINKING)
 SET_PROPERTY(TARGET pj_dump PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 INSTALL(PROGRAMS ${CMAKE_BINARY_DIR}/pj_dump DESTINATION bin)
+
+
+#
+# test with tesh (thanks SimGrid team)
+#
+#testing the pajeng suite (with pj_dump and pj_validate) through tesh
+FILE(COPY ${CMAKE_HOME_DIRECTORY}/tests/scripts/ DESTINATION ${CMAKE_BINARY_DIR}/bin)
+
+# the macro to add tesh'es
+SET(TESH_COMMAND perl -I${CMAKE_BINARY_DIR}/bin/ ${CMAKE_BINARY_DIR}/bin/tesh)
+MACRO(ADD_TESH NAME)
+  SET(ARGT ${ARGV})
+  LIST(REMOVE_AT ARGT 0)
+  ADD_TEST(${NAME} ${TESH_COMMAND} ${TESH_OPTION} ${ARGT})
+ENDMACRO()
+
+# include all tesh scripts in the tests directory
+FILE(GLOB tests "${CMAKE_HOME_DIRECTORY}/tests/*.tesh")
+LIST(SORT tests)
+FOREACH(file ${tests})
+  STRING(REGEX REPLACE "^.*/tests/" "" name ${file})
+  STRING(REGEX REPLACE ".tesh$" "" testname ${name})
+  ADD_TESH(${testname}  --cd "${CMAKE_BINARY_DIR}" ${file})
+ENDFOREACH()
