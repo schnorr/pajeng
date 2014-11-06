@@ -1,0 +1,41 @@
+#!./tesh
+
+$ ./pj_validate ../traces/simu-mardi.trace
+> report Containers: 307
+> report Entities: 14532
+> report Types: 14
+> report Type Hierarchy:
+> report |0 (17PajeContainerType)
+> report ||L1 (17PajeContainerType)
+> report || L1-LINK4-HOST2 (12PajeLinkType)
+> report || L1-LINK4-ROUTER7 (12PajeLinkType)
+> report || HOST (17PajeContainerType)
+> report | | PM (13PajeStateType)
+> report | | SERVICE (13PajeStateType)
+> report | | power (16PajeVariableType)
+> report || LINK (17PajeContainerType)
+> report | | bandwidth (16PajeVariableType)
+> report | | latency (16PajeVariableType)
+> report || ROUTER (17PajeContainerType)
+> report || L1-HOST2-LINK4 (12PajeLinkType)
+> report || L1-LINK4-LINK4 (12PajeLinkType)
+
+$ ./pj_validate -f ../traces/simu-mardi.trace
+> report Containers: 307
+> report Entities: 14532
+> report Types: 14
+> report Type Hierarchy:
+> report |0 (17PajeContainerType)
+> report ||L1 (17PajeContainerType)
+> report || L1-LINK4-HOST2 (12PajeLinkType)
+> report || L1-LINK4-ROUTER7 (12PajeLinkType)
+> report || HOST (17PajeContainerType)
+> report | | PM (13PajeStateType)
+> report | | SERVICE (13PajeStateType)
+> report | | power (16PajeVariableType)
+> report || LINK (17PajeContainerType)
+> report | | bandwidth (16PajeVariableType)
+> report | | latency (16PajeVariableType)
+> report || ROUTER (17PajeContainerType)
+> report || L1-HOST2-LINK4 (12PajeLinkType)
+> report || L1-LINK4-LINK4 (12PajeLinkType)

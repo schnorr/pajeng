@@ -1,0 +1,61 @@
+#!./tesh
+
+$ ./pj_validate ../traces/ms.trace
+> report Containers: 16
+> report Entities: 403
+> report Types: 24
+> report Type Hierarchy:
+> report |0 (17PajeContainerType)
+> report ||HOST (17PajeContainerType)
+> report || is_slave (16PajeVariableType)
+> report || is_master (16PajeVariableType)
+> report || task_creation (16PajeVariableType)
+> report || task_computation (16PajeVariableType)
+> report || pcompute (16PajeVariableType)
+> report || power (16PajeVariableType)
+> report || pfinalize (16PajeVariableType)
+> report || prequest (16PajeVariableType)
+> report || preport (16PajeVariableType)
+> report || power_used (16PajeVariableType)
+> report ||0-LINK4-HOST1 (12PajeLinkType)
+> report ||msmark (13PajeEventType)
+> report ||LINK (17PajeContainerType)
+> report || bcompute (16PajeVariableType)
+> report || bfinalize (16PajeVariableType)
+> report || brequest (16PajeVariableType)
+> report || breport (16PajeVariableType)
+> report || bandwidth (16PajeVariableType)
+> report || latency (16PajeVariableType)
+> report || bandwidth_used (16PajeVariableType)
+> report ||0-HOST1-LINK4 (12PajeLinkType)
+> report ||0-LINK4-LINK4 (12PajeLinkType)
+
+$ ./pj_validate -f ../traces/ms.trace
+> report Containers: 16
+> report Entities: 403
+> report Types: 24
+> report Type Hierarchy:
+> report |0 (17PajeContainerType)
+> report ||HOST (17PajeContainerType)
+> report || is_slave (16PajeVariableType)
+> report || is_master (16PajeVariableType)
+> report || task_creation (16PajeVariableType)
+> report || task_computation (16PajeVariableType)
+> report || pcompute (16PajeVariableType)
+> report || power (16PajeVariableType)
+> report || pfinalize (16PajeVariableType)
+> report || prequest (16PajeVariableType)
+> report || preport (16PajeVariableType)
+> report || power_used (16PajeVariableType)
+> report ||0-LINK4-HOST1 (12PajeLinkType)
+> report ||msmark (13PajeEventType)
+> report ||LINK (17PajeContainerType)
+> report || bcompute (16PajeVariableType)
+> report || bfinalize (16PajeVariableType)
+> report || brequest (16PajeVariableType)
+> report || breport (16PajeVariableType)
+> report || bandwidth (16PajeVariableType)
+> report || latency (16PajeVariableType)
+> report || bandwidth_used (16PajeVariableType)
+> report ||0-HOST1-LINK4 (12PajeLinkType)
+> report ||0-LINK4-LINK4 (12PajeLinkType)

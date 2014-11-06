@@ -1,0 +1,47 @@
+#!./tesh
+
+$ ./pj_validate ../traces/categories.trace
+> report Containers: 16
+> report Entities: 178
+> report Types: 17
+> report Type Hierarchy:
+> report |0 (17PajeContainerType)
+> report ||HOST (17PajeContainerType)
+> report || pcompute (16PajeVariableType)
+> report || prequest (16PajeVariableType)
+> report || pdata (16PajeVariableType)
+> report || pfinalize (16PajeVariableType)
+> report || power (16PajeVariableType)
+> report ||LINK (17PajeContainerType)
+> report || brequest (16PajeVariableType)
+> report || bdata (16PajeVariableType)
+> report || bfinalize (16PajeVariableType)
+> report || bandwidth (16PajeVariableType)
+> report || latency (16PajeVariableType)
+> report || bcompute (16PajeVariableType)
+> report ||0-HOST1-LINK3 (12PajeLinkType)
+> report ||0-LINK3-LINK3 (12PajeLinkType)
+> report ||0-LINK3-HOST1 (12PajeLinkType)
+
+$ ./pj_validate -f ../traces/categories.trace
+> report Containers: 16
+> report Entities: 178
+> report Types: 17
+> report Type Hierarchy:
+> report |0 (17PajeContainerType)
+> report ||HOST (17PajeContainerType)
+> report || pcompute (16PajeVariableType)
+> report || prequest (16PajeVariableType)
+> report || pdata (16PajeVariableType)
+> report || pfinalize (16PajeVariableType)
+> report || power (16PajeVariableType)
+> report ||LINK (17PajeContainerType)
+> report || brequest (16PajeVariableType)
+> report || bdata (16PajeVariableType)
+> report || bfinalize (16PajeVariableType)
+> report || bandwidth (16PajeVariableType)
+> report || latency (16PajeVariableType)
+> report || bcompute (16PajeVariableType)
+> report ||0-HOST1-LINK3 (12PajeLinkType)
+> report ||0-LINK3-LINK3 (12PajeLinkType)
+> report ||0-LINK3-HOST1 (12PajeLinkType)
