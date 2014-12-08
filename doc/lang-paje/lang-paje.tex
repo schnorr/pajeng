@@ -139,7 +139,7 @@
 \end{onehalfspace}
 
 This report describes the \Paje trace file format, a self-defined,
-textual, and generic format to described the behavior of computer
+textual, and generic format to describe the behavior of computer
 programs that are executed in parallel or distributed systems. A file
 in this format has three sections: event
 definition, type hierarchy declaration and timestamped events,
@@ -180,7 +180,7 @@ More information about \Paje at \url{http://paje.sf.net}.
 \label{s.Introduction}
 
 This report describes the \Paje trace file format, a self-defined,
-textual, and generic format to described the behavior of computer
+textual, and generic format to describe the behavior of computer
 programs that are executed in parallel or distributed systems. A file
 in this format includes three different kind of information: event
 definition, type hierarchy definition and a set of recorded events,
@@ -718,6 +718,9 @@ instance identified by \Container (the parent container instance).
 Optionally this event can contain a field \Alias with an alias to
 identify this type. See Section~\ref{s.Alias} to correctly use alias
 in a \Paje trace file.
+
+Optionally this event can contain a field \Filename with a the name of
+a file that contains the events related to this \Container.
 
 \begin{tabular}{|LLL|}
 \hline
