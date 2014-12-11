@@ -1,0 +1,18 @@
+#!./tesh
+
+! expect return 1
+$ ./pj_dump ../traces/native_paje.trace
+> This event definition is invalid:
+> This is the event definition of the problematic event:
+>   %EventDef PajeDefineContainerType 1
+>   %    Alias string
+>   %    ContainerType string
+>   %    Name string
+>   %EndEventDef
+> Obligatory fields expected for a PajeDefineContainerType event definition:
+> Event Name Type 
+> When treating line (Line: 5, Fields: 1, Contents: '%EndEventDef')
+
+! expect return 1
+$ ./pj_dump -n ../traces/native_paje.trace
+> PajeSimulationException: Illegal, trace is not time-ordered in (Line: 1936, Fields: '5, Contents: '13 4103.658751000 sched nready 1.000000')

@@ -1,0 +1,1937 @@
+%EventDef	PajeDefineContainerType	1
+%	Alias	string
+%	ContainerType	string
+%	Name	string
+%EndEventDef
+%EventDef	PajeDefineEventType	2
+%	Alias	string
+%	ContainerType	string
+%	Name	string
+%EndEventDef
+%EventDef	PajeDefineStateType	3
+%	Alias	string
+%	ContainerType	string
+%	Name	string
+%EndEventDef
+%EventDef	PajeDefineVariableType	4
+%	Alias	string
+%	ContainerType	string
+%	Name	string
+%EndEventDef
+%EventDef	PajeDefineLinkType	5
+%	Alias	string
+%	ContainerType	string
+%	SourceContainerType	string
+%	DestContainerType	string
+%	Name	string
+%EndEventDef
+%EventDef	PajeDefineEntityValue	6
+%	Alias	string
+%	EntityType	string
+%	Name	string
+%	Color	color
+%EndEventDef
+%EventDef	PajeCreateContainer	7
+%	Time	date
+%	Alias	string
+%	Type	string
+%	Container	string
+%	Name	string
+%EndEventDef
+%EventDef	PajeDestroyContainer	8
+%	Time	date
+%	Name	string
+%	Type	string
+%EndEventDef
+%EventDef	PajeNewEvent	9
+%	Time	date
+%	Type	string
+%	Container	string
+%	Value	string
+%EndEventDef
+%EventDef PajeSetState 10
+%	Time	date
+%	Container	string
+%	Type	string
+%	Value	string
+%EndEventDef
+%EventDef	PajePushState	11
+%	Time	date
+%	Container	string
+%	Type	string
+%	Value	string
+%EndEventDef
+%EventDef	PajePopState	12
+%	Time	date
+%	Container	string
+%	Type	string
+%EndEventDef
+%EventDef	PajeSetVariable	13
+%	Time	date
+%	Container	string
+%	Type	string
+%	Value	double
+%EndEventDef
+%EventDef	PajeAddVariable	14
+%	Time	date
+%	Type	string
+%	Container	string
+%	Value	double
+%EndEventDef
+%EventDef	PajeSubVariable	15
+%	Time	date
+%	Type	string
+%	Container	string
+%	Value	double
+%EndEventDef
+%EventDef	PajeStartLink	18
+%	Time	date
+%	Type	string
+%	Container	string
+%	Value	string
+%	SourceContainer	string
+%	Key	string
+%EndEventDef
+%EventDef	PajeEndLink	19
+%	Time	date
+%	Type	string
+%	Container	string
+%	Value	string
+%	DestContainer	string
+%	Key	string
+%EndEventDef
+%EventDef PajeSetState 20
+%	Time	date
+%	Container	string
+%	Type	string
+%	Value	string
+%	Size	string
+%	Params	string
+%	Footprint	string
+%	Tag	string
+%	JobId	string
+%EndEventDef
+                                        
+1       MPIP      0       "MPI Program"                      	
+1       P      MPIP       "Program"                      	
+1       Mn      P       "Memory Node"                         
+1       T      Mn       "Thread"                               
+1       Mm      Mn       "Memory Manager"                         
+1       W      T       "Worker"                               
+1       MPICt   T       "MPI Communication Thread"              
+1       Sc       P       "Scheduler State"                        
+2       prog_event   P       "program event type"				
+2       user_event   T       "user event type"				
+2       thread_event   T       "thread event type"				
+2       MPIev   MPICt    "MPI event type"			
+3       S       T       "Thread State"                        
+3       CtS     MPICt    "Communication Thread State"          
+3       Ctx1      T     "InCtx1"         		
+3       Ctx2      T     "InCtx2"         		
+3       Ctx3      T     "InCtx3"         		
+3       Ctx4      T     "InCtx4"         		
+3       Ctx5      T     "InCtx5"         		
+3       Ctx6      T     "InCtx6"         		
+3       Ctx7      T     "InCtx7"         		
+3       Ctx8      T     "InCtx8"         		
+3       Ctx9      T     "InCtx9"         		
+3       MS       Mm       "Memory Node State"                        
+4       nsubmitted    Sc       "Number of Submitted Uncompleted Tasks"                        
+4       nready    Sc       "Number of Ready Tasks"                        
+4       bw      Mm       "Bandwidth"                        
+6       I       S      Initializing       "0.0 .7 1.0"            
+6       D       S      Deinitializing       "0.0 .1 .7"            
+6       Fi       S      FetchingInput       "1.0 .1 1.0"            
+6       Po       S      PushingOutput       "0.1 1.0 1.0"            
+6       C       S       Callback       ".0 .3 .8"            
+6       B       S       Overhead         ".5 .18 .0"		
+6       E       S       Executing         ".0 .6 .5"		
+6       Sc       S      Scheduling         ".7 .36 .0"		
+6       Sl       S      Sleeping         ".9 .1 .0"		
+6       P       S       Progressing         ".4 .1 .6"		
+6       U       S       Unpartitioning      ".0 .0 1.0"		
+3       WS       W       "Worker State"                        
+6       I       WS       Idle         ".9 .1 .0"		
+6       H       S       Hypervisor      ".5 .18 .0"		
+6       P       CtS       Processing         "0 0 0"		
+6       Sl       CtS      Sleeping         ".9 .1 .0"		
+6       UT       CtS      UserTesting        ".2 .1 .6"	
+6       UW       CtS      UserWaiting        ".4 .1 .3"	
+6       SdS       CtS      SendSubmitted     "1.0 .1 1.0"	
+6       RvS       CtS      RecieveSubmitted  "0.1 1.0 1.0"	
+6       SdC       CtS      SendCompleted     "1.0 .5 1.0"	
+6       RvC       CtS      RecieveCompleted  "0.5 1.0 1.0"	
+6       I       Ctx1      Initializing       "0.0 .7 1.0"            
+6       D       Ctx1      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx1      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx1      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx1       Callback       ".0 .3 .8"            
+6       B       Ctx1       Overhead         ".5 .18 .0"		
+6       E       Ctx1       Executing         ".0 .6 .5"		
+6       Sc       Ctx1      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx1      Sleeping         ".9 .1 .0"		
+6       P       Ctx1       Progressing         ".4 .1 .6"		
+6       U       Ctx1       Unpartitioning         ".0 .0 1.0"		
+6       I       Ctx2      Initializing       "0.0 .7 1.0"            
+6       D       Ctx2      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx2      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx2      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx2       Callback       ".0 .3 .8"            
+6       B       Ctx2       Overhead         ".5 .18 .0"		
+6       E       Ctx2       Executing         ".0 .6 .5"		
+6       Sc       Ctx2      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx2      Sleeping         ".9 .1 .0"		
+6       P       Ctx2       Progressing         ".4 .1 .6"		
+6       U       Ctx2       Unpartitioning         ".0 .0 1.0"		
+6       I       Ctx3      Initializing       "0.0 .7 1.0"            
+6       D       Ctx3      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx3      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx3      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx3       Callback       ".0 .3 .8"            
+6       B       Ctx3       Overhead         ".5 .18 .0"		
+6       E       Ctx3       Executing         ".0 .6 .5"		
+6       Sc       Ctx3      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx3      Sleeping         ".9 .1 .0"		
+6       P       Ctx3       Progressing         ".4 .1 .6"		
+6       U       Ctx3       Unpartitioning         ".0 .0 1.0"		
+6       I       Ctx4      Initializing       "0.0 .7 1.0"            
+6       D       Ctx4      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx4      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx4      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx4       Callback       ".0 .3 .8"            
+6       B       Ctx4       Overhead         ".5 .18 .0"		
+6       E       Ctx4       Executing         ".0 .6 .5"		
+6       Sc       Ctx4      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx4      Sleeping         ".9 .1 .0"		
+6       P       Ctx4       Progressing         ".4 .1 .6"		
+6       U       Ctx4       Unpartitioning         ".0 .0 1.0"		
+6       I       Ctx5      Initializing       "0.0 .7 1.0"            
+6       D       Ctx5      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx5      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx5      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx5       Callback       ".0 .3 .8"            
+6       B       Ctx5       Overhead         ".5 .18 .0"		
+6       E       Ctx5       Executing         ".0 .6 .5"		
+6       Sc       Ctx5      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx5      Sleeping         ".9 .1 .0"		
+6       P       Ctx5       Progressing         ".4 .1 .6"		
+6       U       Ctx5       Unpartitioning         ".0 .0 1.0"		
+6       I       Ctx6      Initializing       "0.0 .7 1.0"            
+6       D       Ctx6      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx6      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx6      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx6       Callback       ".0 .3 .8"            
+6       B       Ctx6       Overhead         ".5 .18 .0"		
+6       E       Ctx6       Executing         ".0 .6 .5"		
+6       Sc       Ctx6      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx6      Sleeping         ".9 .1 .0"		
+6       P       Ctx6       Progressing         ".4 .1 .6"		
+6       U       Ctx6       Unpartitioning         ".0 .0 1.0"		
+6       I       Ctx7      Initializing       "0.0 .7 1.0"            
+6       D       Ctx7      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx7      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx7      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx7       Callback       ".0 .3 .8"            
+6       B       Ctx7       Overhead         ".5 .18 .0"		
+6       E       Ctx7       Executing         ".0 .6 .5"		
+6       Sc       Ctx7      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx7      Sleeping         ".9 .1 .0"		
+6       P       Ctx7       Progressing         ".4 .1 .6"		
+6       U       Ctx7       Unpartitioning         ".0 .0 1.0"		
+6       I       Ctx8      Initializing       "0.0 .7 1.0"            
+6       D       Ctx8      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx8      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx8      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx8       Callback       ".0 .3 .8"            
+6       B       Ctx8       Overhead         ".5 .18 .0"		
+6       E       Ctx8       Executing         ".0 .6 .5"		
+6       Sc       Ctx8      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx8      Sleeping         ".9 .1 .0"		
+6       P       Ctx8       Progressing         ".4 .1 .6"		
+6       U       Ctx8       Unpartitioning         ".0 .0 1.0"		
+6       I       Ctx9      Initializing       "0.0 .7 1.0"            
+6       D       Ctx9      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx9      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx9      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx9       Callback       ".0 .3 .8"            
+6       B       Ctx9       Overhead         ".5 .18 .0"		
+6       E       Ctx9       Executing         ".0 .6 .5"		
+6       Sc       Ctx9      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx9      Sleeping         ".9 .1 .0"		
+6       P       Ctx9       Progressing         ".4 .1 .6"		
+6       U       Ctx9       Unpartitioning         ".0 .0 1.0"		
+6       A       MS      Allocating         ".4 .1 .0"		
+6       Ar       MS      AllocatingReuse       ".1 .1 .8"		
+6       F       MS      Freeing         ".6 .3 .0"		
+6       W       MS      WritingBack         ".0 .0 .4"		
+6       R       MS      Reclaiming         ".0 .1 .6"		
+6       Co       MS     DriverCopy         ".3 .5 .1"		
+6       CoA      MS     DriverCopyAsync         ".1 .3 .1"		
+6       No       MS     Nothing         ".0 .0 .0"		
+5       MPIL     P	MPICt	MPICt   MPIL			
+5       L       P	Mm	Mm      L
+7      0.0 MPIroot      MPIP      0       root
+7	0.0	p	P	MPIroot	program 
+7	0.000000000	sched	Sc	p	scheduler
+13	0.0	sched	nsubmitted	0.0
+13	0.0	sched	nready	0.0
+7	138.164471000	mn0	Mn	p	MEMNODE0
+7	138.164471000	mm0	Mm	mn0	MEMMANAGER0
+13	138.164471000	mm0	bw	0.0
+7	138.172489000	mn1	Mn	p	MEMNODE1
+7	138.172489000	mm1	Mm	mn1	MEMMANAGER1
+13	138.172489000	mm1	bw	0.0
+7	138.184429000	mn2	Mn	p	MEMNODE2
+7	138.184429000	mm2	Mm	mn2	MEMMANAGER2
+13	138.184429000	mm2	bw	0.0
+7	138.189184000	mn3	Mn	p	MEMNODE3
+7	138.189184000	mm3	Mm	mn3	MEMMANAGER3
+13	138.189184000	mm3	bw	0.0
+7	138.504374000	t19556	T	mn1	19556
+7	138.504374000	w0	W	t19556	CUDA0
+10	138.504374000	t19556	S	I
+10	182.818522000	t19556	S	B
+10	182.818522000	w0	WS	I
+10	182.850710000	t19556	S	Sc
+10	182.871233000	t19556	S	Sl
+7	182.929034000	t19558	T	mn2	19558
+7	182.929034000	w1	W	t19558	CUDA1
+10	182.929034000	t19558	S	I
+10	293.257325000	t19558	S	B
+10	293.257325000	w1	WS	I
+10	293.275410000	t19558	S	Sc
+10	293.279077000	t19558	S	Sl
+7	293.389286000	t19561	T	mn3	19561
+7	293.389286000	w2	W	t19561	CUDA2
+10	293.389286000	t19561	S	I
+10	294.584637000	t19561	S	B
+10	294.584637000	w2	WS	I
+10	294.595192000	t19561	S	Sc
+10	294.597272000	t19561	S	Sl
+7	295.043430000	t19562	T	mn0	19562
+7	295.043430000	w3	W	t19562	CPU0
+10	295.043430000	t19562	S	I
+10	295.488382000	t19562	S	B
+10	295.488382000	w3	WS	I
+10	295.501062000	t19562	S	Sc
+10	295.506447000	t19562	S	Sl
+7	295.585984000	t19563	T	mn0	19563
+7	295.585984000	w4	W	t19563	CPU1
+10	295.585984000	t19563	S	I
+10	296.000072000	t19563	S	B
+10	296.000072000	w4	WS	I
+10	296.003850000	t19563	S	Sc
+10	296.005479000	t19563	S	Sl
+7	296.165788000	t19564	T	mn0	19564
+7	296.165788000	w5	W	t19564	CPU2
+10	296.165788000	t19564	S	I
+10	299.462682000	t19564	S	B
+10	299.462682000	w5	WS	I
+10	299.466172000	t19564	S	Sc
+10	299.467667000	t19564	S	Sl
+7	299.553903000	t19565	T	mn0	19565
+7	299.553903000	w6	W	t19565	CPU3
+10	299.553903000	t19565	S	I
+10	300.552340000	t19565	S	B
+10	300.552340000	w6	WS	I
+10	300.555888000	t19565	S	Sc
+10	300.557463000	t19565	S	Sl
+7	300.646764000	t19566	T	mn0	19566
+7	300.646764000	w7	W	t19566	CPU4
+10	300.646764000	t19566	S	I
+10	301.015647000	t19566	S	B
+10	301.015647000	w7	WS	I
+10	301.019246000	t19566	S	Sc
+10	301.020776000	t19566	S	Sl
+7	311.943745000	t19567	T	mn0	19567
+7	311.943745000	w8	W	t19567	CPU5
+10	311.943745000	t19567	S	I
+10	312.489050000	t19567	S	B
+10	312.489050000	w8	WS	I
+10	312.495470000	t19567	S	Sc
+10	312.498326000	t19567	S	Sl
+7	312.954105000	t19568	T	mn0	19568
+7	312.954105000	w9	W	t19568	CPU6
+10	312.954105000	t19568	S	I
+10	313.424572000	t19568	S	B
+10	313.424572000	w9	WS	I
+10	313.430313000	t19568	S	Sc
+10	313.434571000	t19568	S	Sl
+7	313.565735000	t19569	T	mn0	19569
+7	313.565735000	w10	W	t19569	CPU7
+10	313.565735000	t19569	S	I
+10	314.040319000	t19569	S	B
+10	314.040319000	w10	WS	I
+10	314.049337000	t19569	S	Sc
+10	314.051842000	t19569	S	Sl
+9	314.137876000	prog_event	p	stop_profiling
+9	4081.930836000	prog_event	p	start_profiling
+13	4081.948025000	sched nsubmitted	1.000000
+13	4083.134837000	sched	nready	1.000000
+13	4083.160203000	sched nsubmitted	2.000000
+13	4083.178654000	sched	nready	0.000000
+13	4083.178654000	sched	nsubmitted	1.000000
+10	4083.187918000	t19563	S	B
+10	4083.189236000	t19563	S	Fi
+10	4083.209108000	t19563	S	B
+6	chol_model_11	WS	chol_model_11	"0.000000 0.600000 0.400000" 
+6	chol_model_11	Ctx1	chol_model_11	"255.0 102.0 255.0" 
+6	chol_model_11	Ctx2	chol_model_11	".0 255.0 .0" 
+6	chol_model_11	Ctx3	chol_model_11	"225.0 225.0 .0" 
+6	chol_model_11	Ctx4	chol_model_11	".0 245.0 255.0" 
+6	chol_model_11	Ctx5	chol_model_11	".0 .0 .0" 
+6	chol_model_11	Ctx6	chol_model_11	".0 .0 128.0" 
+6	chol_model_11	Ctx7	chol_model_11	"105.0 105.0 105.0" 
+6	chol_model_11	Ctx8	chol_model_11	"255.0 .0 255.0" 
+6	chol_model_11	Ctx9	chol_model_11	".0 .0 1.0" 
+20	4083.219206000	w4	WS	chol_model_11	3686400	M960x960x4	617e5fe6	1000000000000000	12
+10	4083.231181000	t19563	S	E
+13	4084.121007000	sched nsubmitted	2.000000
+13	4084.124435000	sched nsubmitted	3.000000
+13	4084.125992000	sched nsubmitted	4.000000
+13	4084.130282000	sched nsubmitted	5.000000
+13	4084.132997000	sched nsubmitted	6.000000
+13	4084.134408000	sched nsubmitted	7.000000
+13	4084.137800000	sched nsubmitted	8.000000
+13	4084.139577000	sched nsubmitted	9.000000
+13	4084.141185000	sched nsubmitted	10.000000
+13	4084.144416000	sched nsubmitted	11.000000
+13	4084.146188000	sched nsubmitted	12.000000
+13	4084.147513000	sched nsubmitted	13.000000
+13	4084.150538000	sched nsubmitted	14.000000
+13	4084.151963000	sched nsubmitted	15.000000
+13	4084.153055000	sched nsubmitted	16.000000
+13	4084.155856000	sched nsubmitted	17.000000
+13	4084.157751000	sched nsubmitted	18.000000
+13	4084.158951000	sched nsubmitted	19.000000
+13	4084.162490000	sched nsubmitted	20.000000
+13	4084.893440000	sched nsubmitted	21.000000
+13	4084.896582000	sched nsubmitted	22.000000
+13	4084.898215000	sched nsubmitted	23.000000
+13	4084.901393000	sched nsubmitted	24.000000
+13	4084.902951000	sched nsubmitted	25.000000
+13	4084.904419000	sched nsubmitted	26.000000
+13	4084.907586000	sched nsubmitted	27.000000
+13	4084.909197000	sched nsubmitted	28.000000
+13	4084.910665000	sched nsubmitted	29.000000
+13	4084.913646000	sched nsubmitted	30.000000
+13	4084.915107000	sched nsubmitted	31.000000
+13	4084.917835000	sched nsubmitted	32.000000
+13	4084.919274000	sched nsubmitted	33.000000
+13	4084.920596000	sched nsubmitted	34.000000
+13	4084.923718000	sched nsubmitted	35.000000
+13	4084.925410000	sched nsubmitted	36.000000
+13	4084.926835000	sched nsubmitted	37.000000
+13	4084.929772000	sched nsubmitted	38.000000
+13	4084.931347000	sched nsubmitted	39.000000
+13	4084.932981000	sched nsubmitted	40.000000
+13	4084.935791000	sched nsubmitted	41.000000
+13	4084.937306000	sched nsubmitted	42.000000
+13	4084.938604000	sched nsubmitted	43.000000
+13	4084.941337000	sched nsubmitted	44.000000
+13	4084.942728000	sched nsubmitted	45.000000
+13	4084.945885000	sched nsubmitted	46.000000
+13	4084.947638000	sched nsubmitted	47.000000
+13	4084.949168000	sched nsubmitted	48.000000
+13	4084.952409000	sched nsubmitted	49.000000
+13	4084.954129000	sched nsubmitted	50.000000
+13	4084.955635000	sched nsubmitted	51.000000
+13	4084.960686000	sched nsubmitted	52.000000
+13	4084.962493000	sched nsubmitted	53.000000
+13	4084.965463000	sched nsubmitted	54.000000
+13	4084.967248000	sched nsubmitted	55.000000
+13	4084.968905000	sched nsubmitted	56.000000
+13	4084.972798000	sched nsubmitted	57.000000
+13	4084.974266000	sched nsubmitted	58.000000
+13	4084.975641000	sched nsubmitted	59.000000
+13	4084.978343000	sched nsubmitted	60.000000
+13	4084.979920000	sched nsubmitted	61.000000
+13	4084.981354000	sched nsubmitted	62.000000
+13	4084.984222000	sched nsubmitted	63.000000
+13	4084.985528000	sched nsubmitted	64.000000
+13	4084.988330000	sched nsubmitted	65.000000
+13	4084.989875000	sched nsubmitted	66.000000
+13	4084.991180000	sched nsubmitted	67.000000
+13	4084.993878000	sched nsubmitted	68.000000
+13	4084.995260000	sched nsubmitted	69.000000
+13	4084.996660000	sched nsubmitted	70.000000
+13	4084.999345000	sched nsubmitted	71.000000
+13	4085.000776000	sched nsubmitted	72.000000
+13	4085.002137000	sched nsubmitted	73.000000
+13	4085.004880000	sched nsubmitted	74.000000
+13	4085.006365000	sched nsubmitted	75.000000
+13	4085.007793000	sched nsubmitted	76.000000
+13	4085.010650000	sched nsubmitted	77.000000
+13	4085.011948000	sched nsubmitted	78.000000
+13	4085.015065000	sched nsubmitted	79.000000
+13	4085.016746000	sched nsubmitted	80.000000
+13	4085.018121000	sched nsubmitted	81.000000
+13	4085.020837000	sched nsubmitted	82.000000
+13	4085.022307000	sched nsubmitted	83.000000
+13	4085.023771000	sched nsubmitted	84.000000
+13	4085.026572000	sched nsubmitted	85.000000
+13	4085.027977000	sched nsubmitted	86.000000
+13	4085.029372000	sched nsubmitted	87.000000
+13	4085.034611000	sched nsubmitted	88.000000
+13	4085.036104000	sched nsubmitted	89.000000
+13	4085.038907000	sched nsubmitted	90.000000
+13	4085.040443000	sched nsubmitted	91.000000
+13	4085.041836000	sched nsubmitted	92.000000
+13	4085.044549000	sched nsubmitted	93.000000
+13	4085.046042000	sched nsubmitted	94.000000
+13	4085.047614000	sched nsubmitted	95.000000
+13	4085.051357000	sched nsubmitted	96.000000
+13	4085.052876000	sched nsubmitted	97.000000
+13	4085.054320000	sched nsubmitted	98.000000
+13	4085.057157000	sched nsubmitted	99.000000
+13	4085.058636000	sched nsubmitted	100.000000
+13	4085.060014000	sched nsubmitted	101.000000
+13	4085.063044000	sched nsubmitted	102.000000
+13	4085.064683000	sched nsubmitted	103.000000
+13	4085.067353000	sched nsubmitted	104.000000
+13	4085.068773000	sched nsubmitted	105.000000
+13	4085.070064000	sched nsubmitted	106.000000
+13	4085.072828000	sched nsubmitted	107.000000
+13	4085.074235000	sched nsubmitted	108.000000
+13	4085.075508000	sched nsubmitted	109.000000
+13	4085.078199000	sched nsubmitted	110.000000
+13	4085.079642000	sched nsubmitted	111.000000
+13	4085.081077000	sched nsubmitted	112.000000
+13	4085.083816000	sched nsubmitted	113.000000
+13	4085.085333000	sched nsubmitted	114.000000
+13	4085.086725000	sched nsubmitted	115.000000
+13	4085.089613000	sched nsubmitted	116.000000
+13	4085.091167000	sched nsubmitted	117.000000
+13	4085.094007000	sched nsubmitted	118.000000
+13	4085.095599000	sched nsubmitted	119.000000
+13	4085.097046000	sched nsubmitted	120.000000
+13	4085.099726000	sched nsubmitted	121.000000
+13	4085.101149000	sched nsubmitted	122.000000
+13	4085.102408000	sched nsubmitted	123.000000
+13	4085.105266000	sched nsubmitted	124.000000
+13	4085.106677000	sched nsubmitted	125.000000
+13	4085.108070000	sched nsubmitted	126.000000
+13	4085.110686000	sched nsubmitted	127.000000
+13	4085.112038000	sched nsubmitted	128.000000
+13	4085.113341000	sched nsubmitted	129.000000
+13	4085.116280000	sched nsubmitted	130.000000
+13	4085.117595000	sched nsubmitted	131.000000
+13	4085.120228000	sched nsubmitted	132.000000
+13	4085.121631000	sched nsubmitted	133.000000
+13	4085.123032000	sched nsubmitted	134.000000
+13	4085.126689000	sched nsubmitted	135.000000
+13	4085.128170000	sched nsubmitted	136.000000
+13	4085.129436000	sched nsubmitted	137.000000
+13	4085.132150000	sched nsubmitted	138.000000
+13	4085.133669000	sched nsubmitted	139.000000
+13	4085.135013000	sched nsubmitted	140.000000
+13	4085.138366000	sched nsubmitted	141.000000
+13	4085.139892000	sched nsubmitted	142.000000
+13	4085.144104000	sched nsubmitted	143.000000
+13	4085.146043000	sched nsubmitted	144.000000
+13	4085.147825000	sched nsubmitted	145.000000
+13	4085.150959000	sched nsubmitted	146.000000
+13	4085.152661000	sched nsubmitted	147.000000
+13	4085.154273000	sched nsubmitted	148.000000
+13	4085.157398000	sched nsubmitted	149.000000
+13	4085.159028000	sched nsubmitted	150.000000
+13	4085.162019000	sched nsubmitted	151.000000
+13	4085.163875000	sched nsubmitted	152.000000
+13	4085.165449000	sched nsubmitted	153.000000
+13	4085.168449000	sched nsubmitted	154.000000
+13	4085.169983000	sched nsubmitted	155.000000
+13	4085.173103000	sched nsubmitted	156.000000
+13	4085.174685000	sched nsubmitted	157.000000
+13	4085.175997000	sched nsubmitted	158.000000
+13	4085.178655000	sched nsubmitted	159.000000
+13	4085.180020000	sched nsubmitted	160.000000
+13	4085.181453000	sched nsubmitted	161.000000
+13	4085.184052000	sched nsubmitted	162.000000
+13	4085.185470000	sched nsubmitted	163.000000
+13	4085.188128000	sched nsubmitted	164.000000
+13	4085.189647000	sched nsubmitted	165.000000
+13	4085.190930000	sched nsubmitted	166.000000
+13	4085.193690000	sched nsubmitted	167.000000
+13	4085.195063000	sched nsubmitted	168.000000
+13	4085.196345000	sched nsubmitted	169.000000
+13	4085.199333000	sched nsubmitted	170.000000
+13	4085.200717000	sched nsubmitted	171.000000
+13	4085.202048000	sched nsubmitted	172.000000
+13	4085.208122000	sched nsubmitted	173.000000
+13	4085.209667000	sched nsubmitted	174.000000
+13	4085.210960000	sched nsubmitted	175.000000
+13	4085.213661000	sched nsubmitted	176.000000
+13	4085.214960000	sched nsubmitted	177.000000
+13	4085.217918000	sched nsubmitted	178.000000
+13	4085.219320000	sched nsubmitted	179.000000
+13	4085.220763000	sched nsubmitted	180.000000
+13	4085.223508000	sched nsubmitted	181.000000
+13	4085.225155000	sched nsubmitted	182.000000
+13	4085.226640000	sched nsubmitted	183.000000
+13	4085.229505000	sched nsubmitted	184.000000
+13	4085.230949000	sched nsubmitted	185.000000
+13	4085.232380000	sched nsubmitted	186.000000
+13	4085.235065000	sched nsubmitted	187.000000
+13	4085.236474000	sched nsubmitted	188.000000
+13	4085.237751000	sched nsubmitted	189.000000
+13	4085.240932000	sched nsubmitted	190.000000
+13	4085.242333000	sched nsubmitted	191.000000
+13	4085.245176000	sched nsubmitted	192.000000
+13	4085.246574000	sched nsubmitted	193.000000
+13	4085.247843000	sched nsubmitted	194.000000
+13	4085.250436000	sched nsubmitted	195.000000
+13	4085.251983000	sched nsubmitted	196.000000
+13	4085.253276000	sched nsubmitted	197.000000
+13	4085.255968000	sched nsubmitted	198.000000
+13	4085.257486000	sched nsubmitted	199.000000
+13	4085.258880000	sched nsubmitted	200.000000
+13	4085.261779000	sched nsubmitted	201.000000
+13	4085.263111000	sched nsubmitted	202.000000
+13	4085.265697000	sched nsubmitted	203.000000
+13	4085.267113000	sched nsubmitted	204.000000
+13	4085.268381000	sched nsubmitted	205.000000
+13	4085.271015000	sched nsubmitted	206.000000
+13	4085.272387000	sched nsubmitted	207.000000
+13	4085.273908000	sched nsubmitted	208.000000
+13	4085.276655000	sched nsubmitted	209.000000
+13	4085.278327000	sched nsubmitted	210.000000
+13	4085.279437000	sched nsubmitted	211.000000
+13	4085.283830000	sched nsubmitted	212.000000
+13	4085.285258000	sched nsubmitted	213.000000
+13	4085.288123000	sched nsubmitted	214.000000
+13	4085.289503000	sched nsubmitted	215.000000
+13	4085.291123000	sched nsubmitted	216.000000
+13	4085.294386000	sched nsubmitted	217.000000
+13	4085.295921000	sched nsubmitted	218.000000
+13	4085.297387000	sched nsubmitted	219.000000
+13	4085.300827000	sched nsubmitted	220.000000
+13	4085.302269000	sched nsubmitted	221.000000
+13	4085.303577000	sched nsubmitted	222.000000
+13	4085.306809000	sched nsubmitted	223.000000
+13	4085.308114000	sched nsubmitted	224.000000
+13	4085.321337000	sched nsubmitted	225.000000
+13	4085.324145000	sched nsubmitted	226.000000
+13	4085.325440000	sched nsubmitted	227.000000
+13	4085.328799000	sched nsubmitted	228.000000
+13	4085.330358000	sched nsubmitted	229.000000
+13	4085.331877000	sched nsubmitted	230.000000
+13	4085.335295000	sched nsubmitted	231.000000
+13	4085.336992000	sched nsubmitted	232.000000
+13	4085.341752000	sched nsubmitted	233.000000
+13	4085.343532000	sched nsubmitted	234.000000
+13	4085.345205000	sched nsubmitted	235.000000
+13	4085.348403000	sched nsubmitted	236.000000
+13	4085.350070000	sched nsubmitted	237.000000
+13	4085.351567000	sched nsubmitted	238.000000
+13	4085.354745000	sched nsubmitted	239.000000
+13	4085.356262000	sched nsubmitted	240.000000
+13	4085.357542000	sched nsubmitted	241.000000
+13	4085.361882000	sched nsubmitted	242.000000
+13	4085.363272000	sched nsubmitted	243.000000
+13	4085.366419000	sched nsubmitted	244.000000
+13	4085.367900000	sched nsubmitted	245.000000
+13	4085.369191000	sched nsubmitted	246.000000
+13	4085.372072000	sched nsubmitted	247.000000
+13	4085.373554000	sched nsubmitted	248.000000
+13	4085.375134000	sched nsubmitted	249.000000
+13	4085.378888000	sched nsubmitted	250.000000
+13	4085.380560000	sched nsubmitted	251.000000
+13	4085.381933000	sched nsubmitted	252.000000
+13	4085.384647000	sched nsubmitted	253.000000
+13	4085.386081000	sched nsubmitted	254.000000
+13	4085.387572000	sched nsubmitted	255.000000
+13	4085.390526000	sched nsubmitted	256.000000
+13	4085.392113000	sched nsubmitted	257.000000
+13	4085.397137000	sched nsubmitted	258.000000
+13	4085.398715000	sched nsubmitted	259.000000
+13	4085.400112000	sched nsubmitted	260.000000
+13	4085.402851000	sched nsubmitted	261.000000
+13	4085.404457000	sched nsubmitted	262.000000
+13	4085.407250000	sched nsubmitted	263.000000
+13	4085.408909000	sched nsubmitted	264.000000
+13	4085.410497000	sched nsubmitted	265.000000
+13	4085.413573000	sched nsubmitted	266.000000
+13	4085.415149000	sched nsubmitted	267.000000
+13	4085.416529000	sched nsubmitted	268.000000
+13	4085.419174000	sched nsubmitted	269.000000
+13	4085.420668000	sched nsubmitted	270.000000
+13	4085.421991000	sched nsubmitted	271.000000
+13	4085.424634000	sched nsubmitted	272.000000
+13	4085.426006000	sched nsubmitted	273.000000
+13	4085.428786000	sched nsubmitted	274.000000
+13	4085.430286000	sched nsubmitted	275.000000
+13	4085.431587000	sched nsubmitted	276.000000
+13	4085.434301000	sched nsubmitted	277.000000
+13	4085.435683000	sched nsubmitted	278.000000
+13	4085.437102000	sched nsubmitted	279.000000
+13	4085.439764000	sched nsubmitted	280.000000
+13	4085.441137000	sched nsubmitted	281.000000
+13	4085.442415000	sched nsubmitted	282.000000
+13	4085.445209000	sched nsubmitted	283.000000
+13	4085.446645000	sched nsubmitted	284.000000
+13	4085.448217000	sched nsubmitted	285.000000
+13	4085.451153000	sched nsubmitted	286.000000
+13	4085.452631000	sched nsubmitted	287.000000
+13	4085.456375000	sched nsubmitted	288.000000
+13	4085.458020000	sched nsubmitted	289.000000
+13	4085.459501000	sched nsubmitted	290.000000
+13	4085.462120000	sched nsubmitted	291.000000
+13	4085.463544000	sched nsubmitted	292.000000
+13	4085.464952000	sched nsubmitted	293.000000
+13	4085.467683000	sched nsubmitted	294.000000
+13	4085.469133000	sched nsubmitted	295.000000
+13	4085.470528000	sched nsubmitted	296.000000
+13	4085.473195000	sched nsubmitted	297.000000
+13	4085.474584000	sched nsubmitted	298.000000
+13	4085.475860000	sched nsubmitted	299.000000
+13	4085.478813000	sched nsubmitted	300.000000
+13	4085.480114000	sched nsubmitted	301.000000
+13	4085.482693000	sched nsubmitted	302.000000
+13	4085.484104000	sched nsubmitted	303.000000
+13	4085.485534000	sched nsubmitted	304.000000
+13	4085.488160000	sched nsubmitted	305.000000
+13	4085.489636000	sched nsubmitted	306.000000
+13	4085.490977000	sched nsubmitted	307.000000
+13	4085.493778000	sched nsubmitted	308.000000
+13	4085.495147000	sched nsubmitted	309.000000
+13	4085.496417000	sched nsubmitted	310.000000
+13	4085.499825000	sched nsubmitted	311.000000
+13	4085.501249000	sched nsubmitted	312.000000
+13	4085.504145000	sched nsubmitted	313.000000
+13	4085.505544000	sched nsubmitted	314.000000
+13	4085.506842000	sched nsubmitted	315.000000
+13	4085.509950000	sched nsubmitted	316.000000
+13	4085.511387000	sched nsubmitted	317.000000
+13	4085.512671000	sched nsubmitted	318.000000
+13	4085.515776000	sched nsubmitted	319.000000
+13	4085.517313000	sched nsubmitted	320.000000
+13	4085.518799000	sched nsubmitted	321.000000
+13	4085.521829000	sched nsubmitted	322.000000
+13	4085.523378000	sched nsubmitted	323.000000
+13	4085.524765000	sched nsubmitted	324.000000
+13	4085.529346000	sched nsubmitted	325.000000
+13	4085.530788000	sched nsubmitted	326.000000
+13	4085.532227000	sched nsubmitted	327.000000
+13	4085.536275000	sched nsubmitted	328.000000
+13	4085.537893000	sched nsubmitted	329.000000
+13	4085.541065000	sched nsubmitted	330.000000
+13	4085.542660000	sched nsubmitted	331.000000
+13	4085.544027000	sched nsubmitted	332.000000
+13	4085.546990000	sched nsubmitted	333.000000
+13	4085.548441000	sched nsubmitted	334.000000
+13	4085.549854000	sched nsubmitted	335.000000
+13	4085.552620000	sched nsubmitted	336.000000
+13	4085.553995000	sched nsubmitted	337.000000
+13	4085.555285000	sched nsubmitted	338.000000
+13	4085.558103000	sched nsubmitted	339.000000
+13	4085.559474000	sched nsubmitted	340.000000
+13	4085.560751000	sched nsubmitted	341.000000
+13	4085.563501000	sched nsubmitted	342.000000
+13	4085.565001000	sched nsubmitted	343.000000
+13	4085.570155000	sched nsubmitted	344.000000
+13	4085.571600000	sched nsubmitted	345.000000
+13	4085.572907000	sched nsubmitted	346.000000
+13	4085.575524000	sched nsubmitted	347.000000
+13	4085.576958000	sched nsubmitted	348.000000
+13	4085.578289000	sched nsubmitted	349.000000
+13	4085.581353000	sched nsubmitted	350.000000
+13	4085.582967000	sched nsubmitted	351.000000
+13	4085.584451000	sched nsubmitted	352.000000
+13	4085.587519000	sched nsubmitted	353.000000
+13	4085.589244000	sched nsubmitted	354.000000
+13	4085.592733000	sched nsubmitted	355.000000
+13	4085.594401000	sched nsubmitted	356.000000
+13	4085.595926000	sched nsubmitted	357.000000
+13	4085.599179000	sched nsubmitted	358.000000
+13	4085.600759000	sched nsubmitted	359.000000
+13	4085.604185000	sched nsubmitted	360.000000
+13	4085.605948000	sched nsubmitted	361.000000
+13	4085.607474000	sched nsubmitted	362.000000
+13	4085.610879000	sched nsubmitted	363.000000
+13	4085.612403000	sched nsubmitted	364.000000
+13	4085.617022000	sched nsubmitted	365.000000
+13	4085.618670000	sched nsubmitted	366.000000
+13	4085.620023000	sched nsubmitted	367.000000
+13	4085.623129000	sched nsubmitted	368.000000
+13	4085.624539000	sched nsubmitted	369.000000
+13	4085.625968000	sched nsubmitted	370.000000
+13	4085.629203000	sched nsubmitted	371.000000
+13	4085.630701000	sched nsubmitted	372.000000
+13	4085.632022000	sched nsubmitted	373.000000
+13	4085.635334000	sched nsubmitted	374.000000
+13	4085.636671000	sched nsubmitted	375.000000
+13	4085.639607000	sched nsubmitted	376.000000
+13	4085.641047000	sched nsubmitted	377.000000
+13	4085.642357000	sched nsubmitted	378.000000
+13	4085.645095000	sched nsubmitted	379.000000
+13	4085.646477000	sched nsubmitted	380.000000
+13	4085.647930000	sched nsubmitted	381.000000
+13	4085.650983000	sched nsubmitted	382.000000
+13	4085.652679000	sched nsubmitted	383.000000
+13	4085.654087000	sched nsubmitted	384.000000
+13	4085.656959000	sched nsubmitted	385.000000
+13	4085.658506000	sched nsubmitted	386.000000
+13	4085.660143000	sched nsubmitted	387.000000
+13	4085.663102000	sched nsubmitted	388.000000
+13	4085.664490000	sched nsubmitted	389.000000
+13	4085.667241000	sched nsubmitted	390.000000
+13	4085.668830000	sched nsubmitted	391.000000
+13	4085.670240000	sched nsubmitted	392.000000
+13	4085.672906000	sched nsubmitted	393.000000
+13	4085.674302000	sched nsubmitted	394.000000
+13	4085.675599000	sched nsubmitted	395.000000
+13	4085.678227000	sched nsubmitted	396.000000
+13	4085.679583000	sched nsubmitted	397.000000
+13	4085.680858000	sched nsubmitted	398.000000
+13	4085.683936000	sched nsubmitted	399.000000
+13	4085.685337000	sched nsubmitted	400.000000
+13	4085.688943000	sched nsubmitted	401.000000
+13	4085.693339000	sched nsubmitted	402.000000
+13	4085.695794000	sched nsubmitted	403.000000
+13	4085.699649000	sched nsubmitted	404.000000
+13	4085.703480000	sched nsubmitted	405.000000
+13	4085.705902000	sched nsubmitted	406.000000
+13	4085.709712000	sched nsubmitted	407.000000
+13	4085.718442000	sched nsubmitted	408.000000
+13	4085.721227000	sched nsubmitted	409.000000
+13	4085.725498000	sched nsubmitted	410.000000
+13	4085.729812000	sched nsubmitted	411.000000
+13	4085.732296000	sched nsubmitted	412.000000
+13	4085.736147000	sched nsubmitted	413.000000
+13	4085.739893000	sched nsubmitted	414.000000
+13	4085.745902000	sched nsubmitted	415.000000
+13	4085.748539000	sched nsubmitted	416.000000
+13	4085.752476000	sched nsubmitted	417.000000
+13	4085.756664000	sched nsubmitted	418.000000
+13	4085.758402000	sched nsubmitted	419.000000
+13	4085.759864000	sched nsubmitted	420.000000
+13	4085.762636000	sched nsubmitted	421.000000
+13	4085.764139000	sched nsubmitted	422.000000
+13	4085.765446000	sched nsubmitted	423.000000
+13	4085.768205000	sched nsubmitted	424.000000
+13	4085.769921000	sched nsubmitted	425.000000
+13	4085.773631000	sched nsubmitted	426.000000
+13	4085.775221000	sched nsubmitted	427.000000
+13	4085.776708000	sched nsubmitted	428.000000
+13	4085.779420000	sched nsubmitted	429.000000
+13	4085.780820000	sched nsubmitted	430.000000
+13	4085.782208000	sched nsubmitted	431.000000
+13	4085.784974000	sched nsubmitted	432.000000
+13	4085.786687000	sched nsubmitted	433.000000
+13	4085.788243000	sched nsubmitted	434.000000
+13	4085.790998000	sched nsubmitted	435.000000
+13	4085.792537000	sched nsubmitted	436.000000
+13	4085.795369000	sched nsubmitted	437.000000
+13	4085.796897000	sched nsubmitted	438.000000
+13	4085.798257000	sched nsubmitted	439.000000
+13	4085.800945000	sched nsubmitted	440.000000
+13	4085.802325000	sched nsubmitted	441.000000
+13	4085.803566000	sched nsubmitted	442.000000
+13	4085.806141000	sched nsubmitted	443.000000
+13	4085.807783000	sched nsubmitted	444.000000
+13	4085.809183000	sched nsubmitted	445.000000
+13	4085.812017000	sched nsubmitted	446.000000
+13	4085.813671000	sched nsubmitted	447.000000
+13	4085.816708000	sched nsubmitted	448.000000
+13	4085.818468000	sched nsubmitted	449.000000
+13	4085.819845000	sched nsubmitted	450.000000
+13	4085.822863000	sched nsubmitted	451.000000
+13	4085.824379000	sched nsubmitted	452.000000
+13	4085.825796000	sched nsubmitted	453.000000
+13	4085.828760000	sched nsubmitted	454.000000
+13	4085.830175000	sched nsubmitted	455.000000
+13	4085.832818000	sched nsubmitted	456.000000
+13	4085.834201000	sched nsubmitted	457.000000
+13	4085.835496000	sched nsubmitted	458.000000
+13	4085.838405000	sched nsubmitted	459.000000
+13	4085.839786000	sched nsubmitted	460.000000
+13	4085.841058000	sched nsubmitted	461.000000
+13	4085.843753000	sched nsubmitted	462.000000
+13	4085.845261000	sched nsubmitted	463.000000
+13	4085.846630000	sched nsubmitted	464.000000
+13	4085.850110000	sched nsubmitted	465.000000
+13	4085.851542000	sched nsubmitted	466.000000
+13	4085.854246000	sched nsubmitted	467.000000
+13	4085.855769000	sched nsubmitted	468.000000
+13	4085.857061000	sched nsubmitted	469.000000
+13	4085.859906000	sched nsubmitted	470.000000
+13	4085.861289000	sched nsubmitted	471.000000
+13	4085.862711000	sched nsubmitted	472.000000
+13	4085.865413000	sched nsubmitted	473.000000
+13	4085.866873000	sched nsubmitted	474.000000
+13	4085.868140000	sched nsubmitted	475.000000
+13	4085.875035000	sched nsubmitted	476.000000
+13	4085.876616000	sched nsubmitted	477.000000
+13	4085.878210000	sched nsubmitted	478.000000
+13	4085.881100000	sched nsubmitted	479.000000
+13	4085.882738000	sched nsubmitted	480.000000
+13	4085.885731000	sched nsubmitted	481.000000
+13	4085.887596000	sched nsubmitted	482.000000
+13	4085.889016000	sched nsubmitted	483.000000
+13	4085.900857000	sched nsubmitted	484.000000
+13	4085.903803000	sched nsubmitted	485.000000
+13	4085.905214000	sched nsubmitted	486.000000
+13	4085.908791000	sched nsubmitted	487.000000
+13	4085.910338000	sched nsubmitted	488.000000
+13	4085.912024000	sched nsubmitted	489.000000
+13	4085.924040000	sched nsubmitted	490.000000
+13	4085.926135000	sched nsubmitted	491.000000
+13	4085.927595000	sched nsubmitted	492.000000
+13	4085.931434000	sched nsubmitted	493.000000
+13	4085.932928000	sched nsubmitted	494.000000
+13	4085.934413000	sched nsubmitted	495.000000
+13	4085.937984000	sched nsubmitted	496.000000
+13	4085.939765000	sched nsubmitted	497.000000
+13	4085.945580000	sched nsubmitted	498.000000
+13	4085.947060000	sched nsubmitted	499.000000
+13	4085.948472000	sched nsubmitted	500.000000
+13	4085.951744000	sched nsubmitted	501.000000
+13	4085.953257000	sched nsubmitted	502.000000
+13	4085.954623000	sched nsubmitted	503.000000
+13	4085.959084000	sched nsubmitted	504.000000
+13	4085.960886000	sched nsubmitted	505.000000
+13	4085.962384000	sched nsubmitted	506.000000
+13	4085.965912000	sched nsubmitted	507.000000
+13	4085.967414000	sched nsubmitted	508.000000
+13	4085.968842000	sched nsubmitted	509.000000
+13	4085.972187000	sched nsubmitted	510.000000
+13	4085.973478000	sched nsubmitted	511.000000
+13	4085.976743000	sched nsubmitted	512.000000
+13	4085.978306000	sched nsubmitted	513.000000
+13	4085.979918000	sched nsubmitted	514.000000
+13	4085.983193000	sched nsubmitted	515.000000
+13	4085.984674000	sched nsubmitted	516.000000
+13	4085.986078000	sched nsubmitted	517.000000
+13	4085.989288000	sched nsubmitted	518.000000
+13	4085.990650000	sched nsubmitted	519.000000
+13	4085.991924000	sched nsubmitted	520.000000
+13	4085.995008000	sched nsubmitted	521.000000
+13	4085.996384000	sched nsubmitted	522.000000
+13	4085.998984000	sched nsubmitted	523.000000
+13	4086.000445000	sched nsubmitted	524.000000
+13	4086.001694000	sched nsubmitted	525.000000
+13	4086.004477000	sched nsubmitted	526.000000
+13	4086.005838000	sched nsubmitted	527.000000
+13	4086.007244000	sched nsubmitted	528.000000
+13	4086.009852000	sched nsubmitted	529.000000
+13	4086.011231000	sched nsubmitted	530.000000
+13	4086.012515000	sched nsubmitted	531.000000
+13	4086.015289000	sched nsubmitted	532.000000
+13	4086.016654000	sched nsubmitted	533.000000
+13	4086.017916000	sched nsubmitted	534.000000
+13	4086.021044000	sched nsubmitted	535.000000
+13	4086.022312000	sched nsubmitted	536.000000
+13	4086.025481000	sched nsubmitted	537.000000
+13	4086.026887000	sched nsubmitted	538.000000
+13	4086.028649000	sched nsubmitted	539.000000
+13	4086.031698000	sched nsubmitted	540.000000
+13	4086.033273000	sched nsubmitted	541.000000
+13	4086.034752000	sched nsubmitted	542.000000
+13	4086.038632000	sched nsubmitted	543.000000
+13	4086.040104000	sched nsubmitted	544.000000
+13	4086.042911000	sched nsubmitted	545.000000
+13	4086.044679000	sched nsubmitted	546.000000
+13	4086.046327000	sched nsubmitted	547.000000
+13	4086.049478000	sched nsubmitted	548.000000
+13	4086.051035000	sched nsubmitted	549.000000
+13	4086.053909000	sched nsubmitted	550.000000
+13	4086.055615000	sched nsubmitted	551.000000
+13	4086.057126000	sched nsubmitted	552.000000
+13	4086.059967000	sched nsubmitted	553.000000
+13	4086.061643000	sched nsubmitted	554.000000
+13	4086.064482000	sched nsubmitted	555.000000
+13	4086.065936000	sched nsubmitted	556.000000
+13	4086.067265000	sched nsubmitted	557.000000
+13	4086.069984000	sched nsubmitted	558.000000
+13	4086.071498000	sched nsubmitted	559.000000
+13	4086.072908000	sched nsubmitted	560.000000
+13	4086.075699000	sched nsubmitted	561.000000
+13	4086.077246000	sched nsubmitted	562.000000
+13	4086.078754000	sched nsubmitted	563.000000
+13	4086.081484000	sched nsubmitted	564.000000
+13	4086.082939000	sched nsubmitted	565.000000
+13	4086.084235000	sched nsubmitted	566.000000
+13	4086.086901000	sched nsubmitted	567.000000
+13	4086.088453000	sched nsubmitted	568.000000
+13	4086.091257000	sched nsubmitted	569.000000
+13	4086.092667000	sched nsubmitted	570.000000
+13	4086.094211000	sched nsubmitted	571.000000
+13	4086.097937000	sched nsubmitted	572.000000
+13	4086.101717000	sched nsubmitted	573.000000
+13	4086.104497000	sched nsubmitted	574.000000
+13	4086.108604000	sched nsubmitted	575.000000
+13	4086.115053000	sched nsubmitted	576.000000
+13	4086.118145000	sched nsubmitted	577.000000
+13	4086.124555000	sched nsubmitted	578.000000
+13	4086.128721000	sched nsubmitted	579.000000
+13	4086.132917000	sched nsubmitted	580.000000
+13	4086.135691000	sched nsubmitted	581.000000
+13	4086.139632000	sched nsubmitted	582.000000
+13	4086.143494000	sched nsubmitted	583.000000
+13	4086.145966000	sched nsubmitted	584.000000
+13	4086.149629000	sched nsubmitted	585.000000
+13	4086.153279000	sched nsubmitted	586.000000
+13	4086.157241000	sched nsubmitted	587.000000
+13	4086.159738000	sched nsubmitted	588.000000
+13	4086.162609000	sched nsubmitted	589.000000
+13	4086.164132000	sched nsubmitted	590.000000
+13	4086.165453000	sched nsubmitted	591.000000
+13	4086.168266000	sched nsubmitted	592.000000
+13	4086.169631000	sched nsubmitted	593.000000
+13	4086.170926000	sched nsubmitted	594.000000
+13	4086.173746000	sched nsubmitted	595.000000
+13	4086.175355000	sched nsubmitted	596.000000
+13	4086.176786000	sched nsubmitted	597.000000
+13	4086.179930000	sched nsubmitted	598.000000
+13	4086.181443000	sched nsubmitted	599.000000
+13	4086.184171000	sched nsubmitted	600.000000
+13	4086.185675000	sched nsubmitted	601.000000
+13	4086.187083000	sched nsubmitted	602.000000
+13	4086.190864000	sched nsubmitted	603.000000
+13	4086.192517000	sched nsubmitted	604.000000
+13	4086.193815000	sched nsubmitted	605.000000
+13	4086.196516000	sched nsubmitted	606.000000
+13	4086.197868000	sched nsubmitted	607.000000
+13	4086.199311000	sched nsubmitted	608.000000
+13	4086.202242000	sched nsubmitted	609.000000
+13	4086.203607000	sched nsubmitted	610.000000
+13	4086.206320000	sched nsubmitted	611.000000
+13	4086.207726000	sched nsubmitted	612.000000
+13	4086.208982000	sched nsubmitted	613.000000
+13	4086.211741000	sched nsubmitted	614.000000
+13	4086.213152000	sched nsubmitted	615.000000
+13	4086.214480000	sched nsubmitted	616.000000
+13	4086.217344000	sched nsubmitted	617.000000
+13	4086.218836000	sched nsubmitted	618.000000
+13	4086.220241000	sched nsubmitted	619.000000
+13	4086.223225000	sched nsubmitted	620.000000
+13	4086.224701000	sched nsubmitted	621.000000
+13	4086.227403000	sched nsubmitted	622.000000
+13	4086.228954000	sched nsubmitted	623.000000
+13	4086.230460000	sched nsubmitted	624.000000
+13	4086.233302000	sched nsubmitted	625.000000
+13	4086.234650000	sched nsubmitted	626.000000
+13	4086.237301000	sched nsubmitted	627.000000
+13	4086.238869000	sched nsubmitted	628.000000
+13	4086.240377000	sched nsubmitted	629.000000
+13	4086.243256000	sched nsubmitted	630.000000
+13	4086.244811000	sched nsubmitted	631.000000
+13	4086.246213000	sched nsubmitted	632.000000
+13	4086.249105000	sched nsubmitted	633.000000
+13	4086.250630000	sched nsubmitted	634.000000
+13	4086.252153000	sched nsubmitted	635.000000
+13	4086.254959000	sched nsubmitted	636.000000
+13	4086.256391000	sched nsubmitted	637.000000
+13	4086.257780000	sched nsubmitted	638.000000
+13	4086.260449000	sched nsubmitted	639.000000
+13	4086.261736000	sched nsubmitted	640.000000
+13	4086.265240000	sched nsubmitted	641.000000
+13	4086.266821000	sched nsubmitted	642.000000
+13	4086.268171000	sched nsubmitted	643.000000
+13	4086.270954000	sched nsubmitted	644.000000
+13	4086.272329000	sched nsubmitted	645.000000
+13	4086.273603000	sched nsubmitted	646.000000
+13	4086.276516000	sched nsubmitted	647.000000
+13	4086.278029000	sched nsubmitted	648.000000
+13	4086.279316000	sched nsubmitted	649.000000
+13	4086.282333000	sched nsubmitted	650.000000
+13	4086.283685000	sched nsubmitted	651.000000
+13	4086.288904000	sched nsubmitted	652.000000
+13	4086.290439000	sched nsubmitted	653.000000
+13	4086.291754000	sched nsubmitted	654.000000
+13	4086.295673000	sched nsubmitted	655.000000
+13	4086.297290000	sched nsubmitted	656.000000
+13	4086.298620000	sched nsubmitted	657.000000
+13	4086.301304000	sched nsubmitted	658.000000
+13	4086.302958000	sched nsubmitted	659.000000
+13	4086.304475000	sched nsubmitted	660.000000
+13	4086.307203000	sched nsubmitted	661.000000
+13	4086.308729000	sched nsubmitted	662.000000
+13	4086.310296000	sched nsubmitted	663.000000
+13	4086.313742000	sched nsubmitted	664.000000
+13	4086.315113000	sched nsubmitted	665.000000
+13	4086.316562000	sched nsubmitted	666.000000
+13	4086.319412000	sched nsubmitted	667.000000
+13	4086.320925000	sched nsubmitted	668.000000
+13	4086.322306000	sched nsubmitted	669.000000
+13	4086.325103000	sched nsubmitted	670.000000
+13	4086.326639000	sched nsubmitted	671.000000
+13	4086.329250000	sched nsubmitted	672.000000
+13	4086.330636000	sched nsubmitted	673.000000
+13	4086.331892000	sched nsubmitted	674.000000
+13	4086.334712000	sched nsubmitted	675.000000
+13	4086.336100000	sched nsubmitted	676.000000
+13	4086.337372000	sched nsubmitted	677.000000
+13	4086.340039000	sched nsubmitted	678.000000
+13	4086.341436000	sched nsubmitted	679.000000
+13	4086.342826000	sched nsubmitted	680.000000
+13	4086.346220000	sched nsubmitted	681.000000
+13	4086.347587000	sched nsubmitted	682.000000
+13	4086.348892000	sched nsubmitted	683.000000
+13	4086.351693000	sched nsubmitted	684.000000
+13	4086.352989000	sched nsubmitted	685.000000
+13	4086.355806000	sched nsubmitted	686.000000
+13	4086.357219000	sched nsubmitted	687.000000
+13	4086.358653000	sched nsubmitted	688.000000
+13	4086.361254000	sched nsubmitted	689.000000
+13	4086.362743000	sched nsubmitted	690.000000
+13	4086.364207000	sched nsubmitted	691.000000
+13	4086.367019000	sched nsubmitted	692.000000
+13	4086.368499000	sched nsubmitted	693.000000
+13	4086.369988000	sched nsubmitted	694.000000
+13	4086.372751000	sched nsubmitted	695.000000
+13	4086.374210000	sched nsubmitted	696.000000
+13	4086.375514000	sched nsubmitted	697.000000
+13	4086.378361000	sched nsubmitted	698.000000
+13	4086.379650000	sched nsubmitted	699.000000
+13	4086.382488000	sched nsubmitted	700.000000
+13	4086.383942000	sched nsubmitted	701.000000
+13	4086.385457000	sched nsubmitted	702.000000
+13	4086.388209000	sched nsubmitted	703.000000
+13	4086.389705000	sched nsubmitted	704.000000
+13	4086.391073000	sched nsubmitted	705.000000
+13	4086.393684000	sched nsubmitted	706.000000
+13	4086.395033000	sched nsubmitted	707.000000
+13	4086.396329000	sched nsubmitted	708.000000
+13	4086.399508000	sched nsubmitted	709.000000
+13	4086.401026000	sched nsubmitted	710.000000
+13	4086.403833000	sched nsubmitted	711.000000
+13	4086.405436000	sched nsubmitted	712.000000
+13	4086.406959000	sched nsubmitted	713.000000
+13	4086.409767000	sched nsubmitted	714.000000
+13	4086.411290000	sched nsubmitted	715.000000
+13	4086.415367000	sched nsubmitted	716.000000
+13	4086.417135000	sched nsubmitted	717.000000
+13	4086.418599000	sched nsubmitted	718.000000
+13	4086.422344000	sched nsubmitted	719.000000
+13	4086.423924000	sched nsubmitted	720.000000
+13	4086.426708000	sched nsubmitted	721.000000
+13	4086.428309000	sched nsubmitted	722.000000
+13	4086.429802000	sched nsubmitted	723.000000
+13	4086.432664000	sched nsubmitted	724.000000
+13	4086.435517000	sched nsubmitted	725.000000
+13	4086.439941000	sched nsubmitted	726.000000
+13	4086.444662000	sched nsubmitted	727.000000
+13	4086.448677000	sched nsubmitted	728.000000
+13	4086.451845000	sched nsubmitted	729.000000
+13	4086.456367000	sched nsubmitted	730.000000
+13	4086.462809000	sched nsubmitted	731.000000
+13	4086.465607000	sched nsubmitted	732.000000
+13	4086.470099000	sched nsubmitted	733.000000
+13	4086.474469000	sched nsubmitted	734.000000
+13	4086.479843000	sched nsubmitted	735.000000
+13	4086.482819000	sched nsubmitted	736.000000
+13	4086.487096000	sched nsubmitted	737.000000
+13	4086.501975000	sched nsubmitted	738.000000
+13	4086.505880000	sched nsubmitted	739.000000
+13	4086.510867000	sched nsubmitted	740.000000
+13	4086.515502000	sched nsubmitted	741.000000
+13	4086.517324000	sched nsubmitted	742.000000
+13	4086.518879000	sched nsubmitted	743.000000
+13	4086.522208000	sched nsubmitted	744.000000
+13	4086.523678000	sched nsubmitted	745.000000
+13	4086.524981000	sched nsubmitted	746.000000
+13	4086.528590000	sched nsubmitted	747.000000
+13	4086.530226000	sched nsubmitted	748.000000
+13	4086.531781000	sched nsubmitted	749.000000
+13	4086.535668000	sched nsubmitted	750.000000
+13	4086.537391000	sched nsubmitted	751.000000
+13	4086.540915000	sched nsubmitted	752.000000
+13	4086.542339000	sched nsubmitted	753.000000
+13	4086.543616000	sched nsubmitted	754.000000
+13	4086.546796000	sched nsubmitted	755.000000
+13	4086.548375000	sched nsubmitted	756.000000
+13	4086.549656000	sched nsubmitted	757.000000
+13	4086.553049000	sched nsubmitted	758.000000
+13	4086.554426000	sched nsubmitted	759.000000
+13	4086.555837000	sched nsubmitted	760.000000
+13	4086.559005000	sched nsubmitted	761.000000
+13	4086.560475000	sched nsubmitted	762.000000
+13	4086.561783000	sched nsubmitted	763.000000
+13	4086.564871000	sched nsubmitted	764.000000
+13	4086.566137000	sched nsubmitted	765.000000
+13	4086.569700000	sched nsubmitted	766.000000
+13	4086.571173000	sched nsubmitted	767.000000
+13	4086.572497000	sched nsubmitted	768.000000
+13	4086.575946000	sched nsubmitted	769.000000
+13	4086.577486000	sched nsubmitted	770.000000
+13	4086.578883000	sched nsubmitted	771.000000
+13	4086.582402000	sched nsubmitted	772.000000
+13	4086.584052000	sched nsubmitted	773.000000
+13	4086.587313000	sched nsubmitted	774.000000
+13	4086.588916000	sched nsubmitted	775.000000
+13	4086.590450000	sched nsubmitted	776.000000
+13	4086.594151000	sched nsubmitted	777.000000
+13	4086.595666000	sched nsubmitted	778.000000
+13	4086.597396000	sched nsubmitted	779.000000
+13	4086.601561000	sched nsubmitted	780.000000
+13	4086.603130000	sched nsubmitted	781.000000
+13	4086.606485000	sched nsubmitted	782.000000
+13	4086.608076000	sched nsubmitted	783.000000
+13	4086.609485000	sched nsubmitted	784.000000
+13	4086.612860000	sched nsubmitted	785.000000
+13	4086.614474000	sched nsubmitted	786.000000
+13	4086.615874000	sched nsubmitted	787.000000
+13	4086.618951000	sched nsubmitted	788.000000
+13	4086.620331000	sched nsubmitted	789.000000
+13	4086.621761000	sched nsubmitted	790.000000
+13	4086.624587000	sched nsubmitted	791.000000
+13	4086.625945000	sched nsubmitted	792.000000
+13	4086.627250000	sched nsubmitted	793.000000
+13	4086.630086000	sched nsubmitted	794.000000
+13	4086.631449000	sched nsubmitted	795.000000
+13	4086.634276000	sched nsubmitted	796.000000
+13	4086.635681000	sched nsubmitted	797.000000
+13	4086.636948000	sched nsubmitted	798.000000
+13	4086.639596000	sched nsubmitted	799.000000
+13	4086.641098000	sched nsubmitted	800.000000
+13	4086.642379000	sched nsubmitted	801.000000
+13	4086.645175000	sched nsubmitted	802.000000
+13	4086.646533000	sched nsubmitted	803.000000
+13	4086.647949000	sched nsubmitted	804.000000
+13	4086.651028000	sched nsubmitted	805.000000
+13	4086.652352000	sched nsubmitted	806.000000
+13	4086.657315000	sched nsubmitted	807.000000
+13	4086.658736000	sched nsubmitted	808.000000
+13	4086.659997000	sched nsubmitted	809.000000
+13	4086.662627000	sched nsubmitted	810.000000
+13	4086.664304000	sched nsubmitted	811.000000
+13	4086.665615000	sched nsubmitted	812.000000
+13	4086.668365000	sched nsubmitted	813.000000
+13	4086.669753000	sched nsubmitted	814.000000
+13	4086.671266000	sched nsubmitted	815.000000
+13	4086.673995000	sched nsubmitted	816.000000
+13	4086.675455000	sched nsubmitted	817.000000
+13	4086.677040000	sched nsubmitted	818.000000
+13	4086.680804000	sched nsubmitted	819.000000
+13	4086.682232000	sched nsubmitted	820.000000
+13	4086.686591000	sched nsubmitted	821.000000
+13	4086.688269000	sched nsubmitted	822.000000
+13	4086.689987000	sched nsubmitted	823.000000
+13	4086.693032000	sched nsubmitted	824.000000
+13	4086.694569000	sched nsubmitted	825.000000
+13	4086.695950000	sched nsubmitted	826.000000
+13	4086.698865000	sched nsubmitted	827.000000
+13	4086.700453000	sched nsubmitted	828.000000
+13	4086.701793000	sched nsubmitted	829.000000
+13	4086.704506000	sched nsubmitted	830.000000
+13	4086.705934000	sched nsubmitted	831.000000
+13	4086.707322000	sched nsubmitted	832.000000
+13	4086.709923000	sched nsubmitted	833.000000
+13	4086.711281000	sched nsubmitted	834.000000
+13	4086.712558000	sched nsubmitted	835.000000
+13	4086.715400000	sched nsubmitted	836.000000
+13	4086.716800000	sched nsubmitted	837.000000
+13	4086.718098000	sched nsubmitted	838.000000
+13	4086.720964000	sched nsubmitted	839.000000
+13	4086.722379000	sched nsubmitted	840.000000
+13	4086.725023000	sched nsubmitted	841.000000
+13	4086.726430000	sched nsubmitted	842.000000
+13	4086.727683000	sched nsubmitted	843.000000
+13	4086.730363000	sched nsubmitted	844.000000
+13	4086.731798000	sched nsubmitted	845.000000
+13	4086.733184000	sched nsubmitted	846.000000
+13	4086.736013000	sched nsubmitted	847.000000
+13	4086.737382000	sched nsubmitted	848.000000
+13	4086.738633000	sched nsubmitted	849.000000
+13	4086.741512000	sched nsubmitted	850.000000
+13	4086.742991000	sched nsubmitted	851.000000
+13	4086.745748000	sched nsubmitted	852.000000
+13	4086.747224000	sched nsubmitted	853.000000
+13	4086.748793000	sched nsubmitted	854.000000
+13	4086.751605000	sched nsubmitted	855.000000
+13	4086.752989000	sched nsubmitted	856.000000
+13	4086.754270000	sched nsubmitted	857.000000
+13	4086.757784000	sched nsubmitted	858.000000
+13	4086.759191000	sched nsubmitted	859.000000
+13	4086.760509000	sched nsubmitted	860.000000
+13	4086.764509000	sched nsubmitted	861.000000
+13	4086.768999000	sched nsubmitted	862.000000
+13	4086.773157000	sched nsubmitted	863.000000
+13	4086.775894000	sched nsubmitted	864.000000
+13	4086.780204000	sched nsubmitted	865.000000
+13	4086.784470000	sched nsubmitted	866.000000
+13	4086.787472000	sched nsubmitted	867.000000
+13	4086.791861000	sched nsubmitted	868.000000
+13	4086.796638000	sched nsubmitted	869.000000
+13	4086.801250000	sched nsubmitted	870.000000
+13	4086.804484000	sched nsubmitted	871.000000
+13	4086.808724000	sched nsubmitted	872.000000
+13	4086.812999000	sched nsubmitted	873.000000
+13	4086.817276000	sched nsubmitted	874.000000
+13	4086.820225000	sched nsubmitted	875.000000
+13	4086.823255000	sched nsubmitted	876.000000
+13	4086.824792000	sched nsubmitted	877.000000
+13	4086.826106000	sched nsubmitted	878.000000
+13	4086.830934000	sched nsubmitted	879.000000
+13	4086.832337000	sched nsubmitted	880.000000
+13	4086.833649000	sched nsubmitted	881.000000
+13	4086.837383000	sched nsubmitted	882.000000
+13	4086.838824000	sched nsubmitted	883.000000
+13	4086.841623000	sched nsubmitted	884.000000
+13	4086.843212000	sched nsubmitted	885.000000
+13	4086.844687000	sched nsubmitted	886.000000
+13	4086.847554000	sched nsubmitted	887.000000
+13	4086.849127000	sched nsubmitted	888.000000
+13	4086.850575000	sched nsubmitted	889.000000
+13	4086.853404000	sched nsubmitted	890.000000
+13	4086.854950000	sched nsubmitted	891.000000
+13	4086.856212000	sched nsubmitted	892.000000
+13	4086.858955000	sched nsubmitted	893.000000
+13	4086.860444000	sched nsubmitted	894.000000
+13	4086.863341000	sched nsubmitted	895.000000
+13	4086.864960000	sched nsubmitted	896.000000
+13	4086.866632000	sched nsubmitted	897.000000
+13	4086.874407000	sched nsubmitted	898.000000
+13	4086.876519000	sched nsubmitted	899.000000
+13	4086.878011000	sched nsubmitted	900.000000
+13	4086.880922000	sched nsubmitted	901.000000
+13	4086.882491000	sched nsubmitted	902.000000
+13	4086.883947000	sched nsubmitted	903.000000
+13	4086.887058000	sched nsubmitted	904.000000
+13	4086.888733000	sched nsubmitted	905.000000
+13	4086.891633000	sched nsubmitted	906.000000
+13	4086.893287000	sched nsubmitted	907.000000
+13	4086.894787000	sched nsubmitted	908.000000
+13	4086.897696000	sched nsubmitted	909.000000
+13	4086.899201000	sched nsubmitted	910.000000
+13	4086.900671000	sched nsubmitted	911.000000
+13	4086.903660000	sched nsubmitted	912.000000
+13	4086.905040000	sched nsubmitted	913.000000
+13	4086.907697000	sched nsubmitted	914.000000
+13	4086.909096000	sched nsubmitted	915.000000
+13	4086.910545000	sched nsubmitted	916.000000
+13	4086.913299000	sched nsubmitted	917.000000
+13	4086.914721000	sched nsubmitted	918.000000
+13	4086.916042000	sched nsubmitted	919.000000
+13	4086.919899000	sched nsubmitted	920.000000
+13	4086.921518000	sched nsubmitted	921.000000
+13	4086.922855000	sched nsubmitted	922.000000
+13	4086.925484000	sched nsubmitted	923.000000
+13	4086.926837000	sched nsubmitted	924.000000
+13	4086.928247000	sched nsubmitted	925.000000
+13	4086.931132000	sched nsubmitted	926.000000
+13	4086.932677000	sched nsubmitted	927.000000
+13	4086.935647000	sched nsubmitted	928.000000
+13	4086.937371000	sched nsubmitted	929.000000
+13	4086.938790000	sched nsubmitted	930.000000
+13	4086.941747000	sched nsubmitted	931.000000
+13	4086.943194000	sched nsubmitted	932.000000
+13	4086.944594000	sched nsubmitted	933.000000
+13	4086.947248000	sched nsubmitted	934.000000
+13	4086.948758000	sched nsubmitted	935.000000
+13	4086.950079000	sched nsubmitted	936.000000
+13	4086.952766000	sched nsubmitted	937.000000
+13	4086.954263000	sched nsubmitted	938.000000
+13	4086.957087000	sched nsubmitted	939.000000
+13	4086.958523000	sched nsubmitted	940.000000
+13	4086.959827000	sched nsubmitted	941.000000
+13	4086.962621000	sched nsubmitted	942.000000
+13	4086.964015000	sched nsubmitted	943.000000
+13	4086.965270000	sched nsubmitted	944.000000
+13	4086.967821000	sched nsubmitted	945.000000
+13	4086.969317000	sched nsubmitted	946.000000
+13	4086.970599000	sched nsubmitted	947.000000
+13	4086.973190000	sched nsubmitted	948.000000
+13	4086.974541000	sched nsubmitted	949.000000
+13	4086.975955000	sched nsubmitted	950.000000
+13	4086.978688000	sched nsubmitted	951.000000
+13	4086.980002000	sched nsubmitted	952.000000
+13	4086.982766000	sched nsubmitted	953.000000
+13	4086.984256000	sched nsubmitted	954.000000
+13	4086.985496000	sched nsubmitted	955.000000
+13	4086.988117000	sched nsubmitted	956.000000
+13	4086.989486000	sched nsubmitted	957.000000
+13	4086.990897000	sched nsubmitted	958.000000
+13	4086.994289000	sched nsubmitted	959.000000
+13	4086.995700000	sched nsubmitted	960.000000
+13	4086.997246000	sched nsubmitted	961.000000
+13	4087.000100000	sched nsubmitted	962.000000
+13	4087.001564000	sched nsubmitted	963.000000
+13	4087.006823000	sched nsubmitted	964.000000
+13	4087.008390000	sched nsubmitted	965.000000
+13	4087.009801000	sched nsubmitted	966.000000
+13	4087.012640000	sched nsubmitted	967.000000
+13	4087.014215000	sched nsubmitted	968.000000
+13	4087.015694000	sched nsubmitted	969.000000
+13	4087.018359000	sched nsubmitted	970.000000
+13	4087.019881000	sched nsubmitted	971.000000
+13	4087.021161000	sched nsubmitted	972.000000
+13	4087.023817000	sched nsubmitted	973.000000
+13	4087.025154000	sched nsubmitted	974.000000
+13	4087.026578000	sched nsubmitted	975.000000
+13	4087.029372000	sched nsubmitted	976.000000
+13	4087.030869000	sched nsubmitted	977.000000
+13	4087.033510000	sched nsubmitted	978.000000
+13	4087.034919000	sched nsubmitted	979.000000
+13	4087.036189000	sched nsubmitted	980.000000
+13	4087.040475000	sched nsubmitted	981.000000
+13	4087.044939000	sched nsubmitted	982.000000
+13	4087.048054000	sched nsubmitted	983.000000
+13	4087.052920000	sched nsubmitted	984.000000
+13	4087.059319000	sched nsubmitted	985.000000
+13	4087.062870000	sched nsubmitted	986.000000
+13	4087.067872000	sched nsubmitted	987.000000
+13	4087.072335000	sched nsubmitted	988.000000
+13	4087.077740000	sched nsubmitted	989.000000
+13	4087.080945000	sched nsubmitted	990.000000
+13	4087.085392000	sched nsubmitted	991.000000
+13	4087.089645000	sched nsubmitted	992.000000
+13	4087.094158000	sched nsubmitted	993.000000
+13	4087.097368000	sched nsubmitted	994.000000
+13	4087.100424000	sched nsubmitted	995.000000
+13	4087.101802000	sched nsubmitted	996.000000
+13	4087.104472000	sched nsubmitted	997.000000
+13	4087.105986000	sched nsubmitted	998.000000
+13	4087.107223000	sched nsubmitted	999.000000
+13	4087.109872000	sched nsubmitted	1000.000000
+13	4087.111454000	sched nsubmitted	1001.000000
+13	4087.112945000	sched nsubmitted	1002.000000
+13	4087.115767000	sched nsubmitted	1003.000000
+13	4087.117383000	sched nsubmitted	1004.000000
+13	4087.118827000	sched nsubmitted	1005.000000
+13	4087.121758000	sched nsubmitted	1006.000000
+13	4087.123407000	sched nsubmitted	1007.000000
+13	4087.126268000	sched nsubmitted	1008.000000
+13	4087.127894000	sched nsubmitted	1009.000000
+13	4087.129364000	sched nsubmitted	1010.000000
+13	4087.132178000	sched nsubmitted	1011.000000
+13	4087.133722000	sched nsubmitted	1012.000000
+13	4087.134988000	sched nsubmitted	1013.000000
+13	4087.137748000	sched nsubmitted	1014.000000
+13	4087.139169000	sched nsubmitted	1015.000000
+13	4087.140499000	sched nsubmitted	1016.000000
+13	4087.143219000	sched nsubmitted	1017.000000
+13	4087.144566000	sched nsubmitted	1018.000000
+13	4087.145825000	sched nsubmitted	1019.000000
+13	4087.148589000	sched nsubmitted	1020.000000
+13	4087.150071000	sched nsubmitted	1021.000000
+13	4087.153550000	sched nsubmitted	1022.000000
+13	4087.155269000	sched nsubmitted	1023.000000
+13	4087.156690000	sched nsubmitted	1024.000000
+13	4087.159451000	sched nsubmitted	1025.000000
+13	4087.161162000	sched nsubmitted	1026.000000
+13	4087.162631000	sched nsubmitted	1027.000000
+13	4087.165624000	sched nsubmitted	1028.000000
+13	4087.167051000	sched nsubmitted	1029.000000
+13	4087.169841000	sched nsubmitted	1030.000000
+13	4087.171346000	sched nsubmitted	1031.000000
+13	4087.172645000	sched nsubmitted	1032.000000
+13	4087.175263000	sched nsubmitted	1033.000000
+13	4087.176756000	sched nsubmitted	1034.000000
+13	4087.178172000	sched nsubmitted	1035.000000
+13	4087.183284000	sched nsubmitted	1036.000000
+13	4087.184707000	sched nsubmitted	1037.000000
+13	4087.187621000	sched nsubmitted	1038.000000
+13	4087.189311000	sched nsubmitted	1039.000000
+13	4087.190822000	sched nsubmitted	1040.000000
+13	4087.193529000	sched nsubmitted	1041.000000
+13	4087.194992000	sched nsubmitted	1042.000000
+13	4087.196259000	sched nsubmitted	1043.000000
+13	4087.199072000	sched nsubmitted	1044.000000
+13	4087.200441000	sched nsubmitted	1045.000000
+13	4087.201709000	sched nsubmitted	1046.000000
+13	4087.204318000	sched nsubmitted	1047.000000
+13	4087.205846000	sched nsubmitted	1048.000000
+13	4087.207147000	sched nsubmitted	1049.000000
+13	4087.210217000	sched nsubmitted	1050.000000
+13	4087.211516000	sched nsubmitted	1051.000000
+13	4087.214122000	sched nsubmitted	1052.000000
+13	4087.215499000	sched nsubmitted	1053.000000
+13	4087.216878000	sched nsubmitted	1054.000000
+13	4087.219479000	sched nsubmitted	1055.000000
+13	4087.220899000	sched nsubmitted	1056.000000
+13	4087.222136000	sched nsubmitted	1057.000000
+13	4087.224876000	sched nsubmitted	1058.000000
+13	4087.226246000	sched nsubmitted	1059.000000
+13	4087.227552000	sched nsubmitted	1060.000000
+13	4087.231168000	sched nsubmitted	1061.000000
+13	4087.232576000	sched nsubmitted	1062.000000
+13	4087.235155000	sched nsubmitted	1063.000000
+13	4087.236521000	sched nsubmitted	1064.000000
+13	4087.237916000	sched nsubmitted	1065.000000
+13	4087.241588000	sched nsubmitted	1066.000000
+13	4087.243157000	sched nsubmitted	1067.000000
+13	4087.244470000	sched nsubmitted	1068.000000
+13	4087.247260000	sched nsubmitted	1069.000000
+13	4087.248805000	sched nsubmitted	1070.000000
+13	4087.250316000	sched nsubmitted	1071.000000
+13	4087.253338000	sched nsubmitted	1072.000000
+13	4087.254939000	sched nsubmitted	1073.000000
+13	4087.256349000	sched nsubmitted	1074.000000
+13	4087.259149000	sched nsubmitted	1075.000000
+13	4087.260863000	sched nsubmitted	1076.000000
+13	4087.262283000	sched nsubmitted	1077.000000
+13	4087.264926000	sched nsubmitted	1078.000000
+13	4087.266268000	sched nsubmitted	1079.000000
+13	4087.267568000	sched nsubmitted	1080.000000
+13	4087.270408000	sched nsubmitted	1081.000000
+13	4087.271689000	sched nsubmitted	1082.000000
+13	4087.274439000	sched nsubmitted	1083.000000
+13	4087.275836000	sched nsubmitted	1084.000000
+13	4087.277095000	sched nsubmitted	1085.000000
+13	4087.281556000	sched nsubmitted	1086.000000
+13	4087.286242000	sched nsubmitted	1087.000000
+13	4087.291002000	sched nsubmitted	1088.000000
+13	4087.294764000	sched nsubmitted	1089.000000
+13	4087.299956000	sched nsubmitted	1090.000000
+13	4087.305018000	sched nsubmitted	1091.000000
+13	4087.308880000	sched nsubmitted	1092.000000
+13	4087.315040000	sched nsubmitted	1093.000000
+13	4087.320100000	sched nsubmitted	1094.000000
+13	4087.325061000	sched nsubmitted	1095.000000
+13	4087.329670000	sched nsubmitted	1096.000000
+13	4087.332953000	sched nsubmitted	1097.000000
+13	4087.337585000	sched nsubmitted	1098.000000
+13	4087.339102000	sched nsubmitted	1099.000000
+13	4087.341934000	sched nsubmitted	1100.000000
+13	4087.343358000	sched nsubmitted	1101.000000
+13	4087.344722000	sched nsubmitted	1102.000000
+13	4087.347606000	sched nsubmitted	1103.000000
+13	4087.348915000	sched nsubmitted	1104.000000
+13	4087.351699000	sched nsubmitted	1105.000000
+13	4087.353222000	sched nsubmitted	1106.000000
+13	4087.354660000	sched nsubmitted	1107.000000
+13	4087.359495000	sched nsubmitted	1108.000000
+13	4087.361092000	sched nsubmitted	1109.000000
+13	4087.362455000	sched nsubmitted	1110.000000
+13	4087.365180000	sched nsubmitted	1111.000000
+13	4087.366809000	sched nsubmitted	1112.000000
+13	4087.368395000	sched nsubmitted	1113.000000
+13	4087.371496000	sched nsubmitted	1114.000000
+13	4087.372826000	sched nsubmitted	1115.000000
+13	4087.375435000	sched nsubmitted	1116.000000
+13	4087.376813000	sched nsubmitted	1117.000000
+13	4087.378224000	sched nsubmitted	1118.000000
+13	4087.380917000	sched nsubmitted	1119.000000
+13	4087.382386000	sched nsubmitted	1120.000000
+13	4087.383664000	sched nsubmitted	1121.000000
+13	4087.386240000	sched nsubmitted	1122.000000
+13	4087.387605000	sched nsubmitted	1123.000000
+13	4087.389019000	sched nsubmitted	1124.000000
+13	4087.392572000	sched nsubmitted	1125.000000
+13	4087.393986000	sched nsubmitted	1126.000000
+13	4087.396733000	sched nsubmitted	1127.000000
+13	4087.398261000	sched nsubmitted	1128.000000
+13	4087.399645000	sched nsubmitted	1129.000000
+13	4087.402441000	sched nsubmitted	1130.000000
+13	4087.404025000	sched nsubmitted	1131.000000
+13	4087.405427000	sched nsubmitted	1132.000000
+13	4087.408250000	sched nsubmitted	1133.000000
+13	4087.409781000	sched nsubmitted	1134.000000
+13	4087.412763000	sched nsubmitted	1135.000000
+13	4087.414276000	sched nsubmitted	1136.000000
+13	4087.415735000	sched nsubmitted	1137.000000
+13	4087.418552000	sched nsubmitted	1138.000000
+13	4087.420116000	sched nsubmitted	1139.000000
+13	4087.421406000	sched nsubmitted	1140.000000
+13	4087.423991000	sched nsubmitted	1141.000000
+13	4087.425377000	sched nsubmitted	1142.000000
+13	4087.426893000	sched nsubmitted	1143.000000
+13	4087.431203000	sched nsubmitted	1144.000000
+13	4087.432759000	sched nsubmitted	1145.000000
+13	4087.434269000	sched nsubmitted	1146.000000
+13	4087.437149000	sched nsubmitted	1147.000000
+13	4087.438690000	sched nsubmitted	1148.000000
+13	4087.441487000	sched nsubmitted	1149.000000
+13	4087.443001000	sched nsubmitted	1150.000000
+13	4087.444269000	sched nsubmitted	1151.000000
+13	4087.447006000	sched nsubmitted	1152.000000
+13	4087.448417000	sched nsubmitted	1153.000000
+13	4087.449816000	sched nsubmitted	1154.000000
+13	4087.452421000	sched nsubmitted	1155.000000
+13	4087.453793000	sched nsubmitted	1156.000000
+13	4087.455080000	sched nsubmitted	1157.000000
+13	4087.457911000	sched nsubmitted	1158.000000
+13	4087.459255000	sched nsubmitted	1159.000000
+13	4087.460565000	sched nsubmitted	1160.000000
+13	4087.463239000	sched nsubmitted	1161.000000
+13	4087.464804000	sched nsubmitted	1162.000000
+13	4087.468367000	sched nsubmitted	1163.000000
+13	4087.469800000	sched nsubmitted	1164.000000
+13	4087.471174000	sched nsubmitted	1165.000000
+13	4087.473850000	sched nsubmitted	1166.000000
+13	4087.475239000	sched nsubmitted	1167.000000
+13	4087.476498000	sched nsubmitted	1168.000000
+13	4087.479409000	sched nsubmitted	1169.000000
+13	4087.480765000	sched nsubmitted	1170.000000
+13	4087.482064000	sched nsubmitted	1171.000000
+13	4087.484679000	sched nsubmitted	1172.000000
+13	4087.486230000	sched nsubmitted	1173.000000
+13	4087.488934000	sched nsubmitted	1174.000000
+13	4087.490450000	sched nsubmitted	1175.000000
+13	4087.491856000	sched nsubmitted	1176.000000
+13	4087.497062000	sched nsubmitted	1177.000000
+13	4087.502507000	sched nsubmitted	1178.000000
+13	4087.505873000	sched nsubmitted	1179.000000
+13	4087.510877000	sched nsubmitted	1180.000000
+13	4087.515864000	sched nsubmitted	1181.000000
+13	4087.521275000	sched nsubmitted	1182.000000
+13	4087.526728000	sched nsubmitted	1183.000000
+13	4087.530749000	sched nsubmitted	1184.000000
+13	4087.537927000	sched nsubmitted	1185.000000
+13	4087.543314000	sched nsubmitted	1186.000000
+13	4087.548568000	sched nsubmitted	1187.000000
+13	4087.552269000	sched nsubmitted	1188.000000
+13	4087.555998000	sched nsubmitted	1189.000000
+13	4087.557629000	sched nsubmitted	1190.000000
+13	4087.558968000	sched nsubmitted	1191.000000
+13	4087.561742000	sched nsubmitted	1192.000000
+13	4087.563065000	sched nsubmitted	1193.000000
+13	4087.565660000	sched nsubmitted	1194.000000
+13	4087.567283000	sched nsubmitted	1195.000000
+13	4087.568675000	sched nsubmitted	1196.000000
+13	4087.571391000	sched nsubmitted	1197.000000
+13	4087.572959000	sched nsubmitted	1198.000000
+13	4087.574338000	sched nsubmitted	1199.000000
+13	4087.577067000	sched nsubmitted	1200.000000
+13	4087.578417000	sched nsubmitted	1201.000000
+13	4087.579701000	sched nsubmitted	1202.000000
+13	4087.582545000	sched nsubmitted	1203.000000
+13	4087.584005000	sched nsubmitted	1204.000000
+13	4087.586609000	sched nsubmitted	1205.000000
+13	4087.587993000	sched nsubmitted	1206.000000
+13	4087.589247000	sched nsubmitted	1207.000000
+13	4087.592076000	sched nsubmitted	1208.000000
+13	4087.593486000	sched nsubmitted	1209.000000
+13	4087.594843000	sched nsubmitted	1210.000000
+13	4087.597564000	sched nsubmitted	1211.000000
+13	4087.598945000	sched nsubmitted	1212.000000
+13	4087.600352000	sched nsubmitted	1213.000000
+13	4087.603200000	sched nsubmitted	1214.000000
+13	4087.604647000	sched nsubmitted	1215.000000
+13	4087.606054000	sched nsubmitted	1216.000000
+13	4087.609023000	sched nsubmitted	1217.000000
+13	4087.610528000	sched nsubmitted	1218.000000
+13	4087.613368000	sched nsubmitted	1219.000000
+13	4087.614884000	sched nsubmitted	1220.000000
+13	4087.616377000	sched nsubmitted	1221.000000
+13	4087.620589000	sched nsubmitted	1222.000000
+13	4087.622136000	sched nsubmitted	1223.000000
+13	4087.625025000	sched nsubmitted	1224.000000
+13	4087.626661000	sched nsubmitted	1225.000000
+13	4087.628121000	sched nsubmitted	1226.000000
+13	4087.631759000	sched nsubmitted	1227.000000
+13	4087.633455000	sched nsubmitted	1228.000000
+13	4087.635076000	sched nsubmitted	1229.000000
+13	4087.637803000	sched nsubmitted	1230.000000
+13	4087.639291000	sched nsubmitted	1231.000000
+13	4087.640703000	sched nsubmitted	1232.000000
+13	4087.643687000	sched nsubmitted	1233.000000
+13	4087.645203000	sched nsubmitted	1234.000000
+13	4087.646461000	sched nsubmitted	1235.000000
+13	4087.649011000	sched nsubmitted	1236.000000
+13	4087.650402000	sched nsubmitted	1237.000000
+13	4087.653098000	sched nsubmitted	1238.000000
+13	4087.654474000	sched nsubmitted	1239.000000
+13	4087.655727000	sched nsubmitted	1240.000000
+13	4087.658306000	sched nsubmitted	1241.000000
+13	4087.659791000	sched nsubmitted	1242.000000
+13	4087.661085000	sched nsubmitted	1243.000000
+13	4087.663882000	sched nsubmitted	1244.000000
+13	4087.665242000	sched nsubmitted	1245.000000
+13	4087.666548000	sched nsubmitted	1246.000000
+13	4087.669131000	sched nsubmitted	1247.000000
+13	4087.670689000	sched nsubmitted	1248.000000
+13	4087.672064000	sched nsubmitted	1249.000000
+13	4087.674872000	sched nsubmitted	1250.000000
+13	4087.676272000	sched nsubmitted	1251.000000
+13	4087.679171000	sched nsubmitted	1252.000000
+13	4087.680750000	sched nsubmitted	1253.000000
+13	4087.682014000	sched nsubmitted	1254.000000
+13	4087.687241000	sched nsubmitted	1255.000000
+13	4087.693040000	sched nsubmitted	1256.000000
+13	4087.699034000	sched nsubmitted	1257.000000
+13	4087.703327000	sched nsubmitted	1258.000000
+13	4087.708879000	sched nsubmitted	1259.000000
+13	4087.717696000	sched nsubmitted	1260.000000
+13	4087.723143000	sched nsubmitted	1261.000000
+13	4087.727507000	sched nsubmitted	1262.000000
+13	4087.732835000	sched nsubmitted	1263.000000
+13	4087.737934000	sched nsubmitted	1264.000000
+13	4087.743509000	sched nsubmitted	1265.000000
+13	4087.745163000	sched nsubmitted	1266.000000
+13	4087.746671000	sched nsubmitted	1267.000000
+13	4087.749553000	sched nsubmitted	1268.000000
+13	4087.750984000	sched nsubmitted	1269.000000
+13	4087.753619000	sched nsubmitted	1270.000000
+13	4087.755060000	sched nsubmitted	1271.000000
+13	4087.756534000	sched nsubmitted	1272.000000
+13	4087.759305000	sched nsubmitted	1273.000000
+13	4087.760846000	sched nsubmitted	1274.000000
+13	4087.762247000	sched nsubmitted	1275.000000
+13	4087.765161000	sched nsubmitted	1276.000000
+13	4087.766534000	sched nsubmitted	1277.000000
+13	4087.767806000	sched nsubmitted	1278.000000
+13	4087.770507000	sched nsubmitted	1279.000000
+13	4087.771948000	sched nsubmitted	1280.000000
+13	4087.774661000	sched nsubmitted	1281.000000
+13	4087.776061000	sched nsubmitted	1282.000000
+13	4087.777455000	sched nsubmitted	1283.000000
+13	4087.780244000	sched nsubmitted	1284.000000
+13	4087.781837000	sched nsubmitted	1285.000000
+13	4087.783336000	sched nsubmitted	1286.000000
+13	4087.786354000	sched nsubmitted	1287.000000
+13	4087.787926000	sched nsubmitted	1288.000000
+13	4087.789304000	sched nsubmitted	1289.000000
+13	4087.791982000	sched nsubmitted	1290.000000
+13	4087.793486000	sched nsubmitted	1291.000000
+13	4087.794799000	sched nsubmitted	1292.000000
+13	4087.798480000	sched nsubmitted	1293.000000
+13	4087.799985000	sched nsubmitted	1294.000000
+13	4087.802721000	sched nsubmitted	1295.000000
+13	4087.804246000	sched nsubmitted	1296.000000
+13	4087.805643000	sched nsubmitted	1297.000000
+13	4087.808773000	sched nsubmitted	1298.000000
+13	4087.810225000	sched nsubmitted	1299.000000
+13	4087.814112000	sched nsubmitted	1300.000000
+13	4087.815876000	sched nsubmitted	1301.000000
+13	4087.817343000	sched nsubmitted	1302.000000
+13	4087.820042000	sched nsubmitted	1303.000000
+13	4087.821486000	sched nsubmitted	1304.000000
+13	4087.822761000	sched nsubmitted	1305.000000
+13	4087.825604000	sched nsubmitted	1306.000000
+13	4087.827017000	sched nsubmitted	1307.000000
+13	4087.828301000	sched nsubmitted	1308.000000
+13	4087.831065000	sched nsubmitted	1309.000000
+13	4087.832735000	sched nsubmitted	1310.000000
+13	4087.834280000	sched nsubmitted	1311.000000
+13	4087.837145000	sched nsubmitted	1312.000000
+13	4087.838555000	sched nsubmitted	1313.000000
+13	4087.841323000	sched nsubmitted	1314.000000
+13	4087.842916000	sched nsubmitted	1315.000000
+13	4087.844193000	sched nsubmitted	1316.000000
+13	4087.846930000	sched nsubmitted	1317.000000
+13	4087.848541000	sched nsubmitted	1318.000000
+13	4087.850177000	sched nsubmitted	1319.000000
+13	4087.853084000	sched nsubmitted	1320.000000
+13	4087.857313000	sched nsubmitted	1321.000000
+13	4087.863333000	sched nsubmitted	1322.000000
+13	4087.875720000	sched nsubmitted	1323.000000
+13	4087.882254000	sched nsubmitted	1324.000000
+13	4087.889132000	sched nsubmitted	1325.000000
+13	4087.893495000	sched nsubmitted	1326.000000
+13	4087.898807000	sched nsubmitted	1327.000000
+13	4087.904831000	sched nsubmitted	1328.000000
+13	4087.913883000	sched nsubmitted	1329.000000
+13	4087.920176000	sched nsubmitted	1330.000000
+13	4087.921889000	sched nsubmitted	1331.000000
+13	4087.923416000	sched nsubmitted	1332.000000
+13	4087.926236000	sched nsubmitted	1333.000000
+13	4087.927721000	sched nsubmitted	1334.000000
+13	4087.929024000	sched nsubmitted	1335.000000
+13	4087.931690000	sched nsubmitted	1336.000000
+13	4087.933265000	sched nsubmitted	1337.000000
+13	4087.934732000	sched nsubmitted	1338.000000
+13	4087.937585000	sched nsubmitted	1339.000000
+13	4087.939085000	sched nsubmitted	1340.000000
+13	4087.942035000	sched nsubmitted	1341.000000
+13	4087.943412000	sched nsubmitted	1342.000000
+13	4087.944720000	sched nsubmitted	1343.000000
+13	4087.947354000	sched nsubmitted	1344.000000
+13	4087.948932000	sched nsubmitted	1345.000000
+13	4087.950325000	sched nsubmitted	1346.000000
+13	4087.953031000	sched nsubmitted	1347.000000
+13	4087.954375000	sched nsubmitted	1348.000000
+13	4087.955614000	sched nsubmitted	1349.000000
+13	4087.958325000	sched nsubmitted	1350.000000
+13	4087.959707000	sched nsubmitted	1351.000000
+13	4087.961066000	sched nsubmitted	1352.000000
+13	4087.964109000	sched nsubmitted	1353.000000
+13	4087.965498000	sched nsubmitted	1354.000000
+13	4087.968315000	sched nsubmitted	1355.000000
+13	4087.969904000	sched nsubmitted	1356.000000
+13	4087.971375000	sched nsubmitted	1357.000000
+13	4087.974968000	sched nsubmitted	1358.000000
+13	4087.976613000	sched nsubmitted	1359.000000
+13	4087.978024000	sched nsubmitted	1360.000000
+13	4087.980840000	sched nsubmitted	1361.000000
+13	4087.982243000	sched nsubmitted	1362.000000
+13	4087.985132000	sched nsubmitted	1363.000000
+13	4087.986613000	sched nsubmitted	1364.000000
+13	4087.987974000	sched nsubmitted	1365.000000
+13	4087.990733000	sched nsubmitted	1366.000000
+13	4087.992196000	sched nsubmitted	1367.000000
+13	4087.993482000	sched nsubmitted	1368.000000
+13	4087.996139000	sched nsubmitted	1369.000000
+13	4087.997433000	sched nsubmitted	1370.000000
+13	4088.000219000	sched nsubmitted	1371.000000
+13	4088.001594000	sched nsubmitted	1372.000000
+13	4088.002868000	sched nsubmitted	1373.000000
+13	4088.005577000	sched nsubmitted	1374.000000
+13	4088.007097000	sched nsubmitted	1375.000000
+13	4088.012242000	sched nsubmitted	1376.000000
+13	4088.018980000	sched nsubmitted	1377.000000
+13	4088.023825000	sched nsubmitted	1378.000000
+13	4088.030160000	sched nsubmitted	1379.000000
+13	4088.036537000	sched nsubmitted	1380.000000
+13	4088.042424000	sched nsubmitted	1381.000000
+13	4088.046536000	sched nsubmitted	1382.000000
+13	4088.051943000	sched nsubmitted	1383.000000
+13	4088.067445000	sched nsubmitted	1384.000000
+13	4088.069212000	sched nsubmitted	1385.000000
+13	4088.073676000	sched nsubmitted	1386.000000
+13	4088.075304000	sched nsubmitted	1387.000000
+13	4088.076862000	sched nsubmitted	1388.000000
+13	4088.080211000	sched nsubmitted	1389.000000
+13	4088.081728000	sched nsubmitted	1390.000000
+13	4088.085523000	sched nsubmitted	1391.000000
+13	4088.087208000	sched nsubmitted	1392.000000
+13	4088.088748000	sched nsubmitted	1393.000000
+13	4088.092281000	sched nsubmitted	1394.000000
+13	4088.093796000	sched nsubmitted	1395.000000
+13	4088.095059000	sched nsubmitted	1396.000000
+13	4088.098258000	sched nsubmitted	1397.000000
+13	4088.099666000	sched nsubmitted	1398.000000
+13	4088.101105000	sched nsubmitted	1399.000000
+13	4088.104347000	sched nsubmitted	1400.000000
+13	4088.105638000	sched nsubmitted	1401.000000
+13	4088.111106000	sched nsubmitted	1402.000000
+13	4088.112523000	sched nsubmitted	1403.000000
+13	4088.113965000	sched nsubmitted	1404.000000
+13	4088.117220000	sched nsubmitted	1405.000000
+13	4088.118646000	sched nsubmitted	1406.000000
+13	4088.119958000	sched nsubmitted	1407.000000
+13	4088.123350000	sched nsubmitted	1408.000000
+13	4088.124737000	sched nsubmitted	1409.000000
+13	4088.126151000	sched nsubmitted	1410.000000
+13	4088.129522000	sched nsubmitted	1411.000000
+13	4088.131282000	sched nsubmitted	1412.000000
+13	4088.132874000	sched nsubmitted	1413.000000
+13	4088.136360000	sched nsubmitted	1414.000000
+13	4088.137944000	sched nsubmitted	1415.000000
+13	4088.141342000	sched nsubmitted	1416.000000
+13	4088.142981000	sched nsubmitted	1417.000000
+13	4088.144351000	sched nsubmitted	1418.000000
+13	4088.148149000	sched nsubmitted	1419.000000
+13	4088.149769000	sched nsubmitted	1420.000000
+13	4088.156637000	sched nsubmitted	1421.000000
+13	4088.164261000	sched nsubmitted	1422.000000
+13	4088.170607000	sched nsubmitted	1423.000000
+13	4088.174961000	sched nsubmitted	1424.000000
+13	4088.181685000	sched nsubmitted	1425.000000
+13	4088.188658000	sched nsubmitted	1426.000000
+13	4088.195818000	sched nsubmitted	1427.000000
+13	4088.202815000	sched nsubmitted	1428.000000
+13	4088.204501000	sched nsubmitted	1429.000000
+13	4088.205971000	sched nsubmitted	1430.000000
+13	4088.209460000	sched nsubmitted	1431.000000
+13	4088.210969000	sched nsubmitted	1432.000000
+13	4088.212360000	sched nsubmitted	1433.000000
+13	4088.215730000	sched nsubmitted	1434.000000
+13	4088.217218000	sched nsubmitted	1435.000000
+13	4088.220395000	sched nsubmitted	1436.000000
+13	4088.221905000	sched nsubmitted	1437.000000
+13	4088.223313000	sched nsubmitted	1438.000000
+13	4088.226597000	sched nsubmitted	1439.000000
+13	4088.228002000	sched nsubmitted	1440.000000
+13	4088.229263000	sched nsubmitted	1441.000000
+13	4088.232306000	sched nsubmitted	1442.000000
+13	4088.233815000	sched nsubmitted	1443.000000
+13	4088.235185000	sched nsubmitted	1444.000000
+13	4088.238308000	sched nsubmitted	1445.000000
+13	4088.239663000	sched nsubmitted	1446.000000
+13	4088.240925000	sched nsubmitted	1447.000000
+13	4088.244358000	sched nsubmitted	1448.000000
+13	4088.245748000	sched nsubmitted	1449.000000
+13	4088.247124000	sched nsubmitted	1450.000000
+13	4088.258983000	sched nsubmitted	1451.000000
+13	4088.260433000	sched nsubmitted	1452.000000
+13	4088.264820000	sched nsubmitted	1453.000000
+13	4088.266462000	sched nsubmitted	1454.000000
+13	4088.267749000	sched nsubmitted	1455.000000
+13	4088.270730000	sched nsubmitted	1456.000000
+13	4088.275489000	sched nsubmitted	1457.000000
+13	4088.282271000	sched nsubmitted	1458.000000
+13	4088.288961000	sched nsubmitted	1459.000000
+13	4088.295855000	sched nsubmitted	1460.000000
+13	4088.302474000	sched nsubmitted	1461.000000
+13	4088.308657000	sched nsubmitted	1462.000000
+13	4088.313432000	sched nsubmitted	1463.000000
+13	4088.316396000	sched nsubmitted	1464.000000
+13	4088.317968000	sched nsubmitted	1465.000000
+13	4088.319461000	sched nsubmitted	1466.000000
+13	4088.323152000	sched nsubmitted	1467.000000
+13	4088.324655000	sched nsubmitted	1468.000000
+13	4088.330034000	sched nsubmitted	1469.000000
+13	4088.331807000	sched nsubmitted	1470.000000
+13	4088.333273000	sched nsubmitted	1471.000000
+13	4088.336114000	sched nsubmitted	1472.000000
+13	4088.337734000	sched nsubmitted	1473.000000
+13	4088.339180000	sched nsubmitted	1474.000000
+13	4088.342020000	sched nsubmitted	1475.000000
+13	4088.343455000	sched nsubmitted	1476.000000
+13	4088.344691000	sched nsubmitted	1477.000000
+13	4088.347640000	sched nsubmitted	1478.000000
+13	4088.349018000	sched nsubmitted	1479.000000
+13	4088.351637000	sched nsubmitted	1480.000000
+13	4088.353015000	sched nsubmitted	1481.000000
+13	4088.354278000	sched nsubmitted	1482.000000
+13	4088.357789000	sched nsubmitted	1483.000000
+13	4088.359218000	sched nsubmitted	1484.000000
+13	4088.364994000	sched nsubmitted	1485.000000
+13	4088.371376000	sched nsubmitted	1486.000000
+13	4088.376809000	sched nsubmitted	1487.000000
+13	4088.383798000	sched nsubmitted	1488.000000
+13	4088.390770000	sched nsubmitted	1489.000000
+13	4088.397746000	sched nsubmitted	1490.000000
+13	4088.399363000	sched nsubmitted	1491.000000
+13	4088.402231000	sched nsubmitted	1492.000000
+13	4088.403655000	sched nsubmitted	1493.000000
+13	4088.404997000	sched nsubmitted	1494.000000
+13	4088.407608000	sched nsubmitted	1495.000000
+13	4088.408983000	sched nsubmitted	1496.000000
+13	4088.410465000	sched nsubmitted	1497.000000
+13	4088.413674000	sched nsubmitted	1498.000000
+13	4088.415252000	sched nsubmitted	1499.000000
+13	4088.418192000	sched nsubmitted	1500.000000
+13	4088.419718000	sched nsubmitted	1501.000000
+13	4088.420996000	sched nsubmitted	1502.000000
+13	4088.423727000	sched nsubmitted	1503.000000
+13	4088.425348000	sched nsubmitted	1504.000000
+13	4088.426867000	sched nsubmitted	1505.000000
+13	4088.433593000	sched nsubmitted	1506.000000
+13	4088.440908000	sched nsubmitted	1507.000000
+13	4088.448137000	sched nsubmitted	1508.000000
+13	4088.456073000	sched nsubmitted	1509.000000
+13	4088.463124000	sched nsubmitted	1510.000000
+13	4088.464734000	sched nsubmitted	1511.000000
+13	4088.466170000	sched nsubmitted	1512.000000
+13	4088.468928000	sched nsubmitted	1513.000000
+13	4088.470480000	sched nsubmitted	1514.000000
+13	4088.471960000	sched nsubmitted	1515.000000
+13	4088.474739000	sched nsubmitted	1516.000000
+13	4088.476460000	sched nsubmitted	1517.000000
+13	4088.478009000	sched nsubmitted	1518.000000
+13	4088.482494000	sched nsubmitted	1519.000000
+13	4088.483927000	sched nsubmitted	1520.000000
+13	4088.490941000	sched nsubmitted	1521.000000
+13	4088.498289000	sched nsubmitted	1522.000000
+13	4088.505587000	sched nsubmitted	1523.000000
+13	4088.513037000	sched nsubmitted	1524.000000
+13	4088.514713000	sched nsubmitted	1525.000000
+13	4088.516179000	sched nsubmitted	1526.000000
+13	4088.518999000	sched nsubmitted	1527.000000
+13	4088.520595000	sched nsubmitted	1528.000000
+13	4088.522059000	sched nsubmitted	1529.000000
+13	4088.524751000	sched nsubmitted	1530.000000
+13	4088.532184000	sched nsubmitted	1531.000000
+13	4088.538128000	sched nsubmitted	1532.000000
+13	4088.548347000	sched nsubmitted	1533.000000
+13	4088.551325000	sched nsubmitted	1534.000000
+13	4088.552824000	sched nsubmitted	1535.000000
+13	4088.554137000	sched nsubmitted	1536.000000
+13	4088.561764000	sched nsubmitted	1537.000000
+13	4088.569890000	sched nsubmitted	1538.000000
+13	4088.572865000	sched nsubmitted	1539.000000
+10	4103.626346000	t19563	S	B
+10	4103.633070000	w4	WS	I
+10	4103.634977000	t19563	S	Po
+10	4103.643076000	t19563	S	B
+13	4103.651826000	sched	nready	1.000000
+11	4103.652907000	t19563	S	Sc
+12	4103.657277000	t19563	S
+13	4103.658833000	sched	nready	0.000000
+13	4103.658833000	sched	nsubmitted	1538.000000
+13	4103.658751000	sched	nready	1.000000
+11	4103.658891000	t19563	S	Sc
