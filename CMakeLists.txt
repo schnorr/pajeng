@@ -14,6 +14,7 @@
 # along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 PROJECT(pajeng)
+# The following line should be deleted in some Ubuntu releases
 cmake_policy(SET CMP0050 OLD)
 enable_testing()
 
