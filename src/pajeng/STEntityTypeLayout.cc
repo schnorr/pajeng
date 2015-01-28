@@ -160,7 +160,7 @@ QPointF STContainerTypeLayout::recursiveSetLayoutPositions (PajeContainer *conta
                                                            container->startTime(),
                                                            container->endTime());
       double h = 0;
-      if (subc.size()){
+      if (!subc.empty()){
         present = true;
         h = stateTypeLayout->height();
       }
@@ -199,7 +199,7 @@ QPointF STContainerTypeLayout::recursiveSetLayoutPositions (PajeContainer *conta
         }
       }
       double h = 0;
-      if (subc.size()){
+      if (!subc.empty()){
         present = true;
         h = container_top.y() - top.y();
       }

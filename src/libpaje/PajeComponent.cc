@@ -53,7 +53,7 @@ void PajeComponent::inputEntity (PajeObject *data)
 
 void PajeComponent::outputEntity (PajeObject *data)
 {
-  if (outputComponent.size()){
+  if (!outputComponent.empty()){
     std::vector<PajeComponent*>::iterator it;
     for (it = outputComponent.begin(); it != outputComponent.end(); it++){
       (*it)->inputEntity (data);
@@ -63,7 +63,7 @@ void PajeComponent::outputEntity (PajeObject *data)
 
 void PajeComponent::startReading (void)
 {
-  if (outputComponent.size()){
+  if (!outputComponent.empty()){
     std::vector<PajeComponent*>::iterator it;
     for (it = outputComponent.begin(); it != outputComponent.end(); it++){
       (*it)->startReading ();
@@ -82,7 +82,7 @@ void PajeComponent::readNextChunk (void)
 
 void PajeComponent::finishedReading (void)
 {
-  if (outputComponent.size()){
+  if (!outputComponent.empty()){
     std::vector<PajeComponent*>::iterator it;
     for (it = outputComponent.begin(); it != outputComponent.end(); it++){
       (*it)->finishedReading ();
