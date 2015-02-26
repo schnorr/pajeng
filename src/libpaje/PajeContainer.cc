@@ -179,7 +179,7 @@ bool PajeContainer::checkPendingLinks (void)
     for (it2 = x.begin(); it2 != x.end(); it2++){
       invalidLinks.push_back ((*it2).second);
     }
-    if (x.size()){
+    if (!x.empty()){
       //report
       std::cout << "List of incomplete links in container '" << name() << "':" << std::endl;
       std::vector<PajeUserLink*>::iterator it;
@@ -265,7 +265,7 @@ void PajeContainer::pajePushState (PajeEvent *event)
   std::vector<PajeUserState*> *stack = &stackStates[type];
 
   //define new imbrication level
-  int imbrication = !stack->size() ? 0 : (stack->back())->imbricationLevel() + 1;
+  int imbrication = stack->empty() ? 0 : (stack->back())->imbricationLevel() + 1;
 
   PajeUserState *state = new PajeUserState (this, type, time, value, imbrication, traceEvent);
   entities[type].push_back (state);
@@ -282,7 +282,7 @@ void PajeContainer::pajePopState (PajeEvent *event)
 
   //check if there is something in the stack
   std::vector<PajeUserState*> *stack = &stackStates[type];
-  if (!stack->size()){
+  if (stack->empty()){
     std::stringstream line;
     line << *traceEvent;
     throw PajeStateException ("Illegal pop event of a state that has no value in "+line.str());
@@ -359,7 +359,7 @@ void PajeContainer::pajeAddVariable (PajeEvent *event)
 
   double lastValue = 0;
   if (entities.count(type)){
-    if (entities[type].size()){
+    if (!entities[type].empty()){
       PajeEntity *last = entities[type].back();
       if (last->startTime() == time){
         //only update last value
@@ -393,7 +393,7 @@ void PajeContainer::pajeSubVariable (PajeEvent *event)
 
   double lastValue = 0;
   if (entities.count(type)){
-    if (entities[type].size()){
+    if (!entities[type].empty()){
       PajeEntity *last = entities[type].back();
       if (last->startTime() == time){
         //only update last value
@@ -678,7 +678,7 @@ bool PajeContainer::checkTimeOrder (PajeEvent *event)
 bool PajeContainer::checkTimeOrder (double time, PajeType *type, PajeTraceEvent *traceEvent)
 {
   std::vector<PajeEntity*> *v = &entities[type];
-  if (v->size()){
+  if (!v->empty()){
     PajeEntity *last = entities[type].back();
     if ( (last && last->startTime() > time) ||
          (last && last->endTime() != -1 && last->endTime() > time)){
@@ -736,7 +736,7 @@ void PajeContainer::destroy (double time)
   //finish all entities
   std::map<PajeType*,std::vector<PajeEntity*> >::iterator it1;
   for (it1 = entities.begin(); it1 != entities.end(); it1++){
-    if (((*it1).second).size()){
+    if (!(*it1).second.empty()){
       PajeEntity *last = ((*it1).second).back();
       if (last->endTime() == -1){
         last->setEndTime (time);

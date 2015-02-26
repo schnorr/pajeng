@@ -91,7 +91,7 @@ void dump (struct arguments *arguments, PajeComponent *simulator)
   std::vector<PajeContainer*> stack;
   stack.push_back (simulator->rootInstance());
 
-  while (stack.size ()){
+  while (!stack.empty()){
     PajeContainer *container = stack.back();
     stack.pop_back ();
 
