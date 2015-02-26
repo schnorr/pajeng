@@ -14,27 +14,22 @@
     You should have received a copy of the GNU Public License
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __PAJEUNITY_H__
-#define __PAJEUNITY_H__
-#include "PajeComponent.h"
-#include "PajeEventDecoder.h"
+#ifndef __PAJE_PROBABILISTIC_SIMULATOR_H__
+#define __PAJE_PROBABILISTIC_SIMULATOR_H__
 #include "PajeSimulator.h"
-#include "PajeEventDecoder.h"
 
-class PajeUnity : public PajeComponent {
+class PajeProbabilisticSimulator : public PajeSimulator {
 private:
-  PajeComponent *reader;
-  PajeEventDecoder *decoder;
-  PajeSimulator *simulator;
-  PajeDefinitions *definitions;
-  bool flexReader;
-  double t1, t2;
-
+  std::string filter;
+  
 public:
-  PajeUnity (bool flexReader, bool strictHeader, std::string tracefilename, double stopat, int ignoreIncompleteLinks, char *probabilistic);
-  ~PajeUnity ();
-  double getTime ();
-  void report ();
+  PajeProbabilisticSimulator(char *filteredTypeName);
+
+protected:
+  virtual void setLastKnownTime (PajeTraceEvent *event);
+
+private:
+  void reportCurrentState (double start, double end); //should only be called when timestamp changes
 };
 
 #endif

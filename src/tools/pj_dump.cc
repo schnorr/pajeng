@@ -34,6 +34,7 @@ static struct argp_option options[] = {
   {"quiet", 'q', 0, OPTION_ARG_OPTIONAL, "Do not dump, only simulate"},
   {"flex", 'f', 0, OPTION_ARG_OPTIONAL, "Use flex-based file reader"},
   {"user-defined", 'u', 0, OPTION_ARG_OPTIONAL, "Dump user-defined fields"},
+  {"probabilistic", 'p', "TYPENAME", 0, "Dump global states based on TYPENAME"},
   { 0 }
 };
 
@@ -46,6 +47,7 @@ struct arguments {
   int quiet;
   int flex;
   int userDefined;
+  char *probabilistic;
 };
 
 static error_t parse_options (int key, char *arg, struct argp_state *state)
@@ -60,6 +62,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
   case 'q': arguments->quiet = 1; break;
   case 'f': arguments->flex = 1; break;
   case 'u': arguments->userDefined = 1; break;
+  case 'p': arguments->probabilistic = strdup(arg); break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
       /* Too many arguments. */
@@ -150,8 +153,14 @@ int main (int argc, char **argv)
 				    !arguments.noStrict,
 				    std::string(arguments.input[0]),
 				    arguments.stopat,
-				    arguments.ignoreIncompleteLinks);
+				    arguments.ignoreIncompleteLinks,
+				    arguments.probabilistic);
 
+  if (arguments.probabilistic){
+    delete unity;
+    return 0;
+  }
+  
   if (!arguments.quiet){
     dump (&arguments, unity);
   }

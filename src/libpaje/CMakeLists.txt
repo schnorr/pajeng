@@ -35,6 +35,7 @@ SET(LIBPAJE_HEADERS
   PajeFileReader.h
   PajeObject.h
   PajeSimulator.h
+  PajeProbabilisticSimulator.h
   PajeType.h
   PajeValue.h
   PajeDefinitions.h
@@ -50,6 +51,7 @@ SET(LIBPAJE_SOURCES
   PajeObject.cc
   PajeEventDecoder.cc
   PajeSimulator.cc
+  PajeProbabilisticSimulator.cc
   PajeSimulator+Queries.cc
   PajeSimulator+Commands.cc
   PajeComponent.cc

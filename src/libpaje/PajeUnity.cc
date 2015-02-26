@@ -19,6 +19,7 @@
 #include "PajeException.h"
 #include "PajeFileReader.h"
 #include "PajeFlexReader.h"
+#include "PajeProbabilisticSimulator.h"
 
 static double gettime (void)
 {
@@ -27,7 +28,7 @@ static double gettime (void)
   return (double)tr.tv_sec+(double)tr.tv_usec/1000000;
 }
 
-PajeUnity::PajeUnity (bool flexReader, bool strictHeader, std::string tracefilename, double stopat, int ignoreIncompleteLinks)
+PajeUnity::PajeUnity (bool flexReader, bool strictHeader, std::string tracefilename, double stopat, int ignoreIncompleteLinks, char *probabilistic)
 {
   //basic configuration
   this->flexReader = flexReader;
@@ -55,7 +56,12 @@ PajeUnity::PajeUnity (bool flexReader, bool strictHeader, std::string tracefilen
     if (!flexReader){
       decoder = new PajeEventDecoder(definitions);
     }
-    simulator = new PajeSimulator (stopat, ignoreIncompleteLinks);
+    if (probabilistic){
+      simulator = new PajeProbabilisticSimulator (probabilistic);
+    }else{
+      simulator = new PajeSimulator (stopat, ignoreIncompleteLinks);
+    }
+
 
     //connect components
     if (flexReader){

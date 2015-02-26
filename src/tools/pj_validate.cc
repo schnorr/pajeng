@@ -91,7 +91,7 @@ int main (int argc, char **argv)
 				    !arguments.noStrict,
 				    std::string(arguments.input[0]),
 				      -1,
-				      0);
+				    0, 0);
 
   if (arguments.time){
     printf ("%f\n", unity->getTime());
