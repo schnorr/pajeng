@@ -2,196 +2,196 @@
 
 $ ./pj_dump ../traces/categories.trace
 > Container, 0, 0, 0, 4.08073, 4.08073, 0
-> Link, 0, 0-HOST1-LINK3, 0, 0, 0, G, Fafard, 8
-> Link, 0, 0-HOST1-LINK3, 0, 0, 0, G, Tremblay, 9
-> Link, 0, 0-LINK3-LINK3, 0, 0, 0, G, 8, 1
-> Link, 0, 0-LINK3-LINK3, 0, 0, 0, G, 1, 0
-> Link, 0, 0-LINK3-LINK3, 0, 0, 0, G, 0, 2
-> Link, 0, 0-LINK3-LINK3, 0, 0, 0, G, 2, 3
-> Link, 0, 0-LINK3-LINK3, 0, 0, 0, G, 3, 4
-> Link, 0, 0-LINK3-LINK3, 0, 0, 0, G, 8, 6
-> Link, 0, 0-LINK3-LINK3, 0, 0, 0, G, 6, 7
-> Link, 0, 0-LINK3-LINK3, 0, 0, 0, G, 4, 9
-> Link, 0, 0-LINK3-LINK3, 0, 0, 0, G, 2, 5
-> Link, 0, 0-LINK3-LINK3, 0, 0, 0, G, 1, 6
-> Link, 0, 0-LINK3-LINK3, 0, 0, 0, G, 3, 5
-> Link, 0, 0-LINK3-HOST1, 0, 0, 0, G, 4, Tremblay
-> Link, 0, 0-LINK3-HOST1, 0, 0, 0, G, 7, Bourassa
-> Link, 0, 0-LINK3-HOST1, 0, 0, 0, G, 9, Jupiter
-> Link, 0, 0-LINK3-HOST1, 0, 0, 0, G, 5, Ginette
+> Link, 0, 0-HOST1-LINK3, 0.000000, 0.000000, 0.000000, G, Fafard, 8
+> Link, 0, 0-HOST1-LINK3, 0.000000, 0.000000, 0.000000, G, Tremblay, 9
+> Link, 0, 0-LINK3-LINK3, 0.000000, 0.000000, 0.000000, G, 8, 1
+> Link, 0, 0-LINK3-LINK3, 0.000000, 0.000000, 0.000000, G, 1, 0
+> Link, 0, 0-LINK3-LINK3, 0.000000, 0.000000, 0.000000, G, 0, 2
+> Link, 0, 0-LINK3-LINK3, 0.000000, 0.000000, 0.000000, G, 2, 3
+> Link, 0, 0-LINK3-LINK3, 0.000000, 0.000000, 0.000000, G, 3, 4
+> Link, 0, 0-LINK3-LINK3, 0.000000, 0.000000, 0.000000, G, 8, 6
+> Link, 0, 0-LINK3-LINK3, 0.000000, 0.000000, 0.000000, G, 6, 7
+> Link, 0, 0-LINK3-LINK3, 0.000000, 0.000000, 0.000000, G, 4, 9
+> Link, 0, 0-LINK3-LINK3, 0.000000, 0.000000, 0.000000, G, 2, 5
+> Link, 0, 0-LINK3-LINK3, 0.000000, 0.000000, 0.000000, G, 1, 6
+> Link, 0, 0-LINK3-LINK3, 0.000000, 0.000000, 0.000000, G, 3, 5
+> Link, 0, 0-LINK3-HOST1, 0.000000, 0.000000, 0.000000, G, 4, Tremblay
+> Link, 0, 0-LINK3-HOST1, 0.000000, 0.000000, 0.000000, G, 7, Bourassa
+> Link, 0, 0-LINK3-HOST1, 0.000000, 0.000000, 0.000000, G, 9, Jupiter
+> Link, 0, 0-LINK3-HOST1, 0.000000, 0.000000, 0.000000, G, 5, Ginette
 > Container, 0, LINK, 0, 4.08073, 4.08073, 9
-> Variable, 9, brequest, 2.15338, 2.15338, 2e-06, 6.99346e+06
-> Variable, 9, brequest, 2.15338, 4.08073, 1.92736, 0
-> Variable, 9, bdata, 2.21485, 3.71625, 1.5014, 6.99346e+06
-> Variable, 9, bdata, 3.71625, 4.08073, 0.364481, 0
-> Variable, 9, bandwidth, 0, 4.08073, 4.08073, 7.20975e+06
-> Variable, 9, latency, 0, 4.08073, 4.08073, 0.001462
-> Variable, 9, bcompute, 0.03929, 3.80316, 3.76387, 0
-> Variable, 9, bcompute, 3.80316, 4.08073, 0.277569, 0
+> Variable, 9, brequest, 2.153375, 2.153377, 0.000002, 6993457.281250
+> Variable, 9, brequest, 2.153377, 4.080732, 1.927355, 0.000000
+> Variable, 9, bdata, 2.214848, 3.716251, 1.501403, 6993457.281250
+> Variable, 9, bdata, 3.716251, 4.080732, 0.364481, 0.000000
+> Variable, 9, bandwidth, 0.000000, 4.080732, 4.080732, 7209750.000000
+> Variable, 9, latency, 0.000000, 4.080732, 4.080732, 0.001462
+> Variable, 9, bcompute, 0.039290, 3.803163, 3.763873, 0.000000
+> Variable, 9, bcompute, 3.803163, 4.080732, 0.277569, 0.000000
 > Container, 0, LINK, 0, 4.08073, 4.08073, 7
-> Variable, 7, brequest, 0.106992, 0.106993, 1e-06, 5.36984e+06
-> Variable, 7, brequest, 0.106993, 3.78415, 3.67715, 0
-> Variable, 7, brequest, 3.78415, 3.78415, 2e-06, 5.36984e+06
-> Variable, 7, brequest, 3.78415, 4.08073, 0.296584, 0
-> Variable, 7, bandwidth, 0, 4.08073, 4.08073, 1.16189e+07
-> Variable, 7, latency, 0, 4.08073, 4.08073, 0.00019
-> Variable, 7, bcompute, 2.13436, 3.84888, 1.71452, 0
-> Variable, 7, bcompute, 3.84888, 4.08073, 0.231855, 0
+> Variable, 7, brequest, 0.106992, 0.106993, 0.000001, 5369841.234375
+> Variable, 7, brequest, 0.106993, 3.784146, 3.677153, 0.000000
+> Variable, 7, brequest, 3.784146, 3.784148, 0.000002, 5369841.234375
+> Variable, 7, brequest, 3.784148, 4.080732, 0.296584, 0.000000
+> Variable, 7, bandwidth, 0.000000, 4.080732, 4.080732, 11618875.000000
+> Variable, 7, latency, 0.000000, 4.080732, 4.080732, 0.000190
+> Variable, 7, bcompute, 2.134361, 3.848877, 1.714516, 0.000000
+> Variable, 7, bcompute, 3.848877, 4.080732, 0.231855, 0.000000
 > Container, 0, LINK, 0, 4.08073, 4.08073, 3
-> Variable, 3, brequest, 0.064998, 0.065, 2e-06, 5.3137e+06
-> Variable, 3, brequest, 0.065, 0.106992, 0.041992, 0
-> Variable, 3, brequest, 0.106992, 0.106993, 1e-06, 5.36984e+06
-> Variable, 3, brequest, 0.106993, 2.17012, 2.06313, 0
-> Variable, 3, brequest, 2.17012, 2.17013, 2e-06, 8.25291e+06
-> Variable, 3, brequest, 2.17013, 3.78415, 1.61402, 0
-> Variable, 3, brequest, 3.78415, 3.78415, 2e-06, 5.36984e+06
-> Variable, 3, brequest, 3.78415, 4.08073, 0.296584, 0
-> Variable, 3, bdata, 0.132897, 2.10892, 1.97603, 5.3137e+06
-> Variable, 3, bdata, 2.10892, 4.08073, 1.97181, 0
-> Variable, 3, bfinalize, 3.96995, 3.97008, 0.000127, 8.25291e+06
-> Variable, 3, bfinalize, 3.97008, 4.08073, 0.110657, 0
-> Variable, 3, bandwidth, 0, 4.08073, 4.08073, 3.42856e+07
-> Variable, 3, latency, 0, 4.08073, 4.08073, 0.000514
-> Variable, 3, bcompute, 0.081552, 2.13436, 2.05281, 0
-> Variable, 3, bcompute, 2.13436, 2.19583, 0.061473, 0
-> Variable, 3, bcompute, 2.19583, 3.7328, 1.53697, 0
-> Variable, 3, bcompute, 3.7328, 3.75871, 0.025903, 0
-> Variable, 3, bcompute, 3.75871, 3.84888, 0.09017, 0
-> Variable, 3, bcompute, 3.84888, 4.08073, 0.231855, 0
+> Variable, 3, brequest, 0.064998, 0.065000, 0.000002, 5313697.734375
+> Variable, 3, brequest, 0.065000, 0.106992, 0.041992, 0.000000
+> Variable, 3, brequest, 0.106992, 0.106993, 0.000001, 5369841.234375
+> Variable, 3, brequest, 0.106993, 2.170124, 2.063131, 0.000000
+> Variable, 3, brequest, 2.170124, 2.170126, 0.000002, 8252906.562500
+> Variable, 3, brequest, 2.170126, 3.784146, 1.614020, 0.000000
+> Variable, 3, brequest, 3.784146, 3.784148, 0.000002, 5369841.234375
+> Variable, 3, brequest, 3.784148, 4.080732, 0.296584, 0.000000
+> Variable, 3, bdata, 0.132897, 2.108922, 1.976025, 5313697.734375
+> Variable, 3, bdata, 2.108922, 4.080732, 1.971810, 0.000000
+> Variable, 3, bfinalize, 3.969948, 3.970075, 0.000127, 8252906.562500
+> Variable, 3, bfinalize, 3.970075, 4.080732, 0.110657, 0.000000
+> Variable, 3, bandwidth, 0.000000, 4.080732, 4.080732, 34285624.000000
+> Variable, 3, latency, 0.000000, 4.080732, 4.080732, 0.000514
+> Variable, 3, bcompute, 0.081552, 2.134361, 2.052809, 0.000000
+> Variable, 3, bcompute, 2.134361, 2.195834, 0.061473, 0.000000
+> Variable, 3, bcompute, 2.195834, 3.732804, 1.536970, 0.000000
+> Variable, 3, bcompute, 3.732804, 3.758707, 0.025903, 0.000000
+> Variable, 3, bcompute, 3.758707, 3.848877, 0.090170, 0.000000
+> Variable, 3, bcompute, 3.848877, 4.080732, 0.231855, 0.000000
 > Container, 0, LINK, 0, 4.08073, 4.08073, 6
-> Variable, 6, brequest, 0.106992, 0.106993, 1e-06, 5.36984e+06
-> Variable, 6, brequest, 0.106993, 3.78415, 3.67715, 0
-> Variable, 6, brequest, 3.78415, 3.78415, 2e-06, 5.36984e+06
-> Variable, 6, brequest, 3.78415, 4.08073, 0.296584, 0
-> Variable, 6, bandwidth, 0, 4.08073, 4.08073, 4.12791e+07
-> Variable, 6, latency, 0, 4.08073, 4.08073, 6e-05
-> Variable, 6, bcompute, 2.13436, 3.84888, 1.71452, 0
-> Variable, 6, bcompute, 3.84888, 4.08073, 0.231855, 0
+> Variable, 6, brequest, 0.106992, 0.106993, 0.000001, 5369841.234375
+> Variable, 6, brequest, 0.106993, 3.784146, 3.677153, 0.000000
+> Variable, 6, brequest, 3.784146, 3.784148, 0.000002, 5369841.234375
+> Variable, 6, brequest, 3.784148, 4.080732, 0.296584, 0.000000
+> Variable, 6, bandwidth, 0.000000, 4.080732, 4.080732, 41279124.000000
+> Variable, 6, latency, 0.000000, 4.080732, 4.080732, 0.000060
+> Variable, 6, bcompute, 2.134361, 3.848877, 1.714516, 0.000000
+> Variable, 6, bcompute, 3.848877, 4.080732, 0.231855, 0.000000
 > Container, 0, LINK, 0, 4.08073, 4.08073, 5
-> Variable, 5, brequest, 2.17012, 2.17013, 2e-06, 8.25291e+06
-> Variable, 5, brequest, 2.17013, 4.08073, 1.91061, 0
-> Variable, 5, bfinalize, 3.96995, 3.97008, 0.000127, 8.25291e+06
-> Variable, 5, bfinalize, 3.97008, 4.08073, 0.110657, 0
-> Variable, 5, bandwidth, 0, 4.08073, 4.08073, 2.79462e+07
-> Variable, 5, latency, 0, 4.08073, 4.08073, 0.000278
-> Variable, 5, bcompute, 0.081552, 3.7328, 3.65125, 0
-> Variable, 5, bcompute, 3.7328, 4.08073, 0.347928, 0
+> Variable, 5, brequest, 2.170124, 2.170126, 0.000002, 8252906.562500
+> Variable, 5, brequest, 2.170126, 4.080732, 1.910606, 0.000000
+> Variable, 5, bfinalize, 3.969948, 3.970075, 0.000127, 8252906.562500
+> Variable, 5, bfinalize, 3.970075, 4.080732, 0.110657, 0.000000
+> Variable, 5, bandwidth, 0.000000, 4.080732, 4.080732, 27946250.000000
+> Variable, 5, latency, 0.000000, 4.080732, 4.080732, 0.000278
+> Variable, 5, bcompute, 0.081552, 3.732804, 3.651252, 0.000000
+> Variable, 5, bcompute, 3.732804, 4.080732, 0.347928, 0.000000
 > Container, 0, LINK, 0, 4.08073, 4.08073, 0
-> Variable, 0, brequest, 0.064998, 0.065, 2e-06, 5.3137e+06
-> Variable, 0, brequest, 0.065, 0.106992, 0.041992, 0
-> Variable, 0, brequest, 0.106992, 0.106993, 1e-06, 5.36984e+06
-> Variable, 0, brequest, 0.106993, 3.78415, 3.67715, 0
-> Variable, 0, brequest, 3.78415, 3.78415, 2e-06, 5.36984e+06
-> Variable, 0, brequest, 3.78415, 4.08073, 0.296584, 0
-> Variable, 0, bdata, 0.132897, 2.10892, 1.97603, 5.3137e+06
-> Variable, 0, bdata, 2.10892, 4.08073, 1.97181, 0
-> Variable, 0, bandwidth, 0, 4.08073, 4.08073, 4.12791e+07
-> Variable, 0, latency, 0, 4.08073, 4.08073, 6e-05
-> Variable, 0, bcompute, 2.13436, 2.19583, 0.061473, 0
-> Variable, 0, bcompute, 2.19583, 3.75871, 1.56287, 0
-> Variable, 0, bcompute, 3.75871, 3.84888, 0.09017, 0
-> Variable, 0, bcompute, 3.84888, 4.08073, 0.231855, 0
+> Variable, 0, brequest, 0.064998, 0.065000, 0.000002, 5313697.734375
+> Variable, 0, brequest, 0.065000, 0.106992, 0.041992, 0.000000
+> Variable, 0, brequest, 0.106992, 0.106993, 0.000001, 5369841.234375
+> Variable, 0, brequest, 0.106993, 3.784146, 3.677153, 0.000000
+> Variable, 0, brequest, 3.784146, 3.784148, 0.000002, 5369841.234375
+> Variable, 0, brequest, 3.784148, 4.080732, 0.296584, 0.000000
+> Variable, 0, bdata, 0.132897, 2.108922, 1.976025, 5313697.734375
+> Variable, 0, bdata, 2.108922, 4.080732, 1.971810, 0.000000
+> Variable, 0, bandwidth, 0.000000, 4.080732, 4.080732, 41279124.000000
+> Variable, 0, latency, 0.000000, 4.080732, 4.080732, 0.000060
+> Variable, 0, bcompute, 2.134361, 2.195834, 0.061473, 0.000000
+> Variable, 0, bcompute, 2.195834, 3.758707, 1.562873, 0.000000
+> Variable, 0, bcompute, 3.758707, 3.848877, 0.090170, 0.000000
+> Variable, 0, bcompute, 3.848877, 4.080732, 0.231855, 0.000000
 > Container, 0, LINK, 0, 4.08073, 4.08073, 4
-> Variable, 4, brequest, 0.064998, 0.065, 2e-06, 5.3137e+06
-> Variable, 4, brequest, 0.065, 0.106992, 0.041992, 0
-> Variable, 4, brequest, 0.106992, 0.106993, 1e-06, 5.36984e+06
-> Variable, 4, brequest, 0.106993, 2.17012, 2.06313, 0
-> Variable, 4, brequest, 2.17012, 2.17013, 2e-06, 8.25291e+06
-> Variable, 4, brequest, 2.17013, 3.78415, 1.61402, 0
-> Variable, 4, brequest, 3.78415, 3.78415, 2e-06, 5.36984e+06
-> Variable, 4, brequest, 3.78415, 4.08073, 0.296584, 0
-> Variable, 4, bdata, 0.132897, 2.10892, 1.97603, 5.3137e+06
-> Variable, 4, bdata, 2.10892, 4.08073, 1.97181, 0
-> Variable, 4, bfinalize, 3.96995, 3.97008, 0.000127, 8.25291e+06
-> Variable, 4, bfinalize, 3.97008, 4.08073, 0.110657, 0
-> Variable, 4, bandwidth, 0, 4.08073, 4.08073, 1.00996e+07
-> Variable, 4, latency, 0, 4.08073, 4.08073, 0.00048
-> Variable, 4, bcompute, 0.081552, 2.13436, 2.05281, 0
-> Variable, 4, bcompute, 2.13436, 2.19583, 0.061473, 0
-> Variable, 4, bcompute, 2.19583, 3.7328, 1.53697, 0
-> Variable, 4, bcompute, 3.7328, 3.75871, 0.025903, 0
-> Variable, 4, bcompute, 3.75871, 3.84888, 0.09017, 0
-> Variable, 4, bcompute, 3.84888, 4.08073, 0.231855, 0
+> Variable, 4, brequest, 0.064998, 0.065000, 0.000002, 5313697.734375
+> Variable, 4, brequest, 0.065000, 0.106992, 0.041992, 0.000000
+> Variable, 4, brequest, 0.106992, 0.106993, 0.000001, 5369841.234375
+> Variable, 4, brequest, 0.106993, 2.170124, 2.063131, 0.000000
+> Variable, 4, brequest, 2.170124, 2.170126, 0.000002, 8252906.562500
+> Variable, 4, brequest, 2.170126, 3.784146, 1.614020, 0.000000
+> Variable, 4, brequest, 3.784146, 3.784148, 0.000002, 5369841.234375
+> Variable, 4, brequest, 3.784148, 4.080732, 0.296584, 0.000000
+> Variable, 4, bdata, 0.132897, 2.108922, 1.976025, 5313697.734375
+> Variable, 4, bdata, 2.108922, 4.080732, 1.971810, 0.000000
+> Variable, 4, bfinalize, 3.969948, 3.970075, 0.000127, 8252906.562500
+> Variable, 4, bfinalize, 3.970075, 4.080732, 0.110657, 0.000000
+> Variable, 4, bandwidth, 0.000000, 4.080732, 4.080732, 10099625.000000
+> Variable, 4, latency, 0.000000, 4.080732, 4.080732, 0.000480
+> Variable, 4, bcompute, 0.081552, 2.134361, 2.052809, 0.000000
+> Variable, 4, bcompute, 2.134361, 2.195834, 0.061473, 0.000000
+> Variable, 4, bcompute, 2.195834, 3.732804, 1.536970, 0.000000
+> Variable, 4, bcompute, 3.732804, 3.758707, 0.025903, 0.000000
+> Variable, 4, bcompute, 3.758707, 3.848877, 0.090170, 0.000000
+> Variable, 4, bcompute, 3.848877, 4.080732, 0.231855, 0.000000
 > Container, 0, LINK, 0, 4.08073, 4.08073, 1
-> Variable, 1, brequest, 0.064998, 0.065, 2e-06, 5.3137e+06
-> Variable, 1, brequest, 0.065, 0.106992, 0.041992, 0
-> Variable, 1, brequest, 0.106992, 0.106993, 1e-06, 5.36984e+06
-> Variable, 1, brequest, 0.106993, 3.78415, 3.67715, 0
-> Variable, 1, brequest, 3.78415, 3.78415, 2e-06, 5.36984e+06
-> Variable, 1, brequest, 3.78415, 4.08073, 0.296584, 0
-> Variable, 1, bdata, 0.132897, 2.10892, 1.97603, 5.3137e+06
-> Variable, 1, bdata, 2.10892, 4.08073, 1.97181, 0
-> Variable, 1, bandwidth, 0, 4.08073, 4.08073, 3.42856e+07
-> Variable, 1, latency, 0, 4.08073, 4.08073, 0.000514
-> Variable, 1, bcompute, 2.13436, 2.19583, 0.061473, 0
-> Variable, 1, bcompute, 2.19583, 3.75871, 1.56287, 0
-> Variable, 1, bcompute, 3.75871, 3.84888, 0.09017, 0
-> Variable, 1, bcompute, 3.84888, 4.08073, 0.231855, 0
+> Variable, 1, brequest, 0.064998, 0.065000, 0.000002, 5313697.734375
+> Variable, 1, brequest, 0.065000, 0.106992, 0.041992, 0.000000
+> Variable, 1, brequest, 0.106992, 0.106993, 0.000001, 5369841.234375
+> Variable, 1, brequest, 0.106993, 3.784146, 3.677153, 0.000000
+> Variable, 1, brequest, 3.784146, 3.784148, 0.000002, 5369841.234375
+> Variable, 1, brequest, 3.784148, 4.080732, 0.296584, 0.000000
+> Variable, 1, bdata, 0.132897, 2.108922, 1.976025, 5313697.734375
+> Variable, 1, bdata, 2.108922, 4.080732, 1.971810, 0.000000
+> Variable, 1, bandwidth, 0.000000, 4.080732, 4.080732, 34285624.000000
+> Variable, 1, latency, 0.000000, 4.080732, 4.080732, 0.000514
+> Variable, 1, bcompute, 2.134361, 2.195834, 0.061473, 0.000000
+> Variable, 1, bcompute, 2.195834, 3.758707, 1.562873, 0.000000
+> Variable, 1, bcompute, 3.758707, 3.848877, 0.090170, 0.000000
+> Variable, 1, bcompute, 3.848877, 4.080732, 0.231855, 0.000000
 > Container, 0, LINK, 0, 4.08073, 4.08073, 8
-> Variable, 8, brequest, 0.064998, 0.065, 2e-06, 5.3137e+06
-> Variable, 8, brequest, 0.065, 4.08073, 4.01573, 0
-> Variable, 8, bdata, 0.132897, 2.10892, 1.97603, 5.3137e+06
-> Variable, 8, bdata, 2.10892, 4.08073, 1.97181, 0
-> Variable, 8, bandwidth, 0, 4.08073, 4.08073, 8.158e+06
-> Variable, 8, latency, 0, 4.08073, 4.08073, 0.000271
-> Variable, 8, bcompute, 2.19583, 3.75871, 1.56287, 0
-> Variable, 8, bcompute, 3.75871, 4.08073, 0.322025, 0
+> Variable, 8, brequest, 0.064998, 0.065000, 0.000002, 5313697.734375
+> Variable, 8, brequest, 0.065000, 4.080732, 4.015732, 0.000000
+> Variable, 8, bdata, 0.132897, 2.108922, 1.976025, 5313697.734375
+> Variable, 8, bdata, 2.108922, 4.080732, 1.971810, 0.000000
+> Variable, 8, bandwidth, 0.000000, 4.080732, 4.080732, 8158000.000000
+> Variable, 8, latency, 0.000000, 4.080732, 4.080732, 0.000271
+> Variable, 8, bcompute, 2.195834, 3.758707, 1.562873, 0.000000
+> Variable, 8, bcompute, 3.758707, 4.080732, 0.322025, 0.000000
 > Container, 0, LINK, 0, 4.08073, 4.08073, 2
-> Variable, 2, brequest, 0.064998, 0.065, 2e-06, 5.3137e+06
-> Variable, 2, brequest, 0.065, 0.106992, 0.041992, 0
-> Variable, 2, brequest, 0.106992, 0.106993, 1e-06, 5.36984e+06
-> Variable, 2, brequest, 0.106993, 3.78415, 3.67715, 0
-> Variable, 2, brequest, 3.78415, 3.78415, 2e-06, 5.36984e+06
-> Variable, 2, brequest, 3.78415, 4.08073, 0.296584, 0
-> Variable, 2, bdata, 0.132897, 2.10892, 1.97603, 5.3137e+06
-> Variable, 2, bdata, 2.10892, 4.08073, 1.97181, 0
-> Variable, 2, bandwidth, 0, 4.08073, 4.08073, 1.18682e+08
-> Variable, 2, latency, 0, 4.08073, 4.08073, 0.000137
-> Variable, 2, bcompute, 2.13436, 2.19583, 0.061473, 0
-> Variable, 2, bcompute, 2.19583, 3.75871, 1.56287, 0
-> Variable, 2, bcompute, 3.75871, 3.84888, 0.09017, 0
-> Variable, 2, bcompute, 3.84888, 4.08073, 0.231855, 0
+> Variable, 2, brequest, 0.064998, 0.065000, 0.000002, 5313697.734375
+> Variable, 2, brequest, 0.065000, 0.106992, 0.041992, 0.000000
+> Variable, 2, brequest, 0.106992, 0.106993, 0.000001, 5369841.234375
+> Variable, 2, brequest, 0.106993, 3.784146, 3.677153, 0.000000
+> Variable, 2, brequest, 3.784146, 3.784148, 0.000002, 5369841.234375
+> Variable, 2, brequest, 3.784148, 4.080732, 0.296584, 0.000000
+> Variable, 2, bdata, 0.132897, 2.108922, 1.976025, 5313697.734375
+> Variable, 2, bdata, 2.108922, 4.080732, 1.971810, 0.000000
+> Variable, 2, bandwidth, 0.000000, 4.080732, 4.080732, 118682496.000000
+> Variable, 2, latency, 0.000000, 4.080732, 4.080732, 0.000137
+> Variable, 2, bcompute, 2.134361, 2.195834, 0.061473, 0.000000
+> Variable, 2, bcompute, 2.195834, 3.758707, 1.562873, 0.000000
+> Variable, 2, bcompute, 3.758707, 3.848877, 0.090170, 0.000000
+> Variable, 2, bcompute, 3.848877, 4.080732, 0.231855, 0.000000
 > Container, 0, HOST, 0, 4.08073, 4.08073, Bourassa
-> Variable, Bourassa, pcompute, 2.13436, 2.34058, 0.20622, 4.8492e+07
-> Variable, Bourassa, pcompute, 2.34058, 3.84888, 1.5083, 0
-> Variable, Bourassa, pcompute, 3.84888, 4.0551, 0.20622, 4.8492e+07
-> Variable, Bourassa, pcompute, 4.0551, 4.08073, 0.025635, 0
-> Variable, Bourassa, prequest, 0.106993, 0.106994, 1e-06, 4.8492e+07
-> Variable, Bourassa, prequest, 0.106994, 3.78415, 3.67715, 0
-> Variable, Bourassa, prequest, 3.78415, 4.08073, 0.296584, 0
-> Variable, Bourassa, power, 0, 4.08073, 4.08073, 4.8492e+07
+> Variable, Bourassa, pcompute, 2.134361, 2.340581, 0.206220, 48492000.000000
+> Variable, Bourassa, pcompute, 2.340581, 3.848877, 1.508296, 0.000000
+> Variable, Bourassa, pcompute, 3.848877, 4.055097, 0.206220, 48492000.000000
+> Variable, Bourassa, pcompute, 4.055097, 4.080732, 0.025635, 0.000000
+> Variable, Bourassa, prequest, 0.106993, 0.106994, 0.000001, 48492000.000000
+> Variable, Bourassa, prequest, 0.106994, 3.784148, 3.677154, 0.000000
+> Variable, Bourassa, prequest, 3.784148, 4.080732, 0.296584, 0.000000
+> Variable, Bourassa, power, 0.000000, 4.080732, 4.080732, 48492000.000000
 > Container, 0, HOST, 0, 4.08073, 4.08073, Ginette
-> Variable, Ginette, pcompute, 0.081552, 0.287772, 0.20622, 4.8492e+07
-> Variable, Ginette, pcompute, 0.287772, 3.7328, 3.44503, 0
-> Variable, Ginette, pcompute, 3.7328, 3.93902, 0.206219, 4.8492e+07
-> Variable, Ginette, pcompute, 3.93902, 4.08073, 0.141709, 0
-> Variable, Ginette, prequest, 2.17013, 4.08073, 1.91061, 0
-> Variable, Ginette, power, 0, 4.08073, 4.08073, 4.8492e+07
+> Variable, Ginette, pcompute, 0.081552, 0.287772, 0.206220, 48492000.000000
+> Variable, Ginette, pcompute, 0.287772, 3.732804, 3.445032, 0.000000
+> Variable, Ginette, pcompute, 3.732804, 3.939023, 0.206219, 48492000.000000
+> Variable, Ginette, pcompute, 3.939023, 4.080732, 0.141709, 0.000000
+> Variable, Ginette, prequest, 2.170126, 4.080732, 1.910606, 0.000000
+> Variable, Ginette, power, 0.000000, 4.080732, 4.080732, 48492000.000000
 > Container, 0, HOST, 0, 4.08073, 4.08073, Fafard
-> Variable, Fafard, pcompute, 2.19583, 2.3269, 0.131068, 7.6296e+07
-> Variable, Fafard, pcompute, 2.3269, 3.75871, 1.4318, 0
-> Variable, Fafard, pcompute, 3.75871, 3.88978, 0.131068, 7.6296e+07
-> Variable, Fafard, pcompute, 3.88978, 4.08073, 0.190957, 0
-> Variable, Fafard, prequest, 0.065, 4.08073, 4.01573, 0
-> Variable, Fafard, pdata, 2.10892, 4.08073, 1.97181, 0
-> Variable, Fafard, power, 0, 4.08073, 4.08073, 7.6296e+07
+> Variable, Fafard, pcompute, 2.195834, 2.326902, 0.131068, 76296000.000000
+> Variable, Fafard, pcompute, 2.326902, 3.758707, 1.431805, 0.000000
+> Variable, Fafard, pcompute, 3.758707, 3.889775, 0.131068, 76296000.000000
+> Variable, Fafard, pcompute, 3.889775, 4.080732, 0.190957, 0.000000
+> Variable, Fafard, prequest, 0.065000, 4.080732, 4.015732, 0.000000
+> Variable, Fafard, pdata, 2.108922, 4.080732, 1.971810, 0.000000
+> Variable, Fafard, power, 0.000000, 4.080732, 4.080732, 76296000.000000
 > Container, 0, HOST, 0, 4.08073, 4.08073, Jupiter
-> Variable, Jupiter, pcompute, 0.03929, 0.170358, 0.131068, 7.6296e+07
-> Variable, Jupiter, pcompute, 0.170358, 3.80316, 3.63281, 0
-> Variable, Jupiter, pcompute, 3.80316, 3.93423, 0.131068, 7.6296e+07
-> Variable, Jupiter, pcompute, 3.93423, 4.08073, 0.146501, 0
-> Variable, Jupiter, prequest, 2.15338, 4.08073, 1.92736, 0
-> Variable, Jupiter, pdata, 3.71625, 4.08073, 0.364481, 0
-> Variable, Jupiter, power, 0, 4.08073, 4.08073, 7.6296e+07
+> Variable, Jupiter, pcompute, 0.039290, 0.170358, 0.131068, 76296000.000000
+> Variable, Jupiter, pcompute, 0.170358, 3.803163, 3.632805, 0.000000
+> Variable, Jupiter, pcompute, 3.803163, 3.934231, 0.131068, 76296000.000000
+> Variable, Jupiter, pcompute, 3.934231, 4.080732, 0.146501, 0.000000
+> Variable, Jupiter, prequest, 2.153377, 4.080732, 1.927355, 0.000000
+> Variable, Jupiter, pdata, 3.716251, 4.080732, 0.364481, 0.000000
+> Variable, Jupiter, power, 0.000000, 4.080732, 4.080732, 76296000.000000
 > Container, 0, HOST, 0, 4.08073, 4.08073, Tremblay
-> Variable, Tremblay, pcompute, 0.107189, 0.209131, 0.101942, 9.8095e+07
-> Variable, Tremblay, pcompute, 0.209131, 2.15357, 1.94444, 0
-> Variable, Tremblay, pcompute, 2.15357, 2.17013, 0.016554, 9.8095e+07
-> Variable, Tremblay, pcompute, 2.17013, 2.19583, 0.025708, 9.8095e+07
-> Variable, Tremblay, pcompute, 2.19583, 2.25551, 0.05968, 9.8095e+07
-> Variable, Tremblay, pcompute, 2.25551, 4.08073, 1.82522, 0
-> Variable, Tremblay, prequest, 3.733, 4.08073, 0.347733, 0
-> Variable, Tremblay, pdata, 0.020275, 0.020276, 1e-06, 9.8095e+07
-> Variable, Tremblay, pdata, 0.020276, 3.82344, 3.80316, 0
-> Variable, Tremblay, pdata, 3.82344, 4.08073, 0.257294, 0
-> Variable, Tremblay, power, 0, 4.08073, 4.08073, 9.8095e+07
+> Variable, Tremblay, pcompute, 0.107189, 0.209131, 0.101942, 98095000.000000
+> Variable, Tremblay, pcompute, 0.209131, 2.153572, 1.944441, 0.000000
+> Variable, Tremblay, pcompute, 2.153572, 2.170126, 0.016554, 98095000.000000
+> Variable, Tremblay, pcompute, 2.170126, 2.195834, 0.025708, 98095000.000000
+> Variable, Tremblay, pcompute, 2.195834, 2.255514, 0.059680, 98095000.000000
+> Variable, Tremblay, pcompute, 2.255514, 4.080732, 1.825218, 0.000000
+> Variable, Tremblay, prequest, 3.732999, 4.080732, 0.347733, 0.000000
+> Variable, Tremblay, pdata, 0.020275, 0.020276, 0.000001, 98095000.000000
+> Variable, Tremblay, pdata, 0.020276, 3.823438, 3.803162, 0.000000
+> Variable, Tremblay, pdata, 3.823438, 4.080732, 0.257294, 0.000000
+> Variable, Tremblay, power, 0.000000, 4.080732, 4.080732, 98095000.000000
