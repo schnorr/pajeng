@@ -1,0 +1,5173 @@
+%EventDef	PajeDefineContainerType	1
+%	Alias	string
+%	Type	string
+%	Name	string
+%EndEventDef
+%EventDef	PajeDefineEventType	2
+%	Alias	string
+%	Type	string
+%	Name	string
+%EndEventDef
+%EventDef	PajeDefineStateType	3
+%	Alias	string
+%	Type	string
+%	Name	string
+%EndEventDef
+%EventDef	PajeDefineVariableType	4
+%	Alias	string
+%	Type	string
+%	Name	string
+%EndEventDef
+%EventDef	PajeDefineLinkType	5
+%	Alias	string
+%	Type	string
+%	StartContainerType	string
+%	EndContainerType	string
+%	Name	string
+%EndEventDef
+%EventDef	PajeDefineEntityValue	6
+%	Alias	string
+%	Type	string
+%	Name	string
+%	Color	color
+%EndEventDef
+%EventDef	PajeCreateContainer	7
+%	Time	date
+%	Alias	string
+%	Type	string
+%	Container	string
+%	Name	string
+%EndEventDef
+%EventDef	PajeDestroyContainer	8
+%	Time	date
+%	Name	string
+%	Type	string
+%EndEventDef
+%EventDef	PajeNewEvent	9
+%	Time	date
+%	Type	string
+%	Container	string
+%	Value	string
+%EndEventDef
+%EventDef PajeSetState 10
+%	Time	date
+%	Container	string
+%	Type	string
+%	Value	string
+%EndEventDef
+%EventDef	PajePushState	11
+%	Time	date
+%	Container	string
+%	Type	string
+%	Value	string
+%EndEventDef
+%EventDef	PajePopState	12
+%	Time	date
+%	Container	string
+%	Type	string
+%EndEventDef
+%EventDef	PajeSetVariable	13
+%	Time	date
+%	Container	string
+%	Type	string
+%	Value	double
+%EndEventDef
+%EventDef	PajeAddVariable	14
+%	Time	date
+%	Type	string
+%	Container	string
+%	Value	double
+%EndEventDef
+%EventDef	PajeSubVariable	15
+%	Time	date
+%	Type	string
+%	Container	string
+%	Value	double
+%EndEventDef
+%EventDef	PajeStartLink	18
+%	Time	date
+%	Type	string
+%	Container	string
+%	Value	string
+%	StartContainer	string
+%	Key	string
+%EndEventDef
+%EventDef	PajeEndLink	19
+%	Time	date
+%	Type	string
+%	Container	string
+%	Value	string
+%	EndContainer	string
+%	Key	string
+%EndEventDef
+%EventDef PajeSetState 20
+%	Time	date
+%	Container	string
+%	Type	string
+%	Value	string
+%	Size	string
+%	Params	string
+%	Footprint	string
+%	Tag	string
+%	JobId	string
+%EndEventDef
+1       MPIP      0       "MPI Program"                      	
+1       P      MPIP       "Program"                      	
+1       Mn      P       "Memory Node"                         
+1       T      Mn       "Thread"                               
+1       Mm      Mn       "Memory Manager"                         
+1       W      T       "Worker"                               
+1       MPICt   T       "MPI Communication Thread"              
+1       Sc       P       "Scheduler State"                        
+2       prog_event   P       "program event type"				
+2       user_event   T       "user event type"				
+2       thread_event   T       "thread event type"				
+2       MPIev   MPICt    "MPI event type"			
+3       S       T       "Thread State"                        
+3       CtS     MPICt    "Communication Thread State"          
+3       Ctx1      T     "InCtx1"         		
+3       Ctx2      T     "InCtx2"         		
+3       Ctx3      T     "InCtx3"         		
+3       Ctx4      T     "InCtx4"         		
+3       Ctx5      T     "InCtx5"         		
+3       Ctx6      T     "InCtx6"         		
+3       Ctx7      T     "InCtx7"         		
+3       Ctx8      T     "InCtx8"         		
+3       Ctx9      T     "InCtx9"         		
+3       MS       Mm       "Memory Node State"                        
+4       nsubmitted    Sc       "Number of Submitted Uncompleted Tasks"                        
+4       nready    Sc       "Number of Ready Tasks"                        
+4       bw      Mm       "Bandwidth"                        
+6       I       S      Initializing       "0.0 .7 1.0"            
+6       D       S      Deinitializing       "0.0 .1 .7"            
+6       Fi       S      FetchingInput       "1.0 .1 1.0"            
+6       Po       S      PushingOutput       "0.1 1.0 1.0"            
+6       C       S       Callback       ".0 .3 .8"            
+6       B       S       Overhead         ".5 .18 .0"		
+6       E       S       Executing         ".0 .6 .5"		
+6       Sc       S      Scheduling         ".7 .36 .0"		
+6       Sl       S      Sleeping         ".9 .1 .0"		
+6       P       S       Progressing         ".4 .1 .6"		
+6       U       S       Unpartitioning      ".0 .0 1.0"		
+3       WS       W       "Worker State"                        
+6       I       WS       Idle         ".9 .1 .0"		
+6       H       S       Hypervisor      ".5 .18 .0"		
+6       P       CtS       Processing         "0 0 0"		
+6       Sl       CtS      Sleeping         ".9 .1 .0"		
+6       UT       CtS      UserTesting        ".2 .1 .6"	
+6       UW       CtS      UserWaiting        ".4 .1 .3"	
+6       SdS       CtS      SendSubmitted     "1.0 .1 1.0"	
+6       RvS       CtS      RecieveSubmitted  "0.1 1.0 1.0"	
+6       SdC       CtS      SendCompleted     "1.0 .5 1.0"	
+6       RvC       CtS      RecieveCompleted  "0.5 1.0 1.0"	
+6       I       Ctx1      Initializing       "0.0 .7 1.0"            
+6       D       Ctx1      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx1      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx1      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx1       Callback       ".0 .3 .8"            
+6       B       Ctx1       Overhead         ".5 .18 .0"		
+6       E       Ctx1       Executing         ".0 .6 .5"		
+6       Sc       Ctx1      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx1      Sleeping         ".9 .1 .0"		
+6       P       Ctx1       Progressing         ".4 .1 .6"		
+6       U       Ctx1       Unpartitioning         ".0 .0 1.0"		
+6       I       Ctx2      Initializing       "0.0 .7 1.0"            
+6       D       Ctx2      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx2      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx2      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx2       Callback       ".0 .3 .8"            
+6       B       Ctx2       Overhead         ".5 .18 .0"		
+6       E       Ctx2       Executing         ".0 .6 .5"		
+6       Sc       Ctx2      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx2      Sleeping         ".9 .1 .0"		
+6       P       Ctx2       Progressing         ".4 .1 .6"		
+6       U       Ctx2       Unpartitioning         ".0 .0 1.0"		
+6       I       Ctx3      Initializing       "0.0 .7 1.0"            
+6       D       Ctx3      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx3      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx3      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx3       Callback       ".0 .3 .8"            
+6       B       Ctx3       Overhead         ".5 .18 .0"		
+6       E       Ctx3       Executing         ".0 .6 .5"		
+6       Sc       Ctx3      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx3      Sleeping         ".9 .1 .0"		
+6       P       Ctx3       Progressing         ".4 .1 .6"		
+6       U       Ctx3       Unpartitioning         ".0 .0 1.0"		
+6       I       Ctx4      Initializing       "0.0 .7 1.0"            
+6       D       Ctx4      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx4      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx4      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx4       Callback       ".0 .3 .8"            
+6       B       Ctx4       Overhead         ".5 .18 .0"		
+6       E       Ctx4       Executing         ".0 .6 .5"		
+6       Sc       Ctx4      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx4      Sleeping         ".9 .1 .0"		
+6       P       Ctx4       Progressing         ".4 .1 .6"		
+6       U       Ctx4       Unpartitioning         ".0 .0 1.0"		
+6       I       Ctx5      Initializing       "0.0 .7 1.0"            
+6       D       Ctx5      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx5      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx5      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx5       Callback       ".0 .3 .8"            
+6       B       Ctx5       Overhead         ".5 .18 .0"		
+6       E       Ctx5       Executing         ".0 .6 .5"		
+6       Sc       Ctx5      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx5      Sleeping         ".9 .1 .0"		
+6       P       Ctx5       Progressing         ".4 .1 .6"		
+6       U       Ctx5       Unpartitioning         ".0 .0 1.0"		
+6       I       Ctx6      Initializing       "0.0 .7 1.0"            
+6       D       Ctx6      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx6      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx6      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx6       Callback       ".0 .3 .8"            
+6       B       Ctx6       Overhead         ".5 .18 .0"		
+6       E       Ctx6       Executing         ".0 .6 .5"		
+6       Sc       Ctx6      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx6      Sleeping         ".9 .1 .0"		
+6       P       Ctx6       Progressing         ".4 .1 .6"		
+6       U       Ctx6       Unpartitioning         ".0 .0 1.0"		
+6       I       Ctx7      Initializing       "0.0 .7 1.0"            
+6       D       Ctx7      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx7      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx7      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx7       Callback       ".0 .3 .8"            
+6       B       Ctx7       Overhead         ".5 .18 .0"		
+6       E       Ctx7       Executing         ".0 .6 .5"		
+6       Sc       Ctx7      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx7      Sleeping         ".9 .1 .0"		
+6       P       Ctx7       Progressing         ".4 .1 .6"		
+6       U       Ctx7       Unpartitioning         ".0 .0 1.0"		
+6       I       Ctx8      Initializing       "0.0 .7 1.0"            
+6       D       Ctx8      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx8      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx8      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx8       Callback       ".0 .3 .8"            
+6       B       Ctx8       Overhead         ".5 .18 .0"		
+6       E       Ctx8       Executing         ".0 .6 .5"		
+6       Sc       Ctx8      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx8      Sleeping         ".9 .1 .0"		
+6       P       Ctx8       Progressing         ".4 .1 .6"		
+6       U       Ctx8       Unpartitioning         ".0 .0 1.0"		
+6       I       Ctx9      Initializing       "0.0 .7 1.0"            
+6       D       Ctx9      Deinitializing       "0.0 .1 .7"            
+6       Fi       Ctx9      FetchingInput       "1.0 .1 1.0"            
+6       Po       Ctx9      PushingOutput       "0.1 1.0 1.0"            
+6       C       Ctx9       Callback       ".0 .3 .8"            
+6       B       Ctx9       Overhead         ".5 .18 .0"		
+6       E       Ctx9       Executing         ".0 .6 .5"		
+6       Sc       Ctx9      Scheduling         ".7 .36 .0"		
+6       Sl       Ctx9      Sleeping         ".9 .1 .0"		
+6       P       Ctx9       Progressing         ".4 .1 .6"		
+6       U       Ctx9       Unpartitioning         ".0 .0 1.0"		
+6       A       MS      Allocating         ".4 .1 .0"		
+6       Ar       MS      AllocatingReuse       ".1 .1 .8"		
+6       F       MS      Freeing         ".6 .3 .0"		
+6       W       MS      WritingBack         ".0 .0 .4"		
+6       R       MS      Reclaiming         ".0 .1 .6"		
+6       Co       MS     DriverCopy         ".3 .5 .1"		
+6       CoA      MS     DriverCopyAsync         ".1 .3 .1"		
+6       No       MS     Nothing         ".0 .0 .0"		
+5       MPIL     P	MPICt	MPICt   MPIL			
+5       L       P	Mm	Mm      L
+7      0.0 MPIroot      MPIP      0       root
+7	0.0	p	P	MPIroot	program 
+7	0.000000000	sched	Sc	p	scheduler
+7	15.823958000	mn0	Mn	p	MEMNODE0
+7	15.823958000	mm0	Mm	mn0	MEMMANAGER0
+7	15.954681000	t18190	T	mn0	18190
+7	15.954681000	w0	W	t18190	CPU0
+7	16.346309000	t18191	T	mn0	18191
+7	16.346309000	w1	W	t18191	CPU1
+7	16.607878000	t18192	T	mn0	18192
+7	16.607878000	w2	W	t18192	CPU2
+7	16.828500000	t18193	T	mn0	18193
+7	16.828500000	w3	W	t18193	CPU3
+6	chol_model_11	WS	chol_model_11	"0.000000 0.600000 0.400000" 
+6	chol_model_11	Ctx1	chol_model_11	"255.0 102.0 255.0" 
+6	chol_model_11	Ctx2	chol_model_11	".0 255.0 .0" 
+6	chol_model_11	Ctx3	chol_model_11	"225.0 225.0 .0" 
+6	chol_model_11	Ctx4	chol_model_11	".0 245.0 255.0" 
+6	chol_model_11	Ctx5	chol_model_11	".0 .0 .0" 
+6	chol_model_11	Ctx6	chol_model_11	".0 .0 128.0" 
+6	chol_model_11	Ctx7	chol_model_11	"105.0 105.0 105.0" 
+6	chol_model_11	Ctx8	chol_model_11	"255.0 .0 255.0" 
+6	chol_model_11	Ctx9	chol_model_11	".0 .0 1.0" 
+6	chol_model_21	WS	chol_model_21	"0.000000 0.600000 0.400000" 
+6	chol_model_21	Ctx1	chol_model_21	"255.0 102.0 255.0" 
+6	chol_model_21	Ctx2	chol_model_21	".0 255.0 .0" 
+6	chol_model_21	Ctx3	chol_model_21	"225.0 225.0 .0" 
+6	chol_model_21	Ctx4	chol_model_21	".0 245.0 255.0" 
+6	chol_model_21	Ctx5	chol_model_21	".0 .0 .0" 
+6	chol_model_21	Ctx6	chol_model_21	".0 .0 128.0" 
+6	chol_model_21	Ctx7	chol_model_21	"105.0 105.0 105.0" 
+6	chol_model_21	Ctx8	chol_model_21	"255.0 .0 255.0" 
+6	chol_model_21	Ctx9	chol_model_21	".0 .0 1.0" 
+6	chol_model_22	WS	chol_model_22	"0.000000 0.600000 0.400000" 
+6	chol_model_22	Ctx1	chol_model_22	"255.0 102.0 255.0" 
+6	chol_model_22	Ctx2	chol_model_22	".0 255.0 .0" 
+6	chol_model_22	Ctx3	chol_model_22	"225.0 225.0 .0" 
+6	chol_model_22	Ctx4	chol_model_22	".0 245.0 255.0" 
+6	chol_model_22	Ctx5	chol_model_22	".0 .0 .0" 
+6	chol_model_22	Ctx6	chol_model_22	".0 .0 128.0" 
+6	chol_model_22	Ctx7	chol_model_22	"105.0 105.0 105.0" 
+6	chol_model_22	Ctx8	chol_model_22	"255.0 .0 255.0" 
+6	chol_model_22	Ctx9	chol_model_22	".0 .0 1.0" 
+9	768.593269000	prog_event	p	start_profiling
+13	768.605536000	sched nsubmitted	1.000000
+13	830.589347000	sched	nready	1.000000
+13	830.633988000	sched	nready	0.000000
+13	830.633988000	sched	nsubmitted	0.000000
+10	830.636346000	t18190	S	B
+13	830.637673000	sched nsubmitted	1.000000
+10	830.638520000	t18190	S	Fi
+10	830.640070000	t18190	S	B
+11	830.643550000	t18190	S	Sc
+12	830.644083000	t18190	S
+20	830.647932000	w0	WS	chol_model_11	3686400	M960x960x4	617e5fe6	1000000000000000	1
+10	830.652879000	t18190	S	E
+13	831.283267000	sched nsubmitted	2.000000
+13	831.288673000	sched nsubmitted	3.000000
+13	831.291181000	sched nsubmitted	4.000000
+13	831.293297000	sched nsubmitted	5.000000
+13	831.297114000	sched nsubmitted	6.000000
+13	831.299239000	sched nsubmitted	7.000000
+13	831.301273000	sched nsubmitted	8.000000
+13	831.304578000	sched nsubmitted	9.000000
+13	831.307469000	sched nsubmitted	10.000000
+13	831.491309000	sched nsubmitted	11.000000
+13	831.496792000	sched nsubmitted	12.000000
+13	831.499718000	sched nsubmitted	13.000000
+13	831.503990000	sched nsubmitted	14.000000
+13	831.506735000	sched nsubmitted	15.000000
+13	831.509205000	sched nsubmitted	16.000000
+13	831.513372000	sched nsubmitted	17.000000
+13	831.516242000	sched nsubmitted	18.000000
+13	831.518891000	sched nsubmitted	19.000000
+13	831.522954000	sched nsubmitted	20.000000
+13	831.525593000	sched nsubmitted	21.000000
+13	831.527912000	sched nsubmitted	22.000000
+13	831.531648000	sched nsubmitted	23.000000
+13	831.534265000	sched nsubmitted	24.000000
+13	831.538273000	sched nsubmitted	25.000000
+13	831.540795000	sched nsubmitted	26.000000
+13	831.543276000	sched nsubmitted	27.000000
+13	831.547009000	sched nsubmitted	28.000000
+13	831.549745000	sched nsubmitted	29.000000
+13	831.552364000	sched nsubmitted	30.000000
+13	831.556099000	sched nsubmitted	31.000000
+13	831.558692000	sched nsubmitted	32.000000
+13	831.561031000	sched nsubmitted	33.000000
+13	831.564773000	sched nsubmitted	34.000000
+13	831.567337000	sched nsubmitted	35.000000
+13	831.569775000	sched nsubmitted	36.000000
+13	831.573824000	sched nsubmitted	37.000000
+13	831.576387000	sched nsubmitted	38.000000
+13	831.580473000	sched nsubmitted	39.000000
+13	831.583222000	sched nsubmitted	40.000000
+13	831.585640000	sched nsubmitted	41.000000
+13	831.589560000	sched nsubmitted	42.000000
+13	831.592373000	sched nsubmitted	43.000000
+13	831.596282000	sched nsubmitted	44.000000
+13	831.599162000	sched nsubmitted	45.000000
+13	831.601866000	sched nsubmitted	46.000000
+13	831.608253000	sched nsubmitted	47.000000
+13	831.610846000	sched nsubmitted	48.000000
+13	831.613199000	sched nsubmitted	49.000000
+13	831.618036000	sched nsubmitted	50.000000
+13	831.620690000	sched nsubmitted	51.000000
+13	831.623086000	sched nsubmitted	52.000000
+13	831.626945000	sched nsubmitted	53.000000
+13	831.629580000	sched nsubmitted	54.000000
+13	831.633754000	sched nsubmitted	55.000000
+13	831.635791000	sched nsubmitted	56.000000
+13	831.638114000	sched nsubmitted	57.000000
+13	831.641430000	sched nsubmitted	58.000000
+13	831.643693000	sched nsubmitted	59.000000
+13	831.645774000	sched nsubmitted	60.000000
+13	831.649358000	sched nsubmitted	61.000000
+13	831.651569000	sched nsubmitted	62.000000
+13	831.653574000	sched nsubmitted	63.000000
+13	831.657466000	sched nsubmitted	64.000000
+13	831.659972000	sched nsubmitted	65.000000
+13	831.663744000	sched nsubmitted	66.000000
+13	831.666242000	sched nsubmitted	67.000000
+13	831.668698000	sched nsubmitted	68.000000
+13	831.672211000	sched nsubmitted	69.000000
+13	831.674548000	sched nsubmitted	70.000000
+13	831.676898000	sched nsubmitted	71.000000
+13	831.680524000	sched nsubmitted	72.000000
+13	831.683082000	sched nsubmitted	73.000000
+13	831.685431000	sched nsubmitted	74.000000
+13	831.689153000	sched nsubmitted	75.000000
+13	831.691450000	sched nsubmitted	76.000000
+13	831.693739000	sched nsubmitted	77.000000
+13	831.697400000	sched nsubmitted	78.000000
+13	831.699733000	sched nsubmitted	79.000000
+13	831.703190000	sched nsubmitted	80.000000
+13	831.705432000	sched nsubmitted	81.000000
+13	831.707548000	sched nsubmitted	82.000000
+13	831.710958000	sched nsubmitted	83.000000
+13	831.713524000	sched nsubmitted	84.000000
+13	831.715724000	sched nsubmitted	85.000000
+13	831.722905000	sched nsubmitted	86.000000
+13	831.725557000	sched nsubmitted	87.000000
+13	831.727885000	sched nsubmitted	88.000000
+13	831.732714000	sched nsubmitted	89.000000
+13	831.735323000	sched nsubmitted	90.000000
+13	831.737543000	sched nsubmitted	91.000000
+13	831.740959000	sched nsubmitted	92.000000
+13	831.743402000	sched nsubmitted	93.000000
+13	831.746996000	sched nsubmitted	94.000000
+13	831.749616000	sched nsubmitted	95.000000
+13	831.751841000	sched nsubmitted	96.000000
+13	831.755465000	sched nsubmitted	97.000000
+13	831.757820000	sched nsubmitted	98.000000
+13	831.760096000	sched nsubmitted	99.000000
+13	831.763821000	sched nsubmitted	100.000000
+13	831.769523000	sched nsubmitted	101.000000
+13	831.773264000	sched nsubmitted	102.000000
+13	831.777898000	sched nsubmitted	103.000000
+13	831.782572000	sched nsubmitted	104.000000
+13	831.785984000	sched nsubmitted	105.000000
+13	831.790775000	sched nsubmitted	106.000000
+13	831.795582000	sched nsubmitted	107.000000
+13	831.799138000	sched nsubmitted	108.000000
+13	831.802760000	sched nsubmitted	109.000000
+13	831.805064000	sched nsubmitted	110.000000
+13	831.807266000	sched nsubmitted	111.000000
+13	831.810927000	sched nsubmitted	112.000000
+13	831.813133000	sched nsubmitted	113.000000
+13	831.816659000	sched nsubmitted	114.000000
+13	831.819217000	sched nsubmitted	115.000000
+13	831.821564000	sched nsubmitted	116.000000
+13	831.825209000	sched nsubmitted	117.000000
+13	831.827774000	sched nsubmitted	118.000000
+13	831.830020000	sched nsubmitted	119.000000
+13	831.834630000	sched nsubmitted	120.000000
+13	831.836959000	sched nsubmitted	121.000000
+13	831.839073000	sched nsubmitted	122.000000
+13	831.842864000	sched nsubmitted	123.000000
+13	831.845254000	sched nsubmitted	124.000000
+13	831.847379000	sched nsubmitted	125.000000
+13	831.853213000	sched nsubmitted	126.000000
+13	831.855436000	sched nsubmitted	127.000000
+13	831.859009000	sched nsubmitted	128.000000
+13	831.861335000	sched nsubmitted	129.000000
+13	831.863595000	sched nsubmitted	130.000000
+13	831.867133000	sched nsubmitted	131.000000
+13	831.869365000	sched nsubmitted	132.000000
+13	831.871659000	sched nsubmitted	133.000000
+13	831.875145000	sched nsubmitted	134.000000
+13	831.877490000	sched nsubmitted	135.000000
+13	831.879593000	sched nsubmitted	136.000000
+13	831.884119000	sched nsubmitted	137.000000
+13	831.889406000	sched nsubmitted	138.000000
+13	831.893153000	sched nsubmitted	139.000000
+13	831.898142000	sched nsubmitted	140.000000
+13	831.903008000	sched nsubmitted	141.000000
+13	831.907954000	sched nsubmitted	142.000000
+13	831.911794000	sched nsubmitted	143.000000
+13	831.915399000	sched nsubmitted	144.000000
+13	831.917914000	sched nsubmitted	145.000000
+13	831.920167000	sched nsubmitted	146.000000
+13	831.923776000	sched nsubmitted	147.000000
+13	831.925999000	sched nsubmitted	148.000000
+13	831.928174000	sched nsubmitted	149.000000
+13	831.931952000	sched nsubmitted	150.000000
+13	831.934436000	sched nsubmitted	151.000000
+13	831.938923000	sched nsubmitted	152.000000
+13	831.941408000	sched nsubmitted	153.000000
+13	831.943651000	sched nsubmitted	154.000000
+13	831.947247000	sched nsubmitted	155.000000
+13	831.949551000	sched nsubmitted	156.000000
+13	831.951641000	sched nsubmitted	157.000000
+13	831.955381000	sched nsubmitted	158.000000
+13	831.957676000	sched nsubmitted	159.000000
+13	831.959759000	sched nsubmitted	160.000000
+13	831.963211000	sched nsubmitted	161.000000
+13	831.965486000	sched nsubmitted	162.000000
+13	831.970568000	sched nsubmitted	163.000000
+13	831.973117000	sched nsubmitted	164.000000
+13	831.977823000	sched nsubmitted	165.000000
+13	831.982361000	sched nsubmitted	166.000000
+13	831.987957000	sched nsubmitted	167.000000
+13	831.993273000	sched nsubmitted	168.000000
+13	831.997481000	sched nsubmitted	169.000000
+13	832.003324000	sched nsubmitted	170.000000
+13	832.005696000	sched nsubmitted	171.000000
+13	832.009512000	sched nsubmitted	172.000000
+13	832.011725000	sched nsubmitted	173.000000
+13	832.015351000	sched nsubmitted	174.000000
+13	832.017616000	sched nsubmitted	175.000000
+13	832.019783000	sched nsubmitted	176.000000
+13	832.023763000	sched nsubmitted	177.000000
+13	832.026386000	sched nsubmitted	178.000000
+13	832.028694000	sched nsubmitted	179.000000
+13	832.032491000	sched nsubmitted	180.000000
+13	832.034945000	sched nsubmitted	181.000000
+13	832.037094000	sched nsubmitted	182.000000
+13	832.040611000	sched nsubmitted	183.000000
+13	832.042760000	sched nsubmitted	184.000000
+13	832.047287000	sched nsubmitted	185.000000
+13	832.051390000	sched nsubmitted	186.000000
+13	832.057121000	sched nsubmitted	187.000000
+13	832.062823000	sched nsubmitted	188.000000
+13	832.067026000	sched nsubmitted	189.000000
+13	832.072760000	sched nsubmitted	190.000000
+13	832.076703000	sched nsubmitted	191.000000
+13	832.079258000	sched nsubmitted	192.000000
+13	832.081427000	sched nsubmitted	193.000000
+13	832.087334000	sched nsubmitted	194.000000
+13	832.089688000	sched nsubmitted	195.000000
+13	832.092017000	sched nsubmitted	196.000000
+13	832.095646000	sched nsubmitted	197.000000
+13	832.098231000	sched nsubmitted	198.000000
+13	832.100472000	sched nsubmitted	199.000000
+13	832.104202000	sched nsubmitted	200.000000
+13	832.108339000	sched nsubmitted	201.000000
+13	832.114630000	sched nsubmitted	202.000000
+13	832.120613000	sched nsubmitted	203.000000
+13	832.126486000	sched nsubmitted	204.000000
+13	832.128875000	sched nsubmitted	205.000000
+13	832.131238000	sched nsubmitted	206.000000
+13	832.134943000	sched nsubmitted	207.000000
+13	832.137245000	sched nsubmitted	208.000000
+13	832.140615000	sched nsubmitted	209.000000
+13	832.142940000	sched nsubmitted	210.000000
+13	832.148784000	sched nsubmitted	211.000000
+13	832.154062000	sched nsubmitted	212.000000
+13	832.161433000	sched nsubmitted	213.000000
+13	832.163782000	sched nsubmitted	214.000000
+13	832.167313000	sched nsubmitted	215.000000
+13	832.169536000	sched nsubmitted	216.000000
+13	832.176088000	sched nsubmitted	217.000000
+13	832.182674000	sched nsubmitted	218.000000
+13	832.184974000	sched nsubmitted	219.000000
+10	938.897423000	t18190	S	B
+10	938.916017000	w0	WS	I
+10	938.923281000	t18190	S	Po
+10	938.928714000	t18190	S	B
+13	938.937526000	sched	nready	1.000000
+11	938.939863000	t18190	S	Sc
+12	938.949138000	t18190	S
+13	938.949979000	sched	nready	2.000000
+11	938.950283000	t18190	S	Sc
+12	938.954208000	t18190	S
+13	938.954856000	sched	nready	3.000000
+11	938.955253000	t18190	S	Sc
+13	938.955302000	sched	nready	2.000000
+13	938.955302000	sched	nsubmitted	218.000000
+10	938.956619000	t18191	S	B
+10	938.957538000	t18191	S	Fi
+10	938.958847000	t18191	S	B
+11	938.959467000	t18191	S	Sc
+12	938.960408000	t18191	S
+12	938.960548000	t18190	S
+13	938.961233000	sched	nready	3.000000
+20	938.961590000	w1	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000000000002	3
+11	938.961669000	t18190	S	Sc
+12	938.965089000	t18190	S
+10	938.965655000	t18191	S	E
+13	938.965725000	sched	nready	3.000000
+13	938.965746000	sched	nready	2.000000
+13	938.965746000	sched	nsubmitted	217.000000
+11	938.966042000	t18190	S	Sc
+10	938.967285000	t18192	S	B
+10	938.967952000	t18192	S	Fi
+12	938.969252000	t18190	S
+10	938.969427000	t18192	S	B
+11	938.969896000	t18192	S	Sc
+13	938.969957000	sched	nready	4.000000
+11	938.970251000	t18190	S	Sc
+12	938.970468000	t18192	S
+20	938.971376000	w2	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000000000004	5
+12	938.973387000	t18190	S
+13	938.973942000	sched	nready	3.000000
+13	938.973942000	sched	nsubmitted	216.000000
+13	938.974064000	sched	nready	4.000000
+11	938.974376000	t18190	S	Sc
+10	938.975249000	t18193	S	B
+10	938.975920000	t18193	S	Fi
+10	938.975995000	t18192	S	E
+10	938.977524000	t18193	S	B
+12	938.977573000	t18190	S
+11	938.977965000	t18193	S	Sc
+13	938.978350000	sched	nready	5.000000
+12	938.978580000	t18193	S
+11	938.978702000	t18190	S	Sc
+20	938.979318000	w3	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000000000006	7
+12	938.981841000	t18190	S
+13	938.982547000	sched	nready	6.000000
+11	938.982829000	t18190	S	Sc
+10	938.983123000	t18193	S	E
+12	938.985897000	t18190	S
+10	938.987287000	t18190	S	C
+10	938.987449000	t18190	S	B
+11	938.988256000	t18190	S	Sc
+12	938.988642000	t18190	S
+10	938.998885000	t18190	S	Sc
+13	938.999487000	sched	nready	5.000000
+13	938.999487000	sched	nsubmitted	215.000000
+10	938.999872000	t18190	S	B
+10	939.000164000	t18190	S	Fi
+10	939.000838000	t18190	S	B
+11	939.001124000	t18190	S	Sc
+12	939.001483000	t18190	S
+20	939.001968000	w0	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000000000001	2
+10	939.004333000	t18190	S	E
+10	1448.470245000	t18191	S	B
+10	1448.480939000	w1	WS	I
+10	1448.490796000	t18191	S	Po
+10	1448.493150000	t18191	S	B
+13	1448.501133000	sched	nready	6.000000
+11	1448.503796000	t18191	S	Sc
+12	1448.523905000	t18191	S
+10	1448.526185000	t18191	S	C
+10	1448.526347000	t18191	S	B
+11	1448.526800000	t18191	S	Sc
+12	1448.527179000	t18191	S
+10	1448.535999000	t18191	S	Sc
+13	1448.537262000	sched	nready	5.000000
+13	1448.537262000	sched	nsubmitted	214.000000
+10	1448.537962000	t18191	S	B
+10	1448.538529000	t18191	S	Fi
+10	1448.539636000	t18191	S	B
+11	1448.540186000	t18191	S	Sc
+12	1448.540607000	t18191	S
+20	1448.541237000	w1	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000000000003	4
+10	1448.544064000	t18191	S	E
+10	1463.787267000	t18190	S	B
+10	1463.800570000	w0	WS	I
+10	1463.810186000	t18190	S	Po
+10	1463.812674000	t18190	S	B
+13	1463.820921000	sched	nready	6.000000
+11	1463.823885000	t18190	S	Sc
+12	1463.837266000	t18190	S
+13	1463.838585000	sched	nready	7.000000
+11	1463.839053000	t18190	S	Sc
+12	1463.843015000	t18190	S
+10	1463.845302000	t18190	S	C
+10	1463.845498000	t18190	S	B
+11	1463.845859000	t18190	S	Sc
+12	1463.846213000	t18190	S
+10	1463.856664000	t18190	S	Sc
+13	1463.858349000	sched	nready	6.000000
+13	1463.858349000	sched	nsubmitted	213.000000
+10	1463.859215000	t18190	S	B
+10	1463.859807000	t18190	S	Fi
+10	1463.860882000	t18190	S	B
+11	1463.861577000	t18190	S	Sc
+12	1463.861976000	t18190	S
+20	1463.862756000	w0	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000000000008	9
+10	1463.865649000	t18190	S	E
+10	1473.669884000	t18192	S	B
+10	1473.700701000	w2	WS	I
+10	1473.777168000	t18192	S	Po
+10	1473.781272000	t18192	S	B
+13	1473.794648000	sched	nready	7.000000
+11	1473.800227000	t18192	S	Sc
+12	1473.819583000	t18192	S
+13	1473.822076000	sched	nready	8.000000
+11	1473.822858000	t18192	S	Sc
+12	1473.829310000	t18192	S
+13	1473.831966000	sched	nready	9.000000
+11	1473.832530000	t18192	S	Sc
+12	1473.836823000	t18192	S
+10	1473.839503000	t18192	S	C
+10	1473.839845000	t18192	S	B
+11	1473.840450000	t18192	S	Sc
+12	1473.840912000	t18192	S
+10	1473.854064000	t18192	S	Sc
+13	1473.855954000	sched	nready	8.000000
+13	1473.855954000	sched	nsubmitted	212.000000
+10	1473.857222000	t18192	S	B
+10	1473.858109000	t18192	S	Fi
+10	1473.859580000	t18192	S	B
+11	1473.860656000	t18192	S	Sc
+12	1473.861365000	t18192	S
+20	1473.862471000	w2	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000000000005	6
+10	1473.866258000	t18192	S	E
+10	1501.114398000	t18193	S	B
+10	1501.158788000	w3	WS	I
+10	1501.180132000	t18193	S	Po
+10	1501.186502000	t18193	S	B
+13	1501.205212000	sched	nready	9.000000
+11	1501.212703000	t18193	S	Sc
+12	1501.240186000	t18193	S
+13	1501.244768000	sched	nready	10.000000
+11	1501.245800000	t18193	S	Sc
+12	1501.256554000	t18193	S
+13	1501.260412000	sched	nready	11.000000
+11	1501.261355000	t18193	S	Sc
+12	1501.271294000	t18193	S
+13	1501.275359000	sched	nready	12.000000
+11	1501.276594000	t18193	S	Sc
+12	1501.285439000	t18193	S
+10	1501.288623000	t18193	S	C
+10	1501.288908000	t18193	S	B
+11	1501.289903000	t18193	S	Sc
+12	1501.290444000	t18193	S
+10	1501.309650000	t18193	S	Sc
+13	1501.312606000	sched	nready	11.000000
+13	1501.312606000	sched	nsubmitted	211.000000
+10	1501.314037000	t18193	S	B
+10	1501.314977000	t18193	S	Fi
+10	1501.317734000	t18193	S	B
+11	1501.318800000	t18193	S	Sc
+12	1501.320055000	t18193	S
+20	1501.322082000	w3	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000000000007	8
+10	1501.328874000	t18193	S	E
+10	1981.851792000	t18190	S	B
+10	1981.863186000	w0	WS	I
+10	1981.920771000	t18190	S	Po
+10	1981.924021000	t18190	S	B
+13	1981.935096000	sched	nready	12.000000
+11	1981.939073000	t18190	S	Sc
+12	1981.954935000	t18190	S
+13	1981.957361000	sched	nready	13.000000
+11	1981.958406000	t18190	S	Sc
+12	1981.965029000	t18190	S
+13	1981.967257000	sched	nready	14.000000
+11	1981.968323000	t18190	S	Sc
+12	1981.974278000	t18190	S
+13	1981.976021000	sched	nready	15.000000
+11	1981.976396000	t18190	S	Sc
+12	1981.980130000	t18190	S
+13	1981.981491000	sched	nready	16.000000
+11	1981.981915000	t18190	S	Sc
+12	1981.985429000	t18190	S
+10	1981.986589000	t18190	S	C
+10	1981.986798000	t18190	S	B
+11	1981.987179000	t18190	S	Sc
+12	1981.987549000	t18190	S
+10	1981.996814000	t18190	S	Sc
+13	1981.997963000	sched	nready	15.000000
+13	1981.997963000	sched	nsubmitted	210.000000
+10	1981.998880000	t18190	S	B
+10	1981.999314000	t18190	S	Fi
+10	1982.000400000	t18190	S	B
+11	1982.000981000	t18190	S	Sc
+12	1982.001333000	t18190	S
+20	1982.002035000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000020002	13
+10	1982.005096000	t18190	S	E
+10	2017.659070000	t18191	S	B
+10	2017.670383000	w1	WS	I
+10	2017.680333000	t18191	S	Po
+10	2017.682805000	t18191	S	B
+13	2017.690836000	sched	nready	16.000000
+11	2017.693598000	t18191	S	Sc
+12	2017.705326000	t18191	S
+13	2017.706823000	sched	nready	17.000000
+11	2017.707294000	t18191	S	Sc
+12	2017.711042000	t18191	S
+13	2017.712258000	sched	nready	18.000000
+11	2017.712712000	t18191	S	Sc
+12	2017.716344000	t18191	S
+13	2017.717478000	sched	nready	19.000000
+11	2017.717977000	t18191	S	Sc
+12	2017.721731000	t18191	S
+13	2017.722696000	sched	nready	20.000000
+11	2017.723119000	t18191	S	Sc
+12	2017.726599000	t18191	S
+13	2017.727534000	sched	nready	21.000000
+11	2017.728053000	t18191	S	Sc
+12	2017.731349000	t18191	S
+10	2017.732252000	t18191	S	C
+10	2017.732485000	t18191	S	B
+11	2017.732928000	t18191	S	Sc
+12	2017.733316000	t18191	S
+10	2017.741752000	t18191	S	Sc
+13	2017.743056000	sched	nready	20.000000
+13	2017.743056000	sched	nsubmitted	209.000000
+10	2017.743642000	t18191	S	B
+10	2017.744118000	t18191	S	Fi
+10	2017.745082000	t18191	S	B
+11	2017.745771000	t18191	S	Sc
+12	2017.746186000	t18191	S
+20	2017.747068000	w1	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000000000009	10
+10	2017.749840000	t18191	S	E
+10	2017.909066000	t18192	S	B
+10	2017.915638000	w2	WS	I
+10	2017.921184000	t18192	S	Po
+10	2017.922948000	t18192	S	B
+13	2017.929180000	sched	nready	21.000000
+11	2017.930946000	t18192	S	Sc
+12	2017.939037000	t18192	S
+13	2017.940254000	sched	nready	22.000000
+11	2017.940694000	t18192	S	Sc
+12	2017.945253000	t18192	S
+13	2017.946249000	sched	nready	23.000000
+11	2017.946679000	t18192	S	Sc
+12	2017.950589000	t18192	S
+13	2017.951650000	sched	nready	24.000000
+11	2017.952058000	t18192	S	Sc
+12	2017.955883000	t18192	S
+13	2017.957103000	sched	nready	25.000000
+11	2017.957447000	t18192	S	Sc
+12	2017.960967000	t18192	S
+13	2017.961923000	sched	nready	26.000000
+11	2017.962476000	t18192	S	Sc
+12	2017.966028000	t18192	S
+13	2017.967169000	sched	nready	27.000000
+11	2017.967683000	t18192	S	Sc
+12	2017.971446000	t18192	S
+10	2017.972426000	t18192	S	C
+10	2017.972641000	t18192	S	B
+11	2017.972920000	t18192	S	Sc
+12	2017.973236000	t18192	S
+10	2017.979938000	t18192	S	Sc
+13	2017.980700000	sched	nready	26.000000
+13	2017.980700000	sched	nsubmitted	208.000000
+10	2017.981278000	t18192	S	B
+10	2017.981589000	t18192	S	Fi
+10	2017.982884000	t18192	S	B
+11	2017.983348000	t18192	S	Sc
+12	2017.983692000	t18192	S
+20	2017.984268000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000010002	12
+10	2017.987629000	t18192	S	E
+10	2025.838702000	t18193	S	B
+10	2025.853671000	w3	WS	I
+10	2025.866854000	t18193	S	Po
+10	2025.870143000	t18193	S	B
+13	2025.880959000	sched	nready	27.000000
+11	2025.884349000	t18193	S	Sc
+12	2025.899911000	t18193	S
+13	2025.901688000	sched	nready	28.000000
+11	2025.902223000	t18193	S	Sc
+12	2025.906695000	t18193	S
+13	2025.907723000	sched	nready	29.000000
+11	2025.908198000	t18193	S	Sc
+12	2025.911778000	t18193	S
+13	2025.913182000	sched	nready	30.000000
+11	2025.913740000	t18193	S	Sc
+12	2025.918318000	t18193	S
+13	2025.919632000	sched	nready	31.000000
+11	2025.920216000	t18193	S	Sc
+12	2025.924557000	t18193	S
+13	2025.925580000	sched	nready	32.000000
+11	2025.925982000	t18193	S	Sc
+12	2025.929878000	t18193	S
+13	2025.931389000	sched	nready	33.000000
+11	2025.931779000	t18193	S	Sc
+12	2025.935660000	t18193	S
+13	2025.936667000	sched	nready	34.000000
+11	2025.937359000	t18193	S	Sc
+12	2025.941827000	t18193	S
+10	2025.943127000	t18193	S	C
+10	2025.943474000	t18193	S	B
+11	2025.944121000	t18193	S	Sc
+12	2025.944604000	t18193	S
+10	2025.956101000	t18193	S	Sc
+13	2025.957782000	sched	nready	33.000000
+13	2025.957782000	sched	nsubmitted	207.000000
+10	2025.958791000	t18193	S	B
+10	2025.959132000	t18193	S	Fi
+10	2025.960378000	t18193	S	B
+11	2025.961372000	t18193	S	Sc
+12	2025.961959000	t18193	S
+20	2025.962795000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000010004	17
+10	2025.966390000	t18193	S	E
+10	2426.797330000	t18191	S	B
+10	2426.808272000	w1	WS	I
+10	2426.864328000	t18191	S	Po
+10	2426.867931000	t18191	S	B
+13	2426.878646000	sched	nready	34.000000
+11	2426.882370000	t18191	S	Sc
+12	2426.898738000	t18191	S
+13	2426.901299000	sched	nready	35.000000
+11	2426.902186000	t18191	S	Sc
+12	2426.908632000	t18191	S
+13	2426.910289000	sched	nready	36.000000
+11	2426.911224000	t18191	S	Sc
+12	2426.917046000	t18191	S
+13	2426.918748000	sched	nready	37.000000
+11	2426.919565000	t18191	S	Sc
+12	2426.924800000	t18191	S
+13	2426.926700000	sched	nready	38.000000
+11	2426.927493000	t18191	S	Sc
+12	2426.932678000	t18191	S
+13	2426.934388000	sched	nready	39.000000
+11	2426.935129000	t18191	S	Sc
+12	2426.940225000	t18191	S
+13	2426.941542000	sched	nready	40.000000
+11	2426.942227000	t18191	S	Sc
+12	2426.947420000	t18191	S
+13	2426.948838000	sched	nready	41.000000
+11	2426.949600000	t18191	S	Sc
+12	2426.954776000	t18191	S
+13	2426.956348000	sched	nready	42.000000
+11	2426.956975000	t18191	S	Sc
+12	2426.962016000	t18191	S
+10	2426.962943000	t18191	S	C
+10	2426.963146000	t18191	S	B
+11	2426.963815000	t18191	S	Sc
+12	2426.964265000	t18191	S
+10	2426.975863000	t18191	S	Sc
+13	2426.977495000	sched	nready	41.000000
+13	2426.977495000	sched	nsubmitted	206.000000
+10	2426.978296000	t18191	S	B
+10	2426.978759000	t18191	S	Fi
+10	2426.979974000	t18191	S	B
+11	2426.980681000	t18191	S	Sc
+12	2426.981307000	t18191	S
+20	2426.982156000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000010001	11
+10	2426.986425000	t18191	S	E
+10	2686.564285000	t18192	S	B
+10	2686.576421000	w2	WS	I
+10	2686.586554000	t18192	S	Po
+10	2686.589423000	t18192	S	B
+10	2686.595110000	t18192	S	C
+10	2686.595577000	t18192	S	B
+11	2686.596109000	t18192	S	Sc
+12	2686.596871000	t18192	S
+10	2686.607463000	t18192	S	Sc
+13	2686.609176000	sched	nready	40.000000
+13	2686.609176000	sched	nsubmitted	205.000000
+10	2686.610398000	t18192	S	B
+10	2686.610816000	t18192	S	Fi
+10	2686.612560000	t18192	S	B
+11	2686.613200000	t18192	S	Sc
+12	2686.613611000	t18192	S
+20	2686.614352000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000010006	26
+10	2686.617958000	t18192	S	E
+10	2688.975243000	t18193	S	B
+10	2688.985481000	w3	WS	I
+10	2688.995211000	t18193	S	Po
+10	2688.997764000	t18193	S	B
+10	2689.003460000	t18193	S	C
+10	2689.003866000	t18193	S	B
+11	2689.004656000	t18193	S	Sc
+12	2689.005319000	t18193	S
+10	2689.014482000	t18193	S	Sc
+13	2689.015909000	sched	nready	39.000000
+13	2689.015909000	sched	nsubmitted	204.000000
+10	2689.017081000	t18193	S	B
+10	2689.017573000	t18193	S	Fi
+10	2689.019503000	t18193	S	B
+11	2689.020106000	t18193	S	Sc
+12	2689.020701000	t18193	S
+20	2689.021506000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000020006	27
+10	2689.024768000	t18193	S	E
+10	2812.043332000	t18190	S	B
+10	2812.055248000	w0	WS	I
+10	2812.065349000	t18190	S	Po
+10	2812.068012000	t18190	S	B
+10	2812.073310000	t18190	S	C
+10	2812.073679000	t18190	S	B
+11	2812.074128000	t18190	S	Sc
+12	2812.074834000	t18190	S
+10	2812.084641000	t18190	S	Sc
+13	2812.086242000	sched	nready	38.000000
+13	2812.086242000	sched	nsubmitted	203.000000
+10	2812.087629000	t18190	S	B
+10	2812.087999000	t18190	S	Fi
+10	2812.089880000	t18190	S	B
+11	2812.090453000	t18190	S	Sc
+12	2812.090847000	t18190	S
+20	2812.091577000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000020004	18
+10	2812.094712000	t18190	S	E
+10	3087.514949000	t18191	S	B
+10	3087.527504000	w1	WS	I
+10	3087.538061000	t18191	S	Po
+10	3087.540562000	t18191	S	B
+13	3087.548200000	sched	nready	39.000000
+11	3087.551246000	t18191	S	Sc
+12	3087.564316000	t18191	S
+10	3087.565472000	t18191	S	C
+10	3087.565654000	t18191	S	B
+11	3087.566407000	t18191	S	Sc
+12	3087.567100000	t18191	S
+10	3087.577408000	t18191	S	Sc
+13	3087.578873000	sched	nready	38.000000
+13	3087.578873000	sched	nsubmitted	202.000000
+10	3087.580193000	t18191	S	B
+10	3087.580725000	t18191	S	Fi
+10	3087.582212000	t18191	S	B
+11	3087.582828000	t18191	S	Sc
+12	3087.583352000	t18191	S
+20	3087.584445000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000040004	20
+10	3087.588650000	t18191	S	E
+10	3353.669502000	t18193	S	B
+10	3353.681907000	w3	WS	I
+10	3353.693592000	t18193	S	Po
+10	3353.696905000	t18193	S	B
+10	3353.702749000	t18193	S	C
+10	3353.703133000	t18193	S	B
+11	3353.703863000	t18193	S	Sc
+12	3353.704681000	t18193	S
+10	3353.715469000	t18193	S	Sc
+13	3353.717703000	sched	nready	37.000000
+13	3353.717703000	sched	nsubmitted	201.000000
+10	3353.718619000	t18193	S	B
+10	3353.719226000	t18193	S	Fi
+10	3353.721230000	t18193	S	B
+11	3353.721905000	t18193	S	Sc
+12	3353.722467000	t18193	S
+20	3353.723302000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000020008	40
+10	3353.727247000	t18193	S	E
+10	3357.737411000	t18192	S	B
+10	3357.749328000	w2	WS	I
+10	3357.760090000	t18192	S	Po
+10	3357.762637000	t18192	S	B
+10	3357.768817000	t18192	S	C
+10	3357.769369000	t18192	S	B
+11	3357.770008000	t18192	S	Sc
+12	3357.770758000	t18192	S
+10	3357.782184000	t18192	S	Sc
+13	3357.784312000	sched	nready	36.000000
+13	3357.784312000	sched	nsubmitted	200.000000
+10	3357.785317000	t18192	S	B
+10	3357.785786000	t18192	S	Fi
+10	3357.787765000	t18192	S	B
+11	3357.788427000	t18192	S	Sc
+12	3357.788861000	t18192	S
+20	3357.789878000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000010008	39
+10	3357.793561000	t18192	S	E
+10	3480.079135000	t18190	S	B
+10	3480.091717000	w0	WS	I
+10	3480.102853000	t18190	S	Po
+10	3480.105329000	t18190	S	B
+10	3480.110983000	t18190	S	C
+10	3480.111365000	t18190	S	B
+11	3480.111907000	t18190	S	Sc
+12	3480.112876000	t18190	S
+10	3480.123881000	t18190	S	Sc
+13	3480.125825000	sched	nready	35.000000
+13	3480.125825000	sched	nsubmitted	199.000000
+10	3480.127219000	t18190	S	B
+10	3480.127845000	t18190	S	Fi
+10	3480.129937000	t18190	S	B
+11	3480.130790000	t18190	S	Sc
+12	3480.131462000	t18190	S
+20	3480.132257000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000040006	29
+10	3480.136106000	t18190	S	E
+10	3935.753479000	t18191	S	B
+10	3935.767668000	w1	WS	I
+10	3935.780723000	t18191	S	Po
+10	3935.784349000	t18191	S	B
+10	3935.791225000	t18191	S	C
+10	3935.791888000	t18191	S	B
+11	3935.792666000	t18191	S	Sc
+12	3935.793837000	t18191	S
+10	3935.806155000	t18191	S	Sc
+13	3935.807844000	sched	nready	34.000000
+13	3935.807844000	sched	nsubmitted	198.000000
+10	3935.809568000	t18191	S	B
+10	3935.810133000	t18191	S	Fi
+10	3935.812483000	t18191	S	B
+11	3935.813330000	t18191	S	Sc
+12	3935.813974000	t18191	S
+20	3935.814837000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000060006	31
+10	3935.819786000	t18191	S	E
+10	4046.067511000	t18193	S	B
+10	4046.078858000	w3	WS	I
+10	4046.090728000	t18193	S	Po
+10	4046.093868000	t18193	S	B
+10	4046.100139000	t18193	S	C
+10	4046.100549000	t18193	S	B
+11	4046.101070000	t18193	S	Sc
+12	4046.101902000	t18193	S
+10	4046.112650000	t18193	S	Sc
+13	4046.114732000	sched	nready	33.000000
+13	4046.114732000	sched	nsubmitted	197.000000
+10	4046.115884000	t18193	S	B
+10	4046.116646000	t18193	S	Fi
+10	4046.118690000	t18193	S	B
+11	4046.119402000	t18193	S	Sc
+12	4046.120015000	t18193	S
+20	4046.120913000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000010003	14
+10	4046.125098000	t18193	S	E
+10	4058.202054000	t18192	S	B
+10	4058.216454000	w2	WS	I
+10	4058.227850000	t18192	S	Po
+10	4058.231506000	t18192	S	B
+10	4058.237752000	t18192	S	C
+10	4058.238299000	t18192	S	B
+11	4058.239190000	t18192	S	Sc
+12	4058.240129000	t18192	S
+10	4058.251478000	t18192	S	Sc
+13	4058.253768000	sched	nready	32.000000
+13	4058.253768000	sched	nsubmitted	196.000000
+10	4058.254885000	t18192	S	B
+10	4058.255473000	t18192	S	Fi
+10	4058.257378000	t18192	S	B
+11	4058.258329000	t18192	S	Sc
+12	4058.258874000	t18192	S
+20	4058.259676000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000080008	46
+10	4058.263884000	t18192	S	E
+10	4216.251249000	t18190	S	B
+10	4216.264325000	w0	WS	I
+10	4216.276488000	t18190	S	Po
+10	4216.280147000	t18190	S	B
+10	4216.286384000	t18190	S	C
+10	4216.286765000	t18190	S	B
+11	4216.287309000	t18190	S	Sc
+12	4216.288048000	t18190	S
+10	4216.298548000	t18190	S	Sc
+13	4216.300749000	sched	nready	31.000000
+13	4216.300749000	sched	nsubmitted	195.000000
+10	4216.302093000	t18190	S	B
+10	4216.302907000	t18190	S	Fi
+10	4216.305044000	t18190	S	B
+11	4216.305766000	t18190	S	Sc
+12	4216.306548000	t18190	S
+20	4216.307895000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000040008	42
+10	4216.311956000	t18190	S	E
+10	4771.654791000	t18193	S	B
+10	4771.667684000	w3	WS	I
+10	4771.678738000	t18193	S	Po
+10	4771.681449000	t18193	S	B
+10	4771.687616000	t18193	S	C
+10	4771.687948000	t18193	S	B
+11	4771.688571000	t18193	S	Sc
+12	4771.689300000	t18193	S
+10	4771.700129000	t18193	S	Sc
+13	4771.702455000	sched	nready	30.000000
+13	4771.702455000	sched	nsubmitted	194.000000
+10	4771.703615000	t18193	S	B
+10	4771.704651000	t18193	S	Fi
+10	4771.706988000	t18193	S	B
+11	4771.707709000	t18193	S	Sc
+12	4771.708222000	t18193	S
+20	4771.709025000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000030006	28
+10	4771.712675000	t18193	S	E
+10	4936.533826000	t18190	S	B
+10	4936.547697000	w0	WS	I
+10	4936.560427000	t18190	S	Po
+10	4936.564334000	t18190	S	B
+10	4936.571084000	t18190	S	C
+10	4936.571631000	t18190	S	B
+11	4936.572387000	t18190	S	Sc
+12	4936.573306000	t18190	S
+10	4936.586178000	t18190	S	Sc
+13	4936.588125000	sched	nready	29.000000
+13	4936.588125000	sched	nsubmitted	193.000000
+10	4936.589136000	t18190	S	B
+10	4936.590128000	t18190	S	Fi
+10	4936.592548000	t18190	S	B
+11	4936.593131000	t18190	S	Sc
+12	4936.593622000	t18190	S
+20	4936.594615000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000020003	15
+10	4936.598678000	t18190	S	E
+10	4988.107656000	t18191	S	B
+10	4988.120639000	w1	WS	I
+10	4988.132799000	t18191	S	Po
+10	4988.135926000	t18191	S	B
+10	4988.141929000	t18191	S	C
+10	4988.142402000	t18191	S	B
+11	4988.143061000	t18191	S	Sc
+12	4988.144098000	t18191	S
+10	4988.155679000	t18191	S	Sc
+13	4988.157355000	sched	nready	28.000000
+13	4988.157355000	sched	nsubmitted	192.000000
+10	4988.158589000	t18191	S	B
+10	4988.159095000	t18191	S	Fi
+10	4988.161256000	t18191	S	B
+11	4988.162029000	t18191	S	Sc
+12	4988.162977000	t18191	S
+20	4988.164129000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000060008	44
+10	4988.168609000	t18191	S	E
+10	5067.409872000	t18192	S	B
+10	5067.422885000	w2	WS	I
+10	5067.434326000	t18192	S	Po
+10	5067.436783000	t18192	S	B
+10	5067.443062000	t18192	S	C
+10	5067.443854000	t18192	S	B
+11	5067.444486000	t18192	S	Sc
+12	5067.445333000	t18192	S
+10	5067.458284000	t18192	S	Sc
+13	5067.460196000	sched	nready	27.000000
+13	5067.460196000	sched	nsubmitted	191.000000
+10	5067.461615000	t18192	S	B
+10	5067.462543000	t18192	S	Fi
+10	5067.464909000	t18192	S	B
+11	5067.465681000	t18192	S	Sc
+12	5067.466192000	t18192	S
+20	5067.467152000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000030004	19
+10	5067.471077000	t18192	S	E
+10	5455.179130000	t18193	S	B
+10	5455.191770000	w3	WS	I
+10	5455.202567000	t18193	S	Po
+10	5455.205282000	t18193	S	B
+10	5455.210890000	t18193	S	C
+10	5455.211297000	t18193	S	B
+11	5455.212068000	t18193	S	Sc
+12	5455.213001000	t18193	S
+10	5455.224788000	t18193	S	Sc
+13	5455.226751000	sched	nready	26.000000
+13	5455.226751000	sched	nsubmitted	190.000000
+10	5455.227775000	t18193	S	B
+10	5455.228502000	t18193	S	Fi
+10	5455.230752000	t18193	S	B
+11	5455.231572000	t18193	S	Sc
+12	5455.232233000	t18193	S
+20	5455.233278000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000030005	23
+10	5455.237263000	t18193	S	E
+10	5667.713038000	t18190	S	B
+10	5667.725708000	w0	WS	I
+10	5667.735668000	t18190	S	Po
+10	5667.738585000	t18190	S	B
+10	5667.743689000	t18190	S	C
+10	5667.744084000	t18190	S	B
+11	5667.744709000	t18190	S	Sc
+12	5667.745547000	t18190	S
+10	5667.757165000	t18190	S	Sc
+13	5667.759168000	sched	nready	25.000000
+13	5667.759168000	sched	nsubmitted	189.000000
+10	5667.760433000	t18190	S	B
+10	5667.760943000	t18190	S	Fi
+10	5667.762932000	t18190	S	B
+11	5667.763653000	t18190	S	Sc
+12	5667.764119000	t18190	S
+20	5667.764928000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000030008	41
+10	5667.768652000	t18190	S	E
+10	5795.621155000	t18192	S	B
+10	5795.634339000	w2	WS	I
+10	5795.644332000	t18192	S	Po
+10	5795.647048000	t18192	S	B
+10	5795.652561000	t18192	S	C
+10	5795.652989000	t18192	S	B
+11	5795.653509000	t18192	S	Sc
+12	5795.654428000	t18192	S
+10	5795.665219000	t18192	S	Sc
+13	5795.666892000	sched	nready	24.000000
+13	5795.666892000	sched	nsubmitted	188.000000
+10	5795.668258000	t18192	S	B
+10	5795.668716000	t18192	S	Fi
+10	5795.671126000	t18192	S	B
+11	5795.671800000	t18192	S	Sc
+12	5795.672326000	t18192	S
+20	5795.673345000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000020005	22
+10	5795.677251000	t18192	S	E
+10	5808.628029000	t18191	S	B
+10	5808.640269000	w1	WS	I
+10	5808.650451000	t18191	S	Po
+10	5808.652996000	t18191	S	B
+10	5808.658051000	t18191	S	C
+10	5808.658415000	t18191	S	B
+11	5808.659059000	t18191	S	Sc
+12	5808.659913000	t18191	S
+10	5808.670080000	t18191	S	Sc
+13	5808.672192000	sched	nready	23.000000
+13	5808.672192000	sched	nsubmitted	187.000000
+10	5808.673278000	t18191	S	B
+10	5808.673715000	t18191	S	Fi
+10	5808.675855000	t18191	S	B
+11	5808.676426000	t18191	S	Sc
+12	5808.677077000	t18191	S
+20	5808.678110000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000030003	16
+10	5808.681488000	t18191	S	E
+10	6120.543266000	t18193	S	B
+10	6120.554848000	w3	WS	I
+10	6120.565935000	t18193	S	Po
+10	6120.568689000	t18193	S	B
+10	6120.573916000	t18193	S	C
+10	6120.574271000	t18193	S	B
+11	6120.574834000	t18193	S	Sc
+12	6120.575642000	t18193	S
+10	6120.585885000	t18193	S	Sc
+13	6120.587835000	sched	nready	22.000000
+13	6120.587835000	sched	nsubmitted	186.000000
+10	6120.588810000	t18193	S	B
+10	6120.589260000	t18193	S	Fi
+10	6120.591180000	t18193	S	B
+11	6120.591732000	t18193	S	Sc
+12	6120.592160000	t18193	S
+20	6120.592850000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000050008	43
+10	6120.596956000	t18193	S	E
+10	6336.211732000	t18190	S	B
+10	6336.224732000	w0	WS	I
+10	6336.237059000	t18190	S	Po
+10	6336.240495000	t18190	S	B
+10	6336.246608000	t18190	S	C
+10	6336.246964000	t18190	S	B
+11	6336.247770000	t18190	S	Sc
+12	6336.249008000	t18190	S
+10	6336.261434000	t18190	S	Sc
+13	6336.263435000	sched	nready	21.000000
+13	6336.263435000	sched	nsubmitted	185.000000
+10	6336.264949000	t18190	S	B
+10	6336.265585000	t18190	S	Fi
+10	6336.267855000	t18190	S	B
+11	6336.268619000	t18190	S	Sc
+12	6336.269107000	t18190	S
+20	6336.270056000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000040005	24
+10	6336.273838000	t18190	S	E
+10	6504.463497000	t18192	S	B
+10	6504.478911000	w2	WS	I
+10	6504.493107000	t18192	S	Po
+10	6504.497299000	t18192	S	B
+10	6504.504723000	t18192	S	C
+10	6504.505404000	t18192	S	B
+11	6504.506293000	t18192	S	Sc
+12	6504.507534000	t18192	S
+10	6504.520884000	t18192	S	Sc
+13	6504.523792000	sched	nready	20.000000
+13	6504.523792000	sched	nsubmitted	184.000000
+10	6504.525895000	t18192	S	B
+10	6504.526604000	t18192	S	Fi
+10	6504.529598000	t18192	S	B
+11	6504.530294000	t18192	S	Sc
+12	6504.530932000	t18192	S
+20	6504.532140000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000050006	30
+10	6504.537879000	t18192	S	E
+10	6542.796410000	t18191	S	B
+10	6542.808484000	w1	WS	I
+10	6542.819473000	t18191	S	Po
+10	6542.822386000	t18191	S	B
+10	6542.827771000	t18191	S	C
+10	6542.828139000	t18191	S	B
+11	6542.828783000	t18191	S	Sc
+12	6542.829672000	t18191	S
+10	6542.839706000	t18191	S	Sc
+13	6542.841473000	sched	nready	19.000000
+13	6542.841473000	sched	nsubmitted	183.000000
+10	6542.842814000	t18191	S	B
+10	6542.843341000	t18191	S	Fi
+10	6542.845663000	t18191	S	B
+11	6542.846343000	t18191	S	Sc
+12	6542.846817000	t18191	S
+20	6542.847656000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000010005	21
+10	6542.851045000	t18191	S	E
+10	6812.087166000	t18193	S	B
+10	6812.099776000	w3	WS	I
+10	6812.112017000	t18193	S	Po
+10	6812.115574000	t18193	S	B
+10	6812.121118000	t18193	S	C
+10	6812.121649000	t18193	S	B
+11	6812.122235000	t18193	S	Sc
+12	6812.123218000	t18193	S
+10	6812.135236000	t18193	S	Sc
+13	6812.137332000	sched	nready	18.000000
+13	6812.137332000	sched	nsubmitted	182.000000
+10	6812.138589000	t18193	S	B
+10	6812.139162000	t18193	S	Fi
+10	6812.141535000	t18193	S	B
+11	6812.142297000	t18193	S	Sc
+12	6812.142936000	t18193	S
+20	6812.143937000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000040007	35
+10	6812.148249000	t18193	S	E
+10	7057.897408000	t18190	S	B
+10	7057.910385000	w0	WS	I
+10	7057.921065000	t18190	S	Po
+10	7057.923887000	t18190	S	B
+10	7057.929475000	t18190	S	C
+10	7057.929897000	t18190	S	B
+11	7057.930462000	t18190	S	Sc
+12	7057.931209000	t18190	S
+10	7057.942668000	t18190	S	Sc
+13	7057.944652000	sched	nready	17.000000
+13	7057.944652000	sched	nsubmitted	181.000000
+10	7057.946384000	t18190	S	B
+10	7057.946950000	t18190	S	Fi
+10	7057.949130000	t18190	S	B
+11	7057.949677000	t18190	S	Sc
+12	7057.950118000	t18190	S
+20	7057.951011000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000010007	32
+10	7057.955240000	t18190	S	E
+10	7206.994734000	t18192	S	B
+10	7207.007190000	w2	WS	I
+10	7207.018340000	t18192	S	Po
+10	7207.021139000	t18192	S	B
+10	7207.026673000	t18192	S	C
+10	7207.027126000	t18192	S	B
+11	7207.027614000	t18192	S	Sc
+12	7207.028636000	t18192	S
+10	7207.039348000	t18192	S	Sc
+13	7207.041017000	sched	nready	16.000000
+13	7207.041017000	sched	nsubmitted	180.000000
+10	7207.042221000	t18192	S	B
+10	7207.042756000	t18192	S	Fi
+10	7207.045212000	t18192	S	B
+11	7207.045979000	t18192	S	Sc
+12	7207.046411000	t18192	S
+20	7207.047247000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000020007	33
+10	7207.051652000	t18192	S	E
+10	7233.531190000	t18191	S	B
+10	7233.544146000	w1	WS	I
+10	7233.561019000	t18191	S	Po
+10	7233.563873000	t18191	S	B
+10	7233.569698000	t18191	S	C
+10	7233.570076000	t18191	S	B
+11	7233.570772000	t18191	S	Sc
+12	7233.571631000	t18191	S
+10	7233.583563000	t18191	S	Sc
+13	7233.585714000	sched	nready	15.000000
+13	7233.585714000	sched	nsubmitted	179.000000
+10	7233.586938000	t18191	S	B
+10	7233.587402000	t18191	S	Fi
+10	7233.589874000	t18191	S	B
+11	7233.590868000	t18191	S	Sc
+12	7233.591429000	t18191	S
+20	7233.592356000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000050005	25
+10	7233.596583000	t18191	S	E
+10	7523.881809000	t18193	S	B
+10	7523.894942000	w3	WS	I
+10	7523.906750000	t18193	S	Po
+10	7523.909931000	t18193	S	B
+10	7523.915997000	t18193	S	C
+10	7523.916522000	t18193	S	B
+11	7523.917338000	t18193	S	Sc
+12	7523.918470000	t18193	S
+10	7523.930225000	t18193	S	Sc
+13	7523.932239000	sched	nready	14.000000
+13	7523.932239000	sched	nsubmitted	178.000000
+10	7523.933957000	t18193	S	B
+10	7523.934670000	t18193	S	Fi
+10	7523.936996000	t18193	S	B
+11	7523.937728000	t18193	S	Sc
+12	7523.938208000	t18193	S
+20	7523.939070000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000070008	45
+10	7523.942832000	t18193	S	E
+10	7796.942071000	t18190	S	B
+10	7796.955328000	w0	WS	I
+10	7796.966977000	t18190	S	Po
+10	7796.970499000	t18190	S	B
+10	7796.976529000	t18190	S	C
+10	7796.977136000	t18190	S	B
+11	7796.977800000	t18190	S	Sc
+12	7796.978702000	t18190	S
+10	7796.991580000	t18190	S	Sc
+13	7796.993953000	sched	nready	13.000000
+13	7796.993953000	sched	nsubmitted	177.000000
+10	7796.995352000	t18190	S	B
+10	7796.995950000	t18190	S	Fi
+10	7796.998044000	t18190	S	B
+11	7796.998706000	t18190	S	Sc
+12	7796.999234000	t18190	S
+20	7797.000128000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000050007	36
+10	7797.004265000	t18190	S	E
+10	7921.513322000	t18192	S	B
+10	7921.525676000	w2	WS	I
+10	7921.535931000	t18192	S	Po
+10	7921.538866000	t18192	S	B
+10	7921.544454000	t18192	S	C
+10	7921.545020000	t18192	S	B
+11	7921.545519000	t18192	S	Sc
+12	7921.552758000	t18192	S
+10	7921.563836000	t18192	S	Sc
+13	7921.566154000	sched	nready	12.000000
+13	7921.566154000	sched	nsubmitted	176.000000
+10	7921.567069000	t18192	S	B
+10	7921.567829000	t18192	S	Fi
+10	7921.569829000	t18192	S	B
+11	7921.570479000	t18192	S	Sc
+12	7921.571033000	t18192	S
+20	7921.572024000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000060007	37
+10	7921.576039000	t18192	S	E
+10	8122.543976000	t18191	S	B
+10	8122.556860000	w1	WS	I
+10	8122.567350000	t18191	S	Po
+10	8122.570069000	t18191	S	B
+10	8122.575473000	t18191	S	C
+10	8122.575828000	t18191	S	B
+11	8122.576367000	t18191	S	Sc
+12	8122.577452000	t18191	S
+10	8122.588457000	t18191	S	Sc
+13	8122.590756000	sched	nready	11.000000
+13	8122.590756000	sched	nsubmitted	175.000000
+10	8122.592156000	t18191	S	B
+10	8122.592586000	t18191	S	Fi
+10	8122.595202000	t18191	S	B
+11	8122.595756000	t18191	S	Sc
+12	8122.596195000	t18191	S
+20	8122.597078000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000030007	34
+10	8122.601026000	t18191	S	E
+10	8263.950138000	t18193	S	B
+10	8263.963078000	w3	WS	I
+10	8263.975455000	t18193	S	Po
+10	8263.978582000	t18193	S	B
+10	8263.985340000	t18193	S	C
+10	8263.985728000	t18193	S	B
+11	8263.986640000	t18193	S	Sc
+12	8263.987762000	t18193	S
+10	8263.999499000	t18193	S	Sc
+13	8264.001763000	sched	nready	10.000000
+13	8264.001763000	sched	nsubmitted	174.000000
+10	8264.003375000	t18193	S	B
+10	8264.004197000	t18193	S	Fi
+10	8264.006581000	t18193	S	B
+11	8264.007131000	t18193	S	Sc
+12	8264.007697000	t18193	S
+20	8264.008467000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000030009	49
+10	8264.012624000	t18193	S	E
+10	8607.047002000	t18190	S	B
+10	8607.061537000	w0	WS	I
+10	8607.074947000	t18190	S	Po
+10	8607.079083000	t18190	S	B
+10	8607.085957000	t18190	S	C
+10	8607.086341000	t18190	S	B
+11	8607.087068000	t18190	S	Sc
+12	8607.088187000	t18190	S
+10	8607.100271000	t18190	S	Sc
+13	8607.102753000	sched	nready	9.000000
+13	8607.102753000	sched	nsubmitted	173.000000
+10	8607.104163000	t18190	S	B
+10	8607.104916000	t18190	S	Fi
+10	8607.108040000	t18190	S	B
+11	8607.108707000	t18190	S	Sc
+12	8607.109201000	t18190	S
+20	8607.110390000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000010009	47
+10	8607.116103000	t18190	S	E
+10	8692.762387000	t18192	S	B
+10	8692.775263000	w2	WS	I
+10	8692.786146000	t18192	S	Po
+10	8692.788853000	t18192	S	B
+10	8692.794590000	t18192	S	C
+10	8692.795054000	t18192	S	B
+11	8692.795519000	t18192	S	Sc
+12	8692.796510000	t18192	S
+10	8692.807184000	t18192	S	Sc
+13	8692.809437000	sched	nready	8.000000
+13	8692.809437000	sched	nsubmitted	172.000000
+10	8692.811033000	t18192	S	B
+10	8692.811792000	t18192	S	Fi
+10	8692.813733000	t18192	S	B
+11	8692.814409000	t18192	S	Sc
+12	8692.814907000	t18192	S
+20	8692.815801000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000020009	48
+10	8692.819844000	t18192	S	E
+10	8869.926434000	t18191	S	B
+10	8869.940141000	w1	WS	I
+10	8869.951816000	t18191	S	Po
+10	8869.954861000	t18191	S	B
+10	8869.960300000	t18191	S	C
+10	8869.960788000	t18191	S	B
+11	8869.961412000	t18191	S	Sc
+12	8869.962684000	t18191	S
+10	8869.974472000	t18191	S	Sc
+13	8869.976273000	sched	nready	7.000000
+13	8869.976273000	sched	nsubmitted	171.000000
+10	8869.977304000	t18191	S	B
+10	8869.977986000	t18191	S	Fi
+10	8869.980446000	t18191	S	B
+11	8869.981280000	t18191	S	Sc
+12	8869.981799000	t18191	S
+20	8869.982808000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000070007	38
+10	8869.987439000	t18191	S	E
+10	8974.602440000	t18193	S	B
+10	8974.614716000	w3	WS	I
+10	8974.625835000	t18193	S	Po
+10	8974.628971000	t18193	S	B
+10	8974.635137000	t18193	S	C
+10	8974.635445000	t18193	S	B
+11	8974.636143000	t18193	S	Sc
+12	8974.636995000	t18193	S
+10	8974.648070000	t18193	S	Sc
+13	8974.650005000	sched	nready	6.000000
+13	8974.650005000	sched	nsubmitted	170.000000
+10	8974.651456000	t18193	S	B
+10	8974.651895000	t18193	S	Fi
+10	8974.653722000	t18193	S	B
+11	8974.654443000	t18193	S	Sc
+12	8974.654875000	t18193	S
+20	8974.655691000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000070009	53
+10	8974.659515000	t18193	S	E
+10	9339.356387000	t18190	S	B
+10	9339.369128000	w0	WS	I
+10	9339.379915000	t18190	S	Po
+10	9339.382840000	t18190	S	B
+10	9339.389172000	t18190	S	C
+10	9339.389577000	t18190	S	B
+11	9339.390333000	t18190	S	Sc
+12	9339.391025000	t18190	S
+10	9339.403113000	t18190	S	Sc
+13	9339.404928000	sched	nready	5.000000
+13	9339.404928000	sched	nsubmitted	169.000000
+10	9339.406257000	t18190	S	B
+10	9339.406689000	t18190	S	Fi
+10	9339.408709000	t18190	S	B
+11	9339.409282000	t18190	S	Sc
+12	9339.409881000	t18190	S
+20	9339.410782000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000050009	51
+10	9339.414586000	t18190	S	E
+10	9430.496202000	t18192	S	B
+10	9430.509287000	w2	WS	I
+10	9430.520588000	t18192	S	Po
+10	9430.523507000	t18192	S	B
+10	9430.529411000	t18192	S	C
+10	9430.529876000	t18192	S	B
+11	9430.530538000	t18192	S	Sc
+12	9430.531426000	t18192	S
+10	9430.543221000	t18192	S	Sc
+13	9430.545131000	sched	nready	4.000000
+13	9430.545131000	sched	nsubmitted	168.000000
+10	9430.546418000	t18192	S	B
+10	9430.546864000	t18192	S	Fi
+10	9430.549017000	t18192	S	B
+11	9430.549556000	t18192	S	Sc
+12	9430.550045000	t18192	S
+20	9430.550975000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000060009	52
+10	9430.555047000	t18192	S	E
+10	9693.998926000	t18193	S	B
+10	9694.010697000	w3	WS	I
+10	9694.022167000	t18193	S	Po
+10	9694.025205000	t18193	S	B
+10	9694.030736000	t18193	S	C
+10	9694.031192000	t18193	S	B
+11	9694.031642000	t18193	S	Sc
+12	9694.032593000	t18193	S
+10	9694.043449000	t18193	S	Sc
+10	9694.045119000	t18193	S	Sl
+10	9783.673248000	t18191	S	B
+10	9783.685441000	w1	WS	I
+10	9783.694384000	t18191	S	Po
+10	9783.697539000	t18191	S	B
+10	9783.703672000	t18191	S	C
+10	9783.704103000	t18191	S	B
+11	9783.704901000	t18191	S	Sc
+12	9783.705643000	t18191	S
+10	9783.715077000	t18191	S	Sc
+13	9783.716369000	sched	nready	3.000000
+13	9783.716369000	sched	nsubmitted	167.000000
+10	9783.717709000	t18191	S	B
+10	9783.718526000	t18191	S	Fi
+10	9783.721282000	t18191	S	B
+11	9783.722108000	t18191	S	Sc
+12	9783.722745000	t18191	S
+20	9783.723950000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000040009	50
+10	9783.729256000	t18191	S	E
+10	10041.825982000	t18190	S	B
+10	10041.837348000	w0	WS	I
+10	10041.845271000	t18190	S	Po
+10	10041.847693000	t18190	S	B
+10	10041.852893000	t18190	S	C
+10	10041.853160000	t18190	S	B
+11	10041.853622000	t18190	S	Sc
+12	10041.854275000	t18190	S
+10	10041.862422000	t18190	S	Sc
+13	10041.863325000	sched	nready	2.000000
+13	10041.863325000	sched	nsubmitted	166.000000
+10	10041.864355000	t18190	S	B
+10	10041.864822000	t18190	S	Fi
+10	10041.866541000	t18190	S	B
+11	10041.867157000	t18190	S	Sc
+12	10041.867761000	t18190	S
+20	10041.868460000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000090009	55
+10	10041.871861000	t18190	S	E
+10	10134.968212000	t18192	S	B
+10	10134.979638000	w2	WS	I
+10	10134.987772000	t18192	S	Po
+10	10134.990361000	t18192	S	B
+10	10134.995290000	t18192	S	C
+10	10134.995595000	t18192	S	B
+11	10134.996331000	t18192	S	Sc
+12	10134.997010000	t18192	S
+10	10135.004700000	t18192	S	Sc
+13	10135.005427000	sched	nready	1.000000
+13	10135.005427000	sched	nsubmitted	165.000000
+10	10135.006426000	t18192	S	B
+10	10135.006820000	t18192	S	Fi
+10	10135.008276000	t18192	S	B
+11	10135.008935000	t18192	S	Sc
+12	10135.009421000	t18192	S
+20	10135.010206000	w2	WS	chol_model_11	3686400	M960x960x4	617e5fe6	1000000000000001	56
+10	10135.012773000	t18192	S	E
+10	10260.038558000	t18192	S	B
+10	10260.050624000	w2	WS	I
+10	10260.059222000	t18192	S	Po
+10	10260.061850000	t18192	S	B
+13	10260.069825000	sched	nready	2.000000
+11	10260.072688000	t18192	S	Sc
+12	10260.085515000	t18192	S
+13	10260.087661000	sched	nready	3.000000
+11	10260.088355000	t18192	S	Sc
+12	10260.093989000	t18192	S
+13	10260.095419000	sched	nready	4.000000
+11	10260.096059000	t18192	S	Sc
+13	10260.101980000	sched	nready	3.000000
+13	10260.101980000	sched	nsubmitted	164.000000
+12	10260.102279000	t18192	S
+10	10260.103571000	t18193	S	B
+13	10260.103913000	sched	nready	4.000000
+10	10260.104474000	t18193	S	Fi
+11	10260.104696000	t18192	S	Sc
+10	10260.106089000	t18193	S	B
+11	10260.107032000	t18193	S	Sc
+12	10260.107512000	t18193	S
+20	10260.108950000	w3	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000100000004	59
+12	10260.109962000	t18192	S
+13	10260.111239000	sched	nready	5.000000
+11	10260.111972000	t18192	S	Sc
+10	10260.113368000	t18193	S	E
+12	10260.116652000	t18192	S
+13	10260.117973000	sched	nready	6.000000
+11	10260.118462000	t18192	S	Sc
+12	10260.123760000	t18192	S
+13	10260.125242000	sched	nready	7.000000
+11	10260.125765000	t18192	S	Sc
+12	10260.130427000	t18192	S
+13	10260.131594000	sched	nready	8.000000
+11	10260.132085000	t18192	S	Sc
+12	10260.137439000	t18192	S
+10	10260.138348000	t18192	S	C
+10	10260.138740000	t18192	S	B
+11	10260.139224000	t18192	S	Sc
+12	10260.139672000	t18192	S
+10	10260.149674000	t18192	S	Sc
+13	10260.150711000	sched	nready	7.000000
+13	10260.150711000	sched	nsubmitted	163.000000
+10	10260.151365000	t18192	S	B
+10	10260.151894000	t18192	S	Fi
+10	10260.153219000	t18192	S	B
+11	10260.153706000	t18192	S	Sc
+12	10260.154198000	t18192	S
+20	10260.154948000	w2	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000100000003	58
+10	10260.159429000	t18192	S	E
+10	10660.778002000	t18191	S	B
+10	10660.790344000	w1	WS	I
+10	10660.800594000	t18191	S	Po
+10	10660.803348000	t18191	S	B
+10	10660.808423000	t18191	S	C
+10	10660.808808000	t18191	S	B
+11	10660.809392000	t18191	S	Sc
+12	10660.810208000	t18191	S
+10	10660.819601000	t18191	S	Sc
+13	10660.821456000	sched	nready	6.000000
+13	10660.821456000	sched	nsubmitted	162.000000
+10	10660.822347000	t18191	S	B
+10	10660.822939000	t18191	S	Fi
+10	10660.825129000	t18191	S	B
+11	10660.825691000	t18191	S	Sc
+12	10660.826116000	t18191	S
+20	10660.826962000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000000080009	54
+10	10660.830372000	t18191	S	E
+10	10693.251960000	t18193	S	B
+10	10693.263621000	w3	WS	I
+10	10693.274282000	t18193	S	Po
+10	10693.276486000	t18193	S	B
+13	10693.285464000	sched	nready	7.000000
+11	10693.288957000	t18193	S	Sc
+12	10693.301411000	t18193	S
+10	10693.303672000	t18193	S	C
+10	10693.303952000	t18193	S	B
+11	10693.304507000	t18193	S	Sc
+12	10693.304936000	t18193	S
+10	10693.314470000	t18193	S	Sc
+13	10693.315807000	sched	nready	6.000000
+13	10693.315807000	sched	nsubmitted	161.000000
+10	10693.316469000	t18193	S	B
+10	10693.316890000	t18193	S	Fi
+10	10693.318037000	t18193	S	B
+11	10693.318662000	t18193	S	Sc
+12	10693.319071000	t18193	S
+20	10693.319990000	w3	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000100000005	60
+10	10693.323028000	t18193	S	E
+10	10726.894563000	t18192	S	B
+10	10726.907902000	w2	WS	I
+10	10726.968470000	t18192	S	Po
+10	10726.972268000	t18192	S	B
+13	10726.985196000	sched	nready	7.000000
+11	10726.989345000	t18192	S	Sc
+12	10727.007383000	t18192	S
+13	10727.010072000	sched	nready	8.000000
+11	10727.010648000	t18192	S	Sc
+12	10727.016562000	t18192	S
+10	10727.018632000	t18192	S	C
+10	10727.018859000	t18192	S	B
+11	10727.019484000	t18192	S	Sc
+12	10727.019882000	t18192	S
+10	10727.032022000	t18192	S	Sc
+13	10727.033721000	sched	nready	7.000000
+13	10727.033721000	sched	nsubmitted	160.000000
+10	10727.034618000	t18192	S	B
+10	10727.035089000	t18192	S	Fi
+10	10727.036346000	t18192	S	B
+11	10727.037219000	t18192	S	Sc
+12	10727.037980000	t18192	S
+20	10727.038961000	w2	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000100000008	63
+10	10727.042189000	t18192	S	E
+10	11134.138070000	t18193	S	B
+10	11134.150028000	w3	WS	I
+10	11134.161071000	t18193	S	Po
+10	11134.163710000	t18193	S	B
+13	11134.173472000	sched	nready	8.000000
+11	11134.176159000	t18193	S	Sc
+12	11134.189188000	t18193	S
+13	11134.190874000	sched	nready	9.000000
+11	11134.191502000	t18193	S	Sc
+12	11134.196188000	t18193	S
+13	11134.197884000	sched	nready	10.000000
+11	11134.198572000	t18193	S	Sc
+12	11134.203727000	t18193	S
+10	11134.205372000	t18193	S	C
+10	11134.205672000	t18193	S	B
+11	11134.206216000	t18193	S	Sc
+12	11134.206587000	t18193	S
+10	11134.216810000	t18193	S	Sc
+13	11134.218260000	sched	nready	9.000000
+13	11134.218260000	sched	nsubmitted	159.000000
+10	11134.219075000	t18193	S	B
+10	11134.219565000	t18193	S	Fi
+10	11134.220586000	t18193	S	B
+11	11134.221175000	t18193	S	Sc
+12	11134.221665000	t18193	S
+20	11134.222542000	w3	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000100000009	64
+10	11134.225677000	t18193	S	E
+10	11158.882566000	t18190	S	B
+10	11158.898464000	w0	WS	I
+10	11158.912840000	t18190	S	Po
+10	11158.916687000	t18190	S	B
+10	11158.923501000	t18190	S	C
+10	11158.923952000	t18190	S	B
+11	11158.924909000	t18190	S	Sc
+12	11158.926219000	t18190	S
+10	11158.940498000	t18190	S	Sc
+13	11158.943685000	sched	nready	8.000000
+13	11158.943685000	sched	nsubmitted	158.000000
+10	11158.945443000	t18190	S	B
+10	11158.946303000	t18190	S	Fi
+10	11158.949436000	t18190	S	B
+11	11158.950572000	t18190	S	Sc
+12	11158.951432000	t18190	S
+20	11158.952458000	w0	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000100000002	57
+10	11158.957892000	t18190	S	E
+10	11245.224263000	t18192	S	B
+10	11245.241409000	w2	WS	I
+10	11245.306106000	t18192	S	Po
+10	11245.310243000	t18192	S	B
+13	11245.322187000	sched	nready	9.000000
+11	11245.325483000	t18192	S	Sc
+12	11245.342299000	t18192	S
+13	11245.344407000	sched	nready	10.000000
+11	11245.345058000	t18192	S	Sc
+12	11245.350577000	t18192	S
+13	11245.352050000	sched	nready	11.000000
+11	11245.352610000	t18192	S	Sc
+12	11245.356870000	t18192	S
+13	11245.359055000	sched	nready	12.000000
+11	11245.359560000	t18192	S	Sc
+12	11245.364411000	t18192	S
+10	11245.365604000	t18192	S	C
+10	11245.366041000	t18192	S	B
+11	11245.366538000	t18192	S	Sc
+12	11245.367026000	t18192	S
+10	11245.379834000	t18192	S	Sc
+13	11245.381889000	sched	nready	11.000000
+13	11245.381889000	sched	nsubmitted	157.000000
+10	11245.383258000	t18192	S	B
+10	11245.383770000	t18192	S	Fi
+10	11245.385039000	t18192	S	B
+11	11245.385707000	t18192	S	Sc
+12	11245.386248000	t18192	S
+20	11245.387547000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100040004	70
+10	11245.391817000	t18192	S	E
+10	11513.614189000	t18191	S	B
+10	11513.628327000	w1	WS	I
+10	11513.640518000	t18191	S	Po
+10	11513.644146000	t18191	S	B
+10	11513.650173000	t18191	S	C
+10	11513.650870000	t18191	S	B
+11	11513.651514000	t18191	S	Sc
+12	11513.652584000	t18191	S
+10	11513.664532000	t18191	S	Sc
+13	11513.666663000	sched	nready	10.000000
+13	11513.666663000	sched	nsubmitted	156.000000
+10	11513.667831000	t18191	S	B
+10	11513.668624000	t18191	S	Fi
+10	11513.670795000	t18191	S	B
+11	11513.671853000	t18191	S	Sc
+12	11513.672539000	t18191	S
+20	11513.673475000	w1	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000100000007	62
+10	11513.678135000	t18191	S	E
+10	11593.065530000	t18193	S	B
+10	11593.078101000	w3	WS	I
+10	11593.089058000	t18193	S	Po
+10	11593.092160000	t18193	S	B
+13	11593.102127000	sched	nready	11.000000
+11	11593.105072000	t18193	S	Sc
+12	11593.117313000	t18193	S
+13	11593.118963000	sched	nready	12.000000
+11	11593.119490000	t18193	S	Sc
+12	11593.124469000	t18193	S
+13	11593.125600000	sched	nready	13.000000
+11	11593.126014000	t18193	S	Sc
+12	11593.129948000	t18193	S
+13	11593.131697000	sched	nready	14.000000
+11	11593.132186000	t18193	S	Sc
+12	11593.135951000	t18193	S
+13	11593.137217000	sched	nready	15.000000
+11	11593.137581000	t18193	S	Sc
+12	11593.141260000	t18193	S
+10	11593.141935000	t18193	S	C
+10	11593.142190000	t18193	S	B
+11	11593.142814000	t18193	S	Sc
+12	11593.143245000	t18193	S
+10	11593.152579000	t18193	S	Sc
+13	11593.154168000	sched	nready	14.000000
+13	11593.154168000	sched	nsubmitted	155.000000
+10	11593.154770000	t18193	S	B
+10	11593.155262000	t18193	S	Fi
+10	11593.156123000	t18193	S	B
+11	11593.156695000	t18193	S	Sc
+12	11593.157191000	t18193	S
+20	11593.157962000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100030003	67
+10	11593.161556000	t18193	S	E
+10	11639.355084000	t18190	S	B
+10	11639.368220000	w0	WS	I
+10	11639.379567000	t18190	S	Po
+10	11639.382309000	t18190	S	B
+13	11639.391826000	sched	nready	15.000000
+11	11639.395416000	t18190	S	Sc
+12	11639.408772000	t18190	S
+13	11639.410822000	sched	nready	16.000000
+11	11639.411394000	t18190	S	Sc
+12	11639.416967000	t18190	S
+13	11639.418529000	sched	nready	17.000000
+11	11639.418921000	t18190	S	Sc
+12	11639.422986000	t18190	S
+13	11639.424017000	sched	nready	18.000000
+11	11639.424604000	t18190	S	Sc
+12	11639.428646000	t18190	S
+13	11639.430240000	sched	nready	19.000000
+11	11639.430636000	t18190	S	Sc
+12	11639.434827000	t18190	S
+13	11639.435869000	sched	nready	20.000000
+11	11639.436376000	t18190	S	Sc
+12	11639.440395000	t18190	S
+10	11639.441082000	t18190	S	C
+10	11639.441344000	t18190	S	B
+11	11639.441920000	t18190	S	Sc
+12	11639.442313000	t18190	S
+10	11639.452658000	t18190	S	Sc
+13	11639.454103000	sched	nready	19.000000
+13	11639.454103000	sched	nsubmitted	154.000000
+10	11639.455074000	t18190	S	B
+10	11639.455704000	t18190	S	Fi
+10	11639.456710000	t18190	S	B
+11	11639.457377000	t18190	S	Sc
+12	11639.457887000	t18190	S
+20	11639.458809000	w0	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000100000006	61
+10	11639.462222000	t18190	S	E
+10	12000.357902000	t18191	S	B
+10	12000.370618000	w1	WS	I
+10	12000.380987000	t18191	S	Po
+10	12000.383892000	t18191	S	B
+13	12000.392874000	sched	nready	20.000000
+11	12000.396118000	t18191	S	Sc
+12	12000.408692000	t18191	S
+13	12000.410228000	sched	nready	21.000000
+11	12000.410643000	t18191	S	Sc
+12	12000.415122000	t18191	S
+13	12000.416247000	sched	nready	22.000000
+11	12000.416702000	t18191	S	Sc
+12	12000.420552000	t18191	S
+13	12000.421701000	sched	nready	23.000000
+11	12000.422189000	t18191	S	Sc
+12	12000.425842000	t18191	S
+13	12000.427241000	sched	nready	24.000000
+11	12000.427586000	t18191	S	Sc
+12	12000.431045000	t18191	S
+13	12000.431924000	sched	nready	25.000000
+11	12000.432323000	t18191	S	Sc
+12	12000.435860000	t18191	S
+13	12000.436881000	sched	nready	26.000000
+11	12000.437532000	t18191	S	Sc
+12	12000.441543000	t18191	S
+10	12000.442529000	t18191	S	C
+10	12000.442748000	t18191	S	B
+11	12000.443221000	t18191	S	Sc
+12	12000.443617000	t18191	S
+10	12000.452879000	t18191	S	Sc
+13	12000.454246000	sched	nready	25.000000
+13	12000.454246000	sched	nsubmitted	153.000000
+10	12000.455048000	t18191	S	B
+10	12000.455424000	t18191	S	Fi
+10	12000.456669000	t18191	S	B
+11	12000.457386000	t18191	S	Sc
+12	12000.457827000	t18191	S
+20	12000.458599000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100030005	72
+10	12000.462244000	t18191	S	E
+10	12086.822166000	t18190	S	B
+10	12086.833805000	w0	WS	I
+10	12086.844029000	t18190	S	Po
+10	12086.846709000	t18190	S	B
+13	12086.865503000	sched	nready	26.000000
+11	12086.868843000	t18190	S	Sc
+12	12086.882002000	t18190	S
+13	12086.883605000	sched	nready	27.000000
+11	12086.884099000	t18190	S	Sc
+12	12086.889200000	t18190	S
+13	12086.890239000	sched	nready	28.000000
+11	12086.890731000	t18190	S	Sc
+12	12086.894855000	t18190	S
+13	12086.895984000	sched	nready	29.000000
+11	12086.896389000	t18190	S	Sc
+12	12086.900352000	t18190	S
+13	12086.901720000	sched	nready	30.000000
+11	12086.902127000	t18190	S	Sc
+12	12086.905838000	t18190	S
+13	12086.906804000	sched	nready	31.000000
+11	12086.907325000	t18190	S	Sc
+12	12086.911024000	t18190	S
+13	12086.912094000	sched	nready	32.000000
+11	12086.912491000	t18190	S	Sc
+12	12086.915883000	t18190	S
+13	12086.917243000	sched	nready	33.000000
+11	12086.917675000	t18190	S	Sc
+12	12086.921423000	t18190	S
+10	12086.922235000	t18190	S	C
+10	12086.922429000	t18190	S	B
+11	12086.922985000	t18190	S	Sc
+12	12086.923356000	t18190	S
+10	12086.932947000	t18190	S	Sc
+13	12086.934142000	sched	nready	32.000000
+13	12086.934142000	sched	nsubmitted	152.000000
+10	12086.934864000	t18190	S	B
+10	12086.935376000	t18190	S	Fi
+10	12086.936591000	t18190	S	B
+11	12086.937242000	t18190	S	Sc
+12	12086.937654000	t18190	S
+20	12086.938413000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100030004	69
+10	12086.941857000	t18190	S	E
+10	12347.826693000	t18192	S	B
+10	12347.838452000	w2	WS	I
+10	12347.848484000	t18192	S	Po
+10	12347.850998000	t18192	S	B
+10	12347.865129000	t18192	S	C
+10	12347.865516000	t18192	S	B
+11	12347.866274000	t18192	S	Sc
+12	12347.867090000	t18192	S
+10	12347.876967000	t18192	S	Sc
+13	12347.878952000	sched	nready	31.000000
+13	12347.878952000	sched	nsubmitted	151.000000
+10	12347.879939000	t18192	S	B
+10	12347.880370000	t18192	S	Fi
+10	12347.882166000	t18192	S	B
+11	12347.882808000	t18192	S	Sc
+12	12347.883294000	t18192	S
+20	12347.884189000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100050005	74
+10	12347.887932000	t18192	S	E
+10	12415.925816000	t18193	S	B
+10	12415.937817000	w3	WS	I
+10	12415.948089000	t18193	S	Po
+10	12415.950655000	t18193	S	B
+10	12415.965249000	t18193	S	C
+10	12415.965798000	t18193	S	B
+11	12415.966274000	t18193	S	Sc
+12	12415.967228000	t18193	S
+10	12415.978422000	t18193	S	Sc
+13	12415.980251000	sched	nready	30.000000
+13	12415.980251000	sched	nsubmitted	150.000000
+10	12415.981281000	t18193	S	B
+10	12415.981660000	t18193	S	Fi
+10	12415.983415000	t18193	S	B
+11	12415.983974000	t18193	S	Sc
+12	12415.984656000	t18193	S
+20	12415.985552000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100030008	87
+10	12415.989218000	t18193	S	E
+10	12654.206303000	t18191	S	B
+10	12654.217844000	w1	WS	I
+10	12654.228423000	t18191	S	Po
+10	12654.230993000	t18191	S	B
+10	12654.245891000	t18191	S	C
+10	12654.246554000	t18191	S	B
+11	12654.247212000	t18191	S	Sc
+12	12654.248190000	t18191	S
+10	12654.259031000	t18191	S	Sc
+13	12654.260781000	sched	nready	29.000000
+13	12654.260781000	sched	nsubmitted	149.000000
+10	12654.261786000	t18191	S	B
+10	12654.262447000	t18191	S	Fi
+10	12654.264717000	t18191	S	B
+11	12654.265468000	t18191	S	Sc
+12	12654.265894000	t18191	S
+20	12654.266734000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100040008	88
+10	12654.270299000	t18191	S	E
+10	12777.566697000	t18190	S	B
+10	12777.580387000	w0	WS	I
+10	12777.592624000	t18190	S	Po
+10	12777.596372000	t18190	S	B
+10	12777.601775000	t18190	S	C
+10	12777.602112000	t18190	S	B
+11	12777.602684000	t18190	S	Sc
+12	12777.603645000	t18190	S
+10	12777.615033000	t18190	S	Sc
+13	12777.616849000	sched	nready	28.000000
+13	12777.616849000	sched	nsubmitted	148.000000
+10	12777.617970000	t18190	S	B
+10	12777.618694000	t18190	S	Fi
+10	12777.620872000	t18190	S	B
+11	12777.621558000	t18190	S	Sc
+12	12777.621968000	t18190	S
+20	12777.622894000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100040005	73
+10	12777.626601000	t18190	S	E
+10	13089.669610000	t18193	S	B
+10	13089.681797000	w3	WS	I
+10	13089.692743000	t18193	S	Po
+10	13089.695311000	t18193	S	B
+10	13089.700801000	t18193	S	C
+10	13089.701149000	t18193	S	B
+11	13089.701705000	t18193	S	Sc
+12	13089.702692000	t18193	S
+10	13089.713298000	t18193	S	Sc
+13	13089.714952000	sched	nready	27.000000
+13	13089.714952000	sched	nsubmitted	147.000000
+10	13089.715938000	t18193	S	B
+10	13089.716447000	t18193	S	Fi
+10	13089.718146000	t18193	S	B
+11	13089.718787000	t18193	S	Sc
+12	13089.719194000	t18193	S
+20	13089.720054000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100040009	95
+10	13089.723627000	t18193	S	E
+10	13244.041572000	t18192	S	B
+10	13244.053905000	w2	WS	I
+10	13244.063706000	t18192	S	Po
+10	13244.066098000	t18192	S	B
+10	13244.071576000	t18192	S	C
+10	13244.072193000	t18192	S	B
+11	13244.072918000	t18192	S	Sc
+12	13244.073968000	t18192	S
+10	13244.084774000	t18192	S	Sc
+13	13244.086273000	sched	nready	26.000000
+13	13244.086273000	sched	nsubmitted	146.000000
+10	13244.087488000	t18192	S	B
+10	13244.087977000	t18192	S	Fi
+10	13244.090040000	t18192	S	B
+11	13244.090604000	t18192	S	Sc
+12	13244.091112000	t18192	S
+20	13244.091812000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100080008	92
+10	13244.095423000	t18192	S	E
+10	13316.739173000	t18191	S	B
+10	13316.751073000	w1	WS	I
+10	13316.761530000	t18191	S	Po
+10	13316.764603000	t18191	S	B
+10	13316.769529000	t18191	S	C
+10	13316.769871000	t18191	S	B
+11	13316.770292000	t18191	S	Sc
+12	13316.771138000	t18191	S
+10	13316.781392000	t18191	S	Sc
+13	13316.783279000	sched	nready	25.000000
+13	13316.783279000	sched	nsubmitted	145.000000
+10	13316.784384000	t18191	S	B
+10	13316.784796000	t18191	S	Fi
+10	13316.786950000	t18191	S	B
+11	13316.787669000	t18191	S	Sc
+12	13316.788116000	t18191	S
+20	13316.789032000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100030009	94
+10	13316.792568000	t18191	S	E
+10	13451.311978000	t18190	S	B
+10	13451.325661000	w0	WS	I
+10	13451.337204000	t18190	S	Po
+10	13451.340454000	t18190	S	B
+10	13451.346691000	t18190	S	C
+10	13451.347144000	t18190	S	B
+11	13451.347644000	t18190	S	Sc
+12	13451.348557000	t18190	S
+10	13451.361971000	t18190	S	Sc
+13	13451.364371000	sched	nready	24.000000
+13	13451.364371000	sched	nsubmitted	144.000000
+10	13451.365651000	t18190	S	B
+10	13451.366213000	t18190	S	Fi
+10	13451.368443000	t18190	S	B
+11	13451.369391000	t18190	S	Sc
+12	13451.370105000	t18190	S
+20	13451.371157000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100050008	89
+10	13451.376609000	t18190	S	E
+10	13788.751613000	t18193	S	B
+10	13788.765005000	w3	WS	I
+10	13788.777185000	t18193	S	Po
+10	13788.780576000	t18193	S	B
+10	13788.786934000	t18193	S	C
+10	13788.787562000	t18193	S	B
+11	13788.788203000	t18193	S	Sc
+12	13788.789137000	t18193	S
+10	13788.801600000	t18193	S	Sc
+13	13788.803883000	sched	nready	23.000000
+13	13788.803883000	sched	nsubmitted	143.000000
+10	13788.805429000	t18193	S	B
+10	13788.806072000	t18193	S	Fi
+10	13788.808574000	t18193	S	B
+11	13788.809307000	t18193	S	Sc
+12	13788.809997000	t18193	S
+20	13788.810969000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100020002	65
+10	13788.815060000	t18193	S	E
+10	14030.795507000	t18191	S	B
+10	14030.808219000	w1	WS	I
+10	14030.819959000	t18191	S	Po
+10	14030.822675000	t18191	S	B
+10	14030.828016000	t18191	S	C
+10	14030.828474000	t18191	S	B
+11	14030.829118000	t18191	S	Sc
+12	14030.829944000	t18191	S
+10	14030.840763000	t18191	S	Sc
+13	14030.842705000	sched	nready	22.000000
+13	14030.842705000	sched	nsubmitted	142.000000
+10	14030.843980000	t18191	S	B
+10	14030.844390000	t18191	S	Fi
+10	14030.846006000	t18191	S	B
+11	14030.846737000	t18191	S	Sc
+12	14030.847224000	t18191	S
+20	14030.847887000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100090009	100
+10	14030.851572000	t18191	S	E
+10	14185.221875000	t18190	S	B
+10	14185.236685000	w0	WS	I
+10	14185.249495000	t18190	S	Po
+10	14185.253620000	t18190	S	B
+10	14185.260626000	t18190	S	C
+10	14185.261181000	t18190	S	B
+11	14185.261915000	t18190	S	Sc
+12	14185.263126000	t18190	S
+10	14185.276454000	t18190	S	Sc
+13	14185.279076000	sched	nready	21.000000
+13	14185.279076000	sched	nsubmitted	141.000000
+10	14185.280938000	t18190	S	B
+10	14185.281656000	t18190	S	Fi
+10	14185.284476000	t18190	S	B
+11	14185.285260000	t18190	S	Sc
+12	14185.285873000	t18190	S
+20	14185.286886000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100080009	99
+10	14185.293059000	t18190	S	E
+10	14216.180366000	t18192	S	B
+10	14216.192809000	w2	WS	I
+10	14216.203649000	t18192	S	Po
+10	14216.206441000	t18192	S	B
+10	14216.211885000	t18192	S	C
+10	14216.212271000	t18192	S	B
+11	14216.212728000	t18192	S	Sc
+12	14216.213603000	t18192	S
+10	14216.224082000	t18192	S	Sc
+13	14216.226105000	sched	nready	20.000000
+13	14216.226105000	sched	nsubmitted	140.000000
+10	14216.227244000	t18192	S	B
+10	14216.227726000	t18192	S	Fi
+10	14216.229799000	t18192	S	B
+11	14216.230430000	t18192	S	Sc
+12	14216.230928000	t18192	S
+20	14216.231910000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100050009	96
+10	14216.235305000	t18192	S	E
+10	14763.855488000	t18193	S	B
+10	14763.868201000	w3	WS	I
+10	14763.879791000	t18193	S	Po
+10	14763.882652000	t18193	S	B
+13	14763.891556000	sched	nready	21.000000
+11	14763.894635000	t18193	S	Sc
+12	14763.907873000	t18193	S
+10	14763.914251000	t18193	S	C
+10	14763.914526000	t18193	S	B
+11	14763.914947000	t18193	S	Sc
+12	14763.915416000	t18193	S
+10	14763.921784000	t18193	S	Sc
+13	14763.923764000	sched	nready	20.000000
+13	14763.923764000	sched	nsubmitted	139.000000
+10	14763.924737000	t18193	S	B
+10	14763.925097000	t18193	S	Fi
+10	14763.926835000	t18193	S	B
+11	14763.927559000	t18193	S	Sc
+12	14763.928134000	t18193	S
+20	14763.929047000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100020004	68
+10	14763.932982000	t18193	S	E
+10	14933.647893000	t18190	S	B
+10	14933.660940000	w0	WS	I
+10	14933.673831000	t18190	S	Po
+10	14933.677130000	t18190	S	B
+10	14933.683493000	t18190	S	C
+10	14933.683855000	t18190	S	B
+11	14933.684639000	t18190	S	Sc
+12	14933.685607000	t18190	S
+10	14933.698367000	t18190	S	Sc
+13	14933.701081000	sched	nready	19.000000
+13	14933.701081000	sched	nsubmitted	138.000000
+10	14933.702234000	t18190	S	B
+10	14933.702781000	t18190	S	Fi
+10	14933.704879000	t18190	S	B
+11	14933.705578000	t18190	S	Sc
+12	14933.706080000	t18190	S
+20	14933.706921000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100020005	71
+10	14933.711153000	t18190	S	E
+10	14933.763781000	t18192	S	B
+10	14933.771608000	w2	WS	I
+10	14933.777864000	t18192	S	Po
+10	14933.779943000	t18192	S	B
+10	14933.784373000	t18192	S	C
+10	14933.784661000	t18192	S	B
+11	14933.785081000	t18192	S	Sc
+12	14933.785763000	t18192	S
+10	14933.793069000	t18192	S	Sc
+13	14933.794282000	sched	nready	18.000000
+13	14933.794282000	sched	nsubmitted	137.000000
+10	14933.795102000	t18192	S	B
+10	14933.795562000	t18192	S	Fi
+10	14933.797059000	t18192	S	B
+11	14933.797458000	t18192	S	Sc
+12	14933.797826000	t18192	S
+20	14933.798462000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100020003	66
+10	14933.802610000	t18192	S	E
+10	14955.292416000	t18191	S	B
+10	14955.303667000	w1	WS	I
+10	14955.313366000	t18191	S	Po
+10	14955.315571000	t18191	S	B
+10	14955.320248000	t18191	S	C
+10	14955.320478000	t18191	S	B
+11	14955.321219000	t18191	S	Sc
+12	14955.321928000	t18191	S
+10	14955.330978000	t18191	S	Sc
+13	14955.332689000	sched	nready	17.000000
+13	14955.332689000	sched	nsubmitted	136.000000
+10	14955.333641000	t18191	S	B
+10	14955.334040000	t18191	S	Fi
+10	14955.336016000	t18191	S	B
+11	14955.336552000	t18191	S	Sc
+12	14955.336998000	t18191	S
+20	14955.337616000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100020008	86
+10	14955.341041000	t18191	S	E
+10	15447.696339000	t18193	S	B
+10	15447.707778000	w3	WS	I
+10	15447.717141000	t18193	S	Po
+10	15447.719748000	t18193	S	B
+10	15447.731222000	t18193	S	C
+10	15447.731563000	t18193	S	B
+11	15447.731947000	t18193	S	Sc
+12	15447.732582000	t18193	S
+10	15447.738189000	t18193	S	Sc
+13	15447.739628000	sched	nready	16.000000
+13	15447.739628000	sched	nsubmitted	135.000000
+10	15447.740411000	t18193	S	B
+10	15447.741048000	t18193	S	Fi
+10	15447.742659000	t18193	S	B
+11	15447.743147000	t18193	S	Sc
+12	15447.743539000	t18193	S
+20	15447.744228000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100020007	80
+10	15447.747309000	t18193	S	E
+10	15563.727302000	t18190	S	B
+10	15563.738139000	w0	WS	I
+10	15563.747815000	t18190	S	Po
+10	15563.750629000	t18190	S	B
+10	15563.762226000	t18190	S	C
+10	15563.762566000	t18190	S	B
+11	15563.763005000	t18190	S	Sc
+12	15563.763749000	t18190	S
+10	15563.769184000	t18190	S	Sc
+13	15563.770877000	sched	nready	15.000000
+13	15563.770877000	sched	nsubmitted	134.000000
+10	15563.771759000	t18190	S	B
+10	15563.772183000	t18190	S	Fi
+10	15563.774154000	t18190	S	B
+11	15563.774695000	t18190	S	Sc
+12	15563.775135000	t18190	S
+20	15563.775807000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100030007	81
+10	15563.778959000	t18190	S	E
+10	15564.897034000	t18192	S	B
+10	15564.907552000	w2	WS	I
+10	15564.915665000	t18192	S	Po
+10	15564.918033000	t18192	S	B
+10	15564.928539000	t18192	S	C
+10	15564.929097000	t18192	S	B
+11	15564.929418000	t18192	S	Sc
+12	15564.930169000	t18192	S
+10	15564.935518000	t18192	S	Sc
+13	15564.936819000	sched	nready	14.000000
+13	15564.936819000	sched	nsubmitted	133.000000
+10	15564.937656000	t18192	S	B
+10	15564.938047000	t18192	S	Fi
+10	15564.939968000	t18192	S	B
+11	15564.940511000	t18192	S	Sc
+12	15564.940897000	t18192	S
+20	15564.941590000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100020009	93
+10	15564.945198000	t18192	S	E
+10	15585.718322000	t18191	S	B
+10	15585.729617000	w1	WS	I
+10	15585.739542000	t18191	S	Po
+10	15585.742150000	t18191	S	B
+10	15585.754067000	t18191	S	C
+10	15585.754357000	t18191	S	B
+11	15585.754933000	t18191	S	Sc
+12	15585.755871000	t18191	S
+10	15585.762112000	t18191	S	Sc
+13	15585.763901000	sched	nready	13.000000
+13	15585.763901000	sched	nsubmitted	132.000000
+10	15585.764764000	t18191	S	B
+10	15585.765313000	t18191	S	Fi
+10	15585.767339000	t18191	S	B
+11	15585.768148000	t18191	S	Sc
+12	15585.768677000	t18191	S
+20	15585.769315000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100040007	82
+10	15585.773071000	t18191	S	E
+10	16190.227922000	t18193	S	B
+10	16190.241956000	w3	WS	I
+10	16190.253145000	t18193	S	Po
+10	16190.257131000	t18193	S	B
+10	16190.271082000	t18193	S	C
+10	16190.271567000	t18193	S	B
+11	16190.271971000	t18193	S	Sc
+12	16190.272898000	t18193	S
+10	16190.279250000	t18193	S	Sc
+13	16190.281329000	sched	nready	12.000000
+13	16190.281329000	sched	nsubmitted	131.000000
+10	16190.282485000	t18193	S	B
+10	16190.283070000	t18193	S	Fi
+10	16190.285401000	t18193	S	B
+11	16190.285919000	t18193	S	Sc
+12	16190.286495000	t18193	S
+20	16190.287248000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100070007	85
+10	16190.291076000	t18193	S	E
+10	16282.257054000	t18190	S	B
+10	16282.272424000	w0	WS	I
+10	16282.284811000	t18190	S	Po
+10	16282.288626000	t18190	S	B
+10	16282.294224000	t18190	S	C
+10	16282.294722000	t18190	S	B
+11	16282.295413000	t18190	S	Sc
+12	16282.296255000	t18190	S
+10	16282.307498000	t18190	S	Sc
+13	16282.309805000	sched	nready	11.000000
+13	16282.309805000	sched	nsubmitted	130.000000
+10	16282.311422000	t18190	S	B
+10	16282.311966000	t18190	S	Fi
+10	16282.314535000	t18190	S	B
+11	16282.315429000	t18190	S	Sc
+12	16282.316004000	t18190	S
+20	16282.316783000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100070008	91
+10	16282.320857000	t18190	S	E
+10	16301.981594000	t18191	S	B
+10	16301.994726000	w1	WS	I
+10	16302.005149000	t18191	S	Po
+10	16302.008409000	t18191	S	B
+10	16302.014327000	t18191	S	C
+10	16302.014724000	t18191	S	B
+11	16302.015399000	t18191	S	Sc
+12	16302.016187000	t18191	S
+10	16302.027181000	t18191	S	Sc
+13	16302.029246000	sched	nready	10.000000
+13	16302.029246000	sched	nsubmitted	129.000000
+10	16302.030424000	t18191	S	B
+10	16302.030972000	t18191	S	Fi
+10	16302.033107000	t18191	S	B
+11	16302.033902000	t18191	S	Sc
+12	16302.034405000	t18191	S
+20	16302.035184000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100070009	98
+10	16302.039174000	t18191	S	E
+10	16364.693455000	t18192	S	B
+10	16364.704795000	w2	WS	I
+10	16364.715138000	t18192	S	Po
+10	16364.717941000	t18192	S	B
+10	16364.729994000	t18192	S	C
+10	16364.730297000	t18192	S	B
+11	16364.730667000	t18192	S	Sc
+12	16364.731372000	t18192	S
+10	16364.736419000	t18192	S	Sc
+13	16364.737957000	sched	nready	9.000000
+13	16364.737957000	sched	nsubmitted	128.000000
+10	16364.739007000	t18192	S	B
+10	16364.739477000	t18192	S	Fi
+10	16364.741514000	t18192	S	B
+11	16364.742122000	t18192	S	Sc
+12	16364.742539000	t18192	S
+20	16364.743476000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100050007	83
+10	16364.746616000	t18192	S	E
+10	16886.490879000	t18193	S	B
+10	16886.502891000	w3	WS	I
+10	16886.513307000	t18193	S	Po
+10	16886.516194000	t18193	S	B
+10	16886.522471000	t18193	S	C
+10	16886.522968000	t18193	S	B
+11	16886.523625000	t18193	S	Sc
+12	16886.524459000	t18193	S
+10	16886.534831000	t18193	S	Sc
+13	16886.536710000	sched	nready	8.000000
+13	16886.536710000	sched	nsubmitted	127.000000
+10	16886.538139000	t18193	S	B
+10	16886.538866000	t18193	S	Fi
+10	16886.540953000	t18193	S	B
+11	16886.541635000	t18193	S	Sc
+12	16886.542085000	t18193	S
+20	16886.543070000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100030006	76
+10	16886.546680000	t18193	S	E
+10	16970.721329000	t18191	S	B
+10	16970.734647000	w1	WS	I
+10	16970.745997000	t18191	S	Po
+10	16970.749659000	t18191	S	B
+10	16970.755853000	t18191	S	C
+10	16970.756630000	t18191	S	B
+11	16970.757768000	t18191	S	Sc
+12	16970.758624000	t18191	S
+10	16970.770952000	t18191	S	Sc
+13	16970.773354000	sched	nready	7.000000
+13	16970.773354000	sched	nsubmitted	126.000000
+10	16970.774618000	t18191	S	B
+10	16970.775179000	t18191	S	Fi
+10	16970.777743000	t18191	S	B
+11	16970.778441000	t18191	S	Sc
+12	16970.778822000	t18191	S
+20	16970.779586000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100040006	77
+10	16970.783954000	t18191	S	E
+10	16985.607141000	t18190	S	B
+10	16985.622515000	w0	WS	I
+10	16985.635977000	t18190	S	Po
+10	16985.639042000	t18190	S	B
+10	16985.644974000	t18190	S	C
+10	16985.645335000	t18190	S	B
+11	16985.646015000	t18190	S	Sc
+12	16985.646841000	t18190	S
+10	16985.660355000	t18190	S	Sc
+13	16985.662694000	sched	nready	6.000000
+13	16985.662694000	sched	nsubmitted	125.000000
+10	16985.663751000	t18190	S	B
+10	16985.664283000	t18190	S	Fi
+10	16985.666894000	t18190	S	B
+11	16985.667837000	t18190	S	Sc
+12	16985.668235000	t18190	S
+20	16985.669301000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100050006	78
+10	16985.673908000	t18190	S	E
+10	17054.247404000	t18192	S	B
+10	17054.259717000	w2	WS	I
+10	17054.271012000	t18192	S	Po
+10	17054.273937000	t18192	S	B
+10	17054.280341000	t18192	S	C
+10	17054.280761000	t18192	S	B
+11	17054.281522000	t18192	S	Sc
+12	17054.282327000	t18192	S
+10	17054.292590000	t18192	S	Sc
+13	17054.294571000	sched	nready	5.000000
+13	17054.294571000	sched	nsubmitted	124.000000
+10	17054.296383000	t18192	S	B
+10	17054.297100000	t18192	S	Fi
+10	17054.299435000	t18192	S	B
+11	17054.300461000	t18192	S	Sc
+12	17054.301004000	t18192	S
+20	17054.301946000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100020006	75
+10	17054.306254000	t18192	S	E
+10	17610.656459000	t18193	S	B
+10	17610.670562000	w3	WS	I
+10	17610.683972000	t18193	S	Po
+10	17610.687038000	t18193	S	B
+10	17610.692810000	t18193	S	C
+10	17610.693135000	t18193	S	B
+11	17610.693835000	t18193	S	Sc
+12	17610.695027000	t18193	S
+10	17610.707157000	t18193	S	Sc
+13	17610.708918000	sched	nready	4.000000
+13	17610.708918000	sched	nsubmitted	123.000000
+10	17610.710011000	t18193	S	B
+10	17610.710495000	t18193	S	Fi
+10	17610.712558000	t18193	S	B
+11	17610.713242000	t18193	S	Sc
+12	17610.713752000	t18193	S
+20	17610.714535000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100060007	84
+10	17610.718816000	t18193	S	E
+10	17704.839274000	t18191	S	B
+10	17704.852460000	w1	WS	I
+10	17704.865322000	t18191	S	Po
+10	17704.868939000	t18191	S	B
+10	17704.875359000	t18191	S	C
+10	17704.875883000	t18191	S	B
+11	17704.876746000	t18191	S	Sc
+12	17704.877659000	t18191	S
+10	17704.890247000	t18191	S	Sc
+13	17704.892049000	sched	nready	3.000000
+13	17704.892049000	sched	nsubmitted	122.000000
+10	17704.893428000	t18191	S	B
+10	17704.893940000	t18191	S	Fi
+10	17704.896625000	t18191	S	B
+11	17704.897126000	t18191	S	Sc
+12	17704.897771000	t18191	S
+20	17704.898534000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100060008	90
+10	17704.902685000	t18191	S	E
+10	17750.100785000	t18190	S	B
+10	17750.113193000	w0	WS	I
+10	17750.124260000	t18190	S	Po
+10	17750.127246000	t18190	S	B
+10	17750.132914000	t18190	S	C
+10	17750.133320000	t18190	S	B
+11	17750.133985000	t18190	S	Sc
+12	17750.134879000	t18190	S
+10	17750.145926000	t18190	S	Sc
+13	17750.147869000	sched	nready	2.000000
+13	17750.147869000	sched	nsubmitted	121.000000
+10	17750.148944000	t18190	S	B
+10	17750.149566000	t18190	S	Fi
+10	17750.151482000	t18190	S	B
+11	17750.152203000	t18190	S	Sc
+12	17750.152630000	t18190	S
+20	17750.153409000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100060009	97
+10	17750.157840000	t18190	S	E
+10	17799.286066000	t18192	S	B
+10	17799.297959000	w2	WS	I
+10	17799.308048000	t18192	S	Po
+10	17799.311014000	t18192	S	B
+10	17799.323125000	t18192	S	C
+10	17799.323484000	t18192	S	B
+11	17799.324001000	t18192	S	Sc
+12	17799.324728000	t18192	S
+10	17799.330987000	t18192	S	Sc
+13	17799.332572000	sched	nready	1.000000
+13	17799.332572000	sched	nsubmitted	120.000000
+10	17799.333693000	t18192	S	B
+10	17799.334104000	t18192	S	Fi
+10	17799.335781000	t18192	S	B
+11	17799.336384000	t18192	S	Sc
+12	17799.336781000	t18192	S
+20	17799.337592000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000100060006	79
+10	17799.340994000	t18192	S	E
+10	18267.229180000	t18193	S	B
+10	18267.239709000	w3	WS	I
+10	18267.249456000	t18193	S	Po
+10	18267.251828000	t18193	S	B
+10	18267.257046000	t18193	S	C
+10	18267.257470000	t18193	S	B
+11	18267.257978000	t18193	S	Sc
+12	18267.258759000	t18193	S
+10	18267.267901000	t18193	S	Sc
+10	18267.269705000	t18193	S	Sl
+10	18350.984968000	t18191	S	B
+10	18350.995336000	w1	WS	I
+10	18351.002509000	t18191	S	Po
+10	18351.005059000	t18191	S	B
+10	18351.009507000	t18191	S	C
+10	18351.009913000	t18191	S	B
+11	18351.010369000	t18191	S	Sc
+12	18351.010919000	t18191	S
+10	18351.018193000	t18191	S	Sc
+10	18351.019003000	t18191	S	Sl
+10	18379.591388000	t18190	S	B
+10	18379.599814000	w0	WS	I
+10	18379.606158000	t18190	S	Po
+10	18379.607918000	t18190	S	B
+10	18379.611730000	t18190	S	C
+10	18379.611977000	t18190	S	B
+11	18379.612463000	t18190	S	Sc
+12	18379.612980000	t18190	S
+10	18379.619096000	t18190	S	Sc
+13	18379.619886000	sched	nready	0.000000
+13	18379.619886000	sched	nsubmitted	119.000000
+10	18379.620576000	t18190	S	B
+10	18379.621104000	t18190	S	Fi
+10	18379.622435000	t18190	S	B
+11	18379.623074000	t18190	S	Sc
+12	18379.623490000	t18190	S
+20	18379.624171000	w0	WS	chol_model_11	3686400	M960x960x4	617e5fe6	1000000000000002	101
+10	18379.626472000	t18190	S	E
+10	18433.297252000	t18192	S	B
+10	18433.307203000	w2	WS	I
+10	18433.313868000	t18192	S	Po
+10	18433.315982000	t18192	S	B
+10	18433.320549000	t18192	S	C
+10	18433.320832000	t18192	S	B
+11	18433.321258000	t18192	S	Sc
+12	18433.321791000	t18192	S
+10	18433.328519000	t18192	S	Sc
+10	18433.329361000	t18192	S	Sl
+10	18487.221552000	t18190	S	B
+10	18487.226892000	w0	WS	I
+10	18487.231163000	t18190	S	Po
+10	18487.232547000	t18190	S	B
+13	18487.237069000	sched	nready	1.000000
+11	18487.239079000	t18190	S	Sc
+12	18487.248261000	t18190	S
+13	18487.249149000	sched	nready	2.000000
+11	18487.249464000	t18190	S	Sc
+12	18487.253305000	t18190	S
+13	18487.254023000	sched	nready	3.000000
+11	18487.254306000	t18190	S	Sc
+13	18487.254567000	sched	nready	2.000000
+13	18487.254567000	sched	nsubmitted	118.000000
+10	18487.256011000	t18191	S	B
+10	18487.256765000	t18191	S	Fi
+10	18487.258107000	t18191	S	B
+11	18487.258704000	t18191	S	Sc
+12	18487.259000000	t18190	S
+12	18487.259202000	t18191	S
+13	18487.259716000	sched	nready	3.000000
+11	18487.260012000	t18190	S	Sc
+20	18487.260135000	w1	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000200000004	105
+12	18487.263341000	t18190	S
+13	18487.263827000	sched	nready	2.000000
+13	18487.263827000	sched	nsubmitted	117.000000
+10	18487.264017000	t18191	S	E
+13	18487.264097000	sched	nready	3.000000
+11	18487.264371000	t18190	S	Sc
+10	18487.264592000	t18192	S	B
+10	18487.265074000	t18192	S	Fi
+10	18487.266176000	t18192	S	B
+11	18487.266488000	t18192	S	Sc
+12	18487.266867000	t18192	S
+12	18487.267898000	t18190	S
+20	18487.268321000	w2	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000200000006	109
+13	18487.268664000	sched	nready	4.000000
+11	18487.268943000	t18190	S	Sc
+10	18487.271470000	t18192	S	E
+12	18487.272560000	t18190	S
+13	18487.273732000	sched	nready	3.000000
+13	18487.273732000	sched	nsubmitted	116.000000
+13	18487.273757000	sched	nready	4.000000
+11	18487.274126000	t18190	S	Sc
+10	18487.274668000	t18193	S	B
+10	18487.275120000	t18193	S	Fi
+10	18487.276174000	t18193	S	B
+11	18487.276455000	t18193	S	Sc
+12	18487.276832000	t18193	S
+12	18487.277689000	t18190	S
+20	18487.277984000	w3	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000200000008	113
+10	18487.278149000	t18190	S	C
+10	18487.278299000	t18190	S	B
+11	18487.278666000	t18190	S	Sc
+12	18487.279031000	t18190	S
+10	18487.281312000	t18193	S	E
+10	18487.283425000	t18190	S	Sc
+13	18487.283952000	sched	nready	3.000000
+13	18487.283952000	sched	nsubmitted	115.000000
+10	18487.284313000	t18190	S	B
+10	18487.284823000	t18190	S	Fi
+10	18487.285489000	t18190	S	B
+11	18487.285784000	t18190	S	Sc
+12	18487.286127000	t18190	S
+20	18487.286589000	w0	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000200000003	103
+10	18487.289054000	t18190	S	E
+10	19025.482500000	t18191	S	B
+10	19025.493816000	w1	WS	I
+10	19025.503051000	t18191	S	Po
+10	19025.505373000	t18191	S	B
+13	19025.513517000	sched	nready	4.000000
+11	19025.516369000	t18191	S	Sc
+12	19025.527516000	t18191	S
+10	19025.529018000	t18191	S	C
+10	19025.529235000	t18191	S	B
+11	19025.529620000	t18191	S	Sc
+12	19025.529979000	t18191	S
+10	19025.538568000	t18191	S	Sc
+13	19025.540087000	sched	nready	3.000000
+13	19025.540087000	sched	nsubmitted	114.000000
+10	19025.540696000	t18191	S	B
+10	19025.541183000	t18191	S	Fi
+10	19025.542152000	t18191	S	B
+11	19025.542693000	t18191	S	Sc
+12	19025.543129000	t18191	S
+20	19025.543757000	w1	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000200000005	107
+10	19025.561940000	t18191	S	E
+10	19034.259531000	t18193	S	B
+10	19034.272245000	w3	WS	I
+10	19034.334219000	t18193	S	Po
+10	19034.337144000	t18193	S	B
+13	19034.347177000	sched	nready	4.000000
+11	19034.350655000	t18193	S	Sc
+12	19034.363661000	t18193	S
+13	19034.366161000	sched	nready	5.000000
+11	19034.366555000	t18193	S	Sc
+12	19034.370628000	t18193	S
+10	19034.371545000	t18193	S	C
+10	19034.371774000	t18193	S	B
+11	19034.372139000	t18193	S	Sc
+12	19034.372508000	t18193	S
+10	19034.381209000	t18193	S	Sc
+13	19034.382588000	sched	nready	4.000000
+13	19034.382588000	sched	nsubmitted	113.000000
+10	19034.383217000	t18193	S	B
+10	19034.383719000	t18193	S	Fi
+10	19034.384742000	t18193	S	B
+11	19034.385324000	t18193	S	Sc
+12	19034.385744000	t18193	S
+20	19034.386527000	w3	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000200000009	115
+10	19034.389157000	t18193	S	E
+10	19052.763068000	t18190	S	B
+10	19052.781344000	w0	WS	I
+10	19052.797708000	t18190	S	Po
+10	19052.802519000	t18190	S	B
+13	19052.817690000	sched	nready	5.000000
+11	19052.823082000	t18190	S	Sc
+12	19052.845416000	t18190	S
+13	19052.848499000	sched	nready	6.000000
+11	19052.849782000	t18190	S	Sc
+12	19052.856430000	t18190	S
+13	19052.860101000	sched	nready	7.000000
+11	19052.861142000	t18190	S	Sc
+12	19052.868514000	t18190	S
+10	19052.870522000	t18190	S	C
+10	19052.870959000	t18190	S	B
+11	19052.871484000	t18190	S	Sc
+12	19052.871969000	t18190	S
+10	19052.887863000	t18190	S	Sc
+13	19052.890958000	sched	nready	6.000000
+13	19052.890958000	sched	nsubmitted	112.000000
+10	19052.892674000	t18190	S	B
+10	19052.893377000	t18190	S	Fi
+10	19052.895587000	t18190	S	B
+11	19052.896471000	t18190	S	Sc
+12	19052.897459000	t18190	S
+20	19052.898902000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200040004	119
+10	19052.905269000	t18190	S	E
+10	19107.513256000	t18192	S	B
+10	19107.529296000	w2	WS	I
+10	19107.594401000	t18192	S	Po
+10	19107.599029000	t18192	S	B
+13	19107.612805000	sched	nready	7.000000
+11	19107.618045000	t18192	S	Sc
+12	19107.638309000	t18192	S
+13	19107.640423000	sched	nready	8.000000
+11	19107.640908000	t18192	S	Sc
+12	19107.647071000	t18192	S
+13	19107.649374000	sched	nready	9.000000
+11	19107.649826000	t18192	S	Sc
+12	19107.655299000	t18192	S
+13	19107.657071000	sched	nready	10.000000
+11	19107.657501000	t18192	S	Sc
+12	19107.662022000	t18192	S
+10	19107.663348000	t18192	S	C
+10	19107.663551000	t18192	S	B
+11	19107.664152000	t18192	S	Sc
+12	19107.664531000	t18192	S
+10	19107.676971000	t18192	S	Sc
+13	19107.678931000	sched	nready	9.000000
+13	19107.678931000	sched	nsubmitted	111.000000
+10	19107.680144000	t18192	S	B
+10	19107.680730000	t18192	S	Fi
+10	19107.682222000	t18192	S	B
+11	19107.683331000	t18192	S	Sc
+12	19107.683833000	t18192	S
+20	19107.685277000	w2	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000200000007	111
+10	19107.689058000	t18192	S	E
+10	19480.519202000	t18191	S	B
+10	19480.531146000	w1	WS	I
+10	19480.541227000	t18191	S	Po
+10	19480.543757000	t18191	S	B
+13	19480.552576000	sched	nready	10.000000
+11	19480.555538000	t18191	S	Sc
+12	19480.568197000	t18191	S
+13	19480.569420000	sched	nready	11.000000
+11	19480.569837000	t18191	S	Sc
+12	19480.573701000	t18191	S
+13	19480.574751000	sched	nready	12.000000
+11	19480.575102000	t18191	S	Sc
+12	19480.579290000	t18191	S
+13	19480.580258000	sched	nready	13.000000
+11	19480.580948000	t18191	S	Sc
+12	19480.584835000	t18191	S
+13	19480.586088000	sched	nready	14.000000
+11	19480.586533000	t18191	S	Sc
+12	19480.590277000	t18191	S
+10	19480.591269000	t18191	S	C
+10	19480.591498000	t18191	S	B
+11	19480.591910000	t18191	S	Sc
+12	19480.592294000	t18191	S
+10	19480.601875000	t18191	S	Sc
+13	19480.603171000	sched	nready	13.000000
+13	19480.603171000	sched	nsubmitted	110.000000
+10	19480.604130000	t18191	S	B
+10	19480.604650000	t18191	S	Fi
+10	19480.605957000	t18191	S	B
+11	19480.606731000	t18191	S	Sc
+12	19480.607167000	t18191	S
+20	19480.607945000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200040008	133
+10	19480.611187000	t18191	S	E
+10	19510.038905000	t18193	S	B
+10	19510.050868000	w3	WS	I
+10	19510.060168000	t18193	S	Po
+10	19510.062748000	t18193	S	B
+13	19510.071715000	sched	nready	14.000000
+11	19510.074926000	t18193	S	Sc
+12	19510.087122000	t18193	S
+13	19510.088464000	sched	nready	15.000000
+11	19510.088915000	t18193	S	Sc
+12	19510.093124000	t18193	S
+13	19510.094103000	sched	nready	16.000000
+11	19510.094510000	t18193	S	Sc
+12	19510.098407000	t18193	S
+13	19510.099508000	sched	nready	17.000000
+11	19510.099952000	t18193	S	Sc
+12	19510.104014000	t18193	S
+13	19510.105229000	sched	nready	18.000000
+11	19510.105685000	t18193	S	Sc
+12	19510.109489000	t18193	S
+13	19510.110585000	sched	nready	19.000000
+11	19510.110971000	t18193	S	Sc
+12	19510.114854000	t18193	S
+10	19510.115781000	t18193	S	C
+10	19510.116029000	t18193	S	B
+11	19510.116566000	t18193	S	Sc
+12	19510.116971000	t18193	S
+10	19510.126645000	t18193	S	Sc
+13	19510.128159000	sched	nready	18.000000
+13	19510.128159000	sched	nsubmitted	109.000000
+10	19510.128879000	t18193	S	B
+10	19510.129256000	t18193	S	Fi
+10	19510.130183000	t18193	S	B
+11	19510.130752000	t18193	S	Sc
+12	19510.131175000	t18193	S
+20	19510.132017000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200030003	117
+10	19510.135440000	t18193	S	E
+10	19575.916536000	t18192	S	B
+10	19575.928290000	w2	WS	I
+10	19575.938863000	t18192	S	Po
+10	19575.941443000	t18192	S	B
+13	19575.951102000	sched	nready	19.000000
+11	19575.954042000	t18192	S	Sc
+12	19575.966159000	t18192	S
+13	19575.967878000	sched	nready	20.000000
+11	19575.968274000	t18192	S	Sc
+12	19575.972152000	t18192	S
+13	19575.973260000	sched	nready	21.000000
+11	19575.973721000	t18192	S	Sc
+12	19575.977485000	t18192	S
+13	19575.978440000	sched	nready	22.000000
+11	19575.978938000	t18192	S	Sc
+12	19575.983148000	t18192	S
+13	19575.984268000	sched	nready	23.000000
+11	19575.984727000	t18192	S	Sc
+12	19575.988185000	t18192	S
+13	19575.989088000	sched	nready	24.000000
+11	19575.989578000	t18192	S	Sc
+12	19575.992683000	t18192	S
+13	19575.993557000	sched	nready	25.000000
+11	19575.994042000	t18192	S	Sc
+12	19575.997656000	t18192	S
+10	19575.998492000	t18192	S	C
+10	19575.998718000	t18192	S	B
+11	19575.999145000	t18192	S	Sc
+12	19575.999519000	t18192	S
+10	19576.008748000	t18192	S	Sc
+13	19576.010053000	sched	nready	24.000000
+13	19576.010053000	sched	nsubmitted	108.000000
+10	19576.010995000	t18192	S	B
+10	19576.011458000	t18192	S	Fi
+10	19576.012602000	t18192	S	B
+11	19576.013436000	t18192	S	Sc
+12	19576.013897000	t18192	S
+20	19576.014823000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200080008	137
+10	19576.017953000	t18192	S	E
+10	20101.772361000	t18190	S	B
+10	20101.784406000	w0	WS	I
+10	20101.795168000	t18190	S	Po
+10	20101.798022000	t18190	S	B
+10	20101.803098000	t18190	S	C
+10	20101.803541000	t18190	S	B
+11	20101.804366000	t18190	S	Sc
+12	20101.805258000	t18190	S
+10	20101.815153000	t18190	S	Sc
+13	20101.816906000	sched	nready	23.000000
+13	20101.816906000	sched	nsubmitted	107.000000
+10	20101.818201000	t18190	S	B
+10	20101.818652000	t18190	S	Fi
+10	20101.820574000	t18190	S	B
+11	20101.821276000	t18190	S	Sc
+12	20101.821723000	t18190	S
+20	20101.822447000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200030004	118
+10	20101.826288000	t18190	S	E
+10	20181.476181000	t18191	S	B
+10	20181.488767000	w1	WS	I
+10	20181.499856000	t18191	S	Po
+10	20181.502615000	t18191	S	B
+10	20181.508296000	t18191	S	C
+10	20181.508686000	t18191	S	B
+11	20181.509136000	t18191	S	Sc
+12	20181.510226000	t18191	S
+10	20181.520761000	t18191	S	Sc
+13	20181.522621000	sched	nready	22.000000
+13	20181.522621000	sched	nsubmitted	106.000000
+10	20181.523769000	t18191	S	B
+10	20181.524365000	t18191	S	Fi
+10	20181.526439000	t18191	S	B
+11	20181.526983000	t18191	S	Sc
+12	20181.527479000	t18191	S
+20	20181.528351000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200030008	132
+10	20181.532470000	t18191	S	E
+10	20358.661673000	t18193	S	B
+10	20358.674247000	w3	WS	I
+10	20358.684357000	t18193	S	Po
+10	20358.686876000	t18193	S	B
+13	20358.695506000	sched	nready	23.000000
+11	20358.698043000	t18193	S	Sc
+12	20358.709022000	t18193	S
+10	20358.714438000	t18193	S	C
+10	20358.714581000	t18193	S	B
+11	20358.714949000	t18193	S	Sc
+12	20358.715436000	t18193	S
+10	20358.722522000	t18193	S	Sc
+13	20358.723728000	sched	nready	22.000000
+13	20358.723728000	sched	nsubmitted	105.000000
+10	20358.724592000	t18193	S	B
+10	20358.725326000	t18193	S	Fi
+10	20358.726677000	t18193	S	B
+11	20358.727475000	t18193	S	Sc
+12	20358.727931000	t18193	S
+20	20358.728670000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200040006	124
+10	20358.732221000	t18193	S	E
+10	20537.186867000	t18192	S	B
+10	20537.199264000	w2	WS	I
+10	20537.209641000	t18192	S	Po
+10	20537.212450000	t18192	S	B
+10	20537.218370000	t18192	S	C
+10	20537.218802000	t18192	S	B
+11	20537.219407000	t18192	S	Sc
+12	20537.220233000	t18192	S
+10	20537.231973000	t18192	S	Sc
+13	20537.233895000	sched	nready	21.000000
+13	20537.233895000	sched	nsubmitted	104.000000
+10	20537.234918000	t18192	S	B
+10	20537.235403000	t18192	S	Fi
+10	20537.237234000	t18192	S	B
+11	20537.237784000	t18192	S	Sc
+12	20537.238218000	t18192	S
+20	20537.239063000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200030006	123
+10	20537.242672000	t18192	S	E
+10	20800.697009000	t18190	S	B
+10	20800.708870000	w0	WS	I
+10	20800.719175000	t18190	S	Po
+10	20800.722051000	t18190	S	B
+10	20800.734687000	t18190	S	C
+10	20800.734949000	t18190	S	B
+11	20800.735316000	t18190	S	Sc
+12	20800.736208000	t18190	S
+10	20800.742992000	t18190	S	Sc
+13	20800.744916000	sched	nready	20.000000
+13	20800.744916000	sched	nsubmitted	103.000000
+10	20800.746307000	t18190	S	B
+10	20800.746652000	t18190	S	Fi
+10	20800.748931000	t18190	S	B
+11	20800.749691000	t18190	S	Sc
+12	20800.750274000	t18190	S
+20	20800.751099000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200060006	126
+10	20800.754919000	t18190	S	E
+10	20838.127912000	t18191	S	B
+10	20838.140005000	w1	WS	I
+10	20838.151363000	t18191	S	Po
+10	20838.154486000	t18191	S	B
+10	20838.166871000	t18191	S	C
+10	20838.167220000	t18191	S	B
+11	20838.167691000	t18191	S	Sc
+12	20838.168872000	t18191	S
+10	20838.175567000	t18191	S	Sc
+13	20838.177394000	sched	nready	19.000000
+13	20838.177394000	sched	nsubmitted	102.000000
+10	20838.178863000	t18191	S	B
+10	20838.179353000	t18191	S	Fi
+10	20838.181305000	t18191	S	B
+11	20838.181843000	t18191	S	Sc
+12	20838.182286000	t18191	S
+20	20838.183100000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200060008	135
+10	20838.187291000	t18191	S	E
+10	21229.969005000	t18193	S	B
+10	21229.984735000	w3	WS	I
+10	21229.998552000	t18193	S	Po
+10	21230.002547000	t18193	S	B
+10	21230.010602000	t18193	S	C
+10	21230.011362000	t18193	S	B
+11	21230.012243000	t18193	S	Sc
+12	21230.013583000	t18193	S
+10	21230.028135000	t18193	S	Sc
+13	21230.031089000	sched	nready	18.000000
+13	21230.031089000	sched	nsubmitted	101.000000
+10	21230.032816000	t18193	S	B
+10	21230.033628000	t18193	S	Fi
+10	21230.036958000	t18193	S	B
+11	21230.037730000	t18193	S	Sc
+12	21230.038497000	t18193	S
+20	21230.039682000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200040005	121
+10	21230.044743000	t18193	S	E
+10	21244.875778000	t18192	S	B
+10	21244.887160000	w2	WS	I
+10	21244.897203000	t18192	S	Po
+10	21244.900545000	t18192	S	B
+10	21244.913913000	t18192	S	C
+10	21244.914390000	t18192	S	B
+11	21244.915009000	t18192	S	Sc
+12	21244.915810000	t18192	S
+10	21244.922474000	t18192	S	Sc
+13	21244.924401000	sched	nready	17.000000
+13	21244.924401000	sched	nsubmitted	100.000000
+10	21244.925404000	t18192	S	B
+10	21244.925873000	t18192	S	Fi
+10	21244.927880000	t18192	S	B
+11	21244.928468000	t18192	S	Sc
+12	21244.928910000	t18192	S
+20	21244.929835000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200030005	120
+10	21244.933703000	t18192	S	E
+10	21559.996209000	t18191	S	B
+10	21560.009700000	w1	WS	I
+10	21560.021661000	t18191	S	Po
+10	21560.024897000	t18191	S	B
+10	21560.030422000	t18191	S	C
+10	21560.030749000	t18191	S	B
+11	21560.031261000	t18191	S	Sc
+12	21560.032104000	t18191	S
+10	21560.043126000	t18191	S	Sc
+13	21560.044823000	sched	nready	16.000000
+13	21560.044823000	sched	nsubmitted	99.000000
+10	21560.046435000	t18191	S	B
+10	21560.047334000	t18191	S	Fi
+10	21560.049243000	t18191	S	B
+11	21560.050007000	t18191	S	Sc
+12	21560.050372000	t18191	S
+20	21560.051098000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200050006	125
+10	21560.054704000	t18191	S	E
+10	21603.187590000	t18190	S	B
+10	21603.198793000	w0	WS	I
+10	21603.210150000	t18190	S	Po
+10	21603.212474000	t18190	S	B
+10	21603.218019000	t18190	S	C
+10	21603.218461000	t18190	S	B
+11	21603.219075000	t18190	S	Sc
+12	21603.220024000	t18190	S
+10	21603.231598000	t18190	S	Sc
+13	21603.233822000	sched	nready	15.000000
+13	21603.233822000	sched	nsubmitted	98.000000
+10	21603.235091000	t18190	S	B
+10	21603.235545000	t18190	S	Fi
+10	21603.237711000	t18190	S	B
+11	21603.238527000	t18190	S	Sc
+12	21603.239031000	t18190	S
+20	21603.239721000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200050005	122
+10	21603.243667000	t18190	S	E
+10	21986.691128000	t18192	S	B
+10	21986.704966000	w2	WS	I
+10	21986.715638000	t18192	S	Po
+10	21986.718617000	t18192	S	B
+10	21986.731984000	t18192	S	C
+10	21986.732317000	t18192	S	B
+11	21986.733046000	t18192	S	Sc
+12	21986.733784000	t18192	S
+10	21986.740342000	t18192	S	Sc
+13	21986.741993000	sched	nready	14.000000
+13	21986.741993000	sched	nsubmitted	97.000000
+10	21986.743269000	t18192	S	B
+10	21986.743724000	t18192	S	Fi
+10	21986.745875000	t18192	S	B
+11	21986.746561000	t18192	S	Sc
+12	21986.747103000	t18192	S
+20	21986.747789000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200050008	134
+10	21986.751387000	t18192	S	E
+10	22050.908642000	t18193	S	B
+10	22050.919833000	w3	WS	I
+10	22050.929571000	t18193	S	Po
+10	22050.932431000	t18193	S	B
+10	22050.937679000	t18193	S	C
+10	22050.938059000	t18193	S	B
+11	22050.938610000	t18193	S	Sc
+12	22050.939334000	t18193	S
+10	22050.949132000	t18193	S	Sc
+13	22050.950699000	sched	nready	13.000000
+13	22050.950699000	sched	nsubmitted	96.000000
+10	22050.951850000	t18193	S	B
+10	22050.952198000	t18193	S	Fi
+10	22050.953962000	t18193	S	B
+11	22050.954524000	t18193	S	Sc
+12	22050.954960000	t18193	S
+20	22050.955765000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200030009	138
+10	22050.959152000	t18193	S	E
+10	22252.455655000	t18191	S	B
+10	22252.466740000	w1	WS	I
+10	22252.476809000	t18191	S	Po
+10	22252.479666000	t18191	S	B
+10	22252.485118000	t18191	S	C
+10	22252.485674000	t18191	S	B
+11	22252.486502000	t18191	S	Sc
+12	22252.487317000	t18191	S
+10	22252.498724000	t18191	S	Sc
+13	22252.500680000	sched	nready	12.000000
+13	22252.500680000	sched	nsubmitted	95.000000
+10	22252.501712000	t18191	S	B
+10	22252.502543000	t18191	S	Fi
+10	22252.504825000	t18191	S	B
+11	22252.505530000	t18191	S	Sc
+12	22252.506018000	t18191	S
+20	22252.506869000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200050009	140
+10	22252.510185000	t18191	S	E
+10	22432.786290000	t18190	S	B
+10	22432.797947000	w0	WS	I
+10	22432.808801000	t18190	S	Po
+10	22432.811570000	t18190	S	B
+10	22432.817020000	t18190	S	C
+10	22432.817404000	t18190	S	B
+11	22432.818146000	t18190	S	Sc
+12	22432.818965000	t18190	S
+10	22432.829766000	t18190	S	Sc
+13	22432.831557000	sched	nready	11.000000
+13	22432.831557000	sched	nsubmitted	94.000000
+10	22432.832949000	t18190	S	B
+10	22432.833544000	t18190	S	Fi
+10	22432.835752000	t18190	S	B
+11	22432.836481000	t18190	S	Sc
+12	22432.837086000	t18190	S
+20	22432.837982000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200040009	139
+10	22432.841431000	t18190	S	E
+10	22689.305386000	t18192	S	B
+10	22689.319459000	w2	WS	I
+10	22689.331342000	t18192	S	Po
+10	22689.334961000	t18192	S	B
+10	22689.341790000	t18192	S	C
+10	22689.342212000	t18192	S	B
+11	22689.342981000	t18192	S	Sc
+12	22689.343812000	t18192	S
+10	22689.356781000	t18192	S	Sc
+13	22689.358787000	sched	nready	10.000000
+13	22689.358787000	sched	nsubmitted	93.000000
+10	22689.360574000	t18192	S	B
+10	22689.361076000	t18192	S	Fi
+10	22689.363326000	t18192	S	B
+11	22689.363978000	t18192	S	Sc
+12	22689.364394000	t18192	S
+20	22689.365189000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200060009	141
+10	22689.369453000	t18192	S	E
+10	22748.069677000	t18193	S	B
+10	22748.083215000	w3	WS	I
+10	22748.095348000	t18193	S	Po
+10	22748.098579000	t18193	S	B
+10	22748.114323000	t18193	S	C
+10	22748.114877000	t18193	S	B
+11	22748.115331000	t18193	S	Sc
+12	22748.116614000	t18193	S
+10	22748.123780000	t18193	S	Sc
+13	22748.125833000	sched	nready	9.000000
+13	22748.125833000	sched	nsubmitted	92.000000
+10	22748.127127000	t18193	S	B
+10	22748.127720000	t18193	S	Fi
+10	22748.130145000	t18193	S	B
+11	22748.130824000	t18193	S	Sc
+12	22748.131237000	t18193	S
+20	22748.132158000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200080009	143
+10	22748.136199000	t18193	S	E
+10	23064.645676000	t18191	S	B
+10	23064.660129000	w1	WS	I
+10	23064.672661000	t18191	S	Po
+10	23064.676260000	t18191	S	B
+10	23064.682817000	t18191	S	C
+10	23064.683264000	t18191	S	B
+11	23064.684075000	t18191	S	Sc
+12	23064.685185000	t18191	S
+10	23064.697017000	t18191	S	Sc
+13	23064.699201000	sched	nready	8.000000
+13	23064.699201000	sched	nsubmitted	91.000000
+10	23064.700592000	t18191	S	B
+10	23064.701213000	t18191	S	Fi
+10	23064.703694000	t18191	S	B
+11	23064.704348000	t18191	S	Sc
+12	23064.705140000	t18191	S
+20	23064.706299000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200030007	127
+10	23064.710795000	t18191	S	E
+10	23188.739982000	t18190	S	B
+10	23188.754731000	w0	WS	I
+10	23188.767341000	t18190	S	Po
+10	23188.770167000	t18190	S	B
+10	23188.777111000	t18190	S	C
+10	23188.777571000	t18190	S	B
+11	23188.778597000	t18190	S	Sc
+12	23188.779484000	t18190	S
+10	23188.791346000	t18190	S	Sc
+13	23188.793497000	sched	nready	7.000000
+13	23188.793497000	sched	nsubmitted	90.000000
+10	23188.795073000	t18190	S	B
+10	23188.795589000	t18190	S	Fi
+10	23188.797706000	t18190	S	B
+11	23188.798452000	t18190	S	Sc
+12	23188.798973000	t18190	S
+20	23188.799796000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200090009	144
+10	23188.804755000	t18190	S	E
+10	23475.025163000	t18192	S	B
+10	23475.037954000	w2	WS	I
+10	23475.050204000	t18192	S	Po
+10	23475.053005000	t18192	S	B
+10	23475.059198000	t18192	S	C
+10	23475.059621000	t18192	S	B
+11	23475.060288000	t18192	S	Sc
+12	23475.061211000	t18192	S
+10	23475.072233000	t18192	S	Sc
+13	23475.074633000	sched	nready	6.000000
+13	23475.074633000	sched	nsubmitted	89.000000
+10	23475.076423000	t18192	S	B
+10	23475.076919000	t18192	S	Fi
+10	23475.079263000	t18192	S	B
+11	23475.080030000	t18192	S	Sc
+12	23475.080545000	t18192	S
+20	23475.081442000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200050007	129
+10	23475.085214000	t18192	S	E
+10	23542.854309000	t18193	S	B
+10	23542.868113000	w3	WS	I
+10	23542.880614000	t18193	S	Po
+10	23542.883806000	t18193	S	B
+10	23542.890289000	t18193	S	C
+10	23542.891005000	t18193	S	B
+11	23542.891848000	t18193	S	Sc
+12	23542.892698000	t18193	S
+10	23542.904291000	t18193	S	Sc
+13	23542.906803000	sched	nready	5.000000
+13	23542.906803000	sched	nsubmitted	88.000000
+10	23542.907783000	t18193	S	B
+10	23542.908312000	t18193	S	Fi
+10	23542.910394000	t18193	S	B
+11	23542.911296000	t18193	S	Sc
+12	23542.911921000	t18193	S
+20	23542.912871000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200040007	128
+10	23542.916868000	t18193	S	E
+10	23877.604018000	t18191	S	B
+10	23877.616710000	w1	WS	I
+10	23877.629550000	t18191	S	Po
+10	23877.632580000	t18191	S	B
+10	23877.647105000	t18191	S	C
+10	23877.647421000	t18191	S	B
+11	23877.648083000	t18191	S	Sc
+12	23877.649052000	t18191	S
+10	23877.655497000	t18191	S	Sc
+13	23877.658239000	sched	nready	4.000000
+13	23877.658239000	sched	nsubmitted	87.000000
+10	23877.659438000	t18191	S	B
+10	23877.660240000	t18191	S	Fi
+10	23877.662168000	t18191	S	B
+11	23877.662848000	t18191	S	Sc
+12	23877.663470000	t18191	S
+20	23877.664652000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200070007	131
+10	23877.668254000	t18191	S	E
+10	24195.858630000	t18192	S	B
+10	24195.871480000	w2	WS	I
+10	24195.882451000	t18192	S	Po
+10	24195.885884000	t18192	S	B
+10	24195.892174000	t18192	S	C
+10	24195.892810000	t18192	S	B
+11	24195.893470000	t18192	S	Sc
+12	24195.894393000	t18192	S
+10	24195.906400000	t18192	S	Sc
+13	24195.908845000	sched	nready	3.000000
+13	24195.908845000	sched	nsubmitted	86.000000
+10	24195.910177000	t18192	S	B
+10	24195.910596000	t18192	S	Fi
+10	24195.912941000	t18192	S	B
+11	24195.913768000	t18192	S	Sc
+12	24195.914314000	t18192	S
+20	24195.915237000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200070009	142
+10	24195.919298000	t18192	S	E
+10	24236.235845000	t18190	S	B
+10	24236.248415000	w0	WS	I
+10	24236.259169000	t18190	S	Po
+10	24236.261559000	t18190	S	B
+10	24236.266678000	t18190	S	C
+10	24236.267106000	t18190	S	B
+11	24236.267597000	t18190	S	Sc
+12	24236.268373000	t18190	S
+10	24236.279491000	t18190	S	Sc
+13	24236.281507000	sched	nready	2.000000
+13	24236.281507000	sched	nsubmitted	85.000000
+10	24236.282907000	t18190	S	B
+10	24236.283506000	t18190	S	Fi
+10	24236.285519000	t18190	S	B
+11	24236.286400000	t18190	S	Sc
+12	24236.286830000	t18190	S
+20	24236.287630000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200060007	130
+10	24236.291482000	t18190	S	E
+10	24252.109854000	t18193	S	B
+10	24252.119941000	w3	WS	I
+10	24252.130392000	t18193	S	Po
+10	24252.132761000	t18193	S	B
+10	24252.137796000	t18193	S	C
+10	24252.138187000	t18193	S	B
+11	24252.138781000	t18193	S	Sc
+12	24252.139684000	t18193	S
+10	24252.148763000	t18193	S	Sc
+13	24252.150450000	sched	nready	1.000000
+13	24252.150450000	sched	nsubmitted	84.000000
+10	24252.151272000	t18193	S	B
+10	24252.151779000	t18193	S	Fi
+10	24252.153534000	t18193	S	B
+11	24252.154174000	t18193	S	Sc
+12	24252.154651000	t18193	S
+20	24252.155342000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000200070008	136
+10	24252.158678000	t18193	S	E
+10	24641.923465000	t18191	S	B
+10	24641.934929000	w1	WS	I
+10	24641.945702000	t18191	S	Po
+10	24641.948170000	t18191	S	B
+10	24641.953897000	t18191	S	C
+10	24641.954193000	t18191	S	B
+11	24641.954737000	t18191	S	Sc
+12	24641.955610000	t18191	S
+10	24641.965331000	t18191	S	Sc
+10	24641.966972000	t18191	S	Sl
+10	24890.721234000	t18192	S	B
+10	24890.732214000	w2	WS	I
+10	24890.739628000	t18192	S	Po
+10	24890.742017000	t18192	S	B
+10	24890.746864000	t18192	S	C
+10	24890.747145000	t18192	S	B
+11	24890.747621000	t18192	S	Sc
+12	24890.748155000	t18192	S
+10	24890.755223000	t18192	S	Sc
+10	24890.756329000	t18192	S	Sl
+10	24896.194893000	t18193	S	B
+10	24896.202675000	w3	WS	I
+10	24896.208560000	t18193	S	Po
+10	24896.210614000	t18193	S	B
+10	24896.214696000	t18193	S	C
+10	24896.215096000	t18193	S	B
+11	24896.215425000	t18193	S	Sc
+12	24896.215973000	t18193	S
+10	24896.222301000	t18193	S	Sc
+10	24896.223064000	t18193	S	Sl
+10	24956.903193000	t18190	S	B
+10	24956.912244000	w0	WS	I
+10	24956.918378000	t18190	S	Po
+10	24956.920935000	t18190	S	B
+10	24956.925263000	t18190	S	C
+10	24956.925578000	t18190	S	B
+11	24956.926029000	t18190	S	Sc
+12	24956.926535000	t18190	S
+10	24956.932896000	t18190	S	Sc
+13	24956.933567000	sched	nready	0.000000
+13	24956.933567000	sched	nsubmitted	83.000000
+10	24956.934208000	t18190	S	B
+10	24956.934609000	t18190	S	Fi
+10	24956.935865000	t18190	S	B
+11	24956.936385000	t18190	S	Sc
+12	24956.936981000	t18190	S
+20	24956.937717000	w0	WS	chol_model_11	3686400	M960x960x4	617e5fe6	1000000000000003	145
+10	24956.940261000	t18190	S	E
+10	25060.738292000	t18190	S	B
+10	25060.744794000	w0	WS	I
+10	25060.749702000	t18190	S	Po
+10	25060.751102000	t18190	S	B
+13	25060.756323000	sched	nready	1.000000
+11	25060.758256000	t18190	S	Sc
+12	25060.767358000	t18190	S
+13	25060.768152000	sched	nready	2.000000
+11	25060.768581000	t18190	S	Sc
+12	25060.771928000	t18190	S
+13	25060.772511000	sched	nready	1.000000
+13	25060.772511000	sched	nsubmitted	82.000000
+13	25060.772752000	sched	nready	2.000000
+11	25060.773040000	t18190	S	Sc
+10	25060.773927000	t18191	S	B
+10	25060.774864000	t18191	S	Fi
+12	25060.776189000	t18190	S
+10	25060.776281000	t18191	S	B
+11	25060.776912000	t18191	S	Sc
+13	25060.776962000	sched	nready	3.000000
+11	25060.777349000	t18190	S	Sc
+12	25060.777447000	t18191	S
+20	25060.778498000	w1	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000300000005	149
+12	25060.780491000	t18190	S
+13	25060.780983000	sched	nready	2.000000
+13	25060.780983000	sched	nsubmitted	81.000000
+13	25060.781151000	sched	nready	3.000000
+11	25060.781468000	t18190	S	Sc
+10	25060.781962000	t18192	S	B
+10	25060.782495000	t18192	S	Fi
+10	25060.782708000	t18191	S	E
+10	25060.783584000	t18192	S	B
+11	25060.783894000	t18192	S	Sc
+12	25060.785079000	t18192	S
+12	25060.785133000	t18190	S
+13	25060.785820000	sched	nready	4.000000
+20	25060.785958000	w2	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000300000007	153
+11	25060.786201000	t18190	S	Sc
+10	25060.789376000	t18192	S	E
+12	25060.789549000	t18190	S
+13	25060.789909000	sched	nready	3.000000
+13	25060.789909000	sched	nsubmitted	80.000000
+10	25060.790100000	t18190	S	C
+10	25060.790331000	t18190	S	B
+11	25060.790572000	t18190	S	Sc
+10	25060.790872000	t18193	S	B
+12	25060.791043000	t18190	S
+10	25060.791370000	t18193	S	Fi
+10	25060.792327000	t18193	S	B
+11	25060.792635000	t18193	S	Sc
+12	25060.792962000	t18193	S
+20	25060.793514000	w3	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000300000009	157
+10	25060.795509000	t18190	S	Sc
+13	25060.796035000	sched	nready	2.000000
+13	25060.796035000	sched	nsubmitted	79.000000
+10	25060.796372000	t18190	S	B
+10	25060.796494000	t18193	S	E
+10	25060.796674000	t18190	S	Fi
+10	25060.797328000	t18190	S	B
+11	25060.797593000	t18190	S	Sc
+12	25060.797909000	t18190	S
+20	25060.798324000	w0	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000300000004	147
+10	25060.800433000	t18190	S	E
+10	25572.839149000	t18191	S	B
+10	25572.850014000	w1	WS	I
+10	25572.859909000	t18191	S	Po
+10	25572.862208000	t18191	S	B
+13	25572.870926000	sched	nready	3.000000
+11	25572.873615000	t18191	S	Sc
+12	25572.885382000	t18191	S
+10	25572.886896000	t18191	S	C
+10	25572.887102000	t18191	S	B
+11	25572.887473000	t18191	S	Sc
+12	25572.887838000	t18191	S
+10	25572.895949000	t18191	S	Sc
+13	25572.897131000	sched	nready	2.000000
+13	25572.897131000	sched	nsubmitted	78.000000
+10	25572.897880000	t18191	S	B
+10	25572.898357000	t18191	S	Fi
+10	25572.899331000	t18191	S	B
+11	25572.899855000	t18191	S	Sc
+12	25572.900299000	t18191	S
+20	25572.901135000	w1	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000300000006	151
+10	25572.904032000	t18191	S	E
+10	25579.004682000	t18190	S	B
+10	25579.015401000	w0	WS	I
+10	25579.024731000	t18190	S	Po
+10	25579.026522000	t18190	S	B
+13	25579.034302000	sched	nready	3.000000
+11	25579.036870000	t18190	S	Sc
+12	25579.047268000	t18190	S
+13	25579.048218000	sched	nready	4.000000
+11	25579.048687000	t18190	S	Sc
+12	25579.052963000	t18190	S
+10	25579.054423000	t18190	S	C
+10	25579.054658000	t18190	S	B
+11	25579.055077000	t18190	S	Sc
+12	25579.055427000	t18190	S
+10	25579.063738000	t18190	S	Sc
+13	25579.065069000	sched	nready	3.000000
+13	25579.065069000	sched	nsubmitted	77.000000
+10	25579.065773000	t18190	S	B
+10	25579.066320000	t18190	S	Fi
+10	25579.067302000	t18190	S	B
+11	25579.067916000	t18190	S	Sc
+12	25579.068323000	t18190	S
+20	25579.069075000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300050005	161
+10	25579.072125000	t18190	S	E
+10	25587.626049000	t18192	S	B
+10	25587.639071000	w2	WS	I
+10	25587.694821000	t18192	S	Po
+10	25587.697788000	t18192	S	B
+13	25587.707542000	sched	nready	4.000000
+11	25587.710808000	t18192	S	Sc
+12	25587.726192000	t18192	S
+13	25587.728106000	sched	nready	5.000000
+11	25587.728656000	t18192	S	Sc
+12	25587.733451000	t18192	S
+13	25587.735226000	sched	nready	6.000000
+11	25587.735723000	t18192	S	Sc
+12	25587.739812000	t18192	S
+10	25587.741190000	t18192	S	C
+10	25587.741381000	t18192	S	B
+11	25587.741887000	t18192	S	Sc
+12	25587.742282000	t18192	S
+10	25587.752439000	t18192	S	Sc
+13	25587.754118000	sched	nready	5.000000
+13	25587.754118000	sched	nsubmitted	76.000000
+10	25587.755080000	t18192	S	B
+10	25587.755671000	t18192	S	Fi
+10	25587.756671000	t18192	S	B
+11	25587.757379000	t18192	S	Sc
+12	25587.757904000	t18192	S
+20	25587.758827000	w2	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000300000008	155
+10	25587.761968000	t18192	S	E
+10	25591.892122000	t18193	S	B
+10	25591.908089000	w3	WS	I
+10	25591.923671000	t18193	S	Po
+10	25591.927321000	t18193	S	B
+13	25591.943009000	sched	nready	6.000000
+11	25591.948102000	t18193	S	Sc
+12	25591.967263000	t18193	S
+13	25591.969375000	sched	nready	7.000000
+11	25591.969926000	t18193	S	Sc
+12	25591.975706000	t18193	S
+13	25591.978374000	sched	nready	8.000000
+11	25591.979492000	t18193	S	Sc
+12	25591.985818000	t18193	S
+13	25591.988256000	sched	nready	9.000000
+11	25591.988732000	t18193	S	Sc
+12	25591.993686000	t18193	S
+10	25591.995026000	t18193	S	C
+10	25591.995421000	t18193	S	B
+11	25591.995980000	t18193	S	Sc
+12	25591.996622000	t18193	S
+10	25592.009112000	t18193	S	Sc
+13	25592.011546000	sched	nready	8.000000
+13	25592.011546000	sched	nsubmitted	75.000000
+10	25592.013049000	t18193	S	B
+10	25592.013998000	t18193	S	Fi
+10	25592.015853000	t18193	S	B
+11	25592.016727000	t18193	S	Sc
+12	25592.017322000	t18193	S
+20	25592.018612000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300040007	165
+10	25592.022595000	t18193	S	E
+10	26007.989776000	t18191	S	B
+10	26008.001283000	w1	WS	I
+10	26008.053535000	t18191	S	Po
+10	26008.057196000	t18191	S	B
+13	26008.069416000	sched	nready	9.000000
+11	26008.072732000	t18191	S	Sc
+12	26008.090230000	t18191	S
+13	26008.093270000	sched	nready	10.000000
+11	26008.094102000	t18191	S	Sc
+12	26008.101204000	t18191	S
+13	26008.103410000	sched	nready	11.000000
+11	26008.104124000	t18191	S	Sc
+12	26008.109432000	t18191	S
+13	26008.111247000	sched	nready	12.000000
+11	26008.111995000	t18191	S	Sc
+12	26008.119362000	t18191	S
+13	26008.121276000	sched	nready	13.000000
+11	26008.122089000	t18191	S	Sc
+12	26008.125975000	t18191	S
+10	26008.126904000	t18191	S	C
+10	26008.127175000	t18191	S	B
+11	26008.127684000	t18191	S	Sc
+12	26008.127991000	t18191	S
+10	26008.138612000	t18191	S	Sc
+13	26008.139937000	sched	nready	12.000000
+13	26008.139937000	sched	nsubmitted	74.000000
+10	26008.140629000	t18191	S	B
+10	26008.140981000	t18191	S	Fi
+10	26008.142238000	t18191	S	B
+11	26008.142838000	t18191	S	Sc
+12	26008.143252000	t18191	S
+20	26008.144045000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300040004	159
+10	26008.147221000	t18191	S	E
+10	26033.802432000	t18192	S	B
+10	26033.813942000	w2	WS	I
+10	26033.823638000	t18192	S	Po
+10	26033.825766000	t18192	S	B
+13	26033.834469000	sched	nready	13.000000
+11	26033.837590000	t18192	S	Sc
+12	26033.850012000	t18192	S
+13	26033.851483000	sched	nready	14.000000
+11	26033.851994000	t18192	S	Sc
+12	26033.855565000	t18192	S
+13	26033.856545000	sched	nready	15.000000
+11	26033.856958000	t18192	S	Sc
+12	26033.861037000	t18192	S
+13	26033.862202000	sched	nready	16.000000
+11	26033.862598000	t18192	S	Sc
+12	26033.866173000	t18192	S
+13	26033.867284000	sched	nready	17.000000
+11	26033.867699000	t18192	S	Sc
+12	26033.871521000	t18192	S
+13	26033.872649000	sched	nready	18.000000
+11	26033.873164000	t18192	S	Sc
+12	26033.877028000	t18192	S
+10	26033.877967000	t18192	S	C
+10	26033.878332000	t18192	S	B
+11	26033.878838000	t18192	S	Sc
+12	26033.879376000	t18192	S
+10	26033.888661000	t18192	S	Sc
+13	26033.890110000	sched	nready	17.000000
+13	26033.890110000	sched	nsubmitted	73.000000
+10	26033.890869000	t18192	S	B
+10	26033.891752000	t18192	S	Fi
+10	26033.892931000	t18192	S	B
+11	26033.893490000	t18192	S	Sc
+12	26033.893921000	t18192	S
+20	26033.894667000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300040005	160
+10	26033.898319000	t18192	S	E
+10	26314.211315000	t18193	S	B
+10	26314.224247000	w3	WS	I
+10	26314.236034000	t18193	S	Po
+10	26314.239128000	t18193	S	B
+10	26314.254472000	t18193	S	C
+10	26314.254928000	t18193	S	B
+11	26314.255573000	t18193	S	Sc
+12	26314.256672000	t18193	S
+10	26314.264628000	t18193	S	Sc
+13	26314.266604000	sched	nready	16.000000
+13	26314.266604000	sched	nsubmitted	72.000000
+10	26314.267874000	t18193	S	B
+10	26314.268632000	t18193	S	Fi
+10	26314.271173000	t18193	S	B
+11	26314.272071000	t18193	S	Sc
+12	26314.272696000	t18193	S
+20	26314.273948000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300050009	175
+10	26314.279526000	t18193	S	E
+10	26463.867984000	t18190	S	B
+10	26463.879806000	w0	WS	I
+10	26463.890696000	t18190	S	Po
+10	26463.893554000	t18190	S	B
+10	26463.899231000	t18190	S	C
+10	26463.899786000	t18190	S	B
+11	26463.900401000	t18190	S	Sc
+12	26463.901225000	t18190	S
+10	26463.912284000	t18190	S	Sc
+13	26463.913938000	sched	nready	15.000000
+13	26463.913938000	sched	nsubmitted	71.000000
+10	26463.914859000	t18190	S	B
+10	26463.915386000	t18190	S	Fi
+10	26463.917232000	t18190	S	B
+11	26463.917881000	t18190	S	Sc
+12	26463.918291000	t18190	S
+20	26463.919092000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300050007	166
+10	26463.922737000	t18190	S	E
+10	26665.428825000	t18191	S	B
+10	26665.440208000	w1	WS	I
+10	26665.450779000	t18191	S	Po
+10	26665.454028000	t18191	S	B
+13	26665.462663000	sched	nready	16.000000
+11	26665.465415000	t18191	S	Sc
+12	26665.476312000	t18191	S
+10	26665.481333000	t18191	S	C
+10	26665.481659000	t18191	S	B
+11	26665.482062000	t18191	S	Sc
+12	26665.482410000	t18191	S
+10	26665.488015000	t18191	S	Sc
+13	26665.489437000	sched	nready	15.000000
+13	26665.489437000	sched	nsubmitted	70.000000
+10	26665.490103000	t18191	S	B
+10	26665.490802000	t18191	S	Fi
+10	26665.491709000	t18191	S	B
+11	26665.492282000	t18191	S	Sc
+12	26665.492752000	t18191	S
+20	26665.493514000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300070007	168
+10	26665.496496000	t18191	S	E
+10	26689.147186000	t18192	S	B
+10	26689.159622000	w2	WS	I
+10	26689.170625000	t18192	S	Po
+10	26689.173412000	t18192	S	B
+10	26689.186947000	t18192	S	C
+10	26689.187468000	t18192	S	B
+11	26689.188035000	t18192	S	Sc
+12	26689.188906000	t18192	S
+10	26689.195766000	t18192	S	Sc
+13	26689.197634000	sched	nready	14.000000
+13	26689.197634000	sched	nsubmitted	69.000000
+10	26689.198654000	t18192	S	B
+10	26689.199079000	t18192	S	Fi
+10	26689.201075000	t18192	S	B
+11	26689.201713000	t18192	S	Sc
+12	26689.202074000	t18192	S
+20	26689.202876000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300040009	174
+10	26689.206904000	t18192	S	E
+10	26995.914504000	t18193	S	B
+10	26995.925994000	w3	WS	I
+10	26995.936269000	t18193	S	Po
+10	26995.939320000	t18193	S	B
+10	26995.944025000	t18193	S	C
+10	26995.944448000	t18193	S	B
+11	26995.945121000	t18193	S	Sc
+12	26995.945887000	t18193	S
+10	26995.957009000	t18193	S	Sc
+13	26995.958730000	sched	nready	13.000000
+13	26995.958730000	sched	nsubmitted	68.000000
+10	26995.959879000	t18193	S	B
+10	26995.960417000	t18193	S	Fi
+10	26995.962397000	t18193	S	B
+11	26995.962936000	t18193	S	Sc
+12	26995.963445000	t18193	S
+20	26995.964284000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300040006	162
+10	26995.968562000	t18193	S	E
+10	27159.230862000	t18190	S	B
+10	27159.242677000	w0	WS	I
+10	27159.252758000	t18190	S	Po
+10	27159.255788000	t18190	S	B
+10	27159.261706000	t18190	S	C
+10	27159.262074000	t18190	S	B
+11	27159.262582000	t18190	S	Sc
+12	27159.263430000	t18190	S
+10	27159.273970000	t18190	S	Sc
+13	27159.275829000	sched	nready	12.000000
+13	27159.275829000	sched	nsubmitted	67.000000
+10	27159.276896000	t18190	S	B
+10	27159.277601000	t18190	S	Fi
+10	27159.279448000	t18190	S	B
+11	27159.280070000	t18190	S	Sc
+12	27159.280462000	t18190	S
+20	27159.281227000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300070009	177
+10	27159.285420000	t18190	S	E
+10	27400.277948000	t18192	S	B
+10	27400.290715000	w2	WS	I
+10	27400.300949000	t18192	S	Po
+10	27400.303591000	t18192	S	B
+10	27400.316930000	t18192	S	C
+10	27400.317343000	t18192	S	B
+11	27400.317717000	t18192	S	Sc
+12	27400.318631000	t18192	S
+10	27400.325282000	t18192	S	Sc
+13	27400.327075000	sched	nready	11.000000
+13	27400.327075000	sched	nsubmitted	66.000000
+10	27400.328057000	t18192	S	B
+10	27400.328570000	t18192	S	Fi
+10	27400.330580000	t18192	S	B
+11	27400.331301000	t18192	S	Sc
+12	27400.331759000	t18192	S
+20	27400.332449000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300050006	163
+10	27400.335874000	t18192	S	E
+10	27533.078921000	t18191	S	B
+10	27533.091962000	w1	WS	I
+10	27533.104094000	t18191	S	Po
+10	27533.107087000	t18191	S	B
+10	27533.113159000	t18191	S	C
+10	27533.113508000	t18191	S	B
+11	27533.114025000	t18191	S	Sc
+12	27533.114747000	t18191	S
+10	27533.126966000	t18191	S	Sc
+13	27533.128683000	sched	nready	10.000000
+13	27533.128683000	sched	nsubmitted	65.000000
+10	27533.129754000	t18191	S	B
+10	27533.130422000	t18191	S	Fi
+10	27533.132533000	t18191	S	B
+11	27533.133343000	t18191	S	Sc
+12	27533.133826000	t18191	S
+20	27533.134632000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300090009	179
+10	27533.139129000	t18191	S	E
+10	27701.530397000	t18193	S	B
+10	27701.544194000	w3	WS	I
+10	27701.574700000	t18193	S	Po
+10	27701.578189000	t18193	S	B
+10	27701.592183000	t18193	S	C
+10	27701.592706000	t18193	S	B
+11	27701.593168000	t18193	S	Sc
+12	27701.594189000	t18193	S
+10	27701.601735000	t18193	S	Sc
+13	27701.603850000	sched	nready	9.000000
+13	27701.603850000	sched	nsubmitted	64.000000
+10	27701.605264000	t18193	S	B
+10	27701.605703000	t18193	S	Fi
+10	27701.608315000	t18193	S	B
+11	27701.609187000	t18193	S	Sc
+12	27701.609733000	t18193	S
+20	27701.610674000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300060007	167
+10	27701.615442000	t18193	S	E
+10	27943.371756000	t18190	S	B
+10	27943.385483000	w0	WS	I
+10	27943.396735000	t18190	S	Po
+10	27943.399798000	t18190	S	B
+10	27943.405087000	t18190	S	C
+10	27943.405577000	t18190	S	B
+11	27943.406563000	t18190	S	Sc
+12	27943.407531000	t18190	S
+10	27943.418617000	t18190	S	Sc
+13	27943.420850000	sched	nready	8.000000
+13	27943.420850000	sched	nsubmitted	63.000000
+10	27943.422106000	t18190	S	B
+10	27943.422588000	t18190	S	Fi
+10	27943.424844000	t18190	S	B
+11	27943.425417000	t18190	S	Sc
+12	27943.425872000	t18190	S
+20	27943.426737000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300060006	164
+10	27943.430564000	t18190	S	E
+10	28138.190680000	t18192	S	B
+10	28138.203735000	w2	WS	I
+10	28138.214819000	t18192	S	Po
+10	28138.217520000	t18192	S	B
+10	28138.223159000	t18192	S	C
+10	28138.223534000	t18192	S	B
+11	28138.223979000	t18192	S	Sc
+12	28138.224864000	t18192	S
+10	28138.236567000	t18192	S	Sc
+13	28138.238674000	sched	nready	7.000000
+13	28138.238674000	sched	nsubmitted	62.000000
+10	28138.239731000	t18192	S	B
+10	28138.240271000	t18192	S	Fi
+10	28138.242746000	t18192	S	B
+11	28138.243553000	t18192	S	Sc
+12	28138.244207000	t18192	S
+20	28138.244961000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300040008	169
+10	28138.248764000	t18192	S	E
+10	28484.796328000	t18191	S	B
+10	28484.809005000	w1	WS	I
+10	28484.820387000	t18191	S	Po
+10	28484.823045000	t18191	S	B
+10	28484.828126000	t18191	S	C
+10	28484.828515000	t18191	S	B
+11	28484.829182000	t18191	S	Sc
+12	28484.829933000	t18191	S
+10	28484.840696000	t18191	S	Sc
+13	28484.842630000	sched	nready	6.000000
+13	28484.842630000	sched	nsubmitted	61.000000
+10	28484.843740000	t18191	S	B
+10	28484.844409000	t18191	S	Fi
+10	28484.846648000	t18191	S	B
+11	28484.847402000	t18191	S	Sc
+12	28484.847845000	t18191	S
+20	28484.848669000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300060009	176
+10	28484.852197000	t18191	S	E
+10	28526.630878000	t18193	S	B
+10	28526.642822000	w3	WS	I
+10	28526.653387000	t18193	S	Po
+10	28526.656223000	t18193	S	B
+10	28526.661448000	t18193	S	C
+10	28526.661926000	t18193	S	B
+11	28526.662591000	t18193	S	Sc
+12	28526.663514000	t18193	S
+10	28526.673823000	t18193	S	Sc
+13	28526.675562000	sched	nready	5.000000
+13	28526.675562000	sched	nsubmitted	60.000000
+10	28526.676668000	t18193	S	B
+10	28526.677268000	t18193	S	Fi
+10	28526.679196000	t18193	S	B
+11	28526.679798000	t18193	S	Sc
+12	28526.680326000	t18193	S
+20	28526.681132000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300060008	171
+10	28526.685482000	t18193	S	E
+10	28666.766444000	t18190	S	B
+10	28666.779741000	w0	WS	I
+10	28666.791665000	t18190	S	Po
+10	28666.795121000	t18190	S	B
+10	28666.801552000	t18190	S	C
+10	28666.802043000	t18190	S	B
+11	28666.802736000	t18190	S	Sc
+12	28666.803656000	t18190	S
+10	28666.815007000	t18190	S	Sc
+13	28666.816770000	sched	nready	4.000000
+13	28666.816770000	sched	nsubmitted	59.000000
+10	28666.817895000	t18190	S	B
+10	28666.818475000	t18190	S	Fi
+10	28666.820584000	t18190	S	B
+11	28666.821266000	t18190	S	Sc
+12	28666.821832000	t18190	S
+20	28666.822725000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300050008	170
+10	28666.826566000	t18190	S	E
+10	28837.076201000	t18192	S	B
+10	28837.088880000	w2	WS	I
+10	28837.099529000	t18192	S	Po
+10	28837.102573000	t18192	S	B
+10	28837.116419000	t18192	S	C
+10	28837.116882000	t18192	S	B
+11	28837.117300000	t18192	S	Sc
+12	28837.118322000	t18192	S
+10	28837.125243000	t18192	S	Sc
+13	28837.127028000	sched	nready	3.000000
+13	28837.127028000	sched	nsubmitted	58.000000
+10	28837.128005000	t18192	S	B
+10	28837.128464000	t18192	S	Fi
+10	28837.130263000	t18192	S	B
+11	28837.130994000	t18192	S	Sc
+12	28837.131421000	t18192	S
+20	28837.132446000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300080008	173
+10	28837.135802000	t18192	S	E
+10	29157.469375000	t18191	S	B
+10	29157.482112000	w1	WS	I
+10	29157.493257000	t18191	S	Po
+10	29157.496283000	t18191	S	B
+10	29157.502200000	t18191	S	C
+10	29157.502638000	t18191	S	B
+11	29157.503404000	t18191	S	Sc
+12	29157.504288000	t18191	S
+10	29157.516338000	t18191	S	Sc
+13	29157.518225000	sched	nready	2.000000
+13	29157.518225000	sched	nsubmitted	57.000000
+10	29157.519524000	t18191	S	B
+10	29157.520075000	t18191	S	Fi
+10	29157.522815000	t18191	S	B
+11	29157.523509000	t18191	S	Sc
+12	29157.523953000	t18191	S
+20	29157.524747000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300070008	172
+10	29157.529331000	t18191	S	E
+10	29225.692910000	t18193	S	B
+10	29225.706032000	w3	WS	I
+10	29225.717902000	t18193	S	Po
+10	29225.721230000	t18193	S	B
+10	29225.727037000	t18193	S	C
+10	29225.727495000	t18193	S	B
+11	29225.728347000	t18193	S	Sc
+12	29225.729495000	t18193	S
+10	29225.740394000	t18193	S	Sc
+13	29225.742349000	sched	nready	1.000000
+13	29225.742349000	sched	nsubmitted	56.000000
+10	29225.743831000	t18193	S	B
+10	29225.744427000	t18193	S	Fi
+10	29225.746134000	t18193	S	B
+11	29225.746826000	t18193	S	Sc
+12	29225.747519000	t18193	S
+20	29225.748595000	w3	WS	chol_model_11	3686400	M960x960x4	617e5fe6	1000000000000004	180
+10	29225.751835000	t18193	S	E
+10	29343.305852000	t18193	S	B
+10	29343.317158000	w3	WS	I
+10	29343.327931000	t18193	S	Po
+10	29343.330305000	t18193	S	B
+13	29343.338221000	sched	nready	2.000000
+11	29343.340627000	t18193	S	Sc
+12	29343.353275000	t18193	S
+13	29343.354580000	sched	nready	3.000000
+11	29343.355114000	t18193	S	Sc
+12	29343.359277000	t18193	S
+13	29343.360183000	sched	nready	4.000000
+11	29343.360523000	t18193	S	Sc
+12	29343.364166000	t18193	S
+13	29343.365070000	sched	nready	5.000000
+11	29343.365447000	t18193	S	Sc
+12	29343.369375000	t18193	S
+13	29343.370116000	sched	nready	6.000000
+11	29343.370503000	t18193	S	Sc
+12	29343.374293000	t18193	S
+10	29343.375424000	t18193	S	C
+10	29343.375710000	t18193	S	B
+11	29343.376270000	t18193	S	Sc
+12	29343.376644000	t18193	S
+10	29343.386625000	t18193	S	Sc
+13	29343.387911000	sched	nready	5.000000
+13	29343.387911000	sched	nsubmitted	55.000000
+10	29343.388399000	t18193	S	B
+10	29343.388665000	t18193	S	Fi
+10	29343.389566000	t18193	S	B
+11	29343.390225000	t18193	S	Sc
+12	29343.390679000	t18193	S
+20	29343.391658000	w3	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000400000007	186
+10	29343.395009000	t18193	S	E
+10	29480.336274000	t18190	S	B
+10	29480.351597000	w0	WS	I
+10	29480.365011000	t18190	S	Po
+10	29480.369827000	t18190	S	B
+10	29480.377865000	t18190	S	C
+10	29480.378292000	t18190	S	B
+11	29480.378911000	t18190	S	Sc
+12	29480.379985000	t18190	S
+10	29480.394168000	t18190	S	Sc
+13	29480.396125000	sched	nready	4.000000
+13	29480.396125000	sched	nsubmitted	54.000000
+10	29480.397911000	t18190	S	B
+10	29480.399176000	t18190	S	Fi
+10	29480.402134000	t18190	S	B
+11	29480.403095000	t18190	S	Sc
+12	29480.403852000	t18190	S
+20	29480.405388000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000300080009	178
+10	29480.411368000	t18190	S	E
+10	29767.367406000	t18192	S	B
+10	29767.379058000	w2	WS	I
+10	29767.388705000	t18192	S	Po
+10	29767.391083000	t18192	S	B
+10	29767.396148000	t18192	S	C
+10	29767.396520000	t18192	S	B
+11	29767.397393000	t18192	S	Sc
+12	29767.398277000	t18192	S
+10	29767.408684000	t18192	S	Sc
+13	29767.410501000	sched	nready	3.000000
+13	29767.410501000	sched	nsubmitted	53.000000
+10	29767.411483000	t18192	S	B
+10	29767.411939000	t18192	S	Fi
+10	29767.413688000	t18192	S	B
+11	29767.414446000	t18192	S	Sc
+12	29767.414858000	t18192	S
+20	29767.415692000	w2	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000400000006	184
+10	29767.419305000	t18192	S	E
+10	29768.827352000	t18193	S	B
+10	29768.842490000	w3	WS	I
+10	29768.856471000	t18193	S	Po
+10	29768.860044000	t18193	S	B
+13	29768.872376000	sched	nready	4.000000
+11	29768.876650000	t18193	S	Sc
+12	29768.893589000	t18193	S
+10	29768.895863000	t18193	S	C
+10	29768.896012000	t18193	S	B
+11	29768.896519000	t18193	S	Sc
+12	29768.896989000	t18193	S
+10	29768.909277000	t18193	S	Sc
+10	29768.910998000	t18193	S	Sl
+10	29912.207889000	t18191	S	B
+10	29912.219509000	w1	WS	I
+10	29912.228101000	t18191	S	Po
+10	29912.230581000	t18191	S	B
+10	29912.235619000	t18191	S	C
+10	29912.235939000	t18191	S	B
+11	29912.236438000	t18191	S	Sc
+12	29912.237028000	t18191	S
+10	29912.245439000	t18191	S	Sc
+13	29912.246815000	sched	nready	3.000000
+13	29912.246815000	sched	nsubmitted	52.000000
+10	29912.247764000	t18191	S	B
+10	29912.248260000	t18191	S	Fi
+10	29912.250066000	t18191	S	B
+11	29912.250736000	t18191	S	Sc
+12	29912.251166000	t18191	S
+20	29912.251799000	w1	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000400000005	182
+10	29912.254960000	t18191	S	E
+10	30177.856241000	t18192	S	B
+10	30177.867384000	w2	WS	I
+10	30177.874755000	t18192	S	Po
+10	30177.876849000	t18192	S	B
+13	30177.885759000	sched	nready	4.000000
+11	30177.888399000	t18192	S	Sc
+12	30177.900023000	t18192	S
+13	30177.901655000	sched	nready	5.000000
+11	30177.902022000	t18192	S	Sc
+12	30177.907843000	t18192	S
+10	30177.909089000	t18192	S	C
+13	30177.909158000	sched	nready	4.000000
+13	30177.909158000	sched	nsubmitted	51.000000
+10	30177.909310000	t18192	S	B
+11	30177.909729000	t18192	S	Sc
+12	30177.910172000	t18192	S
+10	30177.910802000	t18193	S	B
+10	30177.911851000	t18193	S	Fi
+10	30177.913615000	t18193	S	B
+11	30177.914302000	t18193	S	Sc
+12	30177.914809000	t18193	S
+20	30177.915882000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000400060007	196
+10	30177.917055000	t18192	S	Sc
+13	30177.917769000	sched	nready	3.000000
+13	30177.917769000	sched	nsubmitted	50.000000
+10	30177.918449000	t18192	S	B
+10	30177.918864000	t18192	S	Fi
+10	30177.919707000	t18192	S	B
+11	30177.920024000	t18192	S	Sc
+12	30177.920398000	t18192	S
+10	30177.920712000	t18193	S	E
+20	30177.920930000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000400070007	197
+10	30177.923776000	t18192	S	E
+10	30280.360819000	t18190	S	B
+10	30280.372443000	w0	WS	I
+10	30280.382779000	t18190	S	Po
+10	30280.385543000	t18190	S	B
+10	30280.390735000	t18190	S	C
+10	30280.391128000	t18190	S	B
+11	30280.391689000	t18190	S	Sc
+12	30280.392541000	t18190	S
+10	30280.403031000	t18190	S	Sc
+13	30280.404723000	sched	nready	2.000000
+13	30280.404723000	sched	nsubmitted	49.000000
+10	30280.405868000	t18190	S	B
+10	30280.406377000	t18190	S	Fi
+10	30280.408119000	t18190	S	B
+11	30280.408822000	t18190	S	Sc
+12	30280.409290000	t18190	S
+20	30280.410031000	w0	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000400000008	188
+10	30280.413460000	t18190	S	E
+10	30321.672825000	t18191	S	B
+10	30321.687314000	w1	WS	I
+10	30321.737042000	t18191	S	Po
+10	30321.742372000	t18191	S	B
+13	30321.754847000	sched	nready	3.000000
+11	30321.759339000	t18191	S	Sc
+12	30321.780200000	t18191	S
+13	30321.782767000	sched	nready	4.000000
+11	30321.783824000	t18191	S	Sc
+12	30321.791782000	t18191	S
+13	30321.794609000	sched	nready	5.000000
+11	30321.795750000	t18191	S	Sc
+12	30321.800766000	t18191	S
+10	30321.802192000	t18191	S	C
+10	30321.802393000	t18191	S	B
+11	30321.802881000	t18191	S	Sc
+12	30321.803357000	t18191	S
+10	30321.815133000	t18191	S	Sc
+13	30321.816707000	sched	nready	4.000000
+13	30321.816707000	sched	nsubmitted	48.000000
+10	30321.817669000	t18191	S	B
+10	30321.817995000	t18191	S	Fi
+10	30321.819101000	t18191	S	B
+11	30321.819722000	t18191	S	Sc
+12	30321.820187000	t18191	S
+20	30321.820999000	w1	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000400000009	190
+10	30321.824038000	t18191	S	E
+10	30717.277908000	t18190	S	B
+10	30717.290261000	w0	WS	I
+10	30717.300040000	t18190	S	Po
+10	30717.302624000	t18190	S	B
+13	30717.311654000	sched	nready	5.000000
+11	30717.314948000	t18190	S	Sc
+12	30717.328008000	t18190	S
+13	30717.329523000	sched	nready	6.000000
+11	30717.330142000	t18190	S	Sc
+12	30717.334346000	t18190	S
+13	30717.335576000	sched	nready	7.000000
+11	30717.336110000	t18190	S	Sc
+12	30717.339924000	t18190	S
+13	30717.341504000	sched	nready	8.000000
+11	30717.342047000	t18190	S	Sc
+12	30717.346149000	t18190	S
+10	30717.347067000	t18190	S	C
+10	30717.347299000	t18190	S	B
+11	30717.347684000	t18190	S	Sc
+12	30717.348191000	t18190	S
+10	30717.357516000	t18190	S	Sc
+13	30717.358903000	sched	nready	7.000000
+13	30717.358903000	sched	nsubmitted	47.000000
+10	30717.359986000	t18190	S	B
+10	30717.360469000	t18190	S	Fi
+10	30717.361679000	t18190	S	B
+11	30717.362316000	t18190	S	Sc
+12	30717.362713000	t18190	S
+20	30717.363615000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000400050005	192
+10	30717.367503000	t18190	S	E
+10	30775.164264000	t18191	S	B
+10	30775.176612000	w1	WS	I
+10	30775.186849000	t18191	S	Po
+10	30775.189539000	t18191	S	B
+13	30775.199718000	sched	nready	8.000000
+11	30775.203222000	t18191	S	Sc
+12	30775.217177000	t18191	S
+13	30775.218868000	sched	nready	9.000000
+11	30775.219307000	t18191	S	Sc
+12	30775.224107000	t18191	S
+13	30775.225531000	sched	nready	10.000000
+11	30775.226062000	t18191	S	Sc
+12	30775.229878000	t18191	S
+13	30775.230883000	sched	nready	11.000000
+11	30775.231412000	t18191	S	Sc
+12	30775.235616000	t18191	S
+13	30775.236857000	sched	nready	12.000000
+11	30775.237317000	t18191	S	Sc
+12	30775.241239000	t18191	S
+10	30775.242155000	t18191	S	C
+10	30775.242466000	t18191	S	B
+11	30775.242986000	t18191	S	Sc
+12	30775.243426000	t18191	S
+10	30775.252785000	t18191	S	Sc
+13	30775.254220000	sched	nready	11.000000
+13	30775.254220000	sched	nsubmitted	46.000000
+10	30775.254947000	t18191	S	B
+10	30775.255307000	t18191	S	Fi
+10	30775.256530000	t18191	S	B
+11	30775.257074000	t18191	S	Sc
+12	30775.257511000	t18191	S
+20	30775.258424000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000400060006	194
+10	30775.262198000	t18191	S	E
+10	30923.510824000	t18193	S	B
+10	30923.521744000	w3	WS	I
+10	30923.531480000	t18193	S	Po
+10	30923.534151000	t18193	S	B
+10	30923.539686000	t18193	S	C
+10	30923.540071000	t18193	S	B
+11	30923.540663000	t18193	S	Sc
+12	30923.541515000	t18193	S
+10	30923.551860000	t18193	S	Sc
+13	30923.553313000	sched	nready	10.000000
+13	30923.553313000	sched	nsubmitted	45.000000
+10	30923.554206000	t18193	S	B
+10	30923.554826000	t18193	S	Fi
+10	30923.556730000	t18193	S	B
+11	30923.557533000	t18193	S	Sc
+12	30923.558017000	t18193	S
+20	30923.558927000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000400050006	193
+10	30923.562696000	t18193	S	E
+10	31174.517198000	t18192	S	B
+10	31174.529528000	w2	WS	I
+10	31174.539977000	t18192	S	Po
+10	31174.542475000	t18192	S	B
+10	31174.548561000	t18192	S	C
+10	31174.549008000	t18192	S	B
+11	31174.549556000	t18192	S	Sc
+12	31174.550472000	t18192	S
+10	31174.560647000	t18192	S	Sc
+13	31174.562559000	sched	nready	9.000000
+13	31174.562559000	sched	nsubmitted	44.000000
+10	31174.563727000	t18192	S	B
+10	31174.564097000	t18192	S	Fi
+10	31174.565780000	t18192	S	B
+11	31174.566524000	t18192	S	Sc
+12	31174.566989000	t18192	S
+20	31174.567956000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000400050007	195
+10	31174.571797000	t18192	S	E
+10	31495.697669000	t18190	S	B
+10	31495.709758000	w0	WS	I
+10	31495.720262000	t18190	S	Po
+10	31495.722847000	t18190	S	B
+13	31495.730488000	sched	nready	10.000000
+11	31495.733130000	t18190	S	Sc
+12	31495.744698000	t18190	S
+10	31495.749977000	t18190	S	C
+10	31495.750265000	t18190	S	B
+11	31495.750625000	t18190	S	Sc
+12	31495.750997000	t18190	S
+10	31495.757166000	t18190	S	Sc
+13	31495.758571000	sched	nready	9.000000
+13	31495.758571000	sched	nsubmitted	43.000000
+10	31495.759594000	t18190	S	B
+10	31495.759965000	t18190	S	Fi
+10	31495.761211000	t18190	S	B
+11	31495.761799000	t18190	S	Sc
+12	31495.762303000	t18190	S
+20	31495.762985000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000400050008	198
+10	31495.766681000	t18190	S	E
+10	31559.354996000	t18191	S	B
+10	31559.366309000	w1	WS	I
+10	31559.376371000	t18191	S	Po
+10	31559.378877000	t18191	S	B
+10	31559.383977000	t18191	S	C
+10	31559.384281000	t18191	S	B
+11	31559.384777000	t18191	S	Sc
+12	31559.385474000	t18191	S
+10	31559.395711000	t18191	S	Sc
+13	31559.397255000	sched	nready	8.000000
+13	31559.397255000	sched	nsubmitted	42.000000
+10	31559.398653000	t18191	S	B
+10	31559.399190000	t18191	S	Fi
+10	31559.401005000	t18191	S	B
+11	31559.401583000	t18191	S	Sc
+12	31559.401951000	t18191	S
+20	31559.402913000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000400060008	199
+10	31559.406002000	t18191	S	E
+10	31589.231762000	t18193	S	B
+10	31589.243771000	w3	WS	I
+10	31589.253605000	t18193	S	Po
+10	31589.256427000	t18193	S	B
+10	31589.267985000	t18193	S	C
+10	31589.268439000	t18193	S	B
+11	31589.268796000	t18193	S	Sc
+12	31589.269519000	t18193	S
+10	31589.275013000	t18193	S	Sc
+13	31589.276767000	sched	nready	7.000000
+13	31589.276767000	sched	nsubmitted	41.000000
+10	31589.278143000	t18193	S	B
+10	31589.278579000	t18193	S	Fi
+10	31589.280930000	t18193	S	B
+11	31589.281714000	t18193	S	Sc
+12	31589.282243000	t18193	S
+20	31589.282952000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000400070008	200
+10	31589.286360000	t18193	S	E
+10	31858.614709000	t18192	S	B
+10	31858.627922000	w2	WS	I
+10	31858.638919000	t18192	S	Po
+10	31858.641987000	t18192	S	B
+10	31858.655337000	t18192	S	C
+10	31858.655734000	t18192	S	B
+11	31858.656205000	t18192	S	Sc
+12	31858.657290000	t18192	S
+10	31858.663875000	t18192	S	Sc
+13	31858.665908000	sched	nready	6.000000
+13	31858.665908000	sched	nsubmitted	40.000000
+10	31858.667425000	t18192	S	B
+10	31858.667983000	t18192	S	Fi
+10	31858.670246000	t18192	S	B
+11	31858.671037000	t18192	S	Sc
+12	31858.671505000	t18192	S
+20	31858.672360000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000400080008	201
+10	31858.676418000	t18192	S	E
+10	32265.584672000	t18190	S	B
+10	32265.598328000	w0	WS	I
+10	32265.609849000	t18190	S	Po
+10	32265.613076000	t18190	S	B
+10	32265.626870000	t18190	S	C
+10	32265.627299000	t18190	S	B
+11	32265.627858000	t18190	S	Sc
+12	32265.628819000	t18190	S
+10	32265.635213000	t18190	S	Sc
+13	32265.637312000	sched	nready	5.000000
+13	32265.637312000	sched	nsubmitted	39.000000
+10	32265.638586000	t18190	S	B
+10	32265.639005000	t18190	S	Fi
+10	32265.641143000	t18190	S	B
+11	32265.641852000	t18190	S	Sc
+12	32265.642272000	t18190	S
+20	32265.643097000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000400050009	202
+10	32265.647017000	t18190	S	E
+10	32298.758375000	t18191	S	B
+10	32298.771962000	w1	WS	I
+10	32298.783031000	t18191	S	Po
+10	32298.786383000	t18191	S	B
+10	32298.792143000	t18191	S	C
+10	32298.792731000	t18191	S	B
+11	32298.793440000	t18191	S	Sc
+12	32298.794317000	t18191	S
+10	32298.805169000	t18191	S	Sc
+13	32298.807134000	sched	nready	4.000000
+13	32298.807134000	sched	nsubmitted	38.000000
+10	32298.808583000	t18191	S	B
+10	32298.809384000	t18191	S	Fi
+10	32298.811906000	t18191	S	B
+11	32298.812487000	t18191	S	Sc
+12	32298.813014000	t18191	S
+20	32298.813933000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000400060009	203
+10	32298.817956000	t18191	S	E
+10	32316.244009000	t18193	S	B
+10	32316.255814000	w3	WS	I
+10	32316.267677000	t18193	S	Po
+10	32316.270601000	t18193	S	B
+10	32316.276104000	t18193	S	C
+10	32316.276624000	t18193	S	B
+11	32316.277483000	t18193	S	Sc
+12	32316.278350000	t18193	S
+10	32316.289034000	t18193	S	Sc
+13	32316.290967000	sched	nready	3.000000
+13	32316.290967000	sched	nsubmitted	37.000000
+10	32316.292071000	t18193	S	B
+10	32316.292512000	t18193	S	Fi
+10	32316.294501000	t18193	S	B
+11	32316.295033000	t18193	S	Sc
+12	32316.295462000	t18193	S
+20	32316.296347000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000400070009	204
+10	32316.300078000	t18193	S	E
+10	32873.266213000	t18192	S	B
+10	32873.280718000	w2	WS	I
+10	32873.292440000	t18192	S	Po
+10	32873.295320000	t18192	S	B
+10	32873.301148000	t18192	S	C
+10	32873.301630000	t18192	S	B
+11	32873.302169000	t18192	S	Sc
+12	32873.303248000	t18192	S
+10	32873.314783000	t18192	S	Sc
+13	32873.317366000	sched	nready	2.000000
+13	32873.317366000	sched	nsubmitted	36.000000
+10	32873.319020000	t18192	S	B
+10	32873.319558000	t18192	S	Fi
+10	32873.321876000	t18192	S	B
+11	32873.322716000	t18192	S	Sc
+12	32873.323241000	t18192	S
+20	32873.324046000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000400080009	205
+10	32873.327934000	t18192	S	E
+10	33029.379113000	t18193	S	B
+10	33029.391457000	w3	WS	I
+10	33029.403533000	t18193	S	Po
+10	33029.406713000	t18193	S	B
+10	33029.412573000	t18193	S	C
+10	33029.412908000	t18193	S	B
+11	33029.413494000	t18193	S	Sc
+12	33029.414345000	t18193	S
+10	33029.426963000	t18193	S	Sc
+10	33029.428813000	t18193	S	Sl
+10	33064.195921000	t18191	S	B
+10	33064.207479000	w1	WS	I
+10	33064.215219000	t18191	S	Po
+10	33064.217761000	t18191	S	B
+10	33064.222423000	t18191	S	C
+10	33064.222723000	t18191	S	B
+11	33064.223460000	t18191	S	Sc
+12	33064.224066000	t18191	S
+10	33064.231736000	t18191	S	Sc
+13	33064.232573000	sched	nready	1.000000
+13	33064.232573000	sched	nsubmitted	35.000000
+10	33064.233752000	t18191	S	B
+10	33064.234195000	t18191	S	Fi
+10	33064.235652000	t18191	S	B
+11	33064.236240000	t18191	S	Sc
+12	33064.236661000	t18191	S
+20	33064.237326000	w1	WS	chol_model_11	3686400	M960x960x4	617e5fe6	1000000000000005	207
+10	33064.239919000	t18191	S	E
+10	33114.992870000	t18190	S	B
+10	33115.004109000	w0	WS	I
+10	33115.011426000	t18190	S	Po
+10	33115.013911000	t18190	S	B
+10	33115.025191000	t18190	S	C
+10	33115.025474000	t18190	S	B
+11	33115.025819000	t18190	S	Sc
+12	33115.026356000	t18190	S
+10	33115.029946000	t18190	S	Sc
+13	33115.030635000	sched	nready	0.000000
+13	33115.030635000	sched	nsubmitted	34.000000
+10	33115.031620000	t18190	S	B
+10	33115.032031000	t18190	S	Fi
+10	33115.033713000	t18190	S	B
+11	33115.034244000	t18190	S	Sc
+12	33115.034656000	t18190	S
+20	33115.035414000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000400090009	206
+10	33115.038774000	t18190	S	E
+10	33176.793404000	t18191	S	B
+10	33176.803564000	w1	WS	I
+10	33176.810240000	t18191	S	Po
+10	33176.812518000	t18191	S	B
+13	33176.818989000	sched	nready	1.000000
+11	33176.821601000	t18191	S	Sc
+12	33176.832848000	t18191	S
+13	33176.834019000	sched	nready	2.000000
+11	33176.834553000	t18191	S	Sc
+12	33176.838090000	t18191	S
+13	33176.839010000	sched	nready	3.000000
+11	33176.839350000	t18191	S	Sc
+12	33176.842394000	t18191	S
+13	33176.843125000	sched	nready	4.000000
+11	33176.843401000	t18191	S	Sc
+12	33176.848289000	t18191	S
+10	33176.848883000	t18191	S	C
+10	33176.849011000	t18191	S	B
+13	33176.849236000	sched	nready	3.000000
+13	33176.849236000	sched	nsubmitted	33.000000
+11	33176.849517000	t18191	S	Sc
+12	33176.849953000	t18191	S
+10	33176.851497000	t18193	S	B
+10	33176.852326000	t18193	S	Fi
+10	33176.854425000	t18193	S	B
+11	33176.855349000	t18193	S	Sc
+12	33176.855969000	t18193	S
+10	33176.856107000	t18191	S	Sc
+13	33176.856705000	sched	nready	2.000000
+13	33176.856705000	sched	nsubmitted	32.000000
+10	33176.857120000	t18191	S	B
+10	33176.857399000	t18191	S	Fi
+20	33176.857601000	w3	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000500000009	215
+10	33176.858072000	t18191	S	B
+11	33176.858424000	t18191	S	Sc
+12	33176.858767000	t18191	S
+20	33176.859178000	w1	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000500000007	211
+10	33176.861777000	t18191	S	E
+10	33176.863012000	t18193	S	E
+10	33623.959203000	t18191	S	B
+10	33623.969601000	w1	WS	I
+10	33623.980591000	t18191	S	Po
+10	33623.983080000	t18191	S	B
+13	33623.991956000	sched	nready	3.000000
+11	33623.995318000	t18191	S	Sc
+12	33624.007989000	t18191	S
+10	33624.009723000	t18191	S	C
+10	33624.009945000	t18191	S	B
+11	33624.010417000	t18191	S	Sc
+12	33624.010760000	t18191	S
+10	33624.019845000	t18191	S	Sc
+13	33624.021258000	sched	nready	2.000000
+13	33624.021258000	sched	nsubmitted	31.000000
+10	33624.021825000	t18191	S	B
+10	33624.022181000	t18191	S	Fi
+10	33624.023223000	t18191	S	B
+11	33624.023757000	t18191	S	Sc
+12	33624.024184000	t18191	S
+20	33624.025165000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000500070007	219
+10	33624.028470000	t18191	S	E
+10	33635.482454000	t18193	S	B
+10	33635.494990000	w3	WS	I
+10	33635.505664000	t18193	S	Po
+10	33635.508824000	t18193	S	B
+13	33635.518152000	sched	nready	3.000000
+11	33635.521389000	t18193	S	Sc
+12	33635.534935000	t18193	S
+10	33635.538176000	t18193	S	C
+10	33635.538463000	t18193	S	B
+11	33635.539081000	t18193	S	Sc
+12	33635.539498000	t18193	S
+10	33635.550001000	t18193	S	Sc
+10	33635.552103000	t18193	S	Sl
+10	33688.935037000	t18192	S	B
+10	33688.946114000	w2	WS	I
+10	33688.954110000	t18192	S	Po
+10	33688.956447000	t18192	S	B
+10	33688.961408000	t18192	S	C
+10	33688.961708000	t18192	S	B
+11	33688.962126000	t18192	S	Sc
+12	33688.962651000	t18192	S
+10	33688.969896000	t18192	S	Sc
+13	33688.970920000	sched	nready	2.000000
+13	33688.970920000	sched	nsubmitted	30.000000
+10	33688.972027000	t18192	S	B
+10	33688.972428000	t18192	S	Fi
+10	33688.974070000	t18192	S	B
+11	33688.974680000	t18192	S	Sc
+12	33688.975110000	t18192	S
+20	33688.976031000	w2	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000500000008	213
+10	33688.979382000	t18192	S	E
+10	34070.874028000	t18190	S	B
+10	34070.886696000	w0	WS	I
+10	34070.895570000	t18190	S	Po
+13	34070.900191000	sched	nready	3.000000
+11	34070.903312000	t18190	S	Sc
+12	34070.917673000	t18190	S
+10	34070.918989000	t18190	S	B
+10	34070.923671000	t18190	S	C
+10	34070.924060000	t18190	S	B
+11	34070.924539000	t18190	S	Sc
+12	34070.925037000	t18190	S
+10	34070.932859000	t18190	S	Sc
+13	34070.933868000	sched	nready	2.000000
+13	34070.933868000	sched	nsubmitted	29.000000
+10	34070.934699000	t18190	S	B
+10	34070.936246000	t18190	S	Fi
+10	34070.937464000	t18190	S	B
+11	34070.938194000	t18190	S	Sc
+12	34070.938683000	t18190	S
+20	34070.939475000	w0	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000500000006	209
+10	34070.942673000	t18190	S	E
+10	34111.353055000	t18192	S	B
+10	34111.364879000	w2	WS	I
+10	34111.372991000	t18192	S	Po
+10	34111.375264000	t18192	S	B
+13	34111.384599000	sched	nready	3.000000
+11	34111.387247000	t18192	S	Sc
+12	34111.399786000	t18192	S
+13	34111.400603000	sched	nready	2.000000
+13	34111.400603000	sched	nsubmitted	28.000000
+13	34111.401456000	sched	nready	3.000000
+11	34111.401966000	t18192	S	Sc
+10	34111.402161000	t18193	S	B
+10	34111.404875000	t18193	S	Fi
+12	34111.406044000	t18192	S
+10	34111.406470000	t18193	S	B
+13	34111.407073000	sched	nready	4.000000
+11	34111.407320000	t18193	S	Sc
+11	34111.407537000	t18192	S	Sc
+12	34111.407822000	t18193	S
+20	34111.409118000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000500070008	221
+12	34111.411140000	t18192	S
+10	34111.411717000	t18192	S	C
+10	34111.411913000	t18192	S	B
+11	34111.412389000	t18192	S	Sc
+12	34111.412740000	t18192	S
+10	34111.414262000	t18193	S	E
+10	34111.419288000	t18192	S	Sc
+13	34111.420101000	sched	nready	3.000000
+13	34111.420101000	sched	nsubmitted	27.000000
+10	34111.420652000	t18192	S	B
+10	34111.420990000	t18192	S	Fi
+10	34111.421955000	t18192	S	B
+11	34111.422234000	t18192	S	Sc
+12	34111.422564000	t18192	S
+20	34111.423084000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000500070009	224
+10	34111.425838000	t18192	S	E
+10	34420.946851000	t18191	S	B
+10	34420.959829000	w1	WS	I
+10	34420.972058000	t18191	S	Po
+10	34420.975316000	t18191	S	B
+10	34420.981645000	t18191	S	C
+10	34420.982198000	t18191	S	B
+11	34420.982954000	t18191	S	Sc
+12	34420.983975000	t18191	S
+10	34420.995912000	t18191	S	Sc
+13	34420.997850000	sched	nready	2.000000
+13	34420.997850000	sched	nsubmitted	26.000000
+10	34420.999388000	t18191	S	B
+10	34420.999957000	t18191	S	Fi
+10	34421.002281000	t18191	S	B
+11	34421.002929000	t18191	S	Sc
+12	34421.003677000	t18191	S
+20	34421.004914000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000500080008	222
+10	34421.009243000	t18191	S	E
+10	34489.470222000	t18190	S	B
+10	34489.481651000	w0	WS	I
+10	34489.492327000	t18190	S	Po
+10	34489.494986000	t18190	S	B
+13	34489.504391000	sched	nready	3.000000
+11	34489.507283000	t18190	S	Sc
+12	34489.519166000	t18190	S
+13	34489.520648000	sched	nready	4.000000
+11	34489.521268000	t18190	S	Sc
+12	34489.525552000	t18190	S
+13	34489.526438000	sched	nready	5.000000
+11	34489.526942000	t18190	S	Sc
+12	34489.530921000	t18190	S
+13	34489.531882000	sched	nready	6.000000
+11	34489.532293000	t18190	S	Sc
+12	34489.535726000	t18190	S
+10	34489.536529000	t18190	S	C
+10	34489.536797000	t18190	S	B
+11	34489.537214000	t18190	S	Sc
+12	34489.537639000	t18190	S
+10	34489.555374000	t18190	S	Sc
+13	34489.556697000	sched	nready	5.000000
+13	34489.556697000	sched	nsubmitted	25.000000
+10	34489.557433000	t18190	S	B
+10	34489.557919000	t18190	S	Fi
+10	34489.558977000	t18190	S	B
+11	34489.559558000	t18190	S	Sc
+12	34489.560086000	t18190	S
+20	34489.560783000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000500090009	226
+10	34489.564481000	t18190	S	E
+10	34774.166369000	t18193	S	B
+10	34774.178608000	w3	WS	I
+10	34774.188409000	t18193	S	Po
+10	34774.191054000	t18193	S	B
+10	34774.196568000	t18193	S	C
+10	34774.196944000	t18193	S	B
+11	34774.197472000	t18193	S	Sc
+12	34774.198332000	t18193	S
+10	34774.209373000	t18193	S	Sc
+13	34774.211236000	sched	nready	4.000000
+13	34774.211236000	sched	nsubmitted	24.000000
+10	34774.212284000	t18193	S	B
+10	34774.213029000	t18193	S	Fi
+10	34774.214986000	t18193	S	B
+11	34774.215574000	t18193	S	Sc
+12	34774.216134000	t18193	S
+20	34774.217214000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000500080009	225
+10	34774.221037000	t18193	S	E
+10	34830.948572000	t18192	S	B
+10	34830.960771000	w2	WS	I
+10	34830.970662000	t18192	S	Po
+10	34830.973439000	t18192	S	B
+10	34830.978627000	t18192	S	C
+10	34830.979074000	t18192	S	B
+11	34830.979598000	t18192	S	Sc
+12	34830.980490000	t18192	S
+10	34830.990079000	t18192	S	Sc
+13	34830.992229000	sched	nready	3.000000
+13	34830.992229000	sched	nsubmitted	23.000000
+10	34830.993285000	t18192	S	B
+10	34830.993967000	t18192	S	Fi
+10	34830.995743000	t18192	S	B
+11	34830.996291000	t18192	S	Sc
+12	34830.996740000	t18192	S
+20	34830.997758000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000500060006	217
+10	34831.001268000	t18192	S	E
+10	35181.112375000	t18191	S	B
+10	35181.122628000	w1	WS	I
+10	35181.132447000	t18191	S	Po
+10	35181.135366000	t18191	S	B
+10	35181.140131000	t18191	S	C
+10	35181.140504000	t18191	S	B
+11	35181.141406000	t18191	S	Sc
+12	35181.142111000	t18191	S
+10	35181.152241000	t18191	S	Sc
+13	35181.154165000	sched	nready	2.000000
+13	35181.154165000	sched	nsubmitted	22.000000
+10	35181.155260000	t18191	S	B
+10	35181.155808000	t18191	S	Fi
+10	35181.157761000	t18191	S	B
+11	35181.158292000	t18191	S	Sc
+12	35181.158755000	t18191	S
+20	35181.159509000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000500060007	218
+10	35181.163393000	t18191	S	E
+10	35435.025952000	t18190	S	B
+10	35435.039012000	w0	WS	I
+10	35435.049638000	t18190	S	Po
+10	35435.052617000	t18190	S	B
+10	35435.058124000	t18190	S	C
+10	35435.058501000	t18190	S	B
+11	35435.059414000	t18190	S	Sc
+12	35435.060280000	t18190	S
+10	35435.070298000	t18190	S	Sc
+13	35435.072089000	sched	nready	1.000000
+13	35435.072089000	sched	nsubmitted	21.000000
+10	35435.073161000	t18190	S	B
+10	35435.073737000	t18190	S	Fi
+10	35435.075585000	t18190	S	B
+11	35435.076097000	t18190	S	Sc
+12	35435.076650000	t18190	S
+20	35435.077577000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000500060008	220
+10	35435.081445000	t18190	S	E
+10	35471.006322000	t18193	S	B
+10	35471.018835000	w3	WS	I
+10	35471.028604000	t18193	S	Po
+10	35471.030992000	t18193	S	B
+10	35471.036180000	t18193	S	C
+10	35471.036480000	t18193	S	B
+11	35471.037034000	t18193	S	Sc
+12	35471.037907000	t18193	S
+10	35471.049204000	t18193	S	Sc
+13	35471.051066000	sched	nready	0.000000
+13	35471.051066000	sched	nsubmitted	20.000000
+10	35471.052203000	t18193	S	B
+10	35471.053031000	t18193	S	Fi
+10	35471.054831000	t18193	S	B
+11	35471.055596000	t18193	S	Sc
+12	35471.056037000	t18193	S
+20	35471.057044000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000500060009	223
+10	35471.060853000	t18193	S	E
+10	35683.164017000	t18192	S	B
+10	35683.174565000	w2	WS	I
+10	35683.184055000	t18192	S	Po
+10	35683.186565000	t18192	S	B
+13	35683.194499000	sched	nready	1.000000
+11	35683.196934000	t18192	S	Sc
+12	35683.207078000	t18192	S
+10	35683.212124000	t18192	S	C
+10	35683.212332000	t18192	S	B
+11	35683.212692000	t18192	S	Sc
+12	35683.213095000	t18192	S
+10	35683.218651000	t18192	S	Sc
+10	35683.219988000	t18192	S	Sl
+10	35857.684950000	t18191	S	B
+10	35857.695655000	w1	WS	I
+10	35857.702620000	t18191	S	Po
+10	35857.704874000	t18191	S	B
+10	35857.715498000	t18191	S	C
+10	35857.715785000	t18191	S	B
+11	35857.716162000	t18191	S	Sc
+12	35857.716728000	t18191	S
+10	35857.720432000	t18191	S	Sc
+10	35857.721196000	t18191	S	Sl
+10	36098.660422000	t18190	S	B
+10	36098.671593000	w0	WS	I
+10	36098.678600000	t18190	S	Po
+10	36098.680808000	t18190	S	B
+10	36098.691681000	t18190	S	C
+10	36098.691929000	t18190	S	B
+11	36098.692293000	t18190	S	Sc
+12	36098.692815000	t18190	S
+10	36098.696606000	t18190	S	Sc
+13	36098.697360000	sched	nready	0.000000
+13	36098.697360000	sched	nsubmitted	19.000000
+10	36098.698003000	t18190	S	B
+10	36098.698462000	t18190	S	Fi
+10	36098.699846000	t18190	S	B
+11	36098.700493000	t18190	S	Sc
+12	36098.700908000	t18190	S
+20	36098.701576000	w0	WS	chol_model_11	3686400	M960x960x4	617e5fe6	1000000000000006	227
+10	36098.704275000	t18190	S	E
+10	36208.390494000	t18190	S	B
+10	36208.399963000	w0	WS	I
+10	36208.406507000	t18190	S	Po
+10	36208.408671000	t18190	S	B
+13	36208.414468000	sched	nready	1.000000
+11	36208.416791000	t18190	S	Sc
+12	36208.426697000	t18190	S
+13	36208.427527000	sched	nready	2.000000
+11	36208.427946000	t18190	S	Sc
+12	36208.432154000	t18190	S
+13	36208.432786000	sched	nready	1.000000
+13	36208.432786000	sched	nsubmitted	18.000000
+10	36208.433193000	t18190	S	C
+10	36208.433357000	t18190	S	B
+11	36208.433778000	t18190	S	Sc
+12	36208.434170000	t18190	S
+10	36208.434209000	t18191	S	B
+10	36208.435046000	t18191	S	Fi
+10	36208.436496000	t18191	S	B
+11	36208.437162000	t18191	S	Sc
+12	36208.437642000	t18191	S
+20	36208.438777000	w1	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000600000008	231
+10	36208.440539000	t18190	S	Sc
+13	36208.441179000	sched	nready	0.000000
+13	36208.441179000	sched	nsubmitted	17.000000
+10	36208.441650000	t18190	S	B
+10	36208.441953000	t18190	S	Fi
+10	36208.442692000	t18190	S	B
+10	36208.442940000	t18191	S	E
+11	36208.443017000	t18190	S	Sc
+12	36208.443394000	t18190	S
+20	36208.443915000	w0	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000600000007	229
+10	36208.446338000	t18190	S	E
+10	36413.832252000	t18193	S	B
+10	36413.844263000	w3	WS	I
+10	36413.852497000	t18193	S	Po
+10	36413.855760000	t18193	S	B
+13	36413.865819000	sched	nready	1.000000
+11	36413.868788000	t18193	S	Sc
+12	36413.881841000	t18193	S
+10	36413.888374000	t18193	S	C
+10	36413.888614000	t18193	S	B
+11	36413.889217000	t18193	S	Sc
+12	36413.889744000	t18193	S
+10	36413.894324000	t18193	S	Sc
+10	36413.895329000	t18193	S	Sl
+10	36611.466909000	t18190	S	B
+10	36611.475227000	w0	WS	I
+10	36611.481155000	t18190	S	Po
+10	36611.483045000	t18190	S	B
+13	36611.490410000	sched	nready	2.000000
+11	36611.492727000	t18190	S	Sc
+12	36611.502481000	t18190	S
+10	36611.503419000	t18190	S	C
+10	36611.503581000	t18190	S	B
+11	36611.504012000	t18190	S	Sc
+12	36611.504381000	t18190	S
+10	36611.509735000	t18190	S	Sc
+13	36611.510345000	sched	nready	1.000000
+13	36611.510345000	sched	nsubmitted	16.000000
+10	36611.511073000	t18190	S	B
+10	36611.511607000	t18190	S	Fi
+10	36611.512478000	t18190	S	B
+11	36611.513047000	t18190	S	Sc
+12	36611.513488000	t18190	S
+20	36611.514161000	w0	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000600000009	233
+10	36611.517065000	t18190	S	E
+10	36617.922997000	t18191	S	B
+10	36617.932749000	w1	WS	I
+10	36617.971442000	t18191	S	Po
+10	36617.974403000	t18191	S	B
+13	36617.984177000	sched	nready	2.000000
+11	36617.987210000	t18191	S	Sc
+12	36618.001865000	t18191	S
+13	36618.004428000	sched	nready	3.000000
+11	36618.005271000	t18191	S	Sc
+12	36618.012542000	t18191	S
+13	36618.013935000	sched	nready	2.000000
+13	36618.013935000	sched	nsubmitted	15.000000
+10	36618.013944000	t18191	S	C
+10	36618.014168000	t18191	S	B
+11	36618.014822000	t18191	S	Sc
+12	36618.015475000	t18191	S
+10	36618.015590000	t18192	S	B
+10	36618.016563000	t18192	S	Fi
+10	36618.018217000	t18192	S	B
+11	36618.018832000	t18192	S	Sc
+12	36618.019279000	t18192	S
+20	36618.020309000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000600080008	237
+10	36618.023558000	t18191	S	Sc
+13	36618.024223000	sched	nready	1.000000
+13	36618.024223000	sched	nsubmitted	14.000000
+10	36618.024634000	t18192	S	E
+10	36618.024758000	t18191	S	B
+10	36618.025092000	t18191	S	Fi
+10	36618.026090000	t18191	S	B
+11	36618.026379000	t18191	S	Sc
+12	36618.026746000	t18191	S
+20	36618.027259000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000600070008	236
+10	36618.030218000	t18191	S	E
+10	37056.177953000	t18190	S	B
+10	37056.188933000	w0	WS	I
+10	37056.196380000	t18190	S	Po
+10	37056.198562000	t18190	S	B
+13	37056.206487000	sched	nready	2.000000
+11	37056.209008000	t18190	S	Sc
+12	37056.221269000	t18190	S
+13	37056.222327000	sched	nready	1.000000
+13	37056.222327000	sched	nsubmitted	13.000000
+13	37056.222789000	sched	nready	2.000000
+11	37056.223291000	t18190	S	Sc
+10	37056.224169000	t18193	S	B
+10	37056.225069000	t18193	S	Fi
+10	37056.226813000	t18193	S	B
+12	37056.227224000	t18190	S
+11	37056.227569000	t18193	S	Sc
+12	37056.228057000	t18193	S
+13	37056.228476000	sched	nready	3.000000
+11	37056.228924000	t18190	S	Sc
+20	37056.229491000	w3	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000600070009	238
+12	37056.232667000	t18190	S
+10	37056.233423000	t18190	S	C
+10	37056.233637000	t18190	S	B
+11	37056.234101000	t18190	S	Sc
+12	37056.234418000	t18190	S
+10	37056.234775000	t18193	S	E
+10	37056.240700000	t18190	S	Sc
+13	37056.241447000	sched	nready	2.000000
+13	37056.241447000	sched	nsubmitted	12.000000
+10	37056.242079000	t18190	S	B
+10	37056.242382000	t18190	S	Fi
+10	37056.243308000	t18190	S	B
+11	37056.243601000	t18190	S	Sc
+12	37056.243961000	t18190	S
+20	37056.244431000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000600070007	235
+10	37056.247259000	t18190	S	E
+10	37362.921599000	t18191	S	B
+10	37362.934025000	w1	WS	I
+10	37362.944232000	t18191	S	Po
+10	37362.947256000	t18191	S	B
+10	37362.959735000	t18191	S	C
+10	37362.960043000	t18191	S	B
+11	37362.960465000	t18191	S	Sc
+12	37362.961173000	t18191	S
+10	37362.968290000	t18191	S	Sc
+13	37362.969756000	sched	nready	1.000000
+13	37362.969756000	sched	nsubmitted	11.000000
+10	37362.971181000	t18191	S	B
+10	37362.971683000	t18191	S	Fi
+10	37362.973421000	t18191	S	B
+11	37362.974119000	t18191	S	Sc
+12	37362.974573000	t18191	S
+20	37362.975388000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000600090009	240
+10	37362.980461000	t18191	S	E
+10	37510.266212000	t18192	S	B
+10	37510.279269000	w2	WS	I
+10	37510.290968000	t18192	S	Po
+10	37510.294117000	t18192	S	B
+10	37510.300527000	t18192	S	C
+10	37510.300905000	t18192	S	B
+11	37510.301637000	t18192	S	Sc
+12	37510.302790000	t18192	S
+10	37510.314953000	t18192	S	Sc
+13	37510.317040000	sched	nready	0.000000
+13	37510.317040000	sched	nsubmitted	10.000000
+10	37510.318456000	t18192	S	B
+10	37510.319104000	t18192	S	Fi
+10	37510.321528000	t18192	S	B
+11	37510.322219000	t18192	S	Sc
+12	37510.322784000	t18192	S
+20	37510.324004000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000600080009	239
+10	37510.329246000	t18192	S	E
+10	37735.667728000	t18193	S	B
+10	37735.679812000	w3	WS	I
+10	37735.691173000	t18193	S	Po
+10	37735.694352000	t18193	S	B
+10	37735.708059000	t18193	S	C
+10	37735.708490000	t18193	S	B
+11	37735.708893000	t18193	S	Sc
+12	37735.709811000	t18193	S
+10	37735.716243000	t18193	S	Sc
+10	37735.718235000	t18193	S	Sl
+10	37911.525658000	t18190	S	B
+10	37911.536086000	w0	WS	I
+10	37911.543404000	t18190	S	Po
+10	37911.545644000	t18190	S	B
+13	37911.553708000	sched	nready	1.000000
+11	37911.555974000	t18190	S	Sc
+12	37911.566331000	t18190	S
+10	37911.571006000	t18190	S	C
+10	37911.571256000	t18190	S	B
+11	37911.571603000	t18190	S	Sc
+12	37911.571992000	t18190	S
+10	37911.575285000	t18190	S	Sc
+13	37911.576110000	sched	nready	0.000000
+13	37911.576110000	sched	nsubmitted	9.000000
+10	37911.576680000	t18190	S	B
+10	37911.577006000	t18190	S	Fi
+10	37911.577701000	t18190	S	B
+11	37911.578399000	t18190	S	Sc
+12	37911.578902000	t18190	S
+20	37911.579607000	w0	WS	chol_model_11	3686400	M960x960x4	617e5fe6	1000000000000007	241
+10	37911.582330000	t18190	S	E
+10	38023.957010000	t18190	S	B
+10	38023.967158000	w0	WS	I
+10	38023.974900000	t18190	S	Po
+10	38023.976825000	t18190	S	B
+13	38023.983343000	sched	nready	1.000000
+11	38023.985665000	t18190	S	Sc
+12	38023.995840000	t18190	S
+13	38023.997177000	sched	nready	2.000000
+11	38023.997648000	t18190	S	Sc
+12	38024.001240000	t18190	S
+10	38024.001844000	t18190	S	C
+10	38024.002150000	t18190	S	B
+11	38024.002507000	t18190	S	Sc
+12	38024.002883000	t18190	S
+10	38024.009491000	t18190	S	Sc
+13	38024.010205000	sched	nready	1.000000
+13	38024.010205000	sched	nsubmitted	8.000000
+10	38024.010985000	t18190	S	B
+10	38024.011580000	t18190	S	Fi
+10	38024.012532000	t18190	S	B
+11	38024.013140000	t18190	S	Sc
+12	38024.013536000	t18190	S
+20	38024.014254000	w0	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000700000008	243
+10	38024.017155000	t18190	S	E
+10	38240.606147000	t18192	S	B
+10	38240.620737000	w2	WS	I
+10	38240.630742000	t18192	S	Po
+10	38240.634218000	t18192	S	B
+10	38240.640121000	t18192	S	C
+10	38240.640477000	t18192	S	B
+11	38240.641149000	t18192	S	Sc
+12	38240.642027000	t18192	S
+10	38240.651692000	t18192	S	Sc
+10	38240.653175000	t18192	S	Sl
+10	38302.007056000	t18191	S	B
+10	38302.019689000	w1	WS	I
+10	38302.027600000	t18191	S	Po
+10	38302.030623000	t18191	S	B
+10	38302.035512000	t18191	S	C
+10	38302.035874000	t18191	S	B
+11	38302.036453000	t18191	S	Sc
+12	38302.037112000	t18191	S
+10	38302.045378000	t18191	S	Sc
+13	38302.046228000	sched	nready	0.000000
+13	38302.046228000	sched	nsubmitted	7.000000
+10	38302.047119000	t18191	S	B
+10	38302.047801000	t18191	S	Fi
+10	38302.049890000	t18191	S	B
+11	38302.050638000	t18191	S	Sc
+12	38302.051179000	t18191	S
+20	38302.052182000	w1	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000700000009	245
+10	38302.056443000	t18191	S	E
+10	38428.297157000	t18190	S	B
+10	38428.307328000	w0	WS	I
+10	38428.349642000	t18190	S	Po
+10	38428.352122000	t18190	S	B
+13	38428.360487000	sched	nready	1.000000
+11	38428.363163000	t18190	S	Sc
+12	38428.374907000	t18190	S
+10	38428.376026000	t18190	S	C
+10	38428.376158000	t18190	S	B
+11	38428.376687000	t18190	S	Sc
+12	38428.377033000	t18190	S
+10	38428.383345000	t18190	S	Sc
+13	38428.384020000	sched	nready	0.000000
+13	38428.384020000	sched	nsubmitted	6.000000
+10	38428.384596000	t18190	S	B
+10	38428.384954000	t18190	S	Fi
+10	38428.385926000	t18190	S	B
+11	38428.386504000	t18190	S	Sc
+12	38428.386926000	t18190	S
+20	38428.387669000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000700080008	247
+10	38428.390705000	t18190	S	E
+10	38697.652209000	t18191	S	B
+10	38697.663170000	w1	WS	I
+10	38697.671091000	t18191	S	Po
+10	38697.673185000	t18191	S	B
+13	38697.681817000	sched	nready	1.000000
+11	38697.684377000	t18191	S	Sc
+12	38697.696099000	t18191	S
+13	38697.697779000	sched	nready	2.000000
+11	38697.698296000	t18191	S	Sc
+12	38697.702695000	t18191	S
+10	38697.703340000	t18191	S	C
+10	38697.703495000	t18191	S	B
+11	38697.703980000	t18191	S	Sc
+13	38697.704027000	sched	nready	1.000000
+13	38697.704027000	sched	nsubmitted	5.000000
+12	38697.704384000	t18191	S
+10	38697.705865000	t18192	S	B
+10	38697.706967000	t18192	S	Fi
+10	38697.708947000	t18192	S	B
+11	38697.709971000	t18192	S	Sc
+12	38697.710665000	t18192	S
+10	38697.711436000	t18191	S	Sc
+20	38697.711944000	w2	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000700090009	249
+13	38697.712164000	sched	nready	0.000000
+13	38697.712164000	sched	nsubmitted	4.000000
+10	38697.712566000	t18191	S	B
+10	38697.712885000	t18191	S	Fi
+10	38697.713839000	t18191	S	B
+11	38697.714141000	t18191	S	Sc
+12	38697.714513000	t18191	S
+20	38697.715147000	w1	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000700080009	248
+10	38697.718050000	t18192	S	E
+10	38697.718091000	t18191	S	E
+10	39250.984797000	t18190	S	B
+10	39250.994872000	w0	WS	I
+10	39251.002467000	t18190	S	Po
+10	39251.004847000	t18190	S	B
+13	39251.012348000	sched	nready	1.000000
+11	39251.014771000	t18190	S	Sc
+12	39251.025942000	t18190	S
+10	39251.031731000	t18190	S	C
+10	39251.031947000	t18190	S	B
+11	39251.032331000	t18190	S	Sc
+12	39251.032750000	t18190	S
+10	39251.036510000	t18190	S	Sc
+13	39251.037225000	sched	nready	0.000000
+13	39251.037225000	sched	nsubmitted	3.000000
+10	39251.037798000	t18190	S	B
+10	39251.038181000	t18190	S	Fi
+10	39251.039113000	t18190	S	B
+11	39251.039686000	t18190	S	Sc
+12	39251.040185000	t18190	S
+20	39251.040992000	w0	WS	chol_model_11	3686400	M960x960x4	617e5fe6	1000000000000008	250
+10	39251.043831000	t18190	S	E
+10	39364.821157000	t18190	S	B
+10	39364.831725000	w0	WS	I
+10	39364.890302000	t18190	S	Po
+10	39364.892676000	t18190	S	B
+10	39364.896090000	t18190	S	C
+10	39364.896428000	t18190	S	B
+11	39364.896883000	t18190	S	Sc
+12	39364.897481000	t18190	S
+10	39364.905943000	t18190	S	Sc
+10	39364.907152000	t18190	S	Sl
+10	39379.334141000	t18191	S	B
+10	39379.344794000	w1	WS	I
+10	39379.352341000	t18191	S	Po
+10	39379.354737000	t18191	S	B
+13	39379.363088000	sched	nready	1.000000
+11	39379.365282000	t18191	S	Sc
+12	39379.379159000	t18191	S
+13	39379.380056000	sched	nready	0.000000
+13	39379.380056000	sched	nsubmitted	2.000000
+10	39379.381599000	t18190	S	B
+10	39379.383227000	t18190	S	Fi
+10	39379.384523000	t18190	S	B
+10	39379.384766000	t18191	S	C
+10	39379.384981000	t18191	S	B
+11	39379.385162000	t18190	S	Sc
+11	39379.385341000	t18191	S	Sc
+12	39379.385670000	t18191	S
+12	39379.385712000	t18190	S
+20	39379.386694000	w0	WS	chol_model_21	7372800	M960x960x4_M960x960x4	ff82dda0	3000000800000009	252
+10	39379.389138000	t18191	S	Sc
+10	39379.389879000	t18191	S	Sl
+10	39379.390843000	t18190	S	E
+10	39711.476435000	t18192	S	B
+10	39711.487250000	w2	WS	I
+10	39711.493493000	t18192	S	Po
+10	39711.495638000	t18192	S	B
+10	39711.500005000	t18192	S	C
+10	39711.500455000	t18192	S	B
+11	39711.500909000	t18192	S	Sc
+12	39711.501437000	t18192	S
+10	39711.507636000	t18192	S	Sc
+10	39711.508437000	t18192	S	Sl
+10	39772.423370000	t18190	S	B
+10	39772.431659000	w0	WS	I
+10	39772.437658000	t18190	S	Po
+10	39772.439397000	t18190	S	B
+13	39772.446552000	sched	nready	1.000000
+11	39772.448707000	t18190	S	Sc
+12	39772.458624000	t18190	S
+10	39772.459230000	t18190	S	C
+10	39772.459453000	t18190	S	B
+11	39772.459832000	t18190	S	Sc
+12	39772.460196000	t18190	S
+10	39772.465488000	t18190	S	Sc
+13	39772.466149000	sched	nready	0.000000
+13	39772.466149000	sched	nsubmitted	1.000000
+10	39772.466612000	t18190	S	B
+10	39772.466954000	t18190	S	Fi
+10	39772.467754000	t18190	S	B
+11	39772.468301000	t18190	S	Sc
+12	39772.468754000	t18190	S
+20	39772.469427000	w0	WS	chol_model_22	11059200	M960x960x4_M960x960x4_M960x960x4	24c84a50	4000000800090009	254
+10	39772.472381000	t18190	S	E
+10	40586.976894000	t18190	S	B
+10	40586.988861000	w0	WS	I
+10	40586.996285000	t18190	S	Po
+10	40586.999340000	t18190	S	B
+13	40587.008024000	sched	nready	1.000000
+11	40587.010827000	t18190	S	Sc
+12	40587.024029000	t18190	S
+10	40587.030289000	t18190	S	C
+10	40587.030649000	t18190	S	B
+11	40587.031198000	t18190	S	Sc
+12	40587.031729000	t18190	S
+10	40587.036135000	t18190	S	Sc
+13	40587.037037000	sched	nready	0.000000
+13	40587.037037000	sched	nsubmitted	0.000000
+10	40587.037793000	t18190	S	B
+10	40587.038244000	t18190	S	Fi
+10	40587.039323000	t18190	S	B
+11	40587.039998000	t18190	S	Sc
+12	40587.040534000	t18190	S
+20	40587.041479000	w0	WS	chol_model_11	3686400	M960x960x4	617e5fe6	1000000000000009	255
+10	40587.045183000	t18190	S	E
+10	40704.467181000	t18190	S	B
+10	40704.475435000	w0	WS	I
+10	40704.480828000	t18190	S	Po
+10	40704.482370000	t18190	S	B
+10	40704.485453000	t18190	S	C
+10	40704.485726000	t18190	S	B
+11	40704.486116000	t18190	S	Sc
+12	40704.486651000	t18190	S
+10	40704.495333000	t18190	S	Sc
+10	40704.496150000	t18190	S	Sl
+9	40704.498590000	prog_event	p	stop_profiling
