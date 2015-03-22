@@ -14,8 +14,10 @@
     You should have received a copy of the GNU Public License
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
+#include <iomanip>
 #include "PajeProbabilisticSimulator.h"
 
+extern int dumpFloatingPointPrecision;
 
 PajeProbabilisticSimulator::PajeProbabilisticSimulator (char *filteredTypeName) : PajeSimulator()
 {
@@ -74,6 +76,7 @@ void PajeProbabilisticSimulator::reportCurrentState (double start, double end)
 	  if (entity->type()){
 	    if (entity->type()->name() == filter){
 	      std::cout << ",";
+	      std::cout << std::fixed << std::setprecision (dumpFloatingPointPrecision);
 	      std::cout << (entity->container()? entity->container()->name() : "NULL") << "/";
 	      std::cout << (entity->type()? entity->type()->name() : "NULL") << "/";
 	      if (dynamic_cast<PajeUserVariable*>(entity)){
