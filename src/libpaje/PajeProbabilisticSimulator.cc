@@ -42,7 +42,8 @@ void PajeProbabilisticSimulator::setLastKnownTime (PajeTraceEvent *event)
 
 void PajeProbabilisticSimulator::reportCurrentState (double start, double end)
 {
-  std::cout << start << "," << end;
+  std::cout << std::fixed << std::setprecision (dumpFloatingPointPrecision) << start << "," << end << ",";
+  std::cout << end-start;
 
   std::vector<PajeContainer*> stack;
   stack.push_back (this->rootInstance());
