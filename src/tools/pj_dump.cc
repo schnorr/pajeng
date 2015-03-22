@@ -35,6 +35,7 @@ static struct argp_option options[] = {
   {"flex", 'f', 0, OPTION_ARG_OPTIONAL, "Use flex-based file reader"},
   {"user-defined", 'u', 0, OPTION_ARG_OPTIONAL, "Dump user-defined fields"},
   {"probabilistic", 'p', "TYPENAME", 0, "Dump global states based on TYPENAME"},
+  {"time-precision", 't', "PRECISION", 0, "Precision of floating point numbers"},
   { 0 }
 };
 
@@ -48,6 +49,7 @@ struct arguments {
   int flex;
   int userDefined;
   char *probabilistic;
+  int floatPrecision;
 };
 
 static error_t parse_options (int key, char *arg, struct argp_state *state)
@@ -63,6 +65,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
   case 'f': arguments->flex = 1; break;
   case 'u': arguments->userDefined = 1; break;
   case 'p': arguments->probabilistic = strdup(arg); break;
+  case 't': arguments->floatPrecision = atoi(arg); break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
       /* Too many arguments. */
