@@ -39,6 +39,7 @@ typedef enum {
   PajeSubVariableEventId,
   PajeStartLinkEventId,
   PajeEndLinkEventId,
+  PajeTraceFileEventId,
   PajeEventIdCount,
   PajeUnknownEventId,
 } PajeEventId;
@@ -59,6 +60,7 @@ typedef enum {
   PAJE_Color,
   PAJE_Line,
   PAJE_File,
+  PAJE_Filename,
   PAJE_Extra, //for user-defined fields
   PAJE_Unknown_Field
 } PajeField;

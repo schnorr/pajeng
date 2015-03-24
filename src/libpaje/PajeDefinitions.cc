@@ -57,6 +57,7 @@ void PajeDefinitions::initialize (bool strict)
   eventNames.insert (event_names_dictionary_t::relation ("PajeSubVariable", PajeSubVariableEventId));
   eventNames.insert (event_names_dictionary_t::relation ("PajeStartLink", PajeStartLinkEventId));
   eventNames.insert (event_names_dictionary_t::relation ("PajeEndLink", PajeEndLinkEventId));
+  eventNames.insert (event_names_dictionary_t::relation ("PajeTraceFile", PajeTraceFileEventId));
 
   //map from field names to internal reference
   fieldNameToID.insert (std::pair<std::string,PajeField>("Event", PAJE_Event));
@@ -74,6 +75,7 @@ void PajeDefinitions::initialize (bool strict)
   fieldNameToID.insert (std::pair<std::string,PajeField>("Color", PAJE_Color));
   fieldNameToID.insert (std::pair<std::string,PajeField>("Line", PAJE_Line));
   fieldNameToID.insert (std::pair<std::string,PajeField>("File", PAJE_File));
+  fieldNameToID.insert (std::pair<std::string,PajeField>("Filename", PAJE_Filename));
   if (strict == false){ //old field names (don't use them)
     fieldNameToID.insert (std::pair<std::string,PajeField>("ContainerType", PAJE_Type));
     fieldNameToID.insert (std::pair<std::string,PajeField>("EntityType", PAJE_Type));
@@ -99,6 +101,7 @@ void PajeDefinitions::initialize (bool strict)
   idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Color             ,"Color"              ));
   idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Line              ,"Line"               ));
   idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_File              ,"File"               ));
+  idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Filename          ,"Filename"           ));
   if (strict == false){ //old field names (don't use them)
     idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Type              ,"ContainerType"       ));
     idToFieldName.insert (std::pair<PajeField,std::string>(PAJE_Type              ,"EntityType"          ));
@@ -234,6 +237,11 @@ void PajeDefinitions::initialize (bool strict)
   obligatoryFields[PajeEndLinkEventId].insert (PAJE_Value);
   obligatoryFields[PajeEndLinkEventId].insert (PAJE_EndContainer);
   obligatoryFields[PajeEndLinkEventId].insert (PAJE_Key);
+
+  obligatoryFields[PajeTraceFileEventId] = std::set<PajeField>();
+  obligatoryFields[PajeTraceFileEventId].insert (PAJE_Container);
+  obligatoryFields[PajeTraceFileEventId].insert (PAJE_Type);
+  obligatoryFields[PajeTraceFileEventId].insert (PAJE_Filename);
 
   // The optional fields
   optionalFields[PajeDefineContainerTypeEventId] = std::set<PajeField>();
