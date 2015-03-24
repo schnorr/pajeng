@@ -1041,7 +1041,9 @@ void PajeSimulator::pajeEndLink (PajeTraceEvent *traceEvent)
   container->demuxer (&event);
 }
 
-void PajeSimulator::pajeTraceFile (PajeTraceEvent *event)
+void PajeSimulator::pajeTraceFile (PajeTraceEvent *traceEvent)
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::string containerstr = traceEvent->valueForField (PAJE_Container);
+  std::string typestr = traceEvent->valueForField (PAJE_Type);
+  std::string filename = traceEvent->valueForField (PAJE_Filename);
 }
