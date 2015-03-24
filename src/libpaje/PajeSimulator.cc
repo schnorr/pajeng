@@ -60,6 +60,7 @@ void PajeSimulator::init (void)
   invocation[PajeSubVariableEventId] = &PajeSimulator::pajeSubVariable;
   invocation[PajeStartLinkEventId] = &PajeSimulator::pajeStartLink;
   invocation[PajeEndLinkEventId] = &PajeSimulator::pajeEndLink;
+  invocation[PajeTraceFileEventId] = &PajeSimulator::pajeTraceFile;
   rootType = new PajeContainerType ("0", "0", NULL);
   root = new PajeContainer (0, "0", "0", NULL, rootType, NULL);
   typeMap[rootType->identifier()] = rootType;
@@ -1038,4 +1039,9 @@ void PajeSimulator::pajeEndLink (PajeTraceEvent *traceEvent)
 
   PajeEndLinkEvent event (traceEvent, container, type, val, endcontainer, key);
   container->demuxer (&event);
+}
+
+void PajeSimulator::pajeTraceFile (PajeTraceEvent *event)
+{
+  std::cout << __FUNCTION__ << std::endl;
 }

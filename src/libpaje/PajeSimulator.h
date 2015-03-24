@@ -97,6 +97,8 @@ private:
   void pajeStartLink (PajeTraceEvent *event);
   void pajeEndLink (PajeTraceEvent *event);
 
+  void pajeTraceFile (PajeTraceEvent *event); //suport for multiple files
+
 public:
   //commands
   void setSelectionStartEndTime (double start, double end);
