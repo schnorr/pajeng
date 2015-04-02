@@ -20,6 +20,7 @@
 #include <exception>
 #include "PajeUnity.h"
 #include <argp.h>
+#include "libpaje_config.h"
 
 #define VALIDATE_INPUT_SIZE 2
 static char doc[] = "Checks if FILE, or standard input, strictly follows the Paje file format definition";
@@ -30,6 +31,7 @@ static struct argp_option options[] = {
   {"quiet", 'q', 0, OPTION_ARG_OPTIONAL, "Be quiet"},
   {"time", 't', 0, OPTION_ARG_OPTIONAL, "Print number of seconds to simulate input"},
   {"flex", 'f', 0, OPTION_ARG_OPTIONAL, "Use flex-based file reader"},
+  {"version", 'v', 0, OPTION_ARG_OPTIONAL, "Print version of this binary"},
   { 0 }
 };
 
@@ -50,6 +52,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
   case 't': arguments->time = 1; break;
   case 'q': arguments->quiet = 1; break;
   case 'f': arguments->flex = 1; break;
+  case 'v': printf("%s\n", LIBPAJE_VERSION_STRING); exit(0); break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
       /* Too many arguments. */

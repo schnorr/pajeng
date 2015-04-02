@@ -21,6 +21,7 @@
 #include <exception>
 #include "PajeUnity.h"
 #include <argp.h>
+#include "libpaje_config.h"
 
 extern int dumpFloatingPointPrecision;
 
@@ -39,6 +40,7 @@ static struct argp_option options[] = {
   {"user-defined", 'u', 0, OPTION_ARG_OPTIONAL, "Dump user-defined fields"},
   {"probabilistic", 'p', "TYPENAME", 0, "Dump global states based on TYPENAME"},
   {"float-precision", 'l', "PRECISION", 0, "Precision of floating point numbers"},
+  {"version", 'v', 0, OPTION_ARG_OPTIONAL, "Print version of this binary"},
   { 0 }
 };
 
@@ -68,6 +70,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
   case 'u': arguments->userDefined = 1; break;
   case 'p': arguments->probabilistic = strdup(arg); break;
   case 'l': dumpFloatingPointPrecision = atoi(arg); break;
+  case 'v': printf("%s\n", LIBPAJE_VERSION_STRING); exit(0); break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
       /* Too many arguments. */

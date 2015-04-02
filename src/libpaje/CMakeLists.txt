@@ -98,3 +98,66 @@ ELSE(STATIC_LINKING)
   CONFIGURE_FILE (libpaje.pc.cmake libpaje.pc @ONLY)
   INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/libpaje.pc DESTINATION ${LIB_INSTALL_DIR}/pkgconfig)
 ENDIF(STATIC_LINKING)
+
+#### VERSION CHECK
+
+###############
+## GIT version check
+##
+if(EXISTS ${CMAKE_HOME_DIRECTORY}/.git/)
+  execute_process(COMMAND git remote
+  COMMAND head -n 1
+  WORKING_DIRECTORY ${CMAKE_HOME_DIRECTORY}/.git/
+  OUTPUT_VARIABLE remote
+  RESULT_VARIABLE ret
+  )
+  string(REPLACE "\n" "" remote "${remote}")
+  execute_process(COMMAND git config --get remote.${remote}.url
+  WORKING_DIRECTORY ${CMAKE_HOME_DIRECTORY}/.git/
+  OUTPUT_VARIABLE url
+  RESULT_VARIABLE ret
+  )
+  string(REPLACE "\n" "" url "${url}")
+  #message(STATUS "Git url: ${url}")
+  if(url)
+    execute_process(COMMAND git --git-dir=${CMAKE_HOME_DIRECTORY}/.git log --pretty=oneline --abbrev-commit -1
+    WORKING_DIRECTORY ${CMAKE_HOME_DIRECTORY}/.git/
+    OUTPUT_VARIABLE GIT_VERSION
+    RESULT_VARIABLE ret
+    )
+    string(REPLACE "\n" "" GIT_VERSION "${GIT_VERSION}")
+    message(STATUS "Git version: ${GIT_VERSION}")
+    execute_process(COMMAND git --git-dir=${CMAKE_HOME_DIRECTORY}/.git log -n 1 --pretty=format:%ai .
+    WORKING_DIRECTORY ${CMAKE_HOME_DIRECTORY}/.git/
+    OUTPUT_VARIABLE GIT_DATE
+    RESULT_VARIABLE ret
+    )
+    string(REPLACE "\n" "" GIT_DATE "${GIT_DATE}")
+    message(STATUS "Git date: ${GIT_DATE}")
+    string(REGEX REPLACE " .*" "" GIT_VERSION "${GIT_VERSION}")
+
+    execute_process(COMMAND git --git-dir=${CMAKE_HOME_DIRECTORY}/.git log --pretty=format:%H -1
+                    WORKING_DIRECTORY ${CMAKE_HOME_DIRECTORY}/.git/
+                    OUTPUT_VARIABLE LIBPAJE_GITHASH
+                    RESULT_VARIABLE ret
+                    )
+    string(REPLACE "\n" "" LIBPAJE_GITHASH "${LIBPAJE_GITHASH}")
+
+  endif()
+elseif(EXISTS ${CMAKE_HOME_DIRECTORY}/.gitversion)
+  FILE(STRINGS ${CMAKE_HOME_DIRECTORY}/.gitversion GIT_VERSION)
+endif()
+
+if(release)
+  set(LIBPAJE_VERSION_STRING "${LIBPAJE_VERSION_STRING}\\nRelease build")
+else()
+  set(LIBPAJE_VERSION_STRING "${LIBPAJE_VERSION_STRING}\\nDevelopment build")
+endif()
+if(GIT_VERSION)
+  set(LIBPAJE_VERSION_STRING "${LIBPAJE_VERSION_STRING} at commit ${GIT_VERSION}")
+endif()
+if(GIT_DATE)
+  set(LIBPAJE_VERSION_STRING "${LIBPAJE_VERSION_STRING} (${GIT_DATE})")
+endif()
+
+configure_file("${CMAKE_HOME_DIRECTORY}/src/libpaje/libpaje_config.h.in" "${CMAKE_BINARY_DIR}/libpaje_config.h" @ONLY IMMEDIATE)
