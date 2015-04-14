@@ -19,6 +19,7 @@
 #include <boost/bimap.hpp>
 #include <string>
 #include <map>
+#include <set>
 
 typedef enum {
   PajeDefineContainerTypeEventId,
