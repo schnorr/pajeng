@@ -20,62 +20,7 @@
 #include <string>
 #include <map>
 #include <set>
-
-typedef enum {
-  PajeDefineContainerTypeEventId,
-  PajeDefineEventTypeEventId,
-  PajeDefineStateTypeEventId,
-  PajeDefineVariableTypeEventId,
-  PajeDefineLinkTypeEventId,
-  PajeDefineEntityValueEventId,
-  PajeCreateContainerEventId,
-  PajeDestroyContainerEventId,
-  PajeNewEventEventId,
-  PajeSetStateEventId,
-  PajePushStateEventId,
-  PajePopStateEventId,
-  PajeResetStateEventId,
-  PajeSetVariableEventId,
-  PajeAddVariableEventId,
-  PajeSubVariableEventId,
-  PajeStartLinkEventId,
-  PajeEndLinkEventId,
-  PajeTraceFileEventId,
-  PajeEventIdCount,
-  PajeUnknownEventId,
-} PajeEventId;
-
-typedef enum {
-  PAJE_Event,
-  PAJE_Time,
-  PAJE_Name,
-  PAJE_Type,
-  PAJE_Container,
-  PAJE_StartContainerType,
-  PAJE_EndContainerType,
-  PAJE_StartContainer,
-  PAJE_EndContainer,
-  PAJE_Value,
-  PAJE_Key,
-  PAJE_Alias,
-  PAJE_Color,
-  PAJE_Line,
-  PAJE_File,
-  PAJE_Filename,
-  PAJE_Extra, //for user-defined fields
-  PAJE_Unknown_Field
-} PajeField;
-
-typedef enum {
-  PAJE_string,
-  PAJE_float,
-  PAJE_double,
-  PAJE_int,
-  PAJE_hex,
-  PAJE_date,
-  PAJE_color,
-  PAJE_unknown_field_type
-} PajeFieldType;
+#include "PajeEnum.h"
 
 typedef boost::bimap<std::string,PajeEventId> event_names_dictionary_t;
 typedef boost::bimap<std::string,PajeFieldType> field_names_type_dictionary_t;

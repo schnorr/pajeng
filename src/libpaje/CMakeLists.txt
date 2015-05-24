@@ -41,6 +41,7 @@ SET(LIBPAJE_HEADERS
   PajeDefinitions.h
   PajeFlexReader.h
   PajeUnity.h
+  PajeEnum.h
 )
 SET(LIBPAJE_SOURCES
   PajeEventDefinition.cc
