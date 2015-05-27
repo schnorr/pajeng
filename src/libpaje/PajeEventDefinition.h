@@ -28,13 +28,7 @@
 #include <list>
 #include <vector>
 #include "PajeDefinitions.h"
-
-#define PAJE_MAX_FIELDS 20
-typedef struct {
-    char *word[PAJE_MAX_FIELDS];
-    int word_count;
-    long long lineNumber;
-} paje_line;
+#include "PajeEnum.h"
 
 class PajeEventDefinition {
  public:  PajeEventId pajeEventIdentifier;

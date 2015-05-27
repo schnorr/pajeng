@@ -17,6 +17,13 @@
 #ifndef __PAJE_ENUM_H__
 #define __PAJE_ENUM_H__
 
+#define PAJE_MAX_FIELDS 20
+typedef struct {
+    char *word[PAJE_MAX_FIELDS];
+    int word_count;
+    long long lineNumber;
+} paje_line;
+
 typedef enum {
   PajeDefineContainerTypeEventId,
   PajeDefineEventTypeEventId,
