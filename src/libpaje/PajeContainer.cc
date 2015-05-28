@@ -161,7 +161,7 @@ bool PajeContainer::isContainer (void) const
   return true;
 }
 
-std::string PajeContainer::identifier ()
+const std::string &PajeContainer::identifier ()
 {
   return _alias.empty() ? name() : _alias;
 }

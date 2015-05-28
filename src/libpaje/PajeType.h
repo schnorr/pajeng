@@ -37,6 +37,16 @@ typedef enum {
   PAJE_LinkType,
   PAJE_UndefinedType} PajeTypeNature;
 
+static const std::map<PajeTypeNature, std::string> PajeTypeNatureIds =
+{
+  {PAJE_ContainerType, "Container"},
+  {PAJE_VariableType, "Variable"},
+  {PAJE_StateType, "State"},
+  {PAJE_EventType, "Event"},
+  {PAJE_LinkType, "Link"},
+  {PAJE_UndefinedType, "Unknown"}
+};
+
 class PajeType : public PajeObject {
 protected:
   std::string _name;
@@ -47,12 +57,12 @@ protected:
 public:
   PajeType (std::string name, std::string alias, PajeType *parent);
   ~PajeType ();
-  std::string name (void) const;
-  std::string alias (void) const;
+  const std::string &name (void) const;
+  const std::string &alias (void) const;
   int depth (void) const;
   PajeType *parent (void) const;
-  std::string identifier (void) const;
-  std::string kind (void) const;
+  const std::string &identifier (void) const;
+  const std::string &kind (void) const;
   virtual bool isCategorizedType (void) const;
   virtual PajeValue *addValue (std::string alias, std::string value, PajeColor *color);
   virtual PajeValue *valueForIdentifier (std::string identifier);
@@ -156,7 +166,7 @@ public:
   PajeColor *color (void) const;
   PajeType *type (void) const;
   PajeValue *value (void) const;
-  std::string name (void) const;
+  const std::string &name (void) const;
 };
 
 struct PajeAggregatedTypeCompare {

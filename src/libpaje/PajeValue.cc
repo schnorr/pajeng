@@ -29,17 +29,17 @@ PajeColor *PajeValue::color (void)
   return _color;
 }
 
-std::string PajeValue::name (void)
+const std::string &PajeValue::name (void)
 {
   return _name;
 }
 
-std::string PajeValue::alias (void)
+const std::string &PajeValue::alias (void)
 {
   return _alias;
 }
 
-std::string PajeValue::identifier (void)
+const std::string &PajeValue::identifier (void)
 {
   if (alias().empty()){
     return _name;

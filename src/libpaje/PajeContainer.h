@@ -56,7 +56,7 @@ public:
   ~PajeContainer ();
   int numberOfEntities (void); //recursive
   std::string description (void) const;
-  std::string identifier (void);
+  const std::string &identifier (void);
   bool isContainer (void) const;
   PajeContainer *getRoot (void);
   std::vector<PajeContainer*> getChildren (void);
