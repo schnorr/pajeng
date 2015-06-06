@@ -43,7 +43,7 @@ class PajeFlexReader : public PajeComponent {
   PajeFlexReader(PajeDefinitions *definitions);
   ~PajeFlexReader();
 
-  bool hasMoreData();
+  bool hasMoreData() const;
   void readNextChunk();
 
  private:

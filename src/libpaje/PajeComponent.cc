@@ -71,7 +71,7 @@ void PajeComponent::startReading (void)
   }
 }
 
-bool PajeComponent::hasMoreData (void)
+bool PajeComponent::hasMoreData (void) const
 {
   return true;
 }
@@ -152,122 +152,125 @@ void PajeComponent::setSelectionStartEndTime (double start, double end)
 }
 
 //queries
-PajeContainer *PajeComponent::rootInstance (void)
+PajeContainer *PajeComponent::rootInstance (void) const
 {
-  if (inputComponent) return inputComponent->rootInstance ();
-  else return NULL;
+  if (inputComponent) {
+    return inputComponent->rootInstance ();
+  } else {
+    return NULL;
+  }
 }
 
-PajeType *PajeComponent::rootEntityType (void)
+PajeType *PajeComponent::rootEntityType (void) const
 {
   if (inputComponent) return inputComponent->rootEntityType ();
   else return NULL;
 }
 
-std::vector<PajeType*> PajeComponent::containedTypesForContainerType (PajeType *type)
+std::vector<PajeType*> PajeComponent::containedTypesForContainerType (PajeType *type) const
 {
   std::vector<PajeType*> empty;
   if (inputComponent) return inputComponent->containedTypesForContainerType (type);
   else return empty;
 }
 
-std::vector<PajeContainer*> PajeComponent::enumeratorOfContainersInContainer (PajeContainer *container)
+std::vector<PajeContainer*> PajeComponent::enumeratorOfContainersInContainer (PajeContainer *container) const
 {
   std::vector<PajeContainer*> empty;
   if (inputComponent) return inputComponent->enumeratorOfContainersInContainer (container);
   else return empty;
 }
 
-std::vector<PajeContainer*> PajeComponent::enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container)
+std::vector<PajeContainer*> PajeComponent::enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container) const
 {
   std::vector<PajeContainer*> empty;
   if (inputComponent) return inputComponent->enumeratorOfContainersTypedInContainer (type, container);
   else return empty;
 }
 
-std::vector<PajeEntity*>  PajeComponent::enumeratorOfEntitiesTypedInContainer (PajeType *type, PajeContainer *container, double start, double end)
+std::vector<PajeEntity*>  PajeComponent::enumeratorOfEntitiesTypedInContainer (PajeType *type, PajeContainer *container, double start, double end) const
 {
   std::vector<PajeEntity*> empty;
   if (inputComponent) return inputComponent->enumeratorOfEntitiesTypedInContainer (type, container, start, end);
   else return empty;
 }
 
-bool PajeComponent::isContainerType (PajeType *type)
+bool PajeComponent::isContainerType (PajeType *type) const
 {
   if (inputComponent) return inputComponent->isContainerType (type);
   else return false;
 }
 
-double PajeComponent::startTime (void)
+double PajeComponent::startTime (void)  const
 {
   if (inputComponent) return inputComponent->startTime ();
   else return -1;
 }
 
-double PajeComponent::endTime (void)
+double PajeComponent::endTime (void)  const
 {
   if (inputComponent) return inputComponent->endTime ();
   else return -1;
 }
 
-double PajeComponent::selectionStartTime (void)
+double PajeComponent::selectionStartTime (void)  const
 {
   if (inputComponent) return inputComponent->selectionStartTime ();
   else return -1;
 }
 
-double PajeComponent::selectionEndTime (void)
+double PajeComponent::selectionEndTime (void)  const
 {
   if (inputComponent) return inputComponent->selectionEndTime ();
   else return -1;
 }
 
-PajeType *PajeComponent::entityTypeWithName (std::string name)
+PajeType *PajeComponent::entityTypeWithName (std::string name)  const
 {
   if (inputComponent) return inputComponent->entityTypeWithName (name);
   else return NULL;
 }
 
-PajeContainer *PajeComponent::containerWithName (std::string name)
+PajeContainer *PajeComponent::containerWithName (std::string name)  const
 {
   if (inputComponent) return inputComponent->containerWithName (name);
     else return NULL;
 }
 
-PajeColor *PajeComponent::colorForValueOfEntityType (PajeType *type, PajeValue *value)
+PajeColor *PajeComponent::colorForValueOfEntityType (PajeType *type, PajeValue *value)  const
 {
   if (inputComponent) return inputComponent->colorForValueOfEntityType (type, value);
   else return NULL;
 }
 
-PajeColor *PajeComponent::colorForEntityType (PajeType *type)
+PajeColor *PajeComponent::colorForEntityType (PajeType *type)  const
 {
   if (inputComponent) return inputComponent->colorForEntityType (type);
   else return NULL;
 }
 
-std::vector<PajeValue*> PajeComponent::valuesForEntityType (PajeType *type)
+std::vector<PajeValue*> PajeComponent::valuesForEntityType (PajeType *type)  const
 {
   std::vector<PajeValue*> empty;
   if (inputComponent) return inputComponent->valuesForEntityType (type);
   else return empty;
 }
 
-PajeAggregatedDict PajeComponent::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)
+PajeAggregatedDict PajeComponent::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container) const
 {
   PajeAggregatedDict empty;
   if (inputComponent) return inputComponent->timeIntegrationOfTypeInContainer (type, container);
   else return empty;
 }
 
-PajeAggregatedDict PajeComponent::integrationOfContainer (PajeContainer *container)
+PajeAggregatedDict PajeComponent::integrationOfContainer (PajeContainer *container) const
 {
   PajeAggregatedDict empty;
   if (inputComponent) return inputComponent->integrationOfContainer (container);
   return empty;
 }
 
-PajeAggregatedDict PajeComponent::spatialIntegrationOfContainer (PajeContainer *container)
+PajeAggregatedDict PajeComponent::spatialIntegrationOfContainer (PajeContainer *container) const
 {
   PajeAggregatedDict empty;
   if (inputComponent) return inputComponent->spatialIntegrationOfContainer (container);

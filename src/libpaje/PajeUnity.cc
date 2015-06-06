@@ -35,7 +35,7 @@ PajeUnity::PajeUnity (bool flexReader, bool strictHeader, std::string tracefilen
 
   //the global PajeDefinitions object
   definitions = new PajeDefinitions (strictHeader);
- 
+
   try {
     //alloc reader
     if (flexReader){
@@ -61,7 +61,6 @@ PajeUnity::PajeUnity (bool flexReader, bool strictHeader, std::string tracefilen
     }else{
       simulator = new PajeSimulator (stopat, ignoreIncompleteLinks);
     }
-
 
     //connect components
     if (flexReader){
@@ -91,6 +90,7 @@ PajeUnity::PajeUnity (bool flexReader, bool strictHeader, std::string tracefilen
     e.reportAndExit();
   }
   t2 = gettime();
+
 }
 
 PajeUnity::~PajeUnity ()
@@ -103,12 +103,12 @@ PajeUnity::~PajeUnity ()
   delete definitions;
 }
 
-double PajeUnity::getTime ()
+double PajeUnity::getTime () const
 {
   return t2-t1;
 }
 
-void PajeUnity::report ()
+void PajeUnity::report () const
 {
   simulator->report();
 }

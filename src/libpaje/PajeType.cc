@@ -58,9 +58,16 @@ const std::string &PajeType::identifier (void) const
   return _alias.empty() ? _name : _alias;
 }
 
-const std::string &PajeType::kind (void) const
+std::string PajeType::kind (void) const
 {
-  return PajeTypeNatureIds.at(nature());
+  switch (nature()){
+    case PAJE_ContainerType: return std::string ("Container"); break;
+    case PAJE_VariableType: return std::string ("Variable"); break;
+    case PAJE_StateType: return std::string ("State"); break;
+    case PAJE_EventType: return std::string ("Event"); break;
+    case PAJE_LinkType: return std::string ("Link"); break;
+    default: return std::string ("Unknown"); break;
+  }
 }
 
 bool PajeType::isCategorizedType (void) const
@@ -73,33 +80,33 @@ PajeValue *PajeType::addValue (std::string alias, std::string value, PajeColor *
   throw "should be implemented in subclass";
 }
 
-PajeValue *PajeType::valueForIdentifier (std::string identifier)
+PajeValue *PajeType::valueForIdentifier (const std::string &identifier) const
 {
   throw "should be implemented in subclass";
 }
 
-bool PajeType::hasValueForIdentifier (std::string identifier)
+bool PajeType::hasValueForIdentifier (const std::string &identifier) const
 {
   throw "should be implemented in subclass";
   return false;
 }
 
-PajeColor *PajeType::colorForIdentifier (std::string identifier)
+PajeColor *PajeType::colorForIdentifier (const std::string &identifier) const
 {
   throw "should be implemented in subclass";
 }
 
-PajeColor *PajeType::color (void)
+PajeColor *PajeType::color (void) const
 {
   throw "should be implemented in subclass";
 }
 
-PajeType *PajeType::startType (void)
+PajeType *PajeType::startType (void) const
 {
   return NULL;
 }
 
-PajeType *PajeType::endType (void)
+PajeType *PajeType::endType (void) const
 {
   return NULL;
 }
@@ -122,16 +129,17 @@ PajeValue *PajeCategorizedType::addValue (std::string alias, std::string value, 
   return newValue;
 }
 
-PajeValue *PajeCategorizedType::valueForIdentifier (std::string identifier)
+PajeValue *PajeCategorizedType::valueForIdentifier (const std::string &identifier) const
 {
-  if (values.count(identifier)){
-    return values[identifier];
-  }else{
+  std::map<std::string, PajeValue*>::const_iterator found = values.find(identifier);
+  if (found != values.end()) {
+    return found->second;
+  } else {
     return NULL;
   }
 }
 
-bool PajeCategorizedType::hasValueForIdentifier (std::string identifier)
+bool PajeCategorizedType::hasValueForIdentifier (const std::string &identifier) const
 {
   if (values.count(identifier)){
     return true;
@@ -140,11 +148,12 @@ bool PajeCategorizedType::hasValueForIdentifier (std::string identifier)
   }
 }
 
-PajeColor *PajeCategorizedType::colorForIdentifier (std::string identifier)
+PajeColor *PajeCategorizedType::colorForIdentifier (const std::string &identifier) const
 {
-  if (colors.count(identifier)){
-    return colors[identifier];
-  }else{
+  std::map<std::string, PajeColor*>::const_iterator found = colors.find(identifier);
+  if (found != colors.end()) {
+    return found->second;
+  } else {
     return NULL;
   }
 }
@@ -161,7 +170,7 @@ PajeVariableType::PajeVariableType (std::string name, std::string alias, PajeTyp
   _color = color;
 }
 
-PajeDrawingType PajeVariableType::drawingType (void)
+PajeDrawingType PajeVariableType::drawingType (void) const
 {
   return PajeVariableDrawingType;
 }
@@ -171,7 +180,7 @@ PajeTypeNature PajeVariableType::nature (void) const
   return PAJE_VariableType;
 }
 
-PajeColor *PajeVariableType::color (void)
+PajeColor *PajeVariableType::color (void) const
 {
   return _color;
 }
@@ -180,7 +189,7 @@ PajeStateType::PajeStateType  (std::string name, std::string alias, PajeType *pa
 {
 }
 
-PajeDrawingType PajeStateType::drawingType (void)
+PajeDrawingType PajeStateType::drawingType (void) const
 {
   return PajeStateDrawingType;
 }
@@ -194,7 +203,7 @@ PajeEventType::PajeEventType  (std::string name, std::string alias, PajeType *pa
 {
 }
 
-PajeDrawingType PajeEventType::drawingType (void)
+PajeDrawingType PajeEventType::drawingType (void) const
 {
   return PajeEventDrawingType;
 }
@@ -210,7 +219,7 @@ PajeLinkType::PajeLinkType (std::string name, std::string alias, PajeType *start
   this->endtype = end;
 }
 
-PajeDrawingType PajeLinkType::drawingType (void)
+PajeDrawingType PajeLinkType::drawingType (void) const
 {
   return PajeLinkDrawingType;
 }
@@ -220,12 +229,12 @@ PajeTypeNature PajeLinkType::nature (void) const
   return PAJE_LinkType;
 }
 
-PajeType *PajeLinkType::startType (void)
+PajeType *PajeLinkType::startType (void) const
 {
   return starttype;
 }
 
-PajeType *PajeLinkType::endType (void)
+PajeType *PajeLinkType::endType (void) const
 {
   return endtype;
 }
@@ -260,7 +269,7 @@ PajeType *PajeType::addLinkType (std::string name, std::string alias, PajeType *
   return NULL;
 }
 
-std::map<std::string,PajeType*> PajeType::children (void)
+std::map<std::string,PajeType*> PajeType::children (void) const
 {
   throw PajeTypeException ("should not be called in this type");
   return std::map<std::string,PajeType*>();
@@ -329,12 +338,12 @@ PajeType *PajeContainerType::addLinkType (std::string name, std::string alias, P
   return newType;
 }
 
-std::map<std::string,PajeType*> PajeContainerType::children (void)
+std::map<std::string,PajeType*> PajeContainerType::children (void) const
 {
   return _children;
 }
 
-PajeDrawingType PajeContainerType::drawingType (void)
+PajeDrawingType PajeContainerType::drawingType (void) const
 {
   return PajeContainerDrawingType;
 }

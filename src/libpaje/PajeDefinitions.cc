@@ -303,7 +303,7 @@ void PajeDefinitions::initialize (bool strict)
   optionalFields[PajeEndLinkEventId].insert (PAJE_Line);
 }
 
-const std::string &PajeDefinitions::eventNameFromID (PajeEventId event)
+const std::string &PajeDefinitions::eventNameFromID (PajeEventId event) const
 {
   if (event == PajeUnknownEventId){
     throw PajeDefinitionsException ();
@@ -313,57 +313,52 @@ const std::string &PajeDefinitions::eventNameFromID (PajeEventId event)
   return found->second;
 }
 
-const std::string &PajeDefinitions::fieldNameFromID (PajeField field)
+const std::string &PajeDefinitions::fieldNameFromID (PajeField field) const
 {
   if (field == PAJE_Extra || field == PAJE_Unknown_Field){
     throw PajeDefinitionsException ();
   }
-  id_to_field_name_t::iterator found;
-  found = idToFieldName.find (field);
+  id_to_field_name_t::const_iterator found = idToFieldName.find (field);
   return found->second;
 }
 
-const std::string &PajeDefinitions::fieldTypeNameFromID (PajeFieldType type)
+const std::string &PajeDefinitions::fieldTypeNameFromID (PajeFieldType type) const
 {
   if (type == PAJE_unknown_field_type){
     throw PajeDefinitionsException ();
   }
-  field_names_type_dictionary_t::right_map::const_iterator found;
-  found = fieldTypeNames.right.find (type);
+  field_names_type_dictionary_t::right_map::const_iterator found = fieldTypeNames.right.find (type);
   return found->second;
 }
 
-PajeEventId PajeDefinitions::idFromEventName (std::string event)
+PajeEventId PajeDefinitions::idFromEventName (const std::string &event) const
 {
-  event_names_dictionary_t::left_map::const_iterator found;
-  found = eventNames.left.find (event);
+  event_names_dictionary_t::left_map::const_iterator found = eventNames.left.find (event);
   if (found == eventNames.left.end()){
     return PajeUnknownEventId;
   }
   return found->second;
 }
 
-PajeField PajeDefinitions::idFromFieldName (std::string field)
+PajeField PajeDefinitions::idFromFieldName (const std::string &field) const
 {
-  field_name_to_id_t::iterator found;
-  found = fieldNameToID.find (field);
+  field_name_to_id_t::const_iterator found = fieldNameToID.find (field);
   if (found == fieldNameToID.end()){
     return PAJE_Unknown_Field;
   }
   return found->second;
 }
 
-PajeFieldType PajeDefinitions::idFromFieldTypeName (std::string type)
+PajeFieldType PajeDefinitions::idFromFieldTypeName (const std::string &type) const
 {
-  field_names_type_dictionary_t::left_map::const_iterator found;
-  found = fieldTypeNames.left.find (type);
+  field_names_type_dictionary_t::left_map::const_iterator found = fieldTypeNames.left.find (type);
   if (found == fieldTypeNames.left.end()){
     return PAJE_unknown_field_type;
   }
   return found->second;
 }
 
-bool PajeDefinitions::validEvent (PajeEventId event)
+bool PajeDefinitions::validEvent (PajeEventId event) const
 {
   if (eventNameFromID (event).size() != 0){
     return true;
@@ -372,7 +367,7 @@ bool PajeDefinitions::validEvent (PajeEventId event)
   }
 }
 
-bool PajeDefinitions::validField (PajeField field)
+bool PajeDefinitions::validField (PajeField field) const
 {
   if (fieldNameFromID (field).size() != 0){
     return true;
@@ -381,7 +376,7 @@ bool PajeDefinitions::validField (PajeField field)
   }
 }
 
-bool PajeDefinitions::validFieldType (PajeFieldType type)
+bool PajeDefinitions::validFieldType (PajeFieldType type) const
 {
   if (fieldTypeNameFromID (type).size() != 0){
     return true;

@@ -31,47 +31,47 @@ PajeEvent::PajeEvent (PajeTraceEvent *event, PajeContainer *container, PajeType 
   _time = atof(t.c_str());
 }
 
-PajeTraceEvent *PajeEvent::traceEvent (void)
+PajeTraceEvent *PajeEvent::traceEvent (void) const
 {
   return _event;
 }
 
-PajeContainer *PajeEvent::container (void)
+PajeContainer *PajeEvent::container (void) const
 {
   return _container;
 }
 
-PajeType *PajeEvent::type (void)
+PajeType *PajeEvent::type (void) const
 {
   return _type;
 }
 
-double PajeEvent::time (void)
+double PajeEvent::time (void) const
 {
   return _time;
 }
 
-PajeValue *PajeEvent::value (void)
+PajeValue *PajeEvent::value (void) const
 {
   return NULL;
 }
 
-double PajeEvent::doubleValue (void)
+double PajeEvent::doubleValue (void) const
 {
   return 0;
 }
 
-PajeContainer *PajeEvent::startContainer (void)
+PajeContainer *PajeEvent::startContainer (void) const
 {
   return NULL;
 }
 
-PajeContainer *PajeEvent::endContainer (void)
+PajeContainer *PajeEvent::endContainer (void) const
 {
   return NULL;
 }
 
-const std::string &PajeEvent::key (void)
+const std::string &PajeEvent::key (void) const
 {
   static const std::string nullstr = std::string();
   return nullstr;
@@ -83,12 +83,12 @@ PajeCategorizedEvent::PajeCategorizedEvent (PajeTraceEvent *event, PajeContainer
   _value = value;
 }
 
-PajeValue *PajeCategorizedEvent::value (void)
+PajeValue *PajeCategorizedEvent::value (void) const
 {
   return _value;
 }
 
-const std::string &PajeCategorizedEvent::kind (void)
+const std::string &PajeCategorizedEvent::kind (void) const
 {
   static const std::string catstr = "Categorized";
   return catstr;
@@ -110,13 +110,13 @@ PajeVariableEvent::PajeVariableEvent (PajeTraceEvent *event, PajeContainer *cont
   _doubleValue = value;
 }
 
- const std::string &PajeVariableEvent::kind (void)
+ const std::string &PajeVariableEvent::kind (void) const
 {
   static const std::string varstr = "Variable";
   return varstr;
 }
 
-double PajeVariableEvent::doubleValue (void)
+double PajeVariableEvent::doubleValue (void) const
 {
   return _doubleValue;
 }
@@ -128,7 +128,7 @@ PajeLinkEvent::PajeLinkEvent (PajeTraceEvent *event, PajeContainer *container, P
   _key = key;
 }
 
-const std::string &PajeLinkEvent::key (void)
+const std::string &PajeLinkEvent::key (void) const
 {
   return _key;
 }
@@ -180,7 +180,7 @@ PajeStartLinkEvent::PajeStartLinkEvent (PajeTraceEvent *event, PajeContainer *co
 {
 }
 
-PajeContainer *PajeStartLinkEvent::startContainer (void)
+PajeContainer *PajeStartLinkEvent::startContainer (void) const
 {
   return _linkedContainer;
 }
@@ -190,7 +190,7 @@ PajeEndLinkEvent::PajeEndLinkEvent (PajeTraceEvent *event, PajeContainer *contai
 {
 }
 
-PajeContainer *PajeEndLinkEvent::endContainer (void)
+PajeContainer *PajeEndLinkEvent::endContainer (void) const
 {
   return _linkedContainer;
 }
@@ -200,7 +200,7 @@ PajeDestroyContainerEvent::PajeDestroyContainerEvent (PajeTraceEvent *event, Paj
 {
 }
 
-const std::string &PajeDestroyContainerEvent::kind (void)
+const std::string &PajeDestroyContainerEvent::kind (void) const
 {
   static const std::string constr = "Container";
   return constr;

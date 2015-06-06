@@ -33,17 +33,17 @@ private:
 public:
   PajeEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type);
 
-  PajeTraceEvent *traceEvent (void);
-  PajeContainer *container (void);
-  PajeType *type (void);
-  double time (void);
+  PajeTraceEvent *traceEvent (void) const;
+  PajeContainer *container (void) const;
+  PajeType *type (void) const;
+  double time (void) const;
 
-  virtual PajeValue *value (void);
-  virtual double doubleValue (void);
-  virtual PajeContainer *startContainer (void);
-  virtual PajeContainer *endContainer (void);
-  virtual const std::string &key (void);
-  virtual const std::string &kind (void) = 0;
+  virtual PajeValue *value (void) const;
+  virtual double doubleValue (void) const;
+  virtual PajeContainer *startContainer (void) const;
+  virtual PajeContainer *endContainer (void) const;
+  virtual const std::string &key (void) const;
+  virtual const std::string &kind (void) const = 0;
 };
 
 
@@ -53,8 +53,8 @@ class PajeCategorizedEvent : public PajeEvent
 
 public:
   PajeCategorizedEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, PajeValue *value);
-  PajeValue *value (void);
-  const std::string &kind (void);
+  PajeValue *value (void) const;
+  const std::string &kind (void) const;
 };
 
 class PajeStateEvent : public PajeCategorizedEvent
@@ -76,8 +76,8 @@ private:
 
 public:
   PajeVariableEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, double value);
-  double doubleValue (void);
-  const std::string &kind (void);
+  double doubleValue (void) const;
+  const std::string &kind (void) const;
 };
 
 class PajeLinkEvent : public PajeCategorizedEvent
@@ -88,7 +88,7 @@ private:
   std::string _key;
 public:
   PajeLinkEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, PajeValue *value, PajeContainer *linkedContainer, std::string key);
-  const std::string &key (void);
+  const std::string &key (void) const;
 };
 
 /* Simulator Events */
@@ -145,21 +145,21 @@ class PajeStartLinkEvent : public PajeLinkEvent
 {
 public:
   PajeStartLinkEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, PajeValue *value, PajeContainer *linkedContainer, std::string key);
-  PajeContainer *startContainer (void);
+  PajeContainer *startContainer (void) const;
 };
 
 class PajeEndLinkEvent : public PajeLinkEvent
 {
 public:
   PajeEndLinkEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, PajeValue *value, PajeContainer *linkedContainer, std::string key);
-  PajeContainer *endContainer (void);
+  PajeContainer *endContainer (void) const;
 };
 
 class PajeDestroyContainerEvent : public PajeEvent
 {
 public:
   PajeDestroyContainerEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type);
-  const std::string &kind (void);
+  const std::string &kind (void) const;
 };
 
 #include "PajeContainer.h"

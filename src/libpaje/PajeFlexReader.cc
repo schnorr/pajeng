@@ -47,7 +47,7 @@ void PajeFlexReader::initialize (PajeDefinitions *definitions)
   hasData = true;
 }
 
-bool PajeFlexReader::hasMoreData()
+bool PajeFlexReader::hasMoreData() const
 {
   return hasData;
 }

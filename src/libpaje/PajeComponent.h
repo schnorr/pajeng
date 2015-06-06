@@ -42,7 +42,7 @@ public:
   void virtual inputEntity (PajeObject *data);
   void virtual outputEntity (PajeObject *data);
   void virtual startReading (void);
-  bool virtual hasMoreData (void);
+  bool virtual hasMoreData (void) const;
   void virtual readNextChunk (void);
   void virtual finishedReading (void);
 
@@ -71,27 +71,27 @@ public:
   void virtual setSelectionStartEndTime (double start, double end);
 
   //queries
-  PajeContainer virtual *rootInstance (void);
-  PajeType virtual *rootEntityType (void);
-  std::vector<PajeType*> virtual containedTypesForContainerType (PajeType *type);
-  std::vector<PajeContainer*> virtual enumeratorOfContainersInContainer (PajeContainer *container);
-  std::vector<PajeContainer*> virtual enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container);
-  std::vector<PajeEntity*> virtual enumeratorOfEntitiesTypedInContainer (PajeType *type, PajeContainer *container, double start, double end);
-  bool virtual isContainerType (PajeType *type);
-  double virtual startTime (void);
-  double virtual endTime (void);
-  double virtual selectionStartTime (void);
-  double virtual selectionEndTime (void);
-  PajeType virtual *entityTypeWithName (std::string name);
-  PajeContainer virtual *containerWithName (std::string name);
-  PajeColor virtual *colorForValueOfEntityType (PajeType *type, PajeValue *value);
-  PajeColor virtual *colorForEntityType (PajeType *type);
-  std::vector<PajeValue*> virtual valuesForEntityType (PajeType *type);
+  PajeContainer virtual *rootInstance (void) const;
+  PajeType virtual *rootEntityType (void) const;
+  std::vector<PajeType*> virtual containedTypesForContainerType (PajeType *type) const;
+  std::vector<PajeContainer*> virtual enumeratorOfContainersInContainer (PajeContainer *container) const;
+  std::vector<PajeContainer*> virtual enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container) const;
+  std::vector<PajeEntity*> virtual enumeratorOfEntitiesTypedInContainer (PajeType *type, PajeContainer *container, double start, double end) const;
+  bool virtual isContainerType (PajeType *type) const;
+  double virtual startTime (void) const;
+  double virtual endTime (void) const;
+  double virtual selectionStartTime (void) const;
+  double virtual selectionEndTime (void) const;
+  PajeType virtual *entityTypeWithName (std::string name) const;
+  PajeContainer virtual *containerWithName (std::string name) const;
+  PajeColor virtual *colorForValueOfEntityType (PajeType *type, PajeValue *value) const;
+  PajeColor virtual *colorForEntityType (PajeType *type) const;
+  std::vector<PajeValue*> virtual valuesForEntityType (PajeType *type) const;
 
   //spatial/time integration queries
-  PajeAggregatedDict virtual timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);
-  PajeAggregatedDict virtual integrationOfContainer (PajeContainer *container);
-  PajeAggregatedDict virtual spatialIntegrationOfContainer (PajeContainer *container);
+  PajeAggregatedDict virtual timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container) const;
+  PajeAggregatedDict virtual integrationOfContainer (PajeContainer *container) const;
+  PajeAggregatedDict virtual spatialIntegrationOfContainer (PajeContainer *container) const;
 };
 
 #endif

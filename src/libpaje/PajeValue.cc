@@ -24,22 +24,22 @@ PajeValue::PajeValue (std::string name, std::string alias, PajeType *type, PajeC
   _type = type;
 }
 
-PajeColor *PajeValue::color (void)
+PajeColor *PajeValue::color (void) const
 {
   return _color;
 }
 
-const std::string &PajeValue::name (void)
+const std::string &PajeValue::name (void) const
 {
   return _name;
 }
 
-const std::string &PajeValue::alias (void)
+const std::string &PajeValue::alias (void) const
 {
   return _alias;
 }
 
-const std::string &PajeValue::identifier (void)
+const std::string &PajeValue::identifier (void) const
 {
   if (alias().empty()){
     return _name;
@@ -48,7 +48,7 @@ const std::string &PajeValue::identifier (void)
   }
 }
 
-PajeType *PajeValue::type (void)
+PajeType *PajeValue::type (void) const
 {
   return _type;
 }

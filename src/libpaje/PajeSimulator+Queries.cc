@@ -18,17 +18,17 @@
 #include "PajeException.h"
 #include <boost/foreach.hpp>
 
-PajeContainer *PajeSimulator::rootInstance (void)
+PajeContainer *PajeSimulator::rootInstance (void) const
 {
   return root;
 }
 
-PajeType *PajeSimulator::rootEntityType (void)
+PajeType *PajeSimulator::rootEntityType (void) const
 {
   return root->type();
 }
 
-std::vector<PajeType*> PajeSimulator::containedTypesForContainerType (PajeType *type)
+std::vector<PajeType*> PajeSimulator::containedTypesForContainerType (PajeType *type) const
 {
   std::vector<PajeType *> ret;
   if (type->nature() != PAJE_ContainerType){
@@ -44,7 +44,7 @@ std::vector<PajeType*> PajeSimulator::containedTypesForContainerType (PajeType *
   return ret;
 }
 
-std::vector<PajeContainer*> PajeSimulator::enumeratorOfContainersInContainer (PajeContainer *container)
+std::vector<PajeContainer*> PajeSimulator::enumeratorOfContainersInContainer (PajeContainer *container) const
 {
   std::vector<PajeContainer*> ret;
   std::map<std::string,PajeContainer*>::iterator it;
@@ -54,7 +54,7 @@ std::vector<PajeContainer*> PajeSimulator::enumeratorOfContainersInContainer (Pa
   return ret;
 }
 
-std::vector<PajeContainer*> PajeSimulator::enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container)
+std::vector<PajeContainer*> PajeSimulator::enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container) const
 {
   if (type->nature() != PAJE_ContainerType){
     throw PajeProtocolException ("Type is not a container type");
@@ -69,7 +69,7 @@ std::vector<PajeContainer*> PajeSimulator::enumeratorOfContainersTypedInContaine
   return ret;
 }
 
-std::vector<PajeEntity*> PajeSimulator::enumeratorOfEntitiesTypedInContainer (PajeType *type, PajeContainer *container, double start, double end)
+std::vector<PajeEntity*> PajeSimulator::enumeratorOfEntitiesTypedInContainer (PajeType *type, PajeContainer *container, double start, double end) const
 {
   if (type->nature() == PAJE_ContainerType){
     throw PajeProtocolException ("Type is not an entity type");
@@ -79,27 +79,27 @@ std::vector<PajeEntity*> PajeSimulator::enumeratorOfEntitiesTypedInContainer (Pa
   else return empty;
 }
 
-bool PajeSimulator::isContainerType (PajeType *type)
+bool PajeSimulator::isContainerType (PajeType *type) const
 {
   return type->nature() == PAJE_ContainerType;
 }
 
-bool PajeSimulator::isVariableType (PajeType *type)
+bool PajeSimulator::isVariableType (PajeType *type) const
 {
   return type->nature() == PAJE_VariableType;
 }
 
-double PajeSimulator::startTime (void)
+double PajeSimulator::startTime (void) const
 {
   return root->startTime ();
 }
 
-double PajeSimulator::endTime (void)
+double PajeSimulator::endTime (void) const
 {
   return root->endTime ();
 }
 
-double PajeSimulator::selectionStartTime (void)
+double PajeSimulator::selectionStartTime (void) const
 {
   if (selectionStart >= 0){
     return selectionStart;
@@ -108,7 +108,7 @@ double PajeSimulator::selectionStartTime (void)
   }
 }
 
-double PajeSimulator::selectionEndTime (void)
+double PajeSimulator::selectionEndTime (void) const
 {
   if (selectionEnd >= 0){
     return selectionEnd;
@@ -117,35 +117,35 @@ double PajeSimulator::selectionEndTime (void)
   }
 }
 
-PajeType *PajeSimulator::entityTypeWithName (std::string name)
+PajeType *PajeSimulator::entityTypeWithName (std::string name) const
 {
   if (typeNamesMap.count(name)){
-    return typeNamesMap[name];
+    return typeNamesMap.at(name);
   }else{
     return NULL;
   }
 }
 
-PajeContainer *PajeSimulator::containerWithName (std::string name)
+PajeContainer *PajeSimulator::containerWithName (std::string name) const
 {
   if (contNamesMap.count(name)){
-    return contNamesMap[name];
+    return contNamesMap.at(name);
   }else{
     return NULL;
   }
 }
 
-PajeColor *PajeSimulator::colorForValueOfEntityType (PajeType *type, PajeValue *value)
+PajeColor *PajeSimulator::colorForValueOfEntityType (PajeType *type, PajeValue *value) const
 {
   return type->colorForIdentifier (value->identifier());
 }
 
-PajeColor *PajeSimulator::colorForEntityType (PajeType *type)
+PajeColor *PajeSimulator::colorForEntityType (PajeType *type) const
 {
   return type->color ();
 }
 
-std::vector<PajeValue*> PajeSimulator::valuesForEntityType (PajeType *type)
+std::vector<PajeValue*> PajeSimulator::valuesForEntityType (PajeType *type) const
 {
   std::vector<PajeValue*> ret;
   PajeCategorizedType *catType = dynamic_cast<PajeCategorizedType*>(type);
@@ -158,7 +158,7 @@ std::vector<PajeValue*> PajeSimulator::valuesForEntityType (PajeType *type)
   return ret;
 }
 
-PajeAggregatedDict PajeSimulator::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container)
+PajeAggregatedDict PajeSimulator::timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container) const
 {
   PajeAggregatedDict ret;
   if (container){
@@ -167,7 +167,7 @@ PajeAggregatedDict PajeSimulator::timeIntegrationOfTypeInContainer (PajeType *ty
   return ret;
 }
 
-PajeAggregatedDict PajeSimulator::integrationOfContainer (PajeContainer *container)
+PajeAggregatedDict PajeSimulator::integrationOfContainer (PajeContainer *container) const
 {
   PajeAggregatedDict ret;
   if (container){
@@ -176,7 +176,7 @@ PajeAggregatedDict PajeSimulator::integrationOfContainer (PajeContainer *contain
   return ret;
 }
 
-PajeAggregatedDict PajeSimulator::spatialIntegrationOfContainer (PajeContainer *container)
+PajeAggregatedDict PajeSimulator::spatialIntegrationOfContainer (PajeContainer *container) const
 {
   PajeAggregatedDict ret;
   if (container){

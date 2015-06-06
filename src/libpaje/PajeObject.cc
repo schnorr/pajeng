@@ -16,7 +16,7 @@
 */
 #include "PajeObject.h"
 
-bool PajeObject::isPajeObject (void)
+bool PajeObject::isPajeObject (void) const
 {
   return true;
 }

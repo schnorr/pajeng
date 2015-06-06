@@ -25,16 +25,16 @@ class PajeUnity : public PajeComponent {
 private:
   PajeComponent *reader;
   PajeEventDecoder *decoder;
-  PajeSimulator *simulator;
   PajeDefinitions *definitions;
+  PajeSimulator *simulator;
   bool flexReader;
   double t1, t2;
 
 public:
   PajeUnity (bool flexReader, bool strictHeader, std::string tracefilename, double stopat, int ignoreIncompleteLinks, char *probabilistic);
   ~PajeUnity ();
-  double getTime ();
-  void report ();
+  double getTime () const;
+  void report () const;
 };
 
 #endif

@@ -64,8 +64,8 @@ public:
   PajeSimulator(double stopat, int ignoreIncompleteLinks);
   ~PajeSimulator();
   void report (void);
-  bool keepSimulating (void);
-  
+  bool keepSimulating (void) const;
+
   void inputEntity (PajeObject *data);
   void startReading (void);
   void finishedReading (void);
@@ -111,57 +111,57 @@ public:
   //
 
   // The entity at the root of the hierarchy
-  PajeContainer *rootInstance (void);
+  PajeContainer *rootInstance (void) const;
 
   // The type of the entity at the root of the hierarchy
-  PajeType *rootEntityType (void);
+  PajeType *rootEntityType (void) const;
 
   // Array of types that are directly under given type in hierarchy
-  std::vector<PajeType*> containedTypesForContainerType (PajeType *type);
+  std::vector<PajeType*> containedTypesForContainerType (PajeType *type) const;
 
   // All containers contained by container
-  std::vector<PajeContainer*> enumeratorOfContainersInContainer (PajeContainer *container);
+  std::vector<PajeContainer*> enumeratorOfContainersInContainer (PajeContainer *container) const;
 
   // All containers of a given type contained by container. Container must be
   // of a type ancestral of entityType in the hierarchy.
-  std::vector<PajeContainer*> enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container);
+  std::vector<PajeContainer*> enumeratorOfContainersTypedInContainer (PajeType *type, PajeContainer *container) const;
 
   // All entities of a given type that are in a container in a certain
   // time interval.
-  std::vector<PajeEntity*> enumeratorOfEntitiesTypedInContainer (PajeType *type, PajeContainer *container, double start, double end);
+  std::vector<PajeEntity*> enumeratorOfEntitiesTypedInContainer (PajeType *type, PajeContainer *container, double start, double end) const;
 
   // Tells if type is a container type
-  bool isContainerType (PajeType *type);
+  bool isContainerType (PajeType *type) const;
 
   // Tells if type is a variable type
-  bool isVariableType (PajeType *type);
+  bool isVariableType (PajeType *type) const;
 
   // The time period of the trace
-  double startTime (void);
-  double endTime (void);
+  double startTime (void) const;
+  double endTime (void) const;
 
   // The time selection
-  double selectionStartTime (void);
-  double selectionEndTime (void);
+  double selectionStartTime (void) const;
+  double selectionEndTime (void) const;
 
   // The type of the entity with the given name
-  PajeType *entityTypeWithName (std::string name);
+  PajeType *entityTypeWithName (std::string name) const;
 
   // The container with the given name
-  PajeContainer *containerWithName (std::string name);
+  PajeContainer *containerWithName (std::string name) const;
 
   // Color of given value of entity type
-  PajeColor *colorForValueOfEntityType (PajeType *type, PajeValue *value);
+  PajeColor *colorForValueOfEntityType (PajeType *type, PajeValue *value) const;
 
   // Color for all entities of given type (used for "variable" entity type).
-  PajeColor *colorForEntityType (PajeType *type);
+  PajeColor *colorForEntityType (PajeType *type) const;
 
   // All values an entity of given type can have.
-  std::vector<PajeValue*> valuesForEntityType (PajeType *type);
+  std::vector<PajeValue*> valuesForEntityType (PajeType *type) const;
 
   // Spatial/time integration queries
-  PajeAggregatedDict timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container);
-  PajeAggregatedDict integrationOfContainer (PajeContainer *container);
-  PajeAggregatedDict spatialIntegrationOfContainer (PajeContainer *container);
+  PajeAggregatedDict timeIntegrationOfTypeInContainer (PajeType *type, PajeContainer *container) const;
+  PajeAggregatedDict integrationOfContainer (PajeContainer *container) const;
+  PajeAggregatedDict spatialIntegrationOfContainer (PajeContainer *container) const;
 };
 #endif

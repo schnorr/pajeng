@@ -20,11 +20,11 @@
 
 /* abstract class for all Paje objects */
 class PajeVirtualObject {
-  virtual bool isPajeObject (void) = 0;
+  virtual bool isPajeObject (void) const = 0;
 };
 
 class PajeObject : PajeVirtualObject {
-  bool isPajeObject (void);
+  bool isPajeObject (void) const;
 };
 
 #endif
