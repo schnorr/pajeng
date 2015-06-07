@@ -100,7 +100,7 @@ void PajeSimulator::report (void)
   }
 }
 
-bool PajeSimulator::keepSimulating (void) const
+bool PajeSimulator::keepSimulating (void)
 {
   if (stopSimulationAtTime == -1){
     return true;
@@ -425,7 +425,7 @@ void PajeSimulator::pajeCreateContainer (PajeTraceEvent *traceEvent)
   }
 
   //verify if there is a container with the same name
-  std::string identifier = !alias.empty() ? alias : name;
+  std::string identifier = !alias.empty() ? alias : name;  
   PajeContainer *cont = contMap[identifier];
   if (cont){
     std::stringstream eventdesc;

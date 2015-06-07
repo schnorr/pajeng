@@ -45,18 +45,18 @@ public:
   void addField (PajeField field, PajeFieldType type, int line);
   void addField (PajeField field, PajeFieldType type, int line, std::string userDefinedFieldName);
 
-  int indexForField (PajeField field) const;
-  int indexForExtraFieldNamed (std::string fieldName) const;
-  bool isValid (void) const;
-  int fieldCount (void) const; //return number of fields
-  void showObligatoryFields (void) const;
-  std::vector<std::string> extraFields (void) const;
+  int indexForField (PajeField field);
+  int indexForExtraFieldNamed (std::string fieldName);
+  bool isValid (void);
+  int fieldCount (void); //return number of fields
+  void showObligatoryFields (void);
+  std::vector<std::string> extraFields (void);
 
 private:
-  bool knownFieldNamed (std::string name) const;
+  bool knownFieldNamed (std::string name);
 };
 
-std::ostream &operator<< (std::ostream &output, const PajeEventDefinition &eventDef) ;
+std::ostream &operator<< (std::ostream &output, const PajeEventDefinition &eventDef);
 std::ostream &operator<< (std::ostream &output, const paje_line &line);
 
 #endif

@@ -79,7 +79,7 @@ void PajeFileReader::readNextChunk (void)
   delete buffer;
 }
 
-bool PajeFileReader::hasMoreData (void) const
+bool PajeFileReader::hasMoreData (void)
 {
   return moreData;
 }
@@ -89,12 +89,12 @@ void PajeFileReader::setUserChunkSize (std::streamoff userChunkSize)
   chunkSize = userChunkSize;
 }
 
-unsigned long long PajeFileReader::traceSize (void) const
+unsigned long long PajeFileReader::traceSize (void)
 {
   return length;
 }
 
-unsigned long long PajeFileReader::traceRead (void) const
+unsigned long long PajeFileReader::traceRead (void)
 {
   if (!input->eof())
     return current;

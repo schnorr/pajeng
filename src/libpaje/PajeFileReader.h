@@ -44,9 +44,9 @@ public:
   PajeFileReader (void); //reads from stdin
   ~PajeFileReader (void);
   void readNextChunk (void);
-  bool hasMoreData (void) const;
+  bool hasMoreData (void);
   void setUserChunkSize (std::streamoff userChunkSize);
-  unsigned long long traceSize (void) const;
-  unsigned long long traceRead (void) const;
+  unsigned long long traceSize (void);
+  unsigned long long traceRead (void);
 };
 #endif

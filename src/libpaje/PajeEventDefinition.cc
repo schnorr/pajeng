@@ -59,10 +59,10 @@ void PajeEventDefinition::addField (PajeField field, PajeFieldType type, int lin
   addField (field, type, line);
 }
 
-int PajeEventDefinition::indexForField (PajeField field) const
+int PajeEventDefinition::indexForField (PajeField field)
 {
   int i;
-  std::list<PajeField>::const_iterator it;
+  std::list<PajeField>::iterator it;
   for (i = 0, it = fields.begin(); it != fields.end(); i++, it++){
     if (field == *it) return i;
   }
@@ -70,10 +70,10 @@ int PajeEventDefinition::indexForField (PajeField field) const
   else return i;
 }
 
-int PajeEventDefinition::indexForExtraFieldNamed (std::string fieldName) const
+int PajeEventDefinition::indexForExtraFieldNamed (std::string fieldName)
 {
   int i;
-  std::vector<std::string>::const_iterator it;
+  std::vector<std::string>::iterator it;
   for (i = 0, it = userDefinedFieldNames.begin(); it != userDefinedFieldNames.end(); i++, it++){
     if (fieldName == *it) break;
   }
@@ -83,7 +83,7 @@ int PajeEventDefinition::indexForExtraFieldNamed (std::string fieldName) const
 
   //we are now looking for the i-th PAJE_Extra field in the fields (the attribute) list
   int j = 0, k;
-  std::list<PajeField>::const_iterator field_iterator;
+  std::list<PajeField>::iterator field_iterator;
   for (k = 0, field_iterator = fields.begin(); field_iterator != fields.end(); field_iterator++, k++){
     if (*field_iterator == PAJE_Extra){
       if (j == i) return k;
@@ -93,7 +93,7 @@ int PajeEventDefinition::indexForExtraFieldNamed (std::string fieldName) const
   throw PajeDecodeException ("The user-defined field '"+fieldName+"' was found, but there is no correspondence in the fields vector of event "+ defs->eventNameFromID(pajeEventIdentifier));
 }
 
-bool PajeEventDefinition::isValid (void) const
+bool PajeEventDefinition::isValid (void)
 {
   //get the obligatory fields for my pajeEventIdentifier
   std::map<PajeEventId,std::set<PajeField> >::iterator itmap;
@@ -111,7 +111,7 @@ bool PajeEventDefinition::isValid (void) const
 
     //search each  the obligatory fields in the fields list of this definition
     bool myFieldIsPresent = false;
-    std::list<PajeField>::const_iterator itlist;
+    std::list<PajeField>::iterator itlist;
     for (itlist = fields.begin(); itlist != fields.end(); itlist++){
       if (*itlist == obligatoryField){
         myFieldIsPresent = true;
@@ -125,12 +125,12 @@ bool PajeEventDefinition::isValid (void) const
   return true;
 }
 
-int PajeEventDefinition::fieldCount (void) const
+int PajeEventDefinition::fieldCount (void)
 {
   return fields.size();
 }
 
-void PajeEventDefinition::showObligatoryFields (void) const
+void PajeEventDefinition::showObligatoryFields (void)
 {
   std::cout << "Obligatory fields expected for a " << defs->eventNameFromID(pajeEventIdentifier)
             << " event definition:" << std::endl;
@@ -143,12 +143,12 @@ void PajeEventDefinition::showObligatoryFields (void) const
   std::cout << std::endl;
 }
 
-std::vector<std::string> PajeEventDefinition::extraFields (void) const
+std::vector<std::string> PajeEventDefinition::extraFields (void)
 {
   return userDefinedFieldNames;
 }
 
-bool PajeEventDefinition::knownFieldNamed (std::string name) const
+bool PajeEventDefinition::knownFieldNamed (std::string name)
 {
   return defs->validField (defs->idFromFieldName (name));
 }
@@ -156,7 +156,7 @@ bool PajeEventDefinition::knownFieldNamed (std::string name) const
 std::ostream &operator<< (std::ostream &output, const PajeEventDefinition &eventDef)
 {
   PajeEventDefinition def = (PajeEventDefinition)eventDef;
-
+ 
   output << "This is the event definition of the problematic event:" << std::endl;
   output << "  %EventDef " << def.defs->eventNameFromID(def.pajeEventIdentifier) << " " << def.uniqueIdentifier << std::endl;
   std::list<PajeField>::iterator itf = def.fields.begin();
