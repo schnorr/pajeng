@@ -64,6 +64,7 @@ public:
   PajeSimulator(double stopat, int ignoreIncompleteLinks);
   ~PajeSimulator();
   void report (void);
+  void reportContainer (void);
   bool keepSimulating (void);
   
   void inputEntity (PajeObject *data);

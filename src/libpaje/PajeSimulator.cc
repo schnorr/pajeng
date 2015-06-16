@@ -100,6 +100,26 @@ void PajeSimulator::report (void)
   }
 }
 
+void PajeSimulator::reportContainer (void)
+{
+  std::vector<PajeContainer*> stack;
+  stack.push_back (rootInstance());
+  while (!stack.empty()){
+    PajeContainer *last = stack.back();
+    stack.pop_back();
+
+    std::string name = last->name();
+    printf ("%s |%*.*s%s (%s)\n", __FUNCTION__, last->type()->depth(), last->type()->depth(), "| ", last->name().c_str(), name.c_str());
+
+    //push back more containers
+    std::vector<PajeContainer*> children = this->enumeratorOfContainersInContainer(last);
+    while (!children.empty()){
+      stack.push_back(children.back());
+      children.pop_back();
+    }
+  }
+}
+
 bool PajeSimulator::keepSimulating (void)
 {
   if (stopSimulationAtTime == -1){

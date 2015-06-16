@@ -35,6 +35,7 @@ public:
   ~PajeUnity ();
   double getTime ();
   void report ();
+  void reportContainer ();
 };
 
 #endif

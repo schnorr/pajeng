@@ -112,3 +112,8 @@ void PajeUnity::report ()
 {
   simulator->report();
 }
+
+void PajeUnity::reportContainer ()
+{
+  simulator->reportContainer();
+}
