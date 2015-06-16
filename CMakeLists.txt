@@ -28,6 +28,9 @@ OPTION(PAJE_UTILS_LIBRARY "The Paje Utils library with QT-dependent components" 
 OPTION(PAJE_LIBRARY "The Paje library with all the basic components" ON)
 OPTION(PAJE_TOOLS     "Compile auxiliary tools (pj_dump, etc)" ON)
 OPTION(STATIC_LINKING "Static linking of auxiliary tools" OFF)
+OPTION(PAJE_DOC "The Paje Trace File documentation" OFF)
 
 add_subdirectory(src)
-add_subdirectory(doc)
+if(PAJE_DOC)
+  add_subdirectory(doc)
+endif(PAJE_DOC)
