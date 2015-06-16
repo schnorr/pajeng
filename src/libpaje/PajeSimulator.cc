@@ -210,6 +210,14 @@ void PajeSimulator::pajeDefineContainerType (PajeTraceEvent *event)
   std::string type = event->valueForField (PAJE_Type);
   std::string alias = event->valueForField (PAJE_Alias);
 
+  //first, check if the name is allowed (it should be
+  //anything but "0" (the zero character)
+  if (name == "0"){
+    std::stringstream line;
+    line << *event;
+    throw PajeTypeException ("The type name '0' is reserved and should not be used in "+line.str());
+  }
+
   //search for parent type
   PajeType *containerType = typeMap[type];
   if (!containerType){
@@ -410,6 +418,14 @@ void PajeSimulator::pajeCreateContainer (PajeTraceEvent *traceEvent)
   std::string containerid = traceEvent->valueForField (PAJE_Container);
   std::string name = traceEvent->valueForField (PAJE_Name);
   std::string alias = traceEvent->valueForField (PAJE_Alias);
+
+  //first, check if the name is allowed (it should be
+  //anything but "0" (the zero character)
+  if (name == "0"){
+    std::stringstream line;
+    line << *traceEvent;
+    throw PajeTypeException ("The container name '0' is reserved and should not be used in "+line.str());
+  }
 
   //search the container type for the new container
   PajeType *type = typeMap[typestr];
