@@ -421,7 +421,8 @@ void PajeSimulator::pajeCreateContainer (PajeTraceEvent *traceEvent)
 
   //first, check if the name is allowed (it should be
   //anything but "0" (the zero character)
-  if (name == "0"){
+  std::string identifier_check = !alias.empty() ? alias : name;
+  if (identifier_check == "0" && contMap.size() > 1){
     std::stringstream line;
     line << *traceEvent;
     throw PajeTypeException ("The container name '0' is reserved and should not be used in "+line.str());
