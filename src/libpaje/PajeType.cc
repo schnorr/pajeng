@@ -33,12 +33,12 @@ PajeType::~PajeType ()
 {
 }
 
-std::string PajeType::name (void) const
+const std::string &PajeType::name (void) const
 {
   return _name;
 }
 
-std::string PajeType::alias (void) const
+const std::string &PajeType::alias (void) const
 {
   return _alias;
 }
@@ -53,21 +53,21 @@ PajeType *PajeType::parent (void) const
   return _parent;
 }
 
-std::string PajeType::identifier (void) const
+const std::string &PajeType::identifier (void) const
 {
   return _alias.empty() ? _name : _alias;
 }
 
 std::string PajeType::kind (void) const
 {
-  switch (nature()){
-  case PAJE_ContainerType: return std::string ("Container"); break;
-  case PAJE_VariableType: return std::string ("Variable"); break;
-  case PAJE_StateType: return std::string ("State"); break;
-  case PAJE_EventType: return std::string ("Event"); break;
-  case PAJE_LinkType: return std::string ("Link"); break;
-  default: return std::string ("Unknown"); break;
-  }
+ switch (nature()){
+   case PAJE_ContainerType: return std::string ("Container"); break;
+   case PAJE_VariableType: return std::string ("Variable"); break;
+   case PAJE_StateType: return std::string ("State"); break;
+   case PAJE_EventType: return std::string ("Event"); break;
+   case PAJE_LinkType: return std::string ("Link"); break;
+   default: return std::string ("Unknown"); break;
+ }
 }
 
 bool PajeType::isCategorizedType (void) const
@@ -400,7 +400,7 @@ PajeValue *PajeAggregatedType::value (void) const
   return aggregatedValue;
 }
 
-std::string PajeAggregatedType::name (void) const
+const std::string &PajeAggregatedType::name (void) const
 {
   if (aggregatedType->isCategorizedType()){
     return aggregatedValue->name();

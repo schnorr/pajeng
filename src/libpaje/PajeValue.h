@@ -30,9 +30,9 @@ private:
 public:
   PajeValue (std::string name, std::string alias, PajeType *type, PajeColor *color);
   PajeColor *color (void);
-  std::string name (void);
-  std::string alias (void);
-  std::string identifier (void);
+  const std::string &name (void);
+  const std::string &alias (void);
+  const std::string &identifier (void);
   PajeType *type (void);
 };
 

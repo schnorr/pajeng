@@ -303,7 +303,7 @@ void PajeDefinitions::initialize (bool strict)
   optionalFields[PajeEndLinkEventId].insert (PAJE_Line);
 }
 
-std::string PajeDefinitions::eventNameFromID (PajeEventId event)
+const std::string &PajeDefinitions::eventNameFromID (PajeEventId event)
 {
   if (event == PajeUnknownEventId){
     throw PajeDefinitionsException ();
@@ -313,7 +313,7 @@ std::string PajeDefinitions::eventNameFromID (PajeEventId event)
   return found->second;
 }
 
-std::string PajeDefinitions::fieldNameFromID (PajeField field)
+const std::string &PajeDefinitions::fieldNameFromID (PajeField field)
 {
   if (field == PAJE_Extra || field == PAJE_Unknown_Field){
     throw PajeDefinitionsException ();
@@ -323,7 +323,7 @@ std::string PajeDefinitions::fieldNameFromID (PajeField field)
   return found->second;
 }
 
-std::string PajeDefinitions::fieldTypeNameFromID (PajeFieldType type)
+const std::string &PajeDefinitions::fieldTypeNameFromID (PajeFieldType type)
 {
   if (type == PAJE_unknown_field_type){
     throw PajeDefinitionsException ();
