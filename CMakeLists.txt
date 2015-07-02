@@ -34,3 +34,8 @@ add_subdirectory(src)
 if(PAJE_DOC)
   add_subdirectory(doc)
 endif(PAJE_DOC)
+find_package(Boost)
+if(Boost_FOUND)
+   include_directories(${Boost_INCLUDE_DIRS})
+endif()
+
