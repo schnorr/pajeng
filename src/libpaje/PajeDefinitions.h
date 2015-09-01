@@ -42,9 +42,9 @@ class PajeDefinitions {
   PajeDefinitions (bool strict);
   ~PajeDefinitions ();
 
-  std::string eventNameFromID (PajeEventId event);
-  std::string fieldNameFromID (PajeField field);
-  std::string fieldTypeNameFromID (PajeFieldType type);
+  const std::string &eventNameFromID (PajeEventId event);
+  const std::string &fieldNameFromID (PajeField field);
+  const std::string &fieldTypeNameFromID (PajeFieldType type);
 
   PajeEventId idFromEventName (std::string event);
   PajeField idFromFieldName (std::string field);

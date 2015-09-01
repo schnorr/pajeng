@@ -47,11 +47,11 @@ protected:
 public:
   PajeType (std::string name, std::string alias, PajeType *parent);
   ~PajeType ();
-  std::string name (void) const;
-  std::string alias (void) const;
+  const std::string &name (void) const;
+  const std::string &alias (void) const;
   int depth (void) const;
   PajeType *parent (void) const;
-  std::string identifier (void) const;
+  const std::string &identifier (void) const;
   std::string kind (void) const;
   virtual bool isCategorizedType (void) const;
   virtual PajeValue *addValue (std::string alias, std::string value, PajeColor *color);
@@ -156,7 +156,7 @@ public:
   PajeColor *color (void) const;
   PajeType *type (void) const;
   PajeValue *value (void) const;
-  std::string name (void) const;
+  const std::string &name (void) const;
 };
 
 struct PajeAggregatedTypeCompare {
