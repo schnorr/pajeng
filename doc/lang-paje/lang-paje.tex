@@ -573,7 +573,7 @@ Related \Paje events:
 The \PajeDefineVariableType event is used to define new variable
 types. This event must contain the fields \Name, \Type, and \Color.
 It defines a new {\bf variable} entity type called \Name, contained in a
-previously defined container type of \Type, with the color \Color.
+previously defined container type of \Type, with the color \Color, if defined.
 
 Optionally this event can contain a field \Alias with an alias to
 identify this type. See Section~\ref{s.Alias} to correctly use alias
@@ -584,8 +584,8 @@ in a \Paje trace file.
 \multicolumn{3}{|T|}{\textbf{\PajeDefineVariableType}}\\\hline
 \textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
 \Name          & string or integer & Name of new variable type \\
-\Type          & string or integer & Parent container type\\
-\Color         & color             & The color of the new variable\\\hline
+\Type          & string or integer & Parent container type\\\hline
+\Color         & color             & The color of the new variable\\
 \Alias         & string or integer & Alternative name of new variable type \\\hline
 \end{tabular}
 
