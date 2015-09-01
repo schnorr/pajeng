@@ -666,7 +666,7 @@ the states, links, and events. The advantage of using this event is
 that colors can be hard-coded in the trace, but this event is
 completely optional. It defines a new value called \Name for the
 previously defined type specified in \Type. The color of this new
-value is defined in the \Color field.
+value is defined in the \Color field, if provided.
 
 Optionally this event can contain a field \Alias with an alias to
 identify this type. See Section~\ref{s.Alias} to correctly use alias
@@ -677,8 +677,8 @@ in a \Paje trace file.
 \multicolumn{3}{|T|}{\textbf{\PajeDefineEntityValue}}\\\hline
 \textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
 \Type                & string or integer & A state, event, or link type \\
-\Name                & string or integer & Name of the new value \\
-\Color               & color             & Color of the value \\\hline
+\Name                & string or integer & Name of the new value \\\hline
+\Color               & color             & Color of the value \\
 \Alias               & string or integer & Alternative name of the new value \\\hline
 \end{tabular}
 
@@ -686,7 +686,7 @@ An invalid use of this event happens on the following cases:
 \begin{itemize*}
 \item \Name was already used in a previous definition
 \item \Type is not a state, event, or link type, or was not previously defined
-\item \Color is not a valid color
+\item \Color (if provided) is not a valid color
 \item \Alias was already used in a previous definition
 \end{itemize*}
 
