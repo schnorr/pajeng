@@ -10,7 +10,7 @@ foreach (_INPUT pj_validate.1.txt pj_dump.1.txt)
   add_custom_command(
     TARGET man
     SOURCE  ${CMAKE_CURRENT_SOURCE_DIR}/${_INPUT}
-    COMMAND ${A2X_EXECUTABLE} --doctype manpage --format manpage ${CMAKE_CURRENT_SOURCE_DIR}/${_INPUT} -D ${CMAKE_CURRENT_BINARY_DIR}
+    COMMAND ${A2X_EXECUTABLE} --xsltproc-opts=--nonet --doctype manpage --format manpage ${CMAKE_CURRENT_SOURCE_DIR}/${_INPUT} -D ${CMAKE_CURRENT_BINARY_DIR}
     OUTPUTS ${CMAKE_CURRENT_BINARY_DIR}/${_OUTPUT}
     )
 

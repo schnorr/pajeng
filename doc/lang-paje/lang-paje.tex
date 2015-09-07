@@ -134,7 +134,7 @@
 \begin{document}
 \begin{onehalfspace}
 {\Huge \Paje~-- trace file format} \\
-{\Large Version {\bf 1.3} - October 15th, 2014} \\
+{\Large Version {\bf 1.3.1} - September 1st, 2015} \\
 \rule{\linewidth}{2pt}
 \end{onehalfspace}
 
@@ -573,7 +573,7 @@ Related \Paje events:
 The \PajeDefineVariableType event is used to define new variable
 types. This event must contain the fields \Name, \Type, and \Color.
 It defines a new {\bf variable} entity type called \Name, contained in a
-previously defined container type of \Type, with the color \Color.
+previously defined container type of \Type, with the color \Color, if defined.
 
 Optionally this event can contain a field \Alias with an alias to
 identify this type. See Section~\ref{s.Alias} to correctly use alias
@@ -584,8 +584,8 @@ in a \Paje trace file.
 \multicolumn{3}{|T|}{\textbf{\PajeDefineVariableType}}\\\hline
 \textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
 \Name          & string or integer & Name of new variable type \\
-\Type          & string or integer & Parent container type\\
-\Color         & color             & The color of the new variable\\\hline
+\Type          & string or integer & Parent container type\\\hline
+\Color         & color             & The color of the new variable\\
 \Alias         & string or integer & Alternative name of new variable type \\\hline
 \end{tabular}
 
@@ -666,7 +666,7 @@ the states, links, and events. The advantage of using this event is
 that colors can be hard-coded in the trace, but this event is
 completely optional. It defines a new value called \Name for the
 previously defined type specified in \Type. The color of this new
-value is defined in the \Color field.
+value is defined in the \Color field, if provided.
 
 Optionally this event can contain a field \Alias with an alias to
 identify this type. See Section~\ref{s.Alias} to correctly use alias
@@ -677,8 +677,8 @@ in a \Paje trace file.
 \multicolumn{3}{|T|}{\textbf{\PajeDefineEntityValue}}\\\hline
 \textbf{Field Name} & \textbf{Field Type} & \textbf{Description}\\\hline
 \Type                & string or integer & A state, event, or link type \\
-\Name                & string or integer & Name of the new value \\
-\Color               & color             & Color of the value \\\hline
+\Name                & string or integer & Name of the new value \\\hline
+\Color               & color             & Color of the value \\
 \Alias               & string or integer & Alternative name of the new value \\\hline
 \end{tabular}
 
@@ -686,7 +686,7 @@ An invalid use of this event happens on the following cases:
 \begin{itemize*}
 \item \Name was already used in a previous definition
 \item \Type is not a state, event, or link type, or was not previously defined
-\item \Color is not a valid color
+\item \Color (if provided) is not a valid color
 \item \Alias was already used in a previous definition
 \end{itemize*}
 
@@ -1453,6 +1453,12 @@ just by removing all lines containing the word ``Alias''.
 
 \section{ChangeLog}
 \label{ChangeLog}
+
+\subsection*{Version 1.3.1 (September 1st, 2015)}
+\begin{itemize*}
+\item Color is optional for \PajeDefineVariableType
+\item Color is optional for \PajeDefineEntityValue
+\end{itemize*}
 
 \subsection*{Version 1.3 (October 15th, 2014)}
 \begin{itemize*}
