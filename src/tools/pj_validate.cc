@@ -33,6 +33,7 @@ static struct argp_option options[] = {
   {"flex", 'f', 0, OPTION_ARG_OPTIONAL, "Use flex-based file reader"},
   {"version", 'v', 0, OPTION_ARG_OPTIONAL, "Print version of this binary"},
   {"container", 'c', 0, OPTION_ARG_OPTIONAL, "Print container hierarchy"},
+  {"dot", 'd', 0, OPTION_ARG_OPTIONAL, "Print type hierarchy in dot format"},
   { 0 }
 };
 
@@ -44,6 +45,7 @@ struct arguments {
   int time;
   int flex;
   int container;
+  int dot;
 };
 
 static error_t parse_options (int key, char *arg, struct argp_state *state)
@@ -55,6 +57,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
   case 'q': arguments->quiet = 1; break;
   case 'f': arguments->flex = 1; break;
   case 'c': arguments->container = 1; break;
+  case 'd': arguments->dot = 1; break;
   case 'v': printf("%s\n", LIBPAJE_VERSION_STRING); exit(0); break;
   case ARGP_KEY_ARG:
     if (arguments->input_size == VALIDATE_INPUT_SIZE) {
@@ -101,6 +104,12 @@ int main (int argc, char **argv)
 
   if (arguments.time){
     printf ("%f\n", unity->getTime());
+  }
+
+  if (arguments.dot){
+    unity->reportDot();
+    delete unity;
+    return 0;
   }
 
   if (arguments.container){

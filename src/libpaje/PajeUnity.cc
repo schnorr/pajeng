@@ -113,6 +113,11 @@ void PajeUnity::report ()
   simulator->report();
 }
 
+void PajeUnity::reportDot ()
+{
+  simulator->reportDotFormat();
+}
+
 void PajeUnity::reportContainer ()
 {
   simulator->reportContainer();

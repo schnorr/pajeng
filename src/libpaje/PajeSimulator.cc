@@ -100,6 +100,53 @@ void PajeSimulator::report (void)
   }
 }
 
+static const char *getDotShape (PajeTypeNature nature)
+{
+  switch(nature){
+  case PAJE_ContainerType:
+    return "folder";
+  case PAJE_VariableType:
+    return "plaintext";
+  case PAJE_StateType:
+    return "rectangle";
+  case PAJE_EventType:
+    return "oval";
+  case PAJE_LinkType:
+    return "rarrow";
+  case PAJE_UndefinedType:
+  default:
+    return "point";
+
+  }
+  return NULL;
+}
+
+void PajeSimulator::reportDotFormat (void)
+{
+  printf("digraph PajeTypes {\n");
+  std::vector<PajeType*> stack;
+  stack.push_back (rootType);
+  while (!stack.empty()){
+    PajeType *last = stack.back();
+    stack.pop_back();
+
+    const char *shape = getDotShape (last->nature());
+    printf("\"%s\" [shape=%s, label=\"%s (%s)\"];\n", last->name().c_str(), shape, last->name().c_str(), last->alias().c_str());
+
+    //push back more types
+    if (this->isContainerType (last)){
+      std::vector<PajeType*> children = this->containedTypesForContainerType(last);
+      while (!children.empty()){
+        PajeType *x = children.back();
+	printf ("\"%s\" -> \"%s\";\n", last->name().c_str(), x->name().c_str());
+        stack.push_back (x);
+        children.pop_back();
+      }
+    }
+  }
+  printf("}\n");
+}
+
 void PajeSimulator::reportContainer (void)
 {
   std::vector<PajeContainer*> stack;
