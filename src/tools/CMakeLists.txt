@@ -53,7 +53,6 @@ if(Boost_FOUND)
    include_directories(${Boost_INCLUDE_DIRS})
 endif()
 
-
 IF(STATIC_LINKING)
   TARGET_LINK_LIBRARIES(pj_dump paje_library_static)
   IF(APPLE)
@@ -68,6 +67,32 @@ ENDIF(STATIC_LINKING)
 SET_PROPERTY(TARGET pj_dump PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 INSTALL(PROGRAMS ${CMAKE_BINARY_DIR}/pj_dump DESTINATION bin)
 
+#pj_equals
+ADD_EXECUTABLE(pj_equals pj_equals.cc)
+INCLUDE_DIRECTORIES (pj_equals ${PROJECT_SOURCE_DIR}/src/libpaje/)
+INCLUDE_DIRECTORIES(${pajeng_SOURCE_DIR}/src/fb/)
+include_directories(${CMAKE_BINARY_DIR})
+# FIXME check for libgomp / OpenMP support
+set_target_properties(pj_equals PROPERTIES COMPILE_FLAGS "-fopenmp")
+target_link_libraries(pj_equals gomp)
+find_package(Boost)
+if(Boost_FOUND)
+   include_directories(${Boost_INCLUDE_DIRS})
+endif()
+
+IF(STATIC_LINKING)
+  TARGET_LINK_LIBRARIES(pj_equals paje_library_static)
+  IF(APPLE)
+    TARGET_LINK_LIBRARIES(pj_equals argp)
+  ENDIF(APPLE)
+ELSE(STATIC_LINKING)
+  TARGET_LINK_LIBRARIES(pj_equals paje_library)
+  IF(APPLE)
+    TARGET_LINK_LIBRARIES(pj_equals argp)
+  ENDIF(APPLE)
+ENDIF(STATIC_LINKING)
+SET_PROPERTY(TARGET pj_equals PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+INSTALL(PROGRAMS ${CMAKE_BINARY_DIR}/pj_equals DESTINATION bin)
 
 #
 # test with tesh (thanks SimGrid team)
