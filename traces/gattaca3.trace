@@ -1,0 +1,173 @@
+#
+# Trace file of a sequence of events equivalent to the one present on an article
+# on alignment algorithm on Wikipedia
+# (en.wikipedia.org/wiki/Needleman–Wunsch_algorithm), acessed 29 Nov 2014
+#
+# Expected alignments:
+# GATTACA      G-ATTACA      G-ATTACA      G-ATTACA
+# GCATGCU      GCATG-CU      GCA-TGCU      GCAT-GCU
+#
+%EventDef PajeDefineContainerType 0
+%       Alias string
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineVariableType 1
+%       Alias string
+%       Type string
+%       Name string
+%       Color color
+%EndEventDef
+%EventDef PajeDefineStateType 2
+%       Alias string
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineEventType 3
+%       Alias string
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineLinkType 4
+%       Alias string
+%       Type string
+%       StartContainerType string
+%       EndContainerType string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineEntityValue 5
+%       Alias string
+%       Type string
+%       Name string
+%       Color color
+%EndEventDef
+%EventDef PajeCreateContainer 6
+%       Time date
+%       Alias string
+%       Type string
+%       Container string
+%       Name string
+%EndEventDef
+%EventDef PajeDestroyContainer 7
+%       Time date
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeSetVariable 8
+%       Time date
+%       Container string
+%       Type string
+%       Value double
+%EndEventDef
+%EventDef PajeAddVariable 9
+%       Time date
+%       Container string
+%       Type string
+%       Value double
+%EndEventDef
+%EventDef PajeSubVariable 10
+%       Time date
+%       Container string
+%       Type string
+%       Value double
+%EndEventDef
+%EventDef PajeSetState 11
+%       Time date
+%       Container string
+%       Type string
+%       Value string
+%EndEventDef
+%EventDef PajePushState 12
+%       Time date
+%       Container string
+%       Type string
+%       Value string
+%EndEventDef
+%EventDef PajePopState 14
+%       Time date
+%       Container string
+%       Type string
+%EndEventDef
+%EventDef PajeResetState 15
+%       Time date
+%       Type string
+%       Container string
+%EndEventDef
+%EventDef PajeStartLink 16
+%       Time date
+%       Container string
+%       Type string
+%       StartContainer string
+%       Value string
+%       Key string
+%EndEventDef
+%EventDef PajeEndLink 19
+%       Time date
+%       Container string
+%       Type string
+%       EndContainer string
+%       Value string
+%       Key string
+%EndEventDef
+%EventDef PajeNewEvent 20
+%       Time date
+%       Container string
+%       Type string
+%       Value string
+%EndEventDef
+#
+# Extended events with additional information
+# Note that not all paje file format parsers support this
+# If you have problems parsing this file with your visualization tool
+#
+%EventDef PajePushState 13
+%       Time date
+%       Container string
+%       Type string
+%       Value string
+%       Mark string
+%EndEventDef
+%EventDef PajeStartLink 17
+%       Time date
+%       Container string
+%       Type string
+%       StartContainer string
+%       Value string
+%       Key string
+%       Size double
+%EndEventDef
+%EventDef PajeStartLink 18
+%       Time date
+%       Container string
+%       Type string
+%       StartContainer string
+%       Value string
+%       Key string
+%       Size double
+%       Mark string
+%EndEventDef
+0 machine 0 "machine"
+6 0.000000000 Linux machine 0 "Linux"
+0 node machine "node"
+6 0.000000000 pc node Linux "pc"
+0 P node "P"
+2 STATE P "STATE"
+4 LINK 0 P P "LINK"
+6 0.000000000 rank0 P pc "Process"
+12 0.000000000 rank0 STATE main
+12 0.000010464 rank0 STATE g
+14 0.000010859 rank0 STATE
+12 0.000012780 rank0 STATE c
+14 0.000013170 rank0 STATE
+12 0.000014382 rank0 STATE a
+14 0.000014596 rank0 STATE
+12 0.000015792 rank0 STATE t
+14 0.000016134 rank0 STATE
+12 0.000016386 rank0 STATE g
+14 0.000016659 rank0 STATE
+12 0.000016944 rank0 STATE c
+14 0.000017220 rank0 STATE
+12 0.000018138 rank0 STATE u
+14 0.000018462 rank0 STATE
+14 0.000018841 rank0 STATE
+7 0.000019741 P rank0
