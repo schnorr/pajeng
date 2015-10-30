@@ -32,6 +32,7 @@ static struct argp_option options[] = {
   {"start2", 't', "START2", 0, "Comparison starts at timestamp START2 of trace2 (instead of 0)"},
   {"end2", 'd', "END2", 0, "Comparison ends at timestamp END2 of trace2 (instead of EOF)"},
   {"stop-at2", 'o', "TIME2", 0, "Stop the trace simulation at TIME2"},
+  {"icase", 'i', 0, OPTION_ARG_OPTIONAL, "Ignore case when comparing identifiers"},
   {"no-strict", 'n', 0, OPTION_ARG_OPTIONAL, "Support old field names in event definitions"},
   {"ignore-incomplete-links", 'z', 0, OPTION_ARG_OPTIONAL, "Ignore incomplete links (not recommended)"},
   {"quiet", 'q', 0, OPTION_ARG_OPTIONAL, "Do not output to stdout. Instead, return the result"},
@@ -44,6 +45,7 @@ struct arguments {
   char *input[VALIDATE_INPUT_SIZE];
   double start1, end1, stopat1;
   double start2, end2, stopat2;
+  int icase;
   int noStrict;
   int input_size;
   int ignoreIncompleteLinks;
@@ -61,6 +63,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
   case 't': arguments->start2 = atof(arg); break;
   case 'd': arguments->end2 = atof(arg); break;
   case 'o': arguments->stopat2 = atof(arg); break;
+  case 'i': arguments->icase = 1; break;
   case 'n': arguments->noStrict = 1; break;
   case 'z': arguments->ignoreIncompleteLinks = 1; break;
   case 'q': arguments->quiet = 1; break;
@@ -109,6 +112,25 @@ tcmp(PajeType *a, PajeType *b)
   return !(a && b && a->kind() == b->kind());
 }
 
+bool
+itcmp(PajeType *a, PajeType *b)
+{
+  return !((a && b) && !strcasecmp(a->kind().c_str(), b->kind().c_str()));
+}
+
+bool
+icmp(PajeEntity *a, PajeEntity *b)
+{
+  if (a && b) {
+    if (!VALUE(a) && !VALUE(b))
+      return 0;
+    if (VALUE(a) && VALUE(b))
+      return strcasecmp(VALUE_ID(a).c_str(), VALUE_ID(b).c_str());
+    return 1;
+  }
+  return 1;
+}
+
 int
 equals(struct arguments *arguments, PajeComponent *s1, PajeComponent *s2)
 {
@@ -138,8 +160,12 @@ equals(struct arguments *arguments, PajeComponent *s1, PajeComponent *s2)
     for (size_t i = 0; i < containedTypes1.size(); ++i) {
       PajeType *t1 = containedTypes1.at(i);
       PajeType *t2 = containedTypes2.at(i);
-      if (tcmp(t1, t2))
+      if (arguments->icase) {
+        if (itcmp(t1, t2))
+          return 0;
+      } else if (tcmp(t1, t2)) {
         return 0;
+      }
       if (s1->isContainerType(t1)) {
         std::vector<PajeContainer*> children;
         std::vector<PajeContainer*>::iterator it;
@@ -175,8 +201,12 @@ equals(struct arguments *arguments, PajeComponent *s1, PajeComponent *s2)
         if (entities1.size() != entities2.size())
           return 0;
         for (size_t j = 0; j < entities1.size(); ++j)
-          if (cmp(entities1.at(j), entities2.at(j)))
+          if (arguments->icase) {
+            if (icmp(entities1.at(j), entities2.at(j)))
+              return 0;
+          } else if (cmp(entities1.at(j), entities2.at(j))) {
             return 0;
+          }
       }
     }
   }
