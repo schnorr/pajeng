@@ -1,0 +1,20 @@
+$ "./pj_equals ../traces/g5k.trace ../traces/g5k.trace"
+> 1
+
+$ "./pj_equals ../traces/g5k.trace ../traces/gattaca.trace"
+> 0
+
+$ "./pj_equals ../traces/categories.trace ../traces/categories.trace"
+> 1
+
+$ "./pj_equals ../traces/simu-mardi.trace ../traces/simu-mardi.trace"
+> 1
+
+$ "./pj_equals ../traces/gattaca.trace ../traces/gattaca3.trace"
+> 1
+
+$ "./pj_equals ../traces/gattaca.trace ../traces/gattaca2.trace"
+> 0
+
+$ "./pj_equals ../traces/gattaca.trace ../traces/gattaca2.trace -i"
+> 1
