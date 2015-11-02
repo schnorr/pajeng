@@ -1,0 +1,6 @@
+#!./tesh
+
+$ ./pj_dump ../traces/replay_output_heinrich_extract.trace
+> Container, 0, 0, 0, 29.5381, 29.5381, 0
+> Container, 0, MPI, 0, 29.5381, 29.5381, rank-0
+> State, rank-0, MPI_STATE, 29.538086, 29.538086, 0.000000, 0.000000, smpi_replay_run_finalize

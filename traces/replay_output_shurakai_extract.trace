@@ -1,0 +1,123 @@
+%EventDef PajeDefineContainerType 0
+%       Alias string
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineVariableType 1
+%       Alias string
+%       Type string
+%       Name string
+%       Color color
+%EndEventDef
+%EventDef PajeDefineStateType 2
+%       Alias string
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineEventType 3
+%       Alias string
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineLinkType 4
+%       Alias string
+%       Type string
+%       StartContainerType string
+%       EndContainerType string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineEntityValue 5
+%       Alias string
+%       Type string
+%       Name string
+%       Color color
+%EndEventDef
+%EventDef PajeCreateContainer 6
+%       Time date
+%       Alias string
+%       Type string
+%       Container string
+%       Name string
+%EndEventDef
+%EventDef PajeDestroyContainer 7
+%       Time date
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeSetVariable 8
+%       Time date
+%       Type string
+%       Container string
+%       Value double
+%EndEventDef
+%EventDef PajeAddVariable 9
+%       Time date
+%       Type string
+%       Container string
+%       Value double
+%EndEventDef
+%EventDef PajeSubVariable 10
+%       Time date
+%       Type string
+%       Container string
+%       Value double
+%EndEventDef
+%EventDef PajeSetState 11
+%       Time date
+%       Type string
+%       Container string
+%       Value string
+%EndEventDef
+%EventDef PajePushState 12
+%       Time date
+%       Type string
+%       Container string
+%       Value string
+%EndEventDef
+%EventDef PajePopState 13
+%       Time date
+%       Type string
+%       Container string
+%EndEventDef
+%EventDef PajeResetState 14
+%       Time date
+%       Type string
+%       Container string
+%EndEventDef
+%EventDef PajeStartLink 15
+%       Time date
+%       Type string
+%       Container string
+%       Value string
+%       StartContainer string
+%       Key string
+%EndEventDef
+%EventDef PajeEndLink 16
+%       Time date
+%       Type string
+%       Container string
+%       Value string
+%       EndContainer string
+%       Key string
+%EndEventDef
+%EventDef PajeNewEvent 17
+%       Time date
+%       Type string
+%       Container string
+%       Value string
+%EndEventDef
+0 1 0 MPI
+2 2 1 MPI_STATE
+4 3 0 1 1 MPI_LINK
+5 4 2 smpi_replay_run_init "0 1 0"
+5 5 2 action_bcast "0 0.78 0.39"
+5 6 2 action_Irecv "1 0 0"
+5 7 2 action_wait "1 1 0"
+5 8 2 action_send "0 0 1"
+5 9 2 action_allReduce "1 0 1"
+5 10 2 action_barrier "0 0.78 0.78"
+5 11 2 action_recv "1 0 0"
+5 12 2 smpi_replay_run_finalize "0 1 0"
+6 0 1 1 0 "rank-0"
+12 29.538086 2 1 12
+13 29.538086 2 1
