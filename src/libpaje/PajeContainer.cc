@@ -536,7 +536,7 @@ std::vector<PajeEntity*> PajeContainer::enumeratorOfEntitiesTyped (double start,
     low--;
   }
 
-  if (low == up && up != entities[type].end()){
+  if (up != entities[type].end()){
     up++;
   }
 
