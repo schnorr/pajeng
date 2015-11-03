@@ -53,6 +53,7 @@ $ ./pj_dump ../traces/ms.trace
 > Variable, 7, bandwidth_used, 2.105660, 3.233063, 1.127403, 0.000000
 > Variable, 7, bandwidth_used, 3.233063, 3.428600, 0.195537, 5369841.234375
 > Variable, 7, bandwidth_used, 3.428600, 4.485137, 1.056537, 0.000000
+> Variable, 7, bandwidth_used, 4.485137, 4.485137, 0.000000, 0.000000
 > Container, 0, LINK, 0, 4.48514, 4.48514, 3
 > Variable, 3, bcompute, 0.197066, 0.394668, 0.197602, 5313697.734375
 > Variable, 3, bcompute, 0.394668, 0.411221, 0.016553, 0.000000
@@ -90,6 +91,7 @@ $ ./pj_dump ../traces/ms.trace
 > Variable, 3, bandwidth_used, 3.428600, 3.888674, 0.460074, 0.000000
 > Variable, 3, bandwidth_used, 3.888674, 3.935855, 0.047181, 0.000000
 > Variable, 3, bandwidth_used, 3.935855, 4.485137, 0.549282, 0.000000
+> Variable, 3, bandwidth_used, 4.485137, 4.485137, 0.000000, 0.000000
 > Container, 0, LINK, 0, 4.48514, 4.48514, 6
 > Variable, 6, bcompute, 0.563888, 0.759424, 0.195536, 5369841.234375
 > Variable, 6, bcompute, 0.759424, 1.910124, 1.150700, 0.000000
@@ -105,6 +107,7 @@ $ ./pj_dump ../traces/ms.trace
 > Variable, 6, bandwidth_used, 2.105660, 3.233063, 1.127403, 0.000000
 > Variable, 6, bandwidth_used, 3.233063, 3.428600, 0.195537, 5369841.234375
 > Variable, 6, bandwidth_used, 3.428600, 4.485137, 1.056537, 0.000000
+> Variable, 6, bandwidth_used, 4.485137, 4.485137, 0.000000, 0.000000
 > Container, 0, LINK, 0, 4.48514, 4.48514, 5
 > Variable, 5, bcompute, 0.411221, 0.538449, 0.127228, 8252906.562500
 > Variable, 5, bcompute, 0.538449, 4.485137, 3.946688, 0.000000
@@ -145,6 +148,7 @@ $ ./pj_dump ../traces/ms.trace
 > Variable, 0, bandwidth_used, 3.233063, 3.428600, 0.195537, 5369841.234375
 > Variable, 0, bandwidth_used, 3.428600, 3.888674, 0.460074, 0.000000
 > Variable, 0, bandwidth_used, 3.888674, 4.485137, 0.596463, 0.000000
+> Variable, 0, bandwidth_used, 4.485137, 4.485137, 0.000000, 0.000000
 > Container, 0, LINK, 0, 4.48514, 4.48514, 4
 > Variable, 4, bcompute, 0.197066, 0.394668, 0.197602, 5313697.734375
 > Variable, 4, bcompute, 0.394668, 0.411221, 0.016553, 0.000000
@@ -182,6 +186,7 @@ $ ./pj_dump ../traces/ms.trace
 > Variable, 4, bandwidth_used, 3.428600, 3.888674, 0.460074, 0.000000
 > Variable, 4, bandwidth_used, 3.888674, 3.935855, 0.047181, 0.000000
 > Variable, 4, bandwidth_used, 3.935855, 4.485137, 0.549282, 0.000000
+> Variable, 4, bandwidth_used, 4.485137, 4.485137, 0.000000, 0.000000
 > Container, 0, LINK, 0, 4.48514, 4.48514, 1
 > Variable, 1, bcompute, 0.197066, 0.394668, 0.197602, 5313697.734375
 > Variable, 1, bcompute, 0.394668, 0.563888, 0.169220, 0.000000
@@ -210,6 +215,7 @@ $ ./pj_dump ../traces/ms.trace
 > Variable, 1, bandwidth_used, 3.233063, 3.428600, 0.195537, 5369841.234375
 > Variable, 1, bandwidth_used, 3.428600, 3.888674, 0.460074, 0.000000
 > Variable, 1, bandwidth_used, 3.888674, 4.485137, 0.596463, 0.000000
+> Variable, 1, bandwidth_used, 4.485137, 4.485137, 0.000000, 0.000000
 > Container, 0, LINK, 0, 4.48514, 4.48514, 8
 > Variable, 8, bcompute, 0.197066, 0.394668, 0.197602, 5313697.734375
 > Variable, 8, bcompute, 0.394668, 2.131369, 1.736701, 0.000000
@@ -254,6 +260,7 @@ $ ./pj_dump ../traces/ms.trace
 > Variable, 2, bandwidth_used, 3.233063, 3.428600, 0.195537, 5369841.234375
 > Variable, 2, bandwidth_used, 3.428600, 3.888674, 0.460074, 0.000000
 > Variable, 2, bandwidth_used, 3.888674, 4.485137, 0.596463, 0.000000
+> Variable, 2, bandwidth_used, 4.485137, 4.485137, 0.000000, 0.000000
 > Container, 0, HOST, 0, 4.48514, 4.48514, Bourassa
 > Variable, Bourassa, is_slave, 0.000000, 4.485137, 4.485137, 1.000000
 > Variable, Bourassa, task_computation, 0.000000, 0.759424, 0.759424, 0.000000

@@ -1045,6 +1045,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node32, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node32, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node32, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node32, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node32, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node32, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node32, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -1283,6 +1284,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node32, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node32, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node32, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node32, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node32, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node31
 > State, node31, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -1311,6 +1313,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node31, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node31, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node31, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node31, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node31, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node31, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node31, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -1549,6 +1552,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node31, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node31, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node31, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node31, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node31, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node30
 > State, node30, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -1577,6 +1581,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node30, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node30, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node30, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node30, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node30, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node30, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node30, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -1815,6 +1820,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node30, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node30, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node30, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node30, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node30, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node29
 > State, node29, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -1843,6 +1849,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node29, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node29, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node29, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node29, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node29, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node29, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node29, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -2081,6 +2088,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node29, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node29, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node29, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node29, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node29, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node28
 > State, node28, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -2109,6 +2117,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node28, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node28, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node28, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node28, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node28, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node28, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node28, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -2347,6 +2356,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node28, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node28, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node28, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node28, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node28, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node27
 > State, node27, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -2375,6 +2385,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node27, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node27, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node27, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node27, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node27, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node27, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node27, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -2613,6 +2624,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node27, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node27, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node27, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node27, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node27, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node26
 > State, node26, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -2641,6 +2653,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node26, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node26, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node26, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node26, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node26, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node26, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node26, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -2879,6 +2892,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node26, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node26, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node26, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node26, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node26, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node2
 > State, node2, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -2919,6 +2933,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node2, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node2, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node2, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node2, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node2, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node2, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node2, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -3157,6 +3172,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node2, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node2, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node2, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node2, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node2, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node25
 > State, node25, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -3185,6 +3201,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node25, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node25, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node25, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node25, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node25, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node25, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node25, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -3423,6 +3440,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node25, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node25, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node25, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node25, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node25, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node24
 > State, node24, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -3451,6 +3469,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node24, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node24, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node24, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node24, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node24, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node24, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node24, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -3689,6 +3708,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node24, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node24, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node24, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node24, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node24, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node23
 > State, node23, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -3717,6 +3737,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node23, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node23, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node23, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node23, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node23, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node23, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node23, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -3955,6 +3976,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node23, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node23, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node23, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node23, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node23, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node22
 > State, node22, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -3983,6 +4005,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node22, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node22, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node22, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node22, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node22, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node22, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node22, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -4221,6 +4244,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node22, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node22, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node22, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node22, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node22, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node21
 > State, node21, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -4249,6 +4273,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node21, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node21, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node21, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node21, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node21, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node21, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node21, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -4487,6 +4512,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node21, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node21, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node21, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node21, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node21, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node20
 > State, node20, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -4515,6 +4541,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node20, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node20, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node20, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node20, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node20, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node20, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node20, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -4753,6 +4780,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node20, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node20, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node20, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node20, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node20, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node19
 > State, node19, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -4785,6 +4813,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node19, PM, 1137.251928, 1149.000000, 11.748072, 0.000000, violation
 > State, node19, PM, 1147.000000, 1149.000000, 2.000000, 1.000000, violation-det
 > State, node19, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node19, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node19, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node19, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node19, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -5023,6 +5052,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node19, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node19, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node19, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node19, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node19, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node18
 > State, node18, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -5053,6 +5083,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node18, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node18, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node18, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node18, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node18, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node18, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node18, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -5291,6 +5322,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node18, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node18, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node18, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node18, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node18, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node17
 > State, node17, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -5321,6 +5353,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node17, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node17, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node17, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node17, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node17, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node17, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node17, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -5559,6 +5592,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node17, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node17, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node17, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node17, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node17, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node16
 > State, node16, PM, 100.000000, 210.950395, 110.950395, 0.000000, normal
@@ -5589,6 +5623,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node16, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node16, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node16, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node16, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node16, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node16, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node16, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -5827,6 +5862,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node16, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node16, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node16, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node16, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node16, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node1
 > State, node1, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -5861,6 +5897,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node1, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node1, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node1, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node1, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node1, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node1, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node1, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -6099,6 +6136,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node1, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node1, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node1, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node1, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node1, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node15
 > State, node15, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -6129,6 +6167,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node15, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node15, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node15, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node15, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node15, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node15, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node15, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -6367,6 +6406,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node15, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node15, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node15, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node15, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node15, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node14
 > State, node14, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -6399,6 +6439,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node14, PM, 1124.000000, 1126.000000, 2.000000, 1.000000, violation-det
 > State, node14, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node14, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node14, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node14, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node14, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node14, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -6637,6 +6678,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node14, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node14, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node14, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node14, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node14, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node13
 > State, node13, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -6665,6 +6707,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node13, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node13, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node13, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node13, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node13, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node13, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node13, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -6903,6 +6946,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node13, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node13, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node13, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node13, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node13, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node12
 > State, node12, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -6933,6 +6977,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node12, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node12, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node12, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node12, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node12, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node12, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node12, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -7171,6 +7216,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node12, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node12, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node12, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node12, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node12, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node11
 > State, node11, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -7202,6 +7248,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node11, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node11, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node11, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node11, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node11, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node11, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node11, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -7440,6 +7487,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node11, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node11, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node11, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node11, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node11, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node10
 > State, node10, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -7474,6 +7522,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node10, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node10, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node10, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node10, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node10, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node10, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node10, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -7712,6 +7761,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node10, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node10, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node10, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node10, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node10, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node100
 > Variable, node100, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
@@ -7954,6 +8004,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node99, SERVICE, 1193.000000, 1203.000000, 10.000000, 1.000000, free
 > State, node99, SERVICE, 1203.000000, 1205.000000, 2.000000, 0.000000, compute
 > State, node99, SERVICE, 1204.000000, 1205.000000, 1.000000, 1.000000, reconfigure
+> State, node99, SERVICE, 1205.000000, 1205.000000, 0.000000, 2.000000, free
 > Variable, node99, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node98
 > Variable, node98, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
@@ -7990,6 +8041,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node9, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node9, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node9, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node9, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node9, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node9, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node9, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -8228,6 +8280,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node9, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node9, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node9, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node9, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node9, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node95
 > Variable, node95, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
@@ -8278,6 +8331,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node8, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node8, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node8, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node8, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node8, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node8, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node8, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -8516,6 +8570,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node8, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node8, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node8, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node8, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node8, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node85
 > Variable, node85, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
@@ -8566,6 +8621,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node7, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node7, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node7, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node7, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node7, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node7, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node7, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -8804,6 +8860,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node7, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node7, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node7, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node7, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node7, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node75
 > Variable, node75, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
@@ -8856,6 +8913,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node6, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node6, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node6, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node6, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node6, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node6, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node6, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -9094,6 +9152,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node6, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node6, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node6, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node6, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node6, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node0
 > State, node0, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -9128,6 +9187,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node0, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node0, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node0, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node0, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node0, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node0, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node0, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -9366,6 +9426,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node0, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node0, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node0, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node0, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node0, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node65
 > Variable, node65, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
@@ -9418,6 +9479,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node5, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node5, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node5, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node5, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node5, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node5, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node5, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -9656,6 +9718,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node5, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node5, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node5, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node5, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node5, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node55
 > Variable, node55, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
@@ -9696,6 +9759,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node49, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node49, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node49, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node49, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node49, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node49, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node49, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -9934,6 +9998,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node49, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node49, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node49, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node49, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node49, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node48
 > State, node48, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -9962,6 +10027,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node48, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node48, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node48, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node48, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node48, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node48, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node48, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -10200,6 +10266,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node48, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node48, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node48, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node48, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node48, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node47
 > State, node47, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -10228,6 +10295,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node47, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node47, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node47, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node47, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node47, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node47, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node47, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -10466,6 +10534,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node47, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node47, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node47, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node47, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node47, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node46
 > State, node46, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -10494,6 +10563,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node46, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node46, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node46, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node46, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node46, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node46, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node46, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -10732,6 +10802,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node46, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node46, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node46, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node46, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node46, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node4
 > State, node4, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -10770,6 +10841,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node4, PM, 1149.000000, 1193.453254, 44.453254, 0.000000, normal
 > State, node4, PM, 1193.453254, 1205.000000, 11.546746, 0.000000, violation
 > State, node4, PM, 1203.000000, 1205.000000, 2.000000, 1.000000, violation-det
+> State, node4, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node4, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node4, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node4, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -11008,6 +11080,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node4, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node4, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node4, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node4, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node4, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node45
 > State, node45, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -11036,6 +11109,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node45, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node45, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node45, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node45, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node45, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node45, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node45, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -11274,6 +11348,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node45, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node45, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node45, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node45, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node45, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node44
 > State, node44, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -11302,6 +11377,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node44, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node44, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node44, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node44, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node44, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node44, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node44, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -11540,6 +11616,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node44, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node44, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node44, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node44, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node44, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node43
 > State, node43, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -11568,6 +11645,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node43, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node43, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node43, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node43, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node43, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node43, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node43, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -11806,6 +11884,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node43, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node43, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node43, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node43, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node43, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node42
 > State, node42, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -11834,6 +11913,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node42, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node42, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node42, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node42, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node42, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node42, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node42, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -12072,6 +12152,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node42, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node42, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node42, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node42, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node42, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node41
 > State, node41, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -12100,6 +12181,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node41, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node41, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node41, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node41, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node41, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node41, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node41, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -12338,6 +12420,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node41, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node41, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node41, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node41, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node41, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node40
 > State, node40, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -12366,6 +12449,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node40, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node40, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node40, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node40, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node40, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node40, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node40, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -12604,6 +12688,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node40, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node40, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node40, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node40, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node40, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node39
 > State, node39, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -12632,6 +12717,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node39, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node39, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node39, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node39, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node39, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node39, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node39, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -12870,6 +12956,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node39, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node39, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node39, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node39, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node39, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node38
 > State, node38, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -12898,6 +12985,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node38, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node38, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node38, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node38, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node38, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node38, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node38, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -13136,6 +13224,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node38, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node38, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node38, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node38, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node38, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node37
 > State, node37, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -13164,6 +13253,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node37, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node37, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node37, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node37, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node37, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node37, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node37, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -13402,6 +13492,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node37, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node37, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node37, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node37, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node37, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node36
 > State, node36, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -13430,6 +13521,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node36, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node36, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node36, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node36, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node36, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node36, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node36, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -13668,6 +13760,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node36, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node36, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node36, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node36, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node36, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node3
 > State, node3, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -13702,6 +13795,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node3, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node3, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node3, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node3, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node3, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node3, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node3, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -13940,6 +14034,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node3, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node3, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node3, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node3, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node3, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node35
 > State, node35, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -13968,6 +14063,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node35, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node35, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node35, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node35, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node35, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node35, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node35, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -14206,6 +14302,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node35, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node35, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node35, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node35, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node35, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node34
 > State, node34, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -14234,6 +14331,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node34, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node34, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node34, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node34, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node34, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node34, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node34, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -14472,6 +14570,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node34, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node34, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node34, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node34, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node34, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
 > Container, my_cluster_1, HOST, 0, 1205, 1205, node33
 > State, node33, PM, 100.000000, 222.000000, 122.000000, 0.000000, normal
@@ -14500,6 +14599,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node33, PM, 1059.000000, 1126.000000, 67.000000, 0.000000, normal
 > State, node33, PM, 1126.000000, 1149.000000, 23.000000, 0.000000, normal
 > State, node33, PM, 1149.000000, 1205.000000, 56.000000, 0.000000, normal
+> State, node33, PM, 1205.000000, 1205.000000, 0.000000, 0.000000, normal
 > State, node33, SERVICE, 10.000000, 11.000000, 1.000000, 0.000000, booked
 > State, node33, SERVICE, 11.000000, 21.000000, 10.000000, 0.000000, free
 > State, node33, SERVICE, 21.000000, 22.000000, 1.000000, 0.000000, booked
@@ -14738,4 +14838,5 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > State, node33, SERVICE, 1193.000000, 1203.000000, 10.000000, 0.000000, free
 > State, node33, SERVICE, 1203.000000, 1204.000000, 1.000000, 0.000000, booked
 > State, node33, SERVICE, 1204.000000, 1205.000000, 1.000000, 0.000000, reconfigure
+> State, node33, SERVICE, 1205.000000, 1205.000000, 0.000000, 0.000000, free
 > Variable, node33, power, 0.000000, 1205.000000, 1205.000000, 1000000000.000000
