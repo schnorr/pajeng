@@ -765,4 +765,7 @@ void PajeContainer::destroy (double time)
     }
     stack->clear();
   }
+
+  //recursive destroy because parent container is being destroyed
+  recursiveDestroy(time);
 }
