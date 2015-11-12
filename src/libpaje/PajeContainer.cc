@@ -194,6 +194,15 @@ bool PajeContainer::checkPendingLinks (void)
 
 void PajeContainer::demuxer (PajeEvent *event)
 {
+  //check time ordering
+  if (event->time() < endTime()){
+    PajeTraceEvent *traceEvent = event->traceEvent();
+    std::stringstream eventdesc;
+    eventdesc << *traceEvent;
+    throw PajeSimulationException ("Illegal, container events are not time-ordered in "+eventdesc.str());
+    return;
+  }
+  
   //check if I'm stopped
   if (_destroyed){
     return;
