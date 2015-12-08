@@ -39,3 +39,4 @@ if(Boost_FOUND)
    include_directories(${Boost_INCLUDE_DIRS})
 endif()
 
+install(PROGRAMS ${CMAKE_HOME_DIRECTORY}/scripts/pj_gantt DESTINATION bin)

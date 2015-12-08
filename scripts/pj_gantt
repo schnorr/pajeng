@@ -1,0 +1,80 @@
+#!/usr/bin/Rscript
+
+# This file is part of PajeNG
+#
+# PajeNG is free software: you can redistribute it and/or modify it
+# under the terms of the GNU Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# PajeNG is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Public License for more details.
+#
+# You should have received a copy of the GNU Public License
+# along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
+
+args = commandArgs(trailingOnly=TRUE)
+if (length(args) < 1) {
+  stop("Usage: pj_gantt <FILE_states.csv> <state_type> [START_TIME] [END_TIME]", call.=FALSE)
+}
+
+#
+# parse arguments
+#
+inputFilename = args[1];
+stateType = args[2];
+
+#
+# Function to read states from a file
+#
+read_paje_trace <- function(file) {
+  df <- read.csv(file, header=FALSE, strip.white=TRUE)
+  names(df) <- c("Nature","ResourceId","Type","Start","End","Duration", "Depth", "Value")
+  df$Origin=file
+  m <- min(df$Start)
+  df$Start <- df$Start - m
+  df$End <- df$Start+df$Duration
+  df$Origin <- NULL
+  df$Nature <- NULL
+  df$Depth <- NULL
+  df
+}
+
+# read trace file
+df <- read_paje_trace (inputFilename);
+
+# make the trace selection
+timeSelection = FALSE;
+if (length(args) >= 3) {
+    timeSelection = TRUE;
+    startTime = as.double(args[3]);
+}else{
+    startTime = 0;
+}
+if (length(args) >= 4) {
+    timeSelection = TRUE;
+    endTime = as.double(args[4]);
+}else{
+    endTime = max(df$End);
+}
+
+if (timeSelection){
+    df <- df[df$Start >= startTime & df$End <= endTime,];
+}
+df <- df[df$Type == stateType,];
+
+# get rid of durations == 0
+df <- df[df$Duration != 0,];
+
+# prepare name of output file
+outputFile = paste (inputFilename, "-", stateType, "-", startTime, "-", endTime, ".pdf", sep="");
+
+pdf(outputFile);
+
+library(ggplot2);
+p <- ggplot(df, aes(x=Start,xend=End, y=factor(ResourceId),yend=factor(ResourceId), color=Value)) + theme_bw() + geom_segment(size=4);
+print(p);
+dev.off();
+print(outputFile);
