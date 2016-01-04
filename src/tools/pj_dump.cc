@@ -25,7 +25,7 @@
 
 extern int dumpFloatingPointPrecision;
 
-#define VALIDATE_INPUT_SIZE 2
+#define VALIDATE_INPUT_SIZE 1
 static char doc[] = "Dumps FILE, or standard input, in a CSV-like textual format";
 static char args_doc[] = "[FILE]";
 
@@ -80,7 +80,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
     arguments->input_size++;
     break;
   case ARGP_KEY_END:
-    if (state->arg_num < 0) {
+    if (state->arg_num < VALIDATE_INPUT_SIZE) {
       /* Not enough arguments. */
       argp_usage (state);
     }
@@ -168,7 +168,7 @@ int main (int argc, char **argv)
     delete unity;
     return 0;
   }
-  
+
   if (!arguments.quiet){
     dump (&arguments, unity);
   }
