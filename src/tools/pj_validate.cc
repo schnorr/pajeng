@@ -22,7 +22,7 @@
 #include <argp.h>
 #include "libpaje_config.h"
 
-#define VALIDATE_INPUT_SIZE 2
+#define VALIDATE_INPUT_SIZE 1
 static char doc[] = "Checks if FILE, or standard input, strictly follows the Paje file format definition";
 static char args_doc[] = "[FILE]";
 
@@ -68,7 +68,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
     arguments->input_size++;
     break;
   case ARGP_KEY_END:
-    if (state->arg_num < 0) {
+    if (state->arg_num < VALIDATE_INPUT_SIZE) {
       /* Not enough arguments. */
       argp_usage (state);
     }
