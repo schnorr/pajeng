@@ -21,7 +21,7 @@
 
 extern int dumpFloatingPointPrecision;
 
-#define VALIDATE_INPUT_SIZE 3
+#define VALIDATE_INPUT_SIZE 2
 static char doc[] = "Returns or prints to stdout 1 if two traces are equal, 0 otherwise.";
 static char args_doc[] = "FILE1 FILE2";
 
@@ -78,7 +78,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
     arguments->input_size++;
     break;
   case ARGP_KEY_END:
-    if (state->arg_num < 0) {
+    if (state->arg_num < VALIDATE_INPUT_SIZE) {
       /* Not enough arguments. */
       argp_usage (state);
     }
