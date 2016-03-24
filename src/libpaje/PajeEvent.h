@@ -39,6 +39,8 @@ public:
   double time (void);
 
   virtual PajeValue *value (void);
+  virtual void setValue (PajeValue *value);
+    
   virtual double doubleValue (void);
   virtual PajeContainer *startContainer (void);
   virtual PajeContainer *endContainer (void);
@@ -54,6 +56,7 @@ class PajeCategorizedEvent : public PajeEvent
 public:
   PajeCategorizedEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, PajeValue *value);
   PajeValue *value (void);
+  void setValue (PajeValue *value);
   const std::string &kind (void);
 };
 

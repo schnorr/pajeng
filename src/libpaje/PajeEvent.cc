@@ -51,6 +51,10 @@ double PajeEvent::time (void)
   return _time;
 }
 
+void PajeEvent::setValue (PajeValue *value)
+{
+}
+
 PajeValue *PajeEvent::value (void)
 {
   return NULL;
@@ -79,6 +83,11 @@ const std::string &PajeEvent::key (void)
 
 PajeCategorizedEvent::PajeCategorizedEvent (PajeTraceEvent *event, PajeContainer *container, PajeType *type, PajeValue *value)
   : PajeEvent (event, container, type)
+{
+  _value = value;
+}
+
+void PajeCategorizedEvent::setValue (PajeValue *value)
 {
   _value = value;
 }
