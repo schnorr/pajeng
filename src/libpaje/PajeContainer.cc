@@ -277,11 +277,6 @@ void PajeContainer::pajeSetState (PajeEvent *event)
 
 void PajeContainer::pajePushState (PajeEvent *event)
 {
-  if (noImbrication){
-    pajeSetState (event);
-    return;
-  }
-
   double time = event->time();
   PajeType *type = event->type();
   PajeValue *value = event->value();
@@ -290,6 +285,12 @@ void PajeContainer::pajePushState (PajeEvent *event)
   checkTimeOrder (event);
 
   std::vector<PajeUserState*> *stack = &stackStates[type];
+
+  if (noImbrication){
+    //define end time of the state on top of the stack
+    PajeUserState *top_of_stack = stack->back();
+    top_of_stack->setEndTime (time);
+  }
 
   //define new imbrication level
   int imbrication = stack->empty() ? 0 : (stack->back())->imbricationLevel() + 1;
@@ -310,21 +311,6 @@ void PajeContainer::pajePopState (PajeEvent *event)
   //get this type's stack
   std::vector<PajeUserState*> *stack = &stackStates[type];
 
-  if (noImbrication){
-    //get value that is below the top of the stack
-    int top_position = stack->size() - 1;
-    int below_top_position = top_position - 1;
-    if (below_top_position < 0){
-      pajeResetState (event);
-    }else{
-      PajeUserState *below_top = stack->at(below_top_position);
-      PajeValue *value = below_top->value();
-      event->setValue (value);
-      pajeSetState (event);
-    }
-    return;
-  }
-
   //check if there is something in the stack
   if (stack->empty()){
     std::stringstream line;
@@ -338,6 +324,24 @@ void PajeContainer::pajePopState (PajeEvent *event)
 
   //pop the stack
   stack->pop_back();
+
+  if (noImbrication){
+    //if stack is empty now, do nothing
+    if (stack->empty()){
+      return;
+    }
+
+    //create a new state
+    PajeValue *value = stack->back()->value();
+    PajeUserState *state = new PajeUserState (this, type, time, value, stack->back()->imbricationLevel(), traceEvent);
+
+    //pop again
+    stack->pop_back();
+
+    //push the new state
+    stack->push_back(state);
+    entities[type].push_back (state);
+  }
 }
 
 void PajeContainer::pajeResetState (PajeEvent *event)
