@@ -288,8 +288,10 @@ void PajeContainer::pajePushState (PajeEvent *event)
 
   if (noImbrication){
     //define end time of the state on top of the stack
-    PajeUserState *top_of_stack = stack->back();
-    top_of_stack->setEndTime (time);
+    if (!stack->empty()){
+      PajeUserState *top_of_stack = stack->back();
+      top_of_stack->setEndTime (time);
+    }
   }
 
   //define new imbrication level
