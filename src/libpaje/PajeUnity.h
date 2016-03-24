@@ -31,7 +31,7 @@ private:
   double t1, t2;
 
 public:
-  PajeUnity (bool flexReader, bool strictHeader, std::string tracefilename, double stopat, int ignoreIncompleteLinks, char *probabilistic);
+  PajeUnity (bool flexReader, bool strictHeader, std::string tracefilename, double stopat, int ignoreIncompleteLinks, char *probabilistic, bool noImbrication);
   ~PajeUnity ();
   double getTime ();
   void report ();

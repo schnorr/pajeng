@@ -40,6 +40,7 @@ static struct argp_option options[] = {
   {"user-defined", 'u', 0, OPTION_ARG_OPTIONAL, "Dump user-defined fields"},
   {"probabilistic", 'p', "TYPENAME", 0, "Dump global states based on TYPENAME"},
   {"float-precision", 'l', "PRECISION", 0, "Precision of floating point numbers"},
+  {"no-imbrication", 'i', 0, OPTION_ARG_OPTIONAL, "No imbrication levels (push and pop become sets)"},
   {"version", 'v', 0, OPTION_ARG_OPTIONAL, "Print version of this binary"},
   { 0 }
 };
@@ -48,6 +49,7 @@ struct arguments {
   char *input[VALIDATE_INPUT_SIZE];
   double start, end, stopat;
   int noStrict;
+  int noImbrication;
   int input_size;
   int ignoreIncompleteLinks;
   int quiet;
@@ -64,6 +66,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
   case 'e': arguments->end = atof(arg); break;
   case 'a': arguments->stopat = atof(arg); break;
   case 'n': arguments->noStrict = 1; break;
+  case 'i': arguments->noImbrication = 1; break;
   case 'z': arguments->ignoreIncompleteLinks = 1; break;
   case 'q': arguments->quiet = 1; break;
   case 'f': arguments->flex = 1; break;
@@ -162,7 +165,8 @@ int main (int argc, char **argv)
 				    std::string(arguments.input[0]),
 				    arguments.stopat,
 				    arguments.ignoreIncompleteLinks,
-				    arguments.probabilistic);
+				    arguments.probabilistic,
+                                    arguments.noImbrication);
 
   if (arguments.probabilistic){
     delete unity;

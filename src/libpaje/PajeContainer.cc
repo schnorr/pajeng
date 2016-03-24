@@ -25,6 +25,7 @@ PajeContainer::PajeContainer (double time, std::string name, std::string alias, 
   : PajeNamedEntity (parent, type, time, name, event)
 {
   stopSimulationAtTime = -1;
+  noImbrication = false;
   init (alias, parent);
 }
 
@@ -32,8 +33,18 @@ PajeContainer::PajeContainer (double time, std::string name, std::string alias, 
   : PajeNamedEntity (parent, type, time, name, event)
 {
   stopSimulationAtTime = stopat;
+  noImbrication = false;
   init (alias, parent);
 }
+
+PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeType *type, PajeTraceEvent *event, double stopat, bool noImbrication)
+  : PajeNamedEntity (parent, type, time, name, event)
+{
+  stopSimulationAtTime = stopat;
+  this->noImbrication = noImbrication;
+  init (alias, parent);
+}
+
 
 PajeContainer::~PajeContainer ()
 {
@@ -706,7 +717,7 @@ bool PajeContainer::checkTimeOrder (double time, PajeType *type, PajeTraceEvent 
   return true;
 }
 
-PajeContainer *PajeContainer::pajeCreateContainer (double time, PajeType *type, PajeTraceEvent *event, double stopat)
+PajeContainer *PajeContainer::pajeCreateContainer (double time, PajeType *type, PajeTraceEvent *event, double stopat, bool noImbrication)
 {
   std::string name = event->valueForField (PAJE_Name);
   std::string alias = event->valueForField (PAJE_Alias);
@@ -717,7 +728,7 @@ PajeContainer *PajeContainer::pajeCreateContainer (double time, PajeType *type, 
     throw PajeSimulationException ("Trying to create a container of a type that is not a container type in "+eventdesc.str());
   }
 
-  PajeContainer *newContainer = new PajeContainer (time, name, alias, this, type, event, stopat);
+  PajeContainer *newContainer = new PajeContainer (time, name, alias, this, type, event, stopat, noImbrication);
   children[newContainer->identifier()] = newContainer;
   return newContainer;
 }

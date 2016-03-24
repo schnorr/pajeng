@@ -33,6 +33,7 @@ private:
   double stopSimulationAtTime;
   void (PajeContainer::*invocation[PajeEventIdCount])(PajeEvent *);
   bool _destroyed;
+  bool noImbrication;
 
 public:
   std::string _alias;
@@ -53,6 +54,7 @@ private:
 public:
   PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeType *type, PajeTraceEvent *event);
   PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeType *type, PajeTraceEvent *event, double stopat);
+  PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeType *type, PajeTraceEvent *event, double stopat, bool noImbrication);
   ~PajeContainer ();
   int numberOfEntities (void); //recursive
   std::string description (void) const;
@@ -67,7 +69,7 @@ public:
   void demuxer (PajeEvent *event);
 
   //Simulator events (not treated by demuxer yet)
-  PajeContainer *pajeCreateContainer (double time, PajeType *type, PajeTraceEvent *event, double stopat);
+  PajeContainer *pajeCreateContainer (double time, PajeType *type, PajeTraceEvent *event, double stopat, bool noImbrication);
   void pajeDestroyContainer (double time, PajeEvent *event);
 private:
   //Simulator events

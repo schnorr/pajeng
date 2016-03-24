@@ -234,13 +234,13 @@ main(int argc, char **argv)
     {
       s1 = new PajeUnity(arguments.flex, !arguments.noStrict,
           std::string(arguments.input[0]), arguments.stopat1,
-          arguments.ignoreIncompleteLinks, 0);
+ 	  arguments.ignoreIncompleteLinks, 0, false);
     }
 #pragma omp section
     {
       s2 = new PajeUnity(arguments.flex, !arguments.noStrict,
           std::string(arguments.input[1]), arguments.stopat2,
-          arguments.ignoreIncompleteLinks, 0);
+ 	  arguments.ignoreIncompleteLinks, 0, false);
     }
   }
 

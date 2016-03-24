@@ -33,10 +33,11 @@ PajeSimulator::PajeSimulator (double stopat)
   init ();
 }
 
-PajeSimulator::PajeSimulator (double stopat, int ignore)
+PajeSimulator::PajeSimulator (double stopat, int ignore, bool noImbrication)
 {
   stopSimulationAtTime = stopat;
   ignoreIncompleteLinks = ignore;
+  this->noImbrication = noImbrication;
   init ();
 }
 
@@ -174,6 +175,11 @@ bool PajeSimulator::keepSimulating (void)
   }else{
     return root->keepSimulating ();
   }
+}
+
+bool PajeSimulator::noImbricationLevel (void)
+{
+  return noImbrication;
 }
 
 void PajeSimulator::setLastKnownTime (PajeTraceEvent *event)
@@ -518,7 +524,7 @@ void PajeSimulator::pajeCreateContainer (PajeTraceEvent *traceEvent)
   }
 
   //everything seems ok, create the container
-  PajeContainer *newContainer = container->pajeCreateContainer (lastKnownTime, type, traceEvent, stopSimulationAtTime);
+  PajeContainer *newContainer = container->pajeCreateContainer (lastKnownTime, type, traceEvent, stopSimulationAtTime, noImbrication);
   if (newContainer){
     contMap[newContainer->identifier()] = newContainer;
     contNamesMap[newContainer->name()] = newContainer;

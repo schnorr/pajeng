@@ -52,6 +52,7 @@ private:
   //for time-slice selection (used by time aggregation)
   double selectionStart;
   double selectionEnd;
+  bool noImbrication;
 
 protected:
   double lastKnownTime;
@@ -61,12 +62,13 @@ protected:
 public:
   PajeSimulator();
   PajeSimulator(double stopat);
-  PajeSimulator(double stopat, int ignoreIncompleteLinks);
+  PajeSimulator(double stopat, int ignoreIncompleteLinks, bool noImbrication);
   ~PajeSimulator();
   void report (void);
   void reportDotFormat (void);
   void reportContainer (void);
   bool keepSimulating (void);
+  bool noImbricationLevel (void);
   
   void inputEntity (PajeObject *data);
   void startReading (void);

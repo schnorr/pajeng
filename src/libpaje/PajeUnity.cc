@@ -28,7 +28,7 @@ static double gettime (void)
   return (double)tr.tv_sec+(double)tr.tv_usec/1000000;
 }
 
-PajeUnity::PajeUnity (bool flexReader, bool strictHeader, std::string tracefilename, double stopat, int ignoreIncompleteLinks, char *probabilistic)
+PajeUnity::PajeUnity (bool flexReader, bool strictHeader, std::string tracefilename, double stopat, int ignoreIncompleteLinks, char *probabilistic, bool noImbrication)
 {
   //basic configuration
   this->flexReader = flexReader;
@@ -59,7 +59,7 @@ PajeUnity::PajeUnity (bool flexReader, bool strictHeader, std::string tracefilen
     if (probabilistic){
       simulator = new PajeProbabilisticSimulator (probabilistic);
     }else{
-      simulator = new PajeSimulator (stopat, ignoreIncompleteLinks);
+      simulator = new PajeSimulator (stopat, ignoreIncompleteLinks, noImbrication);
     }
 
 
