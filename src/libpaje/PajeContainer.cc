@@ -302,8 +302,9 @@ void PajeContainer::pajePopState (PajeEvent *event)
 
   checkTimeOrder (event);
 
-  //check if there is something in the stack
+  //get this type's stack
   std::vector<PajeUserState*> *stack = &stackStates[type];
+  //check if there is something in the stack
   if (stack->empty()){
     std::stringstream line;
     line << *traceEvent;
