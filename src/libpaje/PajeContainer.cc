@@ -277,6 +277,11 @@ void PajeContainer::pajeSetState (PajeEvent *event)
 
 void PajeContainer::pajePushState (PajeEvent *event)
 {
+  if (noImbrication){
+    pajeSetState (event);
+    return;
+  }
+
   double time = event->time();
   PajeType *type = event->type();
   PajeValue *value = event->value();
@@ -304,6 +309,22 @@ void PajeContainer::pajePopState (PajeEvent *event)
 
   //get this type's stack
   std::vector<PajeUserState*> *stack = &stackStates[type];
+
+  if (noImbrication){
+    //get value that is below the top of the stack
+    int top_position = stack->size() - 1;
+    int below_top_position = top_position - 1;
+    if (below_top_position < 0){
+      pajeResetState (event);
+    }else{
+      PajeUserState *below_top = stack->at(below_top_position);
+      PajeValue *value = below_top->value();
+      event->setValue (value);
+      pajeSetState (event);
+    }
+    return;
+  }
+
   //check if there is something in the stack
   if (stack->empty()){
     std::stringstream line;
