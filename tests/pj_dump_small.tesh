@@ -9,9 +9,10 @@ $ ./pj_dump ../traces/links.trace
 > Container, 0, PROCESS, 0, 2.1, 2.1, p1
 
 $ ./pj_dump ../traces/events.trace
-> Container, 0, 0, 0, 1.34, 1.34, 0
-> Container, 0, PROCESS, 0, 1.34, 1.34, p1
+> Container, 0, 0, 0, 2.88, 2.88, 0
+> Container, 0, PROCESS, 0, 2.88, 2.88, p1
 > Event, p1, EV, 2.430000, PrimeiroEvento
+> Event, p1, EV, 2.870000, SegundoEvento
 
 $ ./pj_dump ../traces/states.trace
 > Container, 0, 0, 0, 1.34, 1.34, 0
