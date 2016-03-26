@@ -18,31 +18,6 @@ IF(NOT PAJE_LIBRARY)
   MESSAGE(FATAL_ERROR "Enable PAJE_LIBRARY to compile paje tools")
 ENDIF(NOT PAJE_LIBRARY)
 
-#pj_validade
-ADD_EXECUTABLE(pj_validate pj_validate.cc)
-INCLUDE_DIRECTORIES (pj_validate ${PROJECT_SOURCE_DIR}/src/libpaje/)
-INCLUDE_DIRECTORIES(${pajeng_SOURCE_DIR}/src/fb/)
-include_directories(${CMAKE_BINARY_DIR})
-find_package(Boost)
-if(Boost_FOUND)
-   include_directories(${Boost_INCLUDE_DIRS})
-endif()
-
-
-IF(STATIC_LINKING)
-  TARGET_LINK_LIBRARIES(pj_validate paje_library_static)
-  IF(APPLE)
-    TARGET_LINK_LIBRARIES(pj_validate argp)
-  ENDIF(APPLE)
-ELSE(STATIC_LINKING)
-  TARGET_LINK_LIBRARIES(pj_validate paje_library)
-  IF(APPLE)
-    TARGET_LINK_LIBRARIES(pj_validate argp)
-  ENDIF(APPLE)
-ENDIF(STATIC_LINKING)
-SET_PROPERTY(TARGET pj_validate PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-INSTALL(PROGRAMS ${CMAKE_BINARY_DIR}/pj_validate DESTINATION bin)
-
 #pj_dump
 ADD_EXECUTABLE(pj_dump pj_dump.cc)
 INCLUDE_DIRECTORIES (pj_dump ${PROJECT_SOURCE_DIR}/src/libpaje/)
