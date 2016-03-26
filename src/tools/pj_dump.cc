@@ -158,7 +158,7 @@ int main (int argc, char **argv)
 
   PajeUnity *unity = new PajeUnity (arguments.flex,
 				    !arguments.noStrict,
-				    std::string(arguments.input[0]),
+				    arguments.input ? std::string(arguments.input) : std::string(),
 				    arguments.stopat,
 				    arguments.ignoreIncompleteLinks,
 				    arguments.probabilistic,
