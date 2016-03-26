@@ -46,7 +46,7 @@ static struct argp_option options[] = {
 };
 
 struct arguments {
-  char *input[VALIDATE_INPUT_SIZE];
+  char *input;
   double start, end, stopat;
   int noStrict;
   int noImbrication;
@@ -75,12 +75,11 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
   case 'l': dumpFloatingPointPrecision = atoi(arg); break;
   case 'v': printf("%s\n", LIBPAJE_VERSION_STRING); exit(0); break;
   case ARGP_KEY_ARG:
-    if (arguments->input_size == VALIDATE_INPUT_SIZE) {
+    if (arguments->input != NULL) {
       /* Too many arguments. */
       argp_usage (state);
     }
-    arguments->input[state->arg_num] = arg;
-    arguments->input_size++;
+    arguments->input = arg;
     break;
   case ARGP_KEY_END:
     if (state->arg_num < VALIDATE_INPUT_SIZE) {
