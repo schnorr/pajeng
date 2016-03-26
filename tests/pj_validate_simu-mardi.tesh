@@ -1,41 +1,63 @@
 #!./tesh
 
-$ ./pj_validate ../traces/simu-mardi.trace
-> report Containers: 307
-> report Entities: 14532
-> report Types: 14
-> report Type Hierarchy:
-> report |0 (17PajeContainerType)
-> report ||L1 (17PajeContainerType)
-> report || L1-LINK4-HOST2 (12PajeLinkType)
-> report || L1-LINK4-ROUTER7 (12PajeLinkType)
-> report || HOST (17PajeContainerType)
-> report | | PM (13PajeStateType)
-> report | | SERVICE (13PajeStateType)
-> report | | power (16PajeVariableType)
-> report || LINK (17PajeContainerType)
-> report | | bandwidth (16PajeVariableType)
-> report | | latency (16PajeVariableType)
-> report || ROUTER (17PajeContainerType)
-> report || L1-HOST2-LINK4 (12PajeLinkType)
-> report || L1-LINK4-LINK4 (12PajeLinkType)
+$ ./pj_dump --dot ../traces/simu-mardi.trace
+> digraph PajeTypes {
+> "0" [shape=folder, label="0 (0)"];
+> "0" -> "L1";
+> "L1" [shape=folder, label="L1 (1)"];
+> "L1" -> "L1-LINK4-LINK4";
+> "L1" -> "L1-HOST2-LINK4";
+> "L1" -> "ROUTER";
+> "L1" -> "LINK";
+> "L1" -> "HOST";
+> "L1" -> "L1-LINK4-ROUTER7";
+> "L1" -> "L1-LINK4-HOST2";
+> "L1-LINK4-HOST2" [shape=rarrow, label="L1-LINK4-HOST2 (10)"];
+> "L1-LINK4-ROUTER7" [shape=rarrow, label="L1-LINK4-ROUTER7 (11)"];
+> "HOST" [shape=folder, label="HOST (2)"];
+> "HOST" -> "power";
+> "HOST" -> "SERVICE";
+> "HOST" -> "PM";
+> "PM" [shape=rectangle, label="PM (12)"];
+> "SERVICE" [shape=rectangle, label="SERVICE (18)"];
+> "power" [shape=plaintext, label="power (3)"];
+> "LINK" [shape=folder, label="LINK (4)"];
+> "LINK" -> "latency";
+> "LINK" -> "bandwidth";
+> "bandwidth" [shape=plaintext, label="bandwidth (5)"];
+> "latency" [shape=plaintext, label="latency (6)"];
+> "ROUTER" [shape=folder, label="ROUTER (7)"];
+> "L1-HOST2-LINK4" [shape=rarrow, label="L1-HOST2-LINK4 (8)"];
+> "L1-LINK4-LINK4" [shape=rarrow, label="L1-LINK4-LINK4 (9)"];
+> }
 
-$ ./pj_validate -f ../traces/simu-mardi.trace
-> report Containers: 307
-> report Entities: 14532
-> report Types: 14
-> report Type Hierarchy:
-> report |0 (17PajeContainerType)
-> report ||L1 (17PajeContainerType)
-> report || L1-LINK4-HOST2 (12PajeLinkType)
-> report || L1-LINK4-ROUTER7 (12PajeLinkType)
-> report || HOST (17PajeContainerType)
-> report | | PM (13PajeStateType)
-> report | | SERVICE (13PajeStateType)
-> report | | power (16PajeVariableType)
-> report || LINK (17PajeContainerType)
-> report | | bandwidth (16PajeVariableType)
-> report | | latency (16PajeVariableType)
-> report || ROUTER (17PajeContainerType)
-> report || L1-HOST2-LINK4 (12PajeLinkType)
-> report || L1-LINK4-LINK4 (12PajeLinkType)
+$ ./pj_dump --dot -f ../traces/simu-mardi.trace
+> digraph PajeTypes {
+> "0" [shape=folder, label="0 (0)"];
+> "0" -> "L1";
+> "L1" [shape=folder, label="L1 (1)"];
+> "L1" -> "L1-LINK4-LINK4";
+> "L1" -> "L1-HOST2-LINK4";
+> "L1" -> "ROUTER";
+> "L1" -> "LINK";
+> "L1" -> "HOST";
+> "L1" -> "L1-LINK4-ROUTER7";
+> "L1" -> "L1-LINK4-HOST2";
+> "L1-LINK4-HOST2" [shape=rarrow, label="L1-LINK4-HOST2 (10)"];
+> "L1-LINK4-ROUTER7" [shape=rarrow, label="L1-LINK4-ROUTER7 (11)"];
+> "HOST" [shape=folder, label="HOST (2)"];
+> "HOST" -> "power";
+> "HOST" -> "SERVICE";
+> "HOST" -> "PM";
+> "PM" [shape=rectangle, label="PM (12)"];
+> "SERVICE" [shape=rectangle, label="SERVICE (18)"];
+> "power" [shape=plaintext, label="power (3)"];
+> "LINK" [shape=folder, label="LINK (4)"];
+> "LINK" -> "latency";
+> "LINK" -> "bandwidth";
+> "bandwidth" [shape=plaintext, label="bandwidth (5)"];
+> "latency" [shape=plaintext, label="latency (6)"];
+> "ROUTER" [shape=folder, label="ROUTER (7)"];
+> "L1-HOST2-LINK4" [shape=rarrow, label="L1-HOST2-LINK4 (8)"];
+> "L1-LINK4-LINK4" [shape=rarrow, label="L1-LINK4-LINK4 (9)"];
+> }

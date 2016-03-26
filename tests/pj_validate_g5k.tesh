@@ -1,93 +1,167 @@
 #!./tesh
 
-$ ./pj_validate ../traces/g5k.trace
-> report Containers: 4798
-> report Entities: 14126
-> report Types: 40
-> report Type Hierarchy:
-> report |0 (17PajeContainerType)
-> report ||L1 (17PajeContainerType)
-> report || ROUTER (17PajeContainerType)
-> report || L1-ROUTER2-LINK3 (12PajeLinkType)
-> report || L1-LINK3-LINK3 (12PajeLinkType)
-> report || L1-LINK3-ROUTER2 (12PajeLinkType)
-> report || L1-ROUTER12-LINK3 (12PajeLinkType)
-> report || L1-LINK3-ROUTER12 (12PajeLinkType)
-> report || LINK (17PajeContainerType)
-> report | | bandwidth (16PajeVariableType)
-> report | | latency (16PajeVariableType)
-> report || L1-LINK3-ROUTER19 (12PajeLinkType)
-> report || L1-ROUTER19-LINK3 (12PajeLinkType)
-> report || L2 (17PajeContainerType)
-> report | | ROUTER (17PajeContainerType)
-> report | | L3 (17PajeContainerType)
-> report |  | HOST (17PajeContainerType)
-> report |   | power (16PajeVariableType)
-> report |  | LINK (17PajeContainerType)
-> report |   | bandwidth (16PajeVariableType)
-> report |   | latency (16PajeVariableType)
-> report |  | ROUTER (17PajeContainerType)
-> report |  | L3-HOST14-LINK16 (12PajeLinkType)
-> report |  | L3-LINK16-LINK16 (12PajeLinkType)
-> report |  | L3-LINK16-HOST14 (12PajeLinkType)
-> report |  | L3-LINK16-ROUTER19 (12PajeLinkType)
-> report |  | L3-ROUTER19-LINK16 (12PajeLinkType)
-> report | | L2-HOST7-LINK9 (12PajeLinkType)
-> report | | L2-LINK9-LINK9 (12PajeLinkType)
-> report | | L2-LINK9-HOST7 (12PajeLinkType)
-> report | | L2-LINK9-ROUTER12 (12PajeLinkType)
-> report | | L2-ROUTER19-LINK9 (12PajeLinkType)
-> report | | L2-LINK9-ROUTER19 (12PajeLinkType)
-> report | | HOST (17PajeContainerType)
-> report |  | power (16PajeVariableType)
-> report | | LINK (17PajeContainerType)
-> report |  | bandwidth (16PajeVariableType)
-> report |  | latency (16PajeVariableType)
-> report ||0-ROUTER2-LINK3 (12PajeLinkType)
-> report ||0-LINK3-LINK3 (12PajeLinkType)
+$ ./pj_dump --dot ../traces/g5k.trace
+> digraph PajeTypes {
+> "0" [shape=folder, label="0 (0)"];
+> "0" -> "0-LINK3-LINK3";
+> "0" -> "0-ROUTER2-LINK3";
+> "0" -> "L1";
+> "L1" [shape=folder, label="L1 (1)"];
+> "L1" -> "L2";
+> "L1" -> "L1-ROUTER19-LINK3";
+> "L1" -> "L1-LINK3-ROUTER19";
+> "L1" -> "LINK";
+> "L1" -> "L1-LINK3-ROUTER12";
+> "L1" -> "L1-ROUTER12-LINK3";
+> "L1" -> "L1-LINK3-ROUTER2";
+> "L1" -> "L1-LINK3-LINK3";
+> "L1" -> "L1-ROUTER2-LINK3";
+> "L1" -> "ROUTER";
+> "ROUTER" [shape=folder, label="ROUTER (2)"];
+> "L1-ROUTER2-LINK3" [shape=rarrow, label="L1-ROUTER2-LINK3 (20)"];
+> "L1-LINK3-LINK3" [shape=rarrow, label="L1-LINK3-LINK3 (21)"];
+> "L1-LINK3-ROUTER2" [shape=rarrow, label="L1-LINK3-ROUTER2 (22)"];
+> "L1-ROUTER12-LINK3" [shape=rarrow, label="L1-ROUTER12-LINK3 (27)"];
+> "L1-LINK3-ROUTER12" [shape=rarrow, label="L1-LINK3-ROUTER12 (28)"];
+> "LINK" [shape=folder, label="LINK (3)"];
+> "LINK" -> "latency";
+> "LINK" -> "bandwidth";
+> "bandwidth" [shape=plaintext, label="bandwidth (4)"];
+> "latency" [shape=plaintext, label="latency (5)"];
+> "L1-LINK3-ROUTER19" [shape=rarrow, label="L1-LINK3-ROUTER19 (36)"];
+> "L1-ROUTER19-LINK3" [shape=rarrow, label="L1-ROUTER19-LINK3 (37)"];
+> "L2" [shape=folder, label="L2 (6)"];
+> "L2" -> "LINK";
+> "L2" -> "HOST";
+> "L2" -> "L2-LINK9-ROUTER19";
+> "L2" -> "L2-ROUTER19-LINK9";
+> "L2" -> "L2-LINK9-ROUTER12";
+> "L2" -> "L2-LINK9-HOST7";
+> "L2" -> "L2-LINK9-LINK9";
+> "L2" -> "L2-HOST7-LINK9";
+> "L2" -> "L3";
+> "L2" -> "ROUTER";
+> "ROUTER" [shape=folder, label="ROUTER (12)"];
+> "L3" [shape=folder, label="L3 (13)"];
+> "L3" -> "L3-ROUTER19-LINK16";
+> "L3" -> "L3-LINK16-ROUTER19";
+> "L3" -> "L3-LINK16-HOST14";
+> "L3" -> "L3-LINK16-LINK16";
+> "L3" -> "L3-HOST14-LINK16";
+> "L3" -> "ROUTER";
+> "L3" -> "LINK";
+> "L3" -> "HOST";
+> "HOST" [shape=folder, label="HOST (14)"];
+> "HOST" -> "power";
+> "power" [shape=plaintext, label="power (15)"];
+> "LINK" [shape=folder, label="LINK (16)"];
+> "LINK" -> "latency";
+> "LINK" -> "bandwidth";
+> "bandwidth" [shape=plaintext, label="bandwidth (17)"];
+> "latency" [shape=plaintext, label="latency (18)"];
+> "ROUTER" [shape=folder, label="ROUTER (19)"];
+> "L3-HOST14-LINK16" [shape=rarrow, label="L3-HOST14-LINK16 (29)"];
+> "L3-LINK16-LINK16" [shape=rarrow, label="L3-LINK16-LINK16 (30)"];
+> "L3-LINK16-HOST14" [shape=rarrow, label="L3-LINK16-HOST14 (31)"];
+> "L3-LINK16-ROUTER19" [shape=rarrow, label="L3-LINK16-ROUTER19 (32)"];
+> "L3-ROUTER19-LINK16" [shape=rarrow, label="L3-ROUTER19-LINK16 (33)"];
+> "L2-HOST7-LINK9" [shape=rarrow, label="L2-HOST7-LINK9 (23)"];
+> "L2-LINK9-LINK9" [shape=rarrow, label="L2-LINK9-LINK9 (24)"];
+> "L2-LINK9-HOST7" [shape=rarrow, label="L2-LINK9-HOST7 (25)"];
+> "L2-LINK9-ROUTER12" [shape=rarrow, label="L2-LINK9-ROUTER12 (26)"];
+> "L2-ROUTER19-LINK9" [shape=rarrow, label="L2-ROUTER19-LINK9 (34)"];
+> "L2-LINK9-ROUTER19" [shape=rarrow, label="L2-LINK9-ROUTER19 (35)"];
+> "HOST" [shape=folder, label="HOST (7)"];
+> "HOST" -> "power";
+> "power" [shape=plaintext, label="power (8)"];
+> "LINK" [shape=folder, label="LINK (9)"];
+> "LINK" -> "latency";
+> "LINK" -> "bandwidth";
+> "bandwidth" [shape=plaintext, label="bandwidth (10)"];
+> "latency" [shape=plaintext, label="latency (11)"];
+> "0-ROUTER2-LINK3" [shape=rarrow, label="0-ROUTER2-LINK3 (38)"];
+> "0-LINK3-LINK3" [shape=rarrow, label="0-LINK3-LINK3 (39)"];
+> }
 
-$ ./pj_validate -f ../traces/g5k.trace
-> report Containers: 4798
-> report Entities: 14126
-> report Types: 40
-> report Type Hierarchy:
-> report |0 (17PajeContainerType)
-> report ||L1 (17PajeContainerType)
-> report || ROUTER (17PajeContainerType)
-> report || L1-ROUTER2-LINK3 (12PajeLinkType)
-> report || L1-LINK3-LINK3 (12PajeLinkType)
-> report || L1-LINK3-ROUTER2 (12PajeLinkType)
-> report || L1-ROUTER12-LINK3 (12PajeLinkType)
-> report || L1-LINK3-ROUTER12 (12PajeLinkType)
-> report || LINK (17PajeContainerType)
-> report | | bandwidth (16PajeVariableType)
-> report | | latency (16PajeVariableType)
-> report || L1-LINK3-ROUTER19 (12PajeLinkType)
-> report || L1-ROUTER19-LINK3 (12PajeLinkType)
-> report || L2 (17PajeContainerType)
-> report | | ROUTER (17PajeContainerType)
-> report | | L3 (17PajeContainerType)
-> report |  | HOST (17PajeContainerType)
-> report |   | power (16PajeVariableType)
-> report |  | LINK (17PajeContainerType)
-> report |   | bandwidth (16PajeVariableType)
-> report |   | latency (16PajeVariableType)
-> report |  | ROUTER (17PajeContainerType)
-> report |  | L3-HOST14-LINK16 (12PajeLinkType)
-> report |  | L3-LINK16-LINK16 (12PajeLinkType)
-> report |  | L3-LINK16-HOST14 (12PajeLinkType)
-> report |  | L3-LINK16-ROUTER19 (12PajeLinkType)
-> report |  | L3-ROUTER19-LINK16 (12PajeLinkType)
-> report | | L2-HOST7-LINK9 (12PajeLinkType)
-> report | | L2-LINK9-LINK9 (12PajeLinkType)
-> report | | L2-LINK9-HOST7 (12PajeLinkType)
-> report | | L2-LINK9-ROUTER12 (12PajeLinkType)
-> report | | L2-ROUTER19-LINK9 (12PajeLinkType)
-> report | | L2-LINK9-ROUTER19 (12PajeLinkType)
-> report | | HOST (17PajeContainerType)
-> report |  | power (16PajeVariableType)
-> report | | LINK (17PajeContainerType)
-> report |  | bandwidth (16PajeVariableType)
-> report |  | latency (16PajeVariableType)
-> report ||0-ROUTER2-LINK3 (12PajeLinkType)
-> report ||0-LINK3-LINK3 (12PajeLinkType)
+$ ./pj_dump --dot -f ../traces/g5k.trace
+> digraph PajeTypes {
+> "0" [shape=folder, label="0 (0)"];
+> "0" -> "0-LINK3-LINK3";
+> "0" -> "0-ROUTER2-LINK3";
+> "0" -> "L1";
+> "L1" [shape=folder, label="L1 (1)"];
+> "L1" -> "L2";
+> "L1" -> "L1-ROUTER19-LINK3";
+> "L1" -> "L1-LINK3-ROUTER19";
+> "L1" -> "LINK";
+> "L1" -> "L1-LINK3-ROUTER12";
+> "L1" -> "L1-ROUTER12-LINK3";
+> "L1" -> "L1-LINK3-ROUTER2";
+> "L1" -> "L1-LINK3-LINK3";
+> "L1" -> "L1-ROUTER2-LINK3";
+> "L1" -> "ROUTER";
+> "ROUTER" [shape=folder, label="ROUTER (2)"];
+> "L1-ROUTER2-LINK3" [shape=rarrow, label="L1-ROUTER2-LINK3 (20)"];
+> "L1-LINK3-LINK3" [shape=rarrow, label="L1-LINK3-LINK3 (21)"];
+> "L1-LINK3-ROUTER2" [shape=rarrow, label="L1-LINK3-ROUTER2 (22)"];
+> "L1-ROUTER12-LINK3" [shape=rarrow, label="L1-ROUTER12-LINK3 (27)"];
+> "L1-LINK3-ROUTER12" [shape=rarrow, label="L1-LINK3-ROUTER12 (28)"];
+> "LINK" [shape=folder, label="LINK (3)"];
+> "LINK" -> "latency";
+> "LINK" -> "bandwidth";
+> "bandwidth" [shape=plaintext, label="bandwidth (4)"];
+> "latency" [shape=plaintext, label="latency (5)"];
+> "L1-LINK3-ROUTER19" [shape=rarrow, label="L1-LINK3-ROUTER19 (36)"];
+> "L1-ROUTER19-LINK3" [shape=rarrow, label="L1-ROUTER19-LINK3 (37)"];
+> "L2" [shape=folder, label="L2 (6)"];
+> "L2" -> "LINK";
+> "L2" -> "HOST";
+> "L2" -> "L2-LINK9-ROUTER19";
+> "L2" -> "L2-ROUTER19-LINK9";
+> "L2" -> "L2-LINK9-ROUTER12";
+> "L2" -> "L2-LINK9-HOST7";
+> "L2" -> "L2-LINK9-LINK9";
+> "L2" -> "L2-HOST7-LINK9";
+> "L2" -> "L3";
+> "L2" -> "ROUTER";
+> "ROUTER" [shape=folder, label="ROUTER (12)"];
+> "L3" [shape=folder, label="L3 (13)"];
+> "L3" -> "L3-ROUTER19-LINK16";
+> "L3" -> "L3-LINK16-ROUTER19";
+> "L3" -> "L3-LINK16-HOST14";
+> "L3" -> "L3-LINK16-LINK16";
+> "L3" -> "L3-HOST14-LINK16";
+> "L3" -> "ROUTER";
+> "L3" -> "LINK";
+> "L3" -> "HOST";
+> "HOST" [shape=folder, label="HOST (14)"];
+> "HOST" -> "power";
+> "power" [shape=plaintext, label="power (15)"];
+> "LINK" [shape=folder, label="LINK (16)"];
+> "LINK" -> "latency";
+> "LINK" -> "bandwidth";
+> "bandwidth" [shape=plaintext, label="bandwidth (17)"];
+> "latency" [shape=plaintext, label="latency (18)"];
+> "ROUTER" [shape=folder, label="ROUTER (19)"];
+> "L3-HOST14-LINK16" [shape=rarrow, label="L3-HOST14-LINK16 (29)"];
+> "L3-LINK16-LINK16" [shape=rarrow, label="L3-LINK16-LINK16 (30)"];
+> "L3-LINK16-HOST14" [shape=rarrow, label="L3-LINK16-HOST14 (31)"];
+> "L3-LINK16-ROUTER19" [shape=rarrow, label="L3-LINK16-ROUTER19 (32)"];
+> "L3-ROUTER19-LINK16" [shape=rarrow, label="L3-ROUTER19-LINK16 (33)"];
+> "L2-HOST7-LINK9" [shape=rarrow, label="L2-HOST7-LINK9 (23)"];
+> "L2-LINK9-LINK9" [shape=rarrow, label="L2-LINK9-LINK9 (24)"];
+> "L2-LINK9-HOST7" [shape=rarrow, label="L2-LINK9-HOST7 (25)"];
+> "L2-LINK9-ROUTER12" [shape=rarrow, label="L2-LINK9-ROUTER12 (26)"];
+> "L2-ROUTER19-LINK9" [shape=rarrow, label="L2-ROUTER19-LINK9 (34)"];
+> "L2-LINK9-ROUTER19" [shape=rarrow, label="L2-LINK9-ROUTER19 (35)"];
+> "HOST" [shape=folder, label="HOST (7)"];
+> "HOST" -> "power";
+> "power" [shape=plaintext, label="power (8)"];
+> "LINK" [shape=folder, label="LINK (9)"];
+> "LINK" -> "latency";
+> "LINK" -> "bandwidth";
+> "bandwidth" [shape=plaintext, label="bandwidth (10)"];
+> "latency" [shape=plaintext, label="latency (11)"];
+> "0-ROUTER2-LINK3" [shape=rarrow, label="0-ROUTER2-LINK3 (38)"];
+> "0-LINK3-LINK3" [shape=rarrow, label="0-LINK3-LINK3 (39)"];
+> }

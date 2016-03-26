@@ -1,61 +1,103 @@
 #!./tesh
 
-$ ./pj_validate ../traces/ms.trace
-> report Containers: 16
-> report Entities: 403
-> report Types: 24
-> report Type Hierarchy:
-> report |0 (17PajeContainerType)
-> report ||HOST (17PajeContainerType)
-> report || is_slave (16PajeVariableType)
-> report || is_master (16PajeVariableType)
-> report || task_creation (16PajeVariableType)
-> report || task_computation (16PajeVariableType)
-> report || pcompute (16PajeVariableType)
-> report || power (16PajeVariableType)
-> report || pfinalize (16PajeVariableType)
-> report || prequest (16PajeVariableType)
-> report || preport (16PajeVariableType)
-> report || power_used (16PajeVariableType)
-> report ||0-LINK4-HOST1 (12PajeLinkType)
-> report ||msmark (13PajeEventType)
-> report ||LINK (17PajeContainerType)
-> report || bcompute (16PajeVariableType)
-> report || bfinalize (16PajeVariableType)
-> report || brequest (16PajeVariableType)
-> report || breport (16PajeVariableType)
-> report || bandwidth (16PajeVariableType)
-> report || latency (16PajeVariableType)
-> report || bandwidth_used (16PajeVariableType)
-> report ||0-HOST1-LINK4 (12PajeLinkType)
-> report ||0-LINK4-LINK4 (12PajeLinkType)
+$ ./pj_dump --dot ../traces/ms.trace
+> digraph PajeTypes {
+> "0" [shape=folder, label="0 (0)"];
+> "0" -> "0-LINK4-LINK4";
+> "0" -> "0-HOST1-LINK4";
+> "0" -> "LINK";
+> "0" -> "msmark";
+> "0" -> "0-LINK4-HOST1";
+> "0" -> "HOST";
+> "HOST" [shape=folder, label="HOST (1)"];
+> "HOST" -> "power_used";
+> "HOST" -> "preport";
+> "HOST" -> "prequest";
+> "HOST" -> "pfinalize";
+> "HOST" -> "power";
+> "HOST" -> "pcompute";
+> "HOST" -> "task_computation";
+> "HOST" -> "task_creation";
+> "HOST" -> "is_master";
+> "HOST" -> "is_slave";
+> "is_slave" [shape=plaintext, label="is_slave (11)"];
+> "is_master" [shape=plaintext, label="is_master (12)"];
+> "task_creation" [shape=plaintext, label="task_creation (13)"];
+> "task_computation" [shape=plaintext, label="task_computation (14)"];
+> "pcompute" [shape=plaintext, label="pcompute (19)"];
+> "power" [shape=plaintext, label="power (2)"];
+> "pfinalize" [shape=plaintext, label="pfinalize (21)"];
+> "prequest" [shape=plaintext, label="prequest (23)"];
+> "preport" [shape=plaintext, label="preport (25)"];
+> "power_used" [shape=plaintext, label="power_used (3)"];
+> "0-LINK4-HOST1" [shape=rarrow, label="0-LINK4-HOST1 (10)"];
+> "msmark" [shape=oval, label="msmark (15)"];
+> "LINK" [shape=folder, label="LINK (4)"];
+> "LINK" -> "bandwidth_used";
+> "LINK" -> "latency";
+> "LINK" -> "bandwidth";
+> "LINK" -> "breport";
+> "LINK" -> "brequest";
+> "LINK" -> "bfinalize";
+> "LINK" -> "bcompute";
+> "bcompute" [shape=plaintext, label="bcompute (18)"];
+> "bfinalize" [shape=plaintext, label="bfinalize (20)"];
+> "brequest" [shape=plaintext, label="brequest (22)"];
+> "breport" [shape=plaintext, label="breport (24)"];
+> "bandwidth" [shape=plaintext, label="bandwidth (5)"];
+> "latency" [shape=plaintext, label="latency (6)"];
+> "bandwidth_used" [shape=plaintext, label="bandwidth_used (7)"];
+> "0-HOST1-LINK4" [shape=rarrow, label="0-HOST1-LINK4 (8)"];
+> "0-LINK4-LINK4" [shape=rarrow, label="0-LINK4-LINK4 (9)"];
+> }
 
-$ ./pj_validate -f ../traces/ms.trace
-> report Containers: 16
-> report Entities: 403
-> report Types: 24
-> report Type Hierarchy:
-> report |0 (17PajeContainerType)
-> report ||HOST (17PajeContainerType)
-> report || is_slave (16PajeVariableType)
-> report || is_master (16PajeVariableType)
-> report || task_creation (16PajeVariableType)
-> report || task_computation (16PajeVariableType)
-> report || pcompute (16PajeVariableType)
-> report || power (16PajeVariableType)
-> report || pfinalize (16PajeVariableType)
-> report || prequest (16PajeVariableType)
-> report || preport (16PajeVariableType)
-> report || power_used (16PajeVariableType)
-> report ||0-LINK4-HOST1 (12PajeLinkType)
-> report ||msmark (13PajeEventType)
-> report ||LINK (17PajeContainerType)
-> report || bcompute (16PajeVariableType)
-> report || bfinalize (16PajeVariableType)
-> report || brequest (16PajeVariableType)
-> report || breport (16PajeVariableType)
-> report || bandwidth (16PajeVariableType)
-> report || latency (16PajeVariableType)
-> report || bandwidth_used (16PajeVariableType)
-> report ||0-HOST1-LINK4 (12PajeLinkType)
-> report ||0-LINK4-LINK4 (12PajeLinkType)
+$ ./pj_dump --dot -f ../traces/ms.trace
+> digraph PajeTypes {
+> "0" [shape=folder, label="0 (0)"];
+> "0" -> "0-LINK4-LINK4";
+> "0" -> "0-HOST1-LINK4";
+> "0" -> "LINK";
+> "0" -> "msmark";
+> "0" -> "0-LINK4-HOST1";
+> "0" -> "HOST";
+> "HOST" [shape=folder, label="HOST (1)"];
+> "HOST" -> "power_used";
+> "HOST" -> "preport";
+> "HOST" -> "prequest";
+> "HOST" -> "pfinalize";
+> "HOST" -> "power";
+> "HOST" -> "pcompute";
+> "HOST" -> "task_computation";
+> "HOST" -> "task_creation";
+> "HOST" -> "is_master";
+> "HOST" -> "is_slave";
+> "is_slave" [shape=plaintext, label="is_slave (11)"];
+> "is_master" [shape=plaintext, label="is_master (12)"];
+> "task_creation" [shape=plaintext, label="task_creation (13)"];
+> "task_computation" [shape=plaintext, label="task_computation (14)"];
+> "pcompute" [shape=plaintext, label="pcompute (19)"];
+> "power" [shape=plaintext, label="power (2)"];
+> "pfinalize" [shape=plaintext, label="pfinalize (21)"];
+> "prequest" [shape=plaintext, label="prequest (23)"];
+> "preport" [shape=plaintext, label="preport (25)"];
+> "power_used" [shape=plaintext, label="power_used (3)"];
+> "0-LINK4-HOST1" [shape=rarrow, label="0-LINK4-HOST1 (10)"];
+> "msmark" [shape=oval, label="msmark (15)"];
+> "LINK" [shape=folder, label="LINK (4)"];
+> "LINK" -> "bandwidth_used";
+> "LINK" -> "latency";
+> "LINK" -> "bandwidth";
+> "LINK" -> "breport";
+> "LINK" -> "brequest";
+> "LINK" -> "bfinalize";
+> "LINK" -> "bcompute";
+> "bcompute" [shape=plaintext, label="bcompute (18)"];
+> "bfinalize" [shape=plaintext, label="bfinalize (20)"];
+> "brequest" [shape=plaintext, label="brequest (22)"];
+> "breport" [shape=plaintext, label="breport (24)"];
+> "bandwidth" [shape=plaintext, label="bandwidth (5)"];
+> "latency" [shape=plaintext, label="latency (6)"];
+> "bandwidth_used" [shape=plaintext, label="bandwidth_used (7)"];
+> "0-HOST1-LINK4" [shape=rarrow, label="0-HOST1-LINK4 (8)"];
+> "0-LINK4-LINK4" [shape=rarrow, label="0-LINK4-LINK4 (9)"];
+> }
