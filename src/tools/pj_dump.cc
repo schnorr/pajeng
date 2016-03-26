@@ -41,6 +41,8 @@ static struct argp_option options[] = {
   {"probabilistic", 'p', "TYPENAME", 0, "Dump global states based on TYPENAME"},
   {"float-precision", 'l', "PRECISION", 0, "Precision of floating point numbers"},
   {"no-imbrication", 'i', 0, OPTION_ARG_OPTIONAL, "No imbrication levels (push and pop become sets)"},
+  {"container", 'c', 0, OPTION_ARG_OPTIONAL, "Print container hierarchy in stdout"},
+  {"dot", 'd', 0, OPTION_ARG_OPTIONAL, "Print type hierarchy in dot format in stdout"},
   {"version", 'v', 0, OPTION_ARG_OPTIONAL, "Print version of this binary"},
   { 0 }
 };
@@ -55,6 +57,8 @@ struct arguments {
   int quiet;
   int flex;
   int userDefined;
+  int container;
+  int dot;
   char *probabilistic;
 };
 
@@ -73,6 +77,8 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
   case 'u': arguments->userDefined = 1; break;
   case 'p': arguments->probabilistic = strdup(arg); break;
   case 'l': dumpFloatingPointPrecision = atoi(arg); break;
+  case 'c': arguments->container = 1; break;
+  case 'd': arguments->dot = 1; break;
   case 'v': printf("%s\n", LIBPAJE_VERSION_STRING); exit(0); break;
   case ARGP_KEY_ARG:
     if (arguments->input != NULL) {
@@ -164,6 +170,18 @@ int main (int argc, char **argv)
 				    arguments.probabilistic,
                                     arguments.noImbrication);
 
+  if (arguments.dot){
+    unity->reportDot();
+    delete unity;
+    return 0;
+  }
+
+  if (arguments.container){
+    unity->reportContainer();
+    delete unity;
+    return 0;
+  }
+  
   if (arguments.probabilistic){
     delete unity;
     return 0;
