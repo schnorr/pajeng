@@ -44,6 +44,7 @@ static struct argp_option options[] = {
   {"container", 'c', 0, OPTION_ARG_OPTIONAL, "Print container hierarchy in stdout"},
   {"dot", 'd', 0, OPTION_ARG_OPTIONAL, "Print type hierarchy in dot format in stdout"},
   {"version", 'v', 0, OPTION_ARG_OPTIONAL, "Print version of this binary"},
+  {"time", 't', 0, OPTION_ARG_OPTIONAL, "Print number of seconds to simulate input"},
   { 0 }
 };
 
@@ -59,6 +60,7 @@ struct arguments {
   int userDefined;
   int container;
   int dot;
+  int time;
   char *probabilistic;
 };
 
@@ -79,6 +81,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
   case 'l': dumpFloatingPointPrecision = atoi(arg); break;
   case 'c': arguments->container = 1; break;
   case 'd': arguments->dot = 1; break;
+  case 't': arguments->time = 1; break;
   case 'v': printf("%s\n", LIBPAJE_VERSION_STRING); exit(0); break;
   case ARGP_KEY_ARG:
     if (arguments->input != NULL) {
@@ -169,6 +172,10 @@ int main (int argc, char **argv)
 				    arguments.ignoreIncompleteLinks,
 				    arguments.probabilistic,
                                     arguments.noImbrication);
+
+  if (arguments.time){
+    printf ("%f\n", unity->getTime());
+  }
 
   if (arguments.dot){
     unity->reportDot();
