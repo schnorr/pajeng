@@ -49,11 +49,11 @@ ELSE(STATIC_LINKING)
   SET_TARGET_PROPERTIES(paje_utils_library PROPERTIES OUTPUT_NAME pajeutils)
   SET_TARGET_PROPERTIES(paje_utils_library PROPERTIES
     # bump when new function are added in the library
-    VERSION 1.0
+    VERSION 1.3
     # bump when ABI is broken (symbols removed or parameters changed)
-    SOVERSION 1)
+    SOVERSION 2)
   # bump when the API change (new functions in the header file)
-  SET(LIBPAJEUTILS_APIVERSION 1)
+  SET(LIBPAJEUTILS_APIVERSION 2)
   INSTALL(TARGETS paje_utils_library DESTINATION ${LIB_INSTALL_DIR})
   INSTALL(FILES ${UTILS_HEADERS} DESTINATION include)
 
