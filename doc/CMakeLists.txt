@@ -1,7 +1,7 @@
 add_custom_target(man ALL)
 find_package(ASCIIDoc REQUIRED)
 
-foreach (_INPUT pj_validate.1.txt pj_dump.1.txt)
+foreach (_INPUT pj_equals.1.txt pj_dump.1.txt)
   string(REPLACE "." ";" LIST ${_INPUT})
   list(REMOVE_ITEM LIST "txt")
   list(GET LIST 0 1 VAR)
