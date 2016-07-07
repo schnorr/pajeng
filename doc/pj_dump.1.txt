@@ -259,7 +259,7 @@ RESOURCES
 ---------
 
 Description of the Paje trace file:
-<http://paje.sourceforge.net/download/publication/lang-paje.pdf>
+<https://github.com/schnorr/pajeng/blob/master/doc/lang-paje/lang-paje.pdf>
 
 Main web site:
 <http://github.com/schnorr/pajeng/>
