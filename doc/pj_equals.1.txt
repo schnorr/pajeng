@@ -1,5 +1,5 @@
 PJ_EQUALS(1)
-==============
+============
 :doctype: manpage
 
 
