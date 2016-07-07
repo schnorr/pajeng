@@ -33,6 +33,13 @@ PajeSimulator::PajeSimulator (double stopat)
   init ();
 }
 
+PajeSimulator::PajeSimulator (double stopat, int ignore)
+{
+  stopSimulationAtTime = stopat;
+  ignoreIncompleteLinks = ignore;
+  init ();
+}
+
 PajeSimulator::PajeSimulator (double stopat, int ignore, bool noImbrication)
 {
   stopSimulationAtTime = stopat;

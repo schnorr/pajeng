@@ -62,6 +62,7 @@ protected:
 public:
   PajeSimulator();
   PajeSimulator(double stopat);
+  PajeSimulator(double stopat, int ignoreIncompleteLinks);
   PajeSimulator(double stopat, int ignoreIncompleteLinks, bool noImbrication);
   ~PajeSimulator();
   void report (void);
