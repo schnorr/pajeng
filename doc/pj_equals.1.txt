@@ -10,7 +10,7 @@ pj_equals - checks if two files in the Paje file format are equal
 
 SYNOPSIS
 --------
-*pj_validate* ['OPTIONS'] FILE1 FILE2
+*pj_equals* ['OPTIONS'] FILE1 FILE2
 
 
 DESCRIPTION
