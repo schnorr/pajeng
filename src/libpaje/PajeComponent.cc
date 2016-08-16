@@ -15,7 +15,9 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeComponent.h"
+#ifndef Q_MOC_RUN
 #include <boost/foreach.hpp>
+#endif
 
 PajeComponent::PajeComponent (void)
 {

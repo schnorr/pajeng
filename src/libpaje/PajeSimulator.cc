@@ -16,8 +16,10 @@
 */
 #include "PajeSimulator.h"
 #include "PajeException.h"
+#ifndef Q_MOC_RUN
 #include <boost/foreach.hpp>
 #include <boost/tokenizer.hpp>
+#endif
 
 int ignoreIncompleteLinks = 0;
 

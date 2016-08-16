@@ -16,7 +16,9 @@
 */
 #ifndef __PAJE_DEFINITIONS_H__
 #define __PAJE_DEFINITIONS_H__
+#ifndef Q_MOC_RUN
 #include <boost/bimap.hpp>
+#endif
 #include <string>
 #include <map>
 #include <set>

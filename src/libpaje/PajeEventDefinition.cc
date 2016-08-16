@@ -14,7 +14,9 @@
     You should have received a copy of the GNU Public License
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
+#ifndef Q_MOC_RUN
 #include <boost/lexical_cast.hpp>
+#endif
 #include "PajeEventDefinition.h"
 #include "PajeException.h"
 
