@@ -16,12 +16,14 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 
 # The PajeNG (Qt4 version)
 SET(PAJE_HEADERS
+  PajeThreadReader.h
   PajeApplication.h
   PajeWindow.h
   PajeSpaceTimeFrame.h
   PajeSpaceTimeView.h)
 SET(PAJE_SOURCES
   main.cc
+  PajeThreadReader.cc
   PajeApplication.cc
   PajeWindow.cc
   PajeSpaceTimeFrame.cc
@@ -32,9 +34,6 @@ SET(PAJE_SOURCES
 IF(NOT PAJE_LIBRARY)
   MESSAGE(FATAL_ERROR "You must enable PAJE_LIBRARY to compile pajeng")
 ENDIF(NOT PAJE_LIBRARY)
-IF(NOT PAJE_UTILS_LIBRARY)
-  MESSAGE(FATAL_ERROR "You must enable PAJE_UTILS_LIBRARY to compile pajeng")
-ENDIF(NOT PAJE_UTILS_LIBRARY)
 FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtOpenGl)
 FIND_PACKAGE(GLUT REQUIRED)
 FIND_PACKAGE(OpenGL REQUIRED)
@@ -54,10 +53,8 @@ TARGET_LINK_LIBRARIES(pajeng ${OPENGL_gl_LIBRARY})
 TARGET_LINK_LIBRARIES(pajeng ${OPENGL_glu_LIBRARY})
 IF(STATIC_LINKING)
   TARGET_LINK_LIBRARIES(pajeng paje_library_static)
-  TARGET_LINK_LIBRARIES(pajeng paje_utils_library_static)
 ELSE(STATIC_LINKING)
   TARGET_LINK_LIBRARIES(pajeng paje_library)
-  TARGET_LINK_LIBRARIES(pajeng paje_utils_library)
 ENDIF(STATIC_LINKING)
 SET_PROPERTY(TARGET pajeng PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 INSTALL(PROGRAMS ${CMAKE_BINARY_DIR}/pajeng DESTINATION bin)

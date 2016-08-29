@@ -20,7 +20,7 @@
 #include <QtGui>
 #include "PajeWindow.h"
 #include "PajeComponent.h"
-#include "../utils/PajeThreadReader.h"
+#include "PajeThreadReader.h"
 #include "PajeFileReader.h"
 #include "PajeEventDecoder.h"
 #include "PajeSimulator.h"
