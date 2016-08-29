@@ -23,8 +23,3 @@ ENDIF(PAJE_LIBRARY)
 IF(PAJE_TOOLS)
   add_subdirectory (${CMAKE_HOME_DIRECTORY}/src/tools)
 ENDIF(PAJE_TOOLS)
-
-# The PajeNG
-IF(PAJENG)
-  add_subdirectory (${CMAKE_HOME_DIRECTORY}/src/pajeng)
-ENDIF(PAJENG)

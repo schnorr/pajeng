@@ -23,7 +23,6 @@ SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 set(LIB_INSTALL_DIR lib${LIB_SUFFIX} CACHE PATH "Directory where libraries are installed (relative to CMAKE_INSTALL_PREFIX).")
 
 # the cmake options
-OPTION(PAJENG         "The PajeNG visualization tool (Qt4 version)" OFF)
 OPTION(PAJE_LIBRARY "The Paje library with all the basic components" ON)
 OPTION(PAJE_TOOLS     "Compile auxiliary tools (pj_dump, etc)" ON)
 OPTION(STATIC_LINKING "Static linking of auxiliary tools" OFF)
