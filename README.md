@@ -22,7 +22,7 @@ continued through a collaboration between [INF/UFRGS](http://www.inf.ufrgs.br/en
 
 ### Two-line Installation
 
-     sudo apt-get install git cmake build-essential libqt4-dev libqt4-opengl-dev libboost-dev freeglut3-dev asciidoc flex bison;
+     sudo apt-get install git cmake build-essential libboost-dev freeglut3-dev asciidoc flex bison;
      git clone git://github.com/schnorr/pajeng.git ; mkdir -p pajeng/b ; cd pajeng/b ; cmake .. ; make install
 
 ### Detailed Installation and everything else
