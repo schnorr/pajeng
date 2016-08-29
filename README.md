@@ -9,12 +9,16 @@ Format](http://paje.sourceforge.net/download/publication/lang-paje.pdf))
 through trace visualization (space/time view).  The tool is released
 under the [GNU General Public License
 3](http://www.gnu.org/licenses/gpl.html). PajeNG comprises the
-__libpaje__ library, the space-time visualization tool in __pajeng__
+__libpaje__ library,
 and a set of auxiliary tools to manage Paje trace files (such as
-__pj_dump__ and __pj_validate__). It was started as part of the french
+__pj_dump__ and __pj_validate__). The space-time visualization tool
+called __pajeng__ is deprecated (removed from the sources) since modern
+tools to a better job (see __pj_gantt__, for instance, or take a more general approach
+using R+ggplot2 to visualize the output of __pj_dump__). This effort
+was started as part of the french
 [INFRA-SONGS ANR
 project](http://infra-songs.gforge.inria.fr/). Development has
-continued at [INF/UFRGS](http://www.inf.ufrgs.br/en/).
+continued through a collaboration between [INF/UFRGS](http://www.inf.ufrgs.br/en/) and [INRIA](https://www.inria.fr/).
 
 ### Two-line Installation
 
