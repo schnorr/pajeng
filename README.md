@@ -13,7 +13,7 @@ __libpaje__ library,
 and a set of auxiliary tools to manage Paje trace files (such as
 __pj_dump__ and __pj_validate__). The space-time visualization tool
 called __pajeng__ is deprecated (removed from the sources) since modern
-tools to a better job (see __pj_gantt__, for instance, or take a more general approach
+tools do a better job (see __pj_gantt__, for instance, or take a more general approach
 using R+ggplot2 to visualize the output of __pj_dump__). This effort
 was started as part of the french
 [INFRA-SONGS ANR
