@@ -16,16 +16,15 @@
 */
 #ifndef __PAJE_DEFINITIONS_H__
 #define __PAJE_DEFINITIONS_H__
-#ifndef Q_MOC_RUN
-#include <boost/bimap.hpp>
-#endif
 #include <string>
 #include <map>
 #include <set>
 #include "PajeEnum.h"
 
-typedef boost::bimap<std::string,PajeEventId> event_names_dictionary_t;
-typedef boost::bimap<std::string,PajeFieldType> field_names_type_dictionary_t;
+typedef std::map<std::string,PajeEventId> event_name_to_id_t;
+typedef std::map<PajeEventId,std::string> id_to_event_name_t;
+typedef std::map<std::string,PajeFieldType> field_name_to_type_t;
+typedef std::map<PajeFieldType,std::string> type_to_field_name_t;
 typedef std::map<std::string,PajeField> field_name_to_id_t;
 typedef std::map<PajeField,std::string> id_to_field_name_t;
 
@@ -34,8 +33,12 @@ class PajeDefinitions {
   field_name_to_id_t fieldNameToID;
   id_to_field_name_t idToFieldName;
 
-  event_names_dictionary_t eventNames;
-  field_names_type_dictionary_t fieldTypeNames;
+  event_name_to_id_t eventNameToID;
+  id_to_event_name_t idToEventName;
+
+  field_name_to_type_t fieldNameToType;
+  type_to_field_name_t typeToFieldName;
+
  public:
   std::map<PajeEventId,std::set<PajeField> > obligatoryFields;
   std::map<PajeEventId,std::set<PajeField> > optionalFields;

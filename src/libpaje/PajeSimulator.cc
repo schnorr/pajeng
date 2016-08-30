@@ -16,10 +16,6 @@
 */
 #include "PajeSimulator.h"
 #include "PajeException.h"
-#ifndef Q_MOC_RUN
-#include <boost/foreach.hpp>
-#include <boost/tokenizer.hpp>
-#endif
 
 int ignoreIncompleteLinks = 0;
 
@@ -205,19 +201,29 @@ PajeColor *PajeSimulator::getColor (std::string color, PajeTraceEvent *event)
   PajeColor *ret = NULL;
   if (!color.empty()){
     std::vector<float> v;
-    boost::char_separator<char> sep(", ");
-    boost::tokenizer< boost::char_separator<char> > tokens(color, sep);
-    BOOST_FOREACH(std::string t, tokens) {
-      v.push_back (atof(t.c_str()));
+    std::stringstream line;
+    line << *event;
+    if (!color.c_str())
+      throw PajeDecodeException ("Could not understand color parameter in " +
+          line.str());
+    char *color_cstr = strdup(color.c_str());
+    char *saveptr;
+    if (!color_cstr)
+      throw PajeDecodeException ("Could not understand color parameter in " +
+          line.str());
+    char *tok = strtok_r(color_cstr, ", ", &saveptr);
+    while (tok) {
+      v.push_back(atof(tok));
+      tok = strtok_r(NULL, ", ", &saveptr);
     }
+    free(color_cstr);
     if (v.size()==3){
       ret = new PajeColor (v[0], v[1], v[2], 1);
     }else if (v.size()==4){
         ret = new PajeColor (v[0], v[1], v[2], v[3]);
     }else{
-      std::stringstream line;
-      line << *event;
-      throw PajeDecodeException ("Could not understand color parameter in "+line.str());
+      throw PajeDecodeException ("Could not understand color parameter in " +
+          line.str());
     }
   }
   return ret;
@@ -524,7 +530,7 @@ void PajeSimulator::pajeCreateContainer (PajeTraceEvent *traceEvent)
   }
 
   //verify if there is a container with the same name
-  std::string identifier = !alias.empty() ? alias : name;  
+  std::string identifier = !alias.empty() ? alias : name;
   PajeContainer *cont = contMap[identifier];
   if (cont){
     std::stringstream eventdesc;
