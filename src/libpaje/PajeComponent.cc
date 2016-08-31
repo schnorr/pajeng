@@ -15,9 +15,6 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeComponent.h"
-#ifndef Q_MOC_RUN
-#include <boost/foreach.hpp>
-#endif
 
 PajeComponent::PajeComponent (void)
 {
@@ -95,56 +92,56 @@ void PajeComponent::finishedReading (void)
 //notifications
 void PajeComponent::timeLimitsChanged (void)
 {
-  BOOST_FOREACH(PajeComponent *component, outputComponent)
-    component->timeLimitsChanged ();
+  for (auto it = outputComponent.begin(); it != outputComponent.end(); ++it)
+    ((PajeComponent *)(*it))->timeLimitsChanged();
 }
 
 void PajeComponent::timeSelectionChanged (void)
 {
-  BOOST_FOREACH(PajeComponent *component, outputComponent)
-    component->timeSelectionChanged ();
+  for (auto it = outputComponent.begin(); it != outputComponent.end(); ++it)
+    ((PajeComponent *)(*it))->timeSelectionChanged();
 }
 
 void PajeComponent::hierarchyChanged (void)
 {
-  BOOST_FOREACH(PajeComponent *component, outputComponent)
-    component->hierarchyChanged ();
+  for (auto it = outputComponent.begin(); it != outputComponent.end(); ++it)
+    ((PajeComponent *)(*it))->hierarchyChanged();
 }
 
 void PajeComponent::containerSelectionChanged (void)
 {
-  BOOST_FOREACH(PajeComponent *component, outputComponent)
-    component->containerSelectionChanged ();
+  for (auto it = outputComponent.begin(); it != outputComponent.end(); ++it)
+    ((PajeComponent *)(*it))->containerSelectionChanged();
 }
 
 void PajeComponent::entitySelectionChanged (void)
 {
-  BOOST_FOREACH(PajeComponent *component, outputComponent)
-    component->entitySelectionChanged ();
+  for (auto it = outputComponent.begin(); it != outputComponent.end(); ++it)
+    ((PajeComponent *)(*it))->entitySelectionChanged();
 }
 
 void PajeComponent::dataChangedForEntityType (PajeType *type)
 {
-  BOOST_FOREACH(PajeComponent *component, outputComponent)
-    component->dataChangedForEntityType (type);
+  for (auto it = outputComponent.begin(); it != outputComponent.end(); ++it)
+    ((PajeComponent *)(*it))->dataChangedForEntityType(type);
 }
 
 void PajeComponent::limitsChangedForEntityType (PajeType *type)
 {
-  BOOST_FOREACH(PajeComponent *component, outputComponent)
-    component->limitsChangedForEntityType (type);
+  for (auto it = outputComponent.begin(); it != outputComponent.end(); ++it)
+    ((PajeComponent *)(*it))->limitsChangedForEntityType(type);
 }
 
 void PajeComponent::colorChangedForEntityType (PajeType *type)
 {
-  BOOST_FOREACH(PajeComponent *component, outputComponent)
-    component->colorChangedForEntityType (type);
+  for (auto it = outputComponent.begin(); it != outputComponent.end(); ++it)
+    ((PajeComponent *)(*it))->colorChangedForEntityType(type);
 }
 
 void PajeComponent::orderChangedForContainerType (PajeType *type)
 {
-  BOOST_FOREACH(PajeComponent *component, outputComponent)
-    component->orderChangedForContainerType (type);
+  for (auto it = outputComponent.begin(); it != outputComponent.end(); ++it)
+    ((PajeComponent *)(*it))->orderChangedForContainerType(type);
 }
 
 //commands

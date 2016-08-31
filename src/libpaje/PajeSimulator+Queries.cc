@@ -16,9 +16,6 @@
 */
 #include "PajeSimulator.h"
 #include "PajeException.h"
-#ifndef Q_MOC_RUN
-#include <boost/foreach.hpp>
-#endif
 
 PajeContainer *PajeSimulator::rootInstance (void)
 {
@@ -153,9 +150,8 @@ std::vector<PajeValue*> PajeSimulator::valuesForEntityType (PajeType *type)
   PajeCategorizedType *catType = dynamic_cast<PajeCategorizedType*>(type);
   if (catType){
     std::pair<std::string,PajeValue*> val;
-    BOOST_FOREACH (val, catType->values){
-      ret.push_back (val.second);
-    }
+    for (auto it = catType->values.begin(); it != catType->values.end(); ++it)
+      ret.push_back((std::pair<std::string, PajeValue*>(*it)).second);
   }
   return ret;
 }

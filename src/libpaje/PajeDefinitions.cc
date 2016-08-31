@@ -24,11 +24,10 @@ PajeDefinitions::PajeDefinitions (bool strict)
 
 PajeDefinitions::~PajeDefinitions ()
 {
-  //boost::bimap
-  eventNames.clear ();
-  fieldTypeNames.clear ();
-
-  //std::map
+  eventNameToID.clear ();
+  idToEventName.clear ();
+  typeToFieldName.clear ();
+  fieldNameToType.clear ();
   fieldNameToID.clear();
   idToFieldName.clear ();
   obligatoryFields.clear ();
@@ -38,26 +37,48 @@ PajeDefinitions::~PajeDefinitions ()
 void PajeDefinitions::initialize (bool strict)
 {
   //map from event names to internal reference
-  eventNames.insert (event_names_dictionary_t::relation ("PajeDefineContainerType", PajeDefineContainerTypeEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeDefineContainerType", PajeDefineContainerTypeEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeDefineEventType", PajeDefineEventTypeEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeDefineStateType", PajeDefineStateTypeEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeDefineVariableType", PajeDefineVariableTypeEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeDefineLinkType", PajeDefineLinkTypeEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeDefineEntityValue", PajeDefineEntityValueEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeCreateContainer", PajeCreateContainerEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeDestroyContainer", PajeDestroyContainerEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeNewEvent", PajeNewEventEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeSetState", PajeSetStateEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajePushState", PajePushStateEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajePopState", PajePopStateEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeResetState", PajeResetStateEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeSetVariable", PajeSetVariableEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeAddVariable", PajeAddVariableEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeSubVariable", PajeSubVariableEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeStartLink", PajeStartLinkEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeEndLink", PajeEndLinkEventId));
-  eventNames.insert (event_names_dictionary_t::relation ("PajeTraceFile", PajeTraceFileEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeDefineContainerType", PajeDefineContainerTypeEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeDefineContainerType", PajeDefineContainerTypeEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeDefineEventType", PajeDefineEventTypeEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeDefineStateType", PajeDefineStateTypeEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeDefineVariableType", PajeDefineVariableTypeEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeDefineLinkType", PajeDefineLinkTypeEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeDefineEntityValue", PajeDefineEntityValueEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeCreateContainer", PajeCreateContainerEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeDestroyContainer", PajeDestroyContainerEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeNewEvent", PajeNewEventEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeSetState", PajeSetStateEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajePushState", PajePushStateEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajePopState", PajePopStateEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeResetState", PajeResetStateEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeSetVariable", PajeSetVariableEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeAddVariable", PajeAddVariableEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeSubVariable", PajeSubVariableEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeStartLink", PajeStartLinkEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeEndLink", PajeEndLinkEventId));
+  eventNameToID.insert (std::pair<std::string,PajeEventId>("PajeTraceFile", PajeTraceFileEventId));
+
+  //map from internal reference to event names
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeDefineContainerTypeEventId, "PajeDefineContainerType"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeDefineContainerTypeEventId, "PajeDefineContainerType"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeDefineEventTypeEventId, "PajeDefineEventType"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeDefineStateTypeEventId, "PajeDefineStateType"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeDefineVariableTypeEventId, "PajeDefineVariableType"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeDefineLinkTypeEventId, "PajeDefineLinkType"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeDefineEntityValueEventId, "PajeDefineEntityValue"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeCreateContainerEventId, "PajeCreateContainer"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeDestroyContainerEventId, "PajeDestroyContainer"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeNewEventEventId, "PajeNewEvent"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeSetStateEventId, "PajeSetState"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajePushStateEventId, "PajePushState"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajePopStateEventId, "PajePopState"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeResetStateEventId, "PajeResetState"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeSetVariableEventId, "PajeSetVariable"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeAddVariableEventId, "PajeAddVariable"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeSubVariableEventId, "PajeSubVariable"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeStartLinkEventId, "PajeStartLink"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeEndLinkEventId, "PajeEndLink"));
+  idToEventName.insert (std::pair<PajeEventId,std::string>(PajeTraceFileEventId, "PajeTraceFile"));
 
   //map from field names to internal reference
   fieldNameToID.insert (std::pair<std::string,PajeField>("Event", PAJE_Event));
@@ -112,13 +133,22 @@ void PajeDefinitions::initialize (bool strict)
   }
 
   //map from type names to internal reference
-  fieldTypeNames.insert (field_names_type_dictionary_t::relation ("string", PAJE_string));
-  fieldTypeNames.insert (field_names_type_dictionary_t::relation ("float", PAJE_float));
-  fieldTypeNames.insert (field_names_type_dictionary_t::relation ("double", PAJE_double));
-  fieldTypeNames.insert (field_names_type_dictionary_t::relation ("int", PAJE_int));
-  fieldTypeNames.insert (field_names_type_dictionary_t::relation ("hex", PAJE_hex));
-  fieldTypeNames.insert (field_names_type_dictionary_t::relation ("date", PAJE_date));
-  fieldTypeNames.insert (field_names_type_dictionary_t::relation ("color", PAJE_color));
+  fieldNameToType.insert (std::pair<std::string,PajeFieldType>("string", PAJE_string));
+  fieldNameToType.insert (std::pair<std::string,PajeFieldType>("float", PAJE_float));
+  fieldNameToType.insert (std::pair<std::string,PajeFieldType>("double", PAJE_double));
+  fieldNameToType.insert (std::pair<std::string,PajeFieldType>("int", PAJE_int));
+  fieldNameToType.insert (std::pair<std::string,PajeFieldType>("hex", PAJE_hex));
+  fieldNameToType.insert (std::pair<std::string,PajeFieldType>("date", PAJE_date));
+  fieldNameToType.insert (std::pair<std::string,PajeFieldType>("color", PAJE_color));
+
+  //map from internal reference to type names
+  typeToFieldName.insert (std::pair<PajeFieldType,std::string>(PAJE_string, "string"));
+  typeToFieldName.insert (std::pair<PajeFieldType,std::string>(PAJE_float, "float"));
+  typeToFieldName.insert (std::pair<PajeFieldType,std::string>(PAJE_double, "double"));
+  typeToFieldName.insert (std::pair<PajeFieldType,std::string>(PAJE_int, "int"));
+  typeToFieldName.insert (std::pair<PajeFieldType,std::string>(PAJE_hex, "hex"));
+  typeToFieldName.insert (std::pair<PajeFieldType,std::string>(PAJE_date, "date"));
+  typeToFieldName.insert (std::pair<PajeFieldType,std::string>(PAJE_color, "color"));
 
   //The obligatory fields
   obligatoryFields[PajeDefineContainerTypeEventId] = std::set<PajeField>();
@@ -308,8 +338,7 @@ const std::string &PajeDefinitions::eventNameFromID (PajeEventId event)
   if (event == PajeUnknownEventId){
     throw PajeDefinitionsException ();
   }
-  event_names_dictionary_t::right_map::const_iterator found;
-  found = eventNames.right.find (event);
+  auto found = idToEventName.find(event);
   return found->second;
 }
 
@@ -328,16 +357,14 @@ const std::string &PajeDefinitions::fieldTypeNameFromID (PajeFieldType type)
   if (type == PAJE_unknown_field_type){
     throw PajeDefinitionsException ();
   }
-  field_names_type_dictionary_t::right_map::const_iterator found;
-  found = fieldTypeNames.right.find (type);
+  auto found = typeToFieldName.find(type);
   return found->second;
 }
 
 PajeEventId PajeDefinitions::idFromEventName (std::string event)
 {
-  event_names_dictionary_t::left_map::const_iterator found;
-  found = eventNames.left.find (event);
-  if (found == eventNames.left.end()){
+  auto found = eventNameToID.find (event);
+  if (found == eventNameToID.end()){
     return PajeUnknownEventId;
   }
   return found->second;
@@ -345,8 +372,7 @@ PajeEventId PajeDefinitions::idFromEventName (std::string event)
 
 PajeField PajeDefinitions::idFromFieldName (std::string field)
 {
-  field_name_to_id_t::iterator found;
-  found = fieldNameToID.find (field);
+  auto found = fieldNameToID.find (field);
   if (found == fieldNameToID.end()){
     return PAJE_Unknown_Field;
   }
@@ -355,9 +381,8 @@ PajeField PajeDefinitions::idFromFieldName (std::string field)
 
 PajeFieldType PajeDefinitions::idFromFieldTypeName (std::string type)
 {
-  field_names_type_dictionary_t::left_map::const_iterator found;
-  found = fieldTypeNames.left.find (type);
-  if (found == fieldTypeNames.left.end()){
+  auto found = fieldNameToType.find (type);
+  if (found == fieldNameToType.end()){
     return PAJE_unknown_field_type;
   }
   return found->second;
