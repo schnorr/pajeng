@@ -291,6 +291,7 @@ void PajeContainer::pajePushState (PajeEvent *event)
     if (!stack->empty()){
       PajeUserState *top_of_stack = stack->back();
       top_of_stack->setEndTime (time);
+      top_of_stack->addPajeTraceEvent (traceEvent);
     }
   }
 
