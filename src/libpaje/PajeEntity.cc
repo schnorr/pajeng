@@ -39,18 +39,9 @@ void PajeEntity::addPajeTraceEvent (PajeTraceEvent *event)
     std::string fieldName = *it;
     std::string value = event->valueForExtraField (fieldName);
 
-    //check if fieldName already exists
-    if (extraFields.count(fieldName)){
-      //if it does, check if value is NOT the same
-      if (extraFields[fieldName] != value){
-        std::stringstream line;
-        line << *event;
-        throw PajeDecodeException ("When treating event "+line.str()+", the value for "+fieldName+" is "+extraFields[fieldName]+", but it is different from "+value);
-      }
-    }else{
-      extraFields[fieldName] = value;
-    }
+    extraFields[fieldName] = value;
   }
+  return;
 }
 
 PajeContainer *PajeEntity::container (void) const
