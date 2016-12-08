@@ -323,6 +323,7 @@ void PajeContainer::pajePopState (PajeEvent *event)
   //update the top of the stack, set its endTime
   PajeUserState *last_stacked = stack->back();
   last_stacked->setEndTime (time);
+  last_stacked->addPajeTraceEvent (traceEvent);
 
   //pop the stack
   stack->pop_back();
