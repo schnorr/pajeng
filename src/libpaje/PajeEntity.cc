@@ -38,8 +38,7 @@ void PajeEntity::addPajeTraceEvent (PajeTraceEvent *event)
   for (it = extra.begin(); it != extra.end(); it++){
     std::string fieldName = *it;
     std::string value = event->valueForExtraField (fieldName);
-
-    extraFields[fieldName] = value;
+    extraFields.push_back(value);
   }
   return;
 }
@@ -114,9 +113,9 @@ std::string PajeEntity::extraDescription (bool printComma) const
   if (printComma){
     description << ", ";
   }
-  std::map<std::string,std::string>::const_iterator it;
+  std::vector<std::string>::const_iterator it;
   for (it = extraFields.begin(); it != extraFields.end(); it++){
-    description << (*it).second;
+    description << (*it);
 
     //look forward to see if we ouput a comma
     it++;

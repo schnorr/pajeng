@@ -64,7 +64,7 @@ class PajeEntity : public PajeVirtualEntity
 private:
   PajeContainer *_container;
   PajeType *_type;
-  std::map<std::string,std::string> extraFields;
+  std::vector<std::string> extraFields;
 
 public:
   PajeEntity (PajeContainer *container, PajeType *type, PajeTraceEvent *event);
