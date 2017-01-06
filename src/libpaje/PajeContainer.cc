@@ -239,7 +239,7 @@ void PajeContainer::demuxer (PajeEvent *event)
       throw PajeSimulationException ("Asked to simulate something I don't know how to simulate");
     }
   }else{
-    throw PajeSimulationException ("Unknow event id.");
+    throw PajeSimulationException ("Unknown event id.");
   }
 
   //update container endtime
