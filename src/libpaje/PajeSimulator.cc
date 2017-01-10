@@ -251,7 +251,7 @@ void PajeSimulator::inputEntity (PajeObject *data)
       CALL_MEMBER_PAJE_SIMULATOR(*this,invocation[eventId])(event);
     }
   }else{
-    throw PajeSimulationException ("Unknow event id.");
+    throw PajeSimulationException ("Unknown event id.");
   }
 }
 
@@ -291,7 +291,7 @@ void PajeSimulator::pajeDefineContainerType (PajeTraceEvent *event)
   if (!containerType){
     std::stringstream line;
     line << *event;
-    throw PajeTypeException ("Unknow container type '"+type+"' in "+line.str());
+    throw PajeTypeException ("Unknown container type '"+type+"' in "+line.str());
   }
 
   std::string identifier = !alias.empty() ? alias : name;
@@ -319,7 +319,7 @@ void PajeSimulator::pajeDefineLinkType (PajeTraceEvent *event)
   if (!containerType){
     std::stringstream line;
     line << *event;
-    throw PajeTypeException ("Unknow container type '"+type+"' in "+line.str());
+    throw PajeTypeException ("Unknown container type '"+type+"' in "+line.str());
   }
 
   //search for start container type
@@ -327,7 +327,7 @@ void PajeSimulator::pajeDefineLinkType (PajeTraceEvent *event)
   if (!startcontainertype){
     std::stringstream line;
     line << *event;
-    throw PajeTypeException ("Unknow start container type '"+starttype+"' for link definition in "+line.str());
+    throw PajeTypeException ("Unknown start container type '"+starttype+"' for link definition in "+line.str());
   }
 
   //search for end container type
@@ -335,7 +335,7 @@ void PajeSimulator::pajeDefineLinkType (PajeTraceEvent *event)
   if (!endcontainertype){
     std::stringstream line;
     line << *event;
-    throw PajeTypeException ("Unknow end container type '"+endtype+"' for link definition in "+line.str());
+    throw PajeTypeException ("Unknown end container type '"+endtype+"' for link definition in "+line.str());
   }
 
   //check if the new type already exists
@@ -362,7 +362,7 @@ void PajeSimulator::pajeDefineEventType (PajeTraceEvent *event)
   if (!containerType){
     std::stringstream line;
     line << *event;
-    throw PajeTypeException ("Unknow container type '"+type+"' in "+line.str());
+    throw PajeTypeException ("Unknown container type '"+type+"' in "+line.str());
   }
 
   std::string identifier = !alias.empty() ? alias : name;
@@ -388,7 +388,7 @@ void PajeSimulator::pajeDefineStateType (PajeTraceEvent *event)
   if (!containerType){
     std::stringstream line;
     line << *event;
-    throw PajeTypeException ("Unknow container type '"+type+"' in "+line.str());
+    throw PajeTypeException ("Unknown container type '"+type+"' in "+line.str());
   }
 
   std::string identifier = !alias.empty() ? alias : name;
@@ -415,7 +415,7 @@ void PajeSimulator::pajeDefineVariableType (PajeTraceEvent *event)
   if (!containerType){
     std::stringstream line;
     line << *event;
-    throw PajeTypeException ("Unknow container type '"+type+"' in "+line.str());
+    throw PajeTypeException ("Unknown container type '"+type+"' in "+line.str());
   }
 
   std::string identifier = !alias.empty() ? alias : name;
@@ -446,7 +446,7 @@ void PajeSimulator::pajeDefineEntityValue (PajeTraceEvent *event)
   if (!type){
     std::stringstream line;
     line << *event;
-    throw PajeTypeException ("Unknow type '"+typestr+"' in "+line.str());
+    throw PajeTypeException ("Unknown type '"+typestr+"' in "+line.str());
   }
 
   //check if the type accepts values
