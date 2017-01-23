@@ -14,7 +14,9 @@
     You should have received a copy of the GNU Public License
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
+#if defined(_OPENMP)
 #include "omp.h"
+#endif
 #include "PajeUnity.h"
 #include <argp.h>
 #include "libpaje_config.h"
@@ -169,15 +171,21 @@ equals(struct arguments *arguments, PajeComponent *s1, PajeComponent *s2)
       if (s1->isContainerType(t1)) {
         std::vector<PajeContainer*> children;
         std::vector<PajeContainer*>::iterator it;
+#if defined(OPENMP)
 #pragma omp parallel sections num_threads(2) private(children, it)
+#endif
         {
+#if defined(OPENMP)
 #pragma omp section
+#endif
           {
             children = s1->enumeratorOfContainersTypedInContainer(t1, c1);
             for (it = children.begin(); it != children.end(); ++it)
               stack1.push_back(*it);
           }
+#if defined(OPENMP)
 #pragma omp section
+#endif
           {
             children = s2->enumeratorOfContainersTypedInContainer(t2, c2);
             for (it = children.begin(); it != children.end(); ++it)
@@ -187,13 +195,19 @@ equals(struct arguments *arguments, PajeComponent *s1, PajeComponent *s2)
       } else {
         std::vector<PajeEntity*> entities1, entities2;
         std::vector<PajeEntity*>::iterator it1, it2;
+#if defined(OPENMP)
 #pragma omp parallel sections num_threads(2)
+#endif
         {
+#if defined(OPENMP)
 #pragma omp section
+#endif
           {
             entities1 = s1->enumeratorOfEntitiesTypedInContainer(t1, c1, start1, end1);
           }
+#if defined(OPENMP)
 #pragma omp section
+#endif
           {
             entities2 = s2->enumeratorOfEntitiesTypedInContainer(t2, c2, start2, end2);
           }
@@ -228,15 +242,21 @@ main(int argc, char **argv)
   }
   PajeUnity *s1;
   PajeUnity *s2;
+#if defined(OPENMP)
 #pragma omp parallel sections num_threads(2)
+#endif
   {
+#if defined(OPENMP)
 #pragma omp section
+#endif
     {
       s1 = new PajeUnity(arguments.flex, !arguments.noStrict,
           std::string(arguments.input[0]), arguments.stopat1,
  	  arguments.ignoreIncompleteLinks, 0, false);
     }
+#if defined(OPENMP)
 #pragma omp section
+#endif
     {
       s2 = new PajeUnity(arguments.flex, !arguments.noStrict,
           std::string(arguments.input[1]), arguments.stopat2,
@@ -246,13 +266,19 @@ main(int argc, char **argv)
 
   int ans = equals(&arguments, s1, s2);
 
+#if defined(OPENMP)
 #pragma omp parallel sections num_threads(2)
+#endif
   {
+#if defined(OPENMP)
 #pragma omp section
+#endif
     {
       delete s1;
     }
+#if defined(OPENMP)
 #pragma omp section
+#endif
     {
       delete s2;
     }
