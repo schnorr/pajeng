@@ -222,8 +222,37 @@ PajeColor *PajeSimulator::getColor (std::string color, PajeTraceEvent *event)
     }else if (v.size()==4){
         ret = new PajeColor (v[0], v[1], v[2], v[3]);
     }else{
-      throw PajeDecodeException ("Could not understand color parameter in " +
-          line.str());
+      /* Assume hex color (coded like in HTML colors).
+	 Not a color if more than three componentes or not a hex number. */
+      int sz = color.size();
+      int comp = 0;
+      int cnt = 0;
+      float rgb[3] = {0, 0, 0};
+      bool errorFlag = false;
+      for (int i = 0; i < sz; i++) {
+        char c = color[i];
+        if (isdigit(c) || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')){
+	  comp = comp * 16 + (isdigit(c) ? c - '0' :
+                              ((c >= 'a' && c <= 'f') ? c - 'a' : c - 'A' ));
+	  if (i % 2 == 1){
+	    if (cnt == 3) {
+	      errorFlag = true;
+	      break;
+	    }
+	    rgb[cnt++] = (float)comp / 256.0;
+	    comp = 0;
+	  }
+        }else{
+	  errorFlag = true;
+	  break;
+	}
+      }
+      if (cnt == 3 && errorFlag == false){
+        ret = new PajeColor (rgb[0], rgb[1], rgb[2], 1);
+      }else{
+	throw PajeDecodeException ("Could not understand color parameter in " +
+				   line.str());
+      }
     }
   }
   return ret;
