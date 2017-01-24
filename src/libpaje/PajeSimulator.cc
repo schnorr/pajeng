@@ -232,7 +232,7 @@ PajeColor *PajeSimulator::getColor (std::string color, PajeTraceEvent *event)
       for (int i = 0; i < sz; i++) {
         char c = color[i];
         if (isdigit(c) || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')){
-	  comp = comp * 16 + (isdigit(c) ? c - '0' :
+	  comp = comp * 16 + (isdigit(c) ? c - '0' : 10 +
                               ((c >= 'a' && c <= 'f') ? c - 'a' : c - 'A' ));
 	  if (i % 2 == 1){
 	    if (cnt == 3) {
