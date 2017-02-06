@@ -45,6 +45,7 @@ static struct argp_option options[] = {
   {"dot", 'd', 0, OPTION_ARG_OPTIONAL, "Print type hierarchy in dot format in stdout"},
   {"version", 'v', 0, OPTION_ARG_OPTIONAL, "Print version of this binary"},
   {"time", 't', 0, OPTION_ARG_OPTIONAL, "Print number of seconds to simulate input"},
+  {"header", 'h', 0, OPTION_ARG_OPTIONAL, "Print CSV header with column names"},
   { 0 }
 };
 
@@ -61,6 +62,7 @@ struct arguments {
   int container;
   int dot;
   int time;
+  int csvHeader;
   char *probabilistic;
 };
 
@@ -82,6 +84,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
   case 'c': arguments->container = 1; break;
   case 'd': arguments->dot = 1; break;
   case 't': arguments->time = 1; break;
+  case 'h': arguments->csvHeader = 1; break;
   case 'v': printf("%s\n", LIBPAJE_VERSION_STRING); exit(0); break;
   case ARGP_KEY_ARG:
     if (arguments->input != NULL) {
