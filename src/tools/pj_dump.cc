@@ -158,6 +158,81 @@ void dump (struct arguments *arguments, PajeComponent *simulator)
   }
 }
 
+static void dump_header_from_entity (struct arguments *arguments, PajeEntity *entity)
+{
+  std::cout << entity->descriptionHeader();
+  if (arguments->userDefined){
+    std::cout << entity->extraDescriptionHeader(true);
+  }
+  std::cout << std::endl;
+}
+
+static void dump_header (struct arguments *arguments, PajeComponent *simulator)
+{
+  bool containerHeader = true;
+  bool linkHeader = true;
+  bool stateHeader = true;
+  bool eventHeader = true;
+  bool variableHeader = true;
+
+  if (!arguments->csvHeader) return;
+
+  std::vector<PajeContainer*> stack;
+  stack.push_back (simulator->rootInstance());
+
+  while (!stack.empty()){
+    PajeContainer *container = stack.back();
+    stack.pop_back ();
+
+    //Output container header
+    if (containerHeader){
+      dump_header_from_entity (arguments, container);
+      containerHeader = false;
+    }
+
+    //Output remaining headers
+    std::vector<PajeType*> containedTypes;
+    std::vector<PajeType*>::iterator it;
+    containedTypes = simulator->containedTypesForContainerType (container->type());
+    for (it = containedTypes.begin(); it != containedTypes.end(); it++){
+      PajeType *type = *it;
+      if (simulator->isContainerType (type)){
+        std::vector<PajeContainer*> children;
+        std::vector<PajeContainer*>::iterator it;
+        children = simulator->enumeratorOfContainersTypedInContainer (type, container);
+        for (it = children.begin(); it != children.end(); it++){
+          stack.push_back (*it);
+        }
+      }else{
+        std::vector<PajeEntity*> entities;
+        std::vector<PajeEntity*>::iterator it;
+        entities = simulator->enumeratorOfEntitiesTypedInContainer (type,
+                                                                    container,
+                                                                    simulator->startTime(),
+                                                                    simulator->endTime());
+        for (it = entities.begin(); it != entities.end(); it++){
+          PajeEntity *entity = *it;
+
+	  if (linkHeader && dynamic_cast<PajeUserLink*>(entity)){
+	    dump_header_from_entity (arguments, entity);
+	    linkHeader = false;
+	  }else if (stateHeader && dynamic_cast<PajeUserState*>(entity)){
+	    dump_header_from_entity (arguments, entity);
+	    stateHeader = false;
+	  }else if (eventHeader && dynamic_cast<PajeUserEvent*>(entity)){
+	    dump_header_from_entity (arguments, entity);
+	    eventHeader = false;
+	  }else if (variableHeader && dynamic_cast<PajeUserVariable*>(entity)){
+	    dump_header_from_entity (arguments, entity);
+	    variableHeader = false;
+	  }
+	  break;
+        }
+      }
+    }
+  }
+}
+
 int main (int argc, char **argv)
 {
   struct arguments arguments;
@@ -198,6 +273,7 @@ int main (int argc, char **argv)
   }
 
   if (!arguments.quiet){
+    dump_header (&arguments, unity);
     dump (&arguments, unity);
   }
 
