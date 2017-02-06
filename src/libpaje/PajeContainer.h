@@ -57,6 +57,7 @@ public:
   PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeType *type, PajeTraceEvent *event, double stopat, bool noImbrication);
   ~PajeContainer ();
   int numberOfEntities (void); //recursive
+  std::string descriptionHeader (void) const;
   std::string description (void) const;
   const std::string &identifier (void);
   bool isContainer (void) const;

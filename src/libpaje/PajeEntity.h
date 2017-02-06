@@ -53,7 +53,9 @@ public:
   virtual double lastTime (void) const = 0;
   virtual double duration (void) const = 0;
   virtual std::string description (void) const = 0;
+  virtual std::string descriptionHeader (void) const = 0;
   virtual std::string extraDescription (bool printComma) const = 0;
+  virtual std::string extraDescriptionHeader (bool printComma) const = 0;
 };
 
 /*
@@ -65,6 +67,7 @@ private:
   PajeContainer *_container;
   PajeType *_type;
   std::vector<std::string> extraFields;
+  std::vector<std::string> extraFieldsNames;
 
 public:
   PajeEntity (PajeContainer *container, PajeType *type, PajeTraceEvent *event);
@@ -91,6 +94,7 @@ public:
   };
 
   std::string extraDescription (bool printComma) const; //should always be called after description
+  std::string extraDescriptionHeader (bool printComma) const; //should always be called after description
 };
 
 /*
@@ -167,6 +171,7 @@ public:
   PajeUserEvent (PajeContainer *container, PajeType *type, double time, PajeValue *value, PajeTraceEvent *event);
   PajeValue *value (void) const;
   std::string description (void) const;
+  std::string descriptionHeader (void) const;
 };
 
 /*
@@ -181,6 +186,7 @@ public:
   PajeUserState (PajeContainer *container, PajeType *type, double time, PajeValue *value, PajeTraceEvent *event);
   PajeUserState (PajeContainer *container, PajeType *type, double time, PajeValue *value, int imbrication, PajeTraceEvent *event);
   std::string description (void) const;
+  std::string descriptionHeader (void) const;
   int imbricationLevel (void) const;
 };
 
@@ -195,6 +201,7 @@ private:
 public:
   PajeUserVariable (PajeContainer *container, PajeType *type, double time, double value, PajeTraceEvent *event);
   std::string description (void) const;
+  std::string descriptionHeader (void) const;
 
   void setDoubleValue (double value);
   void addDoubleValue (double value);
@@ -215,6 +222,7 @@ private:
 public:
   PajeUserLink (PajeContainer *container, PajeType *type, double time, PajeValue *value, std::string key, PajeContainer *startContainer, PajeTraceEvent *event);
   std::string description (void) const;
+  std::string descriptionHeader (void) const;
 
   void setStartContainer (PajeContainer *startContainer);
   void setEndContainer (PajeContainer *EndContainer);

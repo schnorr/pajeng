@@ -32,6 +32,7 @@ void PajeEntity::addPajeTraceEvent (PajeTraceEvent *event)
 {
   if (!event) return;
 
+  //Obtain the values of this event, add them to "extraFields"
   PajeEventDefinition *def = event->definition();
   std::vector<std::string> extra = def->extraFields();
   std::vector<std::string>::iterator it;
@@ -39,6 +40,8 @@ void PajeEntity::addPajeTraceEvent (PajeTraceEvent *event)
     std::string fieldName = *it;
     std::string value = event->valueForExtraField (fieldName);
     extraFields.push_back(value);
+    //save also the name
+    extraFieldsNames.push_back(fieldName);
   }
   return;
 }
@@ -126,6 +129,29 @@ std::string PajeEntity::extraDescription (bool printComma) const
   }
   return description.str();
 }
+
+std::string PajeEntity::extraDescriptionHeader (bool printComma) const
+{
+  if (extraFields.size() == 0) return std::string();
+
+  std::stringstream description;
+  if (printComma){
+    description << ", ";
+  }
+  std::vector<std::string>::const_iterator it;
+  for (it = extraFieldsNames.begin(); it != extraFieldsNames.end(); it++){
+    description << (*it);
+
+    //look forward to see if we ouput a comma
+    it++;
+    if (it != extraFieldsNames.end()){
+      description << ", ";
+    }
+    it--;
+  }
+  return description.str();
+}
+
 
 /**************************************************************
  * PajeSingleTimedEntity
@@ -246,6 +272,13 @@ PajeUserEvent::PajeUserEvent (PajeContainer *container, PajeType *type, double t
   this->_value = value;
 }
 
+std::string PajeUserEvent::descriptionHeader (void) const
+{
+  std::stringstream description;
+  description << "Event, Container, Variable, Value, Start, Value";
+  return description.str();
+}
+
 std::string PajeUserEvent::description (void) const
 {
   std::stringstream description;
@@ -278,6 +311,13 @@ PajeUserState::PajeUserState (PajeContainer *container, PajeType *type, double s
   this->imbrication = imbric;
 }
 
+std::string PajeUserState::descriptionHeader (void) const
+{
+  std::stringstream description;
+  description << "State, Container, Type, Start, End, Duration, Imbrication, Value";
+  return description.str();
+}
+
 std::string PajeUserState::description (void) const
 {
   std::stringstream description;
@@ -305,6 +345,13 @@ PajeUserVariable::PajeUserVariable (PajeContainer *container, PajeType *type, do
   : PajeDoubleTimedEntity (container, type, time, event)
 {
   _value = value;
+}
+
+std::string PajeUserVariable::descriptionHeader (void) const
+{
+  std::stringstream description;
+  description << "Variable, Container, Type, Start, End, Duration, Value";
+  return description.str();
 }
 
 std::string PajeUserVariable::description (void) const
@@ -350,6 +397,13 @@ PajeUserLink::PajeUserLink (PajeContainer *container, PajeType *type, double tim
   this->key = key;
   this->startCont = startContainer;
   this->endCont = NULL;
+}
+
+std::string PajeUserLink::descriptionHeader (void) const
+{
+  std::stringstream description;
+  description << "Link, Container, Type, Start, End, Duration, Value, StartContainer, EndContainer";
+  return description.str();
 }
 
 std::string PajeUserLink::description (void) const
