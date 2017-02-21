@@ -29,23 +29,26 @@ extern int dumpFloatingPointPrecision;
 static char doc[] = "Dumps FILE, or standard input, in a CSV-like textual format";
 static char args_doc[] = "[FILE]";
 
+#define OPT_TH 400
+
 static struct argp_option options[] = {
-  {"start", 's', "START", 0, "Dump starts at timestamp START (instead of 0)"},
-  {"end", 'e', "END", 0, "Dump ends at timestamp END (instead of EOF)"},
-  {"stop-at", 'a', "TIME", 0, "Stop the trace simulation at TIME"},
-  {"no-strict", 'n', 0, OPTION_ARG_OPTIONAL, "Support old field names in event definitions"},
+  {"start",                   's', "START", 0, "Dump starts at timestamp START (instead of 0)"},
+  {"end",                     'e', "END", 0, "Dump ends at timestamp END (instead of EOF)"},
+  {"stop-at",                 'a', "TIME", 0, "Stop the trace simulation at TIME"},
+  {"no-strict",               'n', 0, OPTION_ARG_OPTIONAL, "Support old field names in event definitions"},
   {"ignore-incomplete-links", 'z', 0, OPTION_ARG_OPTIONAL, "Ignore incomplete links (not recommended)"},
-  {"quiet", 'q', 0, OPTION_ARG_OPTIONAL, "Do not dump, only simulate"},
-  {"flex", 'f', 0, OPTION_ARG_OPTIONAL, "Use flex-based file reader"},
-  {"user-defined", 'u', 0, OPTION_ARG_OPTIONAL, "Dump user-defined fields"},
-  {"probabilistic", 'p', "TYPENAME", 0, "Dump global states based on TYPENAME"},
-  {"float-precision", 'l', "PRECISION", 0, "Precision of floating point numbers"},
-  {"no-imbrication", 'i', 0, OPTION_ARG_OPTIONAL, "No imbrication levels (push and pop become sets)"},
-  {"container", 'c', 0, OPTION_ARG_OPTIONAL, "Print container hierarchy in stdout"},
-  {"dot", 'd', 0, OPTION_ARG_OPTIONAL, "Print type hierarchy in dot format in stdout"},
-  {"version", 'v', 0, OPTION_ARG_OPTIONAL, "Print version of this binary"},
-  {"time", 't', 0, OPTION_ARG_OPTIONAL, "Print number of seconds to simulate input"},
-  {"header", 'h', 0, OPTION_ARG_OPTIONAL, "Print CSV header with column names"},
+  {"quiet",                   'q', 0, OPTION_ARG_OPTIONAL, "Do not dump, only simulate"},
+  {"flex",                    'f', 0, OPTION_ARG_OPTIONAL, "Use flex-based file reader"},
+  {"user-defined",            'u', 0, OPTION_ARG_OPTIONAL, "Dump user-defined fields"},
+  {"probabilistic",           'p', "TYPENAME", 0, "Dump global states based on TYPENAME"},
+  {"float-precision",         'l', "PRECISION", 0, "Precision of floating point numbers"},
+  {"no-imbrication",          'i', 0, OPTION_ARG_OPTIONAL, "No imbrication levels (push and pop become sets)"},
+  {"container",               'c', 0, OPTION_ARG_OPTIONAL, "Print container hierarchy in stdout"},
+  {"dot",                     'd', 0, OPTION_ARG_OPTIONAL, "Print type hierarchy in dot format in stdout"},
+  {"version",                 'v', 0, OPTION_ARG_OPTIONAL, "Print version of this binary"},
+  {"time",                    't', 0, OPTION_ARG_OPTIONAL, "Print number of seconds to simulate input"},
+  {"header",                  'h', 0, OPTION_ARG_OPTIONAL, "Print CSV header with column names"},
+  {"type-hierarchy",       OPT_TH, 0, OPTION_ARG_OPTIONAL, "Print the Paje type hierarchy in CSV"},
   { 0 }
 };
 
@@ -63,6 +66,7 @@ struct arguments {
   int dot;
   int time;
   int csvHeader;
+  int typeHierarchy;
   char *probabilistic;
 };
 
@@ -85,6 +89,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
   case 'd': arguments->dot = 1; break;
   case 't': arguments->time = 1; break;
   case 'h': arguments->csvHeader = 1; break;
+  case OPT_TH: arguments->typeHierarchy = 1; break;
   case 'v': printf("%s\n", LIBPAJE_VERSION_STRING); exit(0); break;
   case ARGP_KEY_ARG:
     if (arguments->input != NULL) {
@@ -253,6 +258,12 @@ int main (int argc, char **argv)
 
   if (arguments.time){
     printf ("%f\n", unity->getTime());
+  }
+
+  if (arguments.typeHierarchy){
+    unity->reportTypeHierarchy();
+    delete unity;
+    return 0;
   }
 
   if (arguments.dot){
