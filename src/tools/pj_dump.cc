@@ -29,7 +29,7 @@ extern int dumpFloatingPointPrecision;
 static char doc[] = "Dumps FILE, or standard input, in a CSV-like textual format";
 static char args_doc[] = "[FILE]";
 
-#define OPT_TH 400
+#define OPT_TH 400 //TypeHierarchy
 
 static struct argp_option options[] = {
   {"start",                   's', "START", 0, "Dump starts at timestamp START (instead of 0)"},
