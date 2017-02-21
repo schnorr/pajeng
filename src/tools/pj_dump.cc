@@ -114,6 +114,10 @@ static struct argp argp = { options, parse_options, args_doc, doc };
 
 void dump (struct arguments *arguments, PajeComponent *simulator)
 {
+  if (arguments->entityHierarchy){
+    std::cout << "Parent, Name, Type, Nature" << std::endl;
+  }
+
   double start = arguments->start;
   double end = arguments->end;
   if (start == -1) start = simulator->startTime();
@@ -126,12 +130,20 @@ void dump (struct arguments *arguments, PajeComponent *simulator)
     PajeContainer *container = stack.back();
     stack.pop_back ();
 
-    //output container description
-    std::cout << container->description();
-    if (arguments->userDefined){
-      std::cout << container->extraDescription(true);
+    if (arguments->entityHierarchy){
+      std::cout <<
+	(container->container()? container->container()->name() : "0") << ", " <<
+	container->name() << ", " <<
+	container->type()->name() << ", " <<
+	"Container" << std::endl;
+    }else{
+      //output container description
+      std::cout << container->description();
+      if (arguments->userDefined){
+	std::cout << container->extraDescription(true);
+      }
+      std::cout << std::endl;
     }
-    std::cout << std::endl;
 
     std::vector<PajeType*> containedTypes;
     std::vector<PajeType*>::iterator it;
@@ -146,22 +158,31 @@ void dump (struct arguments *arguments, PajeComponent *simulator)
           stack.push_back (*it);
         }
       }else{
-        std::vector<PajeEntity*> entities;
-        std::vector<PajeEntity*>::iterator it;
-        entities = simulator->enumeratorOfEntitiesTypedInContainer (type,
-                                                                    container,
-                                                                    start,
-                                                                    end);
-        for (it = entities.begin(); it != entities.end(); it++){
-          PajeEntity *entity = *it;
 
-          //output entity description
-          std::cout << entity->description();
-	  if (arguments->userDefined){
-	    std::cout << entity->extraDescription(true);
+	if (arguments->entityHierarchy){
+	  std::cout <<
+	    container->name() << ", " <<
+	    type->name() << ", " <<
+	    type->name() << ", " <<
+	    type->kind() << std::endl;
+	}else{
+	  std::vector<PajeEntity*> entities;
+	  std::vector<PajeEntity*>::iterator it;
+	  entities = simulator->enumeratorOfEntitiesTypedInContainer (type,
+								      container,
+								      start,
+								      end);
+	  for (it = entities.begin(); it != entities.end(); it++){
+	    PajeEntity *entity = *it;
+
+	    //output entity description
+	    std::cout << entity->description();
+	    if (arguments->userDefined){
+	      std::cout << entity->extraDescription(true);
+	    }
+	    std::cout << std::endl;
 	  }
-	  std::cout << std::endl;
-        }
+	}
       }
     }
   }
