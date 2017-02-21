@@ -174,7 +174,7 @@ void PajeSimulator::reportTypeHierarchy (void)
 	if (child->isCategorizedType()){
 	  //Report values of the categorized type
 	  for (auto const &value : child->values()){
-	    std::cout << child->name() << ", " << value.first << ", Value" << std::endl;
+	    std::cout << child->name() << ", " << value.second->name() << ", Value" << std::endl;
 	  }
 	}
 
@@ -184,7 +184,6 @@ void PajeSimulator::reportTypeHierarchy (void)
     }
   }
 }
-
 
 void PajeSimulator::reportContainer (void)
 {
