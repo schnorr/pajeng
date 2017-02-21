@@ -36,6 +36,7 @@ public:
   double getTime ();
   void report ();
   void reportDot ();
+  void reportTypeHierarchy ();
   void reportContainer ();
 };
 
