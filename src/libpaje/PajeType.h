@@ -69,19 +69,22 @@ public:
   virtual PajeType *addEventType (std::string name, std::string alias);
   virtual PajeType *addLinkType (std::string name, std::string alias, PajeType *starttype, PajeType *endtype);
   virtual std::map<std::string,PajeType*> children (void);
+  virtual std::map<std::string,PajeValue*> values (void);
 };
 
 class PajeCategorizedType : public PajeType {
-public:
-  PajeCategorizedType (std::string name, std::string alias, PajeType *parent);
-  std::map<std::string,PajeValue*> values;
+private:
+  std::map<std::string,PajeValue*> myValues;
   std::map<std::string,PajeColor*> colors;
 
+public:
+  PajeCategorizedType (std::string name, std::string alias, PajeType *parent);
   bool isCategorizedType (void) const;
   PajeValue *addValue (std::string alias, std::string value, PajeColor *color);
   PajeValue *valueForIdentifier (std::string identifier);
   bool hasValueForIdentifier (std::string identifier);
   PajeColor *colorForIdentifier (std::string identifier);
+  std::map<std::string,PajeValue*> values (void);
 };
 
 class PajeVariableType : public PajeType {

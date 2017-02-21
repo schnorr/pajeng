@@ -111,6 +111,11 @@ PajeType *PajeType::endType (void)
   return NULL;
 }
 
+std::map<std::string,PajeValue*> PajeType::values (void)
+{
+  return std::map<std::string,PajeValue*>();
+}
+
 PajeCategorizedType::PajeCategorizedType (std::string name, std::string alias, PajeType *parent)
   : PajeType(name,alias,parent)
 {
@@ -124,15 +129,15 @@ bool PajeCategorizedType::isCategorizedType (void) const
 PajeValue *PajeCategorizedType::addValue (std::string alias, std::string value, PajeColor *color)
 {
   PajeValue *newValue = new PajeValue (value, alias, this, color);
-  values[newValue->identifier()] = newValue;
+  myValues[newValue->identifier()] = newValue;
   colors[newValue->identifier()] = color;
   return newValue;
 }
 
 PajeValue *PajeCategorizedType::valueForIdentifier (std::string identifier)
 {
-  if (values.count(identifier)){
-    return values[identifier];
+  if (myValues.count(identifier)){
+    return myValues[identifier];
   }else{
     return NULL;
   }
@@ -140,7 +145,7 @@ PajeValue *PajeCategorizedType::valueForIdentifier (std::string identifier)
 
 bool PajeCategorizedType::hasValueForIdentifier (std::string identifier)
 {
-  if (values.count(identifier)){
+  if (myValues.count(identifier)){
     return true;
   }else{
     return false;
@@ -154,6 +159,11 @@ PajeColor *PajeCategorizedType::colorForIdentifier (std::string identifier)
   }else{
     return NULL;
   }
+}
+
+std::map<std::string,PajeValue*> PajeCategorizedType::values (void)
+{
+  return myValues;
 }
 
 PajeVariableType::PajeVariableType  (std::string name, std::string alias, PajeType *parent)
