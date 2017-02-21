@@ -156,7 +156,7 @@ void PajeSimulator::reportDotFormat (void)
 
 void PajeSimulator::reportTypeHierarchy (void)
 {
-  std::cout << "Name, Nature, Parent" << std::endl;
+  std::cout << "Parent, Name, Nature" << std::endl;
   std::vector<PajeType*> stack;
   stack.push_back (rootType);
   while (!stack.empty()){
@@ -169,8 +169,7 @@ void PajeSimulator::reportTypeHierarchy (void)
       while (!children.empty()){
         PajeType *child = children.back();
 
-
-	std::cout << child->name() << ", " << child->kind() << ", " << child->parent()->name() << std::endl;
+	std::cout << child->parent()->name() << ", " << child->name() << ", " << child->kind() << std::endl;
 
         stack.push_back (child);
         children.pop_back();
