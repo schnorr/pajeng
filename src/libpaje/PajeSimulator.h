@@ -67,6 +67,7 @@ public:
   ~PajeSimulator();
   void report (void);
   void reportDotFormat (void);
+  void reportTypeHierarchy (void);
   void reportContainer (void);
   bool keepSimulating (void);
   bool noImbricationLevel (void);
