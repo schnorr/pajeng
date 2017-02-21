@@ -30,6 +30,7 @@ static char doc[] = "Dumps FILE, or standard input, in a CSV-like textual format
 static char args_doc[] = "[FILE]";
 
 #define OPT_TH 400 //TypeHierarchy
+#define OPT_EH 401 //EntityHierarchy
 
 static struct argp_option options[] = {
   {"start",                   's', "START", 0, "Dump starts at timestamp START (instead of 0)"},
@@ -49,6 +50,7 @@ static struct argp_option options[] = {
   {"time",                    't', 0, OPTION_ARG_OPTIONAL, "Print number of seconds to simulate input"},
   {"header",                  'h', 0, OPTION_ARG_OPTIONAL, "Print CSV header with column names"},
   {"type-hierarchy",       OPT_TH, 0, OPTION_ARG_OPTIONAL, "Print the Paje type hierarchy in CSV"},
+  {"entity-hierarchy",     OPT_EH, 0, OPTION_ARG_OPTIONAL, "Print the Paje entity hierarchy in CSV"},
   { 0 }
 };
 
@@ -67,6 +69,7 @@ struct arguments {
   int time;
   int csvHeader;
   int typeHierarchy;
+  int entityHierarchy;
   char *probabilistic;
 };
 
@@ -90,6 +93,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
   case 't': arguments->time = 1; break;
   case 'h': arguments->csvHeader = 1; break;
   case OPT_TH: arguments->typeHierarchy = 1; break;
+  case OPT_EH: arguments->entityHierarchy = 1; break;
   case 'v': printf("%s\n", LIBPAJE_VERSION_STRING); exit(0); break;
   case ARGP_KEY_ARG:
     if (arguments->input != NULL) {
@@ -262,6 +266,12 @@ int main (int argc, char **argv)
 
   if (arguments.typeHierarchy){
     unity->reportTypeHierarchy();
+    delete unity;
+    return 0;
+  }
+
+  if (arguments.entityHierarchy){
+    dump (&arguments, unity);
     delete unity;
     return 0;
   }

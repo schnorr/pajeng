@@ -76,6 +76,9 @@ OPTIONS
 
 *--type-hierarchy*::
     Dump the type hierarchy in CSV format.
+    
+*--entity-hierarchy*::
+    Dump the entity hierarchy in CSV format.
 
 *-f, --flex*::
     Use alternative file reader based on flex/bison (experimental).
