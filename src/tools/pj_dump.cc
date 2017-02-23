@@ -49,8 +49,8 @@ static struct argp_option options[] = {
   {"version",                 'v', 0, OPTION_ARG_OPTIONAL, "Print version of this binary"},
   {"time",                    't', 0, OPTION_ARG_OPTIONAL, "Print number of seconds to simulate input"},
   {"header",                  'h', 0, OPTION_ARG_OPTIONAL, "Print CSV header with column names"},
-  {"type-hierarchy",       OPT_TH, 0, OPTION_ARG_OPTIONAL, "Print the Paje type hierarchy in CSV"},
-  {"entity-hierarchy",     OPT_EH, 0, OPTION_ARG_OPTIONAL, "Print the Paje entity hierarchy in CSV"},
+  {"type-hierarchy",       OPT_TH, "FILE", 0, "Output the type hierarchy to FILE (CSV)"},
+  {"entity-hierarchy",     OPT_EH, "FILE", 0, "Output the entity hierarchy to FILE (CSV)"},
   { 0 }
 };
 
@@ -68,8 +68,8 @@ struct arguments {
   int dot;
   int time;
   int csvHeader;
-  int typeHierarchy;
-  int entityHierarchy;
+  char *typeHierarchy;
+  char *entityHierarchy;
   char *probabilistic;
 };
 
@@ -92,8 +92,8 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
   case 'd': arguments->dot = 1; break;
   case 't': arguments->time = 1; break;
   case 'h': arguments->csvHeader = 1; break;
-  case OPT_TH: arguments->typeHierarchy = 1; break;
-  case OPT_EH: arguments->entityHierarchy = 1; break;
+  case OPT_TH: arguments->typeHierarchy = arg; break;
+  case OPT_EH: arguments->entityHierarchy = arg; break;
   case 'v': printf("%s\n", LIBPAJE_VERSION_STRING); exit(0); break;
   case ARGP_KEY_ARG:
     if (arguments->input != NULL) {
