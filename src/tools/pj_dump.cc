@@ -112,16 +112,50 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
 
 static struct argp argp = { options, parse_options, args_doc, doc };
 
-void dump (struct arguments *arguments, PajeComponent *simulator)
+void typeHierarchyDump (struct arguments *arguments, PajeComponent *simulator)
 {
-  if (arguments->entityHierarchy){
-    std::cout << "Parent, Name, Type, Nature" << std::endl;
-  }
+  if (!arguments->typeHierarchy) return;
 
-  double start = arguments->start;
-  double end = arguments->end;
-  if (start == -1) start = simulator->startTime();
-  if (end == -1) end = simulator->endTime();
+  std::ofstream outputFile;
+  outputFile.open (arguments->typeHierarchy);
+  outputFile << "Parent, Name, Nature" << std::endl;
+
+  std::vector<PajeType*> stack;
+  stack.push_back (simulator->rootEntityType());
+  while (!stack.empty()){
+    PajeType *parent = stack.back();
+    stack.pop_back();
+
+    //push back more types
+    if (simulator->isContainerType (parent)){
+      std::vector<PajeType*> children = simulator->containedTypesForContainerType(parent);
+      while (!children.empty()){
+        PajeType *child = children.back();
+
+	outputFile << child->parent()->name() << ", " << child->name() << ", " << child->kind() << std::endl;
+
+	if (child->isCategorizedType()){
+	  //Report values of the categorized type
+	  for (auto const &value : child->values()){
+	    outputFile << child->name() << ", " << value.second->name() << ", Value" << std::endl;
+	  }
+	}
+
+        stack.push_back (child);
+        children.pop_back();
+      }
+    }
+  }
+  outputFile.close();
+}
+
+void entityHierarchyDump (struct arguments *arguments, PajeComponent *simulator)
+{
+  if (!arguments->entityHierarchy) return;
+
+  std::ofstream outputFile;
+  outputFile.open (arguments->entityHierarchy);
+  outputFile << "Parent, Name, Type, Nature" << std::endl;
 
   std::vector<PajeContainer*> stack;
   stack.push_back (simulator->rootInstance());
@@ -130,20 +164,11 @@ void dump (struct arguments *arguments, PajeComponent *simulator)
     PajeContainer *container = stack.back();
     stack.pop_back ();
 
-    if (arguments->entityHierarchy){
-      std::cout <<
-	(container->container()? container->container()->name() : "0") << ", " <<
-	container->name() << ", " <<
-	container->type()->name() << ", " <<
-	"Container" << std::endl;
-    }else{
-      //output container description
-      std::cout << container->description();
-      if (arguments->userDefined){
-	std::cout << container->extraDescription(true);
-      }
-      std::cout << std::endl;
-    }
+    outputFile <<
+      (container->container()? container->container()->name() : "0") << ", " <<
+      container->name() << ", " <<
+      container->type()->name() << ", " <<
+      "Container" << std::endl;
 
     std::vector<PajeType*> containedTypes;
     std::vector<PajeType*>::iterator it;
@@ -158,30 +183,67 @@ void dump (struct arguments *arguments, PajeComponent *simulator)
           stack.push_back (*it);
         }
       }else{
+	outputFile <<
+	  container->name() << ", " <<
+	  type->name() << ", " <<
+	  type->name() << ", " <<
+	  type->kind() << std::endl;
+      }
+    }
+  }
+  outputFile.close();
+}
 
-	if (arguments->entityHierarchy){
-	  std::cout <<
-	    container->name() << ", " <<
-	    type->name() << ", " <<
-	    type->name() << ", " <<
-	    type->kind() << std::endl;
-	}else{
-	  std::vector<PajeEntity*> entities;
-	  std::vector<PajeEntity*>::iterator it;
-	  entities = simulator->enumeratorOfEntitiesTypedInContainer (type,
-								      container,
-								      start,
-								      end);
-	  for (it = entities.begin(); it != entities.end(); it++){
-	    PajeEntity *entity = *it;
+void dump (struct arguments *arguments, PajeComponent *simulator)
+{
+  double start = arguments->start;
+  double end = arguments->end;
+  if (start == -1) start = simulator->startTime();
+  if (end == -1) end = simulator->endTime();
 
-	    //output entity description
-	    std::cout << entity->description();
-	    if (arguments->userDefined){
-	      std::cout << entity->extraDescription(true);
-	    }
-	    std::cout << std::endl;
+  std::vector<PajeContainer*> stack;
+  stack.push_back (simulator->rootInstance());
+
+  while (!stack.empty()){
+    PajeContainer *container = stack.back();
+    stack.pop_back ();
+
+    //output container description
+    std::cout << container->description();
+    if (arguments->userDefined){
+      std::cout << container->extraDescription(true);
+    }
+    std::cout << std::endl;
+
+    //recurse on children
+    std::vector<PajeType*> containedTypes;
+    std::vector<PajeType*>::iterator it;
+    containedTypes = simulator->containedTypesForContainerType (container->type());
+    for (it = containedTypes.begin(); it != containedTypes.end(); it++){
+      PajeType *type = *it;
+      if (simulator->isContainerType (type)){
+        std::vector<PajeContainer*> children;
+        std::vector<PajeContainer*>::iterator it;
+        children = simulator->enumeratorOfContainersTypedInContainer (type, container);
+        for (it = children.begin(); it != children.end(); it++){
+          stack.push_back (*it);
+        }
+      }else{
+	std::vector<PajeEntity*> entities;
+	std::vector<PajeEntity*>::iterator it;
+	entities = simulator->enumeratorOfEntitiesTypedInContainer (type,
+								    container,
+								    start,
+								    end);
+	for (it = entities.begin(); it != entities.end(); it++){
+	  PajeEntity *entity = *it;
+
+	  //output entity description
+	  std::cout << entity->description();
+	  if (arguments->userDefined){
+	    std::cout << entity->extraDescription(true);
 	  }
+	  std::cout << std::endl;
 	}
       }
     }
@@ -285,18 +347,6 @@ int main (int argc, char **argv)
     printf ("%f\n", unity->getTime());
   }
 
-  if (arguments.typeHierarchy){
-    unity->reportTypeHierarchy();
-    delete unity;
-    return 0;
-  }
-
-  if (arguments.entityHierarchy){
-    dump (&arguments, unity);
-    delete unity;
-    return 0;
-  }
-
   if (arguments.dot){
     unity->reportDot();
     delete unity;
@@ -312,6 +362,15 @@ int main (int argc, char **argv)
   if (arguments.probabilistic){
     delete unity;
     return 0;
+  }
+
+  //Three types of dumps (types, entities, timestamped objects)
+  if (arguments.typeHierarchy){
+    typeHierarchyDump (&arguments, unity);
+  }
+
+  if (arguments.entityHierarchy){
+    entityHierarchyDump (&arguments, unity);
   }
 
   if (!arguments.quiet){
