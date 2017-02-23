@@ -74,11 +74,11 @@ OPTIONS
 *-u, --user-defined*::
     Dump user-defined fields. See USER-DEFINED FIELDS section below.
 
-*--type-hierarchy*::
-    Dump the type hierarchy in CSV format.
+*--type-hierarchy*='FILE'::
+    Dump the type hierarchy in CSV format to FILE.
     
-*--entity-hierarchy*::
-    Dump the entity hierarchy in CSV format.
+*--entity-hierarchy*='FILE'::
+    Dump the entity hierarchy in CSV format to FILE.
 
 *-f, --flex*::
     Use alternative file reader based on flex/bison (experimental).
