@@ -118,11 +118,6 @@ void PajeUnity::reportDot ()
   simulator->reportDotFormat();
 }
 
-void PajeUnity::reportTypeHierarchy ()
-{
-  simulator->reportTypeHierarchy();
-}
-
 void PajeUnity::reportContainer ()
 {
   simulator->reportContainer();

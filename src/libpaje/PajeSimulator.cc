@@ -153,38 +153,6 @@ void PajeSimulator::reportDotFormat (void)
   printf("}\n");
 }
 
-
-void PajeSimulator::reportTypeHierarchy (void)
-{
-  std::cout << "Parent, Name, Nature" << std::endl;
-  std::vector<PajeType*> stack;
-  stack.push_back (rootType);
-  while (!stack.empty()){
-    PajeType *parent = stack.back();
-    stack.pop_back();
-
-    //push back more types
-    if (this->isContainerType (parent)){
-      std::vector<PajeType*> children = this->containedTypesForContainerType(parent);
-      while (!children.empty()){
-        PajeType *child = children.back();
-
-	std::cout << child->parent()->name() << ", " << child->name() << ", " << child->kind() << std::endl;
-
-	if (child->isCategorizedType()){
-	  //Report values of the categorized type
-	  for (auto const &value : child->values()){
-	    std::cout << child->name() << ", " << value.second->name() << ", Value" << std::endl;
-	  }
-	}
-
-        stack.push_back (child);
-        children.pop_back();
-      }
-    }
-  }
-}
-
 void PajeSimulator::reportContainer (void)
 {
   std::vector<PajeContainer*> stack;
