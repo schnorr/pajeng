@@ -121,6 +121,10 @@ PajeCategorizedType::PajeCategorizedType (std::string name, std::string alias, P
 {
 }
 
+PajeCategorizedType::~PajeCategorizedType(void)
+{
+}
+
 bool PajeCategorizedType::isCategorizedType (void) const
 {
   return true;
