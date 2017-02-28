@@ -1,0 +1,146 @@
+#+TITLE: PajeNG's LabBook
+#+AUTHOR: Lucas Mello Schnorr
+#+LATEX_HEADER: \usepackage[margin=2cm,a4paper]{geometry}
+#+STARTUP: overview indent
+#+TAGS: noexport(n) deprecated(d)
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+SEQ_TODO: TODO(t!) STARTED(s!) WAITING(w!) | DONE(d!) CANCELLED(c!) DEFERRED(f!)
+#+mode: org
+#+coding: utf-8
+
+* Performance Analysis
+** Generate =paje_zoo.csv= with trace file sizes
+#+begin_src R :results output :session :exports both
+write.csv(round(runif (10, 100*1024, 10000*1024)), "paje_zoo.csv", row.names=FALSE);
+#+end_src
+
+#+RESULTS:
+** Generate the trace files using poti's tracegen
+#+begin_src shell :results output
+for i in $(cat paje_zoo.csv | tail -n+2); do
+    ~/dev/poti/b/examples/tracegen --filename=/tmp/trace-${i}.paje --size=${i}
+done;
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Output is 5325999 bytes (target was 5325955; 44 bytes more).
+Output is 5494739 bytes (target was 5494712; 27 bytes more).
+Output is 6471247 bytes (target was 6471188; 59 bytes more).
+Output is 9087991 bytes (target was 9087952; 39 bytes more).
+Output is 836848 bytes (target was 836825; 23 bytes more).
+Output is 1781348 bytes (target was 1781298; 50 bytes more).
+Output is 990698 bytes (target was 990637; 61 bytes more).
+Output is 6173599 bytes (target was 6173549; 50 bytes more).
+Output is 9652347 bytes (target was 9652322; 25 bytes more).
+Output is 435942 bytes (target was 435898; 44 bytes more).
+#+end_example
+** Compile Paje with the release flag
+#+begin_src shell :results output
+rm -rf build_perf/
+mkdir build_perf/; cd build_perf/
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make -j 4
+#+end_src
+
+#+RESULTS:
+#+begin_example
+-- The C compiler identification is GNU 6.3.0
+-- The CXX compiler identification is GNU 6.3.0
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found FLEX: /usr/bin/flex (found version "2.6.1") 
+-- Found BISON: /usr/bin/bison (found version "3.0.4") 
+-- Git version: dd2529c add 10 + (thanks T. Gautier)
+-- Git date: 2017-01-24 11:02:10 +0100
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/schnorr/dev/pajeng/build_perf
+[  6%] [FLEX][scanner] Building scanner with flex 2.6.1
+[  6%] [BISON][parser] Building parser with bison 3.0.4
+Scanning dependencies of target paje_library
+[ 20%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeEvent.cc.o
+[ 20%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeTraceEvent.cc.o
+[ 20%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeData.cc.o
+[ 20%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeEventDefinition.cc.o
+[ 23%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeFileReader.cc.o
+[ 26%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeObject.cc.o
+[ 30%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeEventDecoder.cc.o
+[ 33%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeSimulator.cc.o
+[ 36%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeProbabilisticSimulator.cc.o
+[ 40%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeSimulator+Queries.cc.o
+[ 43%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeSimulator+Commands.cc.o
+[ 46%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeComponent.cc.o
+[ 50%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeType.cc.o
+[ 53%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeValue.cc.o
+[ 56%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeEntity.cc.o
+[ 60%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeContainer.cc.o
+[ 63%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeColor.cc.o
+[ 66%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeException.cc.o
+[ 70%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeDefinitions.cc.o
+[ 73%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/lexer.cc.o
+[ 76%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/parser.cc.o
+[ 80%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeFlexReader.cc.o
+[ 83%] Building CXX object src/libpaje/CMakeFiles/paje_library.dir/PajeUnity.cc.o
+[ 86%] Linking CXX shared library libpaje.so
+[ 86%] Built target paje_library
+Scanning dependencies of target pj_equals
+Scanning dependencies of target pj_dump
+[ 93%] Building CXX object src/tools/CMakeFiles/pj_dump.dir/pj_dump.cc.o
+[ 93%] Building CXX object src/tools/CMakeFiles/pj_equals.dir/pj_equals.cc.o
+[ 96%] Linking CXX executable ../../pj_dump
+[100%] Linking CXX executable ../../pj_equals
+[100%] Built target pj_dump
+[100%] Built target pj_equals
+#+end_example
+** Run the experiment
+#+begin_src shell :results output
+for repetition in $(seq 1 10); do
+    for size in $(cat paje_zoo.csv | tail -n+2); do
+        INPUT=/tmp/trace-${size}.paje
+	    OUTPUT=/tmp/trace-${size}.csv
+	    TIME=$(build_perf/pj_dump -q -t $INPUT)
+	    GITV=$(git log --pretty=format:'%h' -n 1)
+	    DATE=$(git log --pretty=format:'%aI' -n 1)
+	    echo $GITV,$DATE,$size,$TIME
+    done
+done >> data/perf_results.csv
+#+end_src
+
+#+RESULTS:
+** Analysis
+#+begin_src R :results output graphics :file img/pj_dump_perf_results.png :exports both :width 600 :height 400 :session
+library(readr);
+library(dplyr);
+library(ggplot2);
+library(magrittr);
+read_csv("data/perf_results.csv", col_names=FALSE) %>%
+    rename(Git=X1, Date=X2, Size=X3, Time=X4) %>%
+    group_by(Git, Date, Size) %>%
+    summarize(N=n(), mean=mean(Time), se=3*sd(Time)/sqrt(n())) %>%
+    arrange(Size) %>%
+    ggplot(aes(x=Size/1024/1024, y=mean, color=as.factor(Date))) +
+       geom_point() +
+       geom_errorbar(aes(ymin=mean-se, ymax=mean+se)) +
+       geom_smooth() +
+       ylim(0,NA) +
+       ylab("Avg. Execution Time (secs)") +
+       xlab("Input Size (in MBytes)") +
+       theme_bw(base_size=14) +
+       theme (legend.position = "top");
+#+end_src
+
+#+RESULTS:
+[[file:img/pj_dump_perf_results.png]]
+
