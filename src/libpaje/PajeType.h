@@ -142,6 +142,7 @@ public:
   PajeType *addStateType (std::string name, std::string alias);
   PajeType *addEventType (std::string name, std::string alias);
   PajeType *addLinkType (std::string name, std::string alias, PajeType *starttype, PajeType *endtype);
+  void removeChildren (void);
   std::map<std::string,PajeType*> children (void);
   PajeDrawingType drawingType (void);
   PajeTypeNature nature (void) const;

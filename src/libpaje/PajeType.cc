@@ -360,6 +360,20 @@ PajeType *PajeContainerType::addLinkType (std::string name, std::string alias, P
   return newType;
 }
 
+void PajeContainerType::removeChildren (void)
+{
+  for(auto const &childit : _children) {
+    PajeType *child = childit.second;
+    if (child->nature() == PAJE_ContainerType){
+      child->removeChildren();
+    }else if(child->isCategorizedType()){
+      child->removeValues();
+    }
+    delete child;;
+  }
+  _children.clear();
+}
+
 std::map<std::string,PajeType*> PajeContainerType::children (void)
 {
   return _children;
