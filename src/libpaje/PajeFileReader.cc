@@ -45,7 +45,6 @@ PajeFileReader::PajeFileReader ()
 
 PajeFileReader::~PajeFileReader (void)
 {
-  std::cout << "Execute this" << std::endl;
   file.close();
 }
 
