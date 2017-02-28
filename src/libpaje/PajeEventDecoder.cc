@@ -26,6 +26,9 @@ PajeEventDecoder::PajeEventDecoder (PajeDefinitions *definitions)
 
 PajeEventDecoder::~PajeEventDecoder ()
 {
+  for(auto const &eventDef : eventDefinitions) {
+    delete eventDef.second;
+  }
   eventDefinitions.clear ();
 }
 
