@@ -80,6 +80,11 @@ PajeValue *PajeType::addValue (std::string alias, std::string value, PajeColor *
   throw "should be implemented in subclass";
 }
 
+void PajeType::removeValues (void)
+{
+  throw "should be implemented in subclass";
+}
+
 PajeValue *PajeType::valueForIdentifier (std::string identifier)
 {
   throw "should be implemented in subclass";
@@ -279,6 +284,11 @@ PajeType *PajeType::addLinkType (std::string name, std::string alias, PajeType *
 {
   throw PajeTypeException ("should not be called in this type");
   return NULL;
+}
+
+void PajeType::removeChildren (void)
+{
+  throw PajeTypeException ("should not be called in this type");
 }
 
 std::map<std::string,PajeType*> PajeType::children (void)

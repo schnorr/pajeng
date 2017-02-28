@@ -55,6 +55,7 @@ public:
   std::string kind (void) const;
   virtual bool isCategorizedType (void) const;
   virtual PajeValue *addValue (std::string alias, std::string value, PajeColor *color);
+  virtual void removeValues (void);
   virtual PajeValue *valueForIdentifier (std::string identifier);
   virtual bool hasValueForIdentifier (std::string identifier);
   virtual PajeColor *colorForIdentifier (std::string identifier);
@@ -68,6 +69,7 @@ public:
   virtual PajeType *addStateType (std::string name, std::string alias);
   virtual PajeType *addEventType (std::string name, std::string alias);
   virtual PajeType *addLinkType (std::string name, std::string alias, PajeType *starttype, PajeType *endtype);
+  virtual void removeChildren (void);
   virtual std::map<std::string,PajeType*> children (void);
   virtual std::map<std::string,PajeValue*> values (void);
 };
