@@ -143,6 +143,18 @@ PajeValue *PajeCategorizedType::addValue (std::string alias, std::string value, 
   return newValue;
 }
 
+void PajeCategorizedType::removeValues (void)
+{
+  for(auto const &value : myValues) {
+    delete value.second;
+  }
+  myValues.clear();
+  for(auto const &color : colors) {
+    delete color.second;
+  }
+  colors.clear();
+}
+
 PajeValue *PajeCategorizedType::valueForIdentifier (std::string identifier)
 {
   if (myValues.count(identifier)){

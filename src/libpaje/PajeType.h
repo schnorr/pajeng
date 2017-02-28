@@ -84,6 +84,7 @@ public:
   ~PajeCategorizedType ();
   bool isCategorizedType (void) const;
   PajeValue *addValue (std::string alias, std::string value, PajeColor *color);
+  void removeValues (void);
   PajeValue *valueForIdentifier (std::string identifier);
   bool hasValueForIdentifier (std::string identifier);
   PajeColor *colorForIdentifier (std::string identifier);
