@@ -317,11 +317,7 @@ PajeContainerType::PajeContainerType (std::string name, std::string alias, PajeT
 
 PajeContainerType::~PajeContainerType (void)
 {
-  std::map<std::string,PajeType*>::iterator child;
-  for (child = _children.begin(); child != _children.end(); child++){
-    delete (*child).second;
-  }
-  _children.clear();
+  removeChildren();
 }
 
 PajeType *PajeContainerType::getRootType (void)
