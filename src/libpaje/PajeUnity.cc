@@ -95,6 +95,7 @@ PajeUnity::PajeUnity (bool flexReader, bool strictHeader, std::string tracefilen
 
 PajeUnity::~PajeUnity ()
 {
+  reader->closeReading();
   delete reader;
   if (!flexReader){
     delete decoder;

@@ -47,5 +47,6 @@ public:
   void setUserChunkSize (std::streamoff userChunkSize);
   unsigned long long traceSize (void);
   unsigned long long traceRead (void);
+  void closeReading (void);
 };
 #endif

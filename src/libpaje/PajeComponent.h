@@ -45,6 +45,7 @@ public:
   bool virtual hasMoreData (void);
   void virtual readNextChunk (void);
   void virtual finishedReading (void);
+  void virtual closeReading (void);
 
   //notifications
   // Message sent when startTime or endTime of the whole visible trace changed

@@ -89,6 +89,10 @@ void PajeComponent::finishedReading (void)
   }
 }
 
+void PajeComponent::closeReading (void)
+{
+}
+
 //notifications
 void PajeComponent::timeLimitsChanged (void)
 {

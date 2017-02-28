@@ -45,7 +45,7 @@ PajeFileReader::PajeFileReader ()
 
 PajeFileReader::~PajeFileReader (void)
 {
-  file.close();
+  closeReading();
 }
 
 void PajeFileReader::readNextChunk (void)
@@ -98,4 +98,9 @@ unsigned long long PajeFileReader::traceRead (void)
     return current;
   else
     return length;
+}
+
+void PajeFileReader::closeReading (void)
+{
+  file.close();
 }
