@@ -23,8 +23,8 @@ PajeFileReader::PajeFileReader (std::string f)
   chunkSize = PAJE_DEFAULT_CHUNK_SIZE;
   moreData = true;
   currentChunk = 0;
-  filename = f;
-  file.open (filename.c_str());
+
+  file.open (f);
   if (file.fail()){
     throw PajeFileReadException (f);
   }
@@ -40,13 +40,12 @@ PajeFileReader::PajeFileReader ()
   chunkSize = PAJE_DEFAULT_CHUNK_SIZE;
   moreData = true;
   currentChunk = 0;
-  filename = std::string ("stdin");
-
   input = &std::cin;
 }
 
 PajeFileReader::~PajeFileReader (void)
 {
+  std::cout << "Execute this" << std::endl;
   file.close();
 }
 

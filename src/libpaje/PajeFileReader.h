@@ -30,7 +30,6 @@
 
 class PajeFileReader : public PajeComponent {
 private:
-  std::string filename;
   std::ifstream file;
   std::istream *input;
   std::streamoff chunkSize;
