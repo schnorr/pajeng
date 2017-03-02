@@ -63,3 +63,7 @@ PajeFlexReader::~PajeFlexReader()
   printf ("%lld events and %lld lines\n", counter, yylineno);
 }
 
+void PajeFlexReader::closeReading (void)
+{
+}
+

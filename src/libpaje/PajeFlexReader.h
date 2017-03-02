@@ -44,6 +44,7 @@ class PajeFlexReader : public PajeComponent {
 
   bool hasMoreData();
   void readNextChunk();
+  void closeReading (void);
 
  private:
   void initialize (PajeDefinitions *definitions);
