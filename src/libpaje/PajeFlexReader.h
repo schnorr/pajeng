@@ -34,7 +34,6 @@ extern "C"
 
 class PajeFlexReader : public PajeComponent {
  private:
-  std::string filename;
   long long counter;
   bool hasData;
   PajeDefinitions *defs;

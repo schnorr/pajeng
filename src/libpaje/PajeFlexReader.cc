@@ -27,8 +27,7 @@ extern FILE *yyin;
 
 PajeFlexReader::PajeFlexReader(std::string f, PajeDefinitions *definitions)
 {
-  filename = f;
-  yyin = fopen (filename.c_str(), "r");
+  yyin = fopen (f.c_str(), "r");
   if (yyin == NULL){
     throw PajeFileReadException (f);
   }
