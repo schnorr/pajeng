@@ -8,11 +8,42 @@ $ ./pj_dump ../traces/links.trace
 > Container, 0, PROCESS, 0, 2.1, 2.1, p2
 > Container, 0, PROCESS, 0, 2.1, 2.1, p1
 
+$ ./pj_dump -q --entity-hierarchy FILE ../traces/links.trace
+$ cat FILE
+> Parent, Name, Type, Nature
+> 0, 0, 0, Container
+> 0, LINK, LINK, Link
+> 0, p3, PROCESS, Container
+> 0, p2, PROCESS, Container
+> 0, p1, PROCESS, Container
+
+$ ./pj_dump -q --type-hierarchy FILE ../traces/links.trace
+$ cat FILE
+> Parent, Name, Nature
+> 0, PROCESS, Container
+> 0, LINK, Link
+> LINK, c, Value
+
 $ ./pj_dump ../traces/events.trace
 > Container, 0, 0, 0, 2.88, 2.88, 0
 > Container, 0, PROCESS, 0, 2.88, 2.88, p1
 > Event, p1, EV, 2.430000, PrimeiroEvento
 > Event, p1, EV, 2.870000, SegundoEvento
+
+$ ./pj_dump -q --entity-hierarchy FILE ../traces/events.trace
+$ cat FILE
+> Parent, Name, Type, Nature
+> 0, 0, 0, Container
+> 0, p1, PROCESS, Container
+> p1, EV, EV, Event
+
+$ ./pj_dump -q --type-hierarchy FILE ../traces/events.trace
+$ cat FILE
+> Parent, Name, Nature
+> 0, PROCESS, Container
+> PROCESS, EV, Event
+> EV, PrimeiroEvento, Value
+> EV, SegundoEvento, Value
 
 $ ./pj_dump ../traces/states.trace
 > Container, 0, 0, 0, 1.34, 1.34, 0
@@ -20,6 +51,22 @@ $ ./pj_dump ../traces/states.trace
 > State, p1, VAR, 0.000000, 1.340000, 1.340000, 0.000000, Inicio
 > State, p1, VAR, 0.320000, 0.530000, 0.210000, 1.000000, Meio
 > State, p1, VAR, 0.860000, 0.990000, 0.130000, 1.000000, Fim
+
+$ ./pj_dump -q --entity-hierarchy FILE ../traces/states.trace
+$ cat FILE
+> Parent, Name, Type, Nature
+> 0, 0, 0, Container
+> 0, p1, PROCESS, Container
+> p1, VAR, VAR, State
+
+$ ./pj_dump -q --type-hierarchy FILE ../traces/states.trace
+$ cat FILE
+> Parent, Name, Nature
+> 0, PROCESS, Container
+> PROCESS, VAR, State
+> VAR, Fim, Value
+> VAR, Inicio, Value
+> VAR, Meio, Value
 
 $ ./pj_dump --no-imbrication ../traces/states.trace
 > Container, 0, 0, 0, 1.34, 1.34, 0
@@ -37,6 +84,19 @@ $ ./pj_dump ../traces/variables.trace
 > Variable, p1, VAR, 0.320000, 0.530000, 0.210000, 13.000000
 > Variable, p1, VAR, 0.530000, 1.340000, 0.810000, 11.000000
 
+$ ./pj_dump -q --entity-hierarchy FILE ../traces/variables.trace
+$ cat FILE
+> Parent, Name, Type, Nature
+> 0, 0, 0, Container
+> 0, p1, PROCESS, Container
+> p1, VAR, VAR, Variable
+
+$ ./pj_dump -q --type-hierarchy FILE ../traces/variables.trace
+$ cat FILE
+> Parent, Name, Nature
+> 0, PROCESS, Container
+> PROCESS, VAR, Variable
+
 $ ./pj_dump ../traces/containers.trace
 > Container, 0, 0, 0, 1.34, 1.34, 0
 > Container, 0, ROOT, 0, 1.34, 1.34, root
@@ -49,4 +109,28 @@ $ ./pj_dump ../traces/containers.trace
 > Container, p1, THREAD, 0, 1.34, 1.34, t3
 > Container, p1, THREAD, 0, 1.34, 1.34, t2
 > Container, p1, THREAD, 0, 1.34, 1.34, t1
+
+$ ./pj_dump -q --entity-hierarchy FILE ../traces/containers.trace
+$ cat FILE
+> Parent, Name, Type, Nature
+> 0, 0, 0, Container
+> 0, root, ROOT, Container
+> root, p3, PROCESS, Container
+> p3, t1, THREAD, Container
+> root, p2, PROCESS, Container
+> p2, t2, THREAD, Container
+> p2, t1, THREAD, Container
+> root, p1, PROCESS, Container
+> p1, t3, THREAD, Container
+> p1, t2, THREAD, Container
+> p1, t1, THREAD, Container
+
+$ ./pj_dump -q --type-hierarchy FILE ../traces/containers.trace
+$ cat FILE
+> Parent, Name, Nature
+> 0, ROOT, Container
+> ROOT, PROCESS, Container
+> PROCESS, THREAD, Container
+
+$ rm FILE
 
