@@ -190,7 +190,7 @@ Link
 
 All lines starting with _Link_ look like this:
 
-    Link, 0, 0-HOST1-LINK4, 0, 0, 0, G, Tremblay, 9
+    Link, 0, 0-HOST1-LINK4, 0, 0, 0, G, Tremblay, 9, mpi_123
 
 1. "Link"
 2. "0" - The name of the container
@@ -201,6 +201,7 @@ All lines starting with _Link_ look like this:
 7. "G" - The value of this link
 8. "Tremblay" - The starting container
 9. "9" - The ending container
+10. "mpi_123" - The unique key
 
 Incomplete Links
 ^^^^^^^^^^^^^^^^
