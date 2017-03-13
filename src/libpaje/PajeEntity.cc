@@ -418,7 +418,8 @@ std::string PajeUserLink::description (void) const
               << duration() << ", "
               << (value()? value()->name() : "NULL") << ", "
               << (startContainer()? startContainer()->name() : "NULL") << ", "
-              << (endContainer()? endContainer()->name() : "NULL");
+              << (endContainer()? endContainer()->name() : "NULL") << ", "
+              << key;
   return description.str();
 }
 
