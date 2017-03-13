@@ -2,8 +2,8 @@
 
 $ ./pj_dump ../traces/links.trace
 > Container, 0, 0, 0, 2.1, 2.1, 0
-> Link, 0, LINK, 0.240000, 1.020000, 0.780000, c, p1, p2
-> Link, 0, LINK, 1.040000, 2.100000, 1.060000, c, p1, p3
+> Link, 0, LINK, 0.240000, 1.020000, 0.780000, c, p1, p2, myKey-001
+> Link, 0, LINK, 1.040000, 2.100000, 1.060000, c, p1, p3, myKey-002
 > Container, 0, PROCESS, 0, 2.1, 2.1, p3
 > Container, 0, PROCESS, 0, 2.1, 2.1, p2
 > Container, 0, PROCESS, 0, 2.1, 2.1, p1

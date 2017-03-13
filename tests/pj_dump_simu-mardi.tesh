@@ -3,411 +3,411 @@
 $ ./pj_dump ../traces/simu-mardi.trace
 > Container, 0, 0, 0, 1205, 1205, 0
 > Container, 0, L1, 0, 1205, 1205, my_cluster_1
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_21_DOWN, node21
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_22_DOWN, node22
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_23_DOWN, node23
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_24_DOWN, node24
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_25_DOWN, node25
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_26_DOWN, node26
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_27_DOWN, node27
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_28_DOWN, node28
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_29_DOWN, node29
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_30_DOWN, node30
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_31_DOWN, node31
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_32_DOWN, node32
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_33_DOWN, node33
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_34_DOWN, node34
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_35_DOWN, node35
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_36_DOWN, node36
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_37_DOWN, node37
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_38_DOWN, node38
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_39_DOWN, node39
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_0_DOWN, node0
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_1_DOWN, node1
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_2_DOWN, node2
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_3_DOWN, node3
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_4_DOWN, node4
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_5_DOWN, node5
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_6_DOWN, node6
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_7_DOWN, node7
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_8_DOWN, node8
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_9_DOWN, node9
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_40_DOWN, node40
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_41_DOWN, node41
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_42_DOWN, node42
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_43_DOWN, node43
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_44_DOWN, node44
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_45_DOWN, node45
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_46_DOWN, node46
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_47_DOWN, node47
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_48_DOWN, node48
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_49_DOWN, node49
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_50_DOWN, node50
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_51_DOWN, node51
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_52_DOWN, node52
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_53_DOWN, node53
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_54_DOWN, node54
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_55_DOWN, node55
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_56_DOWN, node56
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_57_DOWN, node57
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_58_DOWN, node58
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_59_DOWN, node59
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_60_DOWN, node60
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_61_DOWN, node61
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_62_DOWN, node62
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_63_DOWN, node63
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_64_DOWN, node64
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_65_DOWN, node65
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_66_DOWN, node66
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_67_DOWN, node67
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_68_DOWN, node68
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_69_DOWN, node69
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_100_DOWN, node100
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_70_DOWN, node70
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_71_DOWN, node71
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_72_DOWN, node72
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_73_DOWN, node73
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_74_DOWN, node74
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_75_DOWN, node75
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_76_DOWN, node76
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_77_DOWN, node77
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_78_DOWN, node78
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_79_DOWN, node79
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_80_DOWN, node80
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_81_DOWN, node81
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_82_DOWN, node82
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_83_DOWN, node83
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_84_DOWN, node84
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_85_DOWN, node85
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_86_DOWN, node86
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_87_DOWN, node87
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_88_DOWN, node88
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_89_DOWN, node89
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_10_DOWN, node10
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_11_DOWN, node11
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_12_DOWN, node12
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_13_DOWN, node13
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_14_DOWN, node14
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_15_DOWN, node15
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_16_DOWN, node16
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_17_DOWN, node17
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_18_DOWN, node18
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_90_DOWN, node90
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_19_DOWN, node19
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_91_DOWN, node91
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_92_DOWN, node92
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_93_DOWN, node93
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_94_DOWN, node94
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_95_DOWN, node95
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_96_DOWN, node96
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_97_DOWN, node97
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_98_DOWN, node98
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_99_DOWN, node99
-> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_20_DOWN, node20
-> Link, my_cluster_1, L1-LINK4-ROUTER7, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, nodemy_cluster_1_router
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node20, my_cluster_1_link_20_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node21, my_cluster_1_link_21_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node22, my_cluster_1_link_22_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node23, my_cluster_1_link_23_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node24, my_cluster_1_link_24_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node25, my_cluster_1_link_25_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node26, my_cluster_1_link_26_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node27, my_cluster_1_link_27_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node28, my_cluster_1_link_28_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node29, my_cluster_1_link_29_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node30, my_cluster_1_link_30_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node31, my_cluster_1_link_31_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node32, my_cluster_1_link_32_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node33, my_cluster_1_link_33_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node34, my_cluster_1_link_34_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node35, my_cluster_1_link_35_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node36, my_cluster_1_link_36_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node37, my_cluster_1_link_37_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node38, my_cluster_1_link_38_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node39, my_cluster_1_link_39_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node0, my_cluster_1_link_0_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node1, my_cluster_1_link_1_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node2, my_cluster_1_link_2_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node3, my_cluster_1_link_3_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node4, my_cluster_1_link_4_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node5, my_cluster_1_link_5_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node6, my_cluster_1_link_6_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node7, my_cluster_1_link_7_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node8, my_cluster_1_link_8_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node9, my_cluster_1_link_9_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node40, my_cluster_1_link_40_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node41, my_cluster_1_link_41_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node42, my_cluster_1_link_42_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node43, my_cluster_1_link_43_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node44, my_cluster_1_link_44_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node45, my_cluster_1_link_45_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node46, my_cluster_1_link_46_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node47, my_cluster_1_link_47_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node48, my_cluster_1_link_48_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node49, my_cluster_1_link_49_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node50, my_cluster_1_link_50_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node51, my_cluster_1_link_51_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node52, my_cluster_1_link_52_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node53, my_cluster_1_link_53_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node54, my_cluster_1_link_54_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node55, my_cluster_1_link_55_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node56, my_cluster_1_link_56_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node57, my_cluster_1_link_57_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node58, my_cluster_1_link_58_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node59, my_cluster_1_link_59_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node60, my_cluster_1_link_60_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node61, my_cluster_1_link_61_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node62, my_cluster_1_link_62_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node63, my_cluster_1_link_63_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node64, my_cluster_1_link_64_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node65, my_cluster_1_link_65_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node66, my_cluster_1_link_66_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node67, my_cluster_1_link_67_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node68, my_cluster_1_link_68_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node69, my_cluster_1_link_69_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node100, my_cluster_1_link_100_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node70, my_cluster_1_link_70_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node71, my_cluster_1_link_71_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node72, my_cluster_1_link_72_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node73, my_cluster_1_link_73_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node74, my_cluster_1_link_74_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node75, my_cluster_1_link_75_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node76, my_cluster_1_link_76_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node77, my_cluster_1_link_77_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node78, my_cluster_1_link_78_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node79, my_cluster_1_link_79_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node80, my_cluster_1_link_80_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node81, my_cluster_1_link_81_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node82, my_cluster_1_link_82_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node83, my_cluster_1_link_83_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node84, my_cluster_1_link_84_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node85, my_cluster_1_link_85_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node86, my_cluster_1_link_86_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node87, my_cluster_1_link_87_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node88, my_cluster_1_link_88_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node89, my_cluster_1_link_89_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node10, my_cluster_1_link_10_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node11, my_cluster_1_link_11_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node12, my_cluster_1_link_12_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node13, my_cluster_1_link_13_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node14, my_cluster_1_link_14_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node15, my_cluster_1_link_15_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node16, my_cluster_1_link_16_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node17, my_cluster_1_link_17_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node18, my_cluster_1_link_18_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node90, my_cluster_1_link_90_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node19, my_cluster_1_link_19_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node91, my_cluster_1_link_91_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node92, my_cluster_1_link_92_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node93, my_cluster_1_link_93_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node94, my_cluster_1_link_94_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node95, my_cluster_1_link_95_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node96, my_cluster_1_link_96_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node97, my_cluster_1_link_97_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node98, my_cluster_1_link_98_UP
-> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node99, my_cluster_1_link_99_UP
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_20_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_21_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_22_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_23_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_24_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_25_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_26_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_27_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_28_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_29_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_30_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_31_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_32_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_33_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_34_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_35_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_36_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_37_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_38_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_39_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_0_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_1_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_2_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_3_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_4_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_5_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_6_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_7_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_8_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_9_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_40_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_41_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_42_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_43_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_44_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_45_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_46_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_47_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_48_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_49_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_50_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_51_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_52_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_53_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_54_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_55_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_56_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_57_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_58_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_59_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_60_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_61_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_62_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_63_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_64_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_65_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_66_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_67_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_68_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_69_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_100_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_70_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_71_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_72_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_73_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_74_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_75_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_76_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_77_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_78_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_79_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_80_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_81_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_82_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_83_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_84_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_85_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_86_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_87_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_88_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_89_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_10_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_11_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_12_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_13_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_14_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_15_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_16_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_17_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_18_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_90_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_19_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_91_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_92_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_93_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_94_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_95_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_96_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_97_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_98_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_99_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_21_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_20_DOWN
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_22_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_23_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_24_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_25_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_26_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_27_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_28_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_29_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_30_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_31_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_32_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_33_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_34_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_35_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_36_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_37_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_38_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_39_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_0_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_1_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_2_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_3_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_4_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_5_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_6_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_7_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_8_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_9_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_40_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_41_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_42_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_43_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_44_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_45_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_46_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_47_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_48_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_49_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_50_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_51_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_52_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_53_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_54_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_55_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_56_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_57_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_58_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_59_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_60_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_61_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_62_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_63_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_64_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_65_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_66_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_67_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_68_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_69_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_100_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_70_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_71_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_72_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_73_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_74_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_75_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_76_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_77_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_78_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_79_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_80_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_81_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_82_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_83_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_84_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_85_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_86_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_87_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_88_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_89_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_10_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_11_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_12_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_13_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_14_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_15_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_16_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_17_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_18_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_90_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_19_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_91_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_92_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_93_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_94_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_95_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_96_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_97_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_98_UP, my_cluster_1_backbone
-> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_99_UP, my_cluster_1_backbone
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_21_DOWN, node21, 3
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_22_DOWN, node22, 5
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_23_DOWN, node23, 7
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_24_DOWN, node24, 9
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_25_DOWN, node25, 11
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_26_DOWN, node26, 13
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_27_DOWN, node27, 15
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_28_DOWN, node28, 17
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_29_DOWN, node29, 19
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_30_DOWN, node30, 21
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_31_DOWN, node31, 23
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_32_DOWN, node32, 25
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_33_DOWN, node33, 27
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_34_DOWN, node34, 29
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_35_DOWN, node35, 31
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_36_DOWN, node36, 33
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_37_DOWN, node37, 35
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_38_DOWN, node38, 37
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_39_DOWN, node39, 39
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_0_DOWN, node0, 41
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_1_DOWN, node1, 43
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_2_DOWN, node2, 45
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_3_DOWN, node3, 47
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_4_DOWN, node4, 49
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_5_DOWN, node5, 51
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_6_DOWN, node6, 53
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_7_DOWN, node7, 55
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_8_DOWN, node8, 57
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_9_DOWN, node9, 59
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_40_DOWN, node40, 61
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_41_DOWN, node41, 63
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_42_DOWN, node42, 65
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_43_DOWN, node43, 67
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_44_DOWN, node44, 69
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_45_DOWN, node45, 71
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_46_DOWN, node46, 73
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_47_DOWN, node47, 75
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_48_DOWN, node48, 77
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_49_DOWN, node49, 79
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_50_DOWN, node50, 81
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_51_DOWN, node51, 83
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_52_DOWN, node52, 85
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_53_DOWN, node53, 87
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_54_DOWN, node54, 89
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_55_DOWN, node55, 91
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_56_DOWN, node56, 93
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_57_DOWN, node57, 95
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_58_DOWN, node58, 97
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_59_DOWN, node59, 99
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_60_DOWN, node60, 101
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_61_DOWN, node61, 103
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_62_DOWN, node62, 105
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_63_DOWN, node63, 107
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_64_DOWN, node64, 109
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_65_DOWN, node65, 111
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_66_DOWN, node66, 113
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_67_DOWN, node67, 115
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_68_DOWN, node68, 117
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_69_DOWN, node69, 119
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_100_DOWN, node100, 121
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_70_DOWN, node70, 124
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_71_DOWN, node71, 126
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_72_DOWN, node72, 128
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_73_DOWN, node73, 130
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_74_DOWN, node74, 132
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_75_DOWN, node75, 134
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_76_DOWN, node76, 136
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_77_DOWN, node77, 138
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_78_DOWN, node78, 140
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_79_DOWN, node79, 142
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_80_DOWN, node80, 144
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_81_DOWN, node81, 146
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_82_DOWN, node82, 148
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_83_DOWN, node83, 150
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_84_DOWN, node84, 152
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_85_DOWN, node85, 154
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_86_DOWN, node86, 156
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_87_DOWN, node87, 158
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_88_DOWN, node88, 160
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_89_DOWN, node89, 162
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_10_DOWN, node10, 164
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_11_DOWN, node11, 166
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_12_DOWN, node12, 168
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_13_DOWN, node13, 170
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_14_DOWN, node14, 172
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_15_DOWN, node15, 174
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_16_DOWN, node16, 176
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_17_DOWN, node17, 178
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_18_DOWN, node18, 180
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_90_DOWN, node90, 182
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_19_DOWN, node19, 184
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_91_DOWN, node91, 186
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_92_DOWN, node92, 188
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_93_DOWN, node93, 190
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_94_DOWN, node94, 192
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_95_DOWN, node95, 194
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_96_DOWN, node96, 196
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_97_DOWN, node97, 198
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_98_DOWN, node98, 200
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_99_DOWN, node99, 202
+> Link, my_cluster_1, L1-LINK4-HOST2, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_20_DOWN, node20, 206
+> Link, my_cluster_1, L1-LINK4-ROUTER7, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, nodemy_cluster_1_router, 122
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node20, my_cluster_1_link_20_UP, 0
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node21, my_cluster_1_link_21_UP, 203
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node22, my_cluster_1_link_22_UP, 207
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node23, my_cluster_1_link_23_UP, 209
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node24, my_cluster_1_link_24_UP, 211
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node25, my_cluster_1_link_25_UP, 213
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node26, my_cluster_1_link_26_UP, 215
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node27, my_cluster_1_link_27_UP, 217
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node28, my_cluster_1_link_28_UP, 219
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node29, my_cluster_1_link_29_UP, 221
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node30, my_cluster_1_link_30_UP, 223
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node31, my_cluster_1_link_31_UP, 225
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node32, my_cluster_1_link_32_UP, 227
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node33, my_cluster_1_link_33_UP, 229
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node34, my_cluster_1_link_34_UP, 231
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node35, my_cluster_1_link_35_UP, 233
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node36, my_cluster_1_link_36_UP, 235
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node37, my_cluster_1_link_37_UP, 237
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node38, my_cluster_1_link_38_UP, 239
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node39, my_cluster_1_link_39_UP, 241
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node0, my_cluster_1_link_0_UP, 243
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node1, my_cluster_1_link_1_UP, 245
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node2, my_cluster_1_link_2_UP, 247
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node3, my_cluster_1_link_3_UP, 249
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node4, my_cluster_1_link_4_UP, 251
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node5, my_cluster_1_link_5_UP, 253
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node6, my_cluster_1_link_6_UP, 255
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node7, my_cluster_1_link_7_UP, 257
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node8, my_cluster_1_link_8_UP, 259
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node9, my_cluster_1_link_9_UP, 261
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node40, my_cluster_1_link_40_UP, 263
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node41, my_cluster_1_link_41_UP, 265
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node42, my_cluster_1_link_42_UP, 267
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node43, my_cluster_1_link_43_UP, 269
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node44, my_cluster_1_link_44_UP, 271
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node45, my_cluster_1_link_45_UP, 273
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node46, my_cluster_1_link_46_UP, 275
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node47, my_cluster_1_link_47_UP, 277
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node48, my_cluster_1_link_48_UP, 279
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node49, my_cluster_1_link_49_UP, 281
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node50, my_cluster_1_link_50_UP, 283
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node51, my_cluster_1_link_51_UP, 285
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node52, my_cluster_1_link_52_UP, 287
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node53, my_cluster_1_link_53_UP, 289
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node54, my_cluster_1_link_54_UP, 291
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node55, my_cluster_1_link_55_UP, 293
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node56, my_cluster_1_link_56_UP, 295
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node57, my_cluster_1_link_57_UP, 297
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node58, my_cluster_1_link_58_UP, 299
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node59, my_cluster_1_link_59_UP, 301
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node60, my_cluster_1_link_60_UP, 303
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node61, my_cluster_1_link_61_UP, 305
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node62, my_cluster_1_link_62_UP, 307
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node63, my_cluster_1_link_63_UP, 309
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node64, my_cluster_1_link_64_UP, 311
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node65, my_cluster_1_link_65_UP, 313
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node66, my_cluster_1_link_66_UP, 315
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node67, my_cluster_1_link_67_UP, 317
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node68, my_cluster_1_link_68_UP, 319
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node69, my_cluster_1_link_69_UP, 321
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node100, my_cluster_1_link_100_UP, 323
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node70, my_cluster_1_link_70_UP, 325
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node71, my_cluster_1_link_71_UP, 327
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node72, my_cluster_1_link_72_UP, 329
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node73, my_cluster_1_link_73_UP, 331
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node74, my_cluster_1_link_74_UP, 333
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node75, my_cluster_1_link_75_UP, 335
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node76, my_cluster_1_link_76_UP, 337
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node77, my_cluster_1_link_77_UP, 339
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node78, my_cluster_1_link_78_UP, 341
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node79, my_cluster_1_link_79_UP, 343
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node80, my_cluster_1_link_80_UP, 345
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node81, my_cluster_1_link_81_UP, 347
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node82, my_cluster_1_link_82_UP, 349
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node83, my_cluster_1_link_83_UP, 351
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node84, my_cluster_1_link_84_UP, 353
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node85, my_cluster_1_link_85_UP, 355
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node86, my_cluster_1_link_86_UP, 357
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node87, my_cluster_1_link_87_UP, 359
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node88, my_cluster_1_link_88_UP, 361
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node89, my_cluster_1_link_89_UP, 363
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node10, my_cluster_1_link_10_UP, 365
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node11, my_cluster_1_link_11_UP, 367
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node12, my_cluster_1_link_12_UP, 369
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node13, my_cluster_1_link_13_UP, 371
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node14, my_cluster_1_link_14_UP, 373
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node15, my_cluster_1_link_15_UP, 375
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node16, my_cluster_1_link_16_UP, 377
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node17, my_cluster_1_link_17_UP, 379
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node18, my_cluster_1_link_18_UP, 381
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node90, my_cluster_1_link_90_UP, 383
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node19, my_cluster_1_link_19_UP, 385
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node91, my_cluster_1_link_91_UP, 387
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node92, my_cluster_1_link_92_UP, 389
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node93, my_cluster_1_link_93_UP, 391
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node94, my_cluster_1_link_94_UP, 393
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node95, my_cluster_1_link_95_UP, 395
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node96, my_cluster_1_link_96_UP, 397
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node97, my_cluster_1_link_97_UP, 399
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node98, my_cluster_1_link_98_UP, 401
+> Link, my_cluster_1, L1-HOST2-LINK4, 0.000000, 0.000000, 0.000000, G, node99, my_cluster_1_link_99_UP, 403
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_20_UP, my_cluster_1_backbone, 1
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_21_DOWN, 2
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_22_DOWN, 4
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_23_DOWN, 6
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_24_DOWN, 8
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_25_DOWN, 10
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_26_DOWN, 12
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_27_DOWN, 14
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_28_DOWN, 16
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_29_DOWN, 18
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_30_DOWN, 20
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_31_DOWN, 22
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_32_DOWN, 24
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_33_DOWN, 26
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_34_DOWN, 28
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_35_DOWN, 30
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_36_DOWN, 32
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_37_DOWN, 34
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_38_DOWN, 36
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_39_DOWN, 38
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_0_DOWN, 40
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_1_DOWN, 42
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_2_DOWN, 44
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_3_DOWN, 46
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_4_DOWN, 48
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_5_DOWN, 50
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_6_DOWN, 52
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_7_DOWN, 54
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_8_DOWN, 56
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_9_DOWN, 58
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_40_DOWN, 60
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_41_DOWN, 62
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_42_DOWN, 64
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_43_DOWN, 66
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_44_DOWN, 68
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_45_DOWN, 70
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_46_DOWN, 72
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_47_DOWN, 74
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_48_DOWN, 76
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_49_DOWN, 78
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_50_DOWN, 80
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_51_DOWN, 82
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_52_DOWN, 84
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_53_DOWN, 86
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_54_DOWN, 88
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_55_DOWN, 90
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_56_DOWN, 92
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_57_DOWN, 94
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_58_DOWN, 96
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_59_DOWN, 98
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_60_DOWN, 100
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_61_DOWN, 102
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_62_DOWN, 104
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_63_DOWN, 106
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_64_DOWN, 108
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_65_DOWN, 110
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_66_DOWN, 112
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_67_DOWN, 114
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_68_DOWN, 116
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_69_DOWN, 118
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_100_DOWN, 120
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_70_DOWN, 123
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_71_DOWN, 125
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_72_DOWN, 127
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_73_DOWN, 129
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_74_DOWN, 131
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_75_DOWN, 133
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_76_DOWN, 135
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_77_DOWN, 137
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_78_DOWN, 139
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_79_DOWN, 141
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_80_DOWN, 143
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_81_DOWN, 145
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_82_DOWN, 147
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_83_DOWN, 149
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_84_DOWN, 151
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_85_DOWN, 153
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_86_DOWN, 155
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_87_DOWN, 157
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_88_DOWN, 159
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_89_DOWN, 161
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_10_DOWN, 163
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_11_DOWN, 165
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_12_DOWN, 167
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_13_DOWN, 169
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_14_DOWN, 171
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_15_DOWN, 173
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_16_DOWN, 175
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_17_DOWN, 177
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_18_DOWN, 179
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_90_DOWN, 181
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_19_DOWN, 183
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_91_DOWN, 185
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_92_DOWN, 187
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_93_DOWN, 189
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_94_DOWN, 191
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_95_DOWN, 193
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_96_DOWN, 195
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_97_DOWN, 197
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_98_DOWN, 199
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_99_DOWN, 201
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_21_UP, my_cluster_1_backbone, 204
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_backbone, my_cluster_1_link_20_DOWN, 205
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_22_UP, my_cluster_1_backbone, 208
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_23_UP, my_cluster_1_backbone, 210
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_24_UP, my_cluster_1_backbone, 212
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_25_UP, my_cluster_1_backbone, 214
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_26_UP, my_cluster_1_backbone, 216
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_27_UP, my_cluster_1_backbone, 218
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_28_UP, my_cluster_1_backbone, 220
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_29_UP, my_cluster_1_backbone, 222
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_30_UP, my_cluster_1_backbone, 224
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_31_UP, my_cluster_1_backbone, 226
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_32_UP, my_cluster_1_backbone, 228
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_33_UP, my_cluster_1_backbone, 230
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_34_UP, my_cluster_1_backbone, 232
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_35_UP, my_cluster_1_backbone, 234
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_36_UP, my_cluster_1_backbone, 236
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_37_UP, my_cluster_1_backbone, 238
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_38_UP, my_cluster_1_backbone, 240
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_39_UP, my_cluster_1_backbone, 242
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_0_UP, my_cluster_1_backbone, 244
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_1_UP, my_cluster_1_backbone, 246
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_2_UP, my_cluster_1_backbone, 248
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_3_UP, my_cluster_1_backbone, 250
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_4_UP, my_cluster_1_backbone, 252
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_5_UP, my_cluster_1_backbone, 254
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_6_UP, my_cluster_1_backbone, 256
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_7_UP, my_cluster_1_backbone, 258
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_8_UP, my_cluster_1_backbone, 260
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_9_UP, my_cluster_1_backbone, 262
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_40_UP, my_cluster_1_backbone, 264
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_41_UP, my_cluster_1_backbone, 266
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_42_UP, my_cluster_1_backbone, 268
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_43_UP, my_cluster_1_backbone, 270
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_44_UP, my_cluster_1_backbone, 272
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_45_UP, my_cluster_1_backbone, 274
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_46_UP, my_cluster_1_backbone, 276
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_47_UP, my_cluster_1_backbone, 278
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_48_UP, my_cluster_1_backbone, 280
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_49_UP, my_cluster_1_backbone, 282
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_50_UP, my_cluster_1_backbone, 284
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_51_UP, my_cluster_1_backbone, 286
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_52_UP, my_cluster_1_backbone, 288
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_53_UP, my_cluster_1_backbone, 290
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_54_UP, my_cluster_1_backbone, 292
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_55_UP, my_cluster_1_backbone, 294
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_56_UP, my_cluster_1_backbone, 296
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_57_UP, my_cluster_1_backbone, 298
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_58_UP, my_cluster_1_backbone, 300
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_59_UP, my_cluster_1_backbone, 302
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_60_UP, my_cluster_1_backbone, 304
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_61_UP, my_cluster_1_backbone, 306
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_62_UP, my_cluster_1_backbone, 308
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_63_UP, my_cluster_1_backbone, 310
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_64_UP, my_cluster_1_backbone, 312
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_65_UP, my_cluster_1_backbone, 314
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_66_UP, my_cluster_1_backbone, 316
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_67_UP, my_cluster_1_backbone, 318
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_68_UP, my_cluster_1_backbone, 320
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_69_UP, my_cluster_1_backbone, 322
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_100_UP, my_cluster_1_backbone, 324
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_70_UP, my_cluster_1_backbone, 326
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_71_UP, my_cluster_1_backbone, 328
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_72_UP, my_cluster_1_backbone, 330
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_73_UP, my_cluster_1_backbone, 332
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_74_UP, my_cluster_1_backbone, 334
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_75_UP, my_cluster_1_backbone, 336
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_76_UP, my_cluster_1_backbone, 338
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_77_UP, my_cluster_1_backbone, 340
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_78_UP, my_cluster_1_backbone, 342
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_79_UP, my_cluster_1_backbone, 344
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_80_UP, my_cluster_1_backbone, 346
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_81_UP, my_cluster_1_backbone, 348
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_82_UP, my_cluster_1_backbone, 350
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_83_UP, my_cluster_1_backbone, 352
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_84_UP, my_cluster_1_backbone, 354
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_85_UP, my_cluster_1_backbone, 356
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_86_UP, my_cluster_1_backbone, 358
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_87_UP, my_cluster_1_backbone, 360
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_88_UP, my_cluster_1_backbone, 362
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_89_UP, my_cluster_1_backbone, 364
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_10_UP, my_cluster_1_backbone, 366
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_11_UP, my_cluster_1_backbone, 368
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_12_UP, my_cluster_1_backbone, 370
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_13_UP, my_cluster_1_backbone, 372
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_14_UP, my_cluster_1_backbone, 374
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_15_UP, my_cluster_1_backbone, 376
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_16_UP, my_cluster_1_backbone, 378
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_17_UP, my_cluster_1_backbone, 380
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_18_UP, my_cluster_1_backbone, 382
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_90_UP, my_cluster_1_backbone, 384
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_19_UP, my_cluster_1_backbone, 386
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_91_UP, my_cluster_1_backbone, 388
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_92_UP, my_cluster_1_backbone, 390
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_93_UP, my_cluster_1_backbone, 392
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_94_UP, my_cluster_1_backbone, 394
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_95_UP, my_cluster_1_backbone, 396
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_96_UP, my_cluster_1_backbone, 398
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_97_UP, my_cluster_1_backbone, 400
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_98_UP, my_cluster_1_backbone, 402
+> Link, my_cluster_1, L1-LINK4-LINK4, 0.000000, 0.000000, 0.000000, G, my_cluster_1_link_99_UP, my_cluster_1_backbone, 404
 > Container, my_cluster_1, ROUTER, 0, 1205, 1205, nodemy_cluster_1_router
 > Container, my_cluster_1, LINK, 0, 1205, 1205, my_cluster_1_link_32_UP
 > Variable, my_cluster_1_link_32_UP, bandwidth, 0.000000, 1205.000000, 1205.000000, 125000000.000000
