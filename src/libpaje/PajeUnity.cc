@@ -21,6 +21,8 @@
 #include "PajeFlexReader.h"
 #include "PajeProbabilisticSimulator.h"
 
+extern int _pajeng_user_defined;
+
 static double gettime (void)
 {
   struct timeval tr;
@@ -28,8 +30,11 @@ static double gettime (void)
   return (double)tr.tv_sec+(double)tr.tv_usec/1000000;
 }
 
-PajeUnity::PajeUnity (bool flexReader, bool strictHeader, std::string tracefilename, double stopat, int ignoreIncompleteLinks, char *probabilistic, bool noImbrication)
+PajeUnity::PajeUnity (bool flexReader, bool strictHeader, std::string tracefilename, double stopat, int ignoreIncompleteLinks, char *probabilistic, bool noImbrication, bool userDefined)
 {
+  //userDefined dump
+  _pajeng_user_defined = userDefined;
+  
   //basic configuration
   this->flexReader = flexReader;
 

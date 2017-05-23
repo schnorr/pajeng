@@ -20,6 +20,8 @@
 #include "PajeType.h"
 #include "PajeTraceEvent.h"
 
+extern int _paje_user_defined;
+
 class PajeContainer;
 
 /*
@@ -95,6 +97,7 @@ public:
 
   std::string extraDescription (bool printComma) const; //should always be called after description
   std::string extraDescriptionHeader (bool printComma) const; //should always be called after description
+  void dump (void) const;
 };
 
 /*

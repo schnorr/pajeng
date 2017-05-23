@@ -208,12 +208,7 @@ void dump (struct arguments *arguments, PajeComponent *simulator)
     PajeContainer *container = stack.back();
     stack.pop_back ();
 
-    //output container description
-    std::cout << container->description();
-    if (arguments->userDefined){
-      std::cout << container->extraDescription(true);
-    }
-    std::cout << std::endl;
+    container->dump();
 
     //recurse on children
     std::vector<PajeType*> containedTypes;
@@ -237,13 +232,7 @@ void dump (struct arguments *arguments, PajeComponent *simulator)
 								    end);
 	for (it = entities.begin(); it != entities.end(); it++){
 	  PajeEntity *entity = *it;
-
-	  //output entity description
-	  std::cout << entity->description();
-	  if (arguments->userDefined){
-	    std::cout << entity->extraDescription(true);
-	  }
-	  std::cout << std::endl;
+	  entity->dump();
 	}
       }
     }
@@ -341,7 +330,8 @@ int main (int argc, char **argv)
 				    arguments.stopat,
 				    arguments.ignoreIncompleteLinks,
 				    arguments.probabilistic,
-                                    arguments.noImbrication);
+                                    arguments.noImbrication,
+				    arguments.userDefined);
 
   if (arguments.time){
     printf ("%f\n", unity->getTime());

@@ -18,6 +18,8 @@
 #include "PajeEntity.h"
 #include "PajeException.h"
 
+int _pajeng_user_defined;
+
 int dumpFloatingPointPrecision = 6;
 
 PajeEntity::PajeEntity (PajeContainer *container, PajeType *type, PajeTraceEvent *event)
@@ -152,6 +154,15 @@ std::string PajeEntity::extraDescriptionHeader (bool printComma) const
   return description.str();
 }
 
+void PajeEntity::dump (void) const
+{
+  //output entity description
+  std::cout << this->description();
+  if (_pajeng_user_defined){
+    std::cout << this->extraDescription(true);
+  }
+  std::cout << std::endl;
+}
 
 /**************************************************************
  * PajeSingleTimedEntity
