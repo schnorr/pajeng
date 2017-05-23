@@ -461,10 +461,8 @@ void PajeUserVariable::subtractDoubleValue (double value)
 
 bool PajeUserVariable::isComplete (void) const
 {
-  // Hard to know if _value is okay or not, so won't check the value
-  // itself, only if it has been set once
-  throw PajeVariableException("Completeness check for variables is not yet implemented");
-//  return PajeDoubleTimedEntity::isComplete();
+  // Hard to know if _value is okay or not, so won't check the value itself
+  return PajeDoubleTimedEntity::isComplete();
 }
 
 /**************************************************************
