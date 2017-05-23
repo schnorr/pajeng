@@ -17,6 +17,8 @@
 #include "PajeSimulator.h"
 #include "PajeException.h"
 
+#define PAJENG_OUT_OF_CORE_NCALLS 10000
+
 int _pajeng_quiet = 0;
 int _pajeng_out_of_core = 0;
 int ignoreIncompleteLinks = 0;
@@ -284,6 +286,18 @@ void PajeSimulator::inputEntity (PajeObject *data)
   }else{
     throw PajeSimulationException ("Unknown event id.");
   }
+
+  {
+    static unsigned long long ncalls = 0;
+    // If Out Of Core simulation, dump and release entities
+    if (_pajeng_out_of_core && ncalls >= PAJENG_OUT_OF_CORE_NCALLS){
+
+      // This function is top-down recursive
+      root->recursiveClearCompleteEntities();
+      ncalls = 0;
+    }
+    ncalls++;
+  }
 }
 
 void PajeSimulator::startReading (void)
@@ -301,6 +315,11 @@ void PajeSimulator::finishedReading (void)
   hierarchyChanged ();
   timeLimitsChanged ();
   setSelectionStartEndTime (startTime(), endTime());
+
+  // If Out Of Core simulation, dump and release entities
+  if (_pajeng_out_of_core){
+    root->recursiveClearCompleteEntities();
+  }
 }
 
 void PajeSimulator::pajeDefineContainerType (PajeTraceEvent *event)

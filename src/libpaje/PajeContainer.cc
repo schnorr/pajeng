@@ -834,3 +834,43 @@ void PajeContainer::destroy (double time)
   //recursive destroy because parent container is being destroyed
   recursiveDestroy(time);
 }
+
+
+void PajeContainer::recursiveClearCompleteEntities (void)
+{
+  //clear local complete entities
+  for (auto const &childEntity : entities){
+    std::vector<PajeEntity*> children = (childEntity.second);
+    std::vector<PajeEntity*>::iterator it = children.begin();
+    while (it != children.end()){
+      PajeEntity *child = *it;
+      if (child->isComplete()){
+	child->dump();
+	it = children.erase(it);
+	delete child;
+      }else{
+	break;
+      }
+    }
+    entities[childEntity.first] = children;
+  }
+
+  //recurse in children
+  for(auto const &child : children) {
+    PajeContainer *child_container = (child.second);
+    child_container->recursiveClearCompleteEntities();
+  }
+
+  //check if sub-containers are complete
+  std::map<std::string,PajeContainer*>::iterator it = children.begin();
+  while (it != children.end()){
+    PajeContainer *subcontainer = (*it).second;
+    if (subcontainer->isComplete()){
+      subcontainer->dump();
+      it = children.erase(it);
+      delete subcontainer;
+    }else{
+      it++;
+    }
+  }
+}
