@@ -17,6 +17,7 @@
 #include "PajeSimulator.h"
 #include "PajeException.h"
 
+int _pajeng_out_of_core = 0;
 int ignoreIncompleteLinks = 0;
 
 PajeSimulator::PajeSimulator ()

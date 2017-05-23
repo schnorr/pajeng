@@ -22,6 +22,7 @@
 #include "PajeProbabilisticSimulator.h"
 
 extern int _pajeng_user_defined;
+extern int _pajeng_out_of_core;
 
 static double gettime (void)
 {
@@ -42,6 +43,9 @@ PajeUnity::PajeUnity (bool flexReader,
 {
   //userDefined dump
   _pajeng_user_defined = userDefined;
+
+  //out of core simulation
+  _pajeng_out_of_core = outOfCore;
   
   //basic configuration
   this->flexReader = flexReader;
