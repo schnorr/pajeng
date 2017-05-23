@@ -367,7 +367,7 @@ int main (int argc, char **argv)
     entityHierarchyDump (&arguments, unity);
   }
 
-  if (!arguments.quiet){
+  if (!arguments.quiet && !arguments.outofcore){
     dump_header (&arguments, unity);
     dump (&arguments, unity);
   }
