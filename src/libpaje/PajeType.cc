@@ -382,7 +382,7 @@ void PajeContainerType::removeChildren (void)
     }else if(child->isCategorizedType()){
       child->removeValues();
     }
-    delete child;;
+    delete child;
   }
   _children.clear();
 }
