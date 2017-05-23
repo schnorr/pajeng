@@ -61,6 +61,7 @@ public:
   std::string description (void) const;
   const std::string &identifier (void);
   bool isContainer (void) const;
+  bool isComplete (void) const;
   PajeContainer *getRoot (void);
   std::vector<PajeContainer*> getChildren (void);
   bool isAncestorOf (PajeContainer *c);

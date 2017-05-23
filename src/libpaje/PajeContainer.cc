@@ -179,6 +179,12 @@ bool PajeContainer::isContainer (void) const
   return true;
 }
 
+bool PajeContainer::isComplete (void) const
+{
+  return (PajeNamedEntity::isComplete() &&
+	  _destroyed == true);
+}
+
 const std::string &PajeContainer::identifier ()
 {
   return _alias.empty() ? name() : _alias;

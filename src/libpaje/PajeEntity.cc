@@ -74,6 +74,24 @@ bool PajeEntity::isContainer (void) const
   return false;
 }
 
+bool PajeEntity::isComplete (void) const
+{
+  if (_type != NULL){
+    if (_type->depth() == 0){
+      // Depth is zero, this is probably the root container
+      // So, _container is set normally to NULL
+      return true;
+    }else{
+      // Depth is non zero, this is an intermediary container
+      // So, _container should not be NULL
+      if (_container != NULL){
+	return true;
+      }
+    }
+  }
+  return false;
+}
+
 PajeValue *PajeEntity::value (void) const
 {
   return NULL;
@@ -213,6 +231,12 @@ double PajeSingleTimedEntity::duration (void) const
   return 0;
 }
 
+bool PajeSingleTimedEntity::isComplete (void) const
+{
+  return (PajeEntity::isComplete() &&
+	  _stime != -1);
+}
+
 /**************************************************************
  * PajeDoubleTimedEntity
  */
@@ -246,6 +270,12 @@ double PajeDoubleTimedEntity::duration (void) const
   }
 }
 
+bool PajeDoubleTimedEntity::isComplete (void) const
+{
+  return (PajeSingleTimedEntity::isComplete() &&
+	  _etime != -1);
+}
+
 /**************************************************************
  * PajeValueEntity
  */
@@ -260,6 +290,12 @@ PajeValue *PajeValueEntity::value (void) const
   return _value;
 }
 
+bool PajeValueEntity::isComplete (void) const
+{
+  return (PajeDoubleTimedEntity::isComplete() &&
+	  _value != NULL);
+}
+
 /**************************************************************
  * PajeNamedEntity
  */
@@ -272,6 +308,12 @@ PajeNamedEntity::PajeNamedEntity (PajeContainer *container, PajeType *type, doub
 const std::string &PajeNamedEntity::name (void) const
 {
   return _name;
+}
+
+bool PajeNamedEntity::isComplete (void) const
+{
+  return (PajeDoubleTimedEntity::isComplete() &&
+	  !_name.empty());
 }
 
 /**************************************************************
@@ -305,6 +347,12 @@ std::string PajeUserEvent::description (void) const
 PajeValue *PajeUserEvent::value (void) const
 {
   return _value;
+}
+
+bool PajeUserEvent::isComplete (void) const
+{
+  return (PajeSingleTimedEntity::isComplete() &&
+	  _value != NULL);
 }
 
 /**************************************************************
@@ -348,6 +396,13 @@ int PajeUserState::imbricationLevel (void) const
 {
   return imbrication;
 }
+
+bool PajeUserState::isComplete (void) const
+{
+  // Imbrication should always be okay since we cannot change it
+  return (PajeValueEntity::isComplete());
+}
+
 
 /**************************************************************
  * PajeUserVariable
@@ -397,6 +452,14 @@ void PajeUserVariable::addDoubleValue (double value)
 void PajeUserVariable::subtractDoubleValue (double value)
 {
   _value -= value;
+}
+
+bool PajeUserVariable::isComplete (void) const
+{
+  // Hard to know if _value is okay or not, so won't check the value
+  // itself, only if it has been set once
+  throw PajeVariableException("Completeness check for variables is not yet implemented");
+//  return PajeDoubleTimedEntity::isComplete();
 }
 
 /**************************************************************
@@ -452,4 +515,12 @@ void PajeUserLink::setEndContainer (PajeContainer *endContainer)
 PajeContainer *PajeUserLink::endContainer (void) const
 {
   return endCont;
+}
+
+bool PajeUserLink::isComplete (void) const
+{
+  return (PajeValueEntity::isComplete() &&
+	  startCont != NULL &&
+	  endCont != NULL &&
+	  !key.empty());
 }

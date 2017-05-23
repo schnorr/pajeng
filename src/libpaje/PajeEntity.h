@@ -36,6 +36,7 @@ public:
   virtual const std::string &name (void) const = 0;
   virtual bool isContainedBy (PajeContainer *container) const = 0;
   virtual bool isContainer (void) const = 0;
+  virtual bool isComplete (void) const = 0;
   virtual PajeValue *value (void) const = 0;
 
   virtual void setDoubleValue (double value) = 0;
@@ -79,6 +80,7 @@ public:
   const std::string &name (void) const;
   bool isContainedBy (PajeContainer *container) const;
   bool isContainer (void) const;
+  bool isComplete (void) const;
   PajeValue *value (void) const;
 
   void setDoubleValue (double value);
@@ -118,6 +120,7 @@ public:
   double lastTime (void) const;
   void setEndTime (double endTime);
   double duration (void) const;
+  bool isComplete (void) const;
 };
 
 /*
@@ -134,6 +137,7 @@ public:
   double lastTime (void) const;
   void setEndTime (double endTime);
   double duration (void) const;
+  bool isComplete (void) const;
 };
 
 /*
@@ -147,6 +151,7 @@ private:
 public:
   PajeValueEntity (PajeContainer *container, PajeType *type, double time, PajeValue *value, PajeTraceEvent *event);
   PajeValue *value (void) const;
+  bool isComplete (void) const;
 };
 
 /*
@@ -160,6 +165,7 @@ private:
 public:
   PajeNamedEntity (PajeContainer *container, PajeType *type, double time, std::string name, PajeTraceEvent *event);
   const std::string &name (void) const;
+  bool isComplete (void) const;
 };
 
 /*
@@ -175,6 +181,7 @@ public:
   PajeValue *value (void) const;
   std::string description (void) const;
   std::string descriptionHeader (void) const;
+  bool isComplete (void) const;
 };
 
 /*
@@ -191,6 +198,7 @@ public:
   std::string description (void) const;
   std::string descriptionHeader (void) const;
   int imbricationLevel (void) const;
+  bool isComplete (void) const;
 };
 
 /*
@@ -210,6 +218,7 @@ public:
   void addDoubleValue (double value);
   void subtractDoubleValue (double value);
   double doubleValue (void) const;
+  bool isComplete (void) const;
 };
 
 /*
@@ -231,6 +240,7 @@ public:
   void setEndContainer (PajeContainer *EndContainer);
   PajeContainer *startContainer (void) const;
   PajeContainer *endContainer (void) const;
+  bool isComplete (void) const;
 };
 
 #include "PajeContainer.h"
