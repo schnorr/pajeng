@@ -74,6 +74,7 @@ private:
 
 public:
   PajeEntity (PajeContainer *container, PajeType *type, PajeTraceEvent *event);
+  ~PajeEntity (void);
   void addPajeTraceEvent (PajeTraceEvent *event);
   PajeContainer *container (void) const;
   PajeType *type (void) const;

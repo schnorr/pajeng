@@ -30,6 +30,10 @@ PajeEntity::PajeEntity (PajeContainer *container, PajeType *type, PajeTraceEvent
   addPajeTraceEvent (event);
 }
 
+PajeEntity::~PajeEntity (void)
+{
+}
+
 void PajeEntity::addPajeTraceEvent (PajeTraceEvent *event)
 {
   if (!event) return;
