@@ -178,6 +178,7 @@ std::string PajeEntity::extraDescriptionHeader (bool printComma) const
 
 void PajeEntity::dump (void) const
 {
+  if (_pajeng_quiet) return;
   //output entity description
   std::cout << this->description();
   if (_pajeng_user_defined){

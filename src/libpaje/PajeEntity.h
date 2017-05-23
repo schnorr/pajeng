@@ -20,6 +20,7 @@
 #include "PajeType.h"
 #include "PajeTraceEvent.h"
 
+extern int _pajeng_quiet;
 extern int _paje_user_defined;
 
 class PajeContainer;
