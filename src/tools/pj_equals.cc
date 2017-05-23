@@ -252,7 +252,7 @@ main(int argc, char **argv)
     {
       s1 = new PajeUnity(arguments.flex, !arguments.noStrict,
           std::string(arguments.input[0]), arguments.stopat1,
-          arguments.ignoreIncompleteLinks, 0, false, false);
+          arguments.ignoreIncompleteLinks, 0, false, false, false);
     }
 #if defined(OPENMP)
 #pragma omp section
@@ -260,7 +260,7 @@ main(int argc, char **argv)
     {
       s2 = new PajeUnity(arguments.flex, !arguments.noStrict,
           std::string(arguments.input[1]), arguments.stopat2,
-          arguments.ignoreIncompleteLinks, 0, false, false);
+          arguments.ignoreIncompleteLinks, 0, false, false, false);
     }
   }
 

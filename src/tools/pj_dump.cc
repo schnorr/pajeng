@@ -51,6 +51,7 @@ static struct argp_option options[] = {
   {"header",                  'h', 0, OPTION_ARG_OPTIONAL, "Print CSV header with column names"},
   {"type-hierarchy",       OPT_TH, "FILE", 0, "Output the type hierarchy to FILE (CSV)"},
   {"entity-hierarchy",     OPT_EH, "FILE", 0, "Output the entity hierarchy to FILE (CSV)"},
+  {"out-of-core",             'o', 0, OPTION_ARG_OPTIONAL, "Out of core execution (smallest memory footprint)"},
   { 0 }
 };
 
@@ -68,6 +69,7 @@ struct arguments {
   int dot;
   int time;
   int csvHeader;
+  int outofcore;
   char *typeHierarchy;
   char *entityHierarchy;
   char *probabilistic;
@@ -92,6 +94,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
   case 'd': arguments->dot = 1; break;
   case 't': arguments->time = 1; break;
   case 'h': arguments->csvHeader = 1; break;
+  case 'o': arguments->outofcore = 1; break;
   case OPT_TH: arguments->typeHierarchy = arg; break;
   case OPT_EH: arguments->entityHierarchy = arg; break;
   case 'v': printf("%s\n", LIBPAJE_VERSION_STRING); exit(0); break;
@@ -331,7 +334,8 @@ int main (int argc, char **argv)
 				    arguments.ignoreIncompleteLinks,
 				    arguments.probabilistic,
                                     arguments.noImbrication,
-				    arguments.userDefined);
+				    arguments.userDefined,
+				    arguments.outofcore);
 
   if (arguments.time){
     printf ("%f\n", unity->getTime());

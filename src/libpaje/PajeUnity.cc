@@ -37,7 +37,8 @@ PajeUnity::PajeUnity (bool flexReader,
 		      int ignoreIncompleteLinks,
 		      char *probabilistic,
 		      bool noImbrication,
-		      bool userDefined)
+		      bool userDefined,
+		      bool outOfCore)
 {
   //userDefined dump
   _pajeng_user_defined = userDefined;

@@ -38,7 +38,8 @@ public:
 	     int ignoreIncompleteLinks,
 	     char *probabilistic,
 	     bool noImbrication,
-	     bool userDefined);
+	     bool userDefined,
+	     bool outOfCore);
   ~PajeUnity ();
   double getTime ();
   void report ();
