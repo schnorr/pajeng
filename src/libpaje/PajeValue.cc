@@ -24,6 +24,10 @@ PajeValue::PajeValue (std::string name, std::string alias, PajeType *type, PajeC
   _type = type;
 }
 
+PajeValue::~PajeValue (void)
+{
+}
+
 PajeColor *PajeValue::color (void)
 {
   return _color;

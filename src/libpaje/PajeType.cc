@@ -199,6 +199,11 @@ PajeVariableType::PajeVariableType (std::string name, std::string alias, PajeTyp
   _color = color;
 }
 
+PajeVariableType::~PajeVariableType ()
+{
+  delete _color;
+}
+
 PajeDrawingType PajeVariableType::drawingType (void)
 {
   return PajeVariableDrawingType;

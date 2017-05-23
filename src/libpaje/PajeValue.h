@@ -29,6 +29,7 @@ private:
   PajeType *_type; //associated type
 public:
   PajeValue (std::string name, std::string alias, PajeType *type, PajeColor *color);
+  ~PajeValue (void);
   PajeColor *color (void);
   const std::string &name (void);
   const std::string &alias (void);
