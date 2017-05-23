@@ -39,7 +39,8 @@ public:
 	     char *probabilistic,
 	     bool noImbrication,
 	     bool userDefined,
-	     bool outOfCore);
+	     bool outOfCore,
+	     bool quiet);
   ~PajeUnity ();
   double getTime ();
   void report ();

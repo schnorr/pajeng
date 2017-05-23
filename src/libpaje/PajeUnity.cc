@@ -23,6 +23,7 @@
 
 extern int _pajeng_user_defined;
 extern int _pajeng_out_of_core;
+extern int _pajeng_quiet;
 
 static double gettime (void)
 {
@@ -39,14 +40,18 @@ PajeUnity::PajeUnity (bool flexReader,
 		      char *probabilistic,
 		      bool noImbrication,
 		      bool userDefined,
-		      bool outOfCore)
+		      bool outOfCore,
+		      bool quiet)
 {
   //userDefined dump
   _pajeng_user_defined = userDefined;
 
   //out of core simulation
   _pajeng_out_of_core = outOfCore;
-  
+
+  //out of core simulation
+  _pajeng_quiet = quiet;
+
   //basic configuration
   this->flexReader = flexReader;
 

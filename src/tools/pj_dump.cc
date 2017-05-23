@@ -335,7 +335,8 @@ int main (int argc, char **argv)
 				    arguments.probabilistic,
                                     arguments.noImbrication,
 				    arguments.userDefined,
-				    arguments.outofcore);
+				    arguments.outofcore,
+				    arguments.quiet);
 
   if (arguments.time){
     printf ("%f\n", unity->getTime());
