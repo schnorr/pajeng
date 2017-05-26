@@ -360,11 +360,11 @@ int main (int argc, char **argv)
   }
 
   //Three types of dumps (types, entities, timestamped objects)
-  if (arguments.typeHierarchy){
+  if (arguments.typeHierarchy && !arguments.outofcore){
     typeHierarchyDump (&arguments, unity);
   }
 
-  if (arguments.entityHierarchy){
+  if (arguments.entityHierarchy && !arguments.outofcore){
     entityHierarchyDump (&arguments, unity);
   }
 
