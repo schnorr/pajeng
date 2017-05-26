@@ -60,6 +60,7 @@ public:
   virtual std::string descriptionHeader (void) const = 0;
   virtual std::string extraDescription (bool printComma) const = 0;
   virtual std::string extraDescriptionHeader (bool printComma) const = 0;
+  virtual void dump (void) const = 0;
 };
 
 /*

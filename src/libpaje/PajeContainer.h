@@ -116,8 +116,11 @@ private:
   double selectionEnd;
   PajeAggregatedDict spatialAggregated;
 
+private:
+  bool dumped;
 public:
   void recursiveClearCompleteEntities (void);
+  void dump (void);
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container);

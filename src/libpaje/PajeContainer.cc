@@ -68,6 +68,7 @@ PajeContainer::~PajeContainer ()
 
 void PajeContainer::init (std::string alias, PajeContainer *parent)
 {
+  dumped = false;
   _alias = alias;
   _destroyed = false;
   if (parent){
@@ -872,5 +873,10 @@ void PajeContainer::recursiveClearCompleteEntities (void)
     }else{
       it++;
     }
+void PajeContainer::dump (void)
+{
+  if (!dumped){
+    PajeEntity::dump();
+    dumped = true;
   }
 }
