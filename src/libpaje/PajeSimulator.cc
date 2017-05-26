@@ -17,7 +17,7 @@
 #include "PajeSimulator.h"
 #include "PajeException.h"
 
-#define PAJENG_OUT_OF_CORE_NCALLS 10000
+#define PAJENG_OUT_OF_CORE_NCALLS 100000
 
 int _pajeng_quiet = 0;
 int _pajeng_out_of_core = 0;
