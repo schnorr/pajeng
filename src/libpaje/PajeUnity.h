@@ -40,6 +40,7 @@ public:
 	     bool noImbrication,
 	     bool userDefined,
 	     bool outOfCore,
+	     bool entityDump,
 	     bool quiet);
   ~PajeUnity ();
   double getTime ();

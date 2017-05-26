@@ -23,6 +23,7 @@
 
 extern int _pajeng_user_defined;
 extern int _pajeng_out_of_core;
+extern int _pajeng_entity_hierarchy_dump;
 extern int _pajeng_quiet;
 
 static double gettime (void)
@@ -41,6 +42,7 @@ PajeUnity::PajeUnity (bool flexReader,
 		      bool noImbrication,
 		      bool userDefined,
 		      bool outOfCore,
+		      bool entityDump,
 		      bool quiet)
 {
   //userDefined dump
@@ -48,6 +50,9 @@ PajeUnity::PajeUnity (bool flexReader,
 
   //out of core simulation
   _pajeng_out_of_core = outOfCore;
+
+  //entity hierarchy dump
+  _pajeng_entity_hierarchy_dump = entityDump;
 
   //out of core simulation
   _pajeng_quiet = quiet;

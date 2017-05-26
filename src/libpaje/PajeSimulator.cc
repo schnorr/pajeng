@@ -21,6 +21,7 @@
 
 int _pajeng_quiet = 0;
 int _pajeng_out_of_core = 0;
+int _pajeng_entity_hierarchy_dump = 0;
 int ignoreIncompleteLinks = 0;
 
 PajeSimulator::PajeSimulator ()

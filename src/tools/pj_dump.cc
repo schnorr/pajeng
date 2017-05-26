@@ -336,6 +336,7 @@ int main (int argc, char **argv)
                                     arguments.noImbrication,
 				    arguments.userDefined,
 				    arguments.outofcore,
+				    arguments.entityHierarchy,
 				    arguments.quiet);
 
   if (arguments.time){
