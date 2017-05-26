@@ -119,7 +119,7 @@ private:
 private:
   bool dumped;
 public:
-  void recursiveClearCompleteEntities (void);
+  void recursiveClearCompleteEntities (bool deleteCompleteContainer);
   void dump (void);
 };
 
