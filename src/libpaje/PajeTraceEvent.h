@@ -29,6 +29,7 @@
 
 class PajeTraceEvent : public PajeObject {
  private:
+  double time_;
   int line;
   PajeEventDefinition *pajeEventDefinition;
   std::vector<std::string> fields;
@@ -48,6 +49,7 @@ public:
   std::string description (void) const;
   PajeEventDefinition *definition (void);
   void setDefinition (PajeEventDefinition *def);
+  double time ();
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeTraceEvent &event);

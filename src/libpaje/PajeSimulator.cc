@@ -194,11 +194,8 @@ bool PajeSimulator::noImbricationLevel (void)
 
 void PajeSimulator::setLastKnownTime (PajeTraceEvent *event)
 {
-  std::string time = event->valueForField (PAJE_Time);
-  if (time.length()){
-    double evttime = atof(time.c_str());
-    lastKnownTime = evttime;
-  }
+  lastKnownTime = event->time();
+  return;
 }
 
 PajeColor *PajeSimulator::getColor (std::string color, PajeTraceEvent *event)

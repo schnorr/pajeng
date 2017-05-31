@@ -15,6 +15,7 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeTraceEvent.h"
+#include "PajeException.h"
 
 PajeTraceEvent::PajeTraceEvent ()
 {
@@ -42,6 +43,12 @@ PajeTraceEvent::PajeTraceEvent (PajeEventDefinition *def, paje_line *line)
   pajeEventDefinition = def;
   this->line = line->lineNumber;
   this->check (line);
+  std::string timestr = valueForField (PAJE_Time);
+  if (timestr.length()){
+    time_ = atof(timestr.c_str());
+  }else{
+    PajeSimulationException ("Can't get time from trace event.");
+  }
 }
 
 PajeTraceEvent::~PajeTraceEvent ()
@@ -134,6 +141,11 @@ PajeEventDefinition *PajeTraceEvent::definition (void)
 void PajeTraceEvent::setDefinition (PajeEventDefinition *def)
 {
   pajeEventDefinition = def;
+}
+
+double PajeTraceEvent::time (void)
+{
+  return time_;
 }
 
 std::ostream &operator<< (std::ostream &output, const PajeTraceEvent &event)
