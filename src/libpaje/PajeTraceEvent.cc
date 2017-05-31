@@ -16,6 +16,16 @@
 */
 #include "PajeTraceEvent.h"
 #include "PajeException.h"
+#include <boost/spirit/include/qi.hpp>
+
+static double parse(char const* first, char const* last)
+{
+    double n;
+    namespace qi = boost::spirit::qi;
+    using qi::double_;
+    qi::parse(first, last, double_, n);
+    return n;
+}
 
 PajeTraceEvent::PajeTraceEvent ()
 {
@@ -45,7 +55,9 @@ PajeTraceEvent::PajeTraceEvent (PajeEventDefinition *def, paje_line *line)
   this->check (line);
   std::string timestr = valueForField (PAJE_Time);
   if (timestr.length()){
-    time_ = atof(timestr.c_str());
+    const char *cstr = timestr.c_str();
+    const char *cstr_end = cstr + strlen(cstr);
+    time_ = parse(cstr, cstr_end);
   }else{
     PajeSimulationException ("Can't get time from trace event.");
   }
