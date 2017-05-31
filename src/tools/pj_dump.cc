@@ -199,6 +199,7 @@ void entityHierarchyDump (struct arguments *arguments, PajeComponent *simulator)
 
 void dump (struct arguments *arguments, PajeComponent *simulator)
 {
+  std::ostream stdoutStream (std::cout.rdbuf());
   double start = arguments->start;
   double end = arguments->end;
   if (start == -1) start = simulator->startTime();
@@ -211,7 +212,7 @@ void dump (struct arguments *arguments, PajeComponent *simulator)
     PajeContainer *container = stack.back();
     stack.pop_back ();
 
-    container->dump();
+    container->dump(stdoutStream);
 
     //recurse on children
     std::vector<PajeType*> containedTypes;
@@ -235,7 +236,7 @@ void dump (struct arguments *arguments, PajeComponent *simulator)
 								    end);
 	for (it = entities.begin(); it != entities.end(); it++){
 	  PajeEntity *entity = *it;
-	  entity->dump();
+	  entity->dump(stdoutStream);
 	}
       }
     }

@@ -119,8 +119,8 @@ private:
 private:
   bool dumped;
 public:
-  void recursiveClearCompleteEntities (bool deleteCompleteContainer);
-  void dump (void);
+  void recursiveClearCompleteEntities (std::ostream& output, bool deleteCompleteContainer);
+  void dump (std::ostream& output);
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeContainer &container);

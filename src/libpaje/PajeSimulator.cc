@@ -291,7 +291,8 @@ void PajeSimulator::inputEntity (PajeObject *data)
     if (_pajeng_out_of_core && ncalls >= PAJENG_OUT_OF_CORE_NCALLS){
 
       // This function is top-down recursive
-      root->recursiveClearCompleteEntities(!_pajeng_entity_hierarchy_dump);
+      std::ostream stdoutStream (std::cout.rdbuf());
+      root->recursiveClearCompleteEntities(stdoutStream, !_pajeng_entity_hierarchy_dump);
       ncalls = 0;
     }
     ncalls++;
@@ -316,7 +317,8 @@ void PajeSimulator::finishedReading (void)
 
   // If Out Of Core simulation, dump and release entities
   if (_pajeng_out_of_core){
-    root->recursiveClearCompleteEntities(!_pajeng_entity_hierarchy_dump);
+    std::ostream stdoutStream (std::cout.rdbuf());
+    root->recursiveClearCompleteEntities(stdoutStream, !_pajeng_entity_hierarchy_dump);
   }
 }
 
