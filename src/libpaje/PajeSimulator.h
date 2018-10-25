@@ -141,6 +141,15 @@ public:
   // Tells if type is a variable type
   bool isVariableType (PajeType *type);
 
+  // Tells if type is a state type
+  bool isStateType (PajeType *type);
+
+  // Tells if type is a event type
+  bool isEventType (PajeType *type);
+
+  // Tells if type is a link type
+  bool isLinkType (PajeType *type);
+
   // The time period of the trace
   double startTime (void);
   double endTime (void);

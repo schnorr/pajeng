@@ -88,6 +88,21 @@ bool PajeSimulator::isVariableType (PajeType *type)
   return type->nature() == PAJE_VariableType;
 }
 
+bool PajeSimulator::isStateType (PajeType *type)
+{
+  return type->nature() == PAJE_StateType;
+}
+
+bool PajeSimulator::isEventType (PajeType *type)
+{
+  return type->nature() == PAJE_EventType;
+}
+
+bool PajeSimulator::isLinkType (PajeType *type)
+{
+  return type->nature() == PAJE_LinkType;
+}
+
 double PajeSimulator::startTime (void)
 {
   return root->startTime ();
