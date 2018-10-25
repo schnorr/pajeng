@@ -35,7 +35,7 @@ public:
 	     bool strictHeader,
 	     std::string tracefilename,
 	     double stopat,
-	     int ignoreIncompleteLinks,
+	     bool ignoreIncompleteLinks,
 	     char *probabilistic,
 	     bool noImbrication,
 	     bool userDefined,

@@ -22,7 +22,7 @@
 int _pajeng_quiet = 0;
 int _pajeng_out_of_core = 0;
 int _pajeng_entity_hierarchy_dump = 0;
-int ignoreIncompleteLinks = 0;
+bool ignoreIncompleteLinks = false;
 
 PajeSimulator::PajeSimulator ()
 {
@@ -36,14 +36,14 @@ PajeSimulator::PajeSimulator (double stopat)
   init ();
 }
 
-PajeSimulator::PajeSimulator (double stopat, int ignore)
+PajeSimulator::PajeSimulator (double stopat, bool ignore)
 {
   stopSimulationAtTime = stopat;
   ignoreIncompleteLinks = ignore;
   init ();
 }
 
-PajeSimulator::PajeSimulator (double stopat, int ignore, bool noImbrication)
+PajeSimulator::PajeSimulator (double stopat, bool ignore, bool noImbrication)
 {
   stopSimulationAtTime = stopat;
   ignoreIncompleteLinks = ignore;
