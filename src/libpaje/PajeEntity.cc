@@ -132,6 +132,11 @@ int PajeEntity::imbricationLevel (void) const
   return 0;
 }
 
+std::string PajeEntity::key (void) const
+{
+  return std::string("No Key");
+}
+
 std::string PajeEntity::extraDescription (bool printComma) const
 {
   if (extraFields.size() == 0) return std::string();
@@ -321,6 +326,11 @@ bool PajeNamedEntity::isComplete (void) const
 	  !_name.empty());
 }
 
+std::string PajeNamedEntity::key (void) const
+{
+  return std::string("No Key");
+}
+
 /**************************************************************
  * PajeUserEvent
  */
@@ -471,7 +481,7 @@ bool PajeUserVariable::isComplete (void) const
 PajeUserLink::PajeUserLink (PajeContainer *container, PajeType *type, double time, PajeValue *value, std::string key, PajeContainer *startContainer, PajeTraceEvent *event)
   : PajeValueEntity (container, type, time, value, event)
 {
-  this->key = key;
+  this->mkey = key;
   this->startCont = startContainer;
   this->endCont = NULL;
 }
@@ -496,7 +506,7 @@ std::string PajeUserLink::description (void) const
               << (value()? value()->name() : "NULL") << ", "
               << (startContainer()? startContainer()->name() : "NULL") << ", "
               << (endContainer()? endContainer()->name() : "NULL") << ", "
-              << key;
+              << mkey;
   return description.str();
 }
 
@@ -525,5 +535,10 @@ bool PajeUserLink::isComplete (void) const
   return (PajeValueEntity::isComplete() &&
 	  startCont != NULL &&
 	  endCont != NULL &&
-	  !key.empty());
+	  !mkey.empty());
+}
+
+std::string PajeUserLink::key (void)
+{
+  return mkey;
 }

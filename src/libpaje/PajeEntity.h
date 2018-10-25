@@ -56,6 +56,7 @@ public:
   virtual double firstTime (void) const = 0;
   virtual double lastTime (void) const = 0;
   virtual double duration (void) const = 0;
+  virtual std::string key (void) const = 0; //only for links
   virtual std::string description (void) const = 0;
   virtual std::string descriptionHeader (void) const = 0;
   virtual std::string extraDescription (bool printComma) const = 0;
@@ -93,6 +94,7 @@ public:
   PajeContainer *startContainer (void) const;
   PajeContainer *endContainer (void) const;
   int imbricationLevel (void) const;
+  std::string key (void) const;
 
   struct PajeEntityCompare {
     bool operator() (PajeEntity *e, double t){
@@ -169,6 +171,7 @@ public:
   PajeNamedEntity (PajeContainer *container, PajeType *type, double time, std::string name, PajeTraceEvent *event);
   const std::string &name (void) const;
   bool isComplete (void) const;
+  std::string key (void) const;
 };
 
 /*
@@ -230,7 +233,7 @@ public:
 class PajeUserLink : public PajeValueEntity
 {
 private:
-  std::string key;
+  std::string mkey;
   PajeContainer *startCont;
   PajeContainer *endCont;
 
@@ -244,6 +247,7 @@ public:
   PajeContainer *startContainer (void) const;
   PajeContainer *endContainer (void) const;
   bool isComplete (void) const;
+  std::string key (void);
 };
 
 #include "PajeContainer.h"
