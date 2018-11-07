@@ -46,7 +46,7 @@ protected:
 
 public:
   PajeType (std::string name, std::string alias, PajeType *parent);
-  ~PajeType ();
+  virtual ~PajeType ();
   const std::string &name (void) const;
   const std::string &alias (void) const;
   int depth (void) const;
