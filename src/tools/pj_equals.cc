@@ -18,6 +18,7 @@
 #include "omp.h"
 #endif
 #include "PajeUnity.h"
+#include "PajeException.h"
 #include <argp.h>
 #include "libpaje_config.h"
 
@@ -250,17 +251,29 @@ main(int argc, char **argv)
 #pragma omp section
 #endif
     {
-      s1 = new PajeUnity(arguments.flex, !arguments.noStrict,
-          std::string(arguments.input[0]), arguments.stopat1,
-			 arguments.ignoreIncompleteLinks, 0, false, false, false, false, false);
+      try {
+	s1 = new PajeUnity(arguments.flex, !arguments.noStrict,
+			   std::string(arguments.input[0]), arguments.stopat1,
+			   arguments.ignoreIncompleteLinks, 0, false, false, false, false, false);
+      }catch (PajeException &e){
+	e.report();
+	fprintf(stderr, "%s, error during the parsing of the input file %s\n", argv[0], arguments.input[0]);
+	return 1;
+      }
     }
 #if defined(OPENMP)
 #pragma omp section
 #endif
     {
-      s2 = new PajeUnity(arguments.flex, !arguments.noStrict,
-          std::string(arguments.input[1]), arguments.stopat2,
-			 arguments.ignoreIncompleteLinks, 0, false, false, false, false, false);
+      try {
+	s2 = new PajeUnity(arguments.flex, !arguments.noStrict,
+			   std::string(arguments.input[1]), arguments.stopat2,
+			   arguments.ignoreIncompleteLinks, 0, false, false, false, false, false);
+      }catch (PajeException &e){
+	e.report();
+	fprintf(stderr, "%s, error during the parsing of the input file %s\n", argv[0], arguments.input[1]);
+	return 1;
+      }
     }
   }
 

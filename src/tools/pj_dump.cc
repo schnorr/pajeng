@@ -20,6 +20,7 @@
 #include <iomanip>
 #include <exception>
 #include "PajeUnity.h"
+#include "PajeException.h"
 #include <argp.h>
 #include "libpaje_config.h"
 
@@ -328,17 +329,24 @@ int main (int argc, char **argv)
     return 1;
   }
 
-  PajeUnity *unity = new PajeUnity (arguments.flex,
-				    !arguments.noStrict,
-				    arguments.input ? std::string(arguments.input) : std::string(),
-				    arguments.stopat,
-				    arguments.ignoreIncompleteLinks,
-				    arguments.probabilistic,
-                                    arguments.noImbrication,
-				    arguments.userDefined,
-				    arguments.outofcore,
-				    arguments.entityHierarchy,
-				    arguments.quiet);
+  PajeUnity *unity;
+  try {
+    unity = new PajeUnity (arguments.flex,
+			   !arguments.noStrict,
+			   arguments.input ? std::string(arguments.input) : std::string(),
+			   arguments.stopat,
+			   arguments.ignoreIncompleteLinks,
+			   arguments.probabilistic,
+			   arguments.noImbrication,
+			   arguments.userDefined,
+			   arguments.outofcore,
+			   arguments.entityHierarchy,
+			   arguments.quiet);
+  } catch (PajeException &e) {
+    e.report();
+    fprintf(stderr, "%s, error during the parsing of the input file\n", argv[0]);
+    return 1;
+  }
 
   if (arguments.time){
     printf ("%f\n", unity->getTime());
