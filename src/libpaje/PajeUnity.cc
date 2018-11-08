@@ -63,60 +63,52 @@ PajeUnity::PajeUnity (bool flexReader,
   //the global PajeDefinitions object
   definitions = new PajeDefinitions (strictHeader);
  
-  try {
-    //alloc reader
-    if (flexReader){
-      if (tracefilename.empty()){
-	reader = new PajeFlexReader(definitions);
-      }else{
-	reader = new PajeFlexReader(tracefilename, definitions);
-      }
+  //alloc reader
+  if (flexReader){
+    if (tracefilename.empty()){
+      reader = new PajeFlexReader(definitions);
     }else{
-      if (tracefilename.empty()){
-	reader = new PajeFileReader();
-      }else{
-        reader = new PajeFileReader (tracefilename);
-      }
+      reader = new PajeFlexReader(tracefilename, definitions);
     }
-
-    //alloc decoder and simulator
-    if (!flexReader){
-      decoder = new PajeEventDecoder(definitions);
-    }
-    if (probabilistic){
-      simulator = new PajeProbabilisticSimulator (probabilistic);
+  }else{
+    if (tracefilename.empty()){
+      reader = new PajeFileReader();
     }else{
-      simulator = new PajeSimulator (stopat, ignoreIncompleteLinks, noImbrication);
+      reader = new PajeFileReader (tracefilename);
     }
-
-
-    //connect components
-    if (flexReader){
-      reader->setOutputComponent (simulator);
-      simulator->setInputComponent (reader);
-    }else{
-      reader->setOutputComponent (decoder);
-      decoder->setInputComponent (reader);
-      decoder->setOutputComponent (simulator);
-      simulator->setInputComponent (decoder);
-    }
-    simulator->setOutputComponent (this);
-    this->setInputComponent (simulator);
-  }catch (PajeException& e){
-    e.reportAndExit ();
   }
+
+  //alloc decoder and simulator
+  if (!flexReader){
+    decoder = new PajeEventDecoder(definitions);
+  }
+  if (probabilistic){
+    simulator = new PajeProbabilisticSimulator (probabilistic);
+  }else{
+    simulator = new PajeSimulator (stopat, ignoreIncompleteLinks, noImbrication);
+  }
+
+
+  //connect components
+  if (flexReader){
+    reader->setOutputComponent (simulator);
+    simulator->setInputComponent (reader);
+  }else{
+    reader->setOutputComponent (decoder);
+    decoder->setInputComponent (reader);
+    decoder->setOutputComponent (simulator);
+    simulator->setInputComponent (decoder);
+  }
+  simulator->setOutputComponent (this);
+  this->setInputComponent (simulator);
 
   //read and simulate
   t1 = gettime();
-  try {
-    reader->startReading ();
-    while (reader->hasMoreData() && simulator->keepSimulating()){
-      reader->readNextChunk ();
-    }
-    reader->finishedReading ();
-  }catch (PajeException& e){
-    e.reportAndExit();
+  reader->startReading ();
+  while (reader->hasMoreData() && simulator->keepSimulating()){
+    reader->readNextChunk ();
   }
+  reader->finishedReading ();
   t2 = gettime();
 }
 
