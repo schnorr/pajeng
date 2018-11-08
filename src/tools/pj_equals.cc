@@ -240,8 +240,8 @@ main(int argc, char **argv)
     fprintf(stderr, "%s, error during the parsing of parameters\n", argv[0]);
     exit(2);
   }
-  PajeUnity *s1;
-  PajeUnity *s2;
+  PajeUnity *s1 = NULL;
+  PajeUnity *s2 = NULL;
 #if defined(OPENMP)
 #pragma omp parallel sections num_threads(2)
 #endif
