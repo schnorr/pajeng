@@ -14,8 +14,6 @@
 # along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 PROJECT(pajeng)
-# The following line should be deleted in some Ubuntu releases
-cmake_policy(SET CMP0050 OLD)
 enable_testing()
 SET(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release" FORCE)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
