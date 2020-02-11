@@ -238,7 +238,7 @@ main(int argc, char **argv)
   arguments.start1 = arguments.end1 = arguments.stopat1 = -1;
   arguments.start2 = arguments.end2 = arguments.stopat2 = -1;
   if (argp_parse (&argp, argc, argv, 0, 0, &arguments) == ARGP_KEY_ERROR){
-    fprintf(stderr, "%s, error during the parsing of parameters\n", argv[0]);
+    fprintf(stderr, "Error during the parsing of parameters\n");
     exit(2);
   }
   PajeUnity *s1 = NULL;
@@ -257,7 +257,7 @@ main(int argc, char **argv)
 			   arguments.ignoreIncompleteLinks, 0, false, false, false, false, false);
       }catch (PajeException &e){
 	e.report();
-	fprintf(stderr, "%s, error during the parsing of the input file %s\n", argv[0], arguments.input[0]);
+	fprintf(stderr, "Error during the parsing of the input file\n");
 	return 1;
       }
     }

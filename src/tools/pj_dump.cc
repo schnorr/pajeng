@@ -325,7 +325,7 @@ int main (int argc, char **argv)
   bzero (&arguments, sizeof(struct arguments));
   arguments.start = arguments.end = arguments.stopat = -1;
   if (argp_parse (&argp, argc, argv, 0, 0, &arguments) == ARGP_KEY_ERROR){
-    fprintf(stderr, "%s, error during the parsing of parameters\n", argv[0]);
+    fprintf(stderr, "Error during the parsing of parameters\n");
     return 1;
   }
 
@@ -344,7 +344,7 @@ int main (int argc, char **argv)
 			   arguments.quiet);
   } catch (PajeException &e) {
     e.report();
-    fprintf(stderr, "%s, error during the parsing of the input file\n", argv[0]);
+    fprintf(stderr, "Error during the parsing of the input file\n");
     return 1;
   }
 
