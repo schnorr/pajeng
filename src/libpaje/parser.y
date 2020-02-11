@@ -117,7 +117,7 @@
 %type<eventCode> event_id;
 %type<argument_data> argument;
 
-%error-verbose
+%define parse.error verbose
 %right TK_INT
 
 %%
