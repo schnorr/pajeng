@@ -16,3 +16,4 @@ $ ./pj_dump ../traces/native_paje.trace
 ! expect return 1
 $ ./pj_dump -n ../traces/native_paje.trace
 > PajeSimulationException: Illegal, trace is not time-ordered in (Line: 1936, Fields: '5, Contents: '13 4103.658751000 sched nready 1.000000')
+> Error during the parsing of the input file
