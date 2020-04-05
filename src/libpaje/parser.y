@@ -37,6 +37,7 @@
   static void lineDef (int identifier);
   static void lineAdd (char *str);
   static void lineSend ();
+  void paje_bison_parser_free();
 
   PajeEventDefinition **defsv;
   int defsv_current_size;
@@ -222,4 +223,12 @@ static void lineSend ()
   flexReader->outputEntity (event);
   delete event;
   event = NULL;
+}
+
+void paje_bison_parser_free (void)
+{
+  for (int i = 0; i < defsv_current_size; i++){
+    delete defsv[i];
+  }
+  free(defsv);
 }

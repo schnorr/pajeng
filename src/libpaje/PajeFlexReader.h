@@ -25,6 +25,7 @@ extern "C"
   int yylex_destroy(void);
   void yyerror (char const *mensagem);
   int yyparse ();
+  void paje_bison_parser_free();
   extern char *yytext;
   extern int yyleng;
   extern int yychar;

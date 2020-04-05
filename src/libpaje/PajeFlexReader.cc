@@ -59,7 +59,9 @@ void PajeFlexReader::readNextChunk()
 
 PajeFlexReader::~PajeFlexReader()
 {
+  fclose(yyin);
   yylex_destroy();
+  paje_bison_parser_free();
 }
 
 void PajeFlexReader::closeReading (void)
