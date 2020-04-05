@@ -22,6 +22,7 @@ extern "C"
 {
   extern int yylineno;
   int yylex(void);
+  int yylex_destroy(void);
   void yyerror (char const *mensagem);
   int yyparse ();
   extern char *yytext;

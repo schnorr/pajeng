@@ -20,6 +20,7 @@
 #include "parser.hh"
 
 extern "C" int yylex();
+extern "C" int yylex_destroy();
 %}
 
 %option yylineno
