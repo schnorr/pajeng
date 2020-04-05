@@ -60,8 +60,6 @@ void PajeFlexReader::readNextChunk()
 PajeFlexReader::~PajeFlexReader()
 {
   yylex_destroy();
-  /* print number of events */
-  printf ("%lld events and %lld lines\n", counter, yylineno);
 }
 
 void PajeFlexReader::closeReading (void)
