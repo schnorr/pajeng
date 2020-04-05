@@ -17,6 +17,15 @@
 #ifndef __PAJEOBJECT_H__
 #define __PAJEOBJECT_H__
 #include <iostream>
+#include <math.h>
+
+/* time comparison functions */
+/* see https://stackoverflow.com/questions/17333/what-is-the-most-effective-way-for-float-and-double-comparison */
+#define PAJE_DEFAULT_EPSILON 1E-09
+bool approximatelyEqual(double a, double b, double epsilon = PAJE_DEFAULT_EPSILON);
+bool essentiallyEqual(double a, double b, double epsilon = PAJE_DEFAULT_EPSILON);
+bool definitelyGreaterThan(double a, double b, double epsilon = PAJE_DEFAULT_EPSILON);
+bool definitelyLessThan(double a, double b, double epsilon = PAJE_DEFAULT_EPSILON);
 
 /* abstract class for all Paje objects */
 class PajeVirtualObject {

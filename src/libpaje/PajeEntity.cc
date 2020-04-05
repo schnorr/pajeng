@@ -274,7 +274,8 @@ double PajeDoubleTimedEntity::lastTime (void) const
 
 double PajeDoubleTimedEntity::duration (void) const
 {
-  if (endTime() >= 0 && startTime() >= 0){
+  if ((definitelyGreaterThan(endTime(), 0.0) || endTime() == 0) &&
+      (definitelyGreaterThan(startTime(), 0.0) || startTime() == 0)){
     return endTime() - startTime();
   }else{
     return 0;

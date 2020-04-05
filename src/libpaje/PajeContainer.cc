@@ -135,8 +135,8 @@ bool PajeContainer::isAncestorOf (PajeContainer *c)
 
 bool PajeContainer::keepSimulating (void)
 {
-  if (stopSimulationAtTime != -1){
-    if (endTime() < stopSimulationAtTime){
+  if (!essentiallyEqual(stopSimulationAtTime, -1)){
+    if (definitelyLessThan(endTime(), stopSimulationAtTime)){
       return true;
     }
   }
@@ -222,7 +222,7 @@ void PajeContainer::demuxer (PajeEvent *event)
   PajeEventId eventId = event->traceEvent()->pajeEventId();
   if (eventId == PajeDestroyContainerEventId){
     //check time ordering for container
-    if (event->time() < endTime()){
+    if (definitelyLessThan(event->time(), endTime())){
       PajeTraceEvent *traceEvent = event->traceEvent();
       std::stringstream eventdesc;
       eventdesc << *traceEvent;
@@ -394,7 +394,7 @@ void PajeContainer::pajeSetVariable (PajeEvent *event)
   }
   if (last){
     checkTimeOrder (event);
-    if (last->startTime() == time){
+    if (essentiallyEqual(last->startTime(), time)){
       //only update last value
       last->setDoubleValue (value);
       return;
@@ -427,7 +427,7 @@ void PajeContainer::pajeAddVariable (PajeEvent *event)
   if (entities.count(type)){
     if (!entities[type].empty()){
       PajeEntity *last = entities[type].back();
-      if (last->startTime() == time){
+      if (essentiallyEqual(last->startTime(), time)){
         //only update last value
         last->addDoubleValue (value);
         return;
@@ -461,7 +461,7 @@ void PajeContainer::pajeSubVariable (PajeEvent *event)
   if (entities.count(type)){
     if (!entities[type].empty()){
       PajeEntity *last = entities[type].back();
-      if (last->startTime() == time){
+      if (essentiallyEqual(last->startTime(), time)){
         //only update last value
         last->subtractDoubleValue (value);
         return;
@@ -750,8 +750,8 @@ bool PajeContainer::checkTimeOrder (double time, PajeType *type, PajeTraceEvent 
   std::vector<PajeEntity*> *v = &entities[type];
   if (!v->empty()){
     PajeEntity *last = entities[type].back();
-    if ( (last && last->startTime() > time) ||
-         (last && last->endTime() != -1 && last->endTime() > time)){
+    if ( (last && (definitelyGreaterThan(last->startTime(), time))) ||
+         (last && (!essentiallyEqual(last->endTime(), -1)) && (definitelyGreaterThan(last->endTime(), time)))){
       std::stringstream eventdesc;
       eventdesc << *traceEvent;
       throw PajeSimulationException ("Illegal, trace is not time-ordered in "+eventdesc.str());
@@ -808,7 +808,7 @@ void PajeContainer::destroy (double time)
   for (it1 = entities.begin(); it1 != entities.end(); it1++){
     if (!(*it1).second.empty()){
       PajeEntity *last = ((*it1).second).back();
-      if (last->endTime() == -1){
+      if (essentiallyEqual(last->endTime(), -1)){
         last->setEndTime (time);
       }
     }
