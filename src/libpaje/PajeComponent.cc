@@ -21,6 +21,10 @@ PajeComponent::PajeComponent (void)
   inputComponent = NULL;
 }
 
+PajeComponent::~PajeComponent (void)
+{
+}
+
 void PajeComponent::setInputComponent (PajeComponent *component)
 {
   inputComponent = component;

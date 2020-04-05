@@ -33,6 +33,7 @@ private:
 
 public:
   PajeComponent (void);
+  virtual ~PajeComponent (void);
 
   void setInputComponent (PajeComponent *component);
   void setOutputComponent (PajeComponent *component);
