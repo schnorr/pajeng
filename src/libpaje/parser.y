@@ -217,6 +217,7 @@ static void lineAdd (char *str)
 
 static void lineSend ()
 {
+  event->setTime ();
   if (!event->check (NULL)) exit(1);
   flexReader->outputEntity (event);
   delete event;
