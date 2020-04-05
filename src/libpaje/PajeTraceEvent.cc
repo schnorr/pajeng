@@ -53,14 +53,7 @@ PajeTraceEvent::PajeTraceEvent (PajeEventDefinition *def, paje_line *line)
   pajeEventDefinition = def;
   this->line = line->lineNumber;
   this->check (line);
-  std::string timestr = valueForField (PAJE_Time);
-  if (timestr.length()){
-    const char *cstr = timestr.c_str();
-    const char *cstr_end = cstr + strlen(cstr);
-    time_ = parse(cstr, cstr_end);
-  }else{
-    PajeSimulationException ("Can't get time from trace event.");
-  }
+  setTime();
 }
 
 PajeTraceEvent::~PajeTraceEvent ()
@@ -158,6 +151,18 @@ void PajeTraceEvent::setDefinition (PajeEventDefinition *def)
 double PajeTraceEvent::time (void)
 {
   return time_;
+}
+
+void PajeTraceEvent::setTime ()
+{
+  std::string timestr = valueForField (PAJE_Time);
+  if (timestr.length()){
+    const char *cstr = timestr.c_str();
+    const char *cstr_end = cstr + strlen(cstr);
+    time_ = parse(cstr, cstr_end);
+  }else{
+    PajeSimulationException ("Can't get time from trace event.");
+  }
 }
 
 std::ostream &operator<< (std::ostream &output, const PajeTraceEvent &event)

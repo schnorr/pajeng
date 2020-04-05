@@ -50,6 +50,7 @@ public:
   PajeEventDefinition *definition (void);
   void setDefinition (PajeEventDefinition *def);
   double time ();
+  void setTime ();
 };
 
 std::ostream &operator<< (std::ostream &output, const PajeTraceEvent &event);
