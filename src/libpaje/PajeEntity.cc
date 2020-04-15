@@ -539,7 +539,7 @@ bool PajeUserLink::isComplete (void) const
 	  !mkey.empty());
 }
 
-std::string PajeUserLink::key (void)
+std::string PajeUserLink::key (void) const
 {
   return mkey;
 }

@@ -247,7 +247,7 @@ public:
   PajeContainer *startContainer (void) const;
   PajeContainer *endContainer (void) const;
   bool isComplete (void) const;
-  std::string key (void);
+  std::string key (void) const;
 };
 
 #include "PajeContainer.h"
