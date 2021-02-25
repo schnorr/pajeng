@@ -74,7 +74,7 @@ outputFile = paste (inputFilename, "-", stateType, "-", startTime, "-", endTime,
 pdf(outputFile);
 
 library(ggplot2);
-p <- ggplot(df, aes(x=Start,xend=End, y=factor(ResourceId),yend=factor(ResourceId), color=Value)) + theme_bw() + geom_segment(size=4);
+p <- ggplot(df, aes(xmin=Start,xmax=End, ymin=as.integer(factor(ResourceId)),ymax=as.integer(factor(ResourceId))+0.9, fill=Value)) + theme_bw() + geom_rect(color="black");
 print(p);
 dev.off();
 print(outputFile);
