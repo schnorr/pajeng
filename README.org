@@ -1,0 +1,27 @@
+* PajeNG - Trace Visualization Tool
+
+PajeNG (Paje Next Generation) is a re-implementation (in C++) and
+direct heir of the well-known [[http://paje.sf.net][Paje visualization tool]] for the analysis
+of execution traces (in the [[http://paje.sourceforge.net/download/publication/lang-paje.pdf][Paje File Format]]) through trace
+visualization (space/time view).  The tool is released under the [[http://www.gnu.org/licenses/gpl.html][GNU
+General Public License 3]]. PajeNG comprises the __libpaje__ library, and
+an auxiliary tool to transform Paje trace files to CSV called
+__pj_dump__. This tool also serves to validate the contents of a Paje
+trace file. The space-time visualization tool called __pajeng__ is
+deprecated (removed from the sources) since modern tools do a better
+job (see __pj_gantt__, for instance, or take a more general approach
+using R+ggplot2 to visualize the output of __pj_dump__). This effort was
+started as part of the french [[http://infra-songs.gforge.inria.fr/][INFRA-SONGS ANR project]]. Development has
+continued through a collaboration between [[http://www.inf.ufrgs.br/en/][INF/UFRGS]] (Brazil) and [[https://www.inria.fr/][Inria]]
+(France).
+
+** Two-line Installation
+
+#+begin_src shell :results output :exports both
+sudo apt-get install git cmake build-essential libboost-dev asciidoc flex bison;
+git clone git://github.com/schnorr/pajeng.git ; mkdir -p pajeng/b ; cd pajeng/b ; cmake .. ; make install
+#+end_src
+
+** Detailed Installation and everything else
+
+[[https://github.com/schnorr/pajeng/wiki/][Check the PajeNG's wiki]].
