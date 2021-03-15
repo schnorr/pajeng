@@ -1,19 +1,18 @@
-* PajeNG - Trace Visualization Tool
+* PajeNG
 
-PajeNG (Paje Next Generation) is a re-implementation (in C++) and
-direct heir of the well-known [[http://paje.sf.net][Paje visualization tool]] for the analysis
-of execution traces (in the [[http://paje.sourceforge.net/download/publication/lang-paje.pdf][Paje File Format]]) through trace
-visualization (space/time view).  The tool is released under the [[http://www.gnu.org/licenses/gpl.html][GNU
+PajeNG (Paje Next Generation) is a re-implementation in C++ of the
+well-known [[http://paje.sf.net][Paje visualization tool]] for the analysis of execution
+traces (in the [[http://paje.sourceforge.net/download/publication/lang-paje.pdf][Paje File Format]]).  The tool is released under the [[http://www.gnu.org/licenses/gpl.html][GNU
 General Public License 3]]. PajeNG comprises the ~libpaje~ library, and an
-auxiliary tool to transform Paje trace files to CSV called
-~pj_dump~. This tool also serves to validate the contents of a Paje
-trace file. The space-time visualization tool called pajeng is
-deprecated (removed from the sources) since modern tools do a better
-job (see ~pj_gantt~, for instance, or take a more general approach using
-R+ggplot2 to visualize the output of ~pj_dump~). This effort was started
-as part of the french [[http://infra-songs.gforge.inria.fr/][INFRA-SONGS ANR project]]. Development has
-continued through a collaboration between [[http://www.inf.ufrgs.br/en/][INF/UFRGS]] (Brazil) and [[https://www.inria.fr/][Inria]]
-(France).
+auxiliary tool called ~pj_dump~ to transform Paje trace files to
+Comma-Separated Value (CSV). This dump tool also serves to validate
+the contents of a Paje trace file. The space-time visualization tool
+called pajeng had been deprecated (removed from the sources) since
+modern tools do a better job (see ~pj_gantt~, for instance, or take a
+more general approach using R+ggplot2 to visualize the output of
+~pj_dump~). This effort was started as part of the french [[http://infra-songs.gforge.inria.fr/][INFRA-SONGS
+ANR project]]. Development has continued through a collaboration between
+[[http://www.inf.ufrgs.br/en/][INF/UFRGS]] (Brazil) and [[https://www.inria.fr/][Inria]] (France).
 
 ** Two-line Installation
 
