@@ -846,12 +846,15 @@ void PajeContainer::recursiveClearCompleteEntities (std::ostream& output, bool d
     while (it != children.end()){
       PajeEntity *child = *it;
       if (child->isComplete()){
-	child->dump(output);
-	it = children.erase(it);
-	delete child;
+        child->dump(output);
+        it++;
+        delete child;
       }else{
-	break;
+        break;
       }
+    }
+    if(it != children.begin()){
+      children.erase(children.begin(), it);
     }
     entities[childEntity.first] = children;
   }
