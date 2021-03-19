@@ -151,9 +151,9 @@ bool PajeContainer::keepSimulating (void)
 
 std::string PajeContainer::descriptionHeader (void) const
 {
-  std::stringstream description;
-  description << "Container, Parent, Type, Start, End, Duration, Name";
-  return description.str();
+  std::string description;
+  description = "Container, Parent, Type, Start, End, Duration, Name";
+  return description;
 }
 
 std::string PajeContainer::description (void) const

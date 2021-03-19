@@ -15,12 +15,51 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include <iomanip>
+#ifdef PAJE_USE_FMT
+#include <fmt/printf.h>
+#else
+#include <boost/spirit/include/karma.hpp>
+#endif
 #include "PajeEntity.h"
 #include "PajeException.h"
 
 int _pajeng_user_defined;
 
 int dumpFloatingPointPrecision = 6;
+
+#ifndef PAJE_USE_FMT
+// For faster conversion of double to string
+template <typename T>
+struct precision_policy : boost::spirit::karma::real_policies<T>
+{
+  int floatfield(T n) const { return boost::spirit::karma::real_policies<T>::fmtflags::fixed; } // Always Fixed
+  bool trailing_zeros(T n) const{ return true; }
+
+  precision_policy(int prec):precision_(prec){}
+  int precision(T n) const { return precision_; }
+  int precision_;
+
+
+};
+#endif
+
+std::string ToStringFixedKarma(double d, const unsigned int width = 6)
+{
+#ifdef PAJE_USE_FMT
+  return fmt::format(FMT_STRING("{:.{}f}"), d, width);
+#else
+  using boost::spirit::karma::real_generator;
+  using boost::spirit::ascii::space;
+  using boost::spirit::karma::generate;
+
+  real_generator<double,precision_policy<double> > my_double_(width);
+
+  std::string s;
+  std::back_insert_iterator<std::string> sink(s);
+  generate(sink, my_double_, d);
+  return s;
+#endif
+}
 
 PajeEntity::PajeEntity (PajeContainer *container, PajeType *type, PajeTraceEvent *event)
 {
@@ -142,55 +181,60 @@ std::string PajeEntity::extraDescription (bool printComma) const
 {
   if (extraFields.size() == 0) return std::string();
 
-  std::stringstream description;
+  std::string description = "";
   if (printComma){
-    description << ", ";
+    description += ", ";
   }
   std::vector<std::string>::const_iterator it;
   for (it = extraFields.begin(); it != extraFields.end(); it++){
-    description << (*it);
+    description += (*it);
 
     //look forward to see if we ouput a comma
     it++;
     if (it != extraFields.end()){
-      description << ", ";
+      description += ", ";
     }
     it--;
   }
-  return description.str();
+
+  return description;
 }
 
 std::string PajeEntity::extraDescriptionHeader (bool printComma) const
 {
   if (extraFields.size() == 0) return std::string();
 
-  std::stringstream description;
+  std::string description = "";
   if (printComma){
-    description << ", ";
+    description += ", ";
   }
   std::vector<std::string>::const_iterator it;
   for (it = extraFieldsNames.begin(); it != extraFieldsNames.end(); it++){
-    description << (*it);
+    description += (*it);
 
     //look forward to see if we ouput a comma
     it++;
     if (it != extraFieldsNames.end()){
-      description << ", ";
+      description += ", ";
     }
     it--;
   }
-  return description.str();
+  return description;
 }
 
 void PajeEntity::dump (std::ostream& output) const
 {
   if (_pajeng_quiet) return;
   //output entity description
-  output << this->description();
+  std::string buffer = this->description();
+
   if (_pajeng_user_defined){
-    output << this->extraDescription(true);
+    buffer += this->extraDescription(true);
   }
-  output << std::endl;
+
+  buffer += "\n";
+  output << buffer;
+
 }
 
 /**************************************************************
@@ -343,21 +387,22 @@ PajeUserEvent::PajeUserEvent (PajeContainer *container, PajeType *type, double t
 
 std::string PajeUserEvent::descriptionHeader (void) const
 {
-  std::stringstream description;
-  description << "Event, Container, Variable, Value, Start, Value";
-  return description.str();
+  std::string description;
+  description = "Event, Container, Variable, Value, Start, Value";
+  return description;
 }
 
 std::string PajeUserEvent::description (void) const
 {
-  std::stringstream description;
-  description << (type()? type()->kind() : "NULL") << ", "
-              << (container()? container()->name() : "NULL") << ", "
-              << (type()? type()->name() : "NULL") << ", "
-              << std::fixed << std::setprecision(dumpFloatingPointPrecision)
-	      << startTime() << ", "
-              << (value()? value()->name() : "NULL");
-  return description.str();
+
+  std::string description = "";
+  description = (type()? type()->kind() : "NULL") + ", "
+              + (container()? container()->name() : "NULL") + ", "
+              + (type()? type()->name() : "NULL") + ", "
+              + ToStringFixedKarma(startTime(), dumpFloatingPointPrecision) + ", "
+              + (value()? value()->name() : "NULL");
+
+  return description;
 }
 
 PajeValue *PajeUserEvent::value (void) const
@@ -388,24 +433,25 @@ PajeUserState::PajeUserState (PajeContainer *container, PajeType *type, double s
 
 std::string PajeUserState::descriptionHeader (void) const
 {
-  std::stringstream description;
-  description << "State, Container, Type, Start, End, Duration, Imbrication, Value";
-  return description.str();
+  std::string description;
+  description = "State, Container, Type, Start, End, Duration, Imbrication, Value";
+  return description;
 }
 
 std::string PajeUserState::description (void) const
 {
-  std::stringstream description;
-  description << (type()? type()->kind() : "NULL") << ", "
-              << (container()? container()->name() : "NULL") << ", "
-              << (type()? type()->name() : "NULL") << ", "
-              << std::fixed << std::setprecision(dumpFloatingPointPrecision)
-	      << startTime() << ", "
-              << endTime() << ", "
-              << duration() << ", "
-              << imbrication << ", "
-              << (value()? value()->name() : "NULL");
-  return description.str();
+
+  std::string description = "";
+  description += (type()? type()->kind() : "NULL") + ", "
+              + (container()? container()->name() : "NULL") + ", "
+              + (type()? type()->name() : "NULL") + ", "
+              + ToStringFixedKarma(startTime(), dumpFloatingPointPrecision) + ", "
+              + ToStringFixedKarma(endTime(), dumpFloatingPointPrecision) + ", "
+              + ToStringFixedKarma(duration(), dumpFloatingPointPrecision) + ", "
+              + ToStringFixedKarma(imbrication, dumpFloatingPointPrecision) + ", "
+              + (value()? value()->name() : "NULL");
+
+  return description;
 }
 
 int PajeUserState::imbricationLevel (void) const
@@ -431,23 +477,24 @@ PajeUserVariable::PajeUserVariable (PajeContainer *container, PajeType *type, do
 
 std::string PajeUserVariable::descriptionHeader (void) const
 {
-  std::stringstream description;
-  description << "Variable, Container, Type, Start, End, Duration, Value";
-  return description.str();
+  std::string description;
+  description = "Variable, Container, Type, Start, End, Duration, Value";
+  return description;
 }
 
 std::string PajeUserVariable::description (void) const
 {
-  std::stringstream description;
-  description << (type()? type()->kind() : "NULL") << ", "
-              << (container()? container()->name() : "NULL") << ", "
-              << (type()? type()->name() : "NULL") << ", "
-              << std::fixed << std::setprecision(dumpFloatingPointPrecision)
-	      << startTime() << ", "
-              << endTime() << ", "
-              << duration() << ", "
-              << doubleValue();
-  return description.str();
+
+  std::string description = "";
+  description = (type()? type()->kind() : "NULL") + ", "
+              + (container()? container()->name() : "NULL") + ", "
+              + (type()? type()->name() : "NULL") + ", "
+              + ToStringFixedKarma(startTime(), dumpFloatingPointPrecision) + ", "
+              + ToStringFixedKarma(endTime(), dumpFloatingPointPrecision) + ", "
+              + ToStringFixedKarma(duration(), dumpFloatingPointPrecision) + ", "
+              + ToStringFixedKarma(doubleValue(), dumpFloatingPointPrecision);
+
+  return description;
 }
 
 double PajeUserVariable::doubleValue (void) const
@@ -489,26 +536,27 @@ PajeUserLink::PajeUserLink (PajeContainer *container, PajeType *type, double tim
 
 std::string PajeUserLink::descriptionHeader (void) const
 {
-  std::stringstream description;
-  description << "Link, Container, Type, Start, End, Duration, Value, StartContainer, EndContainer";
-  return description.str();
+  std::string description;
+  description = "Link, Container, Type, Start, End, Duration, Value, StartContainer, EndContainer";
+  return description;
 }
 
 std::string PajeUserLink::description (void) const
 {
-  std::stringstream description;
-  description << (type()? type()->kind() : "NULL") << ", "
-              << (container()? container()->name() : "NULL") << ", "
-              << (type()? type()->name() : "NULL") << ", "
-              << std::fixed << std::setprecision(dumpFloatingPointPrecision)
-	      << startTime() << ", "
-              << endTime() << ", "
-              << duration() << ", "
-              << (value()? value()->name() : "NULL") << ", "
-              << (startContainer()? startContainer()->name() : "NULL") << ", "
-              << (endContainer()? endContainer()->name() : "NULL") << ", "
-              << mkey;
-  return description.str();
+
+  std::string description = "";
+  description += (type()? type()->kind() : "NULL") + ", "
+              + (container()? container()->name() : "NULL") + ", "
+              + (type()? type()->name() : "NULL") + ", "
+              + ToStringFixedKarma(startTime(), dumpFloatingPointPrecision) + ", "
+              + ToStringFixedKarma(endTime(), dumpFloatingPointPrecision) + ", "
+              + ToStringFixedKarma(duration(), dumpFloatingPointPrecision) + ", "
+              + (value()? value()->name() : "NULL") + ", "
+              + (startContainer()? startContainer()->name() : "NULL") + ", "
+              + (endContainer()? endContainer()->name() : "NULL") + ", "
+              + mkey;
+
+  return description;
 }
 
 PajeContainer *PajeUserLink::startContainer (void) const

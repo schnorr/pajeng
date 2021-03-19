@@ -26,6 +26,7 @@ OPTION(PAJE_LIBRARY "The Paje library with all the basic components" ON)
 OPTION(PAJE_TOOLS     "Compile auxiliary tools (pj_dump, etc)" ON)
 OPTION(STATIC_LINKING "Static linking of auxiliary tools" OFF)
 OPTION(PAJE_DOC "The Paje Trace File documentation" OFF)
+OPTION(PAJE_USE_FMT "This option uses the FMT library for double-string conversion, if disabled, PajeNG will use boost::karma that presents slight different precision results" ON)
 
 add_subdirectory(src)
 if(PAJE_DOC)

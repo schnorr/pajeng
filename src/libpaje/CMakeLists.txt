@@ -16,6 +16,18 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 
 FIND_PACKAGE(FLEX REQUIRED)
 FIND_PACKAGE(BISON REQUIRED)
+
+IF(${PAJE_USE_FMT})
+FIND_PACKAGE(FMT QUIET)
+add_definitions("-DPAJE_USE_FMT")
+endif()
+
+IF(${PAJE_USE_FMT} AND NOT ${FMT_FOUND})
+  message( FATAL_ERROR "\nPackage FMT not found, try installing it (debian package: libfmt-dev).\
+ One option is to disable PAJE_USE_FMT, to fall back to boost::karma.\
+ However, boost::karma presents slight different precision results." )
+endif()
+
 FLEX_TARGET(scanner scanner.l ${CMAKE_CURRENT_BINARY_DIR}/lexer.cc COMPILE_FLAGS "-F")
 BISON_TARGET(parser parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.cc)
 
@@ -76,11 +88,17 @@ IF(STATIC_LINKING)
   # static library
   ADD_LIBRARY(paje_library_static STATIC ${LIBPAJE_SOURCES})
   TARGET_LINK_LIBRARIES(paje_library_static ${FLEX_LIBRARIES})
+IF(${PAJE_USE_FMT})
+  TARGET_LINK_LIBRARIES(paje_library_static fmt::fmt)
+ENDIF()
   SET_TARGET_PROPERTIES(paje_library_static PROPERTIES OUTPUT_NAME paje)
 ELSE(STATIC_LINKING)
   # shared library
   ADD_LIBRARY(paje_library SHARED ${LIBPAJE_SOURCES})
   TARGET_LINK_LIBRARIES(paje_library ${FLEX_LIBRARIES})
+IF(${PAJE_USE_FMT})
+  TARGET_LINK_LIBRARIES(paje_library fmt::fmt)
+ENDIF()
   SET_TARGET_PROPERTIES(paje_library PROPERTIES OUTPUT_NAME paje)
   SET_TARGET_PROPERTIES(paje_library PROPERTIES
     # bump when new function are added in the library
