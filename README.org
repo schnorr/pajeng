@@ -21,6 +21,17 @@ sudo apt-get install git cmake build-essential libboost-dev asciidoc flex bison;
 git clone git://github.com/schnorr/pajeng.git ; mkdir -p pajeng/b ; cd pajeng/b ; cmake .. ; make install
 #+end_src
 
+** Spack Installation
+   PajenNG is available at the [[https://github.com/spack/spack][Spack]] official repository. The
+   installation of PajeNG and all its dependencies is handled
+   automatically and without superuser permissions.
+
+#+begin_src shell :results output :exports both
+git clone https://github.com/spack/spack.git && cd spack
+./bin/spack install pajeng
+#+end_src
+
+
 ** Detailed Installation and everything else
 
 [[https://github.com/schnorr/pajeng/wiki/][Check the PajeNG's wiki]].
