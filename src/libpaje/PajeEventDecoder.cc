@@ -76,13 +76,16 @@ char *PajeEventDecoder::break_line (char *s, paje_line *line)
     }
     if (!in_word && !isspace(*p)) {
       if (*p == '"') {
-        p++;
         in_string = true;
       } else {
         in_word = true;
       }
       if (line->word_count < PAJE_MAX_FIELDS) {
-        line->word[line->word_count] = p;
+        if(in_string){
+          line->word[line->word_count] = p+1; //ignore "
+        }else{
+          line->word[line->word_count] = p;
+        }
         line->word_count ++;
       }
       continue;
