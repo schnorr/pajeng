@@ -596,7 +596,7 @@ std::vector<PajeEntity*> PajeContainer::enumeratorOfEntitiesTyped (double start,
 
   std::vector<PajeEntity*>::iterator low, up, it;
   low = lower_bound (entities[type].begin(), entities[type].end(), start, PajeEntity::PajeEntityCompare());
-  up = lower_bound (entities[type].begin(), entities[type].end(), end, PajeEntity::PajeEntityCompare());
+  up = upper_bound (entities[type].begin(), entities[type].end(), end, PajeEntity::PajeEntityCompare());
 
   if (low != entities[type].begin()){
     low--;

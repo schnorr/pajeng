@@ -100,6 +100,9 @@ public:
     bool operator() (PajeEntity *e, double t){
       return e->startTime() < t;
     }
+    bool operator() (double t, PajeEntity *e){
+      return t < e->endTime();
+    }
   };
 
   std::string extraDescription (bool printComma) const; //should always be called after description
