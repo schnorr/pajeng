@@ -12,8 +12,6 @@
 #
 # You should have received a copy of the GNU Public License
 # along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
-CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
-
 # The Paje Library (libpaje) 
 IF(PAJE_LIBRARY)
   add_subdirectory (${CMAKE_HOME_DIRECTORY}/src/libpaje/)

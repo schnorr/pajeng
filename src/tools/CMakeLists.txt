@@ -12,8 +12,6 @@
 #
 # You should have received a copy of the GNU Public License
 # along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
-CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
-
 IF(NOT PAJE_LIBRARY)
   MESSAGE(FATAL_ERROR "Enable PAJE_LIBRARY to compile paje tools")
 ENDIF(NOT PAJE_LIBRARY)
