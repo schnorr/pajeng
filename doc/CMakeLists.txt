@@ -1,27 +1,31 @@
-add_custom_target(man ALL)
 find_package(ASCIIDoc REQUIRED)
 
-foreach (_INPUT pj_equals.1.txt pj_dump.1.txt pj_gantt.1.txt)
-  string(REPLACE "." ";" LIST ${_INPUT})
-  list(REMOVE_ITEM LIST "txt")
-  list(GET LIST 0 1 VAR)
-  string(REGEX REPLACE ";" "." _OUTPUT "${VAR}")
+set(MAN_OUTPUTS "")
+
+foreach(_INPUT pj_equals.1.txt pj_dump.1.txt pj_gantt.1.txt)
+  # Remove only the .txt suffix → pj_equals.1
+  string(REGEX REPLACE "\\.txt$" "" _OUTPUT "${_INPUT}")
+
+  set(_SRC ${CMAKE_CURRENT_SOURCE_DIR}/${_INPUT})
+  set(_DST ${CMAKE_CURRENT_BINARY_DIR}/${_OUTPUT})
 
   add_custom_command(
-    TARGET man
-    DEPENDS  ${CMAKE_CURRENT_SOURCE_DIR}/${_INPUT}
-    COMMAND ${A2X_EXECUTABLE} --xsltproc-opts=--nonet --doctype manpage --format manpage ${CMAKE_CURRENT_SOURCE_DIR}/${_INPUT} -D ${CMAKE_CURRENT_BINARY_DIR}
-    OUTPUTS ${CMAKE_CURRENT_BINARY_DIR}/${_OUTPUT}
-    )
+    OUTPUT ${_DST}
+    COMMAND ${A2X_EXECUTABLE} --xsltproc-opts=--nonet
+                              --doctype manpage
+                              --format manpage
+                              ${_SRC}
+                              -D ${CMAKE_CURRENT_BINARY_DIR}
+    DEPENDS ${_SRC}
+    COMMENT "Generating man page ${_OUTPUT}"
+    VERBATIM
+  )
 
-  add_custom_command(
-    TARGET man
-    DEPENDS man
-    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${_OUTPUT}
-    )
+  list(APPEND MAN_OUTPUTS ${_DST})
 
-  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${_OUTPUT} DESTINATION ${CMAKE_INSTALL_PREFIX}/man/man1)
+  install(FILES ${_DST} DESTINATION ${CMAKE_INSTALL_PREFIX}/man/man1)
+endforeach()
 
-endforeach(_INPUT)
+add_custom_target(man ALL DEPENDS ${MAN_OUTPUTS})
 
 add_subdirectory (${CMAKE_HOME_DIRECTORY}/doc/lang-paje/)
