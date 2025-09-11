@@ -51,7 +51,6 @@ char *PajeEventDecoder::break_line (char *s, paje_line *line)
     }
     if (in_string) {
       if (*p == '"') {
-	p++;
         *p = '\0';
         in_string = false;
       }
@@ -82,7 +81,11 @@ char *PajeEventDecoder::break_line (char *s, paje_line *line)
         in_word = true;
       }
       if (line->word_count < PAJE_MAX_FIELDS) {
-	line->word[line->word_count] = p;
+        if(in_string){
+          line->word[line->word_count] = p+1; //ignore "
+        }else{
+          line->word[line->word_count] = p;
+        }
         line->word_count ++;
       }
       continue;
@@ -177,7 +180,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
       eventBeingDefined->addField (f, t, line->lineNumber);
     }
 
-
+    
   }
   break;
   default:
