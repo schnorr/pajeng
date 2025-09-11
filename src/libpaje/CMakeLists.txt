@@ -85,7 +85,7 @@ INCLUDE_DIRECTORIES(${CMAKE_HOME_DIRECTORY}/src/libpaje)
 IF(STATIC_LINKING)
   # static library
   ADD_LIBRARY(paje_library_static STATIC ${LIBPAJE_SOURCES})
-  TARGET_LINK_LIBRARIES(paje_library_static ${FLEX_LIBRARIES})
+  TARGET_LINK_LIBRARIES(paje_library_static PRIVATE ${FLEX_LIBRARIES})
 IF(${PAJE_USE_FMT})
   TARGET_LINK_LIBRARIES(paje_library_static PRIVATE fmt::fmt-header-only)
 ENDIF()
