@@ -9,14 +9,14 @@ foreach (_INPUT pj_equals.1.txt pj_dump.1.txt pj_gantt.1.txt)
 
   add_custom_command(
     TARGET man
-    SOURCE  ${CMAKE_CURRENT_SOURCE_DIR}/${_INPUT}
+    DEPENDS  ${CMAKE_CURRENT_SOURCE_DIR}/${_INPUT}
     COMMAND ${A2X_EXECUTABLE} --xsltproc-opts=--nonet --doctype manpage --format manpage ${CMAKE_CURRENT_SOURCE_DIR}/${_INPUT} -D ${CMAKE_CURRENT_BINARY_DIR}
     OUTPUTS ${CMAKE_CURRENT_BINARY_DIR}/${_OUTPUT}
     )
 
   add_custom_command(
     TARGET man
-    SOURCE man
+    DEPENDS man
     DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${_OUTPUT}
     )
 
