@@ -40,4 +40,4 @@ mark_as_advanced( ${__AsciiDoc_VARS} )
 
 # handle standard arguments
 include( FindPackageHandleStandardArgs )
-find_package_handle_standard_args( AsciiDoc DEFAULT_MSG ${__AsciiDoc_VARS} )
+find_package_handle_standard_args( ASCIIDoc DEFAULT_MSG ${__AsciiDoc_VARS} )
