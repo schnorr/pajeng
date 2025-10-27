@@ -77,7 +77,8 @@ private:
 
 public:
   PajeEntity (PajeContainer *container, PajeType *type, PajeTraceEvent *event);
-  ~PajeEntity (void);
+  // Add virtual destructor to prevent undefined behavior when deleting derived objects via base pointer
+  virtual ~PajeEntity (void);
   void addPajeTraceEvent (PajeTraceEvent *event);
   PajeContainer *container (void) const;
   PajeType *type (void) const;
