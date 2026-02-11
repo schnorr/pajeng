@@ -44,18 +44,20 @@ char *PajeEventDecoder::break_line (char *s, paje_line *line)
   line->lineNumber = currentLineNumber;
 
   for (p = s; *p != '\0'; p++) {
+
     if (*p == '\n') {
       *p = '\0';
       p++;
       break;
     }
+
     if (in_string) {
       if (*p == '"') {
-        *p = '\0';
         in_string = false;
       }
       continue;
     }
+
     if (*p == '#') {
       *p = '\0';
       while (true) {
@@ -69,28 +71,39 @@ char *PajeEventDecoder::break_line (char *s, paje_line *line)
       }
       break;
     }
+
     if (in_word && isspace(*p)) {
       *p = '\0';
       in_word = false;
       continue;
     }
+
+    if (!in_string && isspace(*p)) {
+      *p = '\0';
+      if(in_word){
+        in_word = false;
+      }
+      continue;
+    }
+
+
     if (!in_word && !isspace(*p)) {
       if (*p == '"') {
         in_string = true;
       } else {
         in_word = true;
       }
+
       if (line->word_count < PAJE_MAX_FIELDS) {
-        if(in_string){
-          line->word[line->word_count] = p+1; //ignore "
-        }else{
-          line->word[line->word_count] = p;
-        }
+        line->word[line->word_count] = p;
         line->word_count ++;
       }
+
       continue;
     }
+
   }
+
   return p;
 }
 
@@ -180,7 +193,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
       eventBeingDefined->addField (f, t, line->lineNumber);
     }
 
-    
+
   }
   break;
   default:
