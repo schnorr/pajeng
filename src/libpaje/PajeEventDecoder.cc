@@ -81,7 +81,7 @@ char *PajeEventDecoder::break_line (char *s, paje_line *line)
     if (!in_string && isspace(*p)) {
       *p = '\0';
       if(in_word){
-	in_word = false;
+        in_word = false;
       }
       continue;
     }
@@ -95,7 +95,7 @@ char *PajeEventDecoder::break_line (char *s, paje_line *line)
       }
 
       if (line->word_count < PAJE_MAX_FIELDS) {
-	line->word[line->word_count] = p;
+        line->word[line->word_count] = p;
         line->word_count ++;
       }
 
