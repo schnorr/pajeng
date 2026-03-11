@@ -165,7 +165,9 @@ std::vector<PajeValue*> PajeSimulator::valuesForEntityType (PajeType *type)
   PajeCategorizedType *catType = dynamic_cast<PajeCategorizedType*>(type);
   if (catType){
     std::pair<std::string,PajeValue*> val;
-    for (auto it = catType->values().begin(); it != catType->values().end(); ++it)
+    // Store the returned container to avoid dangling iterators from temporary
+    auto vals = catType->values();
+    for (auto it = vals.begin(); it != vals.end(); ++it)
       ret.push_back((std::pair<std::string, PajeValue*>(*it)).second);
   }
   return ret;

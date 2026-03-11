@@ -2,14 +2,14 @@
 
 $ ./pj_dump ../traces/replay_output_shurakai_extract.trace
 > Container, 0, 0, 0, 29.5381, 29.5381, 0
-> Container, 0, MPI, 0, 29.5381, 29.5381, rank-0
-> State, rank-0, MPI_STATE, 29.537220, 29.537220, 0.000000, 0.000000, action_Irecv
-> State, rank-0, MPI_STATE, 29.537225, 29.537242, 0.000017, 0.000000, action_wait
-> State, rank-0, MPI_STATE, 29.537254, 29.537274, 0.000020, 0.000000, action_allReduce
-> State, rank-0, MPI_STATE, 29.537539, 29.537539, 0.000000, 0.000000, action_Irecv
-> State, rank-0, MPI_STATE, 29.537544, 29.537544, 0.000000, 0.000000, action_wait
-> State, rank-0, MPI_STATE, 29.537559, 29.537575, 0.000016, 0.000000, action_allReduce
-> State, rank-0, MPI_STATE, 29.537827, 29.537827, 0.000000, 0.000000, action_Irecv
-> State, rank-0, MPI_STATE, 29.537832, 29.537882, 0.000050, 0.000000, action_wait
-> State, rank-0, MPI_STATE, 29.537900, 29.537916, 0.000016, 0.000000, action_allReduce
-> State, rank-0, MPI_STATE, 29.538086, 29.538086, 0.000000, 0.000000, smpi_replay_run_finalize
+> Container, 0, MPI, 0, 29.5381, 29.5381, "rank-0"
+> State, "rank-0", MPI_STATE, 29.537220, 29.537220, 0.000000, 0.000000, action_Irecv
+> State, "rank-0", MPI_STATE, 29.537225, 29.537242, 0.000017, 0.000000, action_wait
+> State, "rank-0", MPI_STATE, 29.537254, 29.537274, 0.000020, 0.000000, action_allReduce
+> State, "rank-0", MPI_STATE, 29.537539, 29.537539, 0.000000, 0.000000, action_Irecv
+> State, "rank-0", MPI_STATE, 29.537544, 29.537544, 0.000000, 0.000000, action_wait
+> State, "rank-0", MPI_STATE, 29.537559, 29.537575, 0.000016, 0.000000, action_allReduce
+> State, "rank-0", MPI_STATE, 29.537827, 29.537827, 0.000000, 0.000000, action_Irecv
+> State, "rank-0", MPI_STATE, 29.537832, 29.537882, 0.000050, 0.000000, action_wait
+> State, "rank-0", MPI_STATE, 29.537900, 29.537916, 0.000016, 0.000000, action_allReduce
+> State, "rank-0", MPI_STATE, 29.538086, 29.538086, 0.000000, 0.000000, smpi_replay_run_finalize

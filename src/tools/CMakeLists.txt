@@ -42,7 +42,12 @@ INCLUDE_DIRECTORIES (pj_equals ${PROJECT_SOURCE_DIR}/src/libpaje/)
 INCLUDE_DIRECTORIES(${pajeng_SOURCE_DIR}/src/fb/)
 include_directories(${CMAKE_BINARY_DIR})
 # FIXME check for libgomp / OpenMP support
-set_target_properties(pj_equals PROPERTIES COMPILE_FLAGS "-fopenmp")
+IF(APPLE)
+  set_target_properties(pj_equals PROPERTIES COMPILE_FLAGS "-Xpreprocessor -fopenmp")
+  TARGET_LINK_LIBRARIES(pj_equals omp)
+ELSE()
+  set_target_properties(pj_equals PROPERTIES COMPILE_FLAGS "-fopenmp")
+ENDIF()
 
 IF(STATIC_LINKING)
   TARGET_LINK_LIBRARIES(pj_equals paje_library_static)
