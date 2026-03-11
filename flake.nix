@@ -13,8 +13,8 @@
         {
             packages.pajeng = pkgs.stdenv.mkDerivation (finalAttrs: {
                 pname = "pajeng";
-                system = "x86_64-linux";
                 version = "1.3.10";
+                inherit system;
 
                 src = ./.;
 
