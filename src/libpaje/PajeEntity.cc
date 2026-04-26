@@ -388,7 +388,7 @@ PajeUserEvent::PajeUserEvent (PajeContainer *container, PajeType *type, double t
 std::string PajeUserEvent::descriptionHeader (void) const
 {
   std::string description;
-  description = "Event, Container, Variable, Value, Start, Value";
+  description = "Event, Container, Type, Time, Value";
   return description;
 }
 
