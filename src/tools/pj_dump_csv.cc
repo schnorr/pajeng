@@ -30,11 +30,12 @@ extern int dumpFloatingPointPrecision;
 static char doc[] = "Dumps FILE in five separate CSV files, one per entity nature "
                     "(Container, State, Variable, Event, Link). "
                     "Output files are named PREFIX.container.csv, PREFIX.state.csv, "
-                    "PREFIX.variable.csv, PREFIX.event.csv, PREFIX.link.csv.";
+                    "PREFIX.variable.csv, PREFIX.event.csv, PREFIX.link.csv. "
+                    "PREFIX defaults to FILE; it is required when reading from stdin.";
 static char args_doc[] = "[FILE]";
 
 static struct argp_option options[] = {
-  {"prefix",                  'p', "PREFIX", 0, "Prefix for output CSV files (required)"},
+  {"prefix",                  'p', "PREFIX", 0, "Prefix for output CSV files (default: FILE)"},
   {"start",                   's', "START",  0, "Dump starts at timestamp START (instead of 0)"},
   {"end",                     'e', "END",    0, "Dump ends at timestamp END (instead of EOF)"},
   {"stop-at",                 'a', "TIME",   0, "Stop the trace simulation at TIME"},
@@ -79,7 +80,10 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
     break;
   case ARGP_KEY_END:
     if (arguments->prefix == NULL) {
-      argp_error (state, "A --prefix is required.");
+      if (arguments->input == NULL) {
+        argp_error (state, "A --prefix is required when reading from stdin.");
+      }
+      arguments->prefix = arguments->input;
     }
     break;
   default: return ARGP_ERR_UNKNOWN;
