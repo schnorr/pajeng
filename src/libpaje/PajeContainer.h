@@ -25,6 +25,11 @@
 #include "PajeEvent.h"
 #include "PajeEntity.h"
 
+// Defined in PajeSimulator.cc; declared here so every user of it
+// sees the same type (it was once declared as int, reading 4 bytes
+// from a 1-byte bool).
+extern bool ignoreIncompleteLinks;
+
 class PajeContainer;
 class PajeEvent;
 

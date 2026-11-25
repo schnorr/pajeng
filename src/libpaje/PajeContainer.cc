@@ -17,8 +17,6 @@
 #include "PajeContainer.h"
 #include "PajeException.h"
 
-extern int ignoreIncompleteLinks;
-
 #define CALL_MEMBER_PAJE_CONTAINER(object,ptr) ((object).*(ptr))
 
 PajeContainer::PajeContainer (double time, std::string name, std::string alias, PajeContainer *parent, PajeType *type, PajeTraceEvent *event)
