@@ -21,9 +21,13 @@
 
 extern "C" int yylex();
 extern "C" int yylex_destroy();
+
+/* 8bit: traces may contain non-ASCII bytes (e.g. UTF-8 in comments),
+   and flex builds 7-bit scanners by default with -F (-CF tables). */
 %}
 
 %option yylineno
+%option 8bit
 
 SPACE  [\ \t\r]
 LETTER [^\ \t\r\n]

@@ -1,0 +1,13 @@
+#!./tesh
+
+# Non-ASCII bytes (here UTF-8, in comments) must not disturb the flex
+# reader: it used to drop the whole gattaca trace silently, and to
+# loop forever on the (fuzzer-found) flex_non_ascii_eof trace.
+$ sh -c "./pj_dump ../traces/gattaca.trace > default.csv; ./pj_dump --flex ../traces/gattaca.trace > flex.csv; cmp default.csv flex.csv && wc -l < default.csv"
+> 12
+
+$ rm default.csv flex.csv
+
+! timeout 10
+! output ignore
+$ ./pj_dump --flex ../traces/flex_non_ascii_eof.trace
