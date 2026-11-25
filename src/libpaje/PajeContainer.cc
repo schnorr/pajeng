@@ -835,7 +835,7 @@ void PajeContainer::destroy (double time)
 }
 
 
-void PajeContainer::recursiveClearCompleteEntities (std::ostream& output, bool deleteCompleteContainer)
+void PajeContainer::recursiveClearCompleteEntities (std::ostream& output, bool releaseCompleteContainers)
 {
   //clear local complete entities
   for (auto const &childEntity : entities){
@@ -860,7 +860,7 @@ void PajeContainer::recursiveClearCompleteEntities (std::ostream& output, bool d
   //recurse in children
   for(auto const &child : children) {
     PajeContainer *child_container = (child.second);
-    child_container->recursiveClearCompleteEntities(output, deleteCompleteContainer);
+    child_container->recursiveClearCompleteEntities(output, releaseCompleteContainers);
   }
 
   //dump complete sub-containers
@@ -873,17 +873,41 @@ void PajeContainer::recursiveClearCompleteEntities (std::ostream& output, bool d
     it++;
   }
 
-  //delete complete sub-containers
-  if (deleteCompleteContainer){
-    std::map<std::string,PajeContainer*>::iterator it = children.begin();
-    while (it != children.end()){
-      PajeContainer *subcontainer = (*it).second;
+  //release the simulation state of complete sub-containers. The
+  //container objects themselves are kept: the simulator maps
+  //(contMap, contNamesMap) and links of other containers
+  //(start/end container) still point to them.
+  if (releaseCompleteContainers){
+    for (auto const &child : children){
+      PajeContainer *subcontainer = child.second;
       if (subcontainer->isComplete()){
-	it = children.erase(it);
-	delete subcontainer;
-      }else{
-	it++;
+        subcontainer->releaseSimulationState();
       }
+    }
+  }
+}
+
+void PajeContainer::releaseSimulationState (void)
+{
+  //a destroyed container ignores further events, so its simulation
+  //structures are no longer needed. Pending links can only remain
+  //here when incomplete links are ignored; they are never dumped.
+  for (auto const &pending : pendingLinks){
+    for (auto const &link : pending.second){
+      delete link.second;
+    }
+  }
+  pendingLinks.clear();
+  linksUsedKeys.clear();
+  stackStates.clear();
+
+  //drop the per-type vectors already emptied by the out-of-core dump
+  std::map<PajeType*,std::vector<PajeEntity*> >::iterator it = entities.begin();
+  while (it != entities.end()){
+    if (it->second.empty()){
+      it = entities.erase(it);
+    }else{
+      it++;
     }
   }
 }

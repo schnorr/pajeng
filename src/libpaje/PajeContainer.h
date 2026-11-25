@@ -123,8 +123,9 @@ private:
 
 private:
   bool dumped;
+  void releaseSimulationState (void);
 public:
-  void recursiveClearCompleteEntities (std::ostream& output, bool deleteCompleteContainer);
+  void recursiveClearCompleteEntities (std::ostream& output, bool releaseCompleteContainers);
   void dump (std::ostream& output);
 };
 
