@@ -129,7 +129,6 @@ static const char *getDotShape (PajeTypeNature nature)
     return "point";
 
   }
-  return NULL;
 }
 
 void PajeSimulator::reportDotFormat (void)
