@@ -15,6 +15,7 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeData.h"
+#include <new>
 
 PajeData::PajeData (int capacity)
 {
@@ -31,5 +32,9 @@ PajeData::~PajeData (void)
 void PajeData::increaseCapacityOf (int additionalCapacity)
 {
   this->capacity += additionalCapacity;
-  this->bytes = (char*) realloc (this->bytes, capacity * sizeof(char));
+  char *tmp = (char*) realloc (this->bytes, capacity * sizeof(char));
+  if (!tmp){
+    throw std::bad_alloc();
+  }
+  this->bytes = tmp;
 }
