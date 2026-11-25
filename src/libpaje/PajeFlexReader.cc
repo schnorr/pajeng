@@ -27,17 +27,16 @@ extern FILE *yyin;
 
 PajeFlexReader::PajeFlexReader(std::string f, PajeDefinitions *definitions)
 {
-  yyin = fopen (f.c_str(), "r");
-  if (yyin == NULL){
+  file = fopen (f.c_str(), "r");
+  if (file == NULL){
     throw PajeFileReadException (f);
   }
-  openedFile = true;
   initialize (definitions);
 }
 
 PajeFlexReader::PajeFlexReader(PajeDefinitions *definitions)
 {
-  openedFile = false;
+  file = NULL; //read from stdin
   initialize (definitions);
 }
 
@@ -55,15 +54,36 @@ bool PajeFlexReader::hasMoreData()
 
 void PajeFlexReader::readNextChunk()
 {
-  int resultado = yyparse();
+  //the whole input is parsed at once; the scanner and parser state
+  //is global, so it is set up here and released at the end of the
+  //parse, letting other readers in the same process start afresh
+  flexReader = this;
+  globalDefinitions = defs;
+  yyin = file ? file : stdin;
+  try {
+    yyparse();
+  } catch (...) {
+    finishParsing();
+    throw;
+  }
+  finishParsing();
+}
+
+void PajeFlexReader::finishParsing (void)
+{
   hasData = false;
+  yylex_destroy(); //also resets yyin and yylineno
+  paje_bison_parser_free();
+  if (file){
+    fclose (file);
+    file = NULL;
+  }
 }
 
 PajeFlexReader::~PajeFlexReader()
 {
-  if (openedFile) fclose(yyin);
-  yylex_destroy();
-  paje_bison_parser_free();
+  //only open if the input has not been parsed
+  if (file) fclose(file);
 }
 
 void PajeFlexReader::closeReading (void)

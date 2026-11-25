@@ -1,0 +1,16 @@
+#!./tesh
+
+# pj_equals reads two traces in the same process. With the flex
+# reader, the global scanner/parser state of the first parse must not
+# leak into the second one (it used to crash on exit, mix event
+# definitions and continue the line count of the first file).
+$ ./pj_equals --flex ../traces/user_fields.trace ../traces/user_fields.trace
+> 1
+
+$ ./pj_equals --flex ../traces/user_fields.trace ../traces/states.trace
+> 0
+
+! expect return 1
+$ ./pj_equals --flex ../traces/user_fields.trace ../traces/undefined_event_gap.trace
+> PajeDecodeException: Event has not been defined in (Line: 50, Fields: '5, Contents: '3 0.2 p1 STATE A')
+> ./pj_equals, error during the parsing of the input file ../traces/undefined_event_gap.trace

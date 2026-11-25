@@ -38,7 +38,7 @@ class PajeFlexReader : public PajeComponent {
  private:
   long long counter;
   bool hasData;
-  bool openedFile;
+  FILE *file; //NULL when reading from stdin or once parsed
   PajeDefinitions *defs;
  public:
   PajeFlexReader(std::string f, PajeDefinitions *definitions);
@@ -51,6 +51,7 @@ class PajeFlexReader : public PajeComponent {
 
  private:
   void initialize (PajeDefinitions *definitions);
+  void finishParsing (void);
 };
 
 extern "C"
