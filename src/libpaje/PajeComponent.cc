@@ -15,6 +15,7 @@
     along with PajeNG. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PajeComponent.h"
+#include <stdexcept>
 
 PajeComponent::PajeComponent (void)
 {
@@ -51,7 +52,7 @@ void PajeComponent::disconnectOutputComponent (PajeComponent *component)
 
 void PajeComponent::inputEntity (PajeObject *data)
 {
-  throw "PajeComponent::inputEntity should be implemented in the subclass";
+  throw std::runtime_error ("PajeComponent::inputEntity should be implemented in the subclass");
 }
 
 void PajeComponent::outputEntity (PajeObject *data)
