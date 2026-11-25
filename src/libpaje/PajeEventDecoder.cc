@@ -34,6 +34,13 @@ PajeEventDecoder::~PajeEventDecoder ()
 
 //breaks the line starting at s (data ends at end, where a '\0' must
 //be writable) into words; returns where the next line starts
+// Same characters as isspace() in the C locale, without a library
+// call per character.
+static inline bool paje_isspace (unsigned char c)
+{
+  return c == ' ' || (c >= '\t' && c <= '\r');
+}
+
 char *PajeEventDecoder::break_line (char *s, char *end, paje_line *line)
 {
   //a new line is born
@@ -47,7 +54,7 @@ char *PajeEventDecoder::break_line (char *s, char *end, paje_line *line)
   line->lineNumber = currentLineNumber;
 
   for (p = s; p < end; p++) {
-    unsigned char c = (unsigned char)*p; //for isspace with non-ASCII bytes
+    unsigned char c = (unsigned char)*p; //for paje_isspace with non-ASCII bytes
 
     if (*p == '\n') {
       *p = '\0';
@@ -76,13 +83,13 @@ char *PajeEventDecoder::break_line (char *s, char *end, paje_line *line)
       break;
     }
 
-    if (in_word && isspace(c)) {
+    if (in_word && paje_isspace(c)) {
       *p = '\0';
       in_word = false;
       continue;
     }
 
-    if (!in_string && isspace(c)) {
+    if (!in_string && paje_isspace(c)) {
       *p = '\0';
       if(in_word){
         in_word = false;
@@ -91,7 +98,7 @@ char *PajeEventDecoder::break_line (char *s, char *end, paje_line *line)
     }
 
 
-    if (!in_word && !isspace(c)) {
+    if (!in_word && !paje_isspace(c)) {
       if (*p == '"') {
         in_string = true;
       } else {
