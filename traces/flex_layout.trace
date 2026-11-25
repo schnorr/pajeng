@@ -1,0 +1,39 @@
+# Layout variations accepted by the default reader
+%EventDef PajeDefineContainerType 0
+%       Alias string
+# a comment inside a definition
+
+%       Type string
+%       Name string
+%EndEventDef
+
+%EventDef PajeDefineStateType 2
+%       Alias string
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeCreateContainer 6
+%       Time date
+%       Alias string
+%       Type string
+%       Container string
+%       Name string
+%EndEventDef
+0 PROCESS 0 "PROCESS"
+2 ST PROCESS ST
+6 0 p1 PROCESS 0 "p1" # a comment after an event
+
+# a definition after events
+%EventDef PajePushState 12
+%       Time date
+%       Container string
+%       Type string
+%       Value string
+%EndEventDef
+%EventDef PajePopState 14
+%       Time date
+%       Container string
+%       Type string
+%EndEventDef
+12 1 p1 ST A
+14 2 p1 ST

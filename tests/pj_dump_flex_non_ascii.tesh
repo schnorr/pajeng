@@ -8,6 +8,9 @@ $ sh -c "./pj_dump ../traces/gattaca.trace > default.csv; ./pj_dump --flex ../tr
 
 $ rm default.csv flex.csv
 
+# Its only event line has an undefined id (the rest is a comment).
 ! timeout 10
-! output ignore
+! expect return 1
 $ ./pj_dump --flex ../traces/flex_non_ascii_eof.trace
+> PajeDecodeException: Event has not been defined in (Line: 1, Fields: '1, Contents: '16')
+> Error during the parsing of the input file

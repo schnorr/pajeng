@@ -1,0 +1,15 @@
+#!./tesh
+
+# Comments and blank lines anywhere (also inside event definitions and
+# after an event), event definitions after events, and a last line
+# without newline: accepted by the default reader, and now also by the
+# flex reader (which stopped with a syntax error).
+$ ./pj_dump ../traces/flex_layout.trace
+> Container, 0, 0, 0, 2, 2, 0
+> Container, 0, "PROCESS", 0, 2, 2, "p1"
+> State, "p1", ST, 1.000000, 2.000000, 1.000000, 0.000000, A
+
+$ ./pj_dump --flex ../traces/flex_layout.trace
+> Container, 0, 0, 0, 2, 2, 0
+> Container, 0, "PROCESS", 0, 2, 2, "p1"
+> State, "p1", ST, 1.000000, 2.000000, 1.000000, 0.000000, A

@@ -126,9 +126,12 @@
 
 %%
 
-paje: declarations events { return 4;};
+paje: lines { return 4;};
 
-declarations: declaration declarations | ;
+//event definitions and events, in any order (as the default reader)
+lines: lines line | ;
+line: declaration | event;
+
 declaration: TK_EVENT_DEF_BEGIN event_name event_id TK_BREAK
              {
                def = new PajeEventDefinition($2, $3, yylineno, globalDefinitions);
@@ -168,7 +171,8 @@ event_name:
 	TK_PAJE_NEW_EVENT { $$ = PajeNewEventEventId;};
 event_id: TK_INT { $$ = $1.intValue; };
 fields: field fields | ;
-field: TK_EVENT_DEF field_name field_type {
+field: TK_BREAK | //empty or comment line
+       TK_EVENT_DEF field_name field_type {
               if ($2.fieldId == PAJE_Extra){
 		def->addField($2.fieldId, $3, yylineno, std::string($2.fieldName));
 		free($2.fieldName);
@@ -204,7 +208,6 @@ TK_EVENT_DEF_FIELD_TYPE_HEX { $$ = PAJE_hex; } |
 TK_EVENT_DEF_FIELD_TYPE_DATE { $$ = PAJE_date; } |
 TK_EVENT_DEF_FIELD_TYPE_COLOR { $$ = PAJE_color; };
 
-events: events event | ;
 event: non_empty_event | empty_event;
 non_empty_event:  { lineReset(); }  TK_INT  { lineDef ($2.intValue); lineAdd($2.str); } arguments TK_BREAK { lineSend (); };
 empty_event: TK_BREAK; //empty event

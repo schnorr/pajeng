@@ -24,6 +24,7 @@ void yyerror (char const *mensagem)
 }
 
 extern FILE *yyin;
+extern int paje_flex_last_char; //defined in scanner.l
 
 PajeFlexReader::PajeFlexReader(std::string f, PajeDefinitions *definitions)
 {
@@ -60,6 +61,7 @@ void PajeFlexReader::readNextChunk()
   flexReader = this;
   globalDefinitions = defs;
   yyin = file ? file : stdin;
+  paje_flex_last_char = '\n';
   try {
     yyparse();
   } catch (...) {

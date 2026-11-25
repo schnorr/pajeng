@@ -24,6 +24,11 @@ extern "C" int yylex_destroy();
 
 /* 8bit: traces may contain non-ASCII bytes (e.g. UTF-8 in comments),
    and flex builds 7-bit scanners by default with -F (-CF tables). */
+
+/* last character scanned, to end an unterminated last line at EOF;
+   reset by PajeFlexReader before each parse */
+int paje_flex_last_char = '\n';
+#define YY_USER_ACTION paje_flex_last_char = yytext[yyleng-1];
 %}
 
 %option yylineno
@@ -99,12 +104,20 @@ PajeNewEvent              return TK_PAJE_NEW_EVENT;
 
 \"[^"]*\"                             { yylval.argument_data.str = yytext; return TK_STRING; }
 
-"#".*\n
+"#".*
 {SPACE}+ 
 
 {LETTER}+               { yylval.argument_data.str = yytext; return TK_STRING; }
 
 
 
+<<EOF>>                 {
+                          /* a last line without newline still ends with TK_BREAK */
+                          if (paje_flex_last_char != '\n'){
+                            paje_flex_last_char = '\n';
+                            return TK_BREAK;
+                          }
+                          yyterminate();
+                        }
+
 %%
-//<<EOF>> return TK_END;
