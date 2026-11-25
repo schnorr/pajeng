@@ -126,19 +126,20 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
     throw PajeDecodeException ("Line should start with a '%%'");
   }
   if (*str == '\0') {
-    str = line->word[n++];
+    //"% name": the name is the next word, if any
+    str = n < line->word_count ? line->word[n++] : (char*)"";
   }
 
   switch (defStatus) {
   case OUT_DEF:
   {
-    eventName = line->word[n++];
-    eventId   = line->word[n++];
-
     //check if this event definition has a good start
-    if (n != line->word_count || strcmp(str, "EventDef") != 0) {
+    if (n + 2 != line->word_count || strcmp(str, "EventDef") != 0) {
       throw PajeDecodeException ("'EventDef <event name> <event id>' expected in "+lreport);
     }
+
+    eventName = line->word[n++];
+    eventId   = line->word[n++];
 
     //check if this event definition has been already defined
     if (eventDefinitions[eventId]){
@@ -160,7 +161,7 @@ void PajeEventDecoder::scanDefinitionLine (paje_line *line)
   {
     fieldName = str;
 
-    if (n > line->word_count) {
+    if (*fieldName == '\0') {
       throw PajeDecodeException ("Incomplete line, missing field name in "+lreport);
     }
 

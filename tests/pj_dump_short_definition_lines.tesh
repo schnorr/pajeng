@@ -1,0 +1,14 @@
+#!./tesh
+
+# Definition lines with too few words must be rejected without reading
+# words the line does not have (a lone '%' used to read a word left by
+# a previous line).
+! expect return 1
+$ ./pj_dump ../traces/short_definition_line.trace
+> PajeDecodeException: Incomplete line, missing field name in (Line: 4, Fields: 1, Contents: '%')
+> Error during the parsing of the input file
+
+! expect return 1
+$ ./pj_dump ../traces/short_eventdef_line.trace
+> PajeDecodeException: 'EventDef <event name> <event id>' expected in (Line: 1, Fields: 1, Contents: '%EventDef')
+> Error during the parsing of the input file
