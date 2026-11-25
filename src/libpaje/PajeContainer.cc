@@ -753,7 +753,6 @@ bool PajeContainer::checkTimeOrder (double time, PajeType *type, PajeTraceEvent 
       std::stringstream eventdesc;
       eventdesc << *traceEvent;
       throw PajeSimulationException ("Illegal, trace is not time-ordered in "+eventdesc.str());
-      return false;
     }
   }
   return true;
