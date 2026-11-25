@@ -53,6 +53,16 @@ private:
   //keeps all simulated entities (variables, links, states and events)
   std::map<PajeType*,std::vector<PajeEntity*> > entities;
 
+  //per type, entities split by imbrication level (in start time
+  //order), to find those started before a time window that may still
+  //be running in it; built on demand by enumeratorOfEntitiesTyped
+  struct LevelIndex {
+    std::vector<std::vector<PajeEntity*> > levels;
+    size_t indexed = 0; //number of entities of the type already indexed
+  };
+  std::map<PajeType*,LevelIndex> levelIndex;
+  LevelIndex &updatedLevelIndex (PajeType *type);
+
 private:
   void init (std::string alias, PajeContainer *parent);
 

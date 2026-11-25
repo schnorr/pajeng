@@ -587,27 +587,76 @@ void PajeContainer::recursiveDestroy (double time)
   }
 }
 
+PajeContainer::LevelIndex &PajeContainer::updatedLevelIndex (PajeType *type)
+{
+  //entities are only appended (or erased by the out-of-core dump,
+  //which drops the index), so only the new ones need to be indexed
+  const std::vector<PajeEntity*> &v = entities[type];
+  LevelIndex &index = levelIndex[type];
+  if (index.indexed > v.size()){
+    index = LevelIndex();
+  }
+  for (size_t i = index.indexed; i < v.size(); i++){
+    int level = v[i]->imbricationLevel();
+    if (level < 0) level = 0;
+    if ((size_t)level >= index.levels.size()){
+      index.levels.resize (level + 1);
+    }
+    index.levels[level].push_back (v[i]);
+  }
+  index.indexed = v.size();
+  return index;
+}
+
 std::vector<PajeEntity*> PajeContainer::enumeratorOfEntitiesTyped (double start, double end, PajeType *type)
 {
-  std::vector<PajeEntity*> empty;
-  if (entities[type].size() == 0) return empty;
+  //entities of the given type that overlap [start, end]; an end time
+  //of -1 means that the entity has not finished yet
+  std::vector<PajeEntity*> ret;
+  std::map<PajeType*,std::vector<PajeEntity*> >::iterator found = entities.find (type);
+  if (found == entities.end() || found->second.empty()) return ret;
+  const std::vector<PajeEntity*> &v = found->second;
 
-  std::vector<PajeEntity*>::iterator low, up, it;
-  low = lower_bound (entities[type].begin(), entities[type].end(), start, PajeEntity::PajeEntityCompare());
-  up = upper_bound (entities[type].begin(), entities[type].end(), end, PajeEntity::PajeEntityCompare());
-
-  if (low != entities[type].begin()){
-    low--;
+  if (type->nature() == PAJE_LinkType){
+    //links are stored in completion order: check them one by one
+    for (std::vector<PajeEntity*>::const_iterator it = v.begin(); it != v.end(); it++){
+      PajeEntity *e = *it;
+      if (e->startTime() > end) continue;
+      if (e->endTime() != -1 && e->endTime() < start) continue;
+      ret.push_back (e);
+    }
+    return ret;
   }
 
-  if (up != entities[type].end()){
-    up++;
+  //other natures are stored in start time order. Of the entities
+  //started before the window, at most one per imbrication level may
+  //still run in it: entities of the same level do not overlap (states
+  //take a level only once the previous one there has ended; variables
+  //and events are all of level 0)
+  LevelIndex &index = updatedLevelIndex (type);
+  for (std::vector<std::vector<PajeEntity*> >::const_iterator level = index.levels.begin();
+       level != index.levels.end(); level++){
+    std::vector<PajeEntity*>::const_iterator it;
+    it = std::lower_bound (level->begin(), level->end(), start,
+                           [](const PajeEntity *e, double t){ return e->startTime() < t; });
+    if (it == level->begin()) continue;
+    PajeEntity *e = *(--it);
+    if (e->startTime() > end) continue;
+    if (e->endTime() != -1 && e->endTime() < start) continue;
+    ret.push_back (e);
   }
+  //keep the start time order (outer levels first on ties, as in v)
+  std::stable_sort (ret.begin(), ret.end(),
+                    [](const PajeEntity *a, const PajeEntity *b){ return a->startTime() < b->startTime(); });
 
-  for (it = low; it != up; it++){
-    empty.push_back (*it);
-  }
-  return empty;
+  //then all the entities started within the window
+  std::vector<PajeEntity*>::const_iterator first, last;
+  first = std::lower_bound (v.begin(), v.end(), start,
+                            [](const PajeEntity *e, double t){ return e->startTime() < t; });
+  last = std::upper_bound (first, v.end(), end,
+                           [](double t, const PajeEntity *e){ return t < e->startTime(); });
+  ret.insert (ret.end(), first, last);
+  return ret;
 }
 
 PajeAggregatedDict PajeContainer::timeIntegrationOfTypeInContainer (double start, double end, PajeType *type)
@@ -854,6 +903,7 @@ void PajeContainer::recursiveClearCompleteEntities (std::ostream& output, bool r
       children.erase(children.begin(), it);
     }
     entities[childEntity.first] = children;
+    levelIndex.erase (childEntity.first); //rebuilt on demand
   }
 
   //recurse in children
@@ -898,6 +948,7 @@ void PajeContainer::releaseSimulationState (void)
   }
   pendingLinks.clear();
   linksUsedKeys.clear();
+  levelIndex.clear();
   stackStates.clear();
 
   //drop the per-type vectors already emptied by the out-of-core dump

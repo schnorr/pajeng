@@ -1,0 +1,32 @@
+#!./tesh
+
+# -s/-e dump the entities that overlap [START, END] (bounds included).
+# Nested states end out of start order (A [1,4] contains B [2,3]), and
+# links are stored in completion order (short [2,3] completes before
+# long [1,5]); both used to give wrong windows.
+$ ./pj_dump -s 3.5 -e 3.8 ../traces/time_window.trace
+> Container, 0, 0, 0, 6, 6, 0
+> Link, 0, LINK, 1.000000, 5.000000, 4.000000, c, "p1", "p2", long
+> Container, 0, "PROCESS", 0, 6, 6, "p2"
+> Container, 0, "PROCESS", 0, 6, 6, "p1"
+> State, "p1", ST, 1.000000, 4.000000, 3.000000, 0.000000, A
+
+$ ./pj_dump -s 0 -e 0.5 ../traces/time_window.trace
+> Container, 0, 0, 0, 6, 6, 0
+> Container, 0, "PROCESS", 0, 6, 6, "p2"
+> Container, 0, "PROCESS", 0, 6, 6, "p1"
+
+$ ./pj_dump -s 3 -e 3 ../traces/time_window.trace
+> Container, 0, 0, 0, 6, 6, 0
+> Link, 0, LINK, 2.000000, 3.000000, 1.000000, c, "p2", "p1", short
+> Link, 0, LINK, 1.000000, 5.000000, 4.000000, c, "p1", "p2", long
+> Container, 0, "PROCESS", 0, 6, 6, "p2"
+> Container, 0, "PROCESS", 0, 6, 6, "p1"
+> State, "p1", ST, 1.000000, 4.000000, 3.000000, 0.000000, A
+> State, "p1", ST, 2.000000, 3.000000, 1.000000, 1.000000, B
+
+$ ./pj_dump -s 4.5 -e 4.8 ../traces/time_window.trace
+> Container, 0, 0, 0, 6, 6, 0
+> Link, 0, LINK, 1.000000, 5.000000, 4.000000, c, "p1", "p2", long
+> Container, 0, "PROCESS", 0, 6, 6, "p2"
+> Container, 0, "PROCESS", 0, 6, 6, "p1"

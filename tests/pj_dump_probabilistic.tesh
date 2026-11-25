@@ -1,13 +1,15 @@
 #!./tesh
 
 # The probabilistic simulator (-p) must keep the imbrication of pushed
-# states (noImbrication used to be left uninitialized for it).
+# states (noImbrication used to be left uninitialized for it). Each
+# line shows the first state (in start order) overlapping the interval,
+# bounds included: A [1,4] for 3-4 (B ended at 3) and 4-5.
 $ ./pj_dump -p ST ../traces/nested_states.trace
 > 0.000000,1.000000,1.000000
 > 1.000000,2.000000,1.000000,"p1"/ST/A
 > 2.000000,3.000000,1.000000,"p1"/ST/A
-> 3.000000,4.000000,1.000000,"p1"/ST/B
-> 4.000000,5.000000,1.000000,"p1"/ST/B
+> 3.000000,4.000000,1.000000,"p1"/ST/A
+> 4.000000,5.000000,1.000000,"p1"/ST/A
 
 $ ./pj_dump ../traces/nested_states.trace
 > Container, 0, 0, 0, 5, 5, 0

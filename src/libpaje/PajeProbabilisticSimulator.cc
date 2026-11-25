@@ -64,7 +64,7 @@ void PajeProbabilisticSimulator::reportCurrentState (double start, double end)
 	for (it = children.begin(); it != children.end(); it++){
 	  stack.push_back (*it);
 	}
-      }else{
+      }else if (type->name() == filter){
 	std::vector<PajeEntity*> entities;
 	std::vector<PajeEntity*>::iterator it;
 	entities = this->enumeratorOfEntitiesTypedInContainer (type,
