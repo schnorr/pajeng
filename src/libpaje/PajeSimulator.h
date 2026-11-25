@@ -17,6 +17,7 @@
 #ifndef __PAJESIMULATOR_H__
 #define __PAJESIMULATOR_H__
 #include <map>
+#include <unordered_map>
 #include <vector>
 #include <sstream>
 #include <string>
@@ -38,10 +39,10 @@ class PajeSimulator : public PajeComponent {
 private:
   PajeContainerType *rootType;
   PajeContainer *root;
-  std::map<std::string,PajeType*> typeMap;
-  std::map<std::string,PajeType*> typeNamesMap; //for names
-  std::map<std::string,PajeContainer*> contMap;
-  std::map<std::string,PajeContainer*> contNamesMap; //for names
+  std::unordered_map<std::string,PajeType*> typeMap;
+  std::unordered_map<std::string,PajeType*> typeNamesMap; //for names
+  std::unordered_map<std::string,PajeContainer*> contMap;
+  std::unordered_map<std::string,PajeContainer*> contNamesMap; //for names
 
 
   double stopSimulationAtTime;
