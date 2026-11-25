@@ -47,8 +47,9 @@ PajeTraceEvent::PajeTraceEvent (int line)
 PajeTraceEvent::PajeTraceEvent (PajeEventDefinition *def, paje_line *line)
 {
   int i;
+  fields.reserve (line->word_count);
   for (i = 0; i < line->word_count; i++){
-    addField (line->word[i]);
+    fields.emplace_back (line->word[i]);
   }
   pajeEventDefinition = def;
   this->line = line->lineNumber;
