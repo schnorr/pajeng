@@ -17,10 +17,16 @@
 #include "PajeFlexReader.h"
 #include "PajeException.h"
 #include "parser.hh"
+#include <sstream>
+
+//message of the last syntax error, reported by readNextChunk
+static std::string syntaxError;
 
 void yyerror (char const *mensagem)
 {
-  fprintf (stderr, "%s on line %d\n", mensagem, yylineno);
+  std::stringstream st;
+  st << mensagem << " on line " << yylineno;
+  syntaxError = st.str();
 }
 
 extern FILE *yyin;
@@ -63,7 +69,9 @@ void PajeFlexReader::readNextChunk()
   yyin = file ? file : stdin;
   paje_flex_last_char = '\n';
   try {
-    yyparse();
+    if (yyparse() != 0){
+      throw PajeDecodeException (syntaxError);
+    }
   } catch (...) {
     finishParsing();
     throw;

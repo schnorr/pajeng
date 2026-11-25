@@ -1,0 +1,14 @@
+#!./tesh
+
+# A syntax error must make the flex reader fail, as the default reader
+# does (it used to print the error, stop reading and exit with 0,
+# dropping the rest of the trace).
+! expect return 1
+$ ./pj_dump ../traces/flex_syntax_error.trace
+> PajeTypeException: Unknown container type '%' in (Line: 7, Fields: '4, Contents: '0 % % %')
+> Error during the parsing of the input file
+
+! expect return 1
+$ ./pj_dump --flex ../traces/flex_syntax_error.trace
+> PajeDecodeException: syntax error, unexpected TK_EVENT_DEF, expecting TK_FLOAT or TK_INT or TK_STRING or TK_BREAK on line 7
+> Error during the parsing of the input file

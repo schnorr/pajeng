@@ -1,0 +1,8 @@
+%EventDef PajeDefineContainerType 0
+%  Alias string
+%  Type string
+%  Name string
+%EndEventDef
+0 P 0 P
+0 % % %
+0 Q 0 Q

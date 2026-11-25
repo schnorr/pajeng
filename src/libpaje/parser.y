@@ -126,7 +126,7 @@
 
 %%
 
-paje: lines { return 4;};
+paje: lines;
 
 //event definitions and events, in any order (as the default reader)
 lines: lines line | ;
