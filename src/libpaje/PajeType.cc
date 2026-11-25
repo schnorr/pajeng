@@ -77,33 +77,33 @@ bool PajeType::isCategorizedType (void) const
 
 PajeValue *PajeType::addValue (std::string alias, std::string value, PajeColor *color)
 {
-  throw "should be implemented in subclass";
+  throw PajeTypeException ("should be implemented in subclass");
 }
 
 void PajeType::removeValues (void)
 {
-  throw "should be implemented in subclass";
+  throw PajeTypeException ("should be implemented in subclass");
 }
 
 PajeValue *PajeType::valueForIdentifier (std::string identifier)
 {
-  throw "should be implemented in subclass";
+  throw PajeTypeException ("should be implemented in subclass");
 }
 
 bool PajeType::hasValueForIdentifier (std::string identifier)
 {
-  throw "should be implemented in subclass";
+  throw PajeTypeException ("should be implemented in subclass");
   return false;
 }
 
 PajeColor *PajeType::colorForIdentifier (std::string identifier)
 {
-  throw "should be implemented in subclass";
+  throw PajeTypeException ("should be implemented in subclass");
 }
 
 PajeColor *PajeType::color (void)
 {
-  throw "should be implemented in subclass";
+  throw PajeTypeException ("should be implemented in subclass");
 }
 
 PajeType *PajeType::startType (void)
