@@ -1,0 +1,25 @@
+#!./tesh
+
+# Event ids need not be contiguous (here 0, 2, 5, 6, 11). An event
+# whose id falls in a gap, or after the last defined id, must be
+# rejected by both readers (the flex reader used to read an
+# uninitialized or out-of-bounds slot of its definition table).
+! expect return 1
+$ ./pj_dump ../traces/undefined_event_gap.trace
+> PajeDecodeException: Event with id '3' has not been defined in (Line: 50, Fields: 5, Contents: '3 0.2 p1 STATE A')
+> Error during the parsing of the input file
+
+! expect return 1
+$ ./pj_dump --flex ../traces/undefined_event_gap.trace
+> PajeDecodeException: Event has not been defined in (Line: 50, Fields: '5, Contents: '3 0.2 p1 STATE A')
+> Error during the parsing of the input file
+
+! expect return 1
+$ ./pj_dump ../traces/undefined_event_beyond.trace
+> PajeDecodeException: Event with id '99' has not been defined in (Line: 50, Fields: 5, Contents: '99 0.2 p1 STATE A')
+> Error during the parsing of the input file
+
+! expect return 1
+$ ./pj_dump --flex ../traces/undefined_event_beyond.trace
+> PajeDecodeException: Event has not been defined in (Line: 50, Fields: '5, Contents: '99 0.2 p1 STATE A')
+> Error during the parsing of the input file

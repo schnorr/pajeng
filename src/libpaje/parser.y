@@ -136,8 +136,13 @@ declaration: TK_EVENT_DEF_BEGIN event_name event_id TK_BREAK
              fields TK_EVENT_DEF_END TK_BREAK
              {
                if (def->uniqueIdentifier >= defsv_current_size){
-                 defsv_current_size = def->uniqueIdentifier + 1;
-                 defsv = (PajeEventDefinition**)realloc (defsv, (defsv_current_size)*sizeof(PajeEventDefinition*));
+                 int new_size = def->uniqueIdentifier + 1;
+                 defsv = (PajeEventDefinition**)realloc (defsv, new_size*sizeof(PajeEventDefinition*));
+                 //ids need not be contiguous: mark the new slots as undefined
+                 for (int i = defsv_current_size; i < new_size; i++){
+                   defsv[i] = NULL;
+                 }
+                 defsv_current_size = new_size;
                }
                defsv[def->uniqueIdentifier] = def;
                def = NULL;
@@ -215,7 +220,13 @@ static void lineReset ()
 
 static void lineDef (int identifier)
 {
-  event->setDefinition (defsv[identifier]);
+  //an undefined id leaves the event without definition, which
+  //lineSend reports once the whole line has been read
+  if (identifier >= 0 && identifier < defsv_current_size){
+    event->setDefinition (defsv[identifier]);
+  }else{
+    event->setDefinition (NULL);
+  }
 }
 
 static void lineAdd (char *str)
@@ -247,4 +258,7 @@ void paje_bison_parser_free (void)
     delete defsv[i];
   }
   free(defsv);
+  //allow another PajeFlexReader in the same process
+  defsv = NULL;
+  defsv_current_size = 0;
 }
