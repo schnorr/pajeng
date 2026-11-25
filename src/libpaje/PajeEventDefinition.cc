@@ -65,7 +65,7 @@ int PajeEventDefinition::indexForField (PajeField field)
   for (i = 0, it = fields.begin(); it != fields.end(); i++, it++){
     if (field == *it) return i;
   }
-  if (i == fields.size()) return -1;
+  if (i == (int)fields.size()) return -1;
   else return i;
 }
 
@@ -76,7 +76,7 @@ int PajeEventDefinition::indexForExtraFieldNamed (std::string fieldName)
   for (i = 0, it = userDefinedFieldNames.begin(); it != userDefinedFieldNames.end(); i++, it++){
     if (fieldName == *it) break;
   }
-  if (i == fields.size()){
+  if (i == (int)userDefinedFieldNames.size()){
     throw PajeDecodeException ("The user-defined field '"+fieldName+"' was not found in event "+ defs->eventNameFromID(pajeEventIdentifier));
   }
 
