@@ -16,6 +16,8 @@
 */
 %{
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <search.h>
 #include "PajeEventDefinition.h"
 #include "PajeFlexReader.h"
@@ -164,6 +166,7 @@ fields: field fields | ;
 field: TK_EVENT_DEF field_name field_type {
               if ($2.fieldId == PAJE_Extra){
 		def->addField($2.fieldId, $3, yylineno, std::string($2.fieldName));
+		free($2.fieldName);
               }else{
 		def->addField($2.fieldId, $3, yylineno);
 	      }
@@ -183,7 +186,10 @@ field_name:
 	TK_EVENT_DEF_KEY { $$.fieldId = PAJE_Key; } |
         TK_EVENT_DEF_LINE { $$.fieldId = PAJE_Line; } |
         TK_EVENT_DEF_FILE { $$.fieldId = PAJE_File; } |
-	TK_STRING { $$.fieldId = PAJE_Extra; $$.fieldName = $1.str; };
+	TK_STRING {
+	  //copy now: yytext is only valid until the next token (the field
+	  //type) is scanned, which happens before the field rule action
+	  $$.fieldId = PAJE_Extra; $$.fieldName = strdup($1.str); };
 field_type:
 TK_EVENT_DEF_FIELD_TYPE_STRING { $$ = PAJE_string; } |
 TK_EVENT_DEF_FIELD_TYPE_FLOAT { $$ = PAJE_float; } |

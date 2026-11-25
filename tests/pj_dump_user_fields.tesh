@@ -1,0 +1,27 @@
+#!./tesh
+
+# User-defined field names (here, Mark) must be the same with both
+# readers (the flex reader used to give "Mark string").
+$ ./pj_dump -u -h ../traces/user_fields.trace
+> Container, Parent, Type, Start, End, Duration, Name
+> State, Container, Type, Start, End, Duration, Imbrication, Value, Mark
+> Container, 0, 0, 0, 1, 1, 0
+> Container, 0, "PROCESS", 0, 1, 1, "p1"
+> State, "p1", "STATE", 0.100000, 1.000000, 0.900000, 0.000000, "A", mark1
+> State, "p1", "STATE", 0.500000, 0.800000, 0.300000, 1.000000, "B", mark2
+
+$ ./pj_dump -u -h --flex ../traces/user_fields.trace
+> Container, Parent, Type, Start, End, Duration, Name
+> State, Container, Type, Start, End, Duration, Imbrication, Value, Mark
+> Container, 0, 0, 0, 1, 1, 0
+> Container, 0, "PROCESS", 0, 1, 1, "p1"
+> State, "p1", "STATE", 0.100000, 1.000000, 0.900000, 0.000000, "A", mark1
+> State, "p1", "STATE", 0.500000, 0.800000, 0.300000, 1.000000, "B", mark2
+
+$ ./pj_dump_csv -u --flex --prefix out ../traces/user_fields.trace
+$ cat out.state.csv
+> State, Container, Type, Start, End, Duration, Imbrication, Value, Mark
+> State, "p1", "STATE", 0.100000, 1.000000, 0.900000, 0.000000, "A", mark1
+> State, "p1", "STATE", 0.500000, 0.800000, 0.300000, 1.000000, "B", mark2
+
+$ rm out.container.csv out.state.csv out.variable.csv out.event.csv out.link.csv
