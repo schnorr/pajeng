@@ -560,7 +560,7 @@ $ ./pj_dump ../traces/simu-mardi.trace
 > Variable, "my_cluster_1_link_9_DOWN", bandwidth, 0.000000, 1205.000000, 1205.000000, 125000000.000000
 > Variable, "my_cluster_1_link_9_DOWN", latency, 0.000000, 1205.000000, 1205.000000, 0.000050
 > Container, "my_cluster_1", LINK, 0, 1205, 1205, "my_cluster_1_backbone"
-> Variable, "my_cluster_1_backbone", bandwidth, 0.000000, 1205.000000, 1205.000000, 2249999872.000000
+> Variable, "my_cluster_1_backbone", bandwidth, 0.000000, 1205.000000, 1205.000000, 2250000000.000000
 > Variable, "my_cluster_1_backbone", latency, 0.000000, 1205.000000, 1205.000000, 0.000500
 > Container, "my_cluster_1", LINK, 0, 1205, 1205, "my_cluster_1_link_100_DOWN"
 > Variable, "my_cluster_1_link_100_DOWN", bandwidth, 0.000000, 1205.000000, 1205.000000, 125000000.000000

@@ -937,7 +937,7 @@ void PajeSimulator::pajeSetVariable (PajeTraceEvent *traceEvent)
     throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
-  float v = strtof (value.c_str(), NULL);
+  double v = strtod (value.c_str(), NULL);
 
   PajeSetVariableEvent event (traceEvent, container, type, v);
   container->demuxer (&event);
@@ -986,7 +986,7 @@ void PajeSimulator::pajeAddVariable (PajeTraceEvent *traceEvent)
     throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
-  float v = strtof (value.c_str(), NULL);
+  double v = strtod (value.c_str(), NULL);
   PajeAddVariableEvent event (traceEvent, container, type, v);
   container->demuxer (&event);
 }
@@ -1034,7 +1034,7 @@ void PajeSimulator::pajeSubVariable (PajeTraceEvent *traceEvent)
     throw PajeTypeException ("Type '"+ctype1.str()+"' is not child type of container type '"+ctype2.str()+"' in "+eventdesc.str());
   }
 
-  float v = strtof (value.c_str(), NULL);
+  double v = strtod (value.c_str(), NULL);
 
   PajeSubVariableEvent event (traceEvent, container, type, v);
   container->demuxer (&event);

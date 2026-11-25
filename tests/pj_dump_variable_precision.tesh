@@ -1,0 +1,17 @@
+#!./tesh
+
+# Variable values are doubles: they used to be parsed as floats
+# (123456789.5 became 123456792, 0.1 became 0.100000001490).
+$ ./pj_dump -l 12 ../traces/variable_precision.trace
+> Container, 0, 0, 0, 1, 1, 0
+> Container, 0, "PROCESS", 0, 1, 1, "p1"
+> Variable, "p1", "VAR", 0.100000000000, 0.200000000000, 0.100000000000, 123456789.500000000000
+> Variable, "p1", "VAR", 0.200000000000, 0.300000000000, 0.100000000000, 123456789.750000000000
+> Variable, "p1", "VAR", 0.300000000000, 1.000000000000, 0.700000000000, 0.100000000000
+
+$ ./pj_dump --flex -l 12 ../traces/variable_precision.trace
+> Container, 0, 0, 0, 1, 1, 0
+> Container, 0, "PROCESS", 0, 1, 1, "p1"
+> Variable, "p1", "VAR", 0.100000000000, 0.200000000000, 0.100000000000, 123456789.500000000000
+> Variable, "p1", "VAR", 0.200000000000, 0.300000000000, 0.100000000000, 123456789.750000000000
+> Variable, "p1", "VAR", 0.300000000000, 1.000000000000, 0.700000000000, 0.100000000000
