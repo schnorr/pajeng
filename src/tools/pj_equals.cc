@@ -93,20 +93,24 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
 
 static struct argp argp = { options, parse_options, args_doc, doc };
 
-#define VALUE(e) ((PajeValueEntity*)(e))->value()
-#define VALUE_ID(e) VALUE(e)->identifier()
-
-bool
-cmp(PajeEntity *a, PajeEntity *b)
+//returns true when the entities differ: states, events and links by
+//the identifier of their values, variables by their numeric values
+//(times are not compared)
+static bool
+entityDiffers(PajeEntity *a, PajeEntity *b, bool icase)
 {
-  if (a && b) {
-    if (!VALUE(a) && !VALUE(b))
-      return 0;
-    if (VALUE(a) && VALUE(b))
-      return !(VALUE_ID(a) == VALUE_ID(b));
-    return 1;
+  if (!a || !b)
+    return true;
+  PajeValue *va = a->value();
+  PajeValue *vb = b->value();
+  if (va || vb) {
+    if (!va || !vb)
+      return true;
+    if (icase)
+      return strcasecmp(va->identifier().c_str(), vb->identifier().c_str()) != 0;
+    return va->identifier() != vb->identifier();
   }
-  return 1;
+  return a->doubleValue() != b->doubleValue();
 }
 
 bool
@@ -119,19 +123,6 @@ bool
 itcmp(PajeType *a, PajeType *b)
 {
   return !((a && b) && !strcasecmp(a->kind().c_str(), b->kind().c_str()));
-}
-
-bool
-icmp(PajeEntity *a, PajeEntity *b)
-{
-  if (a && b) {
-    if (!VALUE(a) && !VALUE(b))
-      return 0;
-    if (VALUE(a) && VALUE(b))
-      return strcasecmp(VALUE_ID(a).c_str(), VALUE_ID(b).c_str());
-    return 1;
-  }
-  return 1;
 }
 
 int
@@ -216,12 +207,8 @@ equals(struct arguments *arguments, PajeComponent *s1, PajeComponent *s2)
         if (entities1.size() != entities2.size())
           return 0;
         for (size_t j = 0; j < entities1.size(); ++j)
-          if (arguments->icase) {
-            if (icmp(entities1.at(j), entities2.at(j)))
-              return 0;
-          } else if (cmp(entities1.at(j), entities2.at(j))) {
+          if (entityDiffers(entities1.at(j), entities2.at(j), arguments->icase))
             return 0;
-          }
       }
     }
   }

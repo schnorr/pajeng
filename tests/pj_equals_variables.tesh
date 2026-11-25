@@ -1,0 +1,13 @@
+#!./tesh
+
+# pj_equals compares the values of the entities, not their times.
+# Variable values used to be ignored (an invalid cast to
+# PajeValueEntity made them all NULL).
+$ ./pj_equals ../traces/variables.trace ../traces/variables.trace
+> 1
+
+$ ./pj_equals ../traces/variables.trace ../traces/variables_other_value.trace
+> 0
+
+$ ./pj_equals ../traces/variables.trace ../traces/variables_other_time.trace
+> 1
