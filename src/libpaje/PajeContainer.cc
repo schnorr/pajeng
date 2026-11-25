@@ -685,7 +685,7 @@ PajeAggregatedDict PajeContainer::merge (PajeAggregatedDict a,
   PajeAggregatedDict::iterator it;
   for (it = b.begin(); it != b.end(); it++){
     if (ret.count((*it).first)){
-      std::cout << "error on " << __FILE__ << ":" << __LINE__ << std::endl;
+      throw PajeSimulationException ("Key collision in aggregated dict merge");
     }
     ret[(*it).first] = (*it).second;
   }
