@@ -20,6 +20,7 @@
 #include "PajeEventDefinition.h"
 #include "PajeFlexReader.h"
 #include "PajeDefinitions.h"
+#include "PajeException.h"
 
   PajeEventDefinition *eventBeingDefined;
   PajeDefinitions *globalDefinitions;
@@ -218,8 +219,17 @@ static void lineAdd (char *str)
 
 static void lineSend ()
 {
+  //check the field count before reading any field (setTime reads Time)
+  try {
+    if (!event->check (NULL)){
+      throw PajeDecodeException ("Event has not been defined in "+event->description());
+    }
+  } catch (...) {
+    delete event;
+    event = NULL;
+    throw;
+  }
   event->setTime ();
-  if (!event->check (NULL)) exit(1);
   flexReader->outputEntity (event);
   delete event;
   event = NULL;

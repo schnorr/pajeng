@@ -42,6 +42,8 @@ public:
   PajeEventId pajeEventId (void);
   void addField (char *field);
   void clear (void);
+  // Returns false if the event has no definition; throws
+  // PajeDecodeException if its field count does not match it.
   bool check (paje_line *line);
   std::string valueForField (PajeField field);
   std::string valueForExtraField (std::string fieldName);

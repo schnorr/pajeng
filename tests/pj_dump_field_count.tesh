@@ -1,0 +1,24 @@
+#!./tesh
+
+# A line with more or fewer fields than its event definition must be
+# rejected (more fields used to be accepted, fewer fields crashed with
+# an uncaught std::out_of_range).
+! expect return 1
+$ ./pj_dump ../traces/field_count_more.trace
+> PajeDecodeException: Field count does not match definition: the line has 6 fields, but the definition of PajePushState with id 12 has 5 in (Line: 138, Fields: 6, Contents: '12 1 p1 ST A EXTRA')
+> Error during the parsing of the input file
+
+! expect return 1
+$ ./pj_dump ../traces/field_count_less.trace
+> PajeDecodeException: Field count does not match definition: the line has 3 fields, but the definition of PajePushState with id 12 has 5 in (Line: 138, Fields: 3, Contents: '12 1 p1')
+> Error during the parsing of the input file
+
+! expect return 1
+$ ./pj_dump --flex ../traces/field_count_more.trace
+> PajeDecodeException: Field count does not match definition: the line has 6 fields, but the definition of PajePushState with id 12 has 5 in (Line: 138, Fields: '6, Contents: '12 1 p1 ST A EXTRA')
+> Error during the parsing of the input file
+
+! expect return 1
+$ ./pj_dump --flex ../traces/field_count_less.trace
+> PajeDecodeException: Field count does not match definition: the line has 3 fields, but the definition of PajePushState with id 12 has 5 in (Line: 138, Fields: '3, Contents: '12 1 p1')
+> Error during the parsing of the input file

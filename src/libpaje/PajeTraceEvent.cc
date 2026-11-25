@@ -80,22 +80,21 @@ void PajeTraceEvent::clear (void)
 bool PajeTraceEvent::check (paje_line *line)
 {
   if (!pajeEventDefinition) return false;
-  if (fields.size() != pajeEventDefinition->fieldCount()){
+  if ((int)fields.size() != pajeEventDefinition->fieldCount()){
     std::stringstream st;
+    st << "Field count does not match definition: the line has "
+       << fields.size() << " fields, but the definition of "
+       << pajeEventDefinition->defs->eventNameFromID (pajeEventDefinition->pajeEventIdentifier)
+       << " with id " << pajeEventDefinition->uniqueIdentifier
+       << " has " << pajeEventDefinition->fieldCount() << " in ";
     if (line){
       st << *line;
     }else{
-      st << this->line;
+      st << *this;
     }
-    std::string lreport = st.str();
-    std::cout << *pajeEventDefinition << std::endl;
-    std::cout << "Line field count: " << fields.size() << std::endl;
-    std::cout << "Definition field count: " << pajeEventDefinition->fieldCount() << std::endl;
-    std::cout << "Field count does not match definition for line "+lreport << std::endl;
-    return false;
-  }else{
-    return true;
+    throw PajeDecodeException (st.str());
   }
+  return true;
 }
 
 std::string PajeTraceEvent::valueForField (PajeField field)
