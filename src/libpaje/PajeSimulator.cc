@@ -237,7 +237,7 @@ PajeColor *PajeSimulator::getColor (std::string color, PajeTraceEvent *event)
 	      errorFlag = true;
 	      break;
 	    }
-	    rgb[cnt++] = (float)comp / 256.0;
+	    rgb[cnt++] = (float)comp / 255.0;
 	    comp = 0;
 	  }
         }else{
