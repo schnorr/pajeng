@@ -42,6 +42,7 @@ char *PajeEventDecoder::break_line (char *s, char *end, paje_line *line)
   bool in_string = false;
   bool in_word = false;
   char *p;
+  line->word.clear();
   line->word_count = 0;
   line->lineNumber = currentLineNumber;
 
@@ -97,10 +98,8 @@ char *PajeEventDecoder::break_line (char *s, char *end, paje_line *line)
         in_word = true;
       }
 
-      if (line->word_count < PAJE_MAX_FIELDS) {
-        line->word[line->word_count] = p;
-        line->word_count ++;
-      }
+      line->word.push_back (p);
+      line->word_count ++;
 
       continue;
     }

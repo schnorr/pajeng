@@ -17,9 +17,11 @@
 #ifndef __PAJE_ENUM_H__
 #define __PAJE_ENUM_H__
 
-#define PAJE_MAX_FIELDS 20
+#include <vector>
+
+//the words of a trace line (as many as the line has)
 typedef struct {
-    char *word[PAJE_MAX_FIELDS];
+    std::vector<char*> word;
     int word_count;
     long long lineNumber;
 } paje_line;

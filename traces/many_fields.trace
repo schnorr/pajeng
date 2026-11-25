@@ -1,0 +1,45 @@
+%EventDef PajeDefineContainerType 0
+% Alias string
+% Type string
+% Name string
+%EndEventDef
+%EventDef PajeDefineStateType 2
+% Alias string
+% Type string
+% Name string
+%EndEventDef
+%EventDef PajeCreateContainer 6
+% Time date
+% Alias string
+% Type string
+% Container string
+% Name string
+%EndEventDef
+%EventDef PajeSetState 11
+% Time date
+% Container string
+% Type string
+% Value string
+% U0 string
+% U1 string
+% U2 string
+% U3 string
+% U4 string
+% U5 string
+% U6 string
+% U7 string
+% U8 string
+% U9 string
+% U10 string
+% U11 string
+% U12 string
+% U13 string
+% U14 string
+% U15 string
+% U16 string
+% U17 string
+%EndEventDef
+0 P 0 P
+2 S P S
+6 0 p P 0 p
+11 1 p S A u0 u1 u2 u3 u4 u5 u6 u7 u8 u9 u10 u11 u12 u13 u14 u15 u16 u17

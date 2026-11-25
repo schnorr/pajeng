@@ -1,0 +1,14 @@
+#!./tesh
+
+# Lines may have any number of fields (here 23, 18 of them
+# user-defined). The default reader used to keep only the first 20
+# words of a line, rejecting such events.
+$ ./pj_dump -u ../traces/many_fields.trace
+> Container, 0, 0, 0, 1, 1, 0
+> Container, 0, P, 0, 1, 1, p
+> State, p, S, 1.000000, 1.000000, 0.000000, 0.000000, A, u0, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17
+
+$ ./pj_dump -u --flex ../traces/many_fields.trace
+> Container, 0, 0, 0, 1, 1, 0
+> Container, 0, P, 0, 1, 1, p
+> State, p, S, 1.000000, 1.000000, 0.000000, 0.000000, A, u0, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17
