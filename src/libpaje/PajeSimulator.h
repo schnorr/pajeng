@@ -52,7 +52,7 @@ private:
   //for time-slice selection (used by time aggregation)
   double selectionStart;
   double selectionEnd;
-  bool noImbrication;
+  bool noImbrication = false;
 
 protected:
   double lastKnownTime;

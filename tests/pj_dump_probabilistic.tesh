@@ -1,0 +1,23 @@
+#!./tesh
+
+# The probabilistic simulator (-p) must keep the imbrication of pushed
+# states (noImbrication used to be left uninitialized for it).
+$ ./pj_dump -p ST ../traces/nested_states.trace
+> 0.000000,1.000000,1.000000
+> 1.000000,2.000000,1.000000,"p1"/ST/A
+> 2.000000,3.000000,1.000000,"p1"/ST/A
+> 3.000000,4.000000,1.000000,"p1"/ST/B
+> 4.000000,5.000000,1.000000,"p1"/ST/B
+
+$ ./pj_dump ../traces/nested_states.trace
+> Container, 0, 0, 0, 5, 5, 0
+> Container, 0, "PROCESS", 0, 5, 5, "p1"
+> State, "p1", ST, 1.000000, 4.000000, 3.000000, 0.000000, A
+> State, "p1", ST, 2.000000, 3.000000, 1.000000, 1.000000, B
+
+$ ./pj_dump -i ../traces/nested_states.trace
+> Container, 0, 0, 0, 5, 5, 0
+> Container, 0, "PROCESS", 0, 5, 5, "p1"
+> State, "p1", ST, 1.000000, 2.000000, 1.000000, 0.000000, A
+> State, "p1", ST, 2.000000, 3.000000, 1.000000, 1.000000, B
+> State, "p1", ST, 3.000000, 4.000000, 1.000000, 0.000000, A
