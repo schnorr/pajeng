@@ -205,9 +205,6 @@ PajeColor *PajeSimulator::getColor (std::string color, PajeTraceEvent *event)
     std::vector<float> v;
     std::stringstream line;
     line << *event;
-    if (!color.c_str())
-      throw PajeDecodeException ("Could not understand color parameter in " +
-          line.str());
     char *color_cstr = strdup(color.c_str());
     char *saveptr;
     if (!color_cstr)
