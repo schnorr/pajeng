@@ -156,10 +156,10 @@ double PajeTraceEvent::time (void)
 
 void PajeTraceEvent::setTime ()
 {
-  std::string timestr = valueForField (PAJE_Time);
+  const std::string &timestr = valueForField (PAJE_Time);
   if (timestr.length()){
     const char *cstr = timestr.c_str();
-    const char *cstr_end = cstr + strlen(cstr);
+    const char *cstr_end = cstr + timestr.size();
     time_ = parse(cstr, cstr_end);
   }else{
     time_ = 0;
