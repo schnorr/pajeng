@@ -43,6 +43,7 @@ static struct argp_option options[] = {
   {"ignore-incomplete-links", 'z', 0, OPTION_ARG_OPTIONAL, "Ignore incomplete links (not recommended)"},
   {"flex",                    'f', 0, OPTION_ARG_OPTIONAL, "Use flex-based file reader"},
   {"no-imbrication",          'i', 0, OPTION_ARG_OPTIONAL, "No imbrication levels (push and pop become sets)"},
+  {"user-defined",            'u', 0, OPTION_ARG_OPTIONAL, "Dump user-defined fields"},
   {"float-precision",         'l', "PRECISION", 0, "Precision of floating point numbers"},
   {"version",                 'v', 0, OPTION_ARG_OPTIONAL, "Print version of this binary"},
   { 0 }
@@ -56,6 +57,7 @@ struct arguments {
   int noImbrication;
   int ignoreIncompleteLinks;
   int flex;
+  int userDefined;
 };
 
 static error_t parse_options (int key, char *arg, struct argp_state *state)
@@ -70,6 +72,7 @@ static error_t parse_options (int key, char *arg, struct argp_state *state)
   case 'i': arguments->noImbrication = 1; break;
   case 'z': arguments->ignoreIncompleteLinks = 1; break;
   case 'f': arguments->flex = 1; break;
+  case 'u': arguments->userDefined = 1; break;
   case 'l': dumpFloatingPointPrecision = atoi(arg); break;
   case 'v': printf("%s\n", LIBPAJE_VERSION_STRING); exit(0); break;
   case ARGP_KEY_ARG:
@@ -154,8 +157,12 @@ void dump_csv (struct arguments *arguments, PajeComponent *simulator)
     }
   }
 
+  // User-defined (extra) fields are only written with -u, as in pj_dump.
+  bool userDefined = arguments->userDefined;
+
   // Return extra field names (with leading ", ") from the first entity that has them, or "".
-  auto extraHeader = [](const std::vector<PajeEntity*> &entities) -> std::string {
+  auto extraHeader = [userDefined](const std::vector<PajeEntity*> &entities) -> std::string {
+    if (!userDefined) return std::string();
     for (auto e : entities){
       std::string h = e->extraDescriptionHeader(true);
       if (!h.empty()) return h;
@@ -163,22 +170,28 @@ void dump_csv (struct arguments *arguments, PajeComponent *simulator)
     return std::string();
   };
 
-  // Write an entity row always including any extra field values.
-  auto writeEntity = [](std::ofstream &file, PajeEntity *entity){
-    file << entity->description() << entity->extraDescription(true) << "\n";
+  // Write an entity row, including its extra field values with -u.
+  auto writeEntity = [userDefined](std::ofstream &file, PajeEntity *entity){
+    file << entity->description();
+    if (userDefined) file << entity->extraDescription(true);
+    file << "\n";
   };
 
   // Container CSV
   {
     std::string header = "Container, Parent, Type, Start, End, Duration, Name";
-    for (auto c : containers){
-      std::string h = c->extraDescriptionHeader(true);
-      if (!h.empty()){ header += h; break; }
+    if (userDefined){
+      for (auto c : containers){
+        std::string h = c->extraDescriptionHeader(true);
+        if (!h.empty()){ header += h; break; }
+      }
     }
     std::ofstream containerFile;
     open_csv(prefix + ".container.csv", containerFile, header);
     for (auto c : containers){
-      containerFile << c->description() << c->extraDescription(true) << "\n";
+      containerFile << c->description();
+      if (userDefined) containerFile << c->extraDescription(true);
+      containerFile << "\n";
     }
   }
 
@@ -235,7 +248,7 @@ int main (int argc, char **argv)
                           arguments.ignoreIncompleteLinks,
                           NULL,   /* probabilistic */
                           arguments.noImbrication,
-                          0,      /* userDefined */
+                          arguments.userDefined,
                           0,      /* outofcore */
                           NULL,   /* entityHierarchy */
                           0       /* quiet */);
