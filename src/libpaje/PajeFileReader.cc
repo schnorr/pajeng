@@ -62,7 +62,8 @@ void PajeFileReader::readNextChunk (void)
   //read until next \n
   while (!input->eof()){
     char c;
-    input->get (c);
+    if (!input->get (c)) break; //end of file: there is no character
+
     if (buffer->length + 1 > buffer->capacity){
       buffer->increaseCapacityOf (100);
     }

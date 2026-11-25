@@ -32,7 +32,9 @@ PajeEventDecoder::~PajeEventDecoder ()
   eventDefinitions.clear ();
 }
 
-char *PajeEventDecoder::break_line (char *s, paje_line *line)
+//breaks the line starting at s (data ends at end, where a '\0' must
+//be writable) into words; returns where the next line starts
+char *PajeEventDecoder::break_line (char *s, char *end, paje_line *line)
 {
   //a new line is born
   currentLineNumber++;
@@ -43,7 +45,8 @@ char *PajeEventDecoder::break_line (char *s, paje_line *line)
   line->word_count = 0;
   line->lineNumber = currentLineNumber;
 
-  for (p = s; *p != '\0'; p++) {
+  for (p = s; p < end; p++) {
+    unsigned char c = (unsigned char)*p; //for isspace with non-ASCII bytes
 
     if (*p == '\n') {
       *p = '\0';
@@ -62,23 +65,23 @@ char *PajeEventDecoder::break_line (char *s, paje_line *line)
       *p = '\0';
       while (true) {
         p++;
-        if (*p == '\n') {
-          p++;
+        if (p >= end) {
           break;
-        } else if (*p == '\0') {
+        } else if (*p == '\n') {
+          p++;
           break;
         }
       }
       break;
     }
 
-    if (in_word && isspace(*p)) {
+    if (in_word && isspace(c)) {
       *p = '\0';
       in_word = false;
       continue;
     }
 
-    if (!in_string && isspace(*p)) {
+    if (!in_string && isspace(c)) {
       *p = '\0';
       if(in_word){
         in_word = false;
@@ -87,7 +90,7 @@ char *PajeEventDecoder::break_line (char *s, paje_line *line)
     }
 
 
-    if (!in_word && !isspace(*p)) {
+    if (!in_word && !isspace(c)) {
       if (*p == '"') {
         in_string = true;
       } else {
@@ -226,11 +229,17 @@ void PajeEventDecoder::inputEntity (PajeObject *data)
   PajeData *d = (PajeData*)data;
   paje_line line;
 
+  //the data does not need to end with a newline: terminate its last
+  //word after the data (its length is what is decoded, never a '\0')
+  if (d->length + 1 > d->capacity){
+    d->increaseCapacityOf (1);
+  }
+  d->bytes[d->length] = '\0';
+
   char *dataPointer = d->bytes;
-  char *initDataPointer = d->bytes;
-  int length = d->length;
-  while ((dataPointer - initDataPointer) < length){
-    dataPointer = PajeEventDecoder::break_line (dataPointer, &line);
+  char *endDataPointer = d->bytes + d->length;
+  while (dataPointer < endDataPointer){
+    dataPointer = PajeEventDecoder::break_line (dataPointer, endDataPointer, &line);
     if (line.word_count == 0) {
       continue;
     }

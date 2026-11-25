@@ -1,0 +1,37 @@
+#!./tesh
+
+# The default reader must not depend on how the file ends. The trace
+# has no final newline: its last line used to be read together with
+# uninitialized memory of the read buffer.
+$ ./pj_dump ../traces/no_final_newline.trace
+> Container, 0, 0, 0, 5, 5, 0
+> Container, 0, "PROCESS", 0, 5, 5, "p1"
+> State, "p1", ST, 1.000000, 4.000000, 3.000000, 0.000000, A
+> State, "p1", ST, 2.000000, 3.000000, 1.000000, 1.000000, B
+
+# The reader reads chunks of 1500000 bytes, then up to the next
+# newline. Here the last line (no final newline) crosses that boundary;
+# its last character used to be read twice ("p11").
+$ sh -c "{ printf '#'; head -c 1497038 /dev/zero | tr '[:cntrl:]' x; echo; cat ../traces/no_final_newline.trace; } > file_end.trace; ./pj_dump file_end.trace"
+> Container, 0, 0, 0, 5, 5, 0
+> Container, 0, "PROCESS", 0, 5, 5, "p1"
+> State, "p1", ST, 1.000000, 4.000000, 3.000000, 0.000000, A
+> State, "p1", ST, 2.000000, 3.000000, 1.000000, 1.000000, B
+
+# Here the file has exactly 1500000 bytes; a garbage character used to
+# be appended after it, and the reader could loop forever.
+! timeout 20
+$ sh -c "{ printf '#'; head -c 1497028 /dev/zero | tr '[:cntrl:]' x; echo; cat ../traces/no_final_newline.trace; echo; } > file_end.trace; ./pj_dump file_end.trace"
+> Container, 0, 0, 0, 5, 5, 0
+> Container, 0, "PROCESS", 0, 5, 5, "p1"
+> State, "p1", ST, 1.000000, 4.000000, 3.000000, 0.000000, A
+> State, "p1", ST, 2.000000, 3.000000, 1.000000, 1.000000, B
+
+$ rm file_end.trace
+
+# A NUL byte at the start of a line used to make the reader loop forever.
+! timeout 10
+! expect return 1
+$ ./pj_dump ../traces/nul_byte.trace
+> PajeDecodeException: Event with id '' has not been defined in (Line: 139, Fields: 1, Contents: '')
+> Error during the parsing of the input file

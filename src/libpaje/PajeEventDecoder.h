@@ -35,7 +35,7 @@ private:
   PajeEventDefinition *eventBeingDefined;
   std::map<std::string,PajeEventDefinition*> eventDefinitions;
 
-  char *break_line (char *s, paje_line *line);
+  char *break_line (char *s, char *end, paje_line *line);
   void scanDefinitionLine (paje_line *line);
   PajeTraceEvent *scanEventLine (paje_line *line);
   long long currentLineNumber;
