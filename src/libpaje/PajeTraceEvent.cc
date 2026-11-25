@@ -98,11 +98,12 @@ bool PajeTraceEvent::check (paje_line *line)
   return true;
 }
 
-std::string PajeTraceEvent::valueForField (PajeField field)
+const std::string &PajeTraceEvent::valueForField (PajeField field)
 {
+  static const std::string empty;
   int index = pajeEventDefinition->indexForField (field);
   if (index == -1){
-    return std::string("");
+    return empty;
   }else{
     return fields.at(index);
   }

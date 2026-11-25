@@ -45,7 +45,7 @@ public:
   // Returns false if the event has no definition; throws
   // PajeDecodeException if its field count does not match it.
   bool check (paje_line *line);
-  std::string valueForField (PajeField field);
+  const std::string &valueForField (PajeField field);
   std::string valueForExtraField (std::string fieldName);
   long long getLineNumber (void) const;
   std::string description (void) const;
