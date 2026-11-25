@@ -31,11 +31,13 @@ PajeFlexReader::PajeFlexReader(std::string f, PajeDefinitions *definitions)
   if (yyin == NULL){
     throw PajeFileReadException (f);
   }
+  openedFile = true;
   initialize (definitions);
 }
 
 PajeFlexReader::PajeFlexReader(PajeDefinitions *definitions)
 {
+  openedFile = false;
   initialize (definitions);
 }
 
@@ -59,7 +61,7 @@ void PajeFlexReader::readNextChunk()
 
 PajeFlexReader::~PajeFlexReader()
 {
-  fclose(yyin);
+  if (openedFile) fclose(yyin);
   yylex_destroy();
   paje_bison_parser_free();
 }

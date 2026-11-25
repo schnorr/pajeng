@@ -38,6 +38,7 @@ class PajeFlexReader : public PajeComponent {
  private:
   long long counter;
   bool hasData;
+  bool openedFile;
   PajeDefinitions *defs;
  public:
   PajeFlexReader(std::string f, PajeDefinitions *definitions);
