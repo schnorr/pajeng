@@ -107,22 +107,14 @@ void dump_csv (struct arguments *arguments, PajeComponent *simulator)
 {
   std::string prefix = std::string(arguments->prefix);
 
-  std::ofstream containerFile, stateFile, variableFile, eventFile, linkFile;
-  open_csv(prefix + ".container.csv", containerFile,
-           "Container, Parent, Type, Start, End, Duration, Name");
-  open_csv(prefix + ".state.csv",     stateFile,
-           "State, Container, Type, Start, End, Duration, Imbrication, Value");
-  open_csv(prefix + ".variable.csv",  variableFile,
-           "Variable, Container, Type, Start, End, Duration, Value");
-  open_csv(prefix + ".event.csv",     eventFile,
-           "Event, Container, Type, Time, Value");
-  open_csv(prefix + ".link.csv",      linkFile,
-           "Link, Container, Type, Start, End, Duration, Value, StartContainer, EndContainer");
-
   double start = arguments->start;
   double end   = arguments->end;
   if (start == -1) start = simulator->startTime();
   if (end   == -1) end   = simulator->endTime();
+
+  // Collect all entities by nature so we can inspect user field names before writing headers
+  std::vector<PajeContainer*> containers;
+  std::vector<PajeEntity*> stateEntities, variableEntities, eventEntities, linkEntities;
 
   std::vector<PajeContainer*> stack;
   stack.push_back(simulator->rootInstance());
@@ -131,7 +123,7 @@ void dump_csv (struct arguments *arguments, PajeComponent *simulator)
     PajeContainer *container = stack.back();
     stack.pop_back();
 
-    container->dump(containerFile);
+    containers.push_back(container);
 
     std::vector<PajeType*> containedTypes =
       simulator->containedTypesForContainerType(container->type());
@@ -149,17 +141,77 @@ void dump_csv (struct arguments *arguments, PajeComponent *simulator)
         for (auto e = entities.begin(); e != entities.end(); e++){
           PajeEntity *entity = *e;
           if (dynamic_cast<PajeUserLink*>(entity)){
-            entity->dump(linkFile);
+            linkEntities.push_back(entity);
           } else if (dynamic_cast<PajeUserState*>(entity)){
-            entity->dump(stateFile);
+            stateEntities.push_back(entity);
           } else if (dynamic_cast<PajeUserEvent*>(entity)){
-            entity->dump(eventFile);
+            eventEntities.push_back(entity);
           } else if (dynamic_cast<PajeUserVariable*>(entity)){
-            entity->dump(variableFile);
+            variableEntities.push_back(entity);
           }
         }
       }
     }
+  }
+
+  // Return extra field names (with leading ", ") from the first entity that has them, or "".
+  auto extraHeader = [](const std::vector<PajeEntity*> &entities) -> std::string {
+    for (auto e : entities){
+      std::string h = e->extraDescriptionHeader(true);
+      if (!h.empty()) return h;
+    }
+    return std::string();
+  };
+
+  // Write an entity row always including any extra field values.
+  auto writeEntity = [](std::ofstream &file, PajeEntity *entity){
+    file << entity->description() << entity->extraDescription(true) << "\n";
+  };
+
+  // Container CSV
+  {
+    std::string header = "Container, Parent, Type, Start, End, Duration, Name";
+    for (auto c : containers){
+      std::string h = c->extraDescriptionHeader(true);
+      if (!h.empty()){ header += h; break; }
+    }
+    std::ofstream containerFile;
+    open_csv(prefix + ".container.csv", containerFile, header);
+    for (auto c : containers){
+      containerFile << c->description() << c->extraDescription(true) << "\n";
+    }
+  }
+
+  // State CSV
+  {
+    std::ofstream stateFile;
+    open_csv(prefix + ".state.csv", stateFile,
+             "State, Container, Type, Start, End, Duration, Imbrication, Value" + extraHeader(stateEntities));
+    for (auto e : stateEntities) writeEntity(stateFile, e);
+  }
+
+  // Variable CSV
+  {
+    std::ofstream variableFile;
+    open_csv(prefix + ".variable.csv", variableFile,
+             "Variable, Container, Type, Start, End, Duration, Value" + extraHeader(variableEntities));
+    for (auto e : variableEntities) writeEntity(variableFile, e);
+  }
+
+  // Event CSV
+  {
+    std::ofstream eventFile;
+    open_csv(prefix + ".event.csv", eventFile,
+             "Event, Container, Type, Time, Value" + extraHeader(eventEntities));
+    for (auto e : eventEntities) writeEntity(eventFile, e);
+  }
+
+  // Link CSV
+  {
+    std::ofstream linkFile;
+    open_csv(prefix + ".link.csv", linkFile,
+             "Link, Container, Type, Start, End, Duration, Value, StartContainer, EndContainer" + extraHeader(linkEntities));
+    for (auto e : linkEntities) writeEntity(linkFile, e);
   }
 }
 
