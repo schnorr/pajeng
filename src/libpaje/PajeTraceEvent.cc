@@ -160,7 +160,7 @@ void PajeTraceEvent::setTime ()
     const char *cstr_end = cstr + strlen(cstr);
     time_ = parse(cstr, cstr_end);
   }else{
-    PajeSimulationException ("Can't get time from trace event.");
+    time_ = 0;
   }
 }
 
